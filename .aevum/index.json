@@ -1,0 +1,51 @@
+{
+  "version": "2.1.0",
+  "project": "Aevum-website",
+  "domains": [],
+  "global": {
+    "architecture": "global/architecture.md",
+    "conventions": "global/conventions.md",
+    "agent_rules": "global/agent_rules.md",
+    "agent_rules_compressed": "global/agent_rules_compressed.md",
+    "tech_stack": "global/tech_stack.md",
+    "dictionary": "global/dictionary.md",
+    "memory": "global/memory.md",
+    "developer_profile": "global/developer_profile.md",
+    "companion_persona": "global/companion_persona.json",
+    "evolution_report": "global/evolution_report.md",
+    "handshake_registry": "mcp/handshake_registry.json",
+    "knowledge_rules": "Every active persona has a dedicated knowledge folder in `.aevum/global/personas/<id>/knowledge/`. Log project-specific patterns and agent-exclusive wisdom there.",
+    "debtHistory": [
+      88,
+      92,
+      90,
+      95,
+      93,
+      97,
+      100
+    ]
+  },
+  "agents": [
+    {
+      "id": "ARC-VIDUS-AUHD2Y",
+      "name": "Vidus",
+      "capability": "Architect",
+      "level": 1,
+      "knowledgePath": ".aevum/global/personas/vidus/knowledge"
+    },
+    {
+      "id": "ENG-AN-7B9F1D",
+      "name": "An",
+      "capability": "AI Tuning",
+      "level": 1,
+      "knowledgePath": ".aevum/global/personas/an/knowledge"
+    },
+    {
+      "id": "ALG-ZENITH-A1B2C3",
+      "name": "Zenith",
+      "capability": "Performance Audit",
+      "level": 1,
+      "knowledgePath": ".aevum/global/personas/zenith/knowledge"
+    }
+  ]
+}

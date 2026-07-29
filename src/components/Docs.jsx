@@ -127,6 +127,68 @@ const MarkdownRenderer = ({ content }) => {
         continue;
       }
 
+      // Handle Markdown Table
+      if (line.trim().startsWith('|') && line.trim().endsWith('|')) {
+        flushList(`list-${blockIdx}-${i}`);
+
+        // Collect all consecutive table lines
+        const tableLines = [];
+        let j = i;
+        while (j < lines.length && lines[j].trim().startsWith('|') && lines[j].trim().endsWith('|')) {
+          tableLines.push(lines[j].trim());
+          j++;
+        }
+        i = j - 1;
+
+        // Parse cells from a row string
+        const parseCells = (row) =>
+          row.slice(1, -1).split('|').map((cell) => cell.trim());
+
+        // Identify separator row (---|---|---)
+        const isSeparator = (row) => /^\|[\s|:-]+\|$/.test(row);
+
+        const headerRow = tableLines[0];
+        const headers = parseCells(headerRow);
+
+        // Body rows = all non-separator rows after header
+        const bodyRows = tableLines.slice(1).filter((r) => !isSeparator(r));
+
+        elements.push(
+          <div key={`table-${blockIdx}-${i}`} className="my-6 overflow-x-auto rounded-md border border-white/10">
+            <table className="w-full text-xs font-mono text-left border-collapse">
+              <thead>
+                <tr className="border-b border-white/10 bg-white/[0.03]">
+                  {headers.map((h, hi) => (
+                    <th
+                      key={hi}
+                      className="px-4 py-2.5 text-white font-bold uppercase tracking-wider text-[10px] whitespace-nowrap"
+                      dangerouslySetInnerHTML={{ __html: parseInline(h) }}
+                    />
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {bodyRows.map((row, ri) => (
+                  <tr
+                    key={ri}
+                    className="border-b border-white/5 hover:bg-white/[0.02] transition-colors"
+                  >
+                    {parseCells(row).map((cell, ci) => (
+                      <td
+                        key={ci}
+                        className="px-4 py-2.5 text-white align-top"
+                        dangerouslySetInnerHTML={{ __html: parseInline(cell) }}
+                      />
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        );
+        continue;
+      }
+
       // Handle blockquotes / callouts: > [!NOTE] or > [!IMPORTANT]
       if (line.trim().startsWith('> ')) {
         flushList(`list-${blockIdx}-${i}`);
@@ -445,11 +507,7 @@ export const Docs = ({ activeLang = 'vi' }) => {
             ))}
           </div>
 
-          {/* Footer Metadata */}
-          <div className="border-t border-white/5 pt-4 mx-[-1.5rem] px-6 text-[10px] text-slate-600 font-mono flex flex-col gap-1">
-            <span>AEVUM CORE v2.1.0</span>
-            <span>OS KERNEL & DAEMON</span>
-          </div>
+
         </div>
       </aside>
 
@@ -480,39 +538,41 @@ export const Docs = ({ activeLang = 'vi' }) => {
       </main>
 
       {/* Right Sidebar: Mini Index / Table of Contents (TOC) */}
-      <aside className="hidden xl:block w-64 px-6 py-10 relative border-l border-white/5">
-        <div className="sticky top-[113px] space-y-4">
-          <div className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest pl-3">
+      <aside className="hidden xl:block w-56 relative border-l border-white/5">
+        <div className="sticky top-6">
+          {/* Label */}
+          <div className="text-[9px] font-mono font-bold text-slate-600 uppercase tracking-widest px-4 py-3 border-b border-white/5">
             {activeLang === 'vi' ? 'TRONG TRANG NÀY' : 'ON THIS PAGE'}
           </div>
-          
+
           {headings.length > 0 ? (
-            <ul className="space-y-3 font-mono text-[11px] border-l border-white/5 ml-3">
+            <ul className="font-mono text-[11px]">
               {headings.map((h) => {
                 const isActive = h.id === activeHeadingId;
                 return (
-                  <li key={h.id}>
+                  <li key={h.id} className={`border-b border-white/5 ${isActive ? 'bg-white/[0.04]' : ''}`}>
                     <button
                       onClick={() => scrollToHeading(h.id)}
-                      className={`w-full text-left pl-3 py-0.5 border-l -ml-[1px] transition-all block ${
+                      className={`w-full text-left px-4 py-2.5 transition-colors flex items-start gap-2 group ${
                         isActive
-                          ? 'border-cyan-400 text-cyan-400 font-semibold'
-                          : 'border-transparent text-slate-400 hover:text-white'
+                          ? 'text-cyan-400'
+                          : 'text-slate-500 hover:text-white hover:bg-white/[0.03]'
                       }`}
                     >
-                      {h.title}
+                      <span className="line-clamp-2 leading-snug">{h.title}</span>
                     </button>
                   </li>
                 );
               })}
             </ul>
           ) : (
-            <div className="text-[10px] text-slate-600 italic pl-3">
+            <div className="text-[10px] text-slate-600 italic px-4 py-3">
               {activeLang === 'vi' ? 'Không có chỉ mục phụ' : 'No subheadings'}
             </div>
           )}
         </div>
       </aside>
+
 
     </div>
   );

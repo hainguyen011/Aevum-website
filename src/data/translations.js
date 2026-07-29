@@ -168,6 +168,7 @@ export const translations = {
       p2Desc: "Bộ não Ngoại vi hướng Tên miền lưu trữ bền vững bộ nhớ kiến trúc cấu trúc, tính năng và bằng chứng kế hoạch.",
       p3Tag: "BIỆT ĐỘI ĐA AGENT",
       p3Title: "Điều phối Biệt đội",
+      p3Desc: "Cho phép chuyển giao công việc linh hoạt giữa các Agent chuyên biệt (Kiến trúc sư, Lập trình viên, Bảo mật) với toàn vẹn ngữ cảnh 100% qua Huddle & Handoff.",
       p4Tag: "MẠNG LƯỚI PIPERNET IOA",
       p4Title: "Giao thức PiperNet IoA",
       p4Desc: "Mạng lưới kết nối các Agent phân tán (Internet of Agents) cho phép chia sẻ trí tuệ thủ tục liên kết."
@@ -361,6 +362,7 @@ export const translations = {
       p2Desc: "Domain-Driven External Brain persisting structured architectural memory, features, and plan evidence.",
       p3Tag: "MULTI-AGENT SQUAD",
       p3Title: "Squad Orchestration",
+      p3Desc: "Enables seamless task handoff between specialized agents (Architect, Coder, Security) with 100% context integrity via Huddle & Handoff protocols.",
       p4Tag: "PIPERNET IOA MESH",
       p4Title: "PiperNet IoA Protocol",
       p4Desc: "Distributed Internet of Agents network enabling cross-agent procedural intelligence sharing."

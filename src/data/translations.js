@@ -14,7 +14,7 @@ export const translations = {
       badge: "BỞI I2FLABS VIỆT NAM • HỆ ĐIỀU HÀNH AGENT ĐỘC LẬP",
       title: "Hệ điều hành Agent & Bộ não ngoại vi",
       desc: "Aevum OS là một Hệ điều hành không gian làm việc độc lập và Bộ não ngoại vi — chứa các bản lập kế hoạch hướng tên miền (DDD), biểu đồ bộ nhớ tự phục hồi và sự điều phối biệt đội đa agent tự trị tách biệt hoàn toàn khỏi các trình soạn thảo truyền thống.",
-      downloadBtn: "Tải về Aevum OS",
+      downloadBtn: "Đăng ký trải nghiệm",
       docsBtn: "Đọc tài liệu",
       startKernel: "KHỞI CHẠY NHÂN OS:",
       copyCmd: "Sao chép lệnh"
@@ -131,7 +131,7 @@ export const translations = {
       tag: "DAEMON ĐỘC LẬP SẴN SÀNG",
       title: "Triển khai Aevum OS Trên Hệ thống của bạn",
       desc: "Chạy `aevum --transport sse` để kết nối tức thì Cursor, Claude Desktop và Antigravity IDE với công cụ ngữ cảnh thống nhất của bạn.",
-      downloadBtn: "Tải về Aevum OS",
+      downloadBtn: "Đăng ký trải nghiệm",
       docsBtn: "Đọc tài liệu"
     },
     footer: {
@@ -207,7 +207,7 @@ export const translations = {
       badge: "BY I2FLABS VIET NAM • STANDALONE AGENTIC OPERATING SYSTEM",
       title: "Agentic OS & External Brain",
       desc: "Aevum OS is an independent workspace Operating System and External Brain — housing domain-driven planning, self-healing memory graphs, and autonomous multi-agent squad orchestration completely decoupled from traditional editors.",
-      downloadBtn: "Download Aevum OS",
+      downloadBtn: "Request Early Access",
       docsBtn: "Read Documentation",
       startKernel: "START OS KERNEL DAEMON:",
       copyCmd: "Copy Command"
@@ -324,7 +324,7 @@ export const translations = {
       tag: "STANDALONE DAEMON READY",
       title: "Deploy Aevum OS On Your System",
       desc: "Run `aevum --transport sse` to instantly connect Cursor, Claude Desktop, and Antigravity IDE to your unified context engine.",
-      downloadBtn: "Download Aevum OS",
+      downloadBtn: "Request Early Access",
       docsBtn: "Read Documentation"
     },
     footer: {

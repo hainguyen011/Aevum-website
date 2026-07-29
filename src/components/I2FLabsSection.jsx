@@ -28,11 +28,11 @@ export const I2FLabsSection = ({ activeLang }) => {
     },
   ];
 
-  // Programmatically highlight I2FLabs
+  // Programmatically highlight I2FLabs in title
   const titleText = t.i2flabs.title;
   let titleNode = titleText;
-  if (titleText.includes("I2FLabs")) {
-    const parts = titleText.split("I2FLabs");
+  if (titleText.includes('I2FLabs')) {
+    const parts = titleText.split('I2FLabs');
     titleNode = (
       <>
         {parts[0]}<span className="text-cyan-400">I2FLabs</span>{parts[1]}
@@ -41,48 +41,63 @@ export const I2FLabsSection = ({ activeLang }) => {
   }
 
   return (
-    <div id="i2flabs" className="border-subtle-b bg-[#0B0B11]">
-      
-      {/* Header Row with Absolute Subtle Watermark I2FLabs Logo */}
-      <div className="p-8 sm:p-12 border-subtle-b bg-[#0B0B11] relative overflow-hidden">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          
-          {/* Left Column Text Content */}
-          <div className="lg:col-span-8 space-y-3 z-10 relative">
-            <div className="text-[11px] font-mono text-cyan-400 font-semibold tracking-widest uppercase">
-              {t.i2flabs.tag}
+    <div id="i2flabs" className="bg-[#0B0B11] border-t border-white/10">
+
+      {/* === SOLE Hero Header: Content Left / Logo Right === */}
+      <div className="border-b border-white/10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 items-stretch">
+
+          {/* LEFT: Hero Content */}
+          <div className="px-8 sm:px-12 py-10 sm:py-14 space-y-4 border-b lg:border-b-0 lg:border-r border-white/10 flex flex-col justify-center">
+            {/* Label */}
+            <div className="text-[10px] font-mono font-bold text-cyan-400 tracking-[0.2em] uppercase select-none">
+              ENGINEERED BY I2FLABS VIET NAM
             </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white font-display">
+
+            {/* Title */}
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white font-display leading-tight">
               {titleNode}
             </h2>
-            <p className="text-slate-400 text-xs sm:text-sm max-w-2xl leading-relaxed">
+
+            {/* Description */}
+            <p className="text-slate-400 text-xs sm:text-sm leading-relaxed max-w-lg">
               {t.i2flabs.desc}
             </p>
+
+            {/* Subtle Accent Line */}
+            <div className="flex items-center gap-3 pt-2">
+              <div className="h-[1px] w-8 bg-cyan-400/50"></div>
+              <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">
+                I2FLabs Core R&D — Hanoi / Saigon, Vietnam
+              </span>
+            </div>
+          </div>
+
+          {/* RIGHT: Logo Display */}
+          <div className="flex items-center justify-center px-8 sm:px-12 py-10 sm:py-14 bg-[#0B0B11]">
+            <img
+              src={i2fLabsLogo}
+              alt="I2FLabs Viet Nam Logo"
+              className="max-h-[140px] sm:max-h-[180px] w-auto object-contain select-none pointer-events-none opacity-90 hover:opacity-100 transition-opacity duration-300"
+            />
           </div>
 
         </div>
-
-        {/* Absolute Subtle Watermark I2FLabs Logo (opacity-30) */}
-        <img 
-          src={i2fLabsLogo} 
-          alt="I2FLabs Viet Nam Logo" 
-          className="absolute right-12 lg:right-24 top-1/2 -translate-y-1/2 h-[220px] sm:h-[260px] lg:h-[290px] w-auto object-contain opacity-30 pointer-events-none" 
-        />
       </div>
 
-      {/* 4 Pillars Grid (Edge-to-edge horizontal divider lines) */}
+      {/* === 4 Pillars Grid === */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         {pillars.map((pillar, idx) => (
-          <div 
-            key={idx} 
-            className="border-subtle-r last:border-r-0 flex flex-col justify-between hover:bg-[#0e0f17] transition-colors group"
+          <div
+            key={idx}
+            className="flex flex-col justify-between hover:bg-[#0e0f17] transition-colors border-b border-r border-white/10 last:border-r-0 [&:nth-child(2n)]:sm:border-r-0 [&:nth-child(2n)]:lg:border-r [&:nth-child(4n)]:border-r-0"
           >
             {/* Top Content Area */}
-            <div className="p-8 space-y-3">
+            <div className="p-8 space-y-2.5">
               <span className="text-[10px] font-mono font-bold text-cyan-400 tracking-wider uppercase">
                 {pillar.tag}
               </span>
-              <h3 className="text-base font-bold text-white font-display">
+              <h3 className="text-sm font-bold text-white font-display leading-snug">
                 {pillar.title}
               </h3>
               <p className="text-xs text-slate-400 leading-relaxed">
@@ -90,8 +105,8 @@ export const I2FLabsSection = ({ activeLang }) => {
               </p>
             </div>
 
-            {/* Edge-to-Edge Divider Line & Footer Label */}
-            <div className="border-subtle-t px-8 py-4 text-[11px] font-mono text-slate-500">
+            {/* Bottom Label */}
+            <div className="border-t border-white/10 px-8 py-3.5 text-[10px] font-mono text-slate-500 tracking-wider uppercase">
               I2FLabs Core R&D
             </div>
           </div>

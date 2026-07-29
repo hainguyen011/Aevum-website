@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import asciiAsset from '../../assets/logos/Aevum-ascii.png';
 import { translations } from '../data/translations';
 
-export const Hero = ({ onNavigate, activeLang }) => {
+export const Hero = ({ onNavigate, onOpenTrialModal, activeLang }) => {
   const [copied, setCopied] = useState(false);
   const commandText = "aevum --workspace ./ --transport sse --port 3344";
   const t = translations[activeLang] || translations.en;
@@ -47,13 +47,12 @@ export const Hero = ({ onNavigate, activeLang }) => {
 
           {/* Action Buttons */}
           <div className="flex flex-wrap items-center gap-4 pt-2">
-            <a 
-              href="/downloads/aevum-os-desktop.zip" 
-              download
+            <button 
+              onClick={onOpenTrialModal}
               className="btn-electron"
             >
               {t.hero.downloadBtn}
-            </a>
+            </button>
             <button 
               onClick={() => onNavigate('docs')} 
               className="btn-ghost"

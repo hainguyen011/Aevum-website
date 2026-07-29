@@ -2,7 +2,7 @@ import React from 'react';
 import computerGif from '../../assets/computer.gif';
 import { translations } from '../data/translations';
 
-export const CtaBanner = ({ onNavigate, activeLang }) => {
+export const CtaBanner = ({ onNavigate, onOpenTrialModal, activeLang }) => {
   const t = translations[activeLang] || translations.en;
 
   // Programmatically highlight On Your System / Trên Hệ thống của bạn
@@ -43,13 +43,12 @@ export const CtaBanner = ({ onNavigate, activeLang }) => {
             </p>
  
             <div className="pt-2 flex flex-wrap items-center justify-center gap-4">
-              <a 
-                href="/downloads/aevum-os-desktop.zip" 
-                download
+              <button 
+                onClick={onOpenTrialModal}
                 className="btn-electron"
               >
                 <span>{t.ctaBanner.downloadBtn}</span>
-              </a>
+              </button>
               <button 
                 onClick={() => onNavigate('docs')} 
                 className="btn-ghost"

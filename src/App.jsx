@@ -14,10 +14,12 @@ import { Footer } from './components/Footer';
 import { ScrollToTop } from './components/ScrollToTop';
 import { Docs } from './components/Docs';
 import { About } from './components/About';
+import { TrialModal } from './components/TrialModal';
 import logoImg from '../assets/logos/AevumOS-transparent.png';
 
 export function App() {
   const [currentPage, setCurrentPage] = useState('landing');
+  const [isTrialModalOpen, setIsTrialModalOpen] = useState(false);
 
   // Dynamically set favicon using compiled Vite asset to bypass manual filesystem operations
   useEffect(() => {
@@ -97,7 +99,11 @@ export function App() {
         {currentPage === 'landing' && (
           <>
             {/* Hero 2-Column Grid Row */}
-            <Hero onNavigate={handleNavigate} activeLang={activeLang} />
+            <Hero 
+              onNavigate={handleNavigate} 
+              onOpenTrialModal={() => setIsTrialModalOpen(true)}
+              activeLang={activeLang} 
+            />
 
             {/* Sub Nav Category Tabs Row */}
             <SubNavTabs activeLang={activeLang} />
@@ -124,7 +130,11 @@ export function App() {
             <Sponsors />
 
             {/* Section 8: CTA Banner */}
-            <CtaBanner onNavigate={handleNavigate} activeLang={activeLang} />
+            <CtaBanner 
+              onNavigate={handleNavigate} 
+              onOpenTrialModal={() => setIsTrialModalOpen(true)}
+              activeLang={activeLang} 
+            />
           </>
         )}
 
@@ -139,6 +149,13 @@ export function App() {
         {/* Footer */}
         <Footer onNavigate={handleNavigate} activeLang={activeLang} />
       </div>
+
+      {/* Early Access Trial Modal */}
+      <TrialModal 
+        isOpen={isTrialModalOpen}
+        onClose={() => setIsTrialModalOpen(false)}
+        activeLang={activeLang}
+      />
 
       {/* Floating Fixed Scroll To Top Button */}
       <ScrollToTop />

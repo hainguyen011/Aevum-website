@@ -1,7 +1,22 @@
 import React from 'react';
 import topSimpleBadge from '../../assets/top-simple.svg';
+import { translations } from '../data/translations';
 
-export const UnikornSection = () => {
+export const UnikornSection = ({ activeLang }) => {
+  const t = translations[activeLang] || translations.en;
+
+  // Programmatically highlight Unikorn.vn
+  const titleText = t.unikorn.title;
+  let titleNode = titleText;
+  if (titleText.includes("Unikorn.vn")) {
+    const parts = titleText.split("Unikorn.vn");
+    titleNode = (
+      <>
+        {parts[0]}<span className="text-cyan-400">Unikorn.vn</span>{parts[1]}
+      </>
+    );
+  }
+
   return (
     <div id="unikorn" className="border-subtle-b bg-[#0B0B11]">
       <div className="p-8 sm:p-12 lg:p-14">
@@ -11,13 +26,13 @@ export const UnikornSection = () => {
           {/* Left Column: Wording & Architectural Deep Dive Callout */}
           <div className="lg:col-span-7 space-y-4">
             <div className="text-[11px] font-mono text-cyan-400 font-semibold tracking-widest uppercase">
-              FEATURED ON UNIKORN VIETNAM
+              {t.unikorn.tag}
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white font-display">
-              Voted Product of the Day on <span className="text-cyan-400">Unikorn.vn</span>
+              {titleNode}
             </h2>
             <p className="text-slate-300 text-sm leading-relaxed max-w-xl">
-              Explore the detailed architectural deep dive, feature analysis, and community discussion of Aevum OS on Unikorn Vietnam — the premier platform celebrating Vietnamese technology innovations.
+              {t.unikorn.desc}
             </p>
             <div className="pt-2">
               <a 
@@ -26,7 +41,7 @@ export const UnikornSection = () => {
                 rel="noreferrer" 
                 className="btn-ghost text-xs font-mono"
               >
-                Read Deep Dive Article on Unikorn.vn →
+                {t.unikorn.btn}
               </a>
             </div>
           </div>
@@ -48,3 +63,5 @@ export const UnikornSection = () => {
     </div>
   );
 };
+
+export default UnikornSection;

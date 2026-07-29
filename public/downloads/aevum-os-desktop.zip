@@ -1,0 +1,7 @@
+[AEVUM OS PACKAGED DISTRIBUTION]
+This is a dummy installation package for Aevum OS (Desktop client and MCP server).
+In production, this zip contains:
+1. aevum.exe (Windows executable) / aevum (macOS/Linux)
+2. package.json and node_modules pre-bundled
+3. install.bat / install.sh setups
+4. .aevum/ global configurations

@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
 import asciiAsset from '../../assets/logos/Aevum-ascii.png';
+import { translations } from '../data/translations';
 
-export const Hero = () => {
+export const Hero = ({ onNavigate, activeLang }) => {
   const [copied, setCopied] = useState(false);
   const commandText = "aevum --workspace ./ --transport sse --port 3344";
+  const t = translations[activeLang] || translations.en;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(commandText);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
+
+  // Programmatically split title around '&' to preserve the Vercel styling highlight
+  const titleParts = t.hero.title.split('&');
+  const title1 = titleParts[0]?.trim();
+  const title2 = titleParts[1] ? `& ${titleParts[1].trim()}` : '';
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 border-subtle-b">
@@ -20,40 +27,39 @@ export const Hero = () => {
           
           {/* Sub-brand / Tagline */}
           <div className="text-[11px] font-mono tracking-widest text-slate-500 uppercase">
-            BY <span className="text-slate-300 font-bold">I2FLABS VIET NAM</span> • STANDALONE AGENTIC OPERATING SYSTEM
+            {t.hero.badge}
           </div>
-
+          
           {/* Main Title - High-Impact Solid Cyan Background Highlight */}
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-[-0.04em] leading-[1.15] font-display">
-            Agentic OS <br />
-            <span className="bg-[#00f0ff] text-[#0B0B11] px-3 py-0.5 inline-block font-extrabold mt-1.5">
-              & External Brain
-            </span>
+            {title1} <br />
+            {title2 && (
+              <span className="bg-[#00f0ff] text-[#0B0B11] px-3 py-0.5 inline-block font-extrabold mt-1.5">
+                {title2}
+              </span>
+            )}
           </h1>
 
           {/* Description - Standalone OS Positioning */}
           <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl font-normal">
-            Aevum OS is an independent workspace Operating System and External Brain — housing domain-driven planning, self-healing memory graphs, and autonomous multi-agent squad orchestration completely decoupled from traditional editors.
+            {t.hero.desc}
           </p>
 
           {/* Action Buttons */}
           <div className="flex flex-wrap items-center gap-4 pt-2">
             <a 
-              href="https://open-vsx.org/extension/I2FLabs/aevum" 
-              target="_blank" 
-              rel="noreferrer" 
+              href="/downloads/aevum-os-desktop.zip" 
+              download
               className="btn-electron"
             >
-              Download Aevum OS
+              {t.hero.downloadBtn}
             </a>
-            <a 
-              href="https://open-vsx.org/extension/I2FLabs/aevum" 
-              target="_blank" 
-              rel="noreferrer" 
+            <button 
+              onClick={() => onNavigate('docs')} 
               className="btn-ghost"
             >
-              Read Documentation
-            </a>
+              {t.hero.docsBtn}
+            </button>
           </div>
 
         </div>
@@ -61,9 +67,9 @@ export const Hero = () => {
         {/* CLI Exec Command Strip */}
         <div className="pt-4 font-mono text-xs space-y-2">
           <div className="flex items-center justify-between text-slate-400">
-            <span className="text-[11px] text-slate-500 uppercase">Start OS Kernel Daemon:</span>
+            <span className="text-[11px] text-slate-500 uppercase">{t.hero.startKernel}</span>
             <button onClick={handleCopy} className="text-cyan-400 hover:text-cyan-300 text-[11px]">
-              {copied ? "✓ Copied" : "Copy Command"}
+              {copied ? "✓ " + (activeLang === 'vi' ? "Đã chép" : "Copied") : t.hero.copyCmd}
             </button>
           </div>
           <div className="bg-[#030407] border-subtle p-3 rounded-md text-slate-200 text-xs overflow-x-auto flex items-center justify-between">
@@ -86,3 +92,5 @@ export const Hero = () => {
     </div>
   );
 };
+
+export default Hero;

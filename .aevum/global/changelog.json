@@ -1,1 +1,899 @@
-[]
+[
+  {
+    "id": "tx_node_1785306992081_8ogb0",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T06:36:32.081Z",
+    "payload": {
+      "id": "aevum://lesson/1785306992067_eyo",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Đã thiết kế trang Docs bằng kiến trúc component-pattern, tách biệt dữ liệu docsData và giao diện Docs.jsx, tự xây dựng công cụ phân tích cú pháp Markdown (dependency-free) để tối ưu hóa hiệu năng render.",
+        "author": "An",
+        "date": "2026-07-29T06:36:32.078Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785306992124_qxmlp",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T06:36:32.124Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785306992148_q3svs",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T06:36:32.148Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785306992067_eyo",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785307211530_fa7f8",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T06:40:11.530Z",
+    "payload": {
+      "id": "aevum://lesson/1785307211521_exh",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Loại bỏ các icon không cần thiết ở sidebar tiêu đề danh mục để tăng tính tối giản phẳng đúng chuẩn thiết kế Vercel. Giao diện trở nên tinh gọn và chuyên nghiệp hơn.",
+        "author": "An",
+        "date": "2026-07-29T06:40:11.530Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785307211550_hw7vr",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T06:40:11.550Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785307211567_yod0j",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T06:40:11.567Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785307211521_exh",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785307282154_2e6do",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T06:41:22.154Z",
+    "payload": {
+      "id": "aevum://lesson/1785307282150_7su",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Sử dụng relative layout cho sidebar và sticky cho nội dung bên trong giúp đường viền border phân cách cột kéo dài toàn bộ chiều cao của phần thân chính, giải quyết triệt để lỗi đường viền bị cắt lửng lơ khi nội dung chính dài hơn viewport.",
+        "author": "An",
+        "date": "2026-07-29T06:41:22.153Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785307282171_g6tis",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T06:41:22.171Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785307282184_f0jzc",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T06:41:22.184Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785307282150_7su",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785307531803_vww2o",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T06:45:31.803Z",
+    "payload": {
+      "id": "aevum://lesson/1785307531800_9q2",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Sử dụng margin âm (mx-[-1.5rem]) để triệt tiêu ảnh hưởng của padding container cha, giúp border-t mở rộng tối đa chạm 2 cạnh bên của sidebar, đồng thời dùng px-6 bù lại để giữ thẳng hàng văn bản.",
+        "author": "An",
+        "date": "2026-07-29T06:45:31.802Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785307531840_6pkpt",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T06:45:31.840Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785307531869_f6ox1",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T06:45:31.869Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785307531800_9q2",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785307733397_n7oav",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T06:48:53.397Z",
+    "payload": {
+      "id": "aevum://lesson/1785307733395_b8g",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Đã thay đổi luồng phân phối ứng dụng từ cài đặt qua NPM sang dạng tải gói offline zip trực tiếp, đồng thời dọn dẹp các import và biến không sử dụng trong component Docs.jsx để giữ codebase sạch sẽ không có cảnh báo.",
+        "author": "An",
+        "date": "2026-07-29T06:48:53.396Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785307733415_m64aq",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T06:48:53.415Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785307733431_q8avm",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T06:48:53.431Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785307733395_b8g",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785307791258_1pqli",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T06:49:51.258Z",
+    "payload": {
+      "id": "aevum://lesson/1785307791256_7y8",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Loại bỏ các dynamic indicator nhấp nháy (như animate-ping dot) trên thanh điều hướng chính giúp giảm thiểu xao nhãng thị giác, tăng tính tĩnh lặng và thanh lịch cho giao diện tối giản.",
+        "author": "An",
+        "date": "2026-07-29T06:49:51.257Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785307791273_yw5ii",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T06:49:51.273Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785307791295_jy1f9",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T06:49:51.295Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785307791256_7y8",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785307858937_wy4e6",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T06:50:58.937Z",
+    "payload": {
+      "id": "aevum://lesson/1785307858926_7o7",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Thiết lập border-b trực tiếp cho container nội dung của SPA trước khi đến Footer giúp cấu trúc hiển thị liền mạch và tạo khoảng phân tách thị giác rõ ràng giữa phần thân và phần chân trang.",
+        "author": "An",
+        "date": "2026-07-29T06:50:58.937Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785307858966_72yno",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T06:50:58.966Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785307858992_x7njr",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T06:50:58.992Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785307858926_7o7",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785308041879_04lq0",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T06:54:01.879Z",
+    "payload": {
+      "id": "aevum://lesson/1785308041873_16j",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Tích hợp trực tiếp các tính năng thực tế của hệ điều hành AevumOS (như Task Anchoring, Skeleton Hashing, Squad Mode) vào tài liệu hướng dẫn giúp tăng độ uy tín, tính thực tiễn và giúp lập trình viên hiểu rõ cơ chế tương tác với hệ thống.",
+        "author": "An",
+        "date": "2026-07-29T06:54:01.879Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785308041897_5suob",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T06:54:01.897Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785308041911_g3g82",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T06:54:01.911Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785308041873_16j",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785308239687_24y6c",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T06:57:19.687Z",
+    "payload": {
+      "id": "aevum://lesson/1785308239678_evu",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Tạo hệ thống dịch thuật Markdown thời gian thực (Real-time Markdown Translation System) bằng cách sử dụng placeholders masking (che chắn code blocks, bold, links, inline-code) trước khi gửi qua API dịch thuật giúp bảo toàn cấu trúc trang tài liệu nguyên vẹn 100%, kết hợp lưu trữ cache để đảm bảo phản hồi tức thì.",
+        "author": "An",
+        "date": "2026-07-29T06:57:19.684Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785308239709_wso5q",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T06:57:19.709Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785308239734_w26jw",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T06:57:19.734Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785308239678_evu",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785308317170_rg648",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T06:58:37.170Z",
+    "payload": {
+      "id": "aevum://lesson/1785308317165_34h",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Tinh giản hóa dropdown chọn ngôn ngữ (loại bỏ chấm tròn indicator, đổi nhãn sang Vietnamese / English) giúp giao diện sạch hơn, thân thiện và đồng bộ với người dùng toàn cầu.",
+        "author": "An",
+        "date": "2026-07-29T06:58:37.169Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785308317196_f2dxr",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T06:58:37.196Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785308317217_fye3r",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T06:58:37.217Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785308317165_34h",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785308658219_m1a3f",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T07:04:18.219Z",
+    "payload": {
+      "id": "aevum://lesson/1785308658203_2ak",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Tích hợp tự động nhận diện ngôn ngữ của trình duyệt qua navigator.language giúp cá nhân hóa ngôn ngữ mặc định tức thì (vi nếu là tiếng Việt, en cho tất cả các ngôn ngữ khác), tối ưu trải nghiệm người dùng ngay từ lần đầu truy cập.",
+        "author": "An",
+        "date": "2026-07-29T07:04:18.219Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785308658238_ye7g0",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T07:04:18.238Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785308658254_w087y",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T07:04:18.254Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785308658203_2ak",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785308826475_p9qjm",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T07:07:06.475Z",
+    "payload": {
+      "id": "aevum://lesson/1785308826471_qmd",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Sử dụng dịch tĩnh (static i18n dictionaries) cho trang chủ (Landing Page) giúp câu chữ marketing chuyên nghiệp và tránh hiện tượng giật lắc/dịch sai của máy dịch, kết hợp dịch động cho trang tài liệu (Docs) để có giải pháp tối ưu và cân bằng hiệu năng.",
+        "author": "An",
+        "date": "2026-07-29T07:07:06.474Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785308826500_cj66k",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T07:07:06.500Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785308826516_o5fdp",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T07:07:06.516Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785308826471_qmd",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785309393073_6ba4h",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T07:16:33.073Z",
+    "payload": {
+      "id": "aevum://lesson/1785309393068_22t",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Bổ sung các tài liệu hướng dẫn chuyên sâu (Bắt tay, Nhân vật, Kế hoạch, PiperNet) giúp tối đa hóa tính minh bạch của dự án và cung cấp cho người dùng các tài liệu hướng dẫn chuyên môn thiết thực, thú vị để khai thác hệ thống.",
+        "author": "An",
+        "date": "2026-07-29T07:16:33.072Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785309393094_s934o",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T07:16:33.094Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785309393124_x1s3c",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T07:16:33.124Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785309393068_22t",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785309472920_oe2nc",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T07:17:52.920Z",
+    "payload": {
+      "id": "aevum://lesson/1785309472907_i29",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Điều chỉnh lề hai bên (side margins) của khung monolithic-frame từ 10vw xuống 6vw giúp tăng diện tích hiển thị hữu ích thêm ~8vw, giúp các cột hiển thị cân đối và chứa được nhiều nội dung thông tin hơn trên các màn hình có độ phân giải lớn.",
+        "author": "An",
+        "date": "2026-07-29T07:17:52.920Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785309472941_yn70m",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T07:17:52.941Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785309472962_gxul9",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T07:17:52.962Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785309472907_i29",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785309570947_0ei8v",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T07:19:30.947Z",
+    "payload": {
+      "id": "aevum://lesson/1785309570945_hc8",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Loại bỏ các emoji khỏi tài liệu kỹ thuật giúp giao diện trang Docs giữ được vẻ chuyên nghiệp, trang nghiêm và đồng bộ tuyệt đối với các tiêu chuẩn thiết kế tinh giản của Vercel.",
+        "author": "An",
+        "date": "2026-07-29T07:19:30.946Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785309570966_gseph",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T07:19:30.966Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785309570982_jgsqd",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T07:19:30.982Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785309570945_hc8",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785310044791_lnhem",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T07:27:24.791Z",
+    "payload": {
+      "id": "aevum://lesson/1785310044785_ut7",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Tinh giản nội dung tài liệu về hệ thống nhân vật (Personas) để tập trung giải thích cấu trúc kiến trúc hệ thống và cách thức sử dụng các API/MCP Tools (Switch, Handoff, Huddle), thay vì mô tả chi tiết từng Agent cụ thể giúp tài liệu mang tính tổng quát và bao quát hơn.",
+        "author": "An",
+        "date": "2026-07-29T07:27:24.789Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785310044811_lhaip",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T07:27:24.811Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785310044829_3ym43",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T07:27:24.829Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785310044785_ut7",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785310173005_iygau",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T07:29:33.005Z",
+    "payload": {
+      "id": "aevum://lesson/1785310172999_ph0",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Xây dựng Table of Contents (TOC) động với thuật toán Scroll Spy giúp giao diện Documentation trở nên cực kỳ chuyên nghiệp và chuẩn mực, tăng cường trải nghiệm điều hướng của người dùng khi đọc các tài liệu dài.",
+        "author": "An",
+        "date": "2026-07-29T07:29:33.003Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785310173030_c96ts",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T07:29:33.030Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785310173059_6ivlb",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T07:29:33.059Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785310172999_ph0",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785310278640_uyq59",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T07:31:18.640Z",
+    "payload": {
+      "id": "aevum://lesson/1785310278637_02a",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Thay thế việc che toàn bộ thẻ link và bold bằng việc chỉ che URL path và áp dụng regex dọn khoảng trắng giúp Google Translate có thể tiếp cận được text hiển thị bên trong các thẻ này, giải quyết triệt để vấn đề từ ngữ không được dịch khi chuyển đổi ngôn ngữ.",
+        "author": "An",
+        "date": "2026-07-29T07:31:18.639Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785310278657_3ofjq",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T07:31:18.657Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785310278671_shtdo",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T07:31:18.671Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785310278637_02a",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785310326040_vtfee",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T07:32:06.040Z",
+    "payload": {
+      "id": "aevum://lesson/1785310326038_e1h",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Loại bỏ thuộc tính overflow: hidden khỏi wrapper cha ngoài cùng là bắt buộc để khôi phục cơ chế định vị sticky của các phần tử con bên dưới theo thanh cuộn của window.",
+        "author": "An",
+        "date": "2026-07-29T07:32:06.039Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785310326058_g3bm0",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T07:32:06.058Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785310326074_proc8",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T07:32:06.074Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785310326038_e1h",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785310376132_jtshn",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T07:32:56.132Z",
+    "payload": {
+      "id": "aevum://lesson/1785310376130_mcu",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Thêm kiểm tra điều kiện biên cuộn cuối trang (window.innerHeight + window.scrollY >= scrollHeight) giúp kích hoạt chính xác đề mục cuối cùng của Table of Contents, giải quyết lỗi kinh điển của scroll spy khi đề mục cuối cùng không thể chạm tới giới hạn kích hoạt pixel do trang đã hết vùng cuộn.",
+        "author": "An",
+        "date": "2026-07-29T07:32:56.132Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785310376157_4j99o",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T07:32:56.157Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785310376174_h4q7n",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T07:32:56.174Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785310376130_mcu",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785310525795_60gb5",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T07:35:25.795Z",
+    "payload": {
+      "id": "aevum://lesson/1785310525792_oqv",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Điều chỉnh màu chữ của mục active trong sidebar sang màu trắng (text-white) giúp làm nổi bật mục được chọn đồng thời giữ nguyên màu chỉ báo (màu xanh cyan) của biểu tượng mũi tên, tạo cảm giác phân cấp thông tin rõ ràng và chuyên nghiệp hơn.",
+        "author": "An",
+        "date": "2026-07-29T07:35:25.795Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785310525817_hmbks",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T07:35:25.817Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785310525833_ltqu3",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T07:35:25.833Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785310525792_oqv",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785310726210_jom7s",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T07:38:46.210Z",
+    "payload": {
+      "id": "aevum://lesson/1785310726207_w1r",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Thay thế các liên kết mạng xã hội không hoạt động hoặc không chính xác bằng các đường dẫn mạng xã hội chính thức của dự án giúp nâng cao tính tin cậy của website.",
+        "author": "An",
+        "date": "2026-07-29T07:38:46.209Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785310726227_b2j9d",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T07:38:46.227Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785310726241_xbgtb",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T07:38:46.241Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785310726207_w1r",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785311147562_7ic02",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T07:45:47.562Z",
+    "payload": {
+      "id": "aevum://lesson/1785311147560_8jq",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Tạo vercel.json với quy tắc rewrites SPA là cần thiết để tránh lỗi 404 Vercel khi người dùng tải lại trang (reload) trực tiếp ở các sub-routes của Single Page Applications (SPA).",
+        "author": "An",
+        "date": "2026-07-29T07:45:47.561Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785311147587_ynrdh",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T07:45:47.587Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785311147605_tjxoz",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T07:45:47.605Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785311147560_8jq",
+      "type": "hasLesson"
+    }
+  }
+]

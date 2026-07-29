@@ -90,13 +90,12 @@ h1, h2, h3, .font-display {
 
 /* Monolithic Grid Frame - Centered with 10vw Left & Right Margins */
 .monolithic-frame {
-  width: calc(100% - 20vw);
+  width: calc(100% - 12vw);
   margin-left: auto;
   margin-right: auto;
   background-color: var(--bg-frame);
   border: 1px solid var(--border-faint);
   border-radius: 0;
-  overflow: hidden;
   box-shadow: none !important;
 }
 

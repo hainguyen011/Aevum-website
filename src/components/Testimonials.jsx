@@ -1,36 +1,58 @@
 import React from 'react';
+import { translations } from '../data/translations';
 
-export const Testimonials = () => {
+export const Testimonials = ({ activeLang }) => {
+  const t = translations[activeLang] || translations.en;
+
   const reviews = [
     {
       name: 'Richard Hendricks',
       handle: '@richard_pp',
       avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80',
-      text: '"Aevum OS\'s Middle-Out context compression algorithm is insane! It maintains a 100% Weissman Score across our entire agent squad without dropping a single byte."',
+      text: t.testimonials.r1Text,
       role: 'Founder & CEO, Pied Piper',
     },
     {
       name: 'Bertram Gilfoyle',
       handle: '@gilfoyle_laVey',
       avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80',
-      text: '"I built Anton to handle system loads, but Aevum OS daemon running locally makes traditional IDEs look childish. Unhackable, satanically fast, and superior in every way."',
+      text: t.testimonials.r2Text,
       role: 'Systems Architect, Pied Piper',
     },
     {
       name: 'Dinesh Chugtai',
       handle: '@dinesh_pp',
       avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80',
-      text: '"I tried writing custom agent handoff scripts, but Aevum OS squad orchestration is so smooth that even Gilfoyle couldn\'t find a single flaw in my implementation."',
+      text: t.testimonials.r3Text,
       role: 'Senior Engineer, Pied Piper',
     },
     {
       name: 'Jared Dunn',
       handle: '@jared_pp',
       avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&auto=format&fit=crop&q=80',
-      text: '"Aevum OS DDD External Brain aligns our squad\'s spiritual resonance perfectly. I feel emotionally secure knowing domain plans are harvested into Global Memory."',
+      text: t.testimonials.r4Text,
       role: 'Chief Operating Officer, Pied Piper',
     },
   ];
+
+  // Programmatically highlight Pied Piper & Community
+  const titleText = t.testimonials.title;
+  let titleNode = titleText;
+  if (titleText.includes("Pied Piper & Community")) {
+    const parts = titleText.split("Pied Piper & Community");
+    titleNode = (
+      <>
+        {parts[0]}<span className="gradient-text">Pied Piper & Community</span>{parts[1]}
+      </>
+    );
+  } else if (titleText.includes("Pied Piper & Cộng đồng")) {
+    const parts = titleText.split("Pied Piper & Cộng đồng");
+    titleNode = (
+      <>
+        {parts[0]}<span className="gradient-text">Pied Piper & Cộng đồng</span>{parts[1]}
+      </>
+    );
+  }
 
   return (
     <div className="border-subtle-b bg-[#0B0B11]">
@@ -40,13 +62,13 @@ export const Testimonials = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
           <div className="lg:col-span-6 space-y-2">
             <div className="text-[11px] font-mono text-cyan-400 font-semibold tracking-widest uppercase">
-              COMMUNITY ENDORSED
+              {t.testimonials.tag}
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white font-display">
-              Loved by <span className="gradient-text">Pied Piper & Community</span>
+              {titleNode}
             </h2>
             <p className="text-slate-400 text-xs sm:text-sm">
-              Used by visionary engineers and top technology creators worldwide.
+              {t.testimonials.desc}
             </p>
           </div>
 
@@ -56,21 +78,21 @@ export const Testimonials = () => {
               <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono">
                 5k+
               </div>
-              <p className="text-xs text-slate-400 font-medium">OpenVSX Installs</p>
+              <p className="text-xs text-slate-400 font-medium">{t.testimonials.installs}</p>
             </div>
 
             <div className="space-y-1">
               <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono">
                 99.9%
               </div>
-              <p className="text-xs text-slate-400 font-medium">Weissman Score</p>
+              <p className="text-xs text-slate-400 font-medium">{t.testimonials.score}</p>
             </div>
 
             <div className="space-y-1">
               <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono">
                 0.0s
               </div>
-              <p className="text-xs text-slate-400 font-medium">Daemon Boot Time</p>
+              <p className="text-xs text-slate-400 font-medium">{t.testimonials.bootTime}</p>
             </div>
           </div>
         </div>
@@ -112,3 +134,5 @@ export const Testimonials = () => {
     </div>
   );
 };
+
+export default Testimonials;

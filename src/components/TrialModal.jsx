@@ -37,11 +37,14 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      if (window.lenis) window.lenis.stop();
     } else {
       document.body.style.overflow = '';
+      if (window.lenis) window.lenis.start();
     }
     return () => {
       document.body.style.overflow = '';
+      if (window.lenis) window.lenis.start();
     };
   }, [isOpen]);
 

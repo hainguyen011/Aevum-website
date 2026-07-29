@@ -81,6 +81,19 @@ export const Navbar = ({ currentPage, onNavigate, activeLang, onChangeLang }) =>
           >
             {t.navbar.docs}
           </button>
+
+          {/* Vertical Separator */}
+          <span className="w-px h-3 bg-white/10"></span>
+
+          {/* About Link */}
+          <button 
+            onClick={() => onNavigate('about')}
+            className={`transition-colors font-semibold ${
+              currentPage === 'about' ? 'text-cyan-400' : 'text-slate-300 hover:text-cyan-400'
+            }`}
+          >
+            {t.navbar.about}
+          </button>
         </nav>
       </div>
 

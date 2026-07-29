@@ -43,3 +43,21 @@ Bài báo này ghi lại các bước tiến hóa, sự tích lũy tri thức v�
 - **Trạng thái**: Đã đồng bộ vào PiperNet.
 - **Tác động**: Cải thiện khả năng tự thích nghi của Agent.
 
+### 📅 [LEVEL_UP] - 29/7/2026
+> **Chi tiết**: Thăng cấp lên Level 6. Sức mạnh xử lý bối cảnh tăng cường.
+
+- **Trạng thái**: Đã đồng bộ vào PiperNet.
+- **Tác động**: Cải thiện khả năng tự thích nghi của Agent.
+
+### 📅 [LEVEL_UP] - 29/7/2026
+> **Chi tiết**: Thăng cấp lên Level 7. Sức mạnh xử lý bối cảnh tăng cường.
+
+- **Trạng thái**: Đã đồng bộ vào PiperNet.
+- **Tác động**: Cải thiện khả năng tự thích nghi của Agent.
+
+### 📅 [LEVEL_UP] - 29/7/2026
+> **Chi tiết**: Thăng cấp lên Level 8. Sức mạnh xử lý bối cảnh tăng cường.
+
+- **Trạng thái**: Đã đồng bộ vào PiperNet.
+- **Tác động**: Cải thiện khả năng tự thích nghi của Agent.
+

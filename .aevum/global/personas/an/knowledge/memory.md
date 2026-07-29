@@ -154,3 +154,201 @@ Tạo vercel.json với RULE rewrites SPA cần thiết goal: tránh KO 404 Verc
 [MAP α:implement_aevum_docs_page_plan,β:trailingSlash]
 [LEARNING FROM α]
 Bổ sinh cấu hình β: false & Cache-Control headers cho assets... [PRUNED]
+
+
+### [LEARN] - 7/29/2026, 3:23:42 PM
+[MAP α:implement_aevum_docs_page_plan,β:Optimization]
+[LEARNING FROM α]
+Cập nhật các liên kết sitemap, robots.txt, & JSON-LD schemas... [PRUNED]
+
+
+### [LEARN] - 7/29/2026, 3:26:05 PM
+[MAP α:implement_aevum_docs_page_plan]
+[LEARNING FROM α]
+Cập nhật màu sắc thanh cuộn webkit-scrollbar-thumb sang màu ... [PRUNED]
+
+
+### [LEARN] - 7/29/2026, 3:27:54 PM
+[MAP α:implement_aevum_docs_page_plan]
+[LEARNING FROM α]
+Tích hợp thư viện Lenis giúp nâng cấp trải nghiệm cuộn trang... [PRUNED]
+
+
+### [LEARN] - 7/29/2026, 3:30:04 PM
+[MAP α:implement_aevum_docs_page_plan]
+[LEARNING FROM α]
+Cài đặt dynamic favicon load bằng cách import file PNG trực ... [PRUNED]
+
+
+### [LEARN] - 7/29/2026, 3:40:02 PM
+[MAP α:implement_aevum_docs_page_plan]
+[LEARNING FROM α]
+Thu nhỏ kích thước nút ScrollToTop bằng cách thay đổi paddin... [PRUNED]
+
+
+### [LEARN] - 7/29/2026, 3:54:59 PM
+[MAP α:implement_aevum_docs_page_plan]
+[LEARNING FROM α]
+Tái cấu trúc giao diện trang About tuân thủ chuẩn Monolithic... [PRUNED]
+
+
+### [LEARN] - 7/29/2026, 3:56:02 PM
+[MAP α:implement_aevum_docs_page_plan]
+[LEARNING FROM α]
+Loại bỏ hiệu ứng vệt sáng glowing background & tag nhãn "PRO... [PRUNED]
+
+
+### [LEARN] - 7/29/2026, 3:56:41 PM
+[MAP α:implement_aevum_docs_page_plan]
+[LEARNING FROM α]
+Loại bỏ ký tự // tiền tố ở các nhãn phân đoạn ACT 1 & ACT 2 ... [PRUNED]
+
+
+### [LEARN] - 7/29/2026, 3:59:53 PM
+[MAP α:implement_aevum_docs_page_plan]
+[LEARNING FROM α]
+Nâng cấp dải SubNavTabs thành bảng info tương tác động (Interactive Subsystem Panel) mở rộng ngay bên dưới tab khi click, kết hợp Terminal Sandbox cho phép xem & sao chép câu lệnh MCP/CLI SYS giúp tăng mạnh tính tương tác cho trang web.
+
+
+### [LEARN] - 7/29/2026, 4:00:54 PM
+[MAP α:implement_aevum_docs_page_plan]
+[LEARNING FROM α]
+Loại bỏ thẻ badge bo viền ∋ nhãn Subsystem ở bảng SubNavTabs... [PRUNED]
+
+
+### [LEARN] - 7/29/2026, 4:01:46 PM
+[MAP α:implement_aevum_docs_page_plan]
+[LEARNING FROM α]
+Cập nhật màu chữ & màu các biểu tượng (Terminal, Copy) cùng ... [PRUNED]
+
+
+### [LEARN] - 7/29/2026, 4:02:26 PM
+[MAP α:implement_aevum_docs_page_plan]
+[LEARNING FROM α]
+Loại bỏ đường viền đáy dư thừa border-b-2 border-b-cyan-400 ... [PRUNED]
+
+
+### [LEARN] - 7/29/2026, 4:04:54 PM
+[MAP α:implement_aevum_docs_page_plan]
+[LEARNING FROM α]
+Chuyển đổi giao diện trang About sang thiết kế dạng Editoria... [PRUNED]
+
+
+### [LEARN] - 7/29/2026, 4:05:46 PM
+[MAP α:implement_aevum_docs_page_plan]
+[LEARNING FROM α]
+Tạo mới khung màn hình máy tính retro CRT TTY Monitor trong ... [PRUNED]
+
+
+### [LEARN] - 7/29/2026, 4:06:51 PM
+[MAP α:implement_aevum_docs_page_plan]
+[LEARNING FROM α]
+Loại bỏ khung bo viền bezel ngoài màn hình retro CRT, cho ph... [PRUNED]
+
+
+### [LEARN] - 7/29/2026, 4:08:06 PM
+[MAP α:implement_aevum_docs_page_plan]
+[LEARNING FROM α]
+Gỡ bỏ hoàn toàn section Aevum Manifesto bên dưới trang About... [PRUNED]
+
+
+### [LEARN] - 7/29/2026, 4:09:06 PM
+[MAP α:implement_aevum_docs_page_plan]
+[LEARNING FROM α]
+Chuyển đổi kiểu căn lề ∀ đoạn text gõ phím CRT sang căn trái... [PRUNED]
+
+
+### [LEARN] - 7/29/2026, 4:10:03 PM
+[MAP α:implement_aevum_docs_page_plan]
+[LEARNING FROM α]
+Chuyển màu chữ màn hình Terminal gõ phím phốt pho xanh sang ... [PRUNED]
+
+
+### [LEARN] - 7/29/2026, 4:11:24 PM
+[MAP α:implement_aevum_docs_page_plan]
+[LEARNING FROM α]
+Tích hợp biểu tượng logo Aevum OS dạng ASCII Art kết hợp chu... [PRUNED]
+
+
+### [LEARN] - 7/29/2026, 4:12:18 PM
+[MAP α:implement_aevum_docs_page_plan]
+[LEARNING FROM α]
+Nhúng tệp ảnh logo ASCII Art 3D Aevum-ascii.png ở ngay đầu m... [PRUNED]
+
+
+### [LEARN] - 7/29/2026, 4:13:26 PM
+[MAP α:implement_aevum_docs_page_plan]
+[LEARNING FROM α]
+Xây dựng màn hình Loading boot 2.5s khi vừa chuyển vào trang... [PRUNED]
+
+
+### [LEARN] - 7/29/2026, 4:16:17 PM
+[MAP α:implement_aevum_docs_page_plan]
+[LEARNING FROM α]
+Chuyển đổi giao diện lựa chọn câu lệnh giới thiệu thành Term... [PRUNED]
+
+
+### [LEARN] - 7/29/2026, 4:18:26 PM
+[MAP α:implement_aevum_docs_page_plan]
+[LEARNING FROM α]
+Gỡ bỏ huy hiệu ONLINE màu xanh lá ở thanh header Terminal TU... [PRUNED]
+
+
+### [LEARN] - 7/29/2026, 4:21:59 PM
+[MAP α:implement_aevum_docs_page_plan]
+[LEARNING FROM α]
+Tích hợp biểu tượng vector ASCII SVG từ ascii-art.svg vào mà... [PRUNED]
+
+
+### [LEARN] - 7/29/2026, 4:24:31 PM
+[MAP α:implement_aevum_docs_page_plan]
+[LEARNING FROM α]
+Import & render trực tiếp tệp văn bản ASCII Art gốc ascii-ar... [PRUNED]
+
+
+### [LEARN] - 7/29/2026, 4:25:23 PM
+[MAP α:implement_aevum_docs_page_plan]
+[LEARNING FROM α]
+Chuyển ∀ các đường chữ render logo ASCII Art thuần text tron... [PRUNED]
+
+
+### [LEARN] - 7/29/2026, 4:27:16 PM
+[MAP α:implement_aevum_docs_page_plan]
+[LEARNING FROM α]
+Mở rộng tỉ lệ hiển thị chiều ngang logo ASCII Art chữ A 3D t... [PRUNED]
+
+
+### [LEARN] - 7/29/2026, 4:28:34 PM
+[MAP α:implement_aevum_docs_page_plan,β:Routerwindow]
+[LEARNING FROM α]
+Bổ sung bộ lắng nghe Hash β.location.hash trong App.jsx giúp... [PRUNED]
+
+
+### [LEARN] - 7/29/2026, 4:29:17 PM
+[MAP α:implement_aevum_docs_page_plan]
+[LEARNING FROM α]
+Thu nhỏ tỉ lệ font chữ & scale-x khối logo ASCII Art chữ A 3... [PRUNED]
+
+
+### [LEARN] - 7/29/2026, 4:30:01 PM
+[MAP α:implement_aevum_docs_page_plan,β:INITIALIZING]
+[LEARNING FROM α]
+Giới hạn độ cao chiều dọc container loading màn hình boot trong About.jsx ở mức h-[520px] max-h-[75vh], giúp ∀ Logo ASCII & thanh phần trăm tiến trình β AEVUM... nằm trọn vẹn, ngay ngắn ở trung tâm khung hình viewport mà không tràn hay MUST cuộn trang.
+
+
+### [LEARN] - 7/29/2026, 4:30:29 PM
+[MAP α:implement_aevum_docs_page_plan]
+[LEARNING FROM α]
+Loại bỏ biểu tượng icon prompt >_ màu xanh lá trước tiêu đề ... [PRUNED]
+
+
+### [LEARN] - 7/29/2026, 4:31:00 PM
+[MAP α:implement_aevum_docs_page_plan]
+[LEARNING FROM α]
+Tăng tỉ lệ co giãn chiều ngang scale-x-[1.35] sm:scale-x-[1.... [PRUNED]
+
+
+### [LEARN] - 7/29/2026, 4:35:10 PM
+[MAP α:implement_aevum_docs_page_plan]
+[LEARNING FROM α]
+Nhúng phông chữ Terminal chuyên dụng JetBrains Mono & Fira C... [PRUNED]

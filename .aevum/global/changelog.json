@@ -934,5 +934,1292 @@
       "target": "aevum://lesson/1785312744596_1z5",
       "type": "hasLesson"
     }
+  },
+  {
+    "id": "tx_node_1785313422744_ruj07",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T08:23:42.744Z",
+    "payload": {
+      "id": "aevum://lesson/1785313422742_357",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Cập nhật các liên kết sitemap, robots.txt, và JSON-LD schemas sử dụng tên miền chính thức của dự án giúp công cụ tìm kiếm AI (Generative Engine Optimization) liên kết chính xác thực thể thương hiệu và cải thiện thứ hạng tìm kiếm.",
+        "author": "An",
+        "date": "2026-07-29T08:23:42.743Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785313422761_vdkrj",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T08:23:42.761Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785313422776_r0jyz",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T08:23:42.776Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785313422742_357",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785313565144_borvs",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T08:26:05.144Z",
+    "payload": {
+      "id": "aevum://lesson/1785313565142_lci",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Cập nhật màu sắc của thanh cuộn webkit-scrollbar-thumb sang màu trắng mờ (rgba(255,255,255,0.15)) giúp loại bỏ màu xanh cyan chói lọi cũ, mang lại trải nghiệm tối giản và sang trọng hơn trên toàn bộ trang web.",
+        "author": "An",
+        "date": "2026-07-29T08:26:05.144Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785313565161_hbuvu",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T08:26:05.161Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785313565173_5esoc",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T08:26:05.173Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785313565142_lci",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785313674775_n07pt",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T08:27:54.775Z",
+    "payload": {
+      "id": "aevum://lesson/1785313674773_sgk",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Tích hợp thư viện Lenis giúp nâng cấp trải nghiệm cuộn trang mượt mà có quán tính (inertial smooth scrolling) cực kỳ tự nhiên và cao cấp mà không phá vỡ định vị sticky hay scroll spy của trang tài liệu.",
+        "author": "An",
+        "date": "2026-07-29T08:27:54.775Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785313674793_o1hhu",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T08:27:54.793Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785313674810_8l15d",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T08:27:54.810Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785313674773_sgk",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785313804548_rxfba",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T08:30:04.548Z",
+    "payload": {
+      "id": "aevum://lesson/1785313804547_0of",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Cài đặt dynamic favicon load bằng cách import file PNG trực tiếp trong React App.jsx và sửa href của link tag qua DOM giúp loại bỏ hoàn toàn sự phụ thuộc vào các script copy thủ công, đảm bảo favicon hoạt động trơn tru trong cả môi trường dev và prod.",
+        "author": "An",
+        "date": "2026-07-29T08:30:04.548Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785313804569_pemqf",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T08:30:04.569Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785313804587_rs3l7",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T08:30:04.587Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785313804547_0of",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785314402020_654fx",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T08:40:02.020Z",
+    "payload": {
+      "id": "aevum://lesson/1785314402018_9ng",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Thu nhỏ kích thước của nút ScrollToTop bằng cách thay đổi padding p-3 sang p-2 và icon w-5 h-5 sang w-4 h-4 giúp tạo nên một giao diện tối giản và chuyên nghiệp hơn mà vẫn đảm bảo tính khả dụng cao.",
+        "author": "An",
+        "date": "2026-07-29T08:40:02.019Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785314402033_yfkxg",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T08:40:02.033Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785314402047_4b3cu",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T08:40:02.047Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785314402018_9ng",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785315299951_k8rwl",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T08:54:59.951Z",
+    "payload": {
+      "id": "aevum://lesson/1785315299948_73u",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Tái cấu trúc giao diện trang About tuân thủ chuẩn Monolithic Grid của dự án: loại bỏ margin/padding dư thừa và các thẻ card rời, sử dụng border-subtle-b và border-subtle-r liền khối bám sát viền khung chính giúp tổng thể thiết kế nhất quán và chuyên nghiệp.",
+        "author": "An",
+        "date": "2026-07-29T08:54:59.951Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785315299969_vlif0",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T08:54:59.969Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785315299981_a8kql",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T08:54:59.981Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785315299948_73u",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785315362925_l8e1b",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T08:56:02.925Z",
+    "payload": {
+      "id": "aevum://lesson/1785315362919_fvo",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Loại bỏ hiệu ứng vệt sáng glowing background và tag nhãn \"PRODUCT STORY\" ở phần đầu trang About giúp giao diện phẳng hơn, trong suốt và tập trung tối đa sự chú ý của người dùng vào tiêu đề bài viết.",
+        "author": "An",
+        "date": "2026-07-29T08:56:02.922Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785315362939_z7wbj",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T08:56:02.939Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785315362952_t4mxj",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T08:56:02.952Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785315362919_fvo",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785315401377_qpq9i",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T08:56:41.377Z",
+    "payload": {
+      "id": "aevum://lesson/1785315401369_nte",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Loại bỏ ký tự // tiền tố ở các nhãn phân đoạn ACT 1 và ACT 2 giúp tiêu đề giao diện sạch sẽ, chuyên nghiệp và thanh lịch hơn.",
+        "author": "An",
+        "date": "2026-07-29T08:56:41.376Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785315401392_an4v4",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T08:56:41.392Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785315401416_zvh1e",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T08:56:41.416Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785315401369_nte",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785315593143_aiyaj",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T08:59:53.143Z",
+    "payload": {
+      "id": "aevum://lesson/1785315593137_bou",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Nâng cấp dải SubNavTabs thành bảng thông tin tương tác động (Interactive Subsystem Panel) mở rộng ngay bên dưới tab khi click, kết hợp Terminal Sandbox cho phép xem và sao chép câu lệnh MCP/CLI của hệ thống giúp tăng mạnh tính tương tác cho trang web.",
+        "author": "An",
+        "date": "2026-07-29T08:59:53.142Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785315593159_yp04v",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T08:59:53.159Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785315593175_kt8km",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T08:59:53.175Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785315593137_bou",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785315654493_gwwrg",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T09:00:54.493Z",
+    "payload": {
+      "id": "aevum://lesson/1785315654491_r76",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Loại bỏ thẻ badge bo viền chứa nhãn Subsystem ở bảng SubNavTabs giúp giao diện phẳng hơn, loại bỏ các chi tiết thừa thãi và tập trung trực tiếp vào tiêu đề và nội dung phân hệ.",
+        "author": "An",
+        "date": "2026-07-29T09:00:54.492Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785315654510_kpmd4",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T09:00:54.510Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785315654525_a7msb",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T09:00:54.525Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785315654491_r76",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785315706458_47w9h",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T09:01:46.458Z",
+    "payload": {
+      "id": "aevum://lesson/1785315706447_v7x",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Cập nhật màu chữ và màu các biểu tượng (Terminal, Copy) cùng câu lệnh CLI trong khung Terminal Sandbox của SubNavTabs sang màu trắng tinh khiết (text-white) giúp tăng tính đồng bộ tối giản và dễ đọc hơn.",
+        "author": "An",
+        "date": "2026-07-29T09:01:46.458Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785315706480_g87t3",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T09:01:46.480Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785315706507_1om9a",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T09:01:46.507Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785315706447_v7x",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785315746401_bfyq0",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T09:02:26.401Z",
+    "payload": {
+      "id": "aevum://lesson/1785315746399_8p7",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Loại bỏ đường viền đáy dư thừa border-b-2 border-b-cyan-400 ở trạng thái active của SubNavTabs giúp ô tab liền mạch hoàn hảo với khung viền mảnh border-subtle-b mà không gây lệch viền hay thừa đường kẻ.",
+        "author": "An",
+        "date": "2026-07-29T09:02:26.401Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785315746416_ou1z1",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T09:02:26.416Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785315746429_qg9v8",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T09:02:26.429Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785315746399_8p7",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785315894476_oobx8",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T09:04:54.476Z",
+    "payload": {
+      "id": "aevum://lesson/1785315894474_obb",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Chuyển đổi giao diện trang About sang thiết kế dạng Editorial Storyboard đơn cột (Single Column Layout max-w-3xl) chia thành các Chương rõ ràng (01, 02, 03) giúp tăng trải nghiệm đọc báo chí nghệ thuật, cuốn hút và nhất quán với thẩm mỹ cao cấp.",
+        "author": "An",
+        "date": "2026-07-29T09:04:54.475Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785315894491_cdowc",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T09:04:54.491Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785315894503_6c3z7",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T09:04:54.503Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785315894474_obb",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785315946765_nbnfo",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T09:05:46.765Z",
+    "payload": {
+      "id": "aevum://lesson/1785315946763_ds1",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Tạo mới khung màn hình máy tính retro CRT TTY Monitor trong trang About với hiệu ứng gõ phím tự động (Typing Text Animation) căn giữa, đèn phốt pho CRT green glow và dải sọc CRT scanlines mang lại trải nghiệm hoài niệm retro vô cùng độc đáo và nghệ thuật.",
+        "author": "An",
+        "date": "2026-07-29T09:05:46.764Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785315946785_7azxf",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T09:05:46.785Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785315946804_y0lpi",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T09:05:46.804Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785315946763_ds1",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785316011096_e6s3x",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T09:06:51.096Z",
+    "payload": {
+      "id": "aevum://lesson/1785316011094_uhj",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Loại bỏ khung bo viền bezel ngoài của màn hình retro CRT, cho phép giao diện gõ chữ TTY trải rộng full-width 100% chiều ngang hàng Grid giúp nội dung khoáng đạt, dễ đọc và liền mạch tuyệt đối với thiết kế Monolithic Grid.",
+        "author": "An",
+        "date": "2026-07-29T09:06:51.095Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785316011113_89whk",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T09:06:51.113Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785316011127_vyolj",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T09:06:51.127Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785316011094_uhj",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785316086068_ba0m1",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T09:08:06.068Z",
+    "payload": {
+      "id": "aevum://lesson/1785316086066_k80",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Gỡ bỏ hoàn toàn section Aevum Manifesto bên dưới trang About, giữ nguyên tinh thần tối giản tập trung duy nhất vào màn hình gõ chữ phốt pho CRT căn giữa trên nền tối ngầm #0B0B11.",
+        "author": "An",
+        "date": "2026-07-29T09:08:06.067Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785316086093_09b7z",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T09:08:06.093Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785316086113_ccmgi",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T09:08:06.113Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785316086066_k80",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785316146174_dse1c",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T09:09:06.174Z",
+    "payload": {
+      "id": "aevum://lesson/1785316146153_5xw",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Chuyển đổi kiểu căn lề toàn bộ đoạn text gõ phím CRT sang căn trái (text-left) kèm tăng kích thước phông chữ (text-base sm:text-lg md:text-xl) mang lại cảm giác trải nghiệm Terminal thực thụ, dễ đọc và đậm chất kỹ sư.",
+        "author": "An",
+        "date": "2026-07-29T09:09:06.174Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785316146193_rg3zg",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T09:09:06.193Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785316146222_o2t2u",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T09:09:06.222Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785316146153_5xw",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785316203970_3fgzt",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T09:10:03.970Z",
+    "payload": {
+      "id": "aevum://lesson/1785316203968_ugs",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Chuyển màu chữ của màn hình Terminal gõ phím phốt pho xanh sang màu trắng tinh khôi (text-white) và xóa hoàn toàn hiệu ứng drop-shadow phát sáng giúp đoạn văn bản hiển thị phẳng, rõ nét tuyệt đối trên nền tối ngầm.",
+        "author": "An",
+        "date": "2026-07-29T09:10:03.969Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785316203987_gi28h",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T09:10:03.987Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785316204006_zxs79",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T09:10:04.006Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785316203968_ugs",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785316284544_du10v",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T09:11:24.544Z",
+    "payload": {
+      "id": "aevum://lesson/1785316284542_ulp",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Tích hợp biểu tượng logo Aevum OS dạng ASCII Art kết hợp chuỗi lệnh Boot Terminal TTY gõ tự động dạng loading animation trên trang About tạo nên cảm giác khởi chạy hệ điều hành chân thực và vô cùng chuyên nghiệp.",
+        "author": "An",
+        "date": "2026-07-29T09:11:24.543Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785316284560_86guc",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T09:11:24.560Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785316284576_scpob",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T09:11:24.576Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785316284542_ulp",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785316338164_8ua45",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T09:12:18.164Z",
+    "payload": {
+      "id": "aevum://lesson/1785316338161_4rw",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Nhúng tệp ảnh logo ASCII Art 3D Aevum-ascii.png ở ngay đầu màn hình CRT TTY Terminal của trang About thay thế cho đoạn chữ ASCII thô cũ, mang lại vẻ đẹp sắc nét, độc đáo và cực kỳ ấn tượng.",
+        "author": "An",
+        "date": "2026-07-29T09:12:18.163Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785316338182_pb9ir",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T09:12:18.182Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785316338201_fwg2c",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T09:12:18.201Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785316338161_4rw",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785316406030_1p6ys",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T09:13:26.030Z",
+    "payload": {
+      "id": "aevum://lesson/1785316406028_87p",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Xây dựng màn hình Loading boot 2.5s khi vừa chuyển vào trang About với logo ASCII 3D Aevum-ascii.png không khung nền (mix-blend-screen) và không box-shadow, đi kèm thanh phần trăm nạp Kernel % trước khi chuyển sang Terminal gõ chữ câu chuyện.",
+        "author": "An",
+        "date": "2026-07-29T09:13:26.029Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785316406046_j6otc",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T09:13:26.046Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785316406059_hjq87",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T09:13:26.059Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785316406028_87p",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785316577693_4ubd3",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T09:16:17.693Z",
+    "payload": {
+      "id": "aevum://lesson/1785316577691_qv9",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Chuyển đổi giao diện lựa chọn câu lệnh giới thiệu thành Terminal UI (TUI) menu thuần túy không ô vuông web, không box-shadow, hỗ trợ phím mũi tên [Up/Down], phím số [1-5] và click chuột để di chuyển con trỏ selection cursor > trực quan.",
+        "author": "An",
+        "date": "2026-07-29T09:16:17.692Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785316577713_j1hnt",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T09:16:17.713Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785316577734_w2r7s",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T09:16:17.734Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785316577691_qv9",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785316706962_vsdlc",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T09:18:26.962Z",
+    "payload": {
+      "id": "aevum://lesson/1785316706960_9bh",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Gỡ bỏ huy hiệu ONLINE màu xanh lá ở thanh header của Terminal TUI trong About.jsx, giữ thanh header phẳng, tối giản và đồng bộ tuyệt đối với phong cách thiết kế tối ngầm.",
+        "author": "An",
+        "date": "2026-07-29T09:18:26.961Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785316706985_5gs4c",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T09:18:26.985Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785316707010_x1yhf",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T09:18:27.010Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785316706960_9bh",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785316919561_xmqto",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T09:21:59.561Z",
+    "payload": {
+      "id": "aevum://lesson/1785316919558_6x9",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Tích hợp biểu tượng vector ASCII SVG từ ascii-art.svg vào màn hình Boot Loading 2.5s và Header Terminal TUI của trang About. Đã tối ưu xóa bỏ rect nền gốc để mẫu SVG hiển thị trong suốt 100% cực kỳ sắc nét.",
+        "author": "An",
+        "date": "2026-07-29T09:21:59.560Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785316919590_92p62",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T09:21:59.590Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785316919634_d36f4",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T09:21:59.634Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785316919558_6x9",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785317071664_w8t2t",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T09:24:31.664Z",
+    "payload": {
+      "id": "aevum://lesson/1785317071661_2r1",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Import và render trực tiếp tệp văn bản ASCII Art gốc ascii-art (1).txt trong About.jsx dưới dạng thẻ <pre> phông monospace chữ xanh ngọc phốt pho, mang lại khả năng trong suốt 100% tự nhiên tuyệt đối.",
+        "author": "An",
+        "date": "2026-07-29T09:24:31.663Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785317071690_toah6",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T09:24:31.690Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785317071711_f3ngj",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T09:24:31.711Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785317071661_2r1",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785317123779_ctstv",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T09:25:23.779Z",
+    "payload": {
+      "id": "aevum://lesson/1785317123777_pmf",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Chuyển toàn bộ các đường chữ render logo ASCII Art thuần text trong About.jsx sang màu trắng tinh khôi (text-white font-mono) trên màn hình Boot Loading 2.5s.",
+        "author": "An",
+        "date": "2026-07-29T09:25:23.778Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785317123796_tgq8j",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T09:25:23.796Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785317123811_ooka9",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T09:25:23.811Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785317123777_pmf",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785317236604_028aj",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T09:27:16.604Z",
+    "payload": {
+      "id": "aevum://lesson/1785317236603_8vm",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Mở rộng tỉ lệ hiển thị chiều ngang của logo ASCII Art chữ A 3D trong About.jsx bằng tracking-widest, font-bold và scale-x-125 md:scale-x-135 giúp khối logo tròn trịa, bề thế và vô cùng cân đối.",
+        "author": "An",
+        "date": "2026-07-29T09:27:16.604Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785317236619_vcjke",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T09:27:16.619Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785317236633_1kxbk",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T09:27:16.633Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785317236603_8vm",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785317314949_8oulr",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T09:28:34.949Z",
+    "payload": {
+      "id": "aevum://lesson/1785317314947_6ph",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Bổ sung bộ lắng nghe Hash Routerwindow.location.hash trong App.jsx giúp định tuyến mượt mà đến trang About (/ #about), Docs (/ #docs) và các anchor section trên Landing Page khi người dùng bấm nút menu hoặc paste link trực tiếp.",
+        "author": "An",
+        "date": "2026-07-29T09:28:34.948Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785317314976_703kb",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T09:28:34.976Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785317315000_tfzis",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T09:28:35.000Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785317314947_6ph",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785317357247_4z0ey",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T09:29:17.247Z",
+    "payload": {
+      "id": "aevum://lesson/1785317357245_y9r",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Thu nhỏ tỉ lệ font chữ và scale-x của khối logo ASCII Art chữ A 3D xuống text-[10px] sm:text-xs md:text-sm và scale-x-110 sm:scale-x-115 giúp khối ASCII Art đạt độ vừa vặn, tinh tế và thẩm mỹ cao.",
+        "author": "An",
+        "date": "2026-07-29T09:29:17.246Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785317357274_0eb6v",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T09:29:17.274Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785317357291_any5w",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T09:29:17.291Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785317357245_y9r",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785317401265_bf2yk",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T09:30:01.265Z",
+    "payload": {
+      "id": "aevum://lesson/1785317401263_wil",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Giới hạn độ cao chiều dọc container loading màn hình boot trong About.jsx ở mức h-[520px] max-h-[75vh], giúp toàn bộ Logo ASCII và thanh phần trăm tiến trình INITIALIZING AEVUM... nằm trọn vẹn, ngay ngắn ở trung tâm khung hình viewport mà không bị tràn hay phải cuộn trang.",
+        "author": "An",
+        "date": "2026-07-29T09:30:01.264Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785317401287_a3xlk",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T09:30:01.287Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785317401309_vy0ue",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T09:30:01.309Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785317401263_wil",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785317429361_zalb6",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T09:30:29.361Z",
+    "payload": {
+      "id": "aevum://lesson/1785317429359_hl6",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Loại bỏ biểu tượng icon prompt >_ màu xanh lá trước tiêu đề AEVUM TTY INTERACTIVE SHELL v1.0.0 trong About.jsx, giữ thanh Header phẳng và đồng bộ tối giản 100%.",
+        "author": "An",
+        "date": "2026-07-29T09:30:29.360Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785317429377_vf563",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T09:30:29.377Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785317429393_k42nq",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T09:30:29.393Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785317429359_hl6",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785317460416_rph7i",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T09:31:00.416Z",
+    "payload": {
+      "id": "aevum://lesson/1785317460413_em4",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Tăng tỉ lệ co giãn chiều ngang scale-x-[1.35] sm:scale-x-[1.45] và tracking-wider cho mẫu ASCII Art trong About.jsx, giúp logo mở rộng độ rộng đẹp mắt mà vẫn nằm vừa vặn 100% trong khung hình.",
+        "author": "An",
+        "date": "2026-07-29T09:31:00.414Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785317460458_zjhxj",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T09:31:00.458Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785317460490_yaws2",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T09:31:00.490Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785317460413_em4",
+      "type": "hasLesson"
+    }
+  },
+  {
+    "id": "tx_node_1785317710967_18dh2",
+    "action": "ADD_NODE",
+    "timestamp": "2026-07-29T09:35:10.967Z",
+    "payload": {
+      "id": "aevum://lesson/1785317710965_p3j",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Nhúng phông chữ Terminal chuyên dụng JetBrains Mono & Fira Code từ Google Fonts vào index.html và ghi đè lớp .font-mono trong index.css, giúp giao diện Terminal TUI đạt độ chân thực, đẹp mắt và sắc nét 100%.",
+        "author": "An",
+        "date": "2026-07-29T09:35:10.966Z",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_node_1785317710985_800h3",
+    "action": "UPDATE_NODE",
+    "timestamp": "2026-07-29T09:35:10.985Z",
+    "payload": {
+      "id": "aevum://plan/implement_aevum_docs_page_plan",
+      "type": "PLAN",
+      "label": "implement_aevum_docs_page_plan",
+      "properties": {
+        "status": "ACTIVE"
+      }
+    }
+  },
+  {
+    "id": "tx_edge_1785317711007_h1wjt",
+    "action": "ADD_EDGE",
+    "timestamp": "2026-07-29T09:35:11.007Z",
+    "payload": {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785317710965_p3j",
+      "type": "hasLesson"
+    }
   }
 ]

@@ -196,6 +196,11 @@ h1, h2, h3, .font-display {
   border-bottom: 1px solid var(--border-faint);
 }
 
+/* Authentic Developer Terminal Font Family Override */
+.font-mono {
+  font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+}
+
 /* Custom Scrollbars */
 ::-webkit-scrollbar {
   width: 6px;
@@ -205,11 +210,11 @@ h1, h2, h3, .font-display {
   background: #0B0B11;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e202e;
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--electron-blue);
+  background: rgba(255, 255, 255, 0.35);
 }
 
 /* Infinite Marquee Slider Animations */

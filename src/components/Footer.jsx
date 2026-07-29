@@ -43,6 +43,13 @@ export const Footer = ({ onNavigate, activeLang }) => {
                 {t.footer.links.docs}
               </button>
               <span className="text-white/10">•</span>
+              <button 
+                onClick={() => onNavigate('about')} 
+                className="text-cyan-400 hover:underline hover:text-cyan-300 transition-colors font-semibold"
+              >
+                {t.navbar.about}
+              </button>
+              <span className="text-white/10">•</span>
               <a href="https://open-vsx.org/extension/I2FLabs/aevum" target="_blank" rel="noreferrer" className="hover:text-cyan-400 transition-colors">{t.footer.links.openVsx}</a>
               <a href="https://unikorn.vn/p/aevum" target="_blank" rel="noreferrer" className="hover:text-cyan-400 transition-colors">{t.footer.links.unikorn}</a>
               <a href="https://github.com" target="_blank" rel="noreferrer" className="hover:text-cyan-400 transition-colors">{t.footer.links.github}</a>

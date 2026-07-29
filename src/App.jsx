@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { SubNavTabs } from './components/SubNavTabs';
@@ -13,9 +13,23 @@ import { CtaBanner } from './components/CtaBanner';
 import { Footer } from './components/Footer';
 import { ScrollToTop } from './components/ScrollToTop';
 import { Docs } from './components/Docs';
+import { About } from './components/About';
+import logoImg from '../assets/logos/AevumOS-transparent.png';
 
 export function App() {
   const [currentPage, setCurrentPage] = useState('landing');
+
+  // Dynamically set favicon using compiled Vite asset to bypass manual filesystem operations
+  useEffect(() => {
+    let link = document.querySelector("link[rel~='icon']");
+    if (!link) {
+      link = document.createElement('link');
+      link.rel = 'icon';
+      document.getElementsByTagName('head')[0].appendChild(link);
+    }
+    link.href = logoImg;
+    link.type = 'image/png';
+  }, []);
 
   // Detect browser language (default to 'vi' if Vietnamese, otherwise default to 'en')
   const getInitialLanguage = () => {
@@ -25,9 +39,45 @@ export function App() {
 
   const [activeLang, setActiveLang] = useState(getInitialLanguage());
 
+  // Full Hash Routing Listener (supports #about, #docs, #landing, #architecture, etc.)
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace('#', '').toLowerCase();
+      if (hash === 'about') {
+        setCurrentPage('about');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (hash === 'docs') {
+        setCurrentPage('docs');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (hash === 'landing' || hash === 'home' || hash === '') {
+        setCurrentPage('landing');
+      } else {
+        // Landing anchor section (#breakthroughs, #architecture, #orchestration, #cli)
+        setCurrentPage('landing');
+        setTimeout(() => {
+          const el = document.getElementById(hash);
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 100);
+      }
+    };
+
+    // Initialize on mount
+    handleHashChange();
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
   // Handle routing navigation and scroll to top
   const handleNavigate = (page) => {
     setCurrentPage(page);
+    if (page === 'landing') {
+      window.history.pushState(null, '', window.location.pathname);
+    } else {
+      window.location.hash = page;
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -44,7 +94,7 @@ export function App() {
           onChangeLang={setActiveLang} 
         />
 
-        {currentPage === 'landing' ? (
+        {currentPage === 'landing' && (
           <>
             {/* Hero 2-Column Grid Row */}
             <Hero onNavigate={handleNavigate} activeLang={activeLang} />
@@ -76,8 +126,14 @@ export function App() {
             {/* Section 8: CTA Banner */}
             <CtaBanner onNavigate={handleNavigate} activeLang={activeLang} />
           </>
-        ) : (
+        )}
+
+        {currentPage === 'docs' && (
           <Docs activeLang={activeLang} />
+        )}
+
+        {currentPage === 'about' && (
+          <About activeLang={activeLang} />
         )}
 
         {/* Footer */}

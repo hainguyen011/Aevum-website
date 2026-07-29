@@ -2,15 +2,109 @@
 <html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/png" href="/favicon.png?v=1.0" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aevum OS — Standalone MCP Server & Context Engine</title>
-    <meta name="description" content="Aevum OS provides standalone Model Context Protocol server capabilities and desktop control center." />
-    <!-- Google Fonts: Inter (Neo-Grotesque Display), Plus Jakarta Sans, JetBrains Mono -->
+    <title>Aevum OS — Standalone MCP Server & Workspace External Brain</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Aevum OS is an independent workspace Operating System and External Brain — housing domain-driven planning, self-healing memory graphs, and autonomous multi-agent squad orchestration completely decoupled from traditional editors." />
+    <meta name="keywords" content="Aevum OS, Model Context Protocol, MCP server, standalone MCP daemon, external brain, AI agent workspace, developer productivity, living memory graph, context compression, PiperNet, I2FLabs" />
+    <meta name="author" content="I2FLabs" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph / Facebook Meta Tags -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Aevum OS — Standalone MCP Server & Workspace External Brain" />
+    <meta property="og:description" content="An independent workspace Operating System and External Brain housing domain-driven planning, memory graphs, and autonomous multi-agent squad orchestration." />
+    <meta property="og:image" content="https://www.aevum.ai.vn/assets/logos/Aevum-ascii.png" />
+    <meta property="og:url" content="https://www.aevum.ai.vn/" />
+    <meta property="og:site_name" content="Aevum OS" />
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Aevum OS — Standalone MCP Server & Workspace External Brain" />
+    <meta name="twitter:description" content="An independent workspace Operating System and External Brain housing domain-driven planning, memory graphs, and autonomous multi-agent squad orchestration." />
+    <meta name="twitter:image" content="https://www.aevum.ai.vn/assets/logos/Aevum-ascii.png" />
+
+    <!-- Structured Data (JSON-LD) for SoftwareApplication - AI Search & GEO Optimization -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Aevum OS",
+      "operatingSystem": "Windows, macOS, Linux",
+      "applicationCategory": "DeveloperApplication",
+      "description": "Standalone Model Context Protocol (MCP) Server & Workspace External Brain. Aevum OS manages domain-driven plans, living memories, and coordinates autonomous multi-agent squads.",
+      "softwareVersion": "2.1.0",
+      "license": "https://opensource.org/licenses/ISC",
+      "author": {
+        "@type": "Organization",
+        "name": "I2FLabs",
+        "url": "https://i2flabs.vn"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0.00",
+        "priceCurrency": "USD"
+      },
+      "downloadUrl": "https://www.aevum.ai.vn/downloads/aevum-os-desktop.zip",
+      "featureList": [
+        "Model Context Protocol (MCP) compatibility",
+        "Decoupled external workspace brain",
+        "Domain-Driven Design plan tracking",
+        "Multi-agent autonomous squad orchestration (Squad Mode)",
+        "Decentralized knowledge network (PiperNet)"
+      ]
+    }
+    </script>
+
+    <!-- Structured Data (JSON-LD) for FAQPage - Optimized for Generative AI Search Answers -->
+    <script type="application/ld+json">
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Aevum OS là gì?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Aevum OS là một Hệ điều hành Agent độc lập và Bộ não ngoại vi dành cho không gian làm việc phát triển AI. Nó quản lý bộ nhớ sống dài hạn, các bản kế hoạch hướng tên miền (DDD), và sự điều phối biệt đội đa agent tự trị mà không phụ thuộc vào trình soạn thảo."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Làm thế nào để kết nối Aevum OS với Cursor hoặc Claude Desktop?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Bạn chỉ cần cài đặt và khởi chạy daemon Aevum OS thông qua dòng lệnh 'aevum --transport sse --port 3344', sau đó khai báo máy chủ MCP trong cấu hình của Cursor hoặc Claude Desktop trỏ về cổng kết nối tương ứng."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Nghi thức Bắt tay (Handshake Ritual) của Aevum OS là gì?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Đây là quy trình bắt tay bảo mật giữa Aevum OS Daemon và các Agent khách. Khi chạy, daemon phát ra một token tạm thời trong file .aevum/signal.json và Agent khách phải xác thực token này qua công cụ aevum_submit_ack để khởi động phiên làm việc."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Mạng lưới PiperNet (Internet of Agents) hoạt động ra sao?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "PiperNet là giao thức kết nối phi tập trung cho phép các Agent chia sẻ tri thức trừu tượng (như mẫu thiết kế và bài học sửa lỗi đã được mã hóa) giữa các không gian làm việc mà không làm rò rỉ mã nguồn dự án thô."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- Google Fonts: JetBrains Mono & Fira Code for Authentic Developer Terminal Experience -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Tailwind CSS CDN -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS Engine CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -30,7 +124,7 @@
             fontFamily: {
               sans: ['Inter', '"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
               display: ['Inter', 'sans-serif'],
-              mono: ['"JetBrains Mono"', 'monospace'],
+              mono: ['"JetBrains Mono"', '"Fira Code"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
             },
             letterSpacing: {
               tighter: '-0.04em',
@@ -44,5 +138,26 @@
   <body class="bg-[#0B0B11] text-slate-100 antialiased selection:bg-cyan-500 selection:text-black">
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    
+    <!-- Lenis Smooth Scroll (Inertial Smooth Scrolling) -->
+    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.36/dist/lenis.min.js"></script>
+    <script>
+      const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        smoothWheel: true,
+        wheelMultiplier: 1,
+        smoothTouch: false
+      });
+
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+
+      requestAnimationFrame(raf);
+    </script>
   </body>
 </html>

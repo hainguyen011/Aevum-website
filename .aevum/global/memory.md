@@ -148,3 +148,9 @@ Thay thế các liên kết mạng xã hội không hoạt động || không c..
 [MAP α:implement_aevum_docs_page_plan,β:Applications]
 [LEARNING FROM α]
 Tạo vercel.json với RULE rewrites SPA cần thiết goal: tránh KO 404 Vercel khi USER tải lại trang (reload) trực tiếp ở các sub-routes Single Page β (SPA).
+
+
+### [LEARN] - 7/29/2026, 3:12:24 PM
+[MAP α:implement_aevum_docs_page_plan,β:trailingSlash]
+[LEARNING FROM α]
+Bổ sinh cấu hình β: false & Cache-Control headers cho assets... [PRUNED]

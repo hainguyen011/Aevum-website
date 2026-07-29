@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastTransactionId": "tx_edge_1785311147605_tjxoz",
+  "lastTransactionId": "tx_edge_1785312744645_4vd7g",
   "nodes": [
     {
       "id": "aevum://lesson/1785306992067_eyo",
@@ -262,6 +262,17 @@
         "date": "2026-07-29T07:45:47.561Z",
         "status": "ACTIVE"
       }
+    },
+    {
+      "id": "aevum://lesson/1785312744596_1z5",
+      "type": "LESSON",
+      "label": "Lesson from implement_aevum_docs_page_plan",
+      "properties": {
+        "description": "Bổ sinh cấu hình trailingSlash: false và Cache-Control headers cho assets trong vercel.json giúp cải thiện SEO và tối ưu hóa tối đa hiệu suất tải trang của ứng dụng trên Vercel Edge Network.",
+        "author": "An",
+        "date": "2026-07-29T08:12:24.597Z",
+        "status": "ACTIVE"
+      }
     }
   ],
   "edges": [
@@ -378,6 +389,11 @@
     {
       "source": "aevum://plan/implement_aevum_docs_page_plan",
       "target": "aevum://lesson/1785311147560_8jq",
+      "type": "hasLesson"
+    },
+    {
+      "source": "aevum://plan/implement_aevum_docs_page_plan",
+      "target": "aevum://lesson/1785312744596_1z5",
       "type": "hasLesson"
     }
   ]

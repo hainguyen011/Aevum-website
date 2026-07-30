@@ -13,7 +13,7 @@ export const Hero = ({ onNavigate, onOpenTrialModal, activeLang }) => {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  // Programmatically split title around '&' to preserve the Vercel styling highlight
+  // Programmatically split title around '&' to preserve styling
   const titleParts = t.hero.title.split('&');
   const title1 = titleParts[0]?.trim();
   const title2 = titleParts[1] ? `& ${titleParts[1].trim()}` : '';
@@ -22,7 +22,10 @@ export const Hero = ({ onNavigate, onOpenTrialModal, activeLang }) => {
     <div className="grid grid-cols-1 lg:grid-cols-12 border-subtle-b">
       
       {/* Left Cell: Text Content */}
-      <div className="lg:col-span-7 p-8 sm:p-12 lg:p-14 border-subtle-b lg:border-b-0 lg:border-subtle-r flex flex-col justify-between space-y-8 bg-[#0B0B11]">
+      <div 
+        data-reveal
+        className="lg:col-span-7 p-8 sm:p-12 lg:p-14 border-subtle-b lg:border-b-0 lg:border-subtle-r flex flex-col justify-between space-y-8 bg-[#0B0B11]"
+      >
         <div className="space-y-6">
           
           {/* Sub-brand / Tagline */}
@@ -30,11 +33,11 @@ export const Hero = ({ onNavigate, onOpenTrialModal, activeLang }) => {
             {t.hero.badge}
           </div>
           
-          {/* Main Title - High-Impact Solid Cyan Background Highlight */}
+          {/* Main Title - Refined Elegant Cyan Text */}
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-[-0.04em] leading-[1.15] font-display">
             {title1} <br />
             {title2 && (
-              <span className="bg-[#00f0ff] text-[#0B0B11] px-3 py-0.5 inline-block font-extrabold mt-1.5">
+              <span className="text-[#00f0ff] inline-block font-extrabold mt-1.5">
                 {title2}
               </span>
             )}
@@ -79,8 +82,11 @@ export const Hero = ({ onNavigate, onOpenTrialModal, activeLang }) => {
 
       </div>
 
-      {/* Right Cell: Raw Aevum ASCII Graphic */}
-      <div className="lg:col-span-5 p-6 sm:p-8 flex items-center justify-center relative min-h-[460px] bg-[#0B0B11]">
+      {/* Right Cell: Raw Aevum ASCII Graphic with Scale Reveal */}
+      <div 
+        data-reveal="scale"
+        className="lg:col-span-5 p-6 sm:p-8 flex items-center justify-center relative min-h-[460px] bg-[#0B0B11]"
+      >
         <img 
           src={asciiAsset} 
           alt="Aevum ASCII Graphic" 

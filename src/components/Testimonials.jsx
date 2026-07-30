@@ -58,7 +58,7 @@ export const Testimonials = ({ activeLang }) => {
     <div className="border-subtle-b bg-[#0B0B11]">
       
       {/* Header & Metrics Section */}
-      <div className="p-8 sm:p-12 border-subtle-b">
+      <div data-reveal className="p-8 sm:p-12 border-subtle-b border-scan">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
           <div className="lg:col-span-6 space-y-2">
             <div className="text-[11px] font-mono text-cyan-400 font-semibold tracking-widest uppercase">
@@ -72,23 +72,23 @@ export const Testimonials = ({ activeLang }) => {
             </p>
           </div>
 
-          {/* Metric Stats */}
+          {/* Metric Stats with Stagger Delay */}
           <div className="lg:col-span-6 flex flex-wrap items-center justify-start lg:justify-end gap-8 sm:gap-10">
-            <div className="space-y-1">
+            <div data-reveal data-reveal-delay="100" className="space-y-1">
               <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono">
                 5k+
               </div>
               <p className="text-xs text-slate-400 font-medium">{t.testimonials.installs}</p>
             </div>
 
-            <div className="space-y-1">
+            <div data-reveal data-reveal-delay="200" className="space-y-1">
               <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono">
                 99.9%
               </div>
               <p className="text-xs text-slate-400 font-medium">{t.testimonials.score}</p>
             </div>
 
-            <div className="space-y-1">
+            <div data-reveal data-reveal-delay="300" className="space-y-1">
               <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono">
                 0.0s
               </div>
@@ -98,11 +98,13 @@ export const Testimonials = ({ activeLang }) => {
         </div>
       </div>
 
-      {/* 4 Monolithic Grid Cells (Edge-to-edge horizontal divider lines) */}
+      {/* 4 Monolithic Grid Cells with Staggered Reveal */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         {reviews.map((rev, idx) => (
           <div 
             key={idx} 
+            data-reveal
+            data-reveal-delay={(idx + 1) * 100}
             className="border-subtle-r last:border-r-0 flex flex-col justify-between hover:bg-[#0e0f17] transition-colors group"
           >
             {/* Top Review Content Area */}

@@ -190,7 +190,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
     <div className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-md flex items-center justify-center p-0 sm:px-6 font-mono">
 
       {/* Relative Wrapper to anchor Outside Attached Close Button */}
-      <div className="relative w-full max-w-2xl h-screen flex flex-col">
+      <div className="relative w-full max-w-2xl h-screen sm:h-[620px] max-h-[100vh] sm:max-h-[90vh] flex flex-col">
 
         {/* Flush Square Close Button Attached Below Stepper Bar on the Right */}
         <button
@@ -201,7 +201,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
           <X className="w-5 h-5" />
         </button>
 
-        {/* Outer Modal Container - Full Height Screen / Centered Box, Sharp Corners, Flat Design */}
+        {/* Outer Modal Container - Centered Box, Sharp Corners, Flat Design */}
         <div
           className="w-full h-full bg-[#0B0B11] border-x border-white/10 rounded-none flex flex-col justify-between overflow-hidden relative text-slate-100"
           onClick={(e) => e.stopPropagation()}
@@ -251,8 +251,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
 
           {isSubmitted ? (
             /* Success Confirmation Screen with An's Sticker */
-            <div className="p-6 sm:p-8 space-y-5 text-center py-4 font-mono relative z-10 flex-1 overflow-y-auto">
-
+            <div className="p-6 sm:p-8 space-y-5 text-center py-4 font-mono relative z-10 flex-1 overflow-y-auto flex flex-col justify-center">
               {/* An's Lover Sticker */}
               <div className="relative mx-auto w-32 h-32 sm:w-40 sm:h-40 flex items-center justify-center">
                 <img
@@ -295,8 +294,8 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
                 autoComplete="off"
               />
 
-              {/* Scrollable Form Body Content with Padding */}
-              <div className="p-6 sm:p-8 pb-4 space-y-5 text-left flex-1 overflow-y-auto">
+              {/* Scrollable Form Body Content - Vertically Centered with flex flex-col justify-center */}
+              <div className="p-6 sm:p-8 pb-4 space-y-5 text-left flex-1 overflow-y-auto flex flex-col justify-center">
 
                 {/* STEP 1: Basic Information */}
                 {currentStep === 1 && (

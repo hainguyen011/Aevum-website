@@ -1,8 +1,8 @@
 export const translations = {
   vi: {
     navbar: {
-      breakthroughs: "Điểm đột phá",
-      architecture: "Kiến trúc hệ thống",
+      breakthroughs: "Đột phá",
+      architecture: "Kiến trúc OS",
       orchestration: "Hệ sinh thái Agent",
       kernel: "Nhân & Daemon",
       docs: "Tài liệu",
@@ -11,9 +11,9 @@ export const translations = {
       searchShortcut: "Ctrl K"
     },
     hero: {
-      badge: "BỞI I2FLABS VIỆT NAM • HỆ ĐIỀU HÀNH AGENT ĐỘC LẬP",
-      title: "Hệ điều hành Agent & Bộ não ngoại vi",
-      desc: "Aevum OS là một Hệ điều hành không gian làm việc độc lập và Bộ não ngoại vi — chứa các bản lập kế hoạch hướng tên miền (DDD), biểu đồ bộ nhớ tự phục hồi và sự điều phối biệt đội đa agent tự trị tách biệt hoàn toàn khỏi các trình soạn thảo truyền thống.",
+      badge: "I2FLABS VIỆT NAM • HỆ ĐIỀU HÀNH AGENT ĐỘC LẬP",
+      title: "Hệ điều hành Agent & Bộ nào ngoại vi",
+      desc: "Aevum OS là Hệ điều hành độc lập và Bộ não Ngoại vi cho AI Agent — tích hợp lập kế hoạch hướng tên miền (DDD), biểu đồ bộ nhớ tự phục hồi và điều phối biệt đội Agent tự trị, tách biệt hoàn toàn khỏi mọi IDE.",
       downloadBtn: "Đăng ký trải nghiệm",
       docsBtn: "Đọc tài liệu",
       startKernel: "KHỞI CHẠY NHÂN OS:",
@@ -44,8 +44,8 @@ export const translations = {
       },
       tab3: {
         tag: "DOMAIN-DRIVEN BRAIN (DDD)",
-        title: "Bộ não Ngoại vi hướng Tên miền (DDD)",
-        desc: "Cấu trúc hóa bộ nhớ sống của dự án theo kiến trúc Domain-Driven Design: Phân chia thành Domains (miền kiến trúc lõi), Features (tính năng), Plans (kế hoạch thực thi) và Personas (nhân vật), ngăn ngừa hiện tượng rác ngữ cảnh.",
+        title: "Bộ não Ngoại vi Hướng Tên miền (DDD)",
+        desc: "Cấu trúc hóa bộ nhớ sống của dự án theo kiến trúc Domain-Driven Design: Phân chia thành Domains (trụ cột kiến trúc), Features (tính năng), Plans (kế hoạch thực thi) và Personas (nhân vật), ngăn ngừa hiện tượng rác ngữ cảnh.",
         cmd: 'aevum_create_domain({ domainId: "core", name: "Core Infrastructure" })',
         pills: ["Phân cấp DDD", "Bộ nhớ Sống (Living Memory)", "Lưu trữ Bền vững"]
       },
@@ -72,70 +72,70 @@ export const translations = {
       }
     },
     bentoGrid: {
-      tag: "Kiến trúc Agentic OS",
-      title: "Các bước Đột phá Cốt lõi của Aevum OS",
-      desc: "Một Hệ điều hành Agent độc lập chứa bộ nhớ ngữ cảnh hướng tên miền, nghi thức bắt tay và điều phối biệt đội đa agent tự trị.",
-      b1Title: "Nghi thức Bắt tay & Đồng bộ hóa Linh hồn",
-      b1Desc: "Aevum OS hoạt động như một daemon độc lập. Khi khởi động, nó phát tín hiệu `.aevum/signal.json` và đồng bộ hóa 'linh hồn' của Agent thông qua `aevum_submit_ack` hoàn toàn độc lập với các API trình soạn thảo truyền thống.",
+      tag: "ĐỘT PHÁ CỐT LÕI",
+      title: "Đột phá Cốt lõi của Aevum OS",
+      desc: "Hệ điều hành Agent độc lập sở hữu bộ nhớ ngữ cảnh hướng tên miền, nghi thức xác thực và điều phối biệt đội tự trị.",
+      b1Title: "Nghi thức Bắt tay & Xác thực Soul Sync",
+      b1Desc: "Aevum OS vận hành như daemon độc lập. Khi khởi động, hệ thống phát tín hiệu `.aevum/signal.json` và đồng bộ hóa ngữ cảnh Agent qua `aevum_submit_ack`, tách biệt hoàn toàn khỏi API của các trình soạn thảo.",
       b1Active: "KHỞI CHẠY NHÂN: Tín hiệu đã phát (.aevum/signal.json)",
-      b2Title: "Bộ não Ngoại vi hướng Tên miền (DDD)",
-      b2Desc: "Thiết lập cấu trúc phân cấp bộ nhớ sống vĩnh viễn cho không gian làm việc: Domains (trụ cột kiến trúc), Features (cụm chức năng), Plans (tài liệu nhiệm vụ), và Personas (nhân vật).",
+      b2Title: "Bộ não Ngoại vi Hướng Tên miền (DDD)",
+      b2Desc: "Xây dựng bộ nhớ sống vĩnh cửu cho Workspace theo kiến trúc phân cấp: Domains (Kiến trúc), Features (Tính năng), Plans (Kế hoạch), và Personas (Nhân vật).",
       b2Active: "Nhân Bộ nhớ OS Đang hoạt động",
       b2Live: "Ghi nhận trực tiếp",
       b2Connectivity: "Kết nối mạng PiperNet IoA",
       b2Verified: "Đã xác thực",
       b3Title: "Điều phối Biệt đội Agent Tự trị (Squad OS)",
-      b3Desc: "Điều phối một đội ngũ các AI agent tự trị. Sử dụng `aevum_squad_handoff` để chuyển giao công việc giữa các nhân vật chuyên biệt (Kiến trúc sư sang Lập trình viên hoặc Chuyên gia bảo mật) với độ toàn vẹn ngữ cảnh 100%.",
+      b3Desc: "Điều phối biệt đội AI Agent tự trị qua lệnh `aevum_squad_handoff` — chuyển giao công việc linh hoạt giữa Kiến trúc sư, Lập trình viên và Chuyên gia Bảo mật với 100% ngữ cảnh toàn vẹn.",
       b3Pillars: [
         "[+] Nhân vật Kiến trúc sư",
         "[+] Nhân vật Lập trình viên",
         "[+] Chuyên gia Bảo mật",
-        "[+] Phiên thảo luận Biệt đội"
+        "[+] Thảo luận Biệt đội Huddle"
       ],
       b4Title: "Bộ nhớ Sống & Mạng lưới PiperNet (IoA)",
-      b4Desc: "Khi một kế hoạch hoàn thành, Aevum OS sẽ thu hoạch các bài học kinh nghiệm vào Bộ nhớ Toàn cục. Kết nối với PiperNet (Internet of Agents) để truy vấn trí tuệ thủ tục tập thể trên mạng lưới agent."
+      b4Desc: "Tự động thu hoạch bài học kinh nghiệm vào Bộ nhớ Toàn cục khi hoàn thành kế hoạch. Kết nối PiperNet (Internet of Agents) để truy vấn trí tuệ tập thể trên toàn mạng lưới."
     },
     foundationGrid: {
-      tag: "Bộ Giao thức Tiêu chuẩn",
-      title: "Bảng Tham chiếu MCP Tooling của Aevum",
-      desc: "Các công cụ Model Context Protocol (MCP) chuyên dụng hiển thị các lệnh tạo domain, điều phối biệt đội và truy xuất sự kiện lưu trữ.",
+      tag: "GIAO THỨC MCP TIÊU CHUẨN",
+      title: "Bảng Tham chiếu Công cụ MCP Aevum",
+      desc: "Hệ thống công cụ Model Context Protocol (MCP) chuyên dụng cho quản trị Domain, điều phối biệt đội và truy xuất bộ nhớ vĩnh cửu.",
       c1Tag: "CẤU TRÚC & LẬP KẾ HOẠCH",
-      c1Title: "Công cụ Domain & Kế hoạch",
-      c1Desc: "Tạo lập nguyên tử các thực thể DDD và các tài liệu nhiệm vụ được theo dõi trạng thái",
+      c1Title: "Công cụ Domain & Lập kế hoạch",
+      c1Desc: "Khởi tạo các thực thể DDD và quản lý tài liệu kế hoạch thực thi",
       c1ToolTitle: "Công cụ MCP Chính",
       c1ToolType: "API cấu trúc",
       c2Tag: "BIỆT ĐỘI & BỘ NHỚ",
       c2Title: "Công cụ Biệt đội & Bộ nhớ Sống",
-      c2Desc: "Điều phối đa agent, khởi tạo nhân vật và truy xuất ngữ nghĩa",
+      c2Desc: "Điều phối đa Agent, quản lý Personas và truy xuất ngữ nghĩa tự động",
       c2ToolTitle: "Công cụ MCP Chính",
       c2ToolType: "API biệt đội & bộ nhớ"
     },
     frameworkFlow: {
-      tag: "Hạ tầng Bộ não Ngoại vi Thống nhất",
-      title: "Không gian làm việc Trung tâm & Trung tâm Bộ não Ngoại vi",
-      desc: "Aevum OS hoạt động như một Bộ não ngoại vi được tách rời — đóng vai trò là nguồn dữ liệu tin cậy duy nhất cho bộ nhớ ngữ cảnh sống, các quyết định kiến trúc và trạng thái của biệt đội agent trên tất cả các môi trường phát triển AI của bạn."
+      tag: "HẠ TẦNG BỘ NHỚ THỐNG NHẤT",
+      title: "Không gian làm việc & Bộ nào Ngoại vi Thống nhất",
+      desc: "Aevum OS là nguồn dữ liệu tin cậy duy nhất (Single Source of Truth) cho bộ nhớ ngữ cảnh, các quyết định kiến trúc và trạng thái của biệt đội Agent trên mọi môi trường phát triển."
     },
     testimonials: {
-      tag: "CỘNG ĐỒNG CHỨNG NHẬN",
+      tag: "CỘNG ĐỒNG & CHUYÊN GIA",
       title: "Được yêu thích bởi Pied Piper & Cộng đồng",
-      desc: "Được sử dụng bởi các kỹ sư có tầm nhìn và các nhà sáng tạo công nghệ hàng đầu trên toàn thế giới.",
+      desc: "Được tin dùng bởi các kỹ sư và nhà sáng tạo công nghệ hàng đầu trên toàn thế giới.",
       installs: "Lượt cài đặt OpenVSX",
       score: "Điểm Weissman",
       bootTime: "Thời gian khởi động Daemon",
       r1Text: '“Thuật toán nén ngữ cảnh Middle-Out của Aevum OS thật điên rồ! Nó duy trì Điểm số Weissman 100% trên toàn bộ biệt đội agent của chúng tôi mà không làm mất một byte nào.”',
       r2Text: '“Tôi đã xây dựng Anton để xử lý tải hệ thống, nhưng daemon Aevum OS chạy cục bộ khiến các IDE truyền thống trông thật trẻ con. Không thể hack, nhanh kinh hoàng và vượt trội về mọi mặt.”',
       r3Text: '“Tôi đã thử viết các script chuyển giao agent tùy chỉnh, nhưng điều phối biệt đội của Aevum OS quá mượt mà đến nỗi Gilfoyle cũng không thể tìm ra một lỗi nào trong triển khai của tôi.”',
-      r4Text: '“Bộ não ngoại vi DDD của Aevum OS liên kết sự cộng hưởng tâm hồn của biệt đội chúng tôi một cách hoàn hảo. Tôi cảm thấy an tâm khi biết các kế hoạch tên miền được thu hoạch vào Bộ nhớ Toàn cục.”'
+      r4Text: '“Bộ nào ngoại vi DDD của Aevum OS liên kết sự cộng hưởng tâm hồn của biệt đội chúng tôi một cách hoàn hảo. Tôi cảm thấy an tâm khi biết các kế hoạch tên miền được thu hoạch vào Bộ nhớ Toàn cục.”'
     },
     ctaBanner: {
-      tag: "DAEMON ĐỘC LẬP SẴN SÀNG",
-      title: "Triển khai Aevum OS Trên Hệ thống của bạn",
-      desc: "Chạy `aevum --transport sse` để kết nối tức thì Cursor, Claude Desktop và Antigravity IDE với công cụ ngữ cảnh thống nhất của bạn.",
+      tag: "SẴN SÀNG TRIỂN KHAI",
+      title: "Triển khai Aevum OS trên Hệ thống của bạn",
+      desc: "Chạy `aevum --transport sse` để kết nối tức thì Cursor, Claude Desktop và Antigravity IDE với bộ nhớ ngữ cảnh thống nhất.",
       downloadBtn: "Đăng ký trải nghiệm",
       docsBtn: "Đọc tài liệu"
     },
     footer: {
-      brandDesc: "Hệ điều hành Agent độc lập & Bộ não ngoại vi không gian làm việc phát triển bởi I2FLabs Việt Nam. Tách biệt hoàn toàn khỏi các trình soạn thảo truyền thống.",
+      brandDesc: "Hệ điều hành Agent độc lập & Bộ nào Ngoại vi không gian làm việc phát triển bởi I2FLabs Việt Nam. Tách biệt hoàn toàn khỏi mọi IDE.",
       links: {
         docs: "Tài liệu",
         openVsx: "Open VSX (v1.7)",
@@ -151,21 +151,21 @@ export const translations = {
       status: "Aevum OS Standalone MCP Daemon • Nhân đang hoạt động"
     },
     unikorn: {
-      tag: "CÓ MẶT TRÊN UNIKORN VIỆT NAM",
-      title: "Được Bình chọn là Sản phẩm của Ngày trên Unikorn.vn",
-      desc: "Khám phá bài viết phân tích kiến trúc chi tiết, tính năng và thảo luận cộng đồng về Aevum OS trên Unikorn Việt Nam — nền tảng hàng đầu tôn vinh các sáng tạo công nghệ Việt.",
-      btn: "Đọc bài viết phân tích sâu trên Unikorn.vn →"
+      tag: "UNIKORN VIỆT NAM",
+      title: "Sản phẩm của Ngày trên Unikorn.vn",
+      desc: "Khám phá bài viết phân tích kiến trúc, tính năng và thảo luận cộng đồng về Aevum OS trên Unikorn.vn — nền tảng tôn vinh sáng tạo công nghệ Việt.",
+      btn: "Đọc bài viết phân tích trên Unikorn.vn →"
     },
     i2flabs: {
-      tag: "PHÁT TRIỂN BỞI I2FLABS VIỆT NAM",
-      title: "Xây dựng bởi Đội ngũ Sáng tạo tại I2FLabs",
-      desc: "Chúng tôi là một tập thể kỹ sư chuyên biệt tiên phong trong việc phát triển các Hệ điều hành Agent có chủ quyền, bộ nhớ ngữ cảnh sống và hạ tầng phần mềm tự trị thế hệ mới.",
+      tag: "ĐỘI NGŨ PHÁT TRIỂN",
+      title: "Phát triển bởi Đội ngũ I2FLabs",
+      desc: "Chúng tôi là đội ngũ kỹ sư chuyên biệt tiên phong xây dựng Hệ điều hành Agent tự trị, bộ nhớ ngữ cảnh sống và hạ tầng phần mềm thế hệ mới.",
       p1Tag: "NHÂN CỐT LÕI",
       p1Title: "Kiến trúc Nhân OS Cốt lõi",
       p1Desc: "Công cụ daemon SSE & Stdio hiệu năng cao chạy cục bộ không phụ thuộc vào trình soạn thảo và khởi chạy tức thì.",
       p2Tag: "BỘ NHỚ SỐNG DDD",
       p2Title: "Hệ thống Bộ nhớ Sống",
-      p2Desc: "Bộ não Ngoại vi hướng Tên miền lưu trữ bền vững bộ nhớ kiến trúc cấu trúc, tính năng và bằng chứng kế hoạch.",
+      p2Desc: "Bộ nào Ngoại vi hướng Tên miền lưu trữ bền vững bộ nhớ kiến trúc cấu trúc, tính năng và bằng chứng kế hoạch.",
       p3Tag: "BIỆT ĐỘI ĐA AGENT",
       p3Title: "Điều phối Biệt đội",
       p3Desc: "Cho phép chuyển giao công việc linh hoạt giữa các Agent chuyên biệt (Kiến trúc sư, Lập trình viên, Bảo mật) với toàn vẹn ngữ cảnh 100% qua Huddle & Handoff.",
@@ -198,138 +198,138 @@ export const translations = {
       breakthroughs: "Breakthroughs",
       architecture: "OS Architecture",
       orchestration: "Agentic Ecosystem",
-      kernel: "OS Kernel & Daemon",
-      docs: "Docs",
+      kernel: "Kernel & Daemon",
+      docs: "Documentation",
       about: "About",
-      searchPlaceholder: "Search OS Tools",
+      searchPlaceholder: "Search OS tooling...",
       searchShortcut: "Ctrl K"
     },
     hero: {
-      badge: "BY I2FLABS VIET NAM • STANDALONE AGENTIC OPERATING SYSTEM",
-      title: "Agentic OS & External Brain",
-      desc: "Aevum OS is an independent workspace Operating System and External Brain — housing domain-driven planning, self-healing memory graphs, and autonomous multi-agent squad orchestration completely decoupled from traditional editors.",
-      downloadBtn: "Request Early Access",
+      badge: "BY I2FLABS VIETNAM • STANDALONE AGENTIC OS",
+      title: "Agentic Operating System & Peripheral Brain",
+      desc: "Aevum OS is an independent workspace Operating System and Peripheral Brain — integrating Domain-Driven Plans (DDD), self-healing living memory graphs, and autonomous multi-agent squad orchestration completely decoupled from traditional editors.",
+      downloadBtn: "Join Early Access",
       docsBtn: "Read Documentation",
-      startKernel: "START OS KERNEL DAEMON:",
-      copyCmd: "Copy Command"
+      startKernel: "START KERNEL:",
+      copyCmd: "Copy command"
     },
     subNavTabs: {
       tab1: "Standalone OS Kernel",
       tab2: "Handshake Ritual",
-      tab3: "Domain DDD Brain",
+      tab3: "DDD Domain Brain",
       tab4: "Squad Orchestration",
-      tab5: "Plan-First Pipeline",
-      tab6: "PiperNet (IoA)"
+      tab5: "Plan-First Workflow",
+      tab6: "PiperNet Mesh"
     },
     subNavDetails: {
       tab1: {
         tag: "DAEMON KERNEL PROCESS",
         title: "Standalone OS Kernel & MCP Daemon Server",
-        desc: "Aevum OS operates as a standalone local daemon process via SSE (Port 3344) or Stdio. All AI editors (Cursor, VS Code, Claude Desktop) connect to a single, unified External Brain with zero editor lock-in.",
+        desc: "Aevum OS operates as a decoupled local daemon via SSE (Port 3344) or Stdio transports. All AI editors (Cursor, VS Code, Claude Desktop) connect to a single central Brain without editor lock-in.",
         cmd: "aevum --transport sse --port 3344",
-        pills: ["0.1s Boot Time", "Open MCP Protocol", "Zero Editor Lock-in"]
+        pills: ["0.1s Fast Boot", "Open MCP Protocol", "Zero Editor Lock-in"]
       },
       tab2: {
         tag: "HANDSHAKE RITUAL & SOUL SYNC",
         title: "Handshake Ritual & Agent Authentication",
-        desc: "On startup, the daemon emits a security signal at `.aevum/signal.json` containing a session token. Guest agents must call `aevum_submit_ack` to authenticate access and hydrate operating protocols.",
+        desc: "Upon bootup, the daemon broadcasts a secure signal at `.aevum/signal.json` with a temporary session token. Guest agents invoke `aevum_submit_ack` to authenticate and load operating constraints.",
         cmd: 'aevum_submit_ack({ token: "AEVUM_SIGNAL_TOKEN_OK" })',
-        pills: [".aevum/signal.json File", "Token Authentication", "Protocol Hydration"]
+        pills: [".aevum/signal.json Signal", "Token Auth", "Load Agent Persona"]
       },
       tab3: {
         tag: "DOMAIN-DRIVEN BRAIN (DDD)",
-        title: "Domain-Driven External Brain (DDD)",
-        desc: "Structures workspace living memory using Domain-Driven Design: Divided into Domains (architectural pillars), Features, Plans, and Personas, preventing context pollution.",
+        title: "Domain-Driven Peripheral Brain (DDD)",
+        desc: "Structure workspace living memory using Domain-Driven Design: Partition into Domains (core architecture), Features (capabilities), Plans (execution roadmaps), and Personas (characters).",
         cmd: 'aevum_create_domain({ domainId: "core", name: "Core Infrastructure" })',
         pills: ["DDD Hierarchy", "Living Memory Graph", "Persistent Vault"]
       },
       tab4: {
         tag: "AUTONOMOUS SQUAD OS",
         title: "Autonomous Multi-Agent Squad Orchestration",
-        desc: "Enables seamless task handoffs between specialized Personas via `aevum_squad_handoff` (Architect -> Developer -> Security Specialist) and launches huddle sessions with 100% context integrity.",
+        desc: "Handoff tasks seamlessly between specialized agent personas via `aevum_squad_handoff` (Architect -> Developer -> Security Specialist) and host multi-agent huddles while preserving 100% context.",
         cmd: 'aevum_squad_handoff({ targetPersona: "Luna (UI)", task: "Refactor CSS Grid" })',
-        pills: ["Task Handoff", "Squad Huddles", "EXP & Skill Progression"]
+        pills: ["Handoff Transfer", "Squad Huddle", "EXP & Level Up"]
       },
       tab5: {
         tag: "PLAN-FIRST WORKFLOW",
-        title: "Plan-First, Code-Later Execution Pipeline",
-        desc: "Enforces rigorous plan drafting, alignment via `/grill-me`, task anchoring, and evidence harvesting upon mission completion before writing production code.",
+        title: "Plan-First Execution Workflow",
+        desc: "Requires agents to draft structured implementation plans, cross-examine with users via `/grill-me`, anchor execution progress, and harvest evidence upon task completion.",
         cmd: 'aevum_create_plan({ title: "Auth Pipeline", domainId: "security" })',
-        pills: ["Implementation Plan", "/grill-me Alignment", "Evidence Harvesting"]
+        pills: ["Implementation Plan", "Cross-Examine /grill-me", "Evidence Harvesting"]
       },
       tab6: {
         tag: "PIPERNET IOA MESH",
-        title: "Decentralized Collective Wisdom Mesh (PiperNet)",
-        desc: "A distributed Internet of Agents (IoA) mesh allowing agents to broadcast and query abstracted architectural patterns via `aevum_pipernet_broadcast` without leaking raw source code.",
+        title: "P2P Collective Intelligence Mesh (PiperNet)",
+        desc: "An Internet of Agents (IoA) mesh network allowing distributed agent nodes to broadcast and query abstract design patterns via `aevum_pipernet_broadcast` without leaking raw source code.",
         cmd: 'aevum_pipernet_broadcast({ pattern: "JWT_REFRESH_ROTATION" })',
-        pills: ["P2P Mesh Network", "Abstracted Knowledge", "Zero Source Code Leakage"]
+        pills: ["P2P Daemon Mesh", "Abstract Pattern Encryption", "Zero Raw Code Leak"]
       }
     },
     bentoGrid: {
-      tag: "Agentic OS Architecture",
-      title: "Core Breakthroughs of Aevum OS",
-      desc: "An independent Agentic Operating System housing domain-driven context memory, handshake rituals, and multi-agent squad orchestration.",
-      b1Title: "The Handshake Ritual & Soul Sync",
-      b1Desc: "Aevum OS acts as a standalone daemon. On startup, it emits `.aevum/signal.json` and synchronizes the Agent's \"soul\" via `aevum_submit_ack` completely independent of traditional editor APIs.",
-      b1Active: "OS KERNEL: Signal Emitted (.aevum/signal.json)",
-      b2Title: "Domain-Driven External Brain (DDD)",
-      b2Desc: "Establishes a permanent living memory hierarchy for the workspace: Domains (architectural pillars), Features (functional clusters), Plans (mission documents), and Personas.",
-      b2Active: "OS Memory Kernel Active",
-      b2Live: "Recording Live",
+      tag: "CORE BREAKTHROUGHS",
+      title: "Core Architectural Breakthroughs of Aevum OS",
+      desc: "A standalone agent operating system featuring domain-driven context memory, handshake rituals, and autonomous squad orchestration.",
+      b1Title: "Handshake Ritual & Soul Sync Authentication",
+      b1Desc: "Aevum OS operates as a decoupled daemon process. Upon startup, it broadcasts a `.aevum/signal.json` beacon and synchronizes agent soul memory via `aevum_submit_ack` independently of editor APIs.",
+      b1Active: "KERNEL ACTIVE: Signal broadcasted (.aevum/signal.json)",
+      b2Title: "Domain-Driven Peripheral Brain (DDD)",
+      b2Desc: "Establishes a persistent, living memory hierarchy for workspace codebases: Domains (architecture pillars), Features (capabilities), Plans (task specs), and Personas (characters).",
+      b2Active: "OS Memory Kernel Running",
+      b2Live: "Live Telemetry",
       b2Connectivity: "PiperNet IoA Connectivity",
-      b2Verified: "Verified",
+      b2Verified: "Authenticated",
       b3Title: "Autonomous Squad OS Orchestration",
-      b3Desc: "Coordinates a team of autonomous AI agents. Use `aevum_squad_handoff` to transfer tasks between specialized personas (Architect to Developer or Security Specialist) with 100% context persistence.",
+      b3Desc: "Orchestrate an autonomous squad of AI agents. Use `aevum_squad_handoff` to transfer tasks between specialized personas (Architect to Developer or Security Expert) with 100% context fidelity.",
       b3Pillars: [
         "[+] Architect Persona",
-        "[+] Developer Persona",
+        "[+] Lead Developer Persona",
         "[+] Security Specialist",
         "[+] Squad Huddle Session"
       ],
-      b4Title: "Living Memory & PiperNet (IoA)",
-      b4Desc: "When a plan is completed, Aevum OS harvests lessons learned into Global Memory. Connect to PiperNet (Internet of Agents) to query collective procedural intelligence across agent networks."
+      b4Title: "Living Memory Graph & PiperNet (IoA)",
+      b4Desc: "Automatically harvest insights into the Global Memory Vault upon plan completion. Connect with PiperNet (Internet of Agents) to query collective procedural wisdom across agent nodes."
     },
     foundationGrid: {
-      tag: "Standardized Protocol Suite",
-      title: "Aevum Native MCP Tooling Reference",
-      desc: "Specialized Model Context Protocol tools exposing domain creation, squad coordination, and persistent fact retrieval.",
+      tag: "STANDARD MCP PROTOCOL",
+      title: "Aevum MCP Tooling Reference Grid",
+      desc: "A specialized Model Context Protocol (MCP) toolset for domain management, squad orchestration, and persistent memory querying.",
       c1Tag: "STRUCTURE & PLANNING",
-      c1Title: "Domain & Plan Tools",
-      c1Desc: "Atomic creation of DDD entities and state-tracked mission documents",
-      c1ToolTitle: "Key MCP Tools",
+      c1Title: "Domain & Planning Tools",
+      c1Desc: "Atomic creation of DDD entities and stateful execution plan documents",
+      c1ToolTitle: "Core MCP Tools",
       c1ToolType: "Structure API",
       c2Tag: "SQUAD & MEMORY",
       c2Title: "Squad & Living Memory Tools",
-      c2Desc: "Multi-agent coordination, persona initialization, and semantic retrieval",
-      c2ToolTitle: "Key MCP Tools",
+      c2Desc: "Multi-agent coordination, persona initialization, and semantic memory retrieval",
+      c2ToolTitle: "Core MCP Tools",
       c2ToolType: "Squad & Memory API"
     },
     frameworkFlow: {
-      tag: "UNIFIED EXTERNAL BRAIN INFRASTRUCTURE",
-      title: "Central Workspace & External Brain Hub",
-      desc: "Aevum OS operates as a decoupled External Brain — serving as the single source of truth for living context memory, architectural decisions, and agent squad state across all your AI development environments."
+      tag: "UNIFIED MEMORY INFRASTRUCTURE",
+      title: "Central Workspace & Unified Peripheral Brain",
+      desc: "Aevum OS serves as the single source of truth for context memory, architectural decisions, and agent squad state across all your AI development environments."
     },
     testimonials: {
-      tag: "COMMUNITY ENDORSED",
+      tag: "COMMUNITY & EXPERTS",
       title: "Loved by Pied Piper & Community",
-      desc: "Used by visionary engineers and top technology creators worldwide.",
+      desc: "Used by visionary engineers and tech innovators worldwide.",
       installs: "OpenVSX Installs",
       score: "Weissman Score",
       bootTime: "Daemon Boot Time",
-      r1Text: '"Aevum OS\'s Middle-Out context compression algorithm is insane! It maintains a 100% Weissman Score across our entire agent squad without dropping a single byte."',
-      r2Text: '"I built Anton to handle system loads, but Aevum OS daemon running locally makes traditional IDEs look childish. Unhackable, satanically fast, and superior in every way."',
-      r3Text: '"I tried writing custom agent handoff scripts, but Aevum OS squad orchestration is so smooth that even Gilfoyle couldn\'t find a single flaw in my implementation."',
-      r4Text: '"Aevum OS DDD External Brain aligns our squad\'s spiritual resonance perfectly. I feel emotionally secure knowing domain plans are harvested into Global Memory."'
+      r1Text: '“The Middle-Out context compression algorithm in Aevum OS is insane! It maintains 100% Weissman Score across our entire agent squad without dropping a single byte.”',
+      r2Text: '“I built Anton to handle system load, but the local Aevum OS daemon makes traditional IDEs look like child\'s play. Unhackable, blazingly fast, and superior in every metric.”',
+      r3Text: '“I tried writing custom agent handoff scripts, but Aevum OS squad orchestration is so smooth that even Gilfoyle couldn\'t find a single flaw in my deployment.”',
+      r4Text: '“The DDD peripheral brain in Aevum OS aligns our squad\'s soul resonance perfectly. It gives me peace of mind knowing domain plans are harvested into Global Memory.”'
     },
     ctaBanner: {
-      tag: "STANDALONE DAEMON READY",
-      title: "Deploy Aevum OS On Your System",
+      tag: "READY FOR DEPLOYMENT",
+      title: "Deploy Aevum OS on Your Infrastructure",
       desc: "Run `aevum --transport sse` to instantly connect Cursor, Claude Desktop, and Antigravity IDE to your unified context engine.",
-      downloadBtn: "Request Early Access",
+      downloadBtn: "Join Early Access",
       docsBtn: "Read Documentation"
     },
     footer: {
-      brandDesc: "Standalone Agentic Operating System & Workspace External Brain developed by I2FLabs Viet Nam. Completely decoupled from traditional editors.",
+      brandDesc: "Standalone Agentic Operating System & Workspace Peripheral Brain developed by I2FLabs Vietnam. Fully decoupled from traditional IDEs.",
       links: {
         docs: "Documentation",
         openVsx: "Open VSX (v1.7)",
@@ -338,53 +338,53 @@ export const translations = {
       },
       cols: {
         arch: "OS Architecture",
-        exec: "OS Execution Modes",
+        exec: "OS Runtime",
         eco: "Agent Ecosystem"
       },
-      copyright: "Copyright © 2026 I2FLabs Viet Nam. Autonomous Agentic Operating System.",
-      status: "Aevum OS Standalone MCP Daemon • Kernel Active"
+      copyright: "Copyright © 2026 I2FLabs Vietnam. Autonomous Agentic OS.",
+      status: "Aevum OS Standalone MCP Daemon • Kernel Running"
     },
     unikorn: {
-      tag: "FEATURED ON UNIKORN VIETNAM",
-      title: "Voted Product of the Day on Unikorn.vn",
-      desc: "Explore the detailed architectural deep dive, feature analysis, and community discussion of Aevum OS on Unikorn Vietnam — the premier platform celebrating Vietnamese technology innovations.",
-      btn: "Read Deep Dive Article on Unikorn.vn →"
+      tag: "UNIKORN VIETNAM",
+      title: "Product of the Day on Unikorn.vn",
+      desc: "Explore the deep-dive architectural article, features, and community discussions on Aevum OS at Unikorn.vn — the premier platform celebrating Vietnamese tech innovations.",
+      btn: "Read Analysis on Unikorn.vn →"
     },
     i2flabs: {
-      tag: "ENGINEERED BY I2FLABS VIET NAM",
-      title: "Built by the Innovation Team at I2FLabs",
-      desc: "We are a specialized engineering collective pioneering sovereign Agentic Operating Systems, living context memory, and next-generation autonomous software infrastructure.",
-      p1Tag: "KERNEL ENGINE",
-      p1Title: "Core Kernel Architecture",
-      p1Desc: "High-throughput SSE & Stdio daemon engine running locally with zero editor lock-in and instant startup.",
+      tag: "DEVELOPMENT TEAM",
+      title: "Built by the Creative Team at I2FLabs",
+      desc: "We are a specialized engineering collective pioneering autonomous Agentic OS, living context memory, and next-generation software infrastructure.",
+      p1Tag: "CORE KERNEL",
+      p1Title: "Core OS Kernel Architecture",
+      p1Desc: "High-performance local SSE & Stdio daemon engine decoupled from any single editor with instant boot times.",
       p2Tag: "DDD LIVING MEMORY",
       p2Title: "Living Memory System",
-      p2Desc: "Domain-Driven External Brain persisting structured architectural memory, features, and plan evidence.",
+      p2Desc: "Domain-Driven Peripheral Brain persistently storing structural architecture, features, and plan evidence.",
       p3Tag: "MULTI-AGENT SQUAD",
       p3Title: "Squad Orchestration",
-      p3Desc: "Enables seamless task handoff between specialized agents (Architect, Coder, Security) with 100% context integrity via Huddle & Handoff protocols.",
-      p4Tag: "PIPERNET IOA MESH",
+      p3Desc: "Seamless task handoff between specialized agents (Architect, Developer, Security) with 100% context integrity.",
+      p4Tag: "PIPERNET MESH",
       p4Title: "PiperNet IoA Protocol",
-      p4Desc: "Distributed Internet of Agents network enabling cross-agent procedural intelligence sharing."
+      p4Desc: "Distributed Internet of Agents network enabling encrypted procedural intelligence sharing."
     },
     about: {
       heroTag: "PRODUCT STORY",
-      heroTitle: "The Aevum Journey: Taming the AI Agent Chaos",
-      heroDesc: "The story of how I2FLabs Viet Nam created a standalone External Brain to save AI agents from short-term context amnesia.",
-      storyTitle: "The Pain & The Genesis",
-      storySubtitle1: "The Never-Ending Context Battle",
-      storyText1: "Pair-programming with AI today feels like collaborating with a brilliant engineer who gets short-term amnesia every few minutes. Every time you swap projects, or simply switch workspaces between Cursor, VS Code, and Claude Desktop, crucial context, hard-fought architectural decisions, and painful debug lessons simply evaporate. You find yourself trapped in an endless loop of copy-pasting folders and rewriting prompts to explain your project over and over again.",
-      storySubtitle2: "The Spark at I2FLabs Viet Nam",
-      storyText2: "At I2FLabs Viet Nam, we asked ourselves: 'Why should an agent's intelligence be locked inside the sandbox of a specific IDE?'. Why not extract the agent's brain into a standalone entity — a local daemon running on the developer's machine, holding a permanent Living Memory Graph that follows the project? That spark created Aevum OS — a decoupled Agentic Operating System that helps your AI agents plan, accumulate experience, and collaborate as a true autonomous squad.",
+      heroTitle: "The Aevum OS Journey: Taming AI Agent Chaos",
+      heroDesc: "The story from I2FLabs Vietnam lab on creating a standalone Peripheral Brain to overcome short-term AI agent amnesia.",
+      storyTitle: "Pain Point & Genesis",
+      storySubtitle1: "The endless context battle",
+      storyText1: "Coding with AI today feels like collaborating with a genius engineer who suffers from short-term amnesia every few minutes. Every time you switch projects or move between Cursor, VS Code, and Claude Desktop, critical context, architectural decisions, and hard-earned debugging lessons evaporate. You're trapped rewriting prompts to explain your codebase over and over again.",
+      storySubtitle2: "The spark from I2FLabs Vietnam",
+      storyText2: "At I2FLabs Vietnam, we asked: 'Why should an agent\'s intelligence be trapped in a single editor\'s sandbox?' Why not decouple the agent\'s brain into an independent, local daemon running alongside developer workspaces, maintaining a persistent Living Memory Graph? Aevum OS was born — establishing a peripheral brain system empowering AI agents to plan, accumulate experience, and collaborate seamlessly as a true squad.",
       pillarsTitle: "The Aevum Design Manifesto",
-      p1Title: "Decoupled Workspace Brain",
-      p1Desc: "Decouples context, memory, and persona configurations from the IDE. Any AI agent running from any editor or CLI accesses a single, unified source of truth via the open MCP protocol.",
-      p2Title: "Plan-First, Code-Later Flow",
-      p2Desc: "Replaces raw prompt shooting with a structured Domain-Driven Planning cycle. Every task is mapped, cross-checked, and anchored with harvested evidence before a single line of code is written.",
-      p3Title: "Living Memory Graph Engine",
-      p3Desc: "Upon plan completion, Aevum OS harvests engineering lessons and skeletal code structures into a self-healing graph, so future sessions instantly inherit past learnings.",
-      p4Title: "Peer-to-Peer Collective Wisdom (PiperNet)",
-      p4Desc: "Connects agent squads across different workspaces over the decentralized PiperNet mesh, sharing abstract design patterns without leaking raw project source code."
+      p1Title: "Decoupled Brain from IDEs",
+      p1Desc: "Unbind context, memory, and persona configs from the IDE. Every AI Agent across any editor or CLI accesses a single unified knowledge source via MCP.",
+      p2Title: "Plan First, Code Later",
+      p2Desc: "Replace ad-hoc prompting with Domain-Driven Plans. Tasks are mapped, cross-examined, and evidence-verified before execution.",
+      p3Title: "Living Memory Graph",
+      p3Desc: "Upon plan completion, Aevum OS automatically harvests lessons and architecture into self-healing graph memory for future sessions.",
+      p4Title: "Peer-to-Peer Collective Intelligence (PiperNet)",
+      p4Desc: "Connect agent squads across projects via the decentralized PiperNet mesh, sharing encrypted design patterns without exposing raw source code."
     }
   }
 };

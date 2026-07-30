@@ -16,6 +16,7 @@ import { ScrollToTop } from './components/ScrollToTop';
 import { Docs } from './components/Docs';
 import { About } from './components/About';
 import { TrialModal } from './components/TrialModal';
+import { useScrollReveal } from './hooks/useScrollReveal';
 import logoImg from '../assets/logos/AevumOS-transparent.png';
 
 export function App() {
@@ -51,7 +52,10 @@ export function App() {
     };
   }, []);
 
-  // Dynamically set favicon using compiled Vite asset to bypass manual filesystem operations
+  // Initialize Scroll Reveal Animations Hook
+  useScrollReveal([currentPage]);
+
+  // Dynamically set favicon using compiled Vite asset
   useEffect(() => {
     let link = document.querySelector("link[rel~='icon']");
     if (!link) {

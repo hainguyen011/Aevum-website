@@ -74,6 +74,7 @@ function doPost(e) {
       try {
         var subject = 'Chào mừng ' + name + ' gia nhập gia đình Aevum OS! 🚀';
         var logoUrl = 'https://raw.githubusercontent.com/hainguyen011/Aevum-website/main/assets/logos/AevumOS-transparent.png';
+        var anStickerUrl = 'https://raw.githubusercontent.com/hainguyen011/Aevum-website/main/assets/stickers/An_Collection/An_Lover.png';
         var htmlBody = `
           <div style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, Arial, sans-serif; max-width: 580px; margin: 0 auto; background-color: #0b0b11; color: #e2e8f0; padding: 36px 28px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); text-align: center;">
             <div style="margin-bottom: 24px;">
@@ -85,7 +86,11 @@ function doPost(e) {
             <div style="margin-top: 28px; margin-bottom: 28px;">
               <a href="https://aevum-website.vercel.app/docs" target="_blank" style="display: inline-block; padding: 13px 26px; background-color: #ffffff; color: #000000; text-decoration: none; font-weight: 700; font-size: 13px; border-radius: 6px;">Khám phá Tài liệu Hướng dẫn →</a>
             </div>
-            <div style="border-top: 1px solid rgba(255,255,255,0.08); margin-top: 32px; padding-top: 20px; color: #94a3b8; font-size: 13px;">
+            <div style="border-top: 1px solid rgba(255,255,255,0.08); margin-top: 32px; padding-top: 20px;"></div>
+            <div style="text-align: center; margin: 16px 0 12px 0;">
+              <img src="${anStickerUrl}" alt="Cute An Mascot Sticker" width="110" height="110" style="width: 110px; height: 110px; display: inline-block; border: 0;" />
+            </div>
+            <div style="color: #94a3b8; font-size: 13px;">
               Chúc Anh/Chị một ngày làm việc ngập tràn niềm vui và nhiều cảm hứng sáng tạo,<br>
               <strong style="color: #ffffff;">An & Đội ngũ I2FLabs Việt Nam</strong>
             </div>

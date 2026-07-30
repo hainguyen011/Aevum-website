@@ -1,11 +1,13 @@
 import { BaseEmailLayout } from './BaseLayout.js';
 
 /**
- * Early Access Welcome Email Template (Centered Layout & Respectful Salutation)
+ * Early Access Welcome Email Template (Centered Layout & Respectful Salutation with Cute An Sticker)
  * @param {Object} payload 
  * @returns {string} HTML string
  */
 export function WelcomeEmailTemplate({ name, salutation = 'Anh/Chị' }) {
+  const anStickerUrl = 'https://raw.githubusercontent.com/hainguyen011/Aevum-website/main/assets/stickers/An_Collection/An_Lover.png';
+
   const contentHtml = `
     <h1>Chào mừng bạn đến với Aevum OS</h1>
     
@@ -21,6 +23,17 @@ export function WelcomeEmailTemplate({ name, salutation = 'Anh/Chị' }) {
     <!-- Seamless Full-Width Edge-to-Edge Divider Line -->
     <div style="margin-left: -28px; margin-right: -28px; border-top: 1px solid rgba(255, 255, 255, 0.08); margin-top: 36px; margin-bottom: 24px;"></div>
     
+    <!-- Cute An Mascot Sticker -->
+    <div style="text-align: center; margin: 16px 0 12px 0;">
+      <img 
+        src="${anStickerUrl}" 
+        alt="Cute An Mascot Sticker" 
+        width="110" 
+        height="110" 
+        style="width: 110px; height: 110px; display: inline-block; border: 0; outline: none; text-decoration: none;" 
+      />
+    </div>
+
     <p style="color: #94A3B8; margin-bottom: 0; text-align: center;">
       Chúc ${salutation} một ngày làm việc ngập tràn niềm vui và nhiều cảm hứng sáng tạo,<br>
       <strong style="color: #ffffff;">An & Đội ngũ I2FLabs Việt Nam</strong>

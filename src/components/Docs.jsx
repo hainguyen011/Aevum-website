@@ -392,39 +392,43 @@ export const Docs = ({ activeLang = 'vi' }) => {
   const [activeHeadingId, setActiveHeadingId] = useState('');
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      const headingElements = headings.map((h) => document.getElementById(h.id)).filter(Boolean);
-      if (headingElements.length === 0) return;
+      if (ticking) return;
+      ticking = true;
 
-      // Check if the user has scrolled to the bottom of the page (within a 60px buffer)
-      const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 60;
+      requestAnimationFrame(() => {
+        ticking = false;
+        const headingElements = headings.map((h) => document.getElementById(h.id)).filter(Boolean);
+        if (headingElements.length === 0) return;
 
-      let currentActive = '';
-      
-      if (isAtBottom && headings.length > 0) {
-        currentActive = headings[headings.length - 1].id;
-      } else {
-        for (const el of headingElements) {
-          const rect = el.getBoundingClientRect();
-          // Check if the heading is above or near the screen threshold
-          if (rect.top <= 120) {
-            currentActive = el.id;
-          } else {
-            break;
+        const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 60;
+        let currentActive = '';
+
+        if (isAtBottom && headings.length > 0) {
+          currentActive = headings[headings.length - 1].id;
+        } else {
+          for (const el of headingElements) {
+            const rect = el.getBoundingClientRect();
+            if (rect.top <= 140) {
+              currentActive = el.id;
+            } else {
+              break;
+            }
           }
         }
-      }
-      
-      // Default to first heading if scrolled but none activated
-      if (!currentActive && headingElements.length > 0) {
-        currentActive = headingElements[0].id;
-      }
-      
-      setActiveHeadingId(currentActive);
+
+        if (!currentActive && headingElements.length > 0) {
+          currentActive = headingElements[0].id;
+        }
+
+        setActiveHeadingId((prev) => (prev !== currentActive ? currentActive : prev));
+      });
     };
 
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Trigger initial call
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
 
     return () => window.removeEventListener('scroll', handleScroll);
   }, [headings]);
@@ -432,7 +436,11 @@ export const Docs = ({ activeLang = 'vi' }) => {
   const scrollToHeading = (id) => {
     const el = document.getElementById(id);
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+      if (window.lenis) {
+        window.lenis.scrollTo(el, { offset: -80, duration: 1.2 });
+      } else {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 

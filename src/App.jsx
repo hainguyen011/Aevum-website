@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Lenis from 'lenis';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { SubNavTabs } from './components/SubNavTabs';
@@ -21,6 +22,35 @@ export function App() {
   const [currentPage, setCurrentPage] = useState('landing');
   const [isTrialModalOpen, setIsTrialModalOpen] = useState(false);
 
+  // Initialize Lenis smooth scroll engine
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.5,
+      infinite: false,
+    });
+
+    window.lenis = lenis;
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    const rafId = requestAnimationFrame(raf);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      lenis.destroy();
+      delete window.lenis;
+    };
+  }, []);
+
   // Dynamically set favicon using compiled Vite asset to bypass manual filesystem operations
   useEffect(() => {
     let link = document.querySelector("link[rel~='icon']");
@@ -41,16 +71,28 @@ export function App() {
 
   const [activeLang, setActiveLang] = useState(getInitialLanguage());
 
+  // Helper scroll function
+  const scrollToTarget = (target, offset = -20) => {
+    if (window.lenis) {
+      window.lenis.scrollTo(target, { offset, duration: 1.2 });
+    } else if (typeof target === 'string') {
+      const el = document.querySelector(target);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      window.scrollTo({ top: target, behavior: 'smooth' });
+    }
+  };
+
   // Full Hash Routing Listener (supports #about, #docs, #landing, #architecture, etc.)
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.replace('#', '').toLowerCase();
       if (hash === 'about') {
         setCurrentPage('about');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        scrollToTarget(0);
       } else if (hash === 'docs') {
         setCurrentPage('docs');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        scrollToTarget(0);
       } else if (hash === 'landing' || hash === 'home' || hash === '') {
         setCurrentPage('landing');
       } else {
@@ -59,7 +101,7 @@ export function App() {
         setTimeout(() => {
           const el = document.getElementById(hash);
           if (el) {
-            el.scrollIntoView({ behavior: 'smooth' });
+            scrollToTarget(el, -40);
           }
         }, 100);
       }
@@ -80,7 +122,7 @@ export function App() {
     } else {
       window.location.hash = page;
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    scrollToTarget(0);
   };
 
   return (

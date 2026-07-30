@@ -38,9 +38,11 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
       console.log('🛠️ [Aevum OS] Ready for Serverless API dispatch at /api/send-email');
     } else {
       document.body.style.overflow = '';
+      if (window.lenis) window.lenis.start();
     }
     return () => {
       document.body.style.overflow = '';
+      if (window.lenis) window.lenis.start();
     };
   }, [isOpen]);
 
@@ -107,7 +109,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
         },
         body: JSON.stringify(payload)
       });
-      
+
       if (!response.ok) {
         let errorData;
         try {
@@ -186,12 +188,12 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
 
   return (
     <div className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-md flex items-center justify-center p-0 sm:px-6 font-mono">
-      
+
       {/* Relative Wrapper to anchor Outside Attached Close Button */}
       <div className="relative w-full max-w-2xl h-screen flex flex-col">
 
         {/* Flush Square Close Button Attached Below Stepper Bar on the Right */}
-        <button 
+        <button
           onClick={onClose}
           aria-label="Close Modal"
           className="absolute right-0 top-[81px] sm:left-full sm:right-auto z-50 h-[53px] w-[53px] border-b border-l sm:border-l-0 sm:border-t sm:border-b sm:border-r border-white/10 bg-[#0B0B11] text-slate-400 hover:text-cyan-400 hover:border-cyan-400 hover:bg-cyan-500/10 rounded-none transition-all cursor-pointer flex items-center justify-center font-mono"
@@ -200,13 +202,13 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
         </button>
 
         {/* Outer Modal Container - Full Height Screen / Centered Box, Sharp Corners, Flat Design */}
-        <div 
+        <div
           className="w-full h-full bg-[#0B0B11] border-x border-white/10 rounded-none flex flex-col justify-between overflow-hidden relative text-slate-100"
           onClick={(e) => e.stopPropagation()}
         >
-          
+
           {/* Subtle CRT Overlay */}
-          <div 
+          <div
             className="absolute inset-0 pointer-events-none opacity-10"
             style={{
               backgroundImage: 'linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.4) 50%)',
@@ -223,7 +225,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
           {!isSubmitted && (
             <div className="w-full border-t border-b border-white/10 bg-[#0B0B11] px-6 sm:px-8 h-[53px] flex items-center relative z-10">
               <div className="flex items-center justify-between text-[11px] font-mono text-slate-400 w-full pr-12 sm:pr-0">
-                
+
                 {/* Step 1 Indicator */}
                 <div className={currentStep === 1 ? 'text-cyan-400 font-bold' : currentStep > 1 ? 'text-white font-medium' : 'text-slate-600'}>
                   <span>{activeLang === 'vi' ? 'THÔNG TIN' : 'CONTACT'}</span>
@@ -250,12 +252,12 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
           {isSubmitted ? (
             /* Success Confirmation Screen with An's Sticker */
             <div className="p-6 sm:p-8 space-y-5 text-center py-4 font-mono relative z-10 flex-1 overflow-y-auto">
-              
+
               {/* An's Lover Sticker */}
               <div className="relative mx-auto w-32 h-32 sm:w-40 sm:h-40 flex items-center justify-center">
-                <img 
-                  src={anLoverSticker} 
-                  alt="An Lover Sticker" 
+                <img
+                  src={anLoverSticker}
+                  alt="An Lover Sticker"
                   className="w-full h-full object-contain"
                 />
               </div>
@@ -281,16 +283,16 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
             </div>
           ) : (
             <form onSubmit={currentStep === 3 ? handleSubmit : handleNextStep} className="flex flex-col flex-1 min-h-0 relative z-10 font-mono">
-              
+
               {/* Honeypot field - anti-spam */}
-              <input 
-                type="text" 
-                name="website" 
-                value={formData.website || ''} 
-                onChange={handleChange} 
-                className="hidden" 
-                tabIndex="-1" 
-                autoComplete="off" 
+              <input
+                type="text"
+                name="website"
+                value={formData.website || ''}
+                onChange={handleChange}
+                className="hidden"
+                tabIndex="-1"
+                autoComplete="off"
               />
 
               {/* Scrollable Form Body Content with Padding */}
@@ -304,7 +306,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
                         {activeLang === 'vi' ? 'Thông tin đăng ký trải nghiệm Early Access' : 'Basic Contact Details'}
                       </h2>
                       <p className="text-xs text-slate-400">
-                        {activeLang === 'vi' 
+                        {activeLang === 'vi'
                           ? 'Cung cấp tên và Email để nhận mã nạp Daemon bộ não ngoại vi Aevum OS.'
                           : 'Provide your name and email to receive your Aevum OS Daemon access token.'}
                       </p>
@@ -315,7 +317,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
                       <label className="text-xs font-bold text-slate-300 flex items-center justify-between">
                         <span>{activeLang === 'vi' ? 'Họ và tên' : 'Full Name'} *</span>
                       </label>
-                      <input 
+                      <input
                         type="text"
                         name="name"
                         required
@@ -331,7 +333,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
                       <label className="text-xs font-bold text-slate-300 flex items-center justify-between">
                         <span>{activeLang === 'vi' ? 'Email liên hệ / GitHub Account' : 'Work Email / GitHub'} *</span>
                       </label>
-                      <input 
+                      <input
                         type="email"
                         name="email"
                         required
@@ -427,7 +429,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
                       <label className="text-xs font-bold text-slate-300 flex items-center justify-between">
                         <span>{activeLang === 'vi' ? 'Bạn sẽ đặt tên cho nhân viên Agent của mình là gì?' : 'What would you name your AI Agent worker?'}</span>
                       </label>
-                      <input 
+                      <input
                         type="text"
                         name="agentName"
                         value={formData.agentName}
@@ -459,8 +461,8 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
                         rows={2}
                         value={formData.customNotes}
                         onChange={handleChange}
-                        placeholder={activeLang === 'vi' 
-                          ? 'Ý tưởng của bạn về hệ điều hành AI Agent trong tương lai...' 
+                        placeholder={activeLang === 'vi'
+                          ? 'Ý tưởng của bạn về hệ điều hành AI Agent trong tương lai...'
                           : 'Your thoughts on the future of Agentic Operating Systems...'}
                         className="w-full bg-[#0B0B11] border border-white/15 rounded-md px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-400 transition-colors resize-none"
                       ></textarea>

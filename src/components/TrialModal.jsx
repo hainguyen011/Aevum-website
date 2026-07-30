@@ -16,6 +16,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
     // Step 1: Basic Info
     name: '',
     email: '',
+    website: '', // Honeypot field (anti-spam)
     // Step 2: Product & Engineering Context
     ide: 'Cursor IDE',
     role: 'Solo Developer',
@@ -30,13 +31,11 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // User's Google Sheet Apps Script Webhook URL (configured via env or paste here)
-  const GOOGLE_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SHEET_WEBHOOK_URL || '';
-
   // Lock background body scroll when modal is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      console.log('🛠️ [Aevum OS] Ready for Serverless API dispatch at /api/send-email');
     } else {
       document.body.style.overflow = '';
     }
@@ -80,6 +79,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
       timestamp: new Date().toISOString(),
       name: formData.name,
       email: formData.email,
+      website: formData.website || '',
       ide: formData.ide,
       role: formData.role,
       primaryPainPoint: formData.primaryPainPoint,
@@ -98,22 +98,27 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
       console.warn('LocalStorage backup error:', err);
     }
 
-    // 2. Submit to Google Sheets Webhook
-    if (GOOGLE_SCRIPT_URL && GOOGLE_SCRIPT_URL.startsWith('http')) {
-      try {
-        await fetch(GOOGLE_SCRIPT_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(payload)
-        });
-      } catch (err) {
-        console.error('Google Sheet submission fetch error:', err);
+    // 2. Submit to Serverless API Endpoint (which syncs to Sheet & sends Welcome Email)
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+      
+      if (!response.ok) {
+        let errorData;
+        try {
+          errorData = await response.json();
+        } catch (_) {
+          errorData = { error: `HTTP ${response.status} (${response.statusText || 'Not Found'})` };
+        }
+        console.error('[API Error] Registration failed:', errorData);
       }
-    } else {
-      console.log('💡 [Aevum OS] Survey saved locally. Linked Sheet payload:', payload);
+    } catch (err) {
+      console.error('[Connection Error] Failed to submit to API:', err);
     }
 
     // Simulate brief network delay for authentic TUI feedback
@@ -127,6 +132,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
     setFormData({
       name: '',
       email: '',
+      website: '',
       ide: 'Cursor IDE',
       role: 'Solo Developer',
       primaryPainPoint: 'Chống mất trí nhớ AI (Context Amnesia)',
@@ -179,10 +185,10 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
   ];
 
   return (
-    <div className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-md flex items-center justify-center p-0 sm:p-6 font-mono overflow-y-auto">
+    <div className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-md flex items-center justify-center p-0 sm:px-6 font-mono">
       
       {/* Relative Wrapper to anchor Outside Attached Close Button */}
-      <div className="relative w-full max-w-2xl min-h-screen sm:min-h-0 h-full sm:h-auto my-auto">
+      <div className="relative w-full max-w-2xl h-screen flex flex-col">
 
         {/* Flush Square Close Button Attached Below Stepper Bar on the Right */}
         <button 
@@ -195,7 +201,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
 
         {/* Outer Modal Container - Full Height Screen / Centered Box, Sharp Corners, Flat Design */}
         <div 
-          className="w-full min-h-screen sm:min-h-0 h-full sm:h-auto bg-[#0B0B11] border-x border-white/10 rounded-none flex flex-col justify-between overflow-hidden relative text-slate-100"
+          className="w-full h-full bg-[#0B0B11] border-x border-white/10 rounded-none flex flex-col justify-between overflow-hidden relative text-slate-100"
           onClick={(e) => e.stopPropagation()}
         >
           
@@ -276,6 +282,17 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
           ) : (
             <form onSubmit={currentStep === 3 ? handleSubmit : handleNextStep} className="flex flex-col flex-1 min-h-0 relative z-10 font-mono">
               
+              {/* Honeypot field - anti-spam */}
+              <input 
+                type="text" 
+                name="website" 
+                value={formData.website || ''} 
+                onChange={handleChange} 
+                className="hidden" 
+                tabIndex="-1" 
+                autoComplete="off" 
+              />
+
               {/* Scrollable Form Body Content with Padding */}
               <div className="p-6 sm:p-8 pb-4 space-y-5 text-left flex-1 overflow-y-auto">
 

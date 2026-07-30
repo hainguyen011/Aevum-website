@@ -1,0 +1,13 @@
+{
+  "sessionId": "squad_notifications",
+  "createdAt": "2026-07-30T07:48:36.517Z",
+  "updatedAt": "2026-07-30T08:10:34.285Z",
+  "version": 7,
+  "predictedState": {
+    "queues": {
+      "ENG-AN-7B9F1D": [],
+      "UIX-LYNA-C5D6E7": []
+    }
+  },
+  "discussion": []
+}

@@ -2,7 +2,11 @@
   "agents": {
     "ENG-AN-7B9F1D": {
       "status": "idle",
-      "lastPulse": "2026-07-29T09:49:28.409Z"
+      "lastPulse": "2026-07-30T08:10:27.232Z"
+    },
+    "UIX-LYNA-C5D6E7": {
+      "status": "idle",
+      "lastPulse": "2026-07-30T08:11:13.236Z"
     }
   }
 }

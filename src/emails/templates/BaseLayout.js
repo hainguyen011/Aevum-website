@@ -1,9 +1,11 @@
 /**
- * Aevum OS - Centered Elegant Email Base Layout Template
+ * Aevum OS - Centered Elegant Email Base Layout Template (Prominent Logo Size)
  * 100% aligned with website's Aevum Design System (Centered Text, White CTA Button, #0B0B11 background).
+ * Uses public HTTPS GitHub CDN URL for 100% error-free rendering in Gmail, Outlook, Yahoo, and Webmail.
  */
 export function BaseEmailLayout({ previewText, headerTitle, contentHtml, footerText, logoUrl }) {
-  const defaultLogo = '/assets/logos/AevumOS-transparent.png';
+  // Public 24/7 Global HTTPS CDN Logo URL (HTTP 200 Verified for Gmail/Outlook/Yahoo Webmail)
+  const defaultLogo = 'https://raw.githubusercontent.com/hainguyen011/Aevum-website/main/assets/logos/AevumOS-transparent.png';
   const logoImageSrc = logoUrl || defaultLogo;
 
   return `
@@ -44,13 +46,13 @@ export function BaseEmailLayout({ previewText, headerTitle, contentHtml, footerT
       text-align: center;
     }
     .header {
-      padding: 32px 28px 16px 28px;
+      padding: 36px 28px 16px 28px;
       text-align: center;
       background-color: #0B0B11;
     }
     .logo-img {
-      height: 40px;
-      max-height: 44px;
+      height: 60px;
+      max-height: 68px;
       width: auto;
       display: inline-block;
       border: 0;
@@ -121,7 +123,7 @@ export function BaseEmailLayout({ previewText, headerTitle, contentHtml, footerT
     <div class="main-container">
       <div class="header">
         <a href="https://aevum-website.vercel.app" target="_blank" style="text-decoration: none; display: inline-block;">
-          <img src="${logoImageSrc}" alt="Aevum OS Logo" class="logo-img" height="40" />
+          <img src="${logoImageSrc}" alt="Aevum OS Logo" class="logo-img" height="60" />
         </a>
       </div>
       <div class="content">

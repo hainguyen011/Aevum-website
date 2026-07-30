@@ -8,7 +8,11 @@ import { WelcomeEmailTemplate, NotificationEmailTemplate } from '../emails/index
 export class EmailService {
   constructor(options = {}) {
     this.apiKey = options.apiKey || process.env.RESEND_API_KEY;
-    this.fromEmail = options.fromEmail || process.env.RESEND_FROM_EMAIL || 'Aevum OS <welcome@yourdomain.com>';
+    this.fromEmail = options.fromEmail && !options.fromEmail.includes('resend.dev') 
+      ? options.fromEmail 
+      : (process.env.RESEND_FROM_EMAIL && !process.env.RESEND_FROM_EMAIL.includes('resend.dev')
+          ? process.env.RESEND_FROM_EMAIL 
+          : 'Aevum OS <welcome@aevum.ai.vn>');
     this.scriptUrl = options.scriptUrl || process.env.GOOGLE_SCRIPT_URL;
 
     if (this.apiKey) {

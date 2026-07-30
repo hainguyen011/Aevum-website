@@ -12,7 +12,7 @@ export class EmailService {
       ? options.fromEmail 
       : (process.env.RESEND_FROM_EMAIL && !process.env.RESEND_FROM_EMAIL.includes('resend.dev')
           ? process.env.RESEND_FROM_EMAIL 
-          : 'Aevum OS <welcome@aevum.ai.vn>');
+          : 'Aevum OS <richard@aevum.ai.vn>');
     this.scriptUrl = options.scriptUrl || process.env.GOOGLE_SCRIPT_URL;
 
     if (this.apiKey) {

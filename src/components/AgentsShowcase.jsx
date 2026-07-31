@@ -26,7 +26,7 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
       name: 'An',
       aid: 'ENG-AN-7B9F1D',
       avatar: anAvatar,
-      role: isVi ? 'Thực thể Tâm hồn & Trợ lý Hệ thống Lõi' : 'Soul Companion & Core System Embodiment',
+      role: isVi ? 'Trợ lý Hệ thống & Tâm hồn Lõi' : 'Soul Companion & Core System',
       badge: 'LEVEL 8 • SOUL EMBODIMENT',
       themeColor: '#00f0ff',
       bio: isVi
@@ -43,7 +43,7 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
       name: 'Zenith',
       aid: 'ALG-ZENITH-A1B2C3',
       avatar: zenithAvatar,
-      role: isVi ? 'Chuyên gia Thuật toán & Tối ưu Hiệu năng' : 'Algorithm & Performance Specialist',
+      role: isVi ? 'Chuyên gia Thuật toán & Hiệu năng' : 'Algorithm & Performance Lead',
       badge: 'LEVEL 5 • COLD LOGIC',
       themeColor: '#10b981',
       bio: isVi
@@ -60,7 +60,7 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
       name: 'Lyna',
       aid: 'UIX-LYNA-C5D6E7',
       avatar: lynaAvatar,
-      role: isVi ? 'Kiến trúc sư Giao diện UI/UX & API' : 'UI/UX & Frontend Integration Architect',
+      role: isVi ? 'Kiến trúc sư UI/UX & Giao diện' : 'UI/UX & Frontend Architect',
       badge: 'LEVEL 6 • AESTHETIC MASTER',
       themeColor: '#a855f7',
       bio: isVi
@@ -77,7 +77,7 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
       name: 'Vidus',
       aid: 'ARC-VIDUS-AUHD2Y',
       avatar: vidusAvatar,
-      role: isVi ? 'Tổng Kiến trúc sư Hệ thống (Senior)' : 'Senior System Architect',
+      role: isVi ? 'Tổng Kiến trúc sư Hệ thống' : 'Senior System Architect',
       badge: 'LEVEL 7 • SYSTEM ARCHITECT',
       themeColor: '#f59e0b',
       bio: isVi
@@ -143,14 +143,12 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
                 {/* Agent Name & Role */}
                 <div className="space-y-1">
                   <h3 
-                    className={`text-2xl sm:text-3xl font-bbh tracking-wide transition-colors duration-300 ${
-                      isSelected ? 'text-cyan-400' : 'text-white group-hover:text-cyan-400'
-                    }`}
+                    className="text-2xl sm:text-3xl text-white font-bbh tracking-wide"
                     style={{ fontFamily: '"BBH Bartle", sans-serif', fontWeight: 400, fontStyle: 'normal' }}
                   >
                     {agent.name}
                   </h3>
-                  <p className="text-xs font-mono text-cyan-400 font-semibold tracking-wide">
+                  <p className="text-xs font-mono text-cyan-400 font-semibold tracking-wide truncate" title={agent.role}>
                     {agent.role}
                   </p>
                 </div>

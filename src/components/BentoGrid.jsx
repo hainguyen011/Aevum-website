@@ -18,7 +18,7 @@ export const BentoGrid = ({ activeLang }) => {
 
   return (
     <div id="breakthroughs" className="border-subtle-b bg-[#0B0B11]">
-      
+
       {/* Section Header Cell */}
       <div data-reveal className="p-8 sm:p-12 text-center border-subtle-b bg-[#0B0B11] border-scan">
         <span className="text-[11px] font-mono text-cyan-400 font-semibold tracking-widest uppercase">
@@ -34,12 +34,12 @@ export const BentoGrid = ({ activeLang }) => {
 
       {/* 2x2 Grid Layout with Staggered Scroll Reveal */}
       <div className="grid grid-cols-1 lg:grid-cols-2">
-        
+
         {/* Breakthrough 1: Row 1 Left */}
-        <div 
-          data-reveal 
+        <div
+          data-reveal
           data-reveal-delay="100"
-          className="p-8 sm:p-10 border-subtle-b lg:border-subtle-r flex flex-col justify-between group hover:bg-[#0e0f17] transition-colors"
+          className="p-8 sm:p-10 lg:border-subtle-r flex flex-col justify-between group hover:bg-[#0e0f17] transition-colors"
         >
           <div>
             <h3 className="text-lg font-bold text-white mb-2 font-display">{t.bentoGrid.b1Title}</h3>
@@ -61,8 +61,8 @@ export const BentoGrid = ({ activeLang }) => {
         </div>
 
         {/* Breakthrough 2: Row 1 Right */}
-        <div 
-          data-reveal 
+        <div
+          data-reveal
           data-reveal-delay="200"
           className="p-8 sm:p-10 border-subtle-b flex flex-col justify-between group hover:bg-[#0e0f17] transition-colors"
         >
@@ -89,8 +89,8 @@ export const BentoGrid = ({ activeLang }) => {
         </div>
 
         {/* Breakthrough 3: Row 2 Left */}
-        <div 
-          data-reveal 
+        <div
+          data-reveal
           data-reveal-delay="300"
           className="p-8 sm:p-10 border-subtle-b lg:border-b-0 lg:border-subtle-r flex flex-col justify-between group hover:bg-[#0e0f17] transition-colors"
         >
@@ -111,8 +111,8 @@ export const BentoGrid = ({ activeLang }) => {
         </div>
 
         {/* Breakthrough 4: Row 2 Right */}
-        <div 
-          data-reveal 
+        <div
+          data-reveal
           data-reveal-delay="400"
           className="p-8 sm:p-10 flex flex-col justify-between group hover:bg-[#0e0f17] transition-colors"
         >

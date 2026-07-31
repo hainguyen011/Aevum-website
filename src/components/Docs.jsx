@@ -558,12 +558,12 @@ export const Docs = ({ activeLang = 'vi' }) => {
               {headings.map((h) => {
                 const isActive = h.id === activeHeadingId;
                 return (
-                  <li key={h.id} className={`border-b border-white/5 ${isActive ? 'bg-white/[0.04]' : ''}`}>
+                  <li key={h.id} className={`border-b border-white/5 ${isActive ? 'bg-white/[0.05]' : ''}`}>
                     <button
                       onClick={() => scrollToHeading(h.id)}
                       className={`w-full text-left px-4 py-2.5 transition-colors flex items-start gap-2 group ${
                         isActive
-                          ? 'text-cyan-400'
+                          ? 'text-white font-bold'
                           : 'text-slate-500 hover:text-white hover:bg-white/[0.03]'
                       }`}
                     >

@@ -7,11 +7,19 @@ export const Footer = ({ onNavigate, activeLang }) => {
 
   const handleNavLink = (e, target) => {
     e.preventDefault();
-    onNavigate('landing');
-    setTimeout(() => {
+    const scrollToElement = () => {
       const el = document.getElementById(target);
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-    }, 100);
+      if (el) {
+        if (window.lenis) {
+          window.lenis.scrollTo(el, { offset: -40, duration: 1.2 });
+        } else {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    };
+
+    onNavigate('landing');
+    setTimeout(scrollToElement, 150);
   };
 
   return (

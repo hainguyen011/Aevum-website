@@ -26,7 +26,7 @@ export const SubNavTabs = ({ activeLang }) => {
   };
 
   return (
-    <div className="border-subtle-b bg-[#0B0B11]">
+    <div className="border-subtle-b border-subtle-t bg-[#0B0B11]">
       {/* 6 Grid Tab Buttons */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 border-subtle-b bg-[#0B0B11]">
         {rawTabs.map((tab) => {

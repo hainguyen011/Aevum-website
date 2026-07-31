@@ -1,13 +1,13 @@
 export const translations = {
   vi: {
     navbar: {
-      breakthroughs: "Đột phá",
+      breakthroughs: "Điểm đột phá",
       architecture: "Kiến trúc OS",
-      orchestration: "Hệ sinh thái Agent",
-      kernel: "Nhân & Daemon",
+      orchestration: "Hệ sinh thái",
+      kernel: "Nhân OS",
       docs: "Tài liệu",
       about: "Giới thiệu",
-      searchPlaceholder: "Tìm kiếm công cụ OS...",
+      searchPlaceholder: "Tìm kiếm OS...",
       searchShortcut: "Ctrl K"
     },
     hero: {
@@ -196,12 +196,12 @@ export const translations = {
   en: {
     navbar: {
       breakthroughs: "Breakthroughs",
-      architecture: "OS Architecture",
-      orchestration: "Agentic Ecosystem",
-      kernel: "Kernel & Daemon",
+      architecture: "Architecture",
+      orchestration: "Ecosystem",
+      kernel: "Kernel",
       docs: "Documentation",
       about: "About",
-      searchPlaceholder: "Search OS tooling...",
+      searchPlaceholder: "Search OS...",
       searchShortcut: "Ctrl K"
     },
     hero: {

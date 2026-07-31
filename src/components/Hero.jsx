@@ -19,12 +19,12 @@ export const Hero = ({ onNavigate, onOpenTrialModal, activeLang }) => {
   const title2 = titleParts[1] ? `& ${titleParts[1].trim()}` : '';
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 border-subtle-b">
+    <div className="grid grid-cols-1 lg:grid-cols-12">
       
       {/* Left Cell: Text Content */}
       <div 
         data-reveal
-        className="lg:col-span-7 p-8 sm:p-12 lg:p-14 border-subtle-b lg:border-b-0 lg:border-subtle-r flex flex-col justify-between space-y-8 bg-[#0B0B11]"
+        className="lg:col-span-7 p-8 sm:p-12 lg:p-14 lg:border-subtle-r flex flex-col justify-between space-y-8 bg-[#0B0B11]"
       >
         <div className="space-y-6">
           

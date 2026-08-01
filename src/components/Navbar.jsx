@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, Facebook, ChevronDown, Globe, Eye, EyeOff, Menu, X, Sparkles, Layers, Network, Terminal, ArrowRight } from 'lucide-react';
+import { Search, Facebook, ChevronDown, Globe, Eye, EyeOff, Menu, X, Sparkles, Layers, Network, Terminal, ArrowRight, Mail } from 'lucide-react';
 import logoImg from '../../assets/logos/AevumOS-transparent.png';
 import unikornLogo from '../../assets/unikorn-logo.png';
 import { translations } from '../data/translations';
@@ -242,6 +242,13 @@ export const Navbar = ({ currentPage, onNavigate, activeLang, onChangeLang, onOp
               title="Unikorn - Creative Tech Agency"
             >
               <img src={unikornLogo} alt="Unikorn Logo" className="w-3.5 h-3.5 object-contain" />
+            </a>
+            <a
+              href="mailto:hainguyen011238@gmail.com"
+              className="text-slate-400 hover:text-white transition-colors p-1"
+              title="hainguyen011238@gmail.com"
+            >
+              <Mail size={14} />
             </a>
           </div>
 

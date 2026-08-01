@@ -1,4 +1,5 @@
 import React from 'react';
+import { Mail } from 'lucide-react';
 import logoImg from '../../assets/logos/AevumOS-transparent.png';
 import { translations } from '../data/translations';
 
@@ -60,7 +61,14 @@ export const Footer = ({ onNavigate, activeLang }) => {
               <span className="text-white/10">•</span>
               <a href="https://open-vsx.org/extension/I2FLabs/aevum" target="_blank" rel="noreferrer" className="hover:text-cyan-400 transition-colors">{t.footer.links.openVsx}</a>
               <a href="https://unikorn.vn/p/aevum" target="_blank" rel="noreferrer" className="hover:text-cyan-400 transition-colors">{t.footer.links.unikorn}</a>
-              <a href="https://github.com" target="_blank" rel="noreferrer" className="hover:text-cyan-400 transition-colors">{t.footer.links.github}</a>
+              <a href="https://github.com/hainguyen011" target="_blank" rel="noreferrer" className="hover:text-cyan-400 transition-colors">{t.footer.links.github}</a>
+              <a 
+                href="mailto:hainguyen011238@gmail.com" 
+                className="hover:text-cyan-400 transition-colors" 
+                title="hainguyen011238@gmail.com"
+              >
+                Mail
+              </a>
             </div>
           </div>
 

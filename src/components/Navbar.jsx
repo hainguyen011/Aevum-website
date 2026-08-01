@@ -186,10 +186,10 @@ export const Navbar = ({ currentPage, onNavigate, activeLang, onChangeLang, onOp
 
         {/* Right Cell: Search + Social Links */}
         <div className="flex items-center gap-3 xl:gap-4 shrink-0">
-          {/* Search Input */}
+          {/* Search Input — desktop only, mobile has it in sidebar */}
           <div 
             onClick={onOpenSearch}
-            className="flex items-center gap-3 bg-white/[0.04] hover:bg-white/[0.08] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] px-3 py-1.5 rounded-lg text-slate-400 cursor-pointer transition-all group"
+            className="hidden lg:flex items-center gap-3 bg-white/[0.04] hover:bg-white/[0.08] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] px-3 py-1.5 rounded-lg text-slate-400 cursor-pointer transition-all group"
           >
             <Search size={14} className="group-hover:text-cyan-400 transition-colors" />
             <span className="text-xs font-mono text-slate-400 group-hover:text-slate-300">

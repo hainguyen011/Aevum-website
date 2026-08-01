@@ -314,7 +314,7 @@ export const About = ({ activeLang }) => {
           <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch relative z-10 w-full text-left font-mono flex-1 min-h-[450px]">
             
             {/* Column 1: Interactive Drill-down Menu (5 Cols - Full Height Vertical Separator Line) */}
-            <div className="lg:col-span-5 space-y-3 font-mono lg:border-r border-b lg:border-b-0 border-white/10 px-6 lg:px-10 py-8 h-full">
+            <div className="order-2 lg:order-1 lg:col-span-5 space-y-3 font-mono lg:border-r border-b lg:border-b-0 border-white/10 px-6 lg:px-10 py-8 h-full">
                 
                 {/* Current Directory Breadcrumb */}
                 <div className="flex items-center gap-2 text-[11px] text-white font-mono font-bold tracking-wide uppercase">
@@ -376,7 +376,7 @@ export const About = ({ activeLang }) => {
               </div>
 
               {/* Column 2: Terminal Output Render (7 Cols - Pure Monochrome Text) */}
-              <div className="lg:col-span-7 space-y-4 font-mono px-6 lg:px-10 py-8">
+              <div className="order-1 lg:order-2 lg:col-span-7 space-y-4 font-mono px-6 lg:px-10 py-8">
                 
                 {/* Command Execution Line */}
                 <div className="flex items-center gap-2 text-sm sm:text-base font-mono text-white pb-1">

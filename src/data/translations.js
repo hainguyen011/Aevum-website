@@ -2,8 +2,12 @@ export const translations = {
   vi: {
     navbar: {
       breakthroughs: "Điểm đột phá",
+      agents: "Biệt đội Agent",
       architecture: "Kiến trúc OS",
       orchestration: "Hệ sinh thái",
+      testimonials: "Đánh giá",
+      unikorn: "Unikorn",
+      i2flabs: "I2FLabs",
       kernel: "Nhân OS",
       docs: "Tài liệu",
       about: "Giới thiệu",
@@ -200,8 +204,12 @@ export const translations = {
   en: {
     navbar: {
       breakthroughs: "Breakthroughs",
+      agents: "Agent Squad",
       architecture: "Architecture",
       orchestration: "Ecosystem",
+      testimonials: "Testimonials",
+      unikorn: "Unikorn",
+      i2flabs: "I2FLabs",
       kernel: "Kernel",
       docs: "Documentation",
       about: "About",

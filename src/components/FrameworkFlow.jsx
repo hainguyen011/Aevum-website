@@ -14,7 +14,7 @@ export const FrameworkFlow = ({ activeLang }) => {
   }
 
   return (
-    <div id="orchestration" className="border-subtle-b bg-[#0B0B11] relative overflow-hidden">
+    <div id="architecture" className="border-subtle-b bg-[#0B0B11] relative overflow-hidden">
 
       {/* Section Header */}
       <div data-reveal className="p-8 sm:p-12 text-center border-subtle-b bg-[#0B0B11] relative z-10 border-scan">
@@ -23,7 +23,7 @@ export const FrameworkFlow = ({ activeLang }) => {
         </span>
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight mt-3 font-display">
           {title1} <br />
-          <span className="text-[#00f0ff] inline-block font-extrabold mt-2">
+          <span className="text-[#38bdf8] inline-block font-extrabold mt-2">
             {title2}
           </span>
         </h2>

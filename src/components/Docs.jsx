@@ -534,10 +534,10 @@ export const Docs = ({ activeLang = 'vi' }) => {
                       <li key={doc.id}>
                         <button
                           onClick={() => selectDoc(doc.id)}
-                          className={`w-full flex items-center justify-between text-left py-2 px-3 rounded text-xs font-medium transition-all group ${
+                          className={`w-full flex items-center justify-between text-left py-2 px-3 rounded text-xs font-medium border transition-all duration-150 ease-out group ${
                             isActive
-                              ? 'text-cyan-400 font-bold bg-cyan-500/10 border border-cyan-500/30'
-                              : 'text-slate-400 hover:text-white hover:bg-white/[0.02]'
+                              ? 'text-cyan-400 font-bold bg-cyan-500/10 border-cyan-500/30'
+                              : 'text-slate-400 border-transparent hover:text-white hover:bg-white/[0.02]'
                           }`}
                         >
                           <span className="truncate">{doc.title}</span>
@@ -575,10 +575,10 @@ export const Docs = ({ activeLang = 'vi' }) => {
                       <li key={doc.id}>
                         <button
                           onClick={() => selectDoc(doc.id)}
-                          className={`w-full flex items-center justify-between text-left py-1.5 px-2.5 rounded text-xs font-medium transition-all group ${
+                          className={`w-full flex items-center justify-between text-left py-1.5 px-2.5 rounded text-xs font-medium border transition-all duration-150 ease-out group ${
                             isActive
-                              ? 'text-cyan-400 font-bold bg-cyan-500/10 border border-cyan-500/30'
-                              : 'text-slate-400 hover:text-white hover:bg-white/[0.01]'
+                              ? 'text-cyan-400 font-bold bg-cyan-500/10 border-cyan-500/30'
+                              : 'text-slate-400 border-transparent hover:text-white hover:bg-white/[0.01]'
                           }`}
                         >
                           <span className="truncate">{doc.title}</span>

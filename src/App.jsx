@@ -88,13 +88,17 @@ export function App() {
     link.type = 'image/png';
   }, []);
 
-  // Detect browser language (default to 'vi' if Vietnamese, otherwise default to 'en')
-  const getInitialLanguage = () => {
-    const browserLang = navigator.language || navigator.userLanguage || '';
-    return browserLang.toLowerCase().startsWith('vi') ? 'vi' : 'en';
+  // Language Preference Manager (Default to 'vi')
+  const [activeLang, setActiveLang] = useState(() => {
+    const saved = localStorage.getItem('aevum-lang');
+    return saved === 'en' ? 'en' : 'vi';
+  });
+
+  const handleLanguageChange = (lang) => {
+    setActiveLang(lang);
+    localStorage.setItem('aevum-lang', lang);
   };
 
-  const [activeLang, setActiveLang] = useState(getInitialLanguage());
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const t = translations[activeLang] || translations.en;
 
@@ -296,7 +300,7 @@ export function App() {
           currentPage={currentPage} 
           onNavigate={handleNavigate} 
           activeLang={activeLang} 
-          onChangeLang={setActiveLang} 
+          onChangeLang={handleLanguageChange} 
           onOpenSearch={() => setIsSearchOpen(true)}
           isEyeCare={isEyeCare}
           onToggleEyeCare={() => setIsEyeCare(prev => !prev)}
@@ -341,7 +345,7 @@ export function App() {
             <I2FLabsSection activeLang={activeLang} />
 
             {/* Section 7: Open Source Sponsors */}
-            <Sponsors />
+            <Sponsors activeLang={activeLang} />
 
             {/* Section 8: CTA Banner */}
             <CtaBanner 

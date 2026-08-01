@@ -207,10 +207,11 @@ export const SearchModal = ({ isOpen, onClose, onNavigate, activeLang }) => {
                   key={item.id}
                   onClick={() => item.action()}
                   onMouseEnter={() => setSelectedIndex(idx)}
-                  className={`flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs cursor-pointer transition-all duration-150 ${isSelected
-                      ? 'bg-cyan-500/15 text-cyan-300 border border-cyan-500/30'
-                      : 'text-slate-300 hover:bg-white/[0.04]'
-                    }`}
+                  className={`flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs cursor-pointer border transition-all duration-150 ease-out ${
+                    isSelected
+                      ? 'bg-cyan-500/15 text-cyan-300 border-cyan-500/30 translate-x-0.5'
+                      : 'text-slate-300 border-transparent hover:bg-white/[0.04]'
+                  }`}
                 >
                   <div className="flex items-center gap-3 min-w-0">
                     <IconComp size={15} className={isSelected ? 'text-cyan-400' : 'text-slate-500'} />

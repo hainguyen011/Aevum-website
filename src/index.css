@@ -18,10 +18,10 @@
   
   --border-faint: rgba(255, 255, 255, 0.05);
   --border-faint-hover: rgba(255, 255, 255, 0.15);
-  --border-cyan-faint: rgba(0, 240, 255, 0.25);
+  --border-cyan-faint: rgba(56, 189, 248, 0.25);
 
-  --electron-blue: #00f0ff;
-  --electron-cyan: #00d2ff;
+  --electron-blue: #38bdf8;
+  --electron-cyan: #0ea5e9;
 
   --text-primary: #ffffff;
   --text-secondary: #94a3b8;
@@ -32,6 +32,26 @@
   --font-mono: 'JetBrains Mono', monospace;
 
   --transition-smooth: 0.15s ease-out;
+}
+
+/* Electron Blue Palette - Soothing, non-glaring premium tech blue */
+.text-cyan-400, .text-cyan-300 {
+  color: #38bdf8 !important;
+}
+.text-cyan-500, .text-cyan-600 {
+  color: #0ea5e9 !important;
+}
+.bg-cyan-500\/10 {
+  background-color: rgba(56, 189, 248, 0.1) !important;
+}
+.bg-cyan-500\/20 {
+  background-color: rgba(56, 189, 248, 0.18) !important;
+}
+.border-cyan-500\/30, .border-cyan-400\/30 {
+  border-color: rgba(56, 189, 248, 0.3) !important;
+}
+.border-cyan-400\/50, .border-cyan-400\/40, .border-cyan-400\/60 {
+  border-color: rgba(56, 189, 248, 0.45) !important;
 }
 
 /* Ensure no-wrap globally for navbar & text-nowrap */
@@ -192,7 +212,7 @@ h1, h2, h3, .font-display {
   background-color: var(--bg-cell-hover);
 }
 
-/* Buttons with Subtle Gentle Rounded Corners (6px) */
+/* Buttons with Subtle Gentle Rounded Corners (6px) & Inset Box Shadow Borders */
 .btn-electron {
   display: inline-flex;
   align-items: center;
@@ -206,8 +226,8 @@ h1, h2, h3, .font-display {
   border-radius: 6px;
   background: transparent;
   color: var(--electron-blue);
-  border: 1px solid var(--electron-blue);
-  box-shadow: none !important;
+  border: none !important;
+  box-shadow: inset 0 0 0 1px var(--electron-blue) !important;
   transition: var(--transition-smooth);
   cursor: pointer;
   text-decoration: none;
@@ -216,7 +236,7 @@ h1, h2, h3, .font-display {
 .btn-electron:hover {
   background: var(--electron-blue);
   color: #000000;
-  box-shadow: none !important;
+  box-shadow: inset 0 0 0 1px var(--electron-blue) !important;
 }
 
 .btn-ghost {
@@ -232,8 +252,8 @@ h1, h2, h3, .font-display {
   border-radius: 6px;
   background: transparent;
   color: var(--text-primary);
-  border: 1px solid var(--border-faint);
-  box-shadow: none !important;
+  border: none !important;
+  box-shadow: inset 0 0 0 1px var(--border-faint) !important;
   transition: var(--transition-smooth);
   cursor: pointer;
   text-decoration: none;
@@ -241,7 +261,7 @@ h1, h2, h3, .font-display {
 
 .btn-ghost:hover {
   background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15) !important;
 }
 
 /* Typography & Gradient Text */
@@ -394,7 +414,7 @@ h1, h2, h3, .font-display {
   left: -100%;
   width: 50%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, #00f0ff, transparent);
+  background: linear-gradient(90deg, transparent, #38bdf8, transparent);
   transition: left 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 

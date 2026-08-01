@@ -14,7 +14,7 @@ export function NotificationEmailTemplate({ name, title, message, actionUrl, act
     ${tokenCode ? `
     <div style="background-color: #12121A; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 18px; text-align: center; margin-top: 24px; margin-bottom: 24px;">
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #94A3B8; text-transform: uppercase; letter-spacing: 1px;">Mã kích hoạt Daemon (Access Token)</div>
-      <div style="font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: bold; color: #00F0FF; letter-spacing: 2px; margin-top: 8px;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: bold; color: #38bdf8; letter-spacing: 2px; margin-top: 8px;">
         ${tokenCode}
       </div>
     </div>

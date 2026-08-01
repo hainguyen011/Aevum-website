@@ -26,7 +26,7 @@ export const SubNavTabs = ({ activeLang }) => {
   };
 
   return (
-    <div className="border-subtle-b border-subtle-t bg-[#0B0B11]">
+    <div id="cli" className="border-subtle-b border-subtle-t bg-[#0B0B11]">
       {/* Mobile: Sharp Square Horizontal Scroll Tabs Bar with Swipe Hint */}
       <div className="relative md:hidden border-subtle-b bg-[#0B0B11]">
         {/* Scrollable Tab Row */}

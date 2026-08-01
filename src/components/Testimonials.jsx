@@ -70,7 +70,7 @@ export const Testimonials = ({ activeLang }) => {
           <img
             src={rev.avatar}
             alt={rev.name}
-            className="w-10 h-10 rounded-full object-cover border border-cyan-500/30"
+            className="w-10 h-10 rounded-full object-cover border border-[#38bdf8]/40"
           />
           <div>
             <h4 className="text-xs font-bold text-white leading-none font-display">{rev.name}</h4>
@@ -81,14 +81,14 @@ export const Testimonials = ({ activeLang }) => {
           "{rev.text}"
         </p>
       </div>
-      <div className="border-subtle-t px-6 sm:px-8 py-4 text-[11px] text-cyan-300/80 font-mono flex items-center">
+      <div className="border-subtle-t px-6 sm:px-8 py-4 text-[11px] text-[#38bdf8] font-mono flex items-center font-semibold">
         {rev.role}
       </div>
     </div>
   );
 
   return (
-    <div className="border-subtle-b bg-[#0B0B11]">
+    <div id="testimonials" className="border-subtle-b bg-[#0B0B11]">
 
       {/* Header & Metrics */}
       <div data-reveal className="p-8 sm:p-12 border-subtle-b border-scan">

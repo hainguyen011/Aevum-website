@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { translations } from '../data/translations';
 
 // Sticker Imports from Agent Collections
@@ -236,14 +237,14 @@ export const BentoGrid = ({ activeLang }) => {
                   className="w-10 h-10 rounded-full border border-white/10 bg-white/[0.03] hover:bg-cyan-500/20 hover:border-cyan-400/50 text-white flex items-center justify-center transition-all cursor-pointer"
                   aria-label="Previous Slide"
                 >
-                  ←
+                  <ChevronLeft size={18} />
                 </button>
                 <button
                   onClick={() => setActiveSlide((prev) => (prev < items.length - 1 ? prev + 1 : 0))}
                   className="w-10 h-10 rounded-full border border-white/10 bg-white/[0.03] hover:bg-cyan-500/20 hover:border-cyan-400/50 text-white flex items-center justify-center transition-all cursor-pointer"
                   aria-label="Next Slide"
                 >
-                  →
+                  <ChevronRight size={18} />
                 </button>
               </div>
             </div>

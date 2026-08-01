@@ -1,6 +1,34 @@
 import React from 'react';
 
-export const Sponsors = () => {
+import anHi from '../../assets/stickers/An_Collection/An_Hi.png';
+import anLover from '../../assets/stickers/An_Collection/An_Lover.png';
+import anLover2 from '../../assets/stickers/An_Collection/An_Lover2.png';
+import anHipe from '../../assets/stickers/An_Collection/An_Hipe.png';
+import anCurios from '../../assets/stickers/An_Collection/An_Curios.png';
+import anAngry from '../../assets/stickers/An_Collection/An_Angry.png';
+import anLoading from '../../assets/stickers/An_Collection/An_Loading.png';
+import anByebye from '../../assets/stickers/An_Collection/An_byebye.png';
+
+export const Sponsors = ({ activeLang = 'vi' }) => {
+  const isVi = activeLang === 'vi';
+
+  const quotesVi = [
+    '⚡ ANTON SQUAD: CHẠY BẰNG CÀ PHÊ & KHÔNG BAO GIỜ MẤT TRÍ NHỚ!',
+    '🚀 DECOUPLED BRAIN: TÁCH BIỆT KHỎI IDE SANDBOX VỚI 0% MEMORY LOSS!',
+    '🛠️ PLAN-FIRST ENGINEERING: LẬP KẾ HOẠCH CHUẨN XÁC TRƯỚC KHI CODE!',
+    '🤖 AGENTIC PIPERNET: SQUAD PHỐI HỢP TỰ ĐỘNG CHUẨN KẾT NỐI MCP!',
+  ];
+
+  const quotesEn = [
+    '⚡ ANTON SQUAD: POWERED BY COFFEE & ZERO CONTEXT AMNESIA!',
+    '🚀 DECOUPLED BRAIN: INDEPENDENT DAEMON WITH 0% MEMORY LOSS!',
+    '🛠️ PLAN-FIRST ENGINEERING: RIGOROUS PIPELINES BEFORE SYNTHESIS!',
+    '🤖 AGENTIC PIPERNET: AUTONOMOUS SQUAD MESH OVER OPEN MCP!',
+  ];
+
+  const quotes = isVi ? quotesVi : quotesEn;
+  const quotesLoop = [...quotes, ...quotes, ...quotes, ...quotes];
+
   const basePlatforms = [
     { name: 'Cursor IDE', desc: 'Full SSE Context Sync', tag: 'AI EDITOR' },
     { name: 'Claude Desktop', desc: 'Multi-Agent Handoff', tag: 'AGENT HOST' },
@@ -10,21 +38,23 @@ export const Sponsors = () => {
     { name: 'Ollama AI', desc: 'Local LLM Persistence', tag: 'LOCAL INFERENCE' },
   ];
 
-  const baseTechnologies = [
-    { name: 'Model Context Protocol', type: 'MCP Standard 2026' },
-    { name: 'TypeScript Daemon', type: 'Strict Type Kernel' },
-    { name: 'Node.js Engine', type: 'Async Event Loop' },
-    { name: 'Electron Desktop', type: 'Cross-Platform GUI' },
-    { name: 'Vite Ecosystem', type: 'Instant HMR Runtime' },
-    { name: 'PiperNet IoA', type: 'Mesh Protocol' },
+  const antonStickers = [
+    { sticker: anHi, name: 'Anton Hi' },
+    { sticker: anLover, name: 'Anton Lover' },
+    { sticker: anLover2, name: 'Anton Heart' },
+    { sticker: anHipe, name: 'Anton Hipe' },
+    { sticker: anCurios, name: 'Anton Curios' },
+    { sticker: anAngry, name: 'Anton Angry' },
+    { sticker: anLoading, name: 'Anton Loading' },
+    { sticker: anByebye, name: 'Anton ByeBye' },
   ];
 
   // Duplicate for seamless 100% infinite marquee looping
   const platformsLoop = [...basePlatforms, ...basePlatforms, ...basePlatforms];
-  const techLoop = [...baseTechnologies, ...baseTechnologies, ...baseTechnologies];
+  const stickersLoop = [...antonStickers, ...antonStickers, ...antonStickers, ...antonStickers];
 
   return (
-    <div id="ecosystem" className="border-subtle-b bg-[#0B0B11]">
+    <div id="orchestration" className="border-subtle-b bg-[#0B0B11]">
       
       {/* Header Row */}
       <div className="p-8 sm:p-12 text-center border-subtle-b bg-[#0B0B11]">
@@ -39,7 +69,7 @@ export const Sponsors = () => {
         </p>
       </div>
 
-      {/* Row 1: Supported Platforms Infinite Marquee Slider (Left Aligned Header) */}
+      {/* Row 1: Supported Platforms Infinite Marquee Slider (Clean Text Cards) */}
       <div className="border-subtle-b">
         <div className="flex items-center text-left px-8 py-3.5 font-mono text-[11px] text-slate-400 font-semibold uppercase tracking-widest border-subtle-b bg-[#0B0B11]">
           Platform & Agent Host Ecosystem
@@ -47,7 +77,6 @@ export const Sponsors = () => {
         
         {/* Infinite Slider Track Wrapper */}
         <div className="relative overflow-hidden bg-[#0B0B11] py-4 group">
-          {/* Gradient Masks on Edges */}
           <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#0B0B11] to-transparent z-10" />
           <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#0B0B11] to-transparent z-10" />
 
@@ -56,13 +85,13 @@ export const Sponsors = () => {
             {platformsLoop.map((item, idx) => (
               <div 
                 key={idx}
-                className="w-64 p-5 border-subtle bg-[#0e0f17] hover:bg-[#131520] hover:border-cyan-500/40 rounded-md flex-shrink-0 flex flex-col justify-between transition-all duration-200"
+                className="w-64 p-5 border-subtle bg-[#0e0f17] hover:bg-[#131520] hover:border-cyan-500/40 rounded-xl flex-shrink-0 flex flex-col justify-between transition-all duration-200 group/card relative overflow-hidden"
               >
-                <span className="text-[9px] font-mono font-bold text-cyan-400/90 tracking-wider">
+                <span className="text-[9px] font-mono font-bold text-[#38bdf8] tracking-wider">
                   {item.tag}
                 </span>
                 <div className="my-2">
-                  <h4 className="text-sm font-extrabold text-white font-display">
+                  <h4 className="text-sm font-extrabold text-white font-display group-hover/card:text-cyan-400 transition-colors">
                     {item.name}
                   </h4>
                   <p className="text-[11px] text-slate-400 mt-1 font-mono">
@@ -75,31 +104,43 @@ export const Sponsors = () => {
         </div>
       </div>
 
-      {/* Row 2: Core Technologies Infinite Marquee Slider (Right Aligned Header) */}
+      {/* Row 2: Pure Anton Stickers Running Marquee Slider with Infinite Right-to-Left Text Ticker Header */}
       <div>
-        <div className="flex items-center justify-end text-right px-8 py-3.5 font-mono text-[11px] text-slate-400 font-semibold uppercase tracking-widest border-subtle-b bg-[#0B0B11]">
-          Core Infrastructure & Technologies
+        {/* Infinite Ticker Bar Running Right to Left */}
+        <div className="relative overflow-hidden border-subtle-b bg-[#0B0B11] py-3">
+          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-[#0B0B11] to-transparent z-10" />
+          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-[#0B0B11] to-transparent z-10" />
+
+          <div className="animate-marquee gap-12 flex whitespace-nowrap items-center">
+            {quotesLoop.map((q, idx) => (
+              <span 
+                key={idx}
+                className="font-mono text-[11px] text-white font-bold uppercase tracking-widest flex items-center shrink-0"
+              >
+                {q}
+              </span>
+            ))}
+          </div>
         </div>
 
-        {/* Infinite Slider Track Wrapper */}
-        <div className="relative overflow-hidden bg-[#0B0B11] py-4 group">
-          {/* Gradient Masks on Edges */}
+        {/* Infinite Slider Track Wrapper (Stickers) */}
+        <div className="relative overflow-hidden bg-[#0B0B11] py-8 group">
           <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#0B0B11] to-transparent z-10" />
           <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#0B0B11] to-transparent z-10" />
 
           {/* Marquee Track (Right Direction) */}
-          <div className="animate-marquee-reverse gap-6 px-4">
-            {techLoop.map((tech, idx) => (
+          <div className="animate-marquee-reverse gap-12 sm:gap-16 px-4 items-center">
+            {stickersLoop.map((item, idx) => (
               <div 
                 key={idx}
-                className="w-64 p-5 border-subtle bg-[#0e0f17] hover:bg-[#131520] hover:border-cyan-500/40 rounded-md flex-shrink-0 flex flex-col justify-between transition-all duration-200"
+                className="flex-shrink-0 flex items-center justify-center py-2 transition-transform duration-300 hover:scale-120 cursor-pointer"
               >
-                <span className="text-[9px] font-mono text-slate-500 uppercase tracking-wider">
-                  {tech.type}
-                </span>
-                <h4 className="text-xs font-bold text-slate-200 font-mono mt-2">
-                  {tech.name}
-                </h4>
+                <img 
+                  src={item.sticker} 
+                  alt={item.name} 
+                  className="w-28 h-28 sm:w-36 sm:h-36 object-contain shadow-none"
+                  style={{ boxShadow: 'none', filter: 'none' }}
+                />
               </div>
             ))}
           </div>

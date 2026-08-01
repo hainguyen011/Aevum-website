@@ -275,7 +275,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
 
               <button
                 onClick={handleReset}
-                className="w-full max-w-md mx-auto py-2.5 text-xs sm:text-sm font-bold uppercase tracking-wider rounded-md border border-[#00f0ff] bg-[#00f0ff]/15 text-white hover:bg-[#00f0ff] hover:text-black transition-all cursor-pointer font-mono"
+                className="w-full max-w-md mx-auto py-2.5 text-xs sm:text-sm font-bold uppercase tracking-wider rounded-md border border-[#38bdf8] bg-[#38bdf8]/15 text-white hover:bg-[#38bdf8] hover:text-black transition-all cursor-pointer font-mono"
               >
                 {activeLang === 'vi' ? 'Đóng cửa sổ' : 'Close Window'}
               </button>
@@ -477,7 +477,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
               </div>
 
               {/* Full Width Bottom Action Bar - FLUSH to edges, NO padding at bottom */}
-              <div className="w-full bg-[#0B0B11] border-t border-[#00f0ff] relative z-10 font-mono">
+              <div className="w-full bg-[#0B0B11] border-t border-[#38bdf8] relative z-10 font-mono">
                 <div className="flex items-stretch w-full rounded-none overflow-hidden">
                   {currentStep > 1 && (
                     <button
@@ -492,7 +492,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
                   {currentStep < 3 ? (
                     <button
                       type="submit"
-                      className="flex-1 w-full bg-[#00f0ff] hover:bg-[#00f0ff]/90 text-black font-bold py-4 text-xs sm:text-sm uppercase tracking-wider rounded-none transition-all cursor-pointer text-center"
+                      className="flex-1 w-full bg-[#38bdf8] hover:bg-[#38bdf8]/90 text-black font-bold py-4 text-xs sm:text-sm uppercase tracking-wider rounded-none transition-all cursor-pointer text-center"
                     >
                       {activeLang === 'vi' ? 'Tiếp theo →' : 'Next Step →'}
                     </button>
@@ -500,7 +500,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="flex-1 w-full bg-[#00f0ff] hover:bg-[#00f0ff]/90 text-black font-bold py-4 text-xs sm:text-sm uppercase tracking-wider rounded-none flex items-center justify-center gap-2 transition-all cursor-pointer"
+                      className="flex-1 w-full bg-[#38bdf8] hover:bg-[#38bdf8]/90 text-black font-bold py-4 text-xs sm:text-sm uppercase tracking-wider rounded-none flex items-center justify-center gap-2 transition-all cursor-pointer"
                     >
                       {isSubmitting ? (
                         <>

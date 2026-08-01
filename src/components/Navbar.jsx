@@ -1,12 +1,94 @@
-import React, { useState } from 'react';
-import { Search, Facebook, ChevronDown, Globe, Eye, EyeOff, Menu, X } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Search, Facebook, ChevronDown, Globe, Eye, EyeOff, Menu, X, Sparkles, Layers, Network, Terminal, ArrowRight } from 'lucide-react';
 import logoImg from '../../assets/logos/AevumOS-transparent.png';
 import unikornLogo from '../../assets/unikorn-logo.png';
 import { translations } from '../data/translations';
 
 export const Navbar = ({ currentPage, onNavigate, activeLang, onChangeLang, onOpenSearch, isEyeCare, onToggleEyeCare, isMobileMenuOpen, onToggleMobileMenu }) => {
   const [langOpen, setLangOpen] = useState(false);
+  const [featuresOpen, setFeaturesOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState(null);
+  const featuresRef = useRef(null);
+  const isVi = activeLang === 'vi';
   const t = translations[activeLang] || translations.en;
+
+  // Dynamic Scroll Spy for Section Indicator Label
+  useEffect(() => {
+    if (currentPage !== 'landing') {
+      setActiveSection(null);
+      return;
+    }
+
+    const sections = ['breakthroughs', 'agents', 'architecture', 'orchestration', 'testimonials', 'unikorn', 'i2flabs', 'cli'];
+
+    const handleScroll = () => {
+      if (window.scrollY < 350) {
+        setActiveSection(null);
+        return;
+      }
+
+      const viewportTarget = window.scrollY + window.innerHeight * 0.35;
+      let current = null;
+
+      for (let i = 0; i < sections.length; i++) {
+        const sectionId = sections[i];
+        const el = document.getElementById(sectionId);
+        if (el) {
+          const top = el.offsetTop;
+          const bottom = top + el.offsetHeight;
+          if (viewportTarget >= top - 60 && viewportTarget < bottom) {
+            current = sectionId;
+            break;
+          }
+        }
+      }
+
+      if (!current && window.scrollY > 350) {
+        for (let i = sections.length - 1; i >= 0; i--) {
+          const el = document.getElementById(sections[i]);
+          if (el && viewportTarget >= el.offsetTop - 60) {
+            current = sections[i];
+            break;
+          }
+        }
+      }
+
+      setActiveSection(current);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [currentPage]);
+
+  // Get active section label or default fallback
+  const getButtonLabel = () => {
+    if (activeSection === 'breakthroughs') return t.navbar.breakthroughs;
+    if (activeSection === 'agents') return t.navbar.agents;
+    if (activeSection === 'architecture') return t.navbar.architecture;
+    if (activeSection === 'orchestration') return t.navbar.orchestration;
+    if (activeSection === 'testimonials') return t.navbar.testimonials;
+    if (activeSection === 'unikorn') return t.navbar.unikorn;
+    if (activeSection === 'i2flabs') return t.navbar.i2flabs;
+    if (activeSection === 'cli') return t.navbar.kernel;
+    return isVi ? 'Kiến trúc & Tính năng' : 'Features & Architecture';
+  };
+
+  // Handle click outside to close features Cyber HUD menu
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (featuresRef.current && !featuresRef.current.contains(event.target)) {
+        setFeaturesOpen(false);
+      }
+    };
+    if (featuresOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [featuresOpen]);
 
   const handleNavLink = (e, target) => {
     e.preventDefault();
@@ -30,188 +112,236 @@ export const Navbar = ({ currentPage, onNavigate, activeLang, onChangeLang, onOp
   };
 
   return (
-    <div className="w-full border-subtle-b flex items-center justify-between px-4 sm:px-6 lg:px-8 xl:px-10 py-4 bg-[#0B0B11]/90 backdrop-blur-md sticky top-0 z-30">
+    <div ref={featuresRef} className="w-full border-b border-white/10 bg-[#0B0B11]/90 backdrop-blur-md sticky top-0 z-30 flex flex-col transition-all duration-300">
       
-      {/* Left Cell: Logo + Main Navigation */}
-      <div className="flex items-center gap-4 xl:gap-8 min-w-0">
-        <a 
-          href="#" 
-          onClick={(e) => { e.preventDefault(); onNavigate('landing'); }}
-          className="flex items-center gap-2.5 text-decoration-none group shrink-0"
-        >
-          <img 
-            src={logoImg} 
-            alt="Aevum OS Logo" 
-            className="w-7 h-7 object-contain" 
-          />
-          <span className="font-extrabold text-lg text-white tracking-wider font-display whitespace-nowrap">
-            AEVUM OS
-          </span>
-        </a>
+      {/* Main Navbar Top Row */}
+      <div className="w-full flex items-center justify-between px-4 sm:px-6 lg:px-8 xl:px-10 py-4">
+        {/* Left Cell: Logo + Main Navigation */}
+        <div className="flex items-center gap-4 xl:gap-8 min-w-0">
+          <a 
+            href="#" 
+            onClick={(e) => { e.preventDefault(); onNavigate('landing'); }}
+            className="flex items-center gap-2.5 text-decoration-none group shrink-0"
+          >
+            <img 
+              src={logoImg} 
+              alt="Aevum OS Logo" 
+              className="w-7 h-7 object-contain" 
+            />
+            <span className="font-extrabold text-lg text-white tracking-wider font-display whitespace-nowrap">
+              AEVUM OS
+            </span>
+          </a>
 
-        {/* Desktop Nav Links */}
-        <nav className="hidden lg:flex items-center gap-4 xl:gap-6 text-xs font-semibold whitespace-nowrap text-nowrap" style={{ whiteSpace: 'nowrap', textWrap: 'nowrap' }}>
-          <a 
-            href="#breakthroughs" 
-            onClick={(e) => handleNavLink(e, 'breakthroughs')}
-            className="text-slate-300 hover:text-cyan-400 transition-colors whitespace-nowrap text-nowrap"
-            style={{ whiteSpace: 'nowrap', textWrap: 'nowrap' }}
-          >
-            {t.navbar.breakthroughs}
-          </a>
-          <a 
-            href="#architecture" 
-            onClick={(e) => handleNavLink(e, 'architecture')}
-            className="text-slate-300 hover:text-cyan-400 transition-colors whitespace-nowrap text-nowrap"
-            style={{ whiteSpace: 'nowrap', textWrap: 'nowrap' }}
-          >
-            {t.navbar.architecture}
-          </a>
-          <a 
-            href="#orchestration" 
-            onClick={(e) => handleNavLink(e, 'orchestration')}
-            className="text-slate-300 hover:text-cyan-400 transition-colors whitespace-nowrap text-nowrap"
-            style={{ whiteSpace: 'nowrap', textWrap: 'nowrap' }}
-          >
-            {t.navbar.orchestration}
-          </a>
-          <a 
-            href="#cli" 
-            onClick={(e) => handleNavLink(e, 'cli')}
-            className="text-slate-300 hover:text-cyan-400 transition-colors whitespace-nowrap text-nowrap"
-            style={{ whiteSpace: 'nowrap', textWrap: 'nowrap' }}
-          >
-            {t.navbar.kernel}
-          </a>
-          
-          {/* Vertical Separator */}
-          <span className="w-px h-3 bg-white/10 shrink-0"></span>
+          {/* Desktop Nav Links */}
+          <nav className="hidden lg:flex items-center gap-4 xl:gap-6 text-xs font-semibold whitespace-nowrap text-nowrap">
+            
+            {/* Desktop Features & Architecture Toggle Button */}
+            <button 
+              onClick={() => setFeaturesOpen(prev => !prev)}
+              className={`flex items-center gap-1.5 text-xs font-semibold py-1.5 px-3 rounded-lg transition-all duration-200 cursor-pointer ${
+                featuresOpen
+                  ? 'text-cyan-400 bg-cyan-500/10 shadow-[inset_0_0_0_1px_rgba(56,189,248,0.4)]'
+                  : 'text-slate-300 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.25)] hover:text-white bg-white/[0.02]'
+              }`}
+            >
+              <span>{getButtonLabel()}</span>
+              <ChevronDown size={13} className={`transition-transform duration-300 ${featuresOpen ? 'rotate-180 text-cyan-400' : 'text-slate-400'}`} />
+            </button>
+            
+            {/* Vertical Separator */}
+            <span className="w-px h-3 bg-white/10 shrink-0"></span>
 
-          {/* Docs Link */}
-          <button 
-            onClick={() => onNavigate('docs')}
-            className={`transition-colors font-semibold whitespace-nowrap text-nowrap ${
-              currentPage === 'docs' ? 'text-cyan-400' : 'text-slate-300 hover:text-cyan-400'
+            {/* Docs Link */}
+            <button 
+              onClick={() => onNavigate('docs')}
+              className={`transition-colors font-semibold whitespace-nowrap text-nowrap ${
+                currentPage === 'docs' ? 'text-cyan-400' : 'text-slate-300 hover:text-cyan-400'
+              }`}
+              style={{ whiteSpace: 'nowrap', textWrap: 'nowrap' }}
+            >
+              {t.navbar.docs}
+            </button>
+
+            {/* Vertical Separator */}
+            <span className="w-px h-3 bg-white/10 shrink-0"></span>
+
+            {/* About Link */}
+            <button 
+              onClick={() => onNavigate('about')}
+              className={`transition-colors font-semibold whitespace-nowrap text-nowrap ${
+                currentPage === 'about' ? 'text-cyan-400' : 'text-slate-300 hover:text-cyan-400'
+              }`}
+              style={{ whiteSpace: 'nowrap', textWrap: 'nowrap' }}
+            >
+              {t.navbar.about}
+            </button>
+          </nav>
+        </div>
+
+        {/* Right Cell: Search + Social Links */}
+        <div className="flex items-center gap-3 xl:gap-4 shrink-0">
+          {/* Search Input */}
+          <div 
+            onClick={onOpenSearch}
+            className="flex items-center gap-3 bg-white/[0.04] hover:bg-white/[0.08] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] px-3 py-1.5 rounded-lg text-slate-400 cursor-pointer transition-all group"
+          >
+            <Search size={14} className="group-hover:text-cyan-400 transition-colors" />
+            <span className="text-xs font-mono text-slate-400 group-hover:text-slate-300">
+              {isVi ? 'Tìm kiếm OS...' : 'Search OS...'}
+            </span>
+            <kbd className="hidden sm:inline-block text-[10px] font-mono bg-white/10 px-1.5 py-0.5 rounded text-slate-400 border border-white/10 ml-2">
+              Ctrl K
+            </kbd>
+          </div>
+
+          {/* Eye Care Mode Button */}
+          <button
+            onClick={onToggleEyeCare}
+            className={`flex items-center gap-1.5 text-xs font-mono px-2.5 py-1.5 rounded-lg transition-all cursor-pointer ${
+              isEyeCare 
+                ? 'bg-amber-500/20 text-amber-300 shadow-[inset_0_0_0_1px_rgba(245,158,11,0.4)]' 
+                : 'bg-white/[0.03] text-slate-400 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] hover:text-slate-200 hover:bg-white/[0.06]'
             }`}
-            style={{ whiteSpace: 'nowrap', textWrap: 'nowrap' }}
+            title={isVi ? "Bật/Tắt chế độ lọc ánh sáng vàng bảo vệ mắt" : "Toggle warmth eye protection filter"}
           >
-            {t.navbar.docs}
+            {isEyeCare ? <EyeOff size={13} className="text-amber-400 animate-pulse" /> : <Eye size={13} />}
+            <span className="hidden md:inline">{isVi ? "Bảo vệ mắt" : "Eye Care"}</span>
           </button>
 
-          {/* Vertical Separator */}
-          <span className="w-px h-3 bg-white/10 shrink-0"></span>
-
-          {/* About Link */}
+          {/* 1-Click Instant Language Switcher Toggle */}
           <button 
-            onClick={() => onNavigate('about')}
-            className={`transition-colors font-semibold whitespace-nowrap text-nowrap ${
-              currentPage === 'about' ? 'text-cyan-400' : 'text-slate-300 hover:text-cyan-400'
-            }`}
-            style={{ whiteSpace: 'nowrap', textWrap: 'nowrap' }}
+            onClick={() => onChangeLang(activeLang === 'vi' ? 'en' : 'vi')}
+            className="flex items-center gap-1.5 text-xs font-mono text-slate-300 hover:text-white bg-white/[0.04] hover:bg-white/[0.08] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] px-2.5 py-1.5 rounded-lg transition-all cursor-pointer group"
+            title={isVi ? "Chuyển sang Tiếng Anh (EN)" : "Switch to Vietnamese (VI)"}
           >
-            {t.navbar.about}
+            <Globe size={13} className="text-white group-hover:text-cyan-400 transition-colors" />
+            <span className="font-bold text-white group-hover:text-cyan-400 transition-colors">{activeLang === 'vi' ? 'VI' : 'EN'}</span>
           </button>
-        </nav>
+
+          {/* Social Icons */}
+          <div className="hidden md:flex items-center gap-2 border-l border-white/10 pl-3">
+            <a 
+              href="https://facebook.com" 
+              target="_blank" 
+              rel="noreferrer"
+              className="text-slate-400 hover:text-white transition-colors p-1"
+            >
+              <Facebook size={14} />
+            </a>
+            <a 
+              href="https://unikorn.vn" 
+              target="_blank" 
+              rel="noreferrer"
+              className="opacity-70 hover:opacity-100 transition-opacity p-1"
+              title="Unikorn - Creative Tech Agency"
+            >
+              <img src={unikornLogo} alt="Unikorn Logo" className="w-3.5 h-3.5 object-contain" />
+            </a>
+          </div>
+
+          {/* Mobile Hamburger Menu Toggle */}
+          <button
+            onClick={onToggleMobileMenu}
+            className="lg:hidden p-2 text-slate-300 hover:text-white bg-white/5 border border-white/10 rounded-lg transition-colors cursor-pointer"
+            aria-label="Toggle Mobile Navigation"
+          >
+            {isMobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
+          </button>
+
+        </div>
       </div>
 
-      {/* Right Cell: Search + Social Links */}
-      <div className="flex items-center gap-3 xl:gap-4 shrink-0">
-        {/* Search Input */}
-        <div 
-          onClick={onOpenSearch}
-          className="hidden sm:flex items-center bg-white/[0.02] border-subtle rounded-md px-3 py-1.5 text-xs text-slate-400 font-mono gap-2 hover:border-white/15 transition-all cursor-pointer whitespace-nowrap text-nowrap" 
-          style={{ whiteSpace: 'nowrap', textWrap: 'nowrap' }}
-        >
-          <Search size={13} className="text-slate-500 shrink-0" />
-          <span className="whitespace-nowrap text-nowrap" style={{ whiteSpace: 'nowrap', textWrap: 'nowrap' }}>{t.navbar.searchPlaceholder}</span>
-          <kbd className="text-[10px] bg-white/5 px-1 py-0.5 rounded text-slate-300 whitespace-nowrap text-nowrap" style={{ whiteSpace: 'nowrap', textWrap: 'nowrap' }}>{t.navbar.searchShortcut}</kbd>
-        </div>
+      {/* Compact Expandable Sub-Navigation Strip (Pushes Content Down Seamlessly) */}
+      <div 
+        className={`w-full overflow-hidden transition-all duration-300 ease-out bg-[#0B0B11]/95 border-t border-white/10 ${
+          featuresOpen ? 'max-h-16 opacity-100 py-3' : 'max-h-0 opacity-0 py-0 border-t-0'
+        }`}
+      >
+        <div className="max-w-6xl mx-auto px-4 sm:px-8 flex items-center justify-between text-xs">
+          <div className="flex items-center gap-5 sm:gap-7 font-medium overflow-x-auto no-scrollbar py-1 pr-4">
+            <a 
+              href="#breakthroughs" 
+              onClick={(e) => { handleNavLink(e, 'breakthroughs'); setFeaturesOpen(false); }}
+              className={`transition-colors whitespace-nowrap shrink-0 ${
+                activeSection === 'breakthroughs' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
+              }`}
+            >
+              {t.navbar.breakthroughs}
+            </a>
+            <a 
+              href="#agents" 
+              onClick={(e) => { handleNavLink(e, 'agents'); setFeaturesOpen(false); }}
+              className={`transition-colors whitespace-nowrap shrink-0 ${
+                activeSection === 'agents' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
+              }`}
+            >
+              {t.navbar.agents}
+            </a>
+            <a 
+              href="#architecture" 
+              onClick={(e) => { handleNavLink(e, 'architecture'); setFeaturesOpen(false); }}
+              className={`transition-colors whitespace-nowrap shrink-0 ${
+                activeSection === 'architecture' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
+              }`}
+            >
+              {t.navbar.architecture}
+            </a>
+            <a 
+              href="#orchestration" 
+              onClick={(e) => { handleNavLink(e, 'orchestration'); setFeaturesOpen(false); }}
+              className={`transition-colors whitespace-nowrap shrink-0 ${
+                activeSection === 'orchestration' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
+              }`}
+            >
+              {t.navbar.orchestration}
+            </a>
+            <a 
+              href="#testimonials" 
+              onClick={(e) => { handleNavLink(e, 'testimonials'); setFeaturesOpen(false); }}
+              className={`transition-colors whitespace-nowrap shrink-0 ${
+                activeSection === 'testimonials' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
+              }`}
+            >
+              {t.navbar.testimonials}
+            </a>
+            <a 
+              href="#unikorn" 
+              onClick={(e) => { handleNavLink(e, 'unikorn'); setFeaturesOpen(false); }}
+              className={`transition-colors whitespace-nowrap shrink-0 ${
+                activeSection === 'unikorn' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
+              }`}
+            >
+              {t.navbar.unikorn}
+            </a>
+            <a 
+              href="#i2flabs" 
+              onClick={(e) => { handleNavLink(e, 'i2flabs'); setFeaturesOpen(false); }}
+              className={`transition-colors whitespace-nowrap shrink-0 ${
+                activeSection === 'i2flabs' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
+              }`}
+            >
+              {t.navbar.i2flabs}
+            </a>
+            <a 
+              href="#cli" 
+              onClick={(e) => { handleNavLink(e, 'cli'); setFeaturesOpen(false); }}
+              className={`transition-colors whitespace-nowrap shrink-0 ${
+                activeSection === 'cli' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
+              }`}
+            >
+              {t.navbar.kernel}
+            </a>
+          </div>
 
-        {/* Eye Care Toggle */}
-        <button
-          onClick={onToggleEyeCare}
-          className={`hidden sm:flex items-center gap-1.5 text-xs transition-all font-mono py-1.5 px-2.5 rounded-md hover:bg-white/5 whitespace-nowrap ${
-            isEyeCare 
-              ? 'text-white border border-white/20 bg-white/5' 
-              : 'text-slate-400 hover:text-white border border-transparent'
-          }`}
-          title={activeLang === 'vi' ? 'Chế độ bảo vệ mắt (Giảm ánh sáng xanh)' : 'Eye Care Mode (Filter Blue Light)'}
-        >
-          {isEyeCare ? <EyeOff size={14} className="shrink-0" /> : <Eye size={14} className="shrink-0" />}
-          <span className="hidden sm:inline whitespace-nowrap">
-            {activeLang === 'vi' ? 'Bảo vệ mắt' : 'Eye Care'}
-          </span>
-        </button>
-
-        {/* Language selector */}
-        <div className="relative shrink-0">
           <button 
-            onClick={() => setLangOpen(!langOpen)}
-            className="hidden sm:flex items-center gap-1.5 text-xs text-slate-400 hover:text-white transition-colors font-mono py-1.5 px-2 rounded-md hover:bg-white/5 whitespace-nowrap"
+            onClick={() => setFeaturesOpen(false)}
+            className="text-slate-500 hover:text-white transition-colors p-1 cursor-pointer"
+            title={isVi ? "Đóng" : "Close"}
           >
-            <Globe size={14} className="shrink-0" />
-            <span className="uppercase whitespace-nowrap">{activeLang}</span>
-            <ChevronDown size={12} className={`transition-transform duration-200 shrink-0 ${langOpen ? 'rotate-180' : ''}`} />
+            <X size={14} />
           </button>
-
-          {langOpen && (
-            <>
-              {/* Overlay backdrop to close dropdown */}
-              <div className="fixed inset-0 z-10" onClick={() => setLangOpen(false)} />
-              
-              {/* Dropdown Menu */}
-              <div className="absolute right-0 mt-1.5 w-32 bg-[#0B0B11] border border-white/10 rounded-md overflow-hidden shadow-none z-20 font-mono text-[11px] animate-fadeIn" style={{ boxShadow: 'none' }}>
-                <button
-                  onClick={() => { onChangeLang('vi'); setLangOpen(false); }}
-                  className={`block w-full text-left px-3 py-2 hover:bg-white/5 transition-colors whitespace-nowrap ${
-                    activeLang === 'vi' ? 'text-cyan-400 font-semibold' : 'text-slate-400'
-                  }`}
-                >
-                  Vietnamese
-                </button>
-                <button
-                  onClick={() => { onChangeLang('en'); setLangOpen(false); }}
-                  className={`block w-full text-left px-3 py-2 border-t border-white/5 hover:bg-white/5 transition-colors whitespace-nowrap ${
-                    activeLang === 'en' ? 'text-cyan-400 font-semibold' : 'text-slate-400'
-                  }`}
-                >
-                  English
-                </button>
-              </div>
-            </>
-          )}
         </div>
-
-        {/* Social Links */}
-        <div className="flex items-center gap-3.5 text-slate-400 shrink-0">
-          <a 
-            href="https://www.facebook.com/Haiii191/?locale=vi_VN" 
-            target="_blank" 
-            rel="noreferrer" 
-            className="flex items-center text-slate-400 opacity-60 hover:opacity-100 hover:text-white transition-all"
-            title="Facebook"
-          >
-            <Facebook size={15} />
-          </a>
-          <a 
-            href="https://unikorn.vn/p/aevum?ref=embed-aevum" 
-            target="_blank" 
-            rel="noreferrer" 
-            className="flex items-center transition-opacity opacity-60 hover:opacity-100"
-            title="Aevum OS on Unikorn.vn"
-          >
-            <img src={unikornLogo} alt="Unikorn Logo" className="h-3.5 w-auto max-h-[14px] object-contain" />
-          </a>
-        </div>
-
-        {/* Mobile Menu Toggle Button */}
-        <button
-          onClick={onToggleMobileMenu}
-          className="lg:hidden flex items-center justify-center p-1.5 rounded-md text-slate-400 hover:text-white hover:bg-white/5 transition-colors cursor-pointer"
-          aria-label="Toggle Menu"
-        >
-          {isMobileMenuOpen ? <X size={20} className="text-white" /> : <Menu size={20} className="text-white" />}
-        </button>
       </div>
 
     </div>

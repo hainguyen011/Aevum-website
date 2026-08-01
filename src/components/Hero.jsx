@@ -23,10 +23,18 @@ export const Hero = ({ onNavigate, onOpenTrialModal, activeLang }) => {
       
       {/* Left Cell: Text Content */}
       <div 
-        data-reveal
-        className="lg:col-span-7 p-8 sm:p-12 lg:p-14 lg:border-subtle-r flex flex-col justify-between space-y-8 bg-[#0B0B11]"
+        className="relative overflow-hidden lg:col-span-7 p-8 sm:p-12 lg:p-14 lg:border-subtle-r flex flex-col justify-between space-y-8 bg-[#0B0B11]"
       >
-        <div className="space-y-6">
+        {/* Mobile Ambient ASCII Watermark (lg:hidden) */}
+        <div className="absolute right-[-20px] top-1/2 -translate-y-1/2 opacity-15 max-w-[260px] sm:max-w-[320px] pointer-events-none mix-blend-screen select-none lg:hidden z-0">
+          <img 
+            src={asciiAsset} 
+            alt="Aevum ASCII Watermark" 
+            className="w-full h-auto object-contain"
+          />
+        </div>
+
+        <div className="space-y-6 relative z-10">
           
           {/* Sub-brand / Tagline */}
           <div className="text-[11px] font-mono tracking-widest text-slate-500 uppercase">
@@ -44,7 +52,7 @@ export const Hero = ({ onNavigate, onOpenTrialModal, activeLang }) => {
           </h1>
 
           {/* Description - Standalone OS Positioning */}
-          <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl font-normal">
+          <p className="text-slate-300 text-xs sm:text-base leading-relaxed max-w-xl font-normal">
             {t.hero.desc}
           </p>
 
@@ -67,7 +75,7 @@ export const Hero = ({ onNavigate, onOpenTrialModal, activeLang }) => {
         </div>
 
         {/* CLI Exec Command Strip */}
-        <div className="pt-4 font-mono text-xs space-y-2">
+        <div className="pt-4 font-mono text-xs space-y-2 relative z-10">
           <div className="flex items-center justify-between text-slate-400">
             <span className="text-[11px] text-slate-500 uppercase">{t.hero.startKernel}</span>
             <button onClick={handleCopy} className="text-cyan-400 hover:text-cyan-300 text-[11px]">
@@ -82,10 +90,9 @@ export const Hero = ({ onNavigate, onOpenTrialModal, activeLang }) => {
 
       </div>
 
-      {/* Right Cell: Raw Aevum ASCII Graphic with Scale Reveal */}
+      {/* Right Cell: Raw Aevum ASCII Graphic (Desktop only: hidden lg:flex) */}
       <div 
-        data-reveal="scale"
-        className="lg:col-span-5 p-6 sm:p-8 flex items-center justify-center relative min-h-[460px] bg-[#0B0B11]"
+        className="hidden lg:flex lg:col-span-5 p-6 sm:p-8 items-center justify-center relative min-h-[460px] bg-[#0B0B11]"
       >
         <img 
           src={asciiAsset} 

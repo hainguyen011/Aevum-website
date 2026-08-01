@@ -40,15 +40,15 @@ export const Testimonials = ({ activeLang }) => {
   const handleScroll = () => {
     if (!scrollRef.current) return;
     const { scrollLeft, children } = scrollRef.current;
-    const cardWidth = children[0]?.offsetWidth ?? scrollRef.current.offsetWidth * 0.85;
-    const idx = Math.round(scrollLeft / (cardWidth + 12)); // +12 for gap-3
-    setActiveSlide(Math.min(idx, reviews.length - 1));
+    const cardWidth = children[0]?.offsetWidth ?? scrollRef.current.offsetWidth;
+    const idx = Math.round(scrollLeft / cardWidth);
+    setActiveSlide(Math.min(Math.max(0, idx), reviews.length - 1));
   };
 
   const scrollToSlide = (idx) => {
     if (!scrollRef.current) return;
-    const cardWidth = scrollRef.current.children[0]?.offsetWidth ?? scrollRef.current.offsetWidth * 0.85;
-    scrollRef.current.scrollTo({ left: idx * (cardWidth + 12), behavior: 'smooth' });
+    const cardWidth = scrollRef.current.children[0]?.offsetWidth ?? scrollRef.current.offsetWidth;
+    scrollRef.current.scrollTo({ left: idx * cardWidth, behavior: 'smooth' });
     setActiveSlide(idx);
   };
 
@@ -64,8 +64,8 @@ export const Testimonials = ({ activeLang }) => {
   }
 
   const ReviewCard = ({ rev, className = '' }) => (
-    <div className={`flex flex-col justify-between bg-[#07080e] hover:bg-[#0e0f17] transition-colors group ${className}`}>
-      <div className="p-6 sm:p-8 space-y-4">
+    <div className={`flex flex-col justify-between bg-transparent hover:bg-white/[0.02] transition-colors group shadow-none ${className}`}>
+      <div className="p-6 sm:p-8 space-y-4 flex-1 flex flex-col justify-center">
         <div className="flex items-center gap-3">
           <img
             src={rev.avatar}
@@ -81,7 +81,7 @@ export const Testimonials = ({ activeLang }) => {
           "{rev.text}"
         </p>
       </div>
-      <div className="border-subtle-t px-6 sm:px-8 py-4 text-[11px] text-cyan-300/80 font-mono">
+      <div className="border-subtle-t px-6 sm:px-8 py-4 text-[11px] text-cyan-300/80 font-mono flex items-center">
         {rev.role}
       </div>
     </div>
@@ -122,21 +122,19 @@ export const Testimonials = ({ activeLang }) => {
         </div>
       </div>
 
-      {/* Mobile: Peek Snap Carousel */}
+      {/* Mobile: Full Width Single Card Carousel */}
       <div className="lg:hidden">
         <div
           ref={scrollRef}
           onScroll={handleScroll}
-          className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory px-4 gap-3 py-4"
+          className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory py-0"
           data-lenis-prevent
         >
           {reviews.map((rev, idx) => (
-            <div key={idx} className="snap-start shrink-0 w-[85vw]">
-              <ReviewCard rev={rev} className="border border-white/5 h-full" />
+            <div key={idx} className="snap-start shrink-0 w-full">
+              <ReviewCard rev={rev} className="border-0 shadow-none h-full" />
             </div>
           ))}
-          {/* Trailing spacer */}
-          <div className="shrink-0 w-4" />
         </div>
 
         {/* Dot Indicators */}

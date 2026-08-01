@@ -4,21 +4,21 @@ import { translations } from '../data/translations';
 export const FoundationGrid = ({ activeLang }) => {
   const t = translations[activeLang] || translations.en;
 
-  // Programmatically highlight MCP Tooling Reference
+  // Programmatically highlight MCP Tooling
   const titleText = t.foundationGrid.title;
   let titleNode = titleText;
-  if (titleText.includes("MCP Tooling Reference")) {
-    const parts = titleText.split("MCP Tooling Reference");
+  if (titleText.includes("Công cụ MCP")) {
+    const parts = titleText.split("Công cụ MCP");
     titleNode = (
       <>
-        {parts[0]}<span className="text-cyan-400">MCP Tooling Reference</span>{parts[1]}
+        {parts[0]}<span className="text-cyan-400">Công cụ MCP</span>{parts[1]}
       </>
     );
-  } else if (titleText.includes("MCP Tooling của Aevum")) {
-    const parts = titleText.split("MCP Tooling của Aevum");
+  } else if (titleText.includes("MCP Tooling")) {
+    const parts = titleText.split("MCP Tooling");
     titleNode = (
       <>
-        {parts[0]}<span className="text-cyan-400">MCP Tooling của Aevum</span>{parts[1]}
+        {parts[0]}<span className="text-cyan-400">MCP Tooling</span>{parts[1]}
       </>
     );
   }

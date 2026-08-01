@@ -13,7 +13,7 @@ export const translations = {
     hero: {
       badge: "I2FLABS VIỆT NAM • HỆ ĐIỀU HÀNH AGENT ĐỘC LẬP",
       title: "Hệ điều hành Agent & Bộ não ngoại vi",
-      desc: "Aevum OS là Hệ điều hành độc lập và Bộ não Ngoại vi cho AI Agent — tích hợp lập kế hoạch hướng tên miền (DDD), biểu đồ bộ nhớ tự phục hồi và điều phối biệt đội Agent tự trị, tách biệt hoàn toàn khỏi mọi IDE.",
+      desc: "Aevum OS là Hệ điều hành độc lập & Bộ não Ngoại vi cho AI Agent — tích hợp lập kế hoạch DDD, biểu đồ bộ nhớ tự phục hồi và điều phối biệt đội Agent tự trị tách biệt khỏi mọi IDE.",
       downloadBtn: "Đăng ký trải nghiệm",
       docsBtn: "Đọc tài liệu",
       startKernel: "KHỞI CHẠY NHÂN OS:",
@@ -93,11 +93,15 @@ export const translations = {
         "[+] Thảo luận Biệt đội Huddle"
       ],
       b4Title: "Bộ nhớ Sống & Mạng lưới PiperNet (IoA)",
-      b4Desc: "Tự động thu hoạch bài học kinh nghiệm vào Bộ nhớ Toàn cục khi hoàn thành kế hoạch. Kết nối PiperNet (Internet of Agents) để truy vấn trí tuệ tập thể trên toàn mạng lưới."
+      b4Desc: "Tự động thu hoạch bài học kinh nghiệm vào Bộ nhớ Toàn cục khi hoàn thành kế hoạch. Kết nối PiperNet (Internet of Agents) để truy vấn trí tuệ tập thể trên toàn mạng lưới.",
+      b1Speech: "Hi! Mình sẽ quản lý tín hiệu .aevum/signal.json và thực hiện Handshake Soul Sync cho bạn! ⚡",
+      b2Speech: "Chào bạn! Mình quy hoạch bộ nhớ vĩnh cửu theo phân cấp Domain, Feature, Plan & Persona. 🧠",
+      b3Speech: "Xin chào! Biệt đội Agent sẽ tự động chuyển giao công việc với 100% ngữ cảnh toàn vẹn! 💬",
+      b4Speech: "Tri thức quy trình tự động thu hoạch & đồng bộ lên PiperNet IoA Mesh để truy vấn toàn cục! 🌐"
     },
     foundationGrid: {
       tag: "GIAO THỨC MCP TIÊU CHUẨN",
-      title: "Bảng Tham chiếu Công cụ MCP Aevum",
+      title: "Bảng Công cụ MCP Aevum",
       desc: "Hệ thống công cụ Model Context Protocol (MCP) chuyên dụng cho quản trị Domain, điều phối biệt đội và truy xuất bộ nhớ vĩnh cửu.",
       c1Tag: "CẤU TRÚC & LẬP KẾ HOẠCH",
       c1Title: "Công cụ Domain & Lập kế hoạch",
@@ -154,7 +158,7 @@ export const translations = {
       tag: "UNIKORN VIỆT NAM",
       title: "Sản phẩm của Ngày trên Unikorn.vn",
       desc: "Khám phá bài viết phân tích kiến trúc, tính năng và thảo luận cộng đồng về Aevum OS trên Unikorn.vn — nền tảng tôn vinh sáng tạo công nghệ Việt.",
-      btn: "Đọc bài viết phân tích trên Unikorn.vn →"
+      btn: "Xem trên Unikorn.vn →"
     },
     i2flabs: {
       tag: "ĐỘI NGŨ PHÁT TRIỂN",
@@ -207,7 +211,7 @@ export const translations = {
     hero: {
       badge: "BY I2FLABS VIETNAM • STANDALONE AGENTIC OS",
       title: "Agentic Operating System & External Brain",
-      desc: "Aevum OS is an independent workspace Operating System and External Brain — integrating Domain-Driven Plans (DDD), self-healing living memory graphs, and autonomous multi-agent squad orchestration completely decoupled from traditional editors.",
+      desc: "Aevum OS is an independent workspace OS & External Brain — integrating DDD plans, self-healing memory graphs, and autonomous squad orchestration decoupled from traditional editors.",
       downloadBtn: "Join Early Access",
       docsBtn: "Read Documentation",
       startKernel: "START KERNEL:",
@@ -287,11 +291,15 @@ export const translations = {
         "[+] Squad Huddle Session"
       ],
       b4Title: "Living Memory Graph & PiperNet (IoA)",
-      b4Desc: "Automatically harvest insights into the Global Memory Vault upon plan completion. Connect with PiperNet (Internet of Agents) to query collective procedural wisdom across agent nodes."
+      b4Desc: "Automatically harvest insights into the Global Memory Vault upon plan completion. Connect with PiperNet (Internet of Agents) to query collective procedural wisdom across agent nodes.",
+      b1Speech: "Hi! I broadcast the .aevum/signal.json beacon and authorize independent Soul Sync handshakes! ⚡",
+      b2Speech: "Hello! I structure persistent living memory into Domains, Features, Plans & Personas. 🧠",
+      b3Speech: "Hey there! Our autonomous squad handoffs transfer complex tasks with 100% context preservation! 💬",
+      b4Speech: "Procedural wisdom automatically syncs to the PiperNet IoA Mesh for instant global memory query! 🌐"
     },
     foundationGrid: {
       tag: "STANDARD MCP PROTOCOL",
-      title: "Aevum MCP Tooling Reference Grid",
+      title: "Aevum MCP Tooling",
       desc: "A specialized Model Context Protocol (MCP) toolset for domain management, squad orchestration, and persistent memory querying.",
       c1Tag: "STRUCTURE & PLANNING",
       c1Title: "Domain & Planning Tools",
@@ -348,7 +356,7 @@ export const translations = {
       tag: "UNIKORN VIETNAM",
       title: "Product of the Day on Unikorn.vn",
       desc: "Explore the deep-dive architectural article, features, and community discussions on Aevum OS at Unikorn.vn — the premier platform celebrating Vietnamese tech innovations.",
-      btn: "Read Analysis on Unikorn.vn →"
+      btn: "Read on Unikorn.vn →"
     },
     i2flabs: {
       tag: "DEVELOPMENT TEAM",

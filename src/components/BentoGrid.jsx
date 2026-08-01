@@ -1,8 +1,35 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { translations } from '../data/translations';
+
+// Sticker Imports from Agent Collections
+import anHiSticker from '../../assets/stickers/An_Collection/An_Hi.png';
+import zenithCuriosSticker from '../../assets/stickers/Zenith_Collection/Zenith_Curios.png';
+import lunaLoverSticker from '../../assets/stickers/Luna_Collection/Luna_Lover.png';
+import vidusHipeSticker from '../../assets/stickers/Vidus_Collection/Vidus_Hipe.png';
 
 export const BentoGrid = ({ activeLang }) => {
   const t = translations[activeLang] || translations.en;
+  const [activeSlide, setActiveSlide] = useState(0);
+  const scrollRef = useRef(null);
+
+  // Typewriter Speech State
+  const [typedSpeech, setTypedSpeech] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
+
+  const handleScroll = () => {
+    if (!scrollRef.current) return;
+    const { scrollLeft, children } = scrollRef.current;
+    const cardWidth = children[0]?.offsetWidth ?? scrollRef.current.offsetWidth;
+    const idx = Math.round(scrollLeft / cardWidth);
+    setActiveSlide(Math.min(Math.max(0, idx), items.length - 1));
+  };
+
+  const scrollToSlide = (idx) => {
+    if (!scrollRef.current) return;
+    const cardWidth = scrollRef.current.children[0]?.offsetWidth ?? scrollRef.current.offsetWidth;
+    scrollRef.current.scrollTo({ left: idx * cardWidth, behavior: 'smooth' });
+    setActiveSlide(idx);
+  };
 
   // Render title with cyan highlight span programmatically
   const titleText = t.bentoGrid.title;
@@ -16,11 +43,82 @@ export const BentoGrid = ({ activeLang }) => {
     );
   }
 
+  const items = [
+    {
+      id: "01",
+      tag: "HANDSHAKE & SOUL SYNC",
+      num: "01",
+      title: t.bentoGrid.b1Title,
+      desc: t.bentoGrid.b1Desc,
+      agentName: "An • Soul Companion",
+      speech: t.bentoGrid.b1Speech,
+      sticker: anHiSticker,
+      badgeColor: "border-cyan-400/40 text-cyan-400 bg-cyan-500/10",
+      glowColor: "from-cyan-500/20 to-blue-600/10"
+    },
+    {
+      id: "02",
+      tag: "DOMAIN-DRIVEN BRAIN (DDD)",
+      num: "02",
+      title: t.bentoGrid.b2Title,
+      desc: t.bentoGrid.b2Desc,
+      agentName: "Zenith • System Architect",
+      speech: t.bentoGrid.b2Speech,
+      sticker: zenithCuriosSticker,
+      badgeColor: "border-indigo-400/40 text-indigo-400 bg-indigo-500/10",
+      glowColor: "from-indigo-500/20 to-purple-600/10"
+    },
+    {
+      id: "03",
+      tag: "AUTONOMOUS SQUAD OS",
+      num: "03",
+      title: t.bentoGrid.b3Title,
+      desc: t.bentoGrid.b3Desc,
+      agentName: "Luna • UI/UX Specialist",
+      speech: t.bentoGrid.b3Speech,
+      sticker: lunaLoverSticker,
+      badgeColor: "border-pink-400/40 text-pink-400 bg-pink-500/10",
+      glowColor: "from-pink-500/20 to-rose-600/10"
+    },
+    {
+      id: "04",
+      tag: "PIPERNET IOA MESH",
+      num: "04",
+      title: t.bentoGrid.b4Title,
+      desc: t.bentoGrid.b4Desc,
+      agentName: "Vidus • Security Auditor",
+      speech: t.bentoGrid.b4Speech,
+      sticker: vidusHipeSticker,
+      badgeColor: "border-emerald-400/40 text-emerald-400 bg-emerald-500/10",
+      glowColor: "from-emerald-500/20 to-teal-600/10"
+    }
+  ];
+
+  // Trigger typewriter effect on slide switch or language change
+  useEffect(() => {
+    const fullSpeech = items[activeSlide]?.speech || '';
+    setTypedSpeech('');
+    setIsTyping(true);
+    let currentIdx = 0;
+
+    const interval = setInterval(() => {
+      if (currentIdx < fullSpeech.length) {
+        currentIdx++;
+        setTypedSpeech(fullSpeech.slice(0, currentIdx));
+      } else {
+        setIsTyping(false);
+        clearInterval(interval);
+      }
+    }, 18);
+
+    return () => clearInterval(interval);
+  }, [activeSlide, activeLang]);
+
   return (
     <div id="breakthroughs" className="border-subtle-b bg-[#0B0B11]">
 
       {/* Section Header Cell */}
-      <div data-reveal className="p-8 sm:p-12 text-center border-subtle-b bg-[#0B0B11] border-scan">
+      <div className="p-8 sm:p-12 text-center border-subtle-b bg-[#0B0B11] border-scan">
         <span className="text-[11px] font-mono text-cyan-400 font-semibold tracking-widest uppercase">
           {t.bentoGrid.tag}
         </span>
@@ -32,110 +130,184 @@ export const BentoGrid = ({ activeLang }) => {
         </p>
       </div>
 
-      {/* 2x2 Grid Layout with Staggered Scroll Reveal */}
-      <div className="grid grid-cols-1 lg:grid-cols-2">
-
-        {/* Breakthrough 1: Row 1 Left */}
+      {/* Mobile Carousel View (lg:hidden) */}
+      <div className="lg:hidden">
         <div
-          data-reveal
-          data-reveal-delay="100"
-          className="p-8 sm:p-10 lg:border-subtle-r flex flex-col justify-between group hover:bg-[#0e0f17] transition-colors"
+          ref={scrollRef}
+          onScroll={handleScroll}
+          className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory py-0"
+          data-lenis-prevent
         >
-          <div>
-            <h3 className="text-lg font-bold text-white mb-2 font-display">{t.bentoGrid.b1Title}</h3>
-            <p className="text-slate-400 text-xs leading-relaxed mb-6">
-              {t.bentoGrid.b1Desc}
-            </p>
-          </div>
-
-          <div className="bg-[#030407] p-3.5 rounded-md border-subtle font-mono text-xs space-y-2">
-            <div className="text-cyan-400 text-[11px] font-bold">
-              {t.bentoGrid.b1Active}
-            </div>
-            <div className="flex flex-wrap gap-1.5 pt-1">
-              <span className="px-2 py-0.5 rounded bg-white/5 text-[10px] text-slate-300">submit_ack</span>
-              <span className="px-2 py-0.5 rounded bg-white/5 text-[10px] text-slate-300">init_persona</span>
-              <span className="px-2 py-0.5 rounded bg-white/5 text-[10px] text-slate-300">resonance_trail</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Breakthrough 2: Row 1 Right */}
-        <div
-          data-reveal
-          data-reveal-delay="200"
-          className="p-8 sm:p-10 border-subtle-b flex flex-col justify-between group hover:bg-[#0e0f17] transition-colors"
-        >
-          <div>
-            <h3 className="text-lg font-bold text-white mb-2 font-display">{t.bentoGrid.b2Title}</h3>
-            <p className="text-slate-400 text-xs leading-relaxed mb-6">
-              {t.bentoGrid.b2Desc}
-            </p>
-          </div>
-
-          <div className="code-box">
-            <div className="code-header">
-              <span className="text-[11px] font-mono text-slate-500">.aevum/domains/identity/config.json</span>
-              <span className="text-[10px] text-slate-500">DDD OS Kernel</span>
-            </div>
-            <div className="p-3 text-[11px] font-mono leading-relaxed">
-              <p className="text-slate-500">// External Brain Architecture</p>
-              <p className="text-cyan-400">export const <span className="text-slate-200">identityDomain</span> = &#123;</p>
-              <p className="pl-4 text-emerald-400">features: <span className="text-slate-300">["auth_flow", "sso_provider"],</span></p>
-              <p className="pl-4 text-emerald-400">activePlan: <span className="text-slate-300">"PLAN_AUTH_V2.md"</span></p>
-              <p className="text-cyan-400">&#125;;</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Breakthrough 3: Row 2 Left */}
-        <div
-          data-reveal
-          data-reveal-delay="300"
-          className="p-8 sm:p-10 border-subtle-b lg:border-b-0 lg:border-subtle-r flex flex-col justify-between group hover:bg-[#0e0f17] transition-colors"
-        >
-          <div>
-            <h3 className="text-lg font-bold text-white mb-2 font-display">{t.bentoGrid.b3Title}</h3>
-            <p className="text-slate-400 text-xs leading-relaxed mb-6">
-              {t.bentoGrid.b3Desc}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 gap-2 font-mono text-[11px]">
-            {t.bentoGrid.b3Pillars.map((pillar, idx) => (
-              <div key={idx} className="p-2 rounded bg-white/[0.02] border-subtle text-slate-300">
-                {pillar}
+          {items.map((item, idx) => (
+            <div
+              key={idx}
+              className="snap-start shrink-0 w-full p-6 sm:p-8 flex flex-col justify-between group bg-[#07080d]/60 border-b border-white/10"
+            >
+              <div className="space-y-3 mb-6">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-mono font-bold text-cyan-400 tracking-wider uppercase">
+                    {item.tag}
+                  </span>
+                  <span className="text-xs font-mono font-extrabold text-white/20">
+                    {item.num}
+                  </span>
+                </div>
+                <h3 className="text-lg font-bold text-white font-display">
+                  {item.title}
+                </h3>
+                <p className="text-slate-400 text-xs leading-relaxed">
+                  {item.desc}
+                </p>
               </div>
-            ))}
+
+              {/* Cloud Speech Bubble & Sticker for Mobile */}
+              <div className="flex flex-col items-center space-y-4 pt-2">
+                <div className="relative bg-white text-slate-900 p-4 rounded-xl border border-white/40 shadow-none text-center max-w-xs transition-all duration-300 animate-pop-in">
+                  <div className="text-[10px] font-mono font-bold text-cyan-700 mb-1">
+                    {item.agentName}
+                  </div>
+                  <p className="text-slate-900 text-xs leading-relaxed font-sans font-semibold">
+                    "{activeSlide === idx ? typedSpeech : item.speech}"
+                    {activeSlide === idx && isTyping && (
+                      <span className="inline-block w-1 h-3 ml-0.5 bg-cyan-600 animate-pulse align-middle"></span>
+                    )}
+                  </p>
+                  <div className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[9px] border-t-white"></div>
+                </div>
+                <img
+                  src={item.sticker}
+                  alt={item.agentName}
+                  className="h-32 w-auto object-contain select-none"
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Mobile Dot Indicators */}
+        <div className="flex justify-center items-center gap-2.5 py-3 border-subtle-t">
+          {items.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => scrollToSlide(idx)}
+              className={`transition-all duration-300 rounded-full cursor-pointer ${
+                activeSlide === idx
+                  ? 'w-5 h-1.5 bg-cyan-400'
+                  : 'w-1.5 h-1.5 bg-white/20 hover:bg-white/40'
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Desktop Interactive Carousel Showcase (lg:block) */}
+      <div className="hidden lg:block max-w-6xl mx-auto px-8 py-12">
+        {/* Main Stage Grid */}
+        <div className="relative p-10 sm:p-12 rounded-3xl bg-[#07080d]/80 border border-white/10 overflow-hidden shadow-none transition-all duration-500">
+          
+          {/* Ambient Background Radial Glow */}
+          <div className={`absolute -right-20 -bottom-20 w-96 h-96 rounded-full bg-gradient-to-br ${items[activeSlide].glowColor} blur-3xl opacity-50 pointer-events-none transition-all duration-700`}></div>
+
+          <div className="grid grid-cols-12 gap-8 items-center relative z-10">
+            
+            {/* Left Column: Title & Feature Details (5 cols) */}
+            <div className="col-span-5 space-y-5">
+              <div className="flex items-center gap-3">
+                <span className={`px-3 py-1 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider border ${items[activeSlide].badgeColor}`}>
+                  {items[activeSlide].tag}
+                </span>
+                <span className="text-xs font-mono font-extrabold text-white/30">
+                  {items[activeSlide].num} / 04
+                </span>
+              </div>
+
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-white font-display leading-tight">
+                {items[activeSlide].title}
+              </h3>
+
+              <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
+                {items[activeSlide].desc}
+              </p>
+
+              {/* Navigation Controls */}
+              <div className="flex items-center gap-3 pt-4">
+                <button
+                  onClick={() => setActiveSlide((prev) => (prev > 0 ? prev - 1 : items.length - 1))}
+                  className="w-10 h-10 rounded-full border border-white/10 bg-white/[0.03] hover:bg-cyan-500/20 hover:border-cyan-400/50 text-white flex items-center justify-center transition-all cursor-pointer"
+                  aria-label="Previous Slide"
+                >
+                  ←
+                </button>
+                <button
+                  onClick={() => setActiveSlide((prev) => (prev < items.length - 1 ? prev + 1 : 0))}
+                  className="w-10 h-10 rounded-full border border-white/10 bg-white/[0.03] hover:bg-cyan-500/20 hover:border-cyan-400/50 text-white flex items-center justify-center transition-all cursor-pointer"
+                  aria-label="Next Slide"
+                >
+                  →
+                </button>
+              </div>
+            </div>
+
+            {/* Right Column: Cloud Speech Bubble & Agent Sticker Stage (7 cols) */}
+            <div className="col-span-7 flex flex-col items-center justify-center space-y-6">
+              
+              {/* Cloud Speech Bubble with Pop-In Animation & Live Typewriter Effect */}
+              <div
+                key={`bubble-${activeSlide}`}
+                className="relative bg-white text-slate-900 p-6 rounded-2xl border border-white/40 shadow-none max-w-lg transition-all duration-300 animate-pop-in"
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-mono font-extrabold text-cyan-700 uppercase tracking-wider">
+                    {items[activeSlide].agentName}
+                  </span>
+                  <span className="text-[10px] font-mono font-bold text-slate-400">VOICE STREAM</span>
+                </div>
+                
+                <p className="text-slate-900 text-sm sm:text-base font-semibold leading-relaxed font-sans min-h-[52px]">
+                  "{typedSpeech}"
+                  {isTyping && (
+                    <span className="inline-block w-1.5 h-4 ml-1 bg-cyan-600 animate-pulse align-middle"></span>
+                  )}
+                </p>
+
+                {/* Cloud Tail Pointing Down to Agent */}
+                <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-t-[12px] border-t-white"></div>
+              </div>
+
+              {/* Floating Agent Sticker */}
+              <div className="relative pt-2">
+                <img
+                  key={activeSlide}
+                  src={items[activeSlide].sticker}
+                  alt={items[activeSlide].agentName}
+                  className="h-44 sm:h-52 w-auto object-contain transition-all duration-500 animate-pulse-slow select-none"
+                />
+              </div>
+
+            </div>
+
           </div>
         </div>
 
-        {/* Breakthrough 4: Row 2 Right */}
-        <div
-          data-reveal
-          data-reveal-delay="400"
-          className="p-8 sm:p-10 flex flex-col justify-between group hover:bg-[#0e0f17] transition-colors"
-        >
-          <div>
-            <h3 className="text-lg font-bold text-white mb-2 font-display">{t.bentoGrid.b4Title}</h3>
-            <p className="text-slate-400 text-xs leading-relaxed mb-6">
-              {t.bentoGrid.b4Desc}
-            </p>
-          </div>
-
-          <div className="bg-[#030407] p-3 rounded-md border-subtle font-mono text-xs space-y-1 text-[11px]">
-            <div className="text-emerald-400 font-bold">{t.bentoGrid.b2Active}</div>
-            <div className="text-slate-400 flex justify-between">
-              <span>Proactive Thought Stream</span>
-              <span className="text-cyan-400">{t.bentoGrid.b2Live}</span>
-            </div>
-            <div className="text-slate-400 flex justify-between">
-              <span>{t.bentoGrid.b2Connectivity}</span>
-              <span className="text-slate-300">{t.bentoGrid.b2Verified}</span>
-            </div>
-          </div>
+        {/* Bottom Thumbnail Selector Bar */}
+        <div className="grid grid-cols-4 gap-4 mt-6">
+          {items.map((item, idx) => (
+            <button
+              key={idx}
+              onClick={() => setActiveSlide(idx)}
+              className={`p-4 rounded-xl border text-left transition-all duration-300 cursor-pointer ${
+                activeSlide === idx
+                  ? 'bg-cyan-500/10 border-cyan-400/60 shadow-none'
+                  : 'bg-[#090b14]/60 border-white/10 hover:bg-white/[0.03] opacity-70 hover:opacity-100'
+              }`}
+            >
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-[10px] font-mono font-bold text-cyan-400">{item.num}</span>
+              </div>
+              <p className="text-xs font-bold text-white truncate font-display">{item.title}</p>
+            </button>
+          ))}
         </div>
-
       </div>
 
     </div>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { createPortal } from 'react-dom';
 import { docsData } from '../data/docsData';
 import { Menu, X, ChevronRight, Copy, Check, Terminal, Cpu, ShieldAlert } from 'lucide-react';
 import { TranslationService } from '../services/TranslationService';
@@ -290,6 +291,46 @@ export const Docs = ({ activeLang = 'vi' }) => {
   const [activeId, setActiveId] = useState(docsData[0]?.id || "gioi-thieu");
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  // Auto-hide mobile sticky menu button when idle to enhance reading UX
+  const [isBtnVisible, setIsBtnVisible] = useState(true);
+
+  useEffect(() => {
+    let timeoutId = null;
+
+    const handleActivity = () => {
+      setIsBtnVisible(true);
+      if (timeoutId) clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        setIsBtnVisible(false);
+      }, 2500);
+    };
+
+    window.addEventListener('scroll', handleActivity, { passive: true });
+    window.addEventListener('touchstart', handleActivity, { passive: true });
+
+    timeoutId = setTimeout(() => {
+      setIsBtnVisible(false);
+    }, 3000);
+
+    return () => {
+      window.removeEventListener('scroll', handleActivity);
+      window.removeEventListener('touchstart', handleActivity);
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+  }, []);
+
+  // Toggle body class for full page 3D push animation
+  useEffect(() => {
+    if (sidebarOpen) {
+      document.body.classList.add('docs-menu-active');
+    } else {
+      document.body.classList.remove('docs-menu-active');
+    }
+    return () => {
+      document.body.classList.remove('docs-menu-active');
+    };
+  }, [sidebarOpen]);
+
   // States for translation
   const [translatedData, setTranslatedData] = useState(docsData);
   const [translatingContent, setTranslatingContent] = useState(false);
@@ -461,24 +502,65 @@ export const Docs = ({ activeLang = 'vi' }) => {
   };
 
   return (
-    <div className="w-full min-h-[calc(100vh-73px)] bg-[#0B0B11] border-b border-white/5 flex relative justify-between">
+    <div className="w-full min-h-[calc(100vh-73px)] bg-[#0B0B11] border-b border-white/5 block lg:flex lg:flex-row relative justify-between overflow-x-clip">
 
-      {/* Mobile Toggle Sidebar Button */}
-      <div className="lg:hidden fixed bottom-4 right-4 z-50">
-        <button
-          onClick={() => setSidebarOpen(!sidebarOpen)}
-          className="w-12 h-12 bg-cyan-500 text-black rounded-full flex items-center justify-center shadow-lg active:scale-95 transition-transform"
-        >
-          {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
-      </div>
+      {/* Mobile Portal Drawer (Renders outside app-content-wrapper directly on body) */}
+      {typeof document !== 'undefined' && createPortal(
+        <div className={`docs-mobile-drawer lg:hidden ${sidebarOpen ? 'open' : ''}`}>
+          {/* Header Bar */}
+          <div className="shrink-0 flex items-center justify-between p-5 border-b border-white/5 bg-transparent">
+            <span className="font-mono text-xs font-bold text-white uppercase tracking-wider">
+              {activeLang === 'vi' ? 'Tài liệu Aevum OS' : 'Documentation'}
+            </span>
+            <button
+              onClick={() => setSidebarOpen(false)}
+              className="p-1.5 rounded-lg bg-white/5 text-slate-400 hover:text-white transition-colors cursor-pointer"
+            >
+              <X size={18} />
+            </button>
+          </div>
 
-      {/* Sidebar Container */}
-      <aside
-        className={`fixed inset-y-0 left-0 z-40 w-64 bg-[#0B0B11]/95 lg:bg-transparent border-r border-white/5 transform lg:transform-none transition-transform duration-200 ease-in-out lg:relative lg:border-r lg:border-white/5 ${
-          sidebarOpen ? 'translate-x-0' : '-translate-x-0 lg:translate-x-0'
-        } ${!sidebarOpen && 'hidden lg:block'} ${translatingSidebar ? 'opacity-50 pointer-events-none transition-opacity' : 'transition-opacity'}`}
-      >
+          {/* Scrollable Categories List */}
+          <div className="flex-1 overflow-y-auto p-6 space-y-6 no-scrollbar docs-drawer-nav-list" data-lenis-prevent>
+            {Object.keys(categories).map((catName) => (
+              <div key={catName} className="space-y-2">
+                <div className="text-[11px] font-bold text-slate-400 uppercase tracking-widest px-2 mb-3">
+                  {catName}
+                </div>
+                <ul className="space-y-1">
+                  {categories[catName].map((doc) => {
+                    const isActive = doc.id === activeId;
+                    return (
+                      <li key={doc.id}>
+                        <button
+                          onClick={() => selectDoc(doc.id)}
+                          className={`w-full flex items-center justify-between text-left py-2 px-3 rounded text-xs font-medium transition-all group ${
+                            isActive
+                              ? 'text-cyan-400 font-bold bg-cyan-500/10 border border-cyan-500/30'
+                              : 'text-slate-400 hover:text-white hover:bg-white/[0.02]'
+                          }`}
+                        >
+                          <span className="truncate">{doc.title}</span>
+                          <ChevronRight
+                            size={12}
+                            className={`transition-transform duration-150 ${
+                              isActive ? 'translate-x-0.5 text-cyan-400' : 'opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 text-slate-600'
+                            }`}
+                          />
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>,
+        document.body
+      )}
+
+      {/* Desktop Sidebar (hidden lg:block) */}
+      <aside className={`hidden lg:block w-64 border-r border-white/5 shrink-0 ${translatingSidebar ? 'opacity-50 pointer-events-none' : ''}`}>
         <div className="sticky top-[73px] py-8 px-6 overflow-y-auto flex flex-col justify-between h-[calc(100vh-73px)]">
           <div className="space-y-6">
             {Object.keys(categories).map((catName) => (
@@ -495,7 +577,7 @@ export const Docs = ({ activeLang = 'vi' }) => {
                           onClick={() => selectDoc(doc.id)}
                           className={`w-full flex items-center justify-between text-left py-1.5 px-2.5 rounded text-xs font-medium transition-all group ${
                             isActive
-                              ? 'text-white bg-white/[0.03]'
+                              ? 'text-cyan-400 font-bold bg-cyan-500/10 border border-cyan-500/30'
                               : 'text-slate-400 hover:text-white hover:bg-white/[0.01]'
                           }`}
                         >
@@ -514,36 +596,57 @@ export const Docs = ({ activeLang = 'vi' }) => {
               </div>
             ))}
           </div>
-
-
         </div>
       </aside>
 
-      {/* Main Content Area */}
-      <main className="flex-1 px-6 md:px-12 lg:px-16 py-10 max-w-3xl xl:max-w-4xl w-full relative min-h-[500px]">
-        {translatingContent && (
-          <div className="absolute inset-0 bg-[#0B0B11]/70 backdrop-blur-sm z-30 flex flex-col items-center justify-center py-20 text-center font-mono text-sm text-cyan-400">
-            <svg className="animate-spin -ml-1 mr-3 h-8 w-8 text-cyan-500 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            <span className="animate-pulse">
-              {activeLang === 'en' ? 'Translating document in real-time...' : 'Đang dịch tài liệu thời gian thực...'}
-            </span>
-          </div>
-        )}
+      {/* Main View Wrapper */}
+      <div 
+        onClick={() => sidebarOpen && setSidebarOpen(false)}
+        className={`flex-1 flex flex-col xl:flex-row justify-between w-full bg-[#0B0B11] ${
+          sidebarOpen ? 'cursor-pointer' : ''
+        }`}
+      >
+        {/* Mobile Sticky Top-Left Docs Menu Icon Button (Auto-fades when idle) */}
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            setSidebarOpen(true);
+          }}
+          onMouseEnter={() => setIsBtnVisible(true)}
+          className={`lg:hidden sticky top-[76px] ml-4 mt-4 z-30 p-2 rounded-lg bg-[#0B0B11]/90 backdrop-blur-md hover:bg-white/10 text-white border border-white/15 transition-all duration-500 cursor-pointer flex items-center justify-center shadow-lg active:scale-95 self-start ${
+            isBtnVisible ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-20 scale-90 hover:opacity-100'
+          }`}
+          aria-label="Toggle Docs Menu"
+        >
+          <Menu size={18} className="text-white" />
+        </button>
 
-        {activeRawDoc ? (
-          <div className="animate-fadeIn">
-            <MarkdownRenderer content={activeContent} />
-          </div>
-        ) : (
-          <div className="flex flex-col items-center justify-center py-20 text-center text-slate-500 font-mono text-sm">
-            <Cpu className="w-12 h-12 text-slate-700 mb-4 animate-pulse" />
-            <span>Đang nạp dữ liệu tài liệu...</span>
-          </div>
-        )}
-      </main>
+        {/* Main Content Area */}
+        <main className="flex-1 px-6 md:px-12 lg:px-16 py-10 max-w-3xl xl:max-w-4xl w-full relative min-h-[500px]">
+          {translatingContent && (
+            <div className="absolute inset-0 bg-[#0B0B11]/70 backdrop-blur-sm z-30 flex flex-col items-center justify-center py-20 text-center font-mono text-sm text-cyan-400">
+              <svg className="animate-spin -ml-1 mr-3 h-8 w-8 text-cyan-500 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              <span className="animate-pulse">
+                {activeLang === 'en' ? 'Translating document in real-time...' : 'Đang dịch tài liệu thời gian thực...'}
+              </span>
+            </div>
+          )}
+
+          {activeRawDoc ? (
+            <div className="animate-fadeIn">
+              <MarkdownRenderer content={activeContent} />
+            </div>
+          ) : (
+            <div className="flex flex-col items-center justify-center py-20 text-center text-slate-500 font-mono text-sm">
+              <Cpu className="w-12 h-12 text-slate-700 mb-4 animate-pulse" />
+              <span>Đang nạp dữ liệu tài liệu...</span>
+            </div>
+          )}
+        </main>
+      </div>
 
       {/* Right Sidebar: Mini Index / Table of Contents (TOC) */}
       <aside className="hidden xl:block w-56 relative border-l border-white/5">

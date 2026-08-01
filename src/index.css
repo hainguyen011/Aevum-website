@@ -492,3 +492,54 @@ h1, h2, h3, .font-display {
   top: 0;
   z-index: 20;
 }
+
+/* ==========================================================================
+   Mobile Left Docs 3D Perspective Drawer System
+   ========================================================================== */
+.docs-mobile-drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 78vw;
+  max-width: 320px;
+  height: 100vh;
+  height: 100dvh;
+  background: transparent;
+  border: none !important;
+  border-right: none !important;
+  z-index: 99999;
+  transform-origin: left center;
+  transform: perspective(1200px) translate3d(-105%, 0, 0) rotateY(-15deg);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+  display: flex;
+  flex-direction: column;
+  transform-style: preserve-3d;
+  box-shadow: none !important;
+  pointer-events: none;
+}
+
+.docs-mobile-drawer.open {
+  transform: perspective(1200px) translate3d(0, 0, 0) rotateY(0deg);
+  pointer-events: auto;
+}
+
+.docs-mobile-drawer .docs-drawer-nav-list {
+  opacity: 1;
+  transform: none;
+}
+
+/* When Docs mobile sidebar is active, push the ENTIRE page (including top Navbar) to the right */
+body.docs-menu-active .app-content-wrapper {
+  transform: translateX(78vw) scale(0.95);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: -20px 0 50px rgba(0, 0, 0, 0.8);
+}
+
+@media (min-width: 640px) {
+  body.docs-menu-active .app-content-wrapper {
+    transform: translateX(320px) scale(0.95);
+  }
+}

@@ -20,11 +20,26 @@ import { SearchModal } from './components/SearchModal';
 import { CustomCursor } from './components/CustomCursor';
 import { useScrollReveal } from './hooks/useScrollReveal';
 import logoImg from '../assets/logos/AevumOS-transparent.png';
+import { translations } from './data/translations';
+import { Search, X, Eye, EyeOff } from 'lucide-react';
 
 export function App() {
   const [currentPage, setCurrentPage] = useState('landing');
   const [isTrialModalOpen, setIsTrialModalOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isEyeCare, setIsEyeCare] = useState(() => {
+    return localStorage.getItem('aevum-eyecare') === 'true';
+  });
+
+  // Toggle eye-care class on body
+  useEffect(() => {
+    localStorage.setItem('aevum-eyecare', isEyeCare);
+    if (isEyeCare) {
+      document.body.classList.add('eye-care-active');
+    } else {
+      document.body.classList.remove('eye-care-active');
+    }
+  }, [isEyeCare]);
 
   // Initialize Lenis smooth scroll engine
   useEffect(() => {
@@ -80,6 +95,8 @@ export function App() {
   };
 
   const [activeLang, setActiveLang] = useState(getInitialLanguage());
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const t = translations[activeLang] || translations.en;
 
   // Global shortcut listener for Command Palette (Ctrl+K or Cmd+K)
   useEffect(() => {
@@ -93,6 +110,21 @@ export function App() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
+  // Lock background body scroll and pause Lenis engine when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      if (window.lenis) window.lenis.stop();
+      document.body.style.overflow = 'hidden';
+    } else {
+      if (window.lenis) window.lenis.start();
+      document.body.style.overflow = '';
+    }
+    return () => {
+      if (window.lenis) window.lenis.start();
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
+
   // Helper scroll function
   const scrollToTarget = (target, offset = -20) => {
     if (window.lenis) {
@@ -102,6 +134,29 @@ export function App() {
       if (el) el.scrollIntoView({ behavior: 'smooth' });
     } else {
       window.scrollTo({ top: target, behavior: 'smooth' });
+    }
+  };
+
+  // Handle mobile drawer links scrolling
+  const handleNavLink = (e, target) => {
+    e.preventDefault();
+    setIsMobileMenuOpen(false);
+    const scrollToElement = () => {
+      const el = document.getElementById(target);
+      if (el) {
+        if (window.lenis) {
+          window.lenis.scrollTo(el, { offset: -40, duration: 1.2 });
+        } else {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    };
+
+    if (currentPage !== 'landing') {
+      handleNavigate('landing');
+      setTimeout(scrollToElement, 150);
+    } else {
+      scrollToElement();
     }
   };
 
@@ -226,10 +281,16 @@ export function App() {
   }, [currentPage, activeLang]);
 
   return (
-    <div className="min-h-screen bg-[#0B0B11] text-slate-100 selection:bg-cyan-500 selection:text-black py-8 w-full relative">
+    <>
+      <div className={`min-h-screen bg-[#07080c] text-slate-100 selection:bg-cyan-500 selection:text-black w-full relative overflow-x-clip perspective-container ${
+        isMobileMenuOpen ? 'mobile-menu-active' : ''
+      }`}>
       
-      {/* Monolithic Seamless Grid Container Frame */}
-      <div className="monolithic-frame">
+      {/* Page Content Wrapper (shrinks and pushes in 3D) */}
+      <div className="app-content-wrapper">
+        <div className="py-0 sm:py-8 w-full">
+          {/* Monolithic Seamless Grid Container Frame */}
+          <div className="monolithic-frame">
         {/* Top Navbar Row */}
         <Navbar 
           currentPage={currentPage} 
@@ -237,6 +298,10 @@ export function App() {
           activeLang={activeLang} 
           onChangeLang={setActiveLang} 
           onOpenSearch={() => setIsSearchOpen(true)}
+          isEyeCare={isEyeCare}
+          onToggleEyeCare={() => setIsEyeCare(prev => !prev)}
+          isMobileMenuOpen={isMobileMenuOpen}
+          onToggleMobileMenu={() => setIsMobileMenuOpen(prev => !prev)}
         />
 
         {currentPage === 'landing' && (
@@ -297,6 +362,135 @@ export function App() {
 
         {/* Footer */}
         <Footer onNavigate={handleNavigate} activeLang={activeLang} />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Click-to-close overlay on content */}
+    {isMobileMenuOpen && (
+      <div 
+        className="fixed inset-0 z-40 lg:hidden cursor-pointer bg-transparent"
+        onClick={() => setIsMobileMenuOpen(false)}
+      />
+    )}
+
+    {/* 3D Slide-in Mobile Drawer (Fixed to Viewport 100vh) */}
+    <div className={`mobile-drawer lg:hidden bg-[#07080c] ${isMobileMenuOpen ? 'open' : ''}`}>
+        {/* Fixed Top Header for Logo & Search Bar */}
+        <div className="shrink-0 bg-[#07080c] pt-4 pb-3 px-4 space-y-3 z-10">
+          {/* Top Row: Logo Aevum OS */}
+          <div className="flex items-center justify-end">
+            {/* Logo Aevum OS */}
+            <a 
+              href="#" 
+              onClick={(e) => { e.preventDefault(); setIsMobileMenuOpen(false); handleNavigate('landing'); }}
+              className="flex items-center gap-2 text-decoration-none group shrink-0"
+            >
+              <img 
+                src={logoImg} 
+                alt="Aevum OS Logo" 
+                className="w-6 h-6 object-contain" 
+              />
+              <span className="font-extrabold text-sm text-white tracking-wider font-display whitespace-nowrap">
+                AEVUM OS
+              </span>
+            </a>
+          </div>
+
+          {/* Search Bar */}
+          <div 
+            onClick={() => { setIsMobileMenuOpen(false); setIsSearchOpen(true); }}
+            className="flex items-center bg-white/[0.03] border border-white/10 rounded-md px-3.5 py-2.5 text-xs text-slate-300 font-mono gap-2 hover:border-white/15 transition-all cursor-pointer"
+          >
+            <Search size={14} className="text-slate-400 shrink-0" />
+            <span className="flex-1 text-left text-slate-400">{t.navbar.searchPlaceholder}</span>
+          </div>
+        </div>
+
+        {/* Scrollable Drawer Navigation Content */}
+        <div className="flex-1 overflow-y-auto px-4 py-6" data-lenis-prevent>
+          {/* Navigation Links */}
+          <div className="flex flex-col space-y-4 drawer-nav-list">
+            <a 
+              href="#breakthroughs" 
+              onClick={(e) => handleNavLink(e, 'breakthroughs')}
+              className="text-right text-lg font-bold text-slate-200 hover:text-cyan-400 transition-colors uppercase tracking-wide"
+            >
+              {t.navbar.breakthroughs}
+            </a>
+            <a 
+              href="#architecture" 
+              onClick={(e) => handleNavLink(e, 'architecture')}
+              className="text-right text-lg font-bold text-slate-200 hover:text-cyan-400 transition-colors uppercase tracking-wide"
+            >
+              {t.navbar.architecture}
+            </a>
+            <a 
+              href="#orchestration" 
+              onClick={(e) => handleNavLink(e, 'orchestration')}
+              className="text-right text-lg font-bold text-slate-200 hover:text-cyan-400 transition-colors uppercase tracking-wide"
+            >
+              {t.navbar.orchestration}
+            </a>
+            <a 
+              href="#cli" 
+              onClick={(e) => handleNavLink(e, 'cli')}
+              className="text-right text-lg font-bold text-slate-200 hover:text-cyan-400 transition-colors uppercase tracking-wide"
+            >
+              {t.navbar.kernel}
+            </a>
+
+            {/* Standalone Pages UI Block (DOCUMENTATION & ABOUT) */}
+            <div className="flex flex-col space-y-4 mt-5">
+              <button 
+                onClick={() => { setIsMobileMenuOpen(false); handleNavigate('docs'); }}
+                className={`text-right text-lg font-bold transition-colors uppercase tracking-wide ${
+                  currentPage === 'docs' ? 'text-cyan-400' : 'text-slate-200 hover:text-cyan-400'
+                }`}
+              >
+                {t.navbar.docs}
+              </button>
+              <button 
+                onClick={() => { setIsMobileMenuOpen(false); handleNavigate('about'); }}
+                className={`text-right text-lg font-bold transition-colors uppercase tracking-wide ${
+                  currentPage === 'about' ? 'text-cyan-400' : 'text-slate-200 hover:text-cyan-400'
+                }`}
+              >
+                {t.navbar.about}
+              </button>
+            </div>
+
+            {/* Bottom Controls Row: Close Button & Language Switcher */}
+            <div className="flex justify-between items-center text-xs font-mono pt-4 mt-2">
+              {/* Close Button at the end */}
+              <button
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="flex items-center gap-1.5 text-slate-400 hover:text-white transition-colors font-bold uppercase py-1 px-2.5 rounded-md hover:bg-white/5 border border-white/10 text-xs cursor-pointer"
+              >
+                <X size={14} className="shrink-0 text-slate-400" />
+                <span>{activeLang === 'vi' ? 'Đóng' : 'Close'}</span>
+              </button>
+
+              {/* Language Switcher */}
+              <div className="flex items-center gap-3">
+                <button 
+                  onClick={() => { setActiveLang('vi'); setIsMobileMenuOpen(false); }}
+                  className={`transition-colors font-bold ${activeLang === 'vi' ? 'text-cyan-400' : 'text-slate-400 hover:text-white'}`}
+                >
+                  VI
+                </button>
+                <span className="text-white/10 text-[10px]">/</span>
+                <button 
+                  onClick={() => { setActiveLang('en'); setIsMobileMenuOpen(false); }}
+                  className={`transition-colors font-bold ${activeLang === 'en' ? 'text-cyan-400' : 'text-slate-400 hover:text-white'}`}
+                >
+                  EN
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Early Access Trial Modal */}
@@ -320,7 +514,10 @@ export function App() {
       {/* Futuristic Glowing Custom Cursor & Follower Ring */}
       <CustomCursor />
 
-    </div>
+      {/* Eye Care Mode Screen Overlay (Warm light filter) */}
+      <div className={`eye-care-overlay ${isEyeCare ? 'active' : ''}`} />
+
+    </>
   );
 }
 

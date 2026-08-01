@@ -1,7 +1,22 @@
 {
   "version": "2.1.0",
   "project": "Aevum-website",
-  "domains": [],
+  "domains": [
+    {
+      "id": "ui_views",
+      "name": "Ui Views",
+      "path": ".aevum/domains/ui_views",
+      "plans": [],
+      "features": [
+        {
+          "id": "interactive-dashboard",
+          "name": "Interactive Dashboard",
+          "path": ".aevum/domains/ui_views/features/interactive-dashboard",
+          "plans": []
+        }
+      ]
+    }
+  ],
   "global": {
     "architecture": "global/architecture.md",
     "conventions": "global/conventions.md",

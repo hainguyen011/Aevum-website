@@ -51,7 +51,7 @@ export const SearchModal = ({ isOpen, onClose, onNavigate, activeLang }) => {
     },
     {
       id: 'sub-ddd',
-      title: isVi ? 'Bộ nào Ngoại vi hướng Tên miền (DDD Brain)' : 'Domain-Driven External Brain (DDD)',
+      title: isVi ? 'Bộ não Ngoại vi hướng Tên miền (DDD Brain)' : 'Domain-Driven External Brain (DDD)',
       category: isVi ? 'Kiến trúc' : 'Architecture',
       icon: Layers,
       action: () => { jumpToAnchor('breakthroughs'); }
@@ -125,7 +125,7 @@ export const SearchModal = ({ isOpen, onClose, onNavigate, activeLang }) => {
   };
 
   // Filter items based on query
-  const filteredItems = searchItems.filter(item => 
+  const filteredItems = searchItems.filter(item =>
     item.title.toLowerCase().includes(query.toLowerCase()) ||
     item.category.toLowerCase().includes(query.toLowerCase())
   );
@@ -173,7 +173,7 @@ export const SearchModal = ({ isOpen, onClose, onNavigate, activeLang }) => {
 
       {/* Main Command Palette Dialog */}
       <div className="relative w-full max-w-2xl bg-[#0B0B11] border border-white/15 rounded-xl shadow-2xl overflow-hidden z-10 font-sans">
-        
+
         {/* Search Input Bar */}
         <div className="flex items-center px-4 py-3.5 border-b border-white/10 bg-white/[0.02]">
           <Search size={18} className="text-cyan-400 shrink-0 mr-3" />
@@ -207,11 +207,10 @@ export const SearchModal = ({ isOpen, onClose, onNavigate, activeLang }) => {
                   key={item.id}
                   onClick={() => item.action()}
                   onMouseEnter={() => setSelectedIndex(idx)}
-                  className={`flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs cursor-pointer transition-all duration-150 ${
-                    isSelected 
-                      ? 'bg-cyan-500/15 text-cyan-300 border border-cyan-500/30' 
+                  className={`flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs cursor-pointer transition-all duration-150 ${isSelected
+                      ? 'bg-cyan-500/15 text-cyan-300 border border-cyan-500/30'
                       : 'text-slate-300 hover:bg-white/[0.04]'
-                  }`}
+                    }`}
                 >
                   <div className="flex items-center gap-3 min-w-0">
                     <IconComp size={15} className={isSelected ? 'text-cyan-400' : 'text-slate-500'} />

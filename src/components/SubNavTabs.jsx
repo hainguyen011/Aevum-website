@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { translations } from '../data/translations';
-import { Copy, Check, Terminal } from 'lucide-react';
+import { Copy, Check, Terminal, ChevronRight } from 'lucide-react';
 
 export const SubNavTabs = ({ activeLang }) => {
   const t = translations[activeLang] || translations.en;
@@ -27,8 +27,40 @@ export const SubNavTabs = ({ activeLang }) => {
 
   return (
     <div className="border-subtle-b border-subtle-t bg-[#0B0B11]">
-      {/* 6 Grid Tab Buttons */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 border-subtle-b bg-[#0B0B11]">
+      {/* Mobile: Sharp Square Horizontal Scroll Tabs Bar with Swipe Hint */}
+      <div className="relative md:hidden border-subtle-b bg-[#0B0B11]">
+        {/* Scrollable Tab Row */}
+        <div className="flex overflow-x-auto no-scrollbar" data-lenis-prevent>
+          {rawTabs.map((tab) => {
+            const isActive = activeTabKey === tab.key;
+            const displayName = t.subNavTabs?.[tab.key] || tab.default;
+            return (
+              <button
+                key={tab.key}
+                onClick={() => {
+                  setActiveTabKey(tab.key);
+                  setCopied(false);
+                }}
+                className={`whitespace-nowrap py-3.5 px-4 text-xs font-mono transition-all shrink-0 cursor-pointer rounded-none border-r border-white/5 ${
+                  isActive
+                    ? 'bg-cyan-500/10 text-cyan-300 font-bold'
+                    : 'text-slate-400 hover:text-slate-200 hover:bg-white/[0.02]'
+                }`}
+              >
+                {displayName}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Right Fade + Chevron Swipe Hint Overlay */}
+        <div className="pointer-events-none absolute right-0 top-0 h-full w-12 flex items-center justify-end pr-1" style={{background: 'linear-gradient(to right, transparent, #0B0B11 80%)'}}>
+          <ChevronRight size={14} className="text-slate-500 animate-bounce-x" />
+        </div>
+      </div>
+
+      {/* Desktop: 6-Grid Tab Buttons Bar */}
+      <div className="hidden md:grid md:grid-cols-6 border-subtle-b bg-[#0B0B11]">
         {rawTabs.map((tab) => {
           const isActive = activeTabKey === tab.key;
           const displayName = t.subNavTabs?.[tab.key] || tab.default;

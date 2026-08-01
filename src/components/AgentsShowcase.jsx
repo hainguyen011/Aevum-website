@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { Sparkles, Activity, UserCheck } from 'lucide-react';
 import { translations } from '../data/translations';
 
@@ -11,13 +11,20 @@ import vidusAvatar from '../../assets/agent-avatar/vidus_avatar.webp';
 export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
   const t = translations[activeLang] || translations.en;
   const isVi = activeLang === 'vi';
-  const [selectedAgent, setSelectedAgent] = React.useState(null);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const scrollRef = useRef(null);
 
-  const handleCardClick = (agent) => {
-    setSelectedAgent(agent.id);
-    if (typeof onOpenTrialModal === 'function') {
-      onOpenTrialModal(agent);
-    }
+  const handleScroll = () => {
+    if (!scrollRef.current) return;
+    const { scrollLeft, offsetWidth } = scrollRef.current;
+    const idx = Math.round(scrollLeft / offsetWidth);
+    setActiveSlide(idx);
+  };
+
+  const scrollToSlide = (idx) => {
+    if (!scrollRef.current) return;
+    scrollRef.current.scrollTo({ left: idx * scrollRef.current.offsetWidth, behavior: 'smooth' });
+    setActiveSlide(idx);
   };
 
   const agents = [
@@ -91,10 +98,53 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
     }
   ];
 
+  // Shared agent card renderer
+  const AgentCard = ({ agent, className = '', isActive = false }) => {
+    return (
+      <div
+        className={`relative bg-[#07080E] group overflow-hidden transition-all duration-300 hover:bg-[#0c0d15] ${className}`}
+      >
+        <img
+          src={agent.avatar}
+          alt={agent.name}
+          className={`absolute inset-0 w-full h-full object-cover object-center transition-[opacity,filter] duration-[900ms] ease-in-out ${
+            isActive
+              ? 'opacity-95 brightness-110'
+              : 'opacity-40 brightness-75 group-hover:opacity-95 group-hover:brightness-110'
+          }`}
+        />
+        <div className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-[#07080E] via-[#07080E]/70 to-transparent pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-0 p-6 sm:p-7 bg-gradient-to-t from-[#07080E] via-[#07080E]/90 to-transparent z-10 font-sans space-y-2.5">
+          <div className="space-y-1">
+            <h3
+              className="text-2xl sm:text-3xl text-white font-bbh tracking-wide"
+              style={{ fontFamily: '"BBH Bartle", sans-serif', fontWeight: 400, fontStyle: 'normal' }}
+            >
+              {agent.name}
+            </h3>
+            <p className="text-xs font-mono text-cyan-400 font-semibold tracking-wide truncate" title={agent.role}>
+              {agent.role}
+            </p>
+          </div>
+          <div className="space-y-3 pt-1">
+            <p className="text-xs text-slate-300 leading-relaxed font-sans">{agent.bio}</p>
+            <div className="flex flex-wrap gap-1.5 pt-1">
+              {agent.capabilities.map((cap, i) => (
+                <span key={i} className="px-2 py-0.5 rounded bg-white/5 text-[10px] font-mono text-slate-300">
+                  {cap}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div id="agents" className="border-subtle-b bg-[#0B0B11]">
-      
-      {/* Section Header Cell - Matching Monolithic Design System */}
+
+      {/* Section Header */}
       <div className="p-8 sm:p-12 text-center border-subtle-b bg-[#0B0B11] border-scan">
         <span className="text-[11px] font-mono text-cyan-400 font-semibold tracking-widest uppercase">
           {isVi ? 'BIỆT ĐỘI AGENT MẶC ĐỊNH' : 'DEFAULT SQUAD PERSONAS'}
@@ -107,72 +157,52 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
           )}
         </h2>
         <p className="text-slate-400 text-xs sm:text-sm max-w-xl mx-auto mt-2 leading-relaxed">
-          {isVi 
+          {isVi
             ? 'Aevum OS tích hợp sẵn 4 thực thể AI với bộ kỹ năng, chỉ số kinh nghiệm và nhiệm vụ riêng biệt sẵn sàng phối hợp làm việc theo biệt đội.'
             : 'Aevum OS ships with 4 pre-configured AI personas housing unique skill matrices and distinct operational roles.'}
         </p>
       </div>
 
-      {/* 4 Monolithic Grid Columns Divided by Subtle Borders */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-        {agents.map((agent) => {
-          const isSelected = selectedAgent === agent.id;
-          return (
-            <div
-              key={agent.id}
-              onClick={() => handleCardClick(agent)}
-              className={`relative h-[480px] sm:h-[520px] bg-[#07080E] group border-subtle-b lg:border-b-0 border-subtle-r last:border-r-0 overflow-hidden cursor-pointer transition-all duration-300 ${
-                isSelected ? 'bg-[#0c0d15] ring-1 ring-inset ring-cyan-500/40' : 'hover:bg-[#0c0d15]'
-              }`}
-            >
-              {/* Full-Height Background Avatar Image - Dark by default, brightens on hover/selection without scale */}
-              <img 
-                src={agent.avatar} 
-                alt={agent.name}
-                className={`absolute inset-0 w-full h-full object-cover object-center transition-all duration-500 ease-out ${
-                  isSelected ? 'opacity-95 brightness-110' : 'opacity-40 brightness-75 group-hover:opacity-95 group-hover:brightness-110'
-                }`}
-              />
-
-              {/* Dark Gradient Base Overlay */}
-              <div className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-[#07080E] via-[#07080E]/70 to-transparent pointer-events-none" />
-
-              {/* Clean Natural Dark Gradient Content Overlay */}
-              <div className="absolute inset-x-0 bottom-0 p-6 sm:p-7 bg-gradient-to-t from-[#07080E] via-[#07080E]/90 to-transparent z-10 font-sans space-y-2.5">
-                
-                {/* Agent Name & Role */}
-                <div className="space-y-1">
-                  <h3 
-                    className="text-2xl sm:text-3xl text-white font-bbh tracking-wide"
-                    style={{ fontFamily: '"BBH Bartle", sans-serif', fontWeight: 400, fontStyle: 'normal' }}
-                  >
-                    {agent.name}
-                  </h3>
-                  <p className="text-xs font-mono text-cyan-400 font-semibold tracking-wide truncate" title={agent.role}>
-                    {agent.role}
-                  </p>
-                </div>
-
-                {/* Details Section - Natural Clean Layout */}
-                <div className="space-y-3 pt-1">
-                  <p className="text-xs text-slate-300 leading-relaxed font-sans">
-                    {agent.bio}
-                  </p>
-
-                  <div className="flex flex-wrap gap-1.5 pt-1">
-                    {agent.capabilities.map((cap, i) => (
-                      <span key={i} className="px-2 py-0.5 rounded bg-white/5 text-[10px] font-mono text-slate-300">
-                        {cap}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-              </div>
-
+      {/* Mobile: Snap Swipe Carousel */}
+      <div className="lg:hidden">
+        <div
+          ref={scrollRef}
+          onScroll={handleScroll}
+          className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory"
+          data-lenis-prevent
+        >
+          {agents.map((agent, idx) => (
+            <div key={agent.id} className="snap-center shrink-0 w-full">
+              <AgentCard agent={agent} className="h-[520px]" isActive={activeSlide === idx} />
             </div>
-          );
-        })}
+          ))}
+        </div>
+
+        {/* Dot Indicators */}
+        <div className="flex justify-center items-center gap-2.5 py-4 bg-[#07080E] border-subtle-b">
+          {agents.map((agent, idx) => (
+            <button
+              key={idx}
+              onClick={() => scrollToSlide(idx)}
+              className={`transition-all duration-300 rounded-full cursor-pointer ${
+                activeSlide === idx
+                  ? 'w-5 h-1.5 bg-cyan-400'
+                  : 'w-1.5 h-1.5 bg-white/20 hover:bg-white/40'
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Desktop: 4-Column Grid */}
+      <div className="hidden lg:grid lg:grid-cols-4">
+        {agents.map((agent) => (
+          <AgentCard
+            key={agent.id}
+            agent={agent}
+            className="h-[520px] border-subtle-b lg:border-b-0 border-subtle-r last:border-r-0"
+          />
+        ))}
       </div>
 
     </div>

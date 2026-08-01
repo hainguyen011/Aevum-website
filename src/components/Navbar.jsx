@@ -137,17 +137,22 @@ export const Navbar = ({ currentPage, onNavigate, activeLang, onChangeLang, onOp
           <nav className="hidden lg:flex items-center gap-4 xl:gap-6 text-xs font-semibold whitespace-nowrap text-nowrap">
             
             {/* Desktop Features & Architecture Toggle Button */}
-            <button 
-              onClick={() => setFeaturesOpen(prev => !prev)}
-              className={`flex items-center gap-1.5 text-xs font-semibold py-1.5 px-3 rounded-lg transition-all duration-200 cursor-pointer ${
-                featuresOpen
-                  ? 'text-cyan-400 bg-cyan-500/10 shadow-[inset_0_0_0_1px_rgba(56,189,248,0.4)]'
-                  : 'text-slate-300 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.25)] hover:text-white bg-white/[0.02]'
-              }`}
-            >
-              <span>{getButtonLabel()}</span>
-              <ChevronDown size={13} className={`transition-transform duration-300 ${featuresOpen ? 'rotate-180 text-cyan-400' : 'text-slate-400'}`} />
-            </button>
+            {(() => {
+              const isButtonActive = featuresOpen || Boolean(activeSection);
+              return (
+                <button 
+                  onClick={() => setFeaturesOpen(prev => !prev)}
+                  className={`flex items-center gap-1.5 text-xs font-semibold py-1.5 px-3 rounded-lg transition-all duration-200 cursor-pointer font-mono ${
+                    isButtonActive
+                      ? 'border-beam-btn text-white'
+                      : 'text-white border border-white/20 bg-white/[0.04] hover:bg-white/[0.08] hover:border-white/40'
+                  }`}
+                >
+                  <span className="relative z-10 font-bold tracking-wide text-white">{getButtonLabel()}</span>
+                  <ChevronDown size={13} className={`relative z-10 text-white transition-transform duration-300 ${featuresOpen ? 'rotate-180' : ''}`} />
+                </button>
+              );
+            })()}
             
             {/* Vertical Separator */}
             <span className="w-px h-3 bg-white/10 shrink-0"></span>

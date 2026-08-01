@@ -198,6 +198,8 @@ export const I2FLabsSection = ({ activeLang }) => {
         {/* RIGHT: Cute Interactive Dodging Logo Container */}
         <div 
           ref={containerRef}
+          data-is-taunting={isTaunting ? "true" : "false"}
+          data-dodge-count={dodgeCount}
           className="relative flex items-center justify-center px-8 sm:px-12 pt-16 pb-12 sm:pt-20 sm:pb-16 bg-[#0B0B11] order-1 lg:order-2 select-none min-h-[300px]"
         >
           {/* Dodging Flask Logo Element + Dynamic Floating Quote */}

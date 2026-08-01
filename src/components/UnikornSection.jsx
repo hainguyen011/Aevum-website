@@ -18,7 +18,7 @@ export const UnikornSection = ({ activeLang }) => {
   }
 
   return (
-    <div id="unikorn" className="border-subtle-b bg-[#0B0B11]">
+    <div id="unikorn" data-unikorn-zone="true" className="border-subtle-b bg-[#0B0B11]">
       <div className="p-8 sm:p-12 lg:p-14">
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">

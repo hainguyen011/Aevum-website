@@ -97,6 +97,28 @@
   animation: popIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+@keyframes cuteGiggle {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  20% {
+    transform: translate3d(0, -10px, 0) rotate(-8deg);
+  }
+  40% {
+    transform: translate3d(0, -2px, 0) rotate(7deg);
+  }
+  60% {
+    transform: translate3d(0, -8px, 0) rotate(-6deg);
+  }
+  80% {
+    transform: translate3d(0, -2px, 0) rotate(5deg);
+  }
+}
+
+.animate-giggle {
+  animation: cuteGiggle 0.55s ease-in-out 2 forwards;
+}
+
 /* Electron Blue Top-Left Corner Highlight (Left edge light extends ~60% down) */
 .border-beam-btn {
   position: relative !important;

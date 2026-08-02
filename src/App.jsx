@@ -21,7 +21,7 @@ import { CustomCursor } from './components/CustomCursor';
 import { useScrollReveal } from './hooks/useScrollReveal';
 import logoImg from '../assets/logos/AevumOS-transparent.png';
 import { translations } from './data/translations';
-import { Search, X, Eye, EyeOff } from 'lucide-react';
+import { Search, X, Eye, EyeOff, Sun, Atom } from 'lucide-react';
 
 export function App() {
   const [currentPage, setCurrentPage] = useState('landing');
@@ -29,6 +29,9 @@ export function App() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isEyeCare, setIsEyeCare] = useState(() => {
     return localStorage.getItem('aevum-eyecare') === 'true';
+  });
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('aevum-theme') || 'dark';
   });
 
   // Toggle eye-care class on body
@@ -40,6 +43,16 @@ export function App() {
       document.body.classList.remove('eye-care-active');
     }
   }, [isEyeCare]);
+
+  // Toggle theme mode attribute on html element
+  useEffect(() => {
+    localStorage.setItem('aevum-theme', theme);
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
+
+  const handleToggleTheme = () => {
+    setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
+  };
 
   // Initialize Lenis smooth scroll engine
   useEffect(() => {
@@ -304,6 +317,8 @@ export function App() {
           onOpenSearch={() => setIsSearchOpen(true)}
           isEyeCare={isEyeCare}
           onToggleEyeCare={() => setIsEyeCare(prev => !prev)}
+          theme={theme}
+          onToggleTheme={handleToggleTheme}
           isMobileMenuOpen={isMobileMenuOpen}
           onToggleMobileMenu={() => setIsMobileMenuOpen(prev => !prev)}
         />
@@ -465,8 +480,8 @@ export function App() {
               </button>
             </div>
 
-            {/* Bottom Controls Row: Close Button & Language Switcher */}
-            <div className="flex justify-between items-center text-xs font-mono pt-4 mt-2">
+            {/* Bottom Controls Row: Close Button, Theme Switcher & Language Switcher */}
+            <div className="flex justify-between items-center text-xs font-mono pt-4 mt-2 border-t border-white/10">
               {/* Close Button at the end */}
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
@@ -476,21 +491,36 @@ export function App() {
                 <span>{activeLang === 'vi' ? 'Đóng' : 'Close'}</span>
               </button>
 
-              {/* Language Switcher */}
               <div className="flex items-center gap-3">
-                <button 
-                  onClick={() => { setActiveLang('vi'); setIsMobileMenuOpen(false); }}
-                  className={`transition-colors font-bold ${activeLang === 'vi' ? 'text-cyan-400' : 'text-slate-400 hover:text-white'}`}
+                {/* Theme Mode Toggle Button (Icon-Only GPU-Accelerated Smooth Transition) */}
+                <button
+                  onClick={handleToggleTheme}
+                  className="theme-toggle-btn"
+                  title={theme === 'dark' ? "Light Mode" : "Dark Mode"}
+                  aria-label="Toggle Theme Mode"
                 >
-                  VI
+                  <div className="theme-icon-wrapper">
+                    <Sun size={18} className="theme-icon theme-icon-sun" />
+                    <Atom size={18} className="theme-icon theme-icon-electron" />
+                  </div>
                 </button>
-                <span className="text-white/10 text-[10px]">/</span>
-                <button 
-                  onClick={() => { setActiveLang('en'); setIsMobileMenuOpen(false); }}
-                  className={`transition-colors font-bold ${activeLang === 'en' ? 'text-cyan-400' : 'text-slate-400 hover:text-white'}`}
-                >
-                  EN
-                </button>
+
+                {/* Language Switcher */}
+                <div className="flex items-center gap-2 border-l border-white/10 pl-3">
+                  <button 
+                    onClick={() => { setActiveLang('vi'); setIsMobileMenuOpen(false); }}
+                    className={`transition-colors font-bold ${activeLang === 'vi' ? 'text-cyan-400' : 'text-slate-400 hover:text-white'}`}
+                  >
+                    VI
+                  </button>
+                  <span className="text-white/10 text-[10px]">/</span>
+                  <button 
+                    onClick={() => { setActiveLang('en'); setIsMobileMenuOpen(false); }}
+                    className={`transition-colors font-bold ${activeLang === 'en' ? 'text-cyan-400' : 'text-slate-400 hover:text-white'}`}
+                  >
+                    EN
+                  </button>
+                </div>
               </div>
             </div>
           </div>

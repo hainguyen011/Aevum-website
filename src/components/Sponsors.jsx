@@ -42,7 +42,7 @@ export const Sponsors = ({ activeLang = 'vi' }) => {
     { sticker: anHi, name: 'Anton Hi' },
     { sticker: anLover, name: 'Anton Lover' },
     { sticker: anLover2, name: 'Anton Heart' },
-    { sticker: anHipe, name: 'Anton Hipe' },
+    { sticker: anLover2, name: 'Anton Hipe' },
     { sticker: anCurios, name: 'Anton Curios' },
     { sticker: anAngry, name: 'Anton Angry' },
     { sticker: anLoading, name: 'Anton Loading' },
@@ -77,8 +77,8 @@ export const Sponsors = ({ activeLang = 'vi' }) => {
         
         {/* Infinite Slider Track Wrapper */}
         <div className="relative overflow-hidden bg-[#0B0B11] py-4 group">
-          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#0B0B11] to-transparent z-10" />
-          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#0B0B11] to-transparent z-10" />
+          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-24 marquee-fade-left z-10" />
+          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-24 marquee-fade-right z-10" />
 
           {/* Marquee Track (Left Direction) */}
           <div className="animate-marquee gap-6 px-4">
@@ -108,8 +108,8 @@ export const Sponsors = ({ activeLang = 'vi' }) => {
       <div>
         {/* Infinite Ticker Bar Running Right to Left */}
         <div className="relative overflow-hidden border-subtle-b bg-[#0B0B11] py-3">
-          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-[#0B0B11] to-transparent z-10" />
-          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-[#0B0B11] to-transparent z-10" />
+          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-16 marquee-fade-left z-10" />
+          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 marquee-fade-right z-10" />
 
           <div className="animate-marquee gap-12 flex whitespace-nowrap items-center">
             {quotesLoop.map((q, idx) => (
@@ -125,8 +125,8 @@ export const Sponsors = ({ activeLang = 'vi' }) => {
 
         {/* Infinite Slider Track Wrapper (Stickers) */}
         <div className="relative overflow-hidden bg-[#0B0B11] py-8 group">
-          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#0B0B11] to-transparent z-10" />
-          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#0B0B11] to-transparent z-10" />
+          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-24 marquee-fade-left z-10" />
+          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-24 marquee-fade-right z-10" />
 
           {/* Marquee Track (Right Direction) */}
           <div className="animate-marquee-reverse gap-12 sm:gap-16 px-4 items-center">

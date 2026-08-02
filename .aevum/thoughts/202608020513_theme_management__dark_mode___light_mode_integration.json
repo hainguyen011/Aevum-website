@@ -1,0 +1,9 @@
+{
+  "personaId": "VIDUS",
+  "topic": "Theme Management: Dark Mode & Light Mode Integration",
+  "content": "Phân tích bổ sung chế độ Light Mode & Dark Mode cho Aevum Website (Aevum-Electron). Cần thiết lập hệ thống CSS variable linh hoạt trên <html>/<body> (:root vs [data-theme=\"light\"] / [data-theme=\"dark\"]), cập nhật các utility class Tailwind/CSS, tích hợp Theme Switcher vào Navbar & Mobile Menu, và bảo lưu trạng thái người dùng trong localStorage.",
+  "priority": "high",
+  "id": "thought_1785647596880",
+  "timestamp": "2026-08-02T05:13:16.880Z",
+  "isRead": false
+}

@@ -113,8 +113,8 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
               : 'opacity-40 brightness-75 group-hover:opacity-95 group-hover:brightness-110'
           }`}
         />
-        <div className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-[#07080E] via-[#07080E]/70 to-transparent pointer-events-none" />
-        <div className="absolute inset-x-0 bottom-0 p-6 sm:p-7 bg-gradient-to-t from-[#07080E] via-[#07080E]/90 to-transparent z-10 font-sans space-y-2.5">
+        <div className="absolute inset-x-0 bottom-0 h-3/5 agent-card-gradient pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-0 p-6 sm:p-7 agent-card-gradient z-10 font-sans space-y-2.5">
           <div className="space-y-1">
             <h3
               className="text-2xl sm:text-3xl text-white font-bbh tracking-wide"

@@ -173,7 +173,8 @@ export const BentoGrid = ({ activeLang }) => {
                       <span className="inline-block w-1 h-3 ml-0.5 bg-cyan-600 animate-pulse align-middle"></span>
                     )}
                   </p>
-                  <div className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[9px] border-t-white"></div>
+                  {/* Cloud Tail Pointing Down to Agent with matching border */}
+                  <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-white border-r border-b border-inherit rotate-45"></div>
                 </div>
                 <img
                   src={item.sticker}
@@ -271,8 +272,8 @@ export const BentoGrid = ({ activeLang }) => {
                   )}
                 </p>
 
-                {/* Cloud Tail Pointing Down to Agent */}
-                <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-t-[12px] border-t-white"></div>
+                {/* Cloud Tail Pointing Down to Agent with matching border */}
+                <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-white border-r border-b border-inherit rotate-45"></div>
               </div>
 
               {/* Floating Agent Sticker */}

@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, Facebook, ChevronDown, Globe, Eye, EyeOff, Menu, X, Sparkles, Layers, Network, Terminal, ArrowRight, Mail } from 'lucide-react';
+import { Search, Facebook, ChevronDown, Globe, Eye, EyeOff, Sun, Atom, Menu, X, Sparkles, Layers, Network, Terminal, ArrowRight, Mail } from 'lucide-react';
 import logoImg from '../../assets/logos/AevumOS-transparent.png';
 import unikornLogo from '../../assets/unikorn-logo.png';
 import { translations } from '../data/translations';
 
-export const Navbar = ({ currentPage, onNavigate, activeLang, onChangeLang, onOpenSearch, isEyeCare, onToggleEyeCare, isMobileMenuOpen, onToggleMobileMenu }) => {
+export const Navbar = ({ currentPage, onNavigate, activeLang, onChangeLang, onOpenSearch, isEyeCare, onToggleEyeCare, theme, onToggleTheme, isMobileMenuOpen, onToggleMobileMenu }) => {
   const [langOpen, setLangOpen] = useState(false);
   const [featuresOpen, setFeaturesOpen] = useState(false);
   const [activeSection, setActiveSection] = useState(null);
@@ -212,6 +212,23 @@ export const Navbar = ({ currentPage, onNavigate, activeLang, onChangeLang, onOp
           >
             {isEyeCare ? <EyeOff size={13} className="text-amber-400 animate-pulse" /> : <Eye size={13} />}
             <span className="hidden md:inline">{isVi ? "Bảo vệ mắt" : "Eye Care"}</span>
+          </button>
+
+          {/* Dark / Light Theme Mode Switcher (Icon-Only GPU-Accelerated Smooth Transition) */}
+          <button
+            onClick={onToggleTheme}
+            className="theme-toggle-btn"
+            title={
+              isVi 
+                ? (theme === 'dark' ? "Chuyển sang Chế độ Sáng (Light Mode)" : "Chuyển sang Chế độ Tối (Dark Mode)") 
+                : (theme === 'dark' ? "Switch to Light Mode" : "Switch to Dark Mode")
+            }
+            aria-label="Toggle Theme Mode"
+          >
+            <div className="theme-icon-wrapper">
+              <Sun size={18} className="theme-icon theme-icon-sun" />
+              <Atom size={18} className="theme-icon theme-icon-electron" />
+            </div>
           </button>
 
           {/* 1-Click Instant Language Switcher Toggle */}

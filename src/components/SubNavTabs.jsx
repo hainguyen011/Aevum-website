@@ -54,7 +54,7 @@ export const SubNavTabs = ({ activeLang }) => {
         </div>
 
         {/* Right Fade + Chevron Swipe Hint Overlay */}
-        <div className="pointer-events-none absolute right-0 top-0 h-full w-12 flex items-center justify-end pr-1" style={{background: 'linear-gradient(to right, transparent, #0B0B11 80%)'}}>
+        <div className="pointer-events-none absolute right-0 top-0 h-full w-12 flex items-center justify-end pr-1" style={{background: 'linear-gradient(to right, transparent, var(--bg-dark) 80%)'}}>
           <ChevronRight size={14} className="text-slate-500 animate-bounce-x" />
         </div>
       </div>

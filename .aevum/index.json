@@ -12,7 +12,14 @@
           "id": "interactive-dashboard",
           "name": "Interactive Dashboard",
           "path": ".aevum/domains/ui_views/features/interactive-dashboard",
-          "plans": []
+          "plans": [
+            {
+              "name": "dark_light_mode_integration_plan.md",
+              "status": "done",
+              "progress": 20,
+              "updatedAt": "2026-08-02T05:16:37.670Z"
+            }
+          ]
         }
       ]
     }
@@ -31,16 +38,23 @@
     "handshake_registry": "mcp/handshake_registry.json",
     "knowledge_rules": "Every active persona has a dedicated knowledge folder in `.aevum/global/personas/<id>/knowledge/`. Log project-specific patterns and agent-exclusive wisdom there.",
     "debtHistory": [
-      88,
       92,
       90,
       95,
       93,
       97,
-      100
+      100,
+      60
     ]
   },
   "agents": [
+    {
+      "id": "ALG-ZENITH-A1B2C3",
+      "name": "Zenith",
+      "capability": "Performance Audit",
+      "level": 1,
+      "knowledgePath": ".aevum/global/personas/zenith/knowledge"
+    },
     {
       "id": "ARC-VIDUS-AUHD2Y",
       "name": "Vidus",
@@ -54,13 +68,6 @@
       "capability": "AI Tuning",
       "level": 1,
       "knowledgePath": ".aevum/global/personas/an/knowledge"
-    },
-    {
-      "id": "ALG-ZENITH-A1B2C3",
-      "name": "Zenith",
-      "capability": "Performance Audit",
-      "level": 1,
-      "knowledgePath": ".aevum/global/personas/zenith/knowledge"
     }
   ]
 }

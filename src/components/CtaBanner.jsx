@@ -15,7 +15,7 @@ export const CtaBanner = ({ onNavigate, onOpenTrialModal, activeLang }) => {
   }
 
   return (
-    <div className="w-full relative bg-[#0B0B11] border-subtle-b border-subtle-t overflow-hidden">
+    <div className="w-full relative bg-[#0B0B11] border-subtle-b border-subtle-t overflow-hidden cta-banner">
       {/* Banner Card - NASA Hubble Space Telescope Background (Full Width & Height) */}
       <div 
         className="relative w-full py-20 sm:py-28 px-6 sm:px-12 text-center overflow-hidden bg-cover bg-center rounded-none"
@@ -23,7 +23,7 @@ export const CtaBanner = ({ onNavigate, onOpenTrialModal, activeLang }) => {
       >
         
         {/* Dark Overlay for Cosmic Glow & Ultra Readability */}
-        <div className="absolute inset-0 bg-[#0B0B11]/60 backdrop-blur-[0.5px]" />
+        <div className="absolute inset-0 bg-[#0B0B11]/65 backdrop-blur-[0.5px] cta-overlay" />
 
         <div className="relative z-10 max-w-2xl mx-auto space-y-6">
           

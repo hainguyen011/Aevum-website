@@ -200,7 +200,7 @@ export const I2FLabsSection = ({ activeLang }) => {
           ref={containerRef}
           data-is-taunting={isTaunting ? "true" : "false"}
           data-dodge-count={dodgeCount}
-          className="relative flex items-center justify-center px-8 sm:px-12 pt-16 pb-12 sm:pt-20 sm:pb-16 bg-[#0B0B11] order-1 lg:order-2 select-none min-h-[300px]"
+          className="i2f-logo-stage relative flex items-center justify-center px-8 sm:px-12 pt-16 pb-12 sm:pt-20 sm:pb-16 order-1 lg:order-2 select-none min-h-[300px]"
         >
           {/* Dodging Flask Logo Element + Dynamic Floating Quote */}
           <div
@@ -230,10 +230,11 @@ export const I2FLabsSection = ({ activeLang }) => {
                 : ''}
             </div>
 
+            {/* Original I2FLabs Logo */}
             <img
               src={i2fLabsLogo}
               alt="I2FLabs Viet Nam Logo"
-              className={`max-h-[130px] sm:max-h-[160px] w-auto object-contain select-none pointer-events-none filter drop-shadow-[0_8px_24px_rgba(56,189,248,0.2)] hover:drop-shadow-[0_12px_32px_rgba(56,189,248,0.4)] transition-all ${
+              className={`max-h-[130px] sm:max-h-[160px] w-auto object-contain select-none pointer-events-none transition-all ${
                 isTaunting ? 'animate-giggle' : ''
               }`}
             />

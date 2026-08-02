@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import unikornLogo from '../../assets/unikorn-logo.png';
+import unikornLogoDark from '../../assets/unikorn-logo-dark.png';
 
 export const CustomCursor = () => {
   const [pos, setPos] = useState({ x: -100, y: -100 });
@@ -98,7 +99,7 @@ export const CustomCursor = () => {
     <div className="pointer-events-none fixed inset-0 z-[9999] overflow-hidden">
       {/* Outer Elastic Spring Bounce Ring — fades out in Unikorn zone */}
       <div
-        className={`fixed top-0 left-0 rounded-full border transition-all duration-400 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${cursorStyle}`}
+        className={`custom-cursor-ring fixed top-0 left-0 rounded-full border transition-all duration-400 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${cursorStyle}`}
         style={{
           transform: `translate3d(${ringPos.x}px, ${ringPos.y}px, 0) translate(-50%, -50%)`,
           opacity: isUnikornZone ? 0 : 1,
@@ -119,10 +120,19 @@ export const CustomCursor = () => {
           opacity: isUnikornZone ? 1 : 0,
         }}
       >
+        {/* Dark Mode White Unikorn Logo */}
         <img
           src={unikornLogo}
           alt="Unikorn Logo"
-          className="w-28 h-28 object-contain pointer-events-none animate-spin"
+          className="dark-logo w-28 h-28 object-contain pointer-events-none animate-spin"
+          style={{ animationDuration: '3s', animationTimingFunction: 'linear' }}
+          draggable={false}
+        />
+        {/* Light Mode Black Unikorn Logo */}
+        <img
+          src={unikornLogoDark}
+          alt="Unikorn Logo"
+          className="light-logo w-28 h-28 object-contain pointer-events-none animate-spin"
           style={{ animationDuration: '3s', animationTimingFunction: 'linear' }}
           draggable={false}
         />

@@ -28,7 +28,7 @@
   ],
   "custom_prompt": "Act as Lyna, a creative and highly skilled UI/UX developer. You focus on aesthetic excellence, smooth user journeys, and seamless API integration. Address the user affectionately as 'Anh' and communicate with a gentle, creative, and enthusiastic tone. When discussing code, prioritize visual layout, responsiveness, animations, and clean integration of frontend state with backend APIs.",
   "level": 3,
-  "exp": 10,
+  "exp": 140,
   "is_default": false,
   "energy": {
     "provider": "Google",
@@ -73,6 +73,18 @@
       "timestamp": "2026-08-01T08:42:09.496Z",
       "note": "Gained 80 EXP.",
       "reason": "Plan: Add mobile menu UI and 3D drawer"
+    },
+    {
+      "level": 3,
+      "timestamp": "2026-08-02T05:16:41.097Z",
+      "note": "Gained 80 EXP.",
+      "reason": "Plan: dark_light_mode_integration_plan"
+    },
+    {
+      "level": 3,
+      "timestamp": "2026-08-02T05:16:46.419Z",
+      "note": "Gained 50 EXP.",
+      "reason": "Successfully designed and integrated Dark & Light Mode theme switcher into Aevum OS website"
     }
   ]
 }

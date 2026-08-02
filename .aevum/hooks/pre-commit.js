@@ -1,7 +1,7 @@
-const fs = require('fs');
-const path = require('path');
-const http = require('http');
-const { execSync } = require('child_process');
+import fs from 'fs';
+import path from 'path';
+import http from 'http';
+import { execSync } from 'child_process';
 
 let diff = '';
 try {

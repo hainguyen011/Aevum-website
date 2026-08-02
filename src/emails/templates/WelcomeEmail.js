@@ -17,7 +17,7 @@ export function WelcomeEmailTemplate({ name, salutation = 'Anh/Chị' }) {
     <p>Mã nạp Daemon (Daemon Access Token) kèm tài liệu hướng dẫn tích hợp trực tiếp vào Workspace sẽ được gửi đến hòm thư này ngay khi đợt thử nghiệm mở cửa.</p>
     
     <div style="text-align: center; margin-top: 32px; margin-bottom: 32px;">
-      <a href="https://aevum-website.vercel.app/docs" class="btn" target="_blank">Khám phá Tài liệu Hướng dẫn →</a>
+      <a href="https://aevum.ai.vn/docs" class="btn" target="_blank">Khám phá Tài liệu Hướng dẫn →</a>
     </div>
     
     <!-- Seamless Full-Width Edge-to-Edge Divider Line -->

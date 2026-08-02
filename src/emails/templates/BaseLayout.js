@@ -122,7 +122,7 @@ export function BaseEmailLayout({ previewText, headerTitle, contentHtml, footerT
   <div class="wrapper">
     <div class="main-container">
       <div class="header">
-        <a href="https://aevum-website.vercel.app" target="_blank" style="text-decoration: none; display: inline-block;">
+        <a href="https://aevum.ai.vn" target="_blank" style="text-decoration: none; display: inline-block;">
           <img src="${logoImageSrc}" alt="Aevum OS Logo" class="logo-img" height="60" />
         </a>
       </div>

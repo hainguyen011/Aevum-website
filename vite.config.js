@@ -10,7 +10,7 @@ export default defineConfig(({ mode }) => {
   Object.assign(process.env, env);
 
   // Load logo as base64 data URI for local dev preview
-  let logoBase64Uri = 'https://aevum-website.vercel.app/assets/logos/AevumOS-transparent.png';
+  let logoBase64Uri = 'https://aevum.ai.vn/assets/logos/AevumOS-transparent.png';
   try {
     const logoPath = path.resolve(__dirname, './assets/logos/AevumOS-transparent.png');
     if (fs.existsSync(logoPath)) {
@@ -49,7 +49,7 @@ export default defineConfig(({ mode }) => {
                     title: 'CẬP NHẬT PHIÊN BẢN DAEMON 2.1.0',
                     message: 'Hệ thống Aevum OS Daemon vừa phát hành bản nâng cấp bộ nhớ sống v2.1.0. Mã kích hoạt bên dưới đã được bảo vệ.',
                     tokenCode: 'AEVUM-DAEMON-9988-X7',
-                    actionUrl: 'https://aevum-website.vercel.app/docs',
+                    actionUrl: 'https://aevum.ai.vn/docs',
                     actionText: 'XEM TÀI LIỆU NÂNG CẤP',
                     logoUrl: logoBase64Uri
                   });

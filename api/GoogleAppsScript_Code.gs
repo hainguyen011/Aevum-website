@@ -84,7 +84,7 @@ function doPost(e) {
             <p style="color: #cbd5e1; font-size: 14px; line-height: 1.7;">Xin chào <strong>${name}</strong>,</p>
             <p style="color: #cbd5e1; font-size: 14px; line-height: 1.7;">Cảm ơn Anh/Chị đã dành thời gian đăng ký tham gia chương trình Early Access của <strong>Aevum OS</strong>. Đội ngũ I2FLabs Việt Nam rất trân trọng sự đồng hành của Anh/Chị.</p>
             <div style="margin-top: 28px; margin-bottom: 28px;">
-              <a href="https://aevum-website.vercel.app/docs" target="_blank" style="display: inline-block; padding: 13px 26px; background-color: #ffffff; color: #000000; text-decoration: none; font-weight: 700; font-size: 13px; border-radius: 6px;">Khám phá Tài liệu Hướng dẫn →</a>
+              <a href="https://aevum.ai.vn/docs" target="_blank" style="display: inline-block; padding: 13px 26px; background-color: #ffffff; color: #000000; text-decoration: none; font-weight: 700; font-size: 13px; border-radius: 6px;">Khám phá Tài liệu Hướng dẫn →</a>
             </div>
             <div style="border-top: 1px solid rgba(255,255,255,0.08); margin-top: 32px; padding-top: 20px;"></div>
             <div style="text-align: center; margin: 16px 0 12px 0;">

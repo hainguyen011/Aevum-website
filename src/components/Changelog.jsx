@@ -23,7 +23,7 @@ export function Changelog({ activeLang }) {
       headers['Accept'] = 'application/vnd.github+json';
     }
 
-    fetch('https://api.github.com/repos/hainguyen011/Aevum-OS/releases', { headers })
+    fetch('https://api.github.com/repos/hainguyen011/aevum-os-releases/releases', { headers })
       .then((res) => {
         if (!res.ok) {
           throw new Error(isVi
@@ -111,8 +111,12 @@ export function Changelog({ activeLang }) {
     const exeAssets = release.assets.filter(a => a.name.endsWith('.exe'));
     if (!exeAssets.length) return [];
 
-    const armAsset = exeAssets.find(a => a.name.toLowerCase().includes('arm'));
-    const x64Asset = exeAssets.find(a => !a.name.toLowerCase().includes('arm')) || exeAssets[0];
+    // Prioritize assets containing "setup" in their names
+    const setupAssets = exeAssets.filter(a => a.name.toLowerCase().includes('setup'));
+    const targetAssets = setupAssets.length ? setupAssets : exeAssets;
+
+    const armAsset = targetAssets.find(a => a.name.toLowerCase().includes('arm'));
+    const x64Asset = targetAssets.find(a => !a.name.toLowerCase().includes('arm')) || targetAssets[0];
 
     return [
       {
@@ -295,7 +299,7 @@ export function Changelog({ activeLang }) {
 
                   <div className="text-xs text-slate-400 font-mono space-y-1">
                     <div>► PUBLISHED: {formatDate(selectedRelease.published_at)}</div>
-                    <div>► REPO: hainguyen011/Aevum-OS</div>
+                    <div>► REPO: hainguyen011/aevum-os-releases</div>
                   </div>
 
                   {/* Download Action */}

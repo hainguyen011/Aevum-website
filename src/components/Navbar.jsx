@@ -117,11 +117,11 @@ export const Navbar = ({ currentPage, onNavigate, activeLang, onChangeLang, onOp
       {/* Main Navbar Top Row */}
       <div className="w-full flex items-center justify-between px-4 sm:px-6 lg:px-8 xl:px-10 py-4">
         {/* Left Cell: Logo + Main Navigation */}
-        <div className="flex items-center gap-4 xl:gap-8 min-w-0">
+        <div className="flex items-center gap-3 xl:gap-5 min-w-0">
           <a 
             href="#" 
             onClick={(e) => { e.preventDefault(); onNavigate('landing'); }}
-            className="flex items-center gap-2.5 text-decoration-none group shrink-0"
+            className="flex items-center gap-2 text-decoration-none group shrink-0"
           >
             <img 
               src={logoImg} 
@@ -134,7 +134,7 @@ export const Navbar = ({ currentPage, onNavigate, activeLang, onChangeLang, onOp
           </a>
 
           {/* Desktop Nav Links */}
-          <nav className="hidden lg:flex items-center gap-4 xl:gap-6 text-xs font-semibold whitespace-nowrap text-nowrap">
+          <nav className="hidden lg:flex items-center gap-2.5 xl:gap-3.5 text-xs font-semibold whitespace-nowrap text-nowrap">
             
             {/* Desktop Features & Architecture Toggle Button */}
             {(() => {
@@ -180,6 +180,20 @@ export const Navbar = ({ currentPage, onNavigate, activeLang, onChangeLang, onOp
               style={{ whiteSpace: 'nowrap', textWrap: 'nowrap' }}
             >
               {t.navbar.about}
+            </button>
+
+            {/* Vertical Separator */}
+            <span className="w-px h-3 bg-white/10 shrink-0"></span>
+
+            {/* Changelog Link */}
+            <button 
+              onClick={() => onNavigate('changelog')}
+              className={`transition-colors font-semibold whitespace-nowrap text-nowrap ${
+                currentPage === 'changelog' ? 'text-cyan-400' : 'text-slate-300 hover:text-cyan-400'
+              }`}
+              style={{ whiteSpace: 'nowrap', textWrap: 'nowrap' }}
+            >
+              {isVi ? 'Nhật ký cập nhật' : 'Changelog'}
             </button>
           </nav>
         </div>

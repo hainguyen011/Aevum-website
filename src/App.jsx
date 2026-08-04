@@ -15,6 +15,7 @@ import { Footer } from './components/Footer';
 import { ScrollToTop } from './components/ScrollToTop';
 import { Docs } from './components/Docs';
 import { About } from './components/About';
+import { Changelog } from './components/Changelog';
 import { TrialModal } from './components/TrialModal';
 import { SearchModal } from './components/SearchModal';
 import { CustomCursor } from './components/CustomCursor';
@@ -177,10 +178,10 @@ export function App() {
     }
   };
 
-  // Full Clean Path & Hash Routing Listener (supports /about, /docs, #breakthroughs, etc.)
+  // Full Clean Path & Hash Routing Listener (supports /about, /docs, /changelog, #breakthroughs, etc.)
   useEffect(() => {
     const handleLocationChange = () => {
-      const path = window.location.pathname.replace(/^\//, '').toLowerCase();
+      const path = window.location.pathname.replace(/^\/+/, '').toLowerCase();
       const hash = window.location.hash.replace('#', '').toLowerCase();
 
       if (path === 'about' || hash === 'about') {
@@ -188,6 +189,9 @@ export function App() {
         scrollToTarget(0);
       } else if (path === 'docs' || hash === 'docs') {
         setCurrentPage('docs');
+        scrollToTarget(0);
+      } else if (path === 'changelog' || hash === 'changelog') {
+        setCurrentPage('changelog');
         scrollToTarget(0);
       } else if (hash && hash !== 'landing' && hash !== 'home') {
         // Landing anchor section (#breakthroughs, #architecture, #orchestration, #cli)
@@ -256,6 +260,15 @@ export function App() {
           ? 'Hành trình khai sinh Aevum OS từ I2FLabs Việt Nam: Tách rời trí tuệ AI agent khỏi IDE, xây dựng bộ não ngoại vi độc lập giúp khắc phục hội chứng mất trí nhớ ngắn hạn của AI.'
           : 'The story behind Aevum OS by I2FLabs Viet Nam: Decoupling AI agent intelligence from IDEs, building a standalone external brain to conquer AI short-term context amnesia.',
         url: 'https://www.aevum.ai.vn/about'
+      },
+      changelog: {
+        title: isVi
+          ? 'Nhật ký Cập nhật & Các bản phát hành — Aevum OS'
+          : 'Changelog & Product Releases — Aevum OS',
+        description: isVi
+          ? 'Xem lịch sử cập nhật của Aevum OS: Các tính năng mới, cải tiến hiệu năng và bản sửa lỗi của biệt đội AI agent từ I2FLabs.'
+          : 'View the changelog and update history of Aevum OS: New features, performance enhancements, and bug fixes from the I2FLabs team.',
+        url: 'https://www.aevum.ai.vn/changelog'
       }
     };
 
@@ -379,6 +392,10 @@ export function App() {
           <About activeLang={activeLang} />
         )}
 
+        {currentPage === 'changelog' && (
+          <Changelog activeLang={activeLang} />
+        )}
+
         {/* Footer */}
         <Footer onNavigate={handleNavigate} activeLang={activeLang} />
           </div>
@@ -460,7 +477,7 @@ export function App() {
               {t.navbar.kernel}
             </a>
 
-            {/* Standalone Pages UI Block (DOCUMENTATION & ABOUT) */}
+            {/* Standalone Pages UI Block (DOCUMENTATION, ABOUT, CHANGELOG) */}
             <div className="flex flex-col space-y-4 mt-5">
               <button 
                 onClick={() => { setIsMobileMenuOpen(false); handleNavigate('docs'); }}
@@ -477,6 +494,14 @@ export function App() {
                 }`}
               >
                 {t.navbar.about}
+              </button>
+              <button 
+                onClick={() => { setIsMobileMenuOpen(false); handleNavigate('changelog'); }}
+                className={`text-right text-lg font-bold transition-colors uppercase tracking-wide ${
+                  currentPage === 'changelog' ? 'text-cyan-400' : 'text-slate-200 hover:text-cyan-400'
+                }`}
+              >
+                {activeLang === 'vi' ? 'Nhật ký cập nhật' : 'Changelog'}
               </button>
             </div>
 

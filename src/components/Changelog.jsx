@@ -1,19 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { Calendar, Download, RefreshCw, AlertCircle, ChevronDown, ChevronUp } from 'lucide-react';
+import React, { useEffect, useState, useMemo } from 'react';
+import { Calendar, Download, RefreshCw, AlertCircle } from 'lucide-react';
+import { TranslationService } from '../services/TranslationService';
 
 export function Changelog({ activeLang }) {
   const [releases, setReleases] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [expandedReleases, setExpandedReleases] = useState({});
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [translatedNotes, setTranslatedNotes] = useState('');
+  const [isTranslating, setIsTranslating] = useState(false);
   const isVi = activeLang === 'vi';
-
-  const toggleExpand = (id) => {
-    setExpandedReleases(prev => ({
-      ...prev,
-      [id]: !prev[id]
-    }));
-  };
 
   useEffect(() => {
     setIsLoading(true);
@@ -22,9 +18,6 @@ export function Changelog({ activeLang }) {
     const token = import.meta.env.VITE_GITHUB_TOKEN;
     const headers = {};
 
-    console.log('[Changelog] Fetching releases from GitHub...');
-    console.log('[Changelog] Token exists:', !!token, 'Token prefix:', token ? token.substring(0, 4) + '...' : 'none');
-
     if (token && token !== 'your_read_only_token_here') {
       headers['Authorization'] = `Bearer ${token}`;
       headers['Accept'] = 'application/vnd.github+json';
@@ -32,7 +25,6 @@ export function Changelog({ activeLang }) {
 
     fetch('https://api.github.com/repos/hainguyen011/Aevum-OS/releases', { headers })
       .then((res) => {
-        console.log('[Changelog] Response status:', res.status, res.statusText);
         if (!res.ok) {
           throw new Error(isVi
             ? `Không thể tải danh sách cập nhật từ GitHub (Lỗi ${res.status}).`
@@ -51,6 +43,92 @@ export function Changelog({ activeLang }) {
         setIsLoading(false);
       });
   }, [activeLang]);
+
+  // Keyboard navigation [↑/↓]
+  useEffect(() => {
+    if (!releases.length) return;
+    const handleKeyDown = (e) => {
+      if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        setSelectedIndex((prev) => Math.max(0, prev - 1));
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        setSelectedIndex((prev) => Math.min(releases.length - 1, prev + 1));
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [releases.length]);
+
+  const selectedRelease = useMemo(() => {
+    return releases[selectedIndex] || releases[0] || null;
+  }, [releases, selectedIndex]);
+
+  // Auto-translate release notes dynamically using TranslationService
+  useEffect(() => {
+    if (!selectedRelease || !selectedRelease.body) {
+      setTranslatedNotes('');
+      return;
+    }
+
+    let isMounted = true;
+    setIsTranslating(true);
+
+    TranslationService.translateMarkdown(selectedRelease.body, isVi ? 'vi' : 'en')
+      .then((translated) => {
+        if (isMounted) {
+          setTranslatedNotes(translated || selectedRelease.body);
+          setIsTranslating(false);
+        }
+      })
+      .catch((err) => {
+        console.error('[Changelog] Translation failed:', err);
+        if (isMounted) {
+          setTranslatedNotes(selectedRelease.body);
+          setIsTranslating(false);
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [selectedRelease?.id, activeLang, isVi]);
+
+  const getDisplayTitle = (release) => {
+    if (!release) return '';
+    const rawTitle = (release.name && release.name.trim()) || release.tag_name || '';
+    if (rawTitle.toLowerCase().startsWith('aevum')) {
+      return rawTitle;
+    }
+    const formattedTag = rawTitle.startsWith('v') || rawTitle.startsWith('V')
+      ? rawTitle
+      : `v${rawTitle}`;
+    return `Aevum ${formattedTag}`;
+  };
+
+  const getDownloadItems = (release) => {
+    if (!release || !release.assets) return [];
+    const exeAssets = release.assets.filter(a => a.name.endsWith('.exe'));
+    if (!exeAssets.length) return [];
+
+    const armAsset = exeAssets.find(a => a.name.toLowerCase().includes('arm'));
+    const x64Asset = exeAssets.find(a => !a.name.toLowerCase().includes('arm')) || exeAssets[0];
+
+    return [
+      {
+        id: 'x64',
+        label: 'Windows x64 (.exe)',
+        url: x64Asset.browser_download_url,
+        name: x64Asset.name
+      },
+      {
+        id: 'arm64',
+        label: 'Windows ARM64 (.exe)',
+        url: armAsset ? armAsset.browser_download_url : x64Asset.browser_download_url,
+        name: armAsset ? armAsset.name : x64Asset.name
+      }
+    ];
+  };
 
   const formatDate = (dateStr) => {
     try {
@@ -72,26 +150,26 @@ export function Changelog({ activeLang }) {
       .map((line, idx) => {
         const trimmed = line.trim();
         if (trimmed.startsWith('###')) {
-          return <h4 key={idx} className="text-base sm:text-lg font-semibold text-white mt-5 mb-2 first:mt-0">{trimmed.replace(/^###\s*/, '')}</h4>;
+          return <h4 key={idx} className="text-xs sm:text-sm font-bold text-cyan-300 mt-4 mb-1.5 first:mt-0 font-mono">{trimmed.replace(/^###\s*/, '')}</h4>;
         }
         if (trimmed.startsWith('##')) {
-          return <h3 key={idx} className="text-lg sm:text-xl font-bold text-white mt-7 mb-3 first:mt-0">{trimmed.replace(/^##\s*/, '')}</h3>;
+          return <h3 key={idx} className="text-sm sm:text-base font-bold text-white mt-5 mb-2 first:mt-0 font-mono border-b border-white/10 pb-1">{trimmed.replace(/^##\s*/, '')}</h3>;
         }
         if (trimmed.startsWith('-') || trimmed.startsWith('*')) {
           const text = trimmed.replace(/^[-*]\s*/, '');
           return (
-            <li key={idx} className="text-slate-300 ml-5 list-disc pl-1 mb-2 leading-relaxed text-sm sm:text-base">
+            <li key={idx} className="text-slate-300 ml-4 list-disc pl-1 mb-1.5 leading-relaxed text-xs sm:text-sm font-mono">
               {parseBoldText(text)}
             </li>
           );
         }
         if (trimmed === '---') {
-          return <hr key={idx} className="my-5 border-white/10" />;
+          return <hr key={idx} className="my-4 border-white/10" />;
         }
         if (trimmed) {
-          return <p key={idx} className="text-slate-400 mb-2.5 leading-relaxed text-sm sm:text-base">{parseBoldText(trimmed)}</p>;
+          return <p key={idx} className="text-slate-400 mb-2 leading-relaxed text-xs sm:text-sm font-mono">{parseBoldText(trimmed)}</p>;
         }
-        return <div key={idx} className="h-2" />;
+        return <div key={idx} className="h-1.5" />;
       });
   };
 
@@ -103,159 +181,182 @@ export function Changelog({ activeLang }) {
   };
 
   return (
-    <div className="w-full min-h-[60vh] py-12 px-4 sm:px-6 lg:px-8 xl:px-10 max-w-3xl mx-auto">
-      <div className="text-center mb-16 space-y-3">
-        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white font-display">
-          {isVi ? 'Nhật ký Cập nhật' : 'Changelog'}
-        </h1>
-        <p className="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto leading-relaxed">
-          {isVi
-            ? 'Theo dõi tất cả các bản phát hành, nâng cấp hiệu năng và tính năng mới từ hệ điều hành Aevum OS.'
-            : 'Track all official releases, performance updates, and new features from Aevum OS.'}
-        </p>
-      </div>
+    <div id="changelog" className="w-full bg-[#0B0B11] text-slate-100 min-h-[calc(100vh-73px)] font-sans flex flex-col">
+      {/* Authentic Transparent Terminal UI (TUI) Screen */}
+      <div className="border-subtle-b bg-[#0B0B11] text-left font-mono relative overflow-hidden flex-1 flex flex-col w-full">
+        
+        {/* Subtle CRT Scanline Overlay */}
+        <div 
+          className="absolute inset-0 pointer-events-none opacity-15 z-20"
+          style={{
+            backgroundImage: 'linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.4) 50%)',
+            backgroundSize: '100% 4px'
+          }}
+        />
 
-      {isLoading && (
-        <div className="flex flex-col items-center justify-center py-20 space-y-4">
-          <RefreshCw className="w-8 h-8 text-cyan-400 animate-spin" />
-          <span className="text-sm text-slate-400 font-mono">
-            {isVi ? 'Đang tải bản cập nhật...' : 'Fetching releases...'}
-          </span>
-        </div>
-      )}
-
-      {error && (
-        <div className="flex flex-col items-center justify-center py-16 px-6 bg-red-950/20 border border-red-500/20 rounded-xl max-w-xl mx-auto space-y-4 text-center">
-          <AlertCircle className="w-10 h-10 text-red-400" />
-          <p className="text-sm text-red-300 font-medium">{error}</p>
-          <button
-            onClick={() => window.location.reload()}
-            className="px-4 py-2 bg-red-900/30 hover:bg-red-900/50 text-red-200 border border-red-500/30 rounded-lg text-xs font-semibold font-mono transition-colors"
-          >
-            {isVi ? 'Thử lại' : 'Retry'}
-          </button>
-        </div>
-      )}
-
-      {!isLoading && !error && (
-        <div className="relative border-l border-white/10 pl-6 sm:pl-10 space-y-12">
-          {releases.length === 0 ? (
-            <div className="text-center py-12 text-slate-400 font-mono text-sm">
-              {isVi ? 'Hiện tại chưa có bản phát hành nào được đăng tải.' : 'No releases found.'}
+        {/* Full-width Terminal Header Bar */}
+        <div className="w-full border-b border-white/10 py-5 px-6 lg:px-10 bg-[#0B0B11] relative z-10">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs font-mono text-slate-400">
+            <div className="flex items-center gap-3">
+              <span className="text-white font-bold tracking-wider">AEVUM TTY CHANGELOG SHELL v1.0.0</span>
             </div>
-          ) : (
-            releases.map((release, index) => {
-              const exeAsset = release.assets?.find(asset => asset.name.endsWith('.exe'));
-              const baseVersion = release.tag_name.replace(/^v/i, '').split('-')[0];
-              const displayTitle = release.prerelease 
-                ? `Aevum v${baseVersion}-beta` 
-                : `Aevum v${baseVersion}-stable`;
+            <div className="flex items-center text-[11px] text-slate-500 font-mono">
+              <span>Use [↑/↓] arrows or click options</span>
+            </div>
+          </div>
+        </div>
 
-              // Split body into short description and details
-              const lines = release.body ? release.body.split('\n') : [];
-              let shortDesc = '';
-              let detailLines = [];
-              let foundDesc = false;
+        {/* Main Terminal Shell Body Container - 2-Column Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch relative z-10 w-full text-left font-mono flex-1 min-h-[500px]">
+          
+          {/* Column 1: Interactive Drill-down Menu (5 Cols) */}
+          <div className="order-2 lg:order-1 lg:col-span-5 space-y-3 font-mono lg:border-r border-b lg:border-b-0 border-white/10 px-6 lg:px-10 py-8 h-full">
+            
+            {/* Current Directory Breadcrumb */}
+            <div className="flex items-center gap-2 text-[11px] text-white font-mono font-bold tracking-wide uppercase">
+              <span className="text-slate-400">LOCATION:</span>
+              <span className="text-white">~/RELEASES</span>
+            </div>
 
-              for (let i = 0; i < lines.length; i++) {
-                const line = lines[i].trim();
-                if (!line) {
-                  if (foundDesc) {
-                    detailLines.push(lines[i]);
-                  }
-                  continue;
-                }
-                if (line.startsWith('#')) {
-                  continue;
-                }
-                if (!foundDesc && !line.startsWith('-') && !line.startsWith('*') && !line.startsWith('##') && !line.startsWith('###')) {
-                  shortDesc = line;
-                  foundDesc = true;
-                } else {
-                  detailLines.push(lines[i]);
-                }
-              }
-              const detailsBody = detailLines.join('\n').trim();
-              const isExpanded = expandedReleases[release.id] !== undefined 
-                ? expandedReleases[release.id] 
-                : index === 0;
+            {/* Releases Menu List */}
+            {isLoading ? (
+              <div className="flex items-center gap-2 text-xs text-slate-400 py-4 font-mono">
+                <RefreshCw size={14} className="animate-spin text-cyan-400" />
+                <span>{isVi ? 'Đang tải danh sách...' : 'Fetching release list...'}</span>
+              </div>
+            ) : error ? (
+              <div className="text-xs text-red-400 py-4 font-mono">
+                [ERROR] {error}
+              </div>
+            ) : releases.length === 0 ? (
+              <div className="text-xs text-slate-500 py-4 font-mono">
+                [EMPTY] No releases available.
+              </div>
+            ) : (
+              <div className="space-y-1 font-mono text-xs sm:text-sm pt-1">
+                {releases.map((release, idx) => {
+                  const isFocused = selectedIndex === idx;
+                  const displayTitle = getDisplayTitle(release);
 
-              return (
-                <div key={release.id} className="relative group">
-                  <div className="absolute -left-[31px] sm:-left-[47px] top-1.5 w-4 h-4 rounded-full bg-[#07080c] border border-white/20 flex items-center justify-center group-hover:border-cyan-400 transition-colors">
-                    <div className="w-1.5 h-1.5 rounded-full bg-slate-400 group-hover:bg-cyan-400 transition-colors" />
-                  </div>
+                  return (
+                    <div
+                      key={release.id}
+                      onClick={() => setSelectedIndex(idx)}
+                      onMouseEnter={() => setSelectedIndex(idx)}
+                      className={`group flex flex-col py-2 px-2.5 rounded cursor-pointer transition-colors font-mono ${
+                        isFocused
+                          ? 'text-white font-bold bg-white/[0.06]'
+                          : 'text-slate-300 hover:text-white hover:bg-white/[0.02]'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2">
+                        <span className="text-white font-bold w-4 text-center">
+                          {isFocused ? '>' : ' '}
+                        </span>
 
-                  <div className="p-0 space-y-4">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                      <div className="space-y-1.5">
-                        <div className="flex items-center gap-3">
-                          <h2 className="text-xl sm:text-2xl font-extrabold text-white font-mono tracking-tight leading-none">
-                            {displayTitle}
-                          </h2>
-                          <span className={`px-2.5 py-0.5 rounded-full text-xs font-mono font-semibold border ${
-                            release.prerelease 
-                              ? 'bg-amber-500/10 text-amber-400 border-amber-400/20' 
-                              : 'bg-cyan-500/10 text-cyan-400 border-cyan-400/20'
-                          }`}>
-                            {release.tag_name}
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-1.5 text-xs sm:text-sm text-slate-400">
-                          <Calendar size={14} />
-                          <span>{formatDate(release.published_at)}</span>
-                        </div>
+                        <span className={`flex-1 ${
+                          isFocused ? 'text-white font-bold' : 'text-slate-200'
+                        }`}>
+                          {idx + 1}./ {displayTitle}
+                        </span>
+
+                        <span className="text-slate-400 text-xs font-mono font-bold">
+                          &gt;
+                        </span>
                       </div>
 
-                      {exeAsset ? (
-                        <a
-                          href={exeAsset.browser_download_url}
-                          className="inline-flex items-center gap-1.5 text-sm sm:text-base font-bold text-cyan-400 hover:text-cyan-300 transition-colors cursor-pointer self-start sm:self-auto shrink-0 font-mono"
-                          title={exeAsset.name}
-                        >
-                          <Download size={16} />
-                          <span>{isVi ? 'Tải xuống (.exe)' : 'Download (.exe)'}</span>
-                        </a>
-                      ) : (
-                        <div className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-slate-500 font-mono self-start sm:self-auto shrink-0 select-none py-1.5 bg-slate-900/30 px-3 rounded-lg border border-white/5">
-                          <RefreshCw size={13} className="animate-spin text-slate-500" />
-                          <span>{isVi ? 'Đang đóng gói (.exe)...' : 'Packaging (.exe)...'}</span>
-                        </div>
-                      )}
+                      <span className="text-slate-400 text-xs pl-6 pt-0.5 font-normal">
+                        {formatDate(release.published_at)}
+                      </span>
                     </div>
+                  );
+                })}
+              </div>
+            )}
 
-                    {shortDesc && (
-                      <p className="text-slate-300 leading-relaxed text-sm sm:text-base mb-2 font-medium">
-                        {parseBoldText(shortDesc)}
-                      </p>
-                    )}
+          </div>
 
-                    {detailsBody && (
-                      <>
-                        <button
-                          onClick={() => toggleExpand(release.id)}
-                          className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-slate-400 hover:text-cyan-400 cursor-pointer transition-colors select-none py-1 focus:outline-none"
-                        >
-                          <span>{isExpanded ? (isVi ? 'Thu gọn chi tiết' : 'Hide details') : (isVi ? 'Xem chi tiết cập nhật' : 'View release details')}</span>
-                          {isExpanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
-                        </button>
-
-                        <div className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                          isExpanded ? 'max-h-[2000px] opacity-100 mt-2' : 'max-h-0 opacity-0 pointer-events-none'
-                        }`}>
-                          <div className="text-slate-300 space-y-1 markdown-body pl-2 border-l border-white/5">
-                            {formatReleaseNotes(detailsBody)}
-                          </div>
-                        </div>
-                      </>
-                    )}
-                  </div>
+          {/* Column 2: Terminal Output Render (7 Cols) */}
+          <div className="order-1 lg:order-2 lg:col-span-7 space-y-4 font-mono px-6 lg:px-10 py-8">
+            
+            {selectedRelease ? (
+              <>
+                {/* Command Line */}
+                <div className="flex items-center gap-2 text-sm sm:text-base font-mono text-white pb-1">
+                  <span className="text-slate-400 font-bold">$</span>
+                  <span className="font-bold text-white">aevum-os help --release={selectedRelease.tag_name}</span>
                 </div>
-              );
-            })
-          )}
+
+                {/* Output Display */}
+                <div className="pt-1 space-y-4 min-h-[300px]">
+                  <div className="text-xs sm:text-sm font-bold text-cyan-300 font-mono">
+                    [{getDisplayTitle(selectedRelease).toUpperCase()}]
+                  </div>
+
+                  <div className="text-xs text-slate-400 font-mono space-y-1">
+                    <div>► PUBLISHED: {formatDate(selectedRelease.published_at)}</div>
+                    <div>► REPO: hainguyen011/Aevum-OS</div>
+                  </div>
+
+                  {/* Download Action */}
+                  <div className="pt-2">
+                    {(() => {
+                      const downloadItems = getDownloadItems(selectedRelease);
+                      return downloadItems.length > 0 ? (
+                        <div className="flex flex-col gap-2.5">
+                          {downloadItems.map((item) => (
+                            <a
+                              key={item.id}
+                              href={item.url}
+                              className="inline-flex items-center gap-2.5 text-xs sm:text-sm font-bold text-cyan-400 hover:text-cyan-300 transition-colors font-mono cursor-pointer w-fit"
+                              title={item.name}
+                            >
+                              <Download size={14} />
+                              <span>{item.label}</span>
+                            </a>
+                          ))}
+                        </div>
+                      ) : (
+                        <div className="inline-flex items-center gap-2 text-xs text-slate-500 font-mono">
+                          <RefreshCw size={12} className="animate-spin text-slate-500" />
+                          <span>{isVi ? 'Đang đóng gói bản Windows (.exe)...' : 'Packaging Windows build (.exe)...'}</span>
+                        </div>
+                      );
+                    })()}
+                  </div>
+
+                  {/* Body Content */}
+                  <div className="pt-3 border-t border-white/10 text-xs sm:text-sm leading-relaxed text-slate-200">
+                    {isTranslating ? (
+                      <div className="flex items-center gap-2 py-2 text-slate-400 font-mono text-xs">
+                        <RefreshCw size={12} className="animate-spin text-cyan-400" />
+                        <span>{isVi ? 'Đang tự động dịch nội dung cập nhật...' : 'Translating release notes...'}</span>
+                      </div>
+                    ) : (
+                      formatReleaseNotes(translatedNotes || selectedRelease.body)
+                    )}
+                    <span className="inline-block w-2 h-4 bg-white ml-1 animate-pulse align-middle" />
+                  </div>
+
+                </div>
+              </>
+            ) : (
+              <div className="flex flex-col items-center justify-center py-20 text-slate-500 font-mono text-xs">
+                {isLoading ? (
+                  <RefreshCw className="w-6 h-6 animate-spin text-cyan-400 mb-2" />
+                ) : (
+                  <span>[ NO RELEASE SELECTED ]</span>
+                )}
+              </div>
+            )}
+
+          </div>
+
         </div>
-      )}
+
+      </div>
     </div>
   );
 }
+
+export default Changelog;

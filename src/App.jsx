@@ -22,18 +22,35 @@ import { CustomCursor } from './components/CustomCursor';
 import { useScrollReveal } from './hooks/useScrollReveal';
 import logoImg from '../assets/logos/AevumOS-transparent.png';
 import { translations } from './data/translations';
-import { Search, X, Eye, EyeOff, Sun, Atom } from 'lucide-react';
+import { Search, X, Eye, EyeOff, Sun, Atom, User } from 'lucide-react';
+import { AuthModal } from './components/AuthModal';
+import { supabase } from './services/supabaseClient';
 
 export function App() {
   const [currentPage, setCurrentPage] = useState('landing');
   const [isTrialModalOpen, setIsTrialModalOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [user, setUser] = useState(null);
   const [isEyeCare, setIsEyeCare] = useState(() => {
     return localStorage.getItem('aevum-eyecare') === 'true';
   });
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem('aevum-theme') || 'dark';
   });
+
+  // Supabase Auth session listener
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   // Toggle eye-care class on body
   useEffect(() => {
@@ -328,12 +345,10 @@ export function App() {
           activeLang={activeLang} 
           onChangeLang={handleLanguageChange} 
           onOpenSearch={() => setIsSearchOpen(true)}
-          isEyeCare={isEyeCare}
-          onToggleEyeCare={() => setIsEyeCare(prev => !prev)}
-          theme={theme}
-          onToggleTheme={handleToggleTheme}
           isMobileMenuOpen={isMobileMenuOpen}
           onToggleMobileMenu={() => setIsMobileMenuOpen(prev => !prev)}
+          user={user}
+          onOpenAuthModal={() => setIsAuthModalOpen(true)}
         />
 
         {currentPage === 'landing' && (
@@ -503,6 +518,26 @@ export function App() {
               >
                 {activeLang === 'vi' ? 'Nhật ký cập nhật' : 'Changelog'}
               </button>
+
+              <div className="h-px bg-white/5 my-2"></div>
+
+              {user ? (
+                <button 
+                  onClick={() => { setIsMobileMenuOpen(false); setIsAuthModalOpen(true); }}
+                  className="text-right text-lg font-bold text-cyan-400 hover:text-cyan-300 transition-colors uppercase tracking-wide flex items-center justify-end gap-2"
+                >
+                  <User size={16} className="text-cyan-400 animate-pulse" />
+                  <span className="max-w-[120px] truncate">{user.email.split('@')[0]}</span>
+                </button>
+              ) : (
+                <button 
+                  onClick={() => { setIsMobileMenuOpen(false); setIsAuthModalOpen(true); }}
+                  className="text-right text-lg font-bold text-slate-300 hover:text-cyan-400 transition-colors uppercase tracking-wide flex items-center justify-end gap-2"
+                >
+                  <User size={16} className="text-slate-400" />
+                  <span>{activeLang === 'vi' ? 'Đăng nhập' : 'Sign In'}</span>
+                </button>
+              )}
             </div>
 
             {/* Bottom Controls Row: Close Button, Theme Switcher & Language Switcher */}
@@ -559,6 +594,14 @@ export function App() {
         activeLang={activeLang}
       />
 
+      {/* Supabase User Authentication Modal */}
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        activeLang={activeLang}
+        user={user}
+      />
+
       {/* Interactive Command Palette Search Modal */}
       <SearchModal 
         isOpen={isSearchOpen}
@@ -566,6 +609,41 @@ export function App() {
         onNavigate={handleNavigate}
         activeLang={activeLang}
       />
+
+      {/* Floating Cyber HUD Utility Toolbar (Fixed to Viewport - Shifted Right of Content Edge) */}
+      <div className="fixed right-[calc(6vw-50px)] top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col items-center bg-transparent p-0 w-[42px] transition-all duration-300 group rounded-none">
+
+        {/* Eye Care Toggle */}
+        <button
+          onClick={() => setIsEyeCare(prev => !prev)}
+          className={`utility-bar-btn flex items-center justify-center w-[42px] h-[42px] transition-all duration-200 cursor-pointer rounded-none border-0 select-none ${
+            isEyeCare 
+              ? '!bg-amber-500/10 !text-amber-500 hover:!bg-amber-500/20' 
+              : ''
+          }`}
+          title={activeLang === 'vi' ? "Bật/Tắt bảo vệ mắt" : "Toggle Eye Care"}
+        >
+          {isEyeCare ? <EyeOff size={15} className="text-amber-400" /> : <Eye size={15} />}
+        </button>
+
+
+        {/* Theme Toggle */}
+        <button
+          onClick={handleToggleTheme}
+          className="utility-bar-btn flex items-center justify-center w-[42px] h-[42px] border-0 transition-all duration-200 cursor-pointer rounded-none active:scale-[0.92] select-none"
+          title={
+            activeLang === 'vi' 
+              ? (theme === 'dark' ? "Chuyển sang Chế độ Sáng" : "Chuyển sang Chế độ Tối") 
+              : (theme === 'dark' ? "Switch to Light Mode" : "Switch to Dark Mode")
+          }
+          aria-label="Toggle Theme Mode"
+        >
+          <div className="theme-icon-wrapper">
+            <Sun size={18} className="theme-icon theme-icon-sun" />
+            <Atom size={18} className="theme-icon theme-icon-electron" />
+          </div>
+        </button>
+      </div>
 
       {/* Floating Fixed Scroll To Top Button */}
       <ScrollToTop />

@@ -1,0 +1,37 @@
+name: Notify Aevum Website on Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  notify-website:
+    name: Send Release Notification to Aevum Website
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Trigger Webhook / Repository Dispatch to aevum-website
+        env:
+          WEBSITE_WEBHOOK_URL: ${{ secrets.AEVUM_WEBSITE_WEBHOOK_URL }}
+          WEBSITE_PAT: ${{ secrets.AEVUM_WEBSITE_PAT }}
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+          RELEASE_NAME: ${{ github.event.release.name }}
+          RELEASE_NOTES: ${{ github.event.release.body }}
+          RELEASE_URL: ${{ github.event.release.html_url }}
+        run: |
+          echo "Processing Release Notification for version: $RELEASE_TAG"
+
+          if [ -n "$WEBSITE_WEBHOOK_URL" ]; then
+            curl -X POST "$WEBSITE_WEBHOOK_URL" \
+              -H "Content-Type: application/json" \
+              -d '{"event":"aevum_release_published","version":"'"$RELEASE_TAG"'","title":"'"$RELEASE_NAME"'","url":"'"$RELEASE_URL"'"}'
+          fi
+
+          if [ -n "$WEBSITE_PAT" ]; then
+            curl -X POST "https://api.github.com/repos/hainguyen011/aevum-website/dispatches" \
+              -H "Accept: application/vnd.github.v3+json" \
+              -H "Authorization: Bearer $WEBSITE_PAT" \
+              -d '{"event_type":"new-aevum-os-release","client_payload":{"version":"'"$RELEASE_TAG"'","title":"'"$RELEASE_NAME"'","url":"'"$RELEASE_URL"'"}}'
+          fi

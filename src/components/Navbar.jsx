@@ -238,7 +238,7 @@ export const Navbar = ({ currentPage, onNavigate, activeLang, onChangeLang, onOp
                 title={isVi ? "Xem tài khoản Aevum" : "View Aevum profile"}
               >
                 {avatarUrl ? (
-                  <img src={avatarUrl} alt="avatar" className="w-5 h-5 rounded-full object-cover" style={{ border: '1px solid rgba(6,182,212,0.2)', boxShadow: 'inset 0 0 0 1px rgba(6,182,212,0.06)' }} />
+                  <img src={avatarUrl} alt="avatar" className="w-5 h-5 rounded-full object-cover" style={{ border: '1px solid rgba(34,211,238,0.35)', boxShadow: 'inset 0 0 0 1px rgba(34,211,238,0.1)' }} />
                 ) : (
                   <User size={13} className="text-cyan-400" />
                 )}
@@ -408,9 +408,9 @@ export const Navbar = ({ currentPage, onNavigate, activeLang, onChangeLang, onOp
                 const displayName = user.user_metadata?.full_name || user.user_metadata?.name || user.email.split('@')[0];
                 const initials = displayName.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
                 return avatarUrl ? (
-                  <img src={avatarUrl} alt={displayName} className="w-9 h-9 rounded-full object-cover" style={{ border: '1px solid rgba(6,182,212,0.2)', boxShadow: 'inset 0 0 0 2px rgba(6,182,212,0.06)' }} />
+                  <img src={avatarUrl} alt={displayName} className="w-9 h-9 rounded-full object-cover" style={{ border: '1px solid rgba(34,211,238,0.35)', boxShadow: 'inset 0 0 0 2px rgba(34,211,238,0.1)' }} />
                 ) : (
-                  <div className="w-9 h-9 rounded-full bg-cyan-500/10 flex items-center justify-center text-cyan-300 text-xs font-bold" style={{ border: '1px solid rgba(6,182,212,0.2)', boxShadow: 'inset 0 0 0 2px rgba(6,182,212,0.06)' }}>
+                  <div className="w-9 h-9 rounded-full bg-cyan-500/10 flex items-center justify-center text-cyan-300 text-xs font-bold" style={{ border: '1px solid rgba(34,211,238,0.35)', boxShadow: 'inset 0 0 0 2px rgba(34,211,238,0.1)' }}>
                     {initials}
                   </div>
                 );

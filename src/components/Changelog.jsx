@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { Calendar, Download, RefreshCw, AlertCircle } from 'lucide-react';
+import { Calendar, Download, RefreshCw, AlertCircle, MessageSquare } from 'lucide-react';
 import { TranslationService } from '../services/TranslationService';
+import { ReleaseService } from '../services/ReleaseService';
 
-export function Changelog({ activeLang }) {
+export function Changelog({ activeLang, onNavigate }) {
   const [releases, setReleases] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -15,24 +16,7 @@ export function Changelog({ activeLang }) {
     setIsLoading(true);
     setError(null);
 
-    const token = import.meta.env.VITE_GITHUB_TOKEN;
-    const headers = {};
-
-    if (token && token !== 'your_read_only_token_here') {
-      headers['Authorization'] = `Bearer ${token}`;
-      headers['Accept'] = 'application/vnd.github+json';
-    }
-
-    fetch('https://api.github.com/repos/hainguyen011/aevum-os-releases/releases', { headers })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(isVi
-            ? `Không thể tải danh sách cập nhật từ GitHub (Lỗi ${res.status}).`
-            : `Failed to fetch releases from GitHub (Status ${res.status}).`
-          );
-        }
-        return res.json();
-      })
+    ReleaseService.getReleases()
       .then((data) => {
         setReleases(data);
         setIsLoading(false);
@@ -188,15 +172,6 @@ export function Changelog({ activeLang }) {
     <div id="changelog" className="w-full bg-[#0B0B11] text-slate-100 min-h-[calc(100vh-73px)] font-sans flex flex-col">
       {/* Authentic Transparent Terminal UI (TUI) Screen */}
       <div className="border-subtle-b bg-[#0B0B11] text-left font-mono relative overflow-hidden flex-1 flex flex-col w-full">
-        
-        {/* Subtle CRT Scanline Overlay */}
-        <div 
-          className="absolute inset-0 pointer-events-none opacity-15 z-20"
-          style={{
-            backgroundImage: 'linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.4) 50%)',
-            backgroundSize: '100% 4px'
-          }}
-        />
 
         {/* Full-width Terminal Header Bar */}
         <div className="w-full border-b border-white/10 py-5 px-6 lg:px-10 bg-[#0B0B11] relative z-10">
@@ -327,6 +302,17 @@ export function Changelog({ activeLang }) {
                         </div>
                       );
                     })()}
+                  </div>
+
+                  {/* Discussion & Bug Hunter Link Button */}
+                  <div className="pt-1">
+                    <button
+                      onClick={() => onNavigate && onNavigate('discussions')}
+                      className="inline-flex items-center gap-2 text-xs font-bold text-cyan-300 hover:text-cyan-200 transition-colors font-mono cursor-pointer border border-cyan-500/30 hover:border-cyan-500/60 bg-cyan-500/10 hover:bg-cyan-500/20 px-3.5 py-2 rounded-md"
+                    >
+                      <MessageSquare size={13} />
+                      <span>{isVi ? `Báo lỗi / Gửi phản hồi cho ${selectedRelease.tag_name}` : `Report Bug / Discuss ${selectedRelease.tag_name}`}</span>
+                    </button>
                   </div>
 
                   {/* Body Content */}

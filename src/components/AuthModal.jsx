@@ -3,7 +3,7 @@ import { X, Mail, Lock, User, Eye, EyeOff, Sparkles, LogOut, CheckCircle, AlertT
 import { supabase } from '../services/supabaseClient';
 import logoImg from '../../assets/logos/AevumOS-transparent.png';
 
-export const AuthModal = ({ isOpen, onClose, activeLang, user }) => {
+export const AuthModal = ({ isOpen, onClose, activeLang, user, userProfile }) => {
   const [mode, setMode] = useState('signin'); // 'signin' | 'signup' | 'forgot' | 'profile'
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -187,15 +187,6 @@ export const AuthModal = ({ isOpen, onClose, activeLang, user }) => {
         style={{ minHeight: isProfileMode ? 'auto' : '520px' }}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* CRT Scanline — full modal */}
-        <div
-          className="absolute inset-0 pointer-events-none z-0"
-          style={{
-            backgroundImage: 'linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.15) 50%)',
-            backgroundSize: '100% 3px',
-            opacity: 0.04,
-          }}
-        />
 
         {/* ━━━━━━━ LEFT BRANDING PANEL ━━━━━━━ */}
         {!isProfileMode && (
@@ -347,7 +338,12 @@ export const AuthModal = ({ isOpen, onClose, activeLang, user }) => {
 
                   {/* Name & email */}
                   <div className="text-center space-y-1">
-                    <p className="text-base font-bold text-white tracking-wide">{displayName}</p>
+                    <div className="flex items-center justify-center gap-1.5">
+                      <p className="text-base font-bold text-white tracking-wide">{displayName}</p>
+                      <span className="text-xs text-white/70 font-mono font-normal">
+                        ({userProfile?.role === 'admin' ? 'Admin' : 'user'})
+                      </span>
+                    </div>
                     <p className="text-[11px] text-slate-500">{user.email}</p>
                     <div className="flex items-center justify-center gap-1.5 mt-1">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block" />

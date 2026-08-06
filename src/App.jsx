@@ -16,15 +16,17 @@ import { ScrollToTop } from './components/ScrollToTop';
 import { Docs } from './components/Docs';
 import { About } from './components/About';
 import { Changelog } from './components/Changelog';
+import { Discussions } from './components/Discussions';
 import { TrialModal } from './components/TrialModal';
 import { SearchModal } from './components/SearchModal';
 import { CustomCursor } from './components/CustomCursor';
 import { useScrollReveal } from './hooks/useScrollReveal';
 import logoImg from '../assets/logos/AevumOS-transparent.png';
 import { translations } from './data/translations';
-import { Search, X, Eye, EyeOff, Sun, Atom, User } from 'lucide-react';
+import { Search, X, Eye, EyeOff, Sun, Atom, User, Globe } from 'lucide-react';
 import { AuthModal } from './components/AuthModal';
 import { supabase } from './services/supabaseClient';
+import { DiscussionService } from './services/DiscussionService';
 
 export function App() {
   const [currentPage, setCurrentPage] = useState('landing');
@@ -32,6 +34,7 @@ export function App() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [user, setUser] = useState(null);
+  const [userProfile, setUserProfile] = useState(null);
   const [isEyeCare, setIsEyeCare] = useState(() => {
     return localStorage.getItem('aevum-eyecare') === 'true';
   });
@@ -51,6 +54,17 @@ export function App() {
 
     return () => subscription.unsubscribe();
   }, []);
+
+  // Fetch user profile (role, full_name) when session updates
+  useEffect(() => {
+    if (user?.id) {
+      DiscussionService.getUserProfile(user.id).then(profile => {
+        setUserProfile(profile);
+      });
+    } else {
+      setUserProfile(null);
+    }
+  }, [user?.id]);
 
   // Toggle eye-care class on body
   useEffect(() => {
@@ -210,6 +224,9 @@ export function App() {
       } else if (path === 'changelog' || hash === 'changelog') {
         setCurrentPage('changelog');
         scrollToTarget(0);
+      } else if (path === 'discussions' || hash === 'discussions') {
+        setCurrentPage('discussions');
+        scrollToTarget(0);
       } else if (hash && hash !== 'landing' && hash !== 'home') {
         // Landing anchor section (#breakthroughs, #architecture, #orchestration, #cli)
         setCurrentPage('landing');
@@ -348,6 +365,7 @@ export function App() {
           isMobileMenuOpen={isMobileMenuOpen}
           onToggleMobileMenu={() => setIsMobileMenuOpen(prev => !prev)}
           user={user}
+          userProfile={userProfile}
           onOpenAuthModal={() => setIsAuthModalOpen(true)}
         />
 
@@ -408,7 +426,16 @@ export function App() {
         )}
 
         {currentPage === 'changelog' && (
-          <Changelog activeLang={activeLang} />
+          <Changelog activeLang={activeLang} onNavigate={handleNavigate} />
+        )}
+
+        {currentPage === 'discussions' && (
+          <Discussions 
+            activeLang={activeLang} 
+            user={user} 
+            userProfile={userProfile} 
+            onOpenAuthModal={() => setIsAuthModalOpen(true)} 
+          />
         )}
 
         {/* Footer */}
@@ -600,6 +627,7 @@ export function App() {
         onClose={() => setIsAuthModalOpen(false)}
         activeLang={activeLang}
         user={user}
+        userProfile={userProfile}
       />
 
       {/* Interactive Command Palette Search Modal */}
@@ -612,6 +640,16 @@ export function App() {
 
       {/* Floating Cyber HUD Utility Toolbar (Fixed to Viewport - Shifted Right of Content Edge) */}
       <div className="fixed right-[calc(6vw-50px)] top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col items-center bg-transparent p-0 w-[42px] transition-all duration-300 group rounded-none">
+
+        {/* Language Switcher Toggle (Placed above Eye Care Toggle) */}
+        <button
+          onClick={() => handleLanguageChange(activeLang === 'vi' ? 'en' : 'vi')}
+          className="utility-bar-btn flex items-center justify-center w-[42px] h-[42px] transition-all duration-200 cursor-pointer rounded-none border-0 select-none text-slate-300 hover:text-cyan-400 font-mono"
+          title={activeLang === 'vi' ? "Chuyển sang Tiếng Anh (EN)" : "Switch to Vietnamese (VI)"}
+          aria-label="Toggle Language"
+        >
+          <span className="text-xs font-extrabold uppercase tracking-wider">{activeLang === 'vi' ? 'VI' : 'EN'}</span>
+        </button>
 
         {/* Eye Care Toggle */}
         <button

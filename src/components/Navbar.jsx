@@ -5,7 +5,18 @@ import unikornLogo from '../../assets/unikorn-logo.png';
 import { translations } from '../data/translations';
 import { supabase } from '../services/supabaseClient';
 
-export const Navbar = ({ currentPage, onNavigate, activeLang, onChangeLang, onOpenSearch, isMobileMenuOpen, onToggleMobileMenu, user, onOpenAuthModal }) => {
+export const Navbar = ({ 
+  currentPage, 
+  onNavigate, 
+  activeLang, 
+  onChangeLang, 
+  onOpenSearch, 
+  isMobileMenuOpen, 
+  onToggleMobileMenu,
+  user,
+  userProfile,
+  onOpenAuthModal 
+}) => {
   const [langOpen, setLangOpen] = useState(false);
   const [featuresOpen, setFeaturesOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
@@ -197,6 +208,21 @@ export const Navbar = ({ currentPage, onNavigate, activeLang, onChangeLang, onOp
             >
               {isVi ? 'Nhật ký cập nhật' : 'Changelog'}
             </button>
+
+            {/* Vertical Separator */}
+            <span className="w-px h-3 bg-white/10 shrink-0"></span>
+
+            {/* Discussions & Bug Hunter Link */}
+            <button 
+              onClick={() => onNavigate('discussions')}
+              className={`transition-colors font-semibold whitespace-nowrap text-nowrap ${
+                currentPage === 'discussions' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
+              }`}
+              style={{ whiteSpace: 'nowrap', textWrap: 'nowrap' }}
+            >
+              {isVi ? 'Thảo luận' : 'Discussions'}
+            </button>
+
           </nav>
         </div>
 
@@ -218,15 +244,6 @@ export const Navbar = ({ currentPage, onNavigate, activeLang, onChangeLang, onOp
 
 
 
-          {/* 1-Click Instant Language Switcher Toggle */}
-          <button 
-            onClick={() => onChangeLang(activeLang === 'vi' ? 'en' : 'vi')}
-            className="flex items-center gap-1.5 text-xs font-mono text-slate-300 hover:text-white bg-white/[0.04] hover:bg-white/[0.08] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] px-2.5 py-1.5 rounded-lg transition-all cursor-pointer group"
-            title={isVi ? "Chuyển sang Tiếng Anh (EN)" : "Switch to Vietnamese (VI)"}
-          >
-            <Globe size={13} className="text-white group-hover:text-cyan-400 transition-colors" />
-            <span className="font-bold text-white group-hover:text-cyan-400 transition-colors">{activeLang === 'vi' ? 'VI' : 'EN'}</span>
-          </button>
 
           {/* Supabase User Authentication Button */}
           {user ? (() => {
@@ -416,8 +433,11 @@ export const Navbar = ({ currentPage, onNavigate, activeLang, onChangeLang, onOp
                 );
               })()}
               <div>
-                <p className="text-xs font-bold text-white tracking-wide">
-                  {user.user_metadata?.full_name || user.user_metadata?.name || user.email.split('@')[0]}
+                <p className="text-xs font-bold text-white tracking-wide flex items-center gap-1">
+                  <span>{user.user_metadata?.full_name || user.user_metadata?.name || user.email.split('@')[0]}</span>
+                  <span className="text-[10px] text-white/70 font-mono font-normal">
+                    ({userProfile?.role === 'admin' ? 'Admin' : 'user'})
+                  </span>
                 </p>
                 <p className="text-[10px] text-slate-500">{user.email}</p>
               </div>

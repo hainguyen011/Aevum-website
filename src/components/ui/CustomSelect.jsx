@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from 'react';
  * Custom Cyberpunk / TUI Select Component
  * Replaces native HTML <select> with custom styled dropdown list
  */
-export const CustomSelect = ({ options, value, onChange, placeholder = 'Select option...', className = '' }) => {
+export const CustomSelect = ({ options, value, onChange, placeholder = 'Select option...', className = '', buttonClassName = '' }) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef(null);
 
@@ -35,9 +35,9 @@ export const CustomSelect = ({ options, value, onChange, placeholder = 'Select o
       {/* Trigger Button */}
       <div
         onClick={() => setIsOpen((prev) => !prev)}
-        className={`w-full bg-[#0B0B11] border ${
-          isOpen ? 'border-cyan-400 text-white' : 'border-white/15 text-slate-200 hover:border-white/30'
-        } rounded-md px-3.5 py-2.5 flex items-center justify-between cursor-pointer transition-all select-none`}
+        className={`w-full bg-[#07080e] border ${
+          isOpen ? 'border-cyan-400 text-cyan-300' : 'border-white/10 text-slate-200 hover:border-white/30'
+        } rounded px-2.5 py-1 flex items-center justify-between cursor-pointer transition-all select-none ${buttonClassName}`}
       >
         <span className="truncate pr-2 font-mono text-xs">{selectedLabel || placeholder}</span>
         

@@ -207,15 +207,6 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
           onClick={(e) => e.stopPropagation()}
         >
 
-          {/* Subtle CRT Overlay */}
-          <div
-            className="absolute inset-0 pointer-events-none opacity-10"
-            style={{
-              backgroundImage: 'linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.4) 50%)',
-              backgroundSize: '100% 4px'
-            }}
-          ></div>
-
           {/* Mini Top Banner - White BG, Black Text, Centered */}
           <div className="w-full bg-white text-black py-1.5 text-center text-[11px] font-bold font-mono uppercase tracking-widest relative z-10 select-none">
             Coming Soon

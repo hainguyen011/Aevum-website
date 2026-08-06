@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, Facebook, ChevronDown, Globe, Eye, EyeOff, Sun, Atom, Menu, X, Sparkles, Layers, Network, Terminal, ArrowRight, Mail } from 'lucide-react';
+import { Search, Facebook, ChevronDown, Globe, Eye, EyeOff, Sun, Atom, Menu, X, Sparkles, Layers, Network, Terminal, ArrowRight, Mail, User, LogOut } from 'lucide-react';
 import logoImg from '../../assets/logos/AevumOS-transparent.png';
 import unikornLogo from '../../assets/unikorn-logo.png';
 import { translations } from '../data/translations';
+import { supabase } from '../services/supabaseClient';
 
-export const Navbar = ({ currentPage, onNavigate, activeLang, onChangeLang, onOpenSearch, isEyeCare, onToggleEyeCare, theme, onToggleTheme, isMobileMenuOpen, onToggleMobileMenu }) => {
+export const Navbar = ({ currentPage, onNavigate, activeLang, onChangeLang, onOpenSearch, isMobileMenuOpen, onToggleMobileMenu, user, onOpenAuthModal }) => {
   const [langOpen, setLangOpen] = useState(false);
   const [featuresOpen, setFeaturesOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState(null);
   const featuresRef = useRef(null);
   const isVi = activeLang === 'vi';
@@ -117,11 +119,11 @@ export const Navbar = ({ currentPage, onNavigate, activeLang, onChangeLang, onOp
       {/* Main Navbar Top Row */}
       <div className="w-full flex items-center justify-between px-4 sm:px-6 lg:px-8 xl:px-10 py-4">
         {/* Left Cell: Logo + Main Navigation */}
-        <div className="flex items-center gap-4 xl:gap-8 min-w-0">
+        <div className="flex items-center gap-3 xl:gap-5 min-w-0">
           <a 
             href="#" 
             onClick={(e) => { e.preventDefault(); onNavigate('landing'); }}
-            className="flex items-center gap-2.5 text-decoration-none group shrink-0"
+            className="flex items-center gap-2 text-decoration-none group shrink-0"
           >
             <img 
               src={logoImg} 
@@ -134,7 +136,7 @@ export const Navbar = ({ currentPage, onNavigate, activeLang, onChangeLang, onOp
           </a>
 
           {/* Desktop Nav Links */}
-          <nav className="hidden lg:flex items-center gap-4 xl:gap-6 text-xs font-semibold whitespace-nowrap text-nowrap">
+          <nav className="hidden lg:flex items-center gap-2.5 xl:gap-3.5 text-xs font-semibold whitespace-nowrap text-nowrap">
             
             {/* Desktop Features & Architecture Toggle Button */}
             {(() => {
@@ -181,6 +183,20 @@ export const Navbar = ({ currentPage, onNavigate, activeLang, onChangeLang, onOp
             >
               {t.navbar.about}
             </button>
+
+            {/* Vertical Separator */}
+            <span className="w-px h-3 bg-white/10 shrink-0"></span>
+
+            {/* Changelog Link */}
+            <button 
+              onClick={() => onNavigate('changelog')}
+              className={`transition-colors font-semibold whitespace-nowrap text-nowrap ${
+                currentPage === 'changelog' ? 'text-cyan-400' : 'text-slate-300 hover:text-cyan-400'
+              }`}
+              style={{ whiteSpace: 'nowrap', textWrap: 'nowrap' }}
+            >
+              {isVi ? 'Nhật ký cập nhật' : 'Changelog'}
+            </button>
           </nav>
         </div>
 
@@ -200,36 +216,7 @@ export const Navbar = ({ currentPage, onNavigate, activeLang, onChangeLang, onOp
             </kbd>
           </div>
 
-          {/* Eye Care Mode Button */}
-          <button
-            onClick={onToggleEyeCare}
-            className={`flex items-center gap-1.5 text-xs font-mono px-2.5 py-1.5 rounded-lg transition-all cursor-pointer ${
-              isEyeCare 
-                ? 'bg-amber-500/20 text-amber-300 shadow-[inset_0_0_0_1px_rgba(245,158,11,0.4)]' 
-                : 'bg-white/[0.03] text-slate-400 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] hover:text-slate-200 hover:bg-white/[0.06]'
-            }`}
-            title={isVi ? "Bật/Tắt chế độ lọc ánh sáng vàng bảo vệ mắt" : "Toggle warmth eye protection filter"}
-          >
-            {isEyeCare ? <EyeOff size={13} className="text-amber-400 animate-pulse" /> : <Eye size={13} />}
-            <span className="hidden md:inline">{isVi ? "Bảo vệ mắt" : "Eye Care"}</span>
-          </button>
 
-          {/* Dark / Light Theme Mode Switcher (Icon-Only GPU-Accelerated Smooth Transition) */}
-          <button
-            onClick={onToggleTheme}
-            className="theme-toggle-btn"
-            title={
-              isVi 
-                ? (theme === 'dark' ? "Chuyển sang Chế độ Sáng (Light Mode)" : "Chuyển sang Chế độ Tối (Dark Mode)") 
-                : (theme === 'dark' ? "Switch to Light Mode" : "Switch to Dark Mode")
-            }
-            aria-label="Toggle Theme Mode"
-          >
-            <div className="theme-icon-wrapper">
-              <Sun size={18} className="theme-icon theme-icon-sun" />
-              <Atom size={18} className="theme-icon theme-icon-electron" />
-            </div>
-          </button>
 
           {/* 1-Click Instant Language Switcher Toggle */}
           <button 
@@ -240,6 +227,39 @@ export const Navbar = ({ currentPage, onNavigate, activeLang, onChangeLang, onOp
             <Globe size={13} className="text-white group-hover:text-cyan-400 transition-colors" />
             <span className="font-bold text-white group-hover:text-cyan-400 transition-colors">{activeLang === 'vi' ? 'VI' : 'EN'}</span>
           </button>
+
+          {/* Supabase User Authentication Button */}
+          {user ? (() => {
+            const avatarUrl = user.user_metadata?.avatar_url || user.user_metadata?.picture;
+            return (
+              <button
+                onClick={() => { setProfileOpen(o => !o); setFeaturesOpen(false); }}
+                className="flex items-center gap-1.5 text-xs font-mono text-cyan-400 hover:text-cyan-300 px-2.5 py-1.5 transition-all cursor-pointer group"
+                title={isVi ? "Xem tài khoản Aevum" : "View Aevum profile"}
+              >
+                {avatarUrl ? (
+                  <img src={avatarUrl} alt="avatar" className="w-5 h-5 rounded-full object-cover" style={{ border: '1px solid rgba(34,211,238,0.35)', boxShadow: 'inset 0 0 0 1px rgba(34,211,238,0.1)' }} />
+                ) : (
+                  <User size={13} className="text-cyan-400" />
+                )}
+                <span className="font-bold uppercase tracking-wider max-w-[80px] truncate text-white">
+                  {(user.user_metadata?.full_name || user.email.split('@')[0]).split(' ')[0]}
+                </span>
+                <ChevronDown size={11} className={`transition-transform duration-200 ${profileOpen ? 'rotate-180' : ''}`} />
+              </button>
+            );
+          })() : (
+            <button
+              onClick={onOpenAuthModal}
+              className="flex items-center gap-1.5 text-xs font-mono text-slate-300 hover:text-white bg-white/[0.04] hover:bg-white/[0.08] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] px-2.5 py-1.5 rounded-lg transition-all cursor-pointer group"
+              title={isVi ? "Đăng nhập tài khoản" : "Sign in to Aevum account"}
+            >
+              <User size={13} className="text-slate-400 group-hover:text-cyan-400 transition-colors" />
+              <span className="font-bold uppercase tracking-wider group-hover:text-cyan-400 transition-colors">
+                {isVi ? 'Đăng nhập' : 'Sign In'}
+              </span>
+            </button>
+          )}
 
           {/* Social Icons */}
           <div className="hidden md:flex items-center gap-2 border-l border-white/10 pl-3">
@@ -372,6 +392,58 @@ export const Navbar = ({ currentPage, onNavigate, activeLang, onChangeLang, onOp
           </button>
         </div>
       </div>
+
+      {/* ── Profile Dropdown Strip ── */}
+      {user && (
+        <div
+          className={`w-full overflow-hidden transition-all duration-300 ease-out bg-[#0B0B11]/95 border-t border-white/5 ${
+            profileOpen ? 'max-h-24 opacity-100 py-3' : 'max-h-0 opacity-0 py-0 border-t-0'
+          }`}
+        >
+          <div className="max-w-6xl mx-auto px-4 sm:px-8 flex items-center justify-between">
+            {/* Avatar + Info */}
+            <div className="flex items-center gap-3">
+              {(() => {
+                const avatarUrl = user.user_metadata?.avatar_url || user.user_metadata?.picture;
+                const displayName = user.user_metadata?.full_name || user.user_metadata?.name || user.email.split('@')[0];
+                const initials = displayName.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+                return avatarUrl ? (
+                  <img src={avatarUrl} alt={displayName} className="w-9 h-9 rounded-full object-cover" style={{ border: '1px solid rgba(34,211,238,0.35)', boxShadow: 'inset 0 0 0 2px rgba(34,211,238,0.1)' }} />
+                ) : (
+                  <div className="w-9 h-9 rounded-full bg-cyan-500/10 flex items-center justify-center text-cyan-300 text-xs font-bold" style={{ border: '1px solid rgba(34,211,238,0.35)', boxShadow: 'inset 0 0 0 2px rgba(34,211,238,0.1)' }}>
+                    {initials}
+                  </div>
+                );
+              })()}
+              <div>
+                <p className="text-xs font-bold text-white tracking-wide">
+                  {user.user_metadata?.full_name || user.user_metadata?.name || user.email.split('@')[0]}
+                </p>
+                <p className="text-[10px] text-slate-500">{user.email}</p>
+              </div>
+            </div>
+
+            {/* Actions */}
+            <div className="flex items-center gap-3">
+
+              <button
+                onClick={async () => { await supabase.auth.signOut(); setProfileOpen(false); }}
+                className="border border-red-500/30 hover:border-red-400/60 rounded-md px-3 py-1.5 uppercase tracking-widest transition-colors cursor-pointer font-mono font-bold text-red-400 hover:text-red-300"
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '10px', lineHeight: 1 }}
+              >
+                <LogOut size={11} style={{ display: 'block' }} />
+                <span style={{ display: 'block', lineHeight: 1, transform: 'translateY(1px)' }}>{isVi ? 'Đăng xuất' : 'Sign Out'}</span>
+              </button>
+              <button
+                onClick={() => setProfileOpen(false)}
+                className="text-slate-500 hover:text-white transition-colors p-1 cursor-pointer ml-2"
+              >
+                <X size={14} />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
   );

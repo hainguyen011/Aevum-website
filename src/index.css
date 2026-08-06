@@ -1008,3 +1008,17 @@ html[data-theme="light"] .cta-banner .btn-electron:hover {
   background: #38bdf8 !important;
   color: #000000 !important;
 }
+
+/* ==========================================================================
+   Floating Utility Toolbar Button Styles (Seamless Light & Dark Mode)
+   ========================================================================== */
+.utility-bar-btn {
+  color: var(--text-secondary) !important;
+  background-color: transparent !important;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.utility-bar-btn:hover {
+  color: var(--text-primary) !important;
+  background-color: var(--border-faint-hover) !important;
+}

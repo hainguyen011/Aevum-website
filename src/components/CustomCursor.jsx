@@ -22,6 +22,15 @@ export const CustomCursor = () => {
     let animFrameId;
 
     const handleMouseMove = (e) => {
+      // Auto-hide custom cursor when mouse is over or near browser scrollbar area
+      const isOverRightScrollbar = e.clientX >= (document.documentElement.clientWidth - 8);
+      const isOverBottomScrollbar = e.clientY >= (document.documentElement.clientHeight - 8);
+
+      if (isOverRightScrollbar || isOverBottomScrollbar) {
+        setIsVisible(false);
+        return;
+      }
+
       setPos({ x: e.clientX, y: e.clientY });
       if (!isVisible) setIsVisible(true);
 
@@ -81,7 +90,7 @@ export const CustomCursor = () => {
     };
   }, [pos.x, pos.y, isVisible]);
 
-  if (!isVisible) return null;
+  if (pos.x === -100) return null;
 
   // Determine dynamic scale, styling and special cursor zone state
   let cursorStyle = 'w-11 h-11 border-white/45 scale-100 flex items-center justify-center';
@@ -97,12 +106,12 @@ export const CustomCursor = () => {
 
   return (
     <div className="pointer-events-none fixed inset-0 z-[9999] overflow-hidden">
-      {/* Outer Elastic Spring Bounce Ring — fades out in Unikorn zone */}
+      {/* Outer Elastic Spring Bounce Ring — fades out in Unikorn zone or near scrollbars */}
       <div
-        className={`custom-cursor-ring fixed top-0 left-0 rounded-full border transition-all duration-400 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${cursorStyle}`}
+        className={`custom-cursor-ring fixed top-0 left-0 rounded-full border transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${cursorStyle}`}
         style={{
           transform: `translate3d(${ringPos.x}px, ${ringPos.y}px, 0) translate(-50%, -50%)`,
-          opacity: isUnikornZone ? 0 : 1,
+          opacity: (isUnikornZone || !isVisible) ? 0 : 1,
         }}
       >
         {isDodgeZone && (

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X } from 'lucide-react';
+import { X, ArrowLeft, ArrowRight } from 'lucide-react';
 import { CustomSelect } from './ui/CustomSelect';
 import anLoverSticker from '../../assets/stickers/An_Collection/An_Lover.png';
 
@@ -190,7 +190,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
     <div className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-md flex items-center justify-center p-0 sm:px-6 font-mono">
 
       {/* Relative Wrapper to anchor Outside Attached Close Button */}
-      <div className="relative w-full max-w-2xl h-screen sm:h-[620px] max-h-[100vh] sm:max-h-[90vh] flex flex-col">
+      <div className="relative w-full max-w-2xl h-screen sm:h-[700px] max-h-[100vh] sm:max-h-[92vh] flex flex-col">
 
         {/* Flush Square Close Button Attached Below Stepper Bar on the Right */}
         <button
@@ -242,7 +242,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
 
           {isSubmitted ? (
             /* Success Confirmation Screen with An's Sticker */
-            <div className="p-6 sm:p-8 space-y-5 text-center py-4 font-mono relative z-10 flex-1 overflow-y-auto flex flex-col justify-center">
+            <div className="p-6 sm:p-12 space-y-5 text-center py-4 font-mono relative z-10 flex-1 overflow-y-auto flex flex-col justify-center">
               {/* An's Lover Sticker */}
               <div className="relative mx-auto w-32 h-32 sm:w-40 sm:h-40 flex items-center justify-center">
                 <img
@@ -286,7 +286,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
               />
 
               {/* Scrollable Form Body Content - Vertically Centered with flex flex-col justify-center */}
-              <div className="p-6 sm:p-8 pb-4 space-y-5 text-left flex-1 overflow-y-auto flex flex-col justify-center">
+              <div className="p-6 sm:p-10 pb-4 space-y-6 text-left flex-1 overflow-y-auto flex flex-col justify-center">
 
                 {/* STEP 1: Basic Information */}
                 {currentStep === 1 && (
@@ -343,6 +343,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
                         options={ideOptions}
                         value={formData.ide}
                         onChange={(val) => handleCustomSelectChange('ide', val)}
+                        buttonClassName="px-3.5 py-2.5 text-xs rounded-md min-h-[40px] flex items-center justify-between"
                       />
                     </div>
                   </div>
@@ -371,6 +372,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
                         options={roleOptions}
                         value={formData.role}
                         onChange={(val) => handleCustomSelectChange('role', val)}
+                        buttonClassName="px-3.5 py-2.5 text-xs rounded-md min-h-[40px] flex items-center justify-between"
                       />
                     </div>
 
@@ -383,6 +385,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
                         options={painPointOptions}
                         value={formData.primaryPainPoint}
                         onChange={(val) => handleCustomSelectChange('primaryPainPoint', val)}
+                        buttonClassName="px-3.5 py-2.5 text-xs rounded-md min-h-[40px] flex items-center justify-between"
                       />
                     </div>
 
@@ -395,6 +398,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
                         options={featureOptions}
                         value={formData.desiredFeature}
                         onChange={(val) => handleCustomSelectChange('desiredFeature', val)}
+                        buttonClassName="px-3.5 py-2.5 text-xs rounded-md min-h-[40px] flex items-center justify-between"
                       />
                     </div>
                   </div>
@@ -438,6 +442,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
                         options={vibeOptions}
                         value={formData.agentVibe}
                         onChange={(val) => handleCustomSelectChange('agentVibe', val)}
+                        buttonClassName="px-3.5 py-2.5 text-xs rounded-md min-h-[40px] flex items-center justify-between"
                       />
                     </div>
 
@@ -462,30 +467,39 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
 
                 {/* Footer Note */}
                 <div className="text-[10px] text-slate-500 text-center pt-2 font-mono">
-                  [ I2FLabs Viet Nam ]
+                  [ I2FLabs Viet Nam - Viet Nam Innovation To Future ]
                 </div>
 
               </div>
 
               {/* Full Width Bottom Action Bar - FLUSH to edges, NO padding at bottom */}
-              <div className="w-full bg-[#0B0B11] border-t border-[#38bdf8] relative z-10 font-mono">
+              <div className="w-full bg-[#0B0B11] border border-[#38bdf8] relative z-10 font-mono">
                 <div className="flex items-stretch w-full rounded-none overflow-hidden">
-                  {currentStep > 1 && (
-                    <button
-                      type="button"
-                      onClick={handlePrevStep}
-                      className="bg-white/10 hover:bg-white/20 text-white font-bold px-6 py-4 text-xs uppercase rounded-none border-r border-white/20 transition-colors cursor-pointer"
-                    >
-                      {activeLang === 'vi' ? '← Quay lại' : '← Back'}
-                    </button>
-                  )}
+                  <button
+                    type="button"
+                    onClick={currentStep > 1 ? handlePrevStep : onClose}
+                    className="bg-white/10 hover:bg-white/20 text-white font-bold px-6 py-4 text-xs uppercase rounded-none border-r border-white/20 transition-colors cursor-pointer flex items-center gap-2"
+                  >
+                    {currentStep > 1 ? (
+                      <>
+                        <ArrowLeft className="w-4.5 h-4.5 text-white stroke-[2.5]" />
+                        <span>{activeLang === 'vi' ? 'Quay lại' : 'Back'}</span>
+                      </>
+                    ) : (
+                      <>
+                        <X className="w-4.5 h-4.5 text-white stroke-[2.5]" />
+                        <span>{activeLang === 'vi' ? 'Hủy' : 'Cancel'}</span>
+                      </>
+                    )}
+                  </button>
 
                   {currentStep < 3 ? (
                     <button
                       type="submit"
-                      className="flex-1 w-full bg-[#38bdf8] hover:bg-[#38bdf8]/90 text-black font-bold py-4 text-xs sm:text-sm uppercase tracking-wider rounded-none transition-all cursor-pointer text-center"
+                      className="flex-1 w-full bg-[#38bdf8] hover:bg-[#38bdf8]/90 text-black font-bold py-4 text-xs sm:text-sm uppercase tracking-wider rounded-none transition-all cursor-pointer flex items-center justify-center gap-2"
                     >
-                      {activeLang === 'vi' ? 'Tiếp theo →' : 'Next Step →'}
+                      <span>{activeLang === 'vi' ? 'Tiếp theo' : 'Next Step'}</span>
+                      <ArrowRight className="w-4.5 h-4.5 text-black stroke-[2.5]" />
                     </button>
                   ) : (
                     <button

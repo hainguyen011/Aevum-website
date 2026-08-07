@@ -3,7 +3,7 @@
 ## 1. Overview & System Mission
 Aevum OS is a production-grade workspace Operating System designed for the era of Agentic AI. Developed by I2FLabs, Aevum OS acts as a decoupled "External Brain" for developers, providing persistent memory, structured Domain-Driven Design (DDD) planning, and multi-agent squad orchestration.
 
-- **Developer / Organization**: I2FLabs (https://i2flabs.vn)
+- **Developer / Organization**: I2FLabs (https://i2flabs.unikorn.vn)
 - **Primary Website**: https://www.aevum.ai.vn
 - **License**: ISC License
 - **Version**: 2.1.0 (Architecture Release)

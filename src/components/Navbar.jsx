@@ -255,14 +255,14 @@ export const Navbar = ({
                 title={isVi ? "Xem tài khoản Aevum" : "View Aevum profile"}
               >
                 {avatarUrl ? (
-                  <img src={avatarUrl} alt="avatar" className="w-5 h-5 rounded-full object-cover" style={{ border: '1px solid rgba(34,211,238,0.35)', boxShadow: 'inset 0 0 0 1px rgba(34,211,238,0.1)' }} />
+                  <img src={avatarUrl} alt="avatar" className="w-5 h-5 rounded-full object-cover border border-cyan-400/40" />
                 ) : (
                   <User size={13} className="text-cyan-400" />
                 )}
                 <span className="font-bold uppercase tracking-wider max-w-[80px] truncate text-white">
                   {(user.user_metadata?.full_name || user.email.split('@')[0]).split(' ')[0]}
                 </span>
-                <ChevronDown size={11} className={`transition-transform duration-200 ${profileOpen ? 'rotate-180' : ''}`} />
+                <ChevronDown size={11} className={`text-white transition-transform duration-200 ${profileOpen ? 'rotate-180' : ''}`} />
               </button>
             );
           })() : (

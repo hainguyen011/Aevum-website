@@ -1,0 +1,27 @@
+# Aevum OS — Standalone Model Context Protocol (MCP) Server & Workspace External Brain
+
+> Aevum OS is an independent workspace Operating System and External Brain — housing domain-driven planning, self-healing memory graphs, and autonomous multi-agent squad orchestration completely decoupled from traditional editors.
+
+## Core Concepts & Architectural Pillars
+
+- **Decoupled Workspace Brain**: Operates as a standalone OS process (Stdio or SSE Daemon on port 3344) independent of IDE lifecycle.
+- **Handshake Ritual**: Secure initial authentication protocol using token verification via `.aevum/signal.json` and `aevum_submit_ack`.
+- **Domain-Driven Design (DDD) Planning**: Structured architectural domains, feature manifests, and plan tracking (`.aevum/domains/`).
+- **Living Memory Graph**: Multi-layered persistent context store (`.aevum/global/memory.md`) with continuous consolidation and decay auditing.
+- **Squad Orchestration**: Autonomous multi-agent coordination system supporting specialized personas (e.g., An, Vidus, Zenith, Luna) working in concert.
+- **PiperNet (Internet of Agents - IoA)**: Decentralized P2P knowledge mesh for cross-workspace wisdom sharing without source code leakage.
+
+## Canonical Resources & Documentation Pages
+
+- [Homepage & Features](https://www.aevum.ai.vn/)
+- [Technical Documentation (Docs)](https://www.aevum.ai.vn/docs)
+- [About & Product Story](https://www.aevum.ai.vn/about)
+- [Product Changelog](https://www.aevum.ai.vn/changelog)
+- [Community Discussions](https://www.aevum.ai.vn/discussions)
+- [Full Technical Reference (llms-full.txt)](https://www.aevum.ai.vn/llms-full.txt)
+
+## Official Extensions & Ecosystem Links
+
+- Open VSX Registry Extension: https://open-vsx.org/extension/I2FLabs/aevum
+- Unikorn Product Showcase: https://unikorn.vn/p/aevum
+- GitHub Repository: https://github.com/hainguyen011

@@ -320,20 +320,18 @@ export const AuthModal = ({ isOpen, onClose, activeLang, user, userProfile }) =>
               return (
                 <div className="flex flex-col items-center gap-5 py-2">
                   {/* Avatar */}
-                  <div className="relative">
+                  <div>
                     {avatarUrl ? (
                       <img
                         src={avatarUrl}
                         alt={displayName}
-                        className="w-20 h-20 rounded-full object-cover border-2 border-cyan-500/40 shadow-[0_0_20px_rgba(6,182,212,0.2)]"
+                        className="w-20 h-20 rounded-full object-cover border-2 border-cyan-500/40"
                       />
                     ) : (
-                      <div className="w-20 h-20 rounded-full bg-cyan-500/10 border-2 border-cyan-500/40 flex items-center justify-center text-cyan-300 text-xl font-bold tracking-wider shadow-[0_0_20px_rgba(6,182,212,0.2)]">
+                      <div className="w-20 h-20 rounded-full bg-cyan-500/10 border-2 border-cyan-500/40 flex items-center justify-center text-cyan-300 text-xl font-bold tracking-wider">
                         {initials}
                       </div>
                     )}
-                    {/* Online indicator */}
-                    <span className="absolute bottom-1 right-1 w-3 h-3 rounded-full bg-emerald-400 border-2 border-[#07080c]" />
                   </div>
 
                   {/* Name & email */}
@@ -346,7 +344,6 @@ export const AuthModal = ({ isOpen, onClose, activeLang, user, userProfile }) =>
                     </div>
                     <p className="text-[11px] text-slate-500">{user.email}</p>
                     <div className="flex items-center justify-center gap-1.5 mt-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block" />
                       <span className="text-[9px] text-emerald-400 uppercase tracking-widest">
                         {isVi ? 'Đang hoạt động' : 'Active session'}
                       </span>

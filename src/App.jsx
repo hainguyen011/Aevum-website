@@ -21,6 +21,7 @@ import { TrialModal } from './components/TrialModal';
 import { SearchModal } from './components/SearchModal';
 import { CustomCursor } from './components/CustomCursor';
 import { useScrollReveal } from './hooks/useScrollReveal';
+import { useSEO } from './hooks/useSEO';
 import logoImg from '../assets/logos/AevumOS-transparent.png';
 import { translations } from './data/translations';
 import { Search, X, Eye, EyeOff, Sun, Atom, User, Globe } from 'lucide-react';
@@ -143,6 +144,9 @@ export function App() {
     setActiveLang(lang);
     localStorage.setItem('aevum-lang', lang);
   };
+
+  // Dynamic SEO & Generative Engine Optimization (GEO) Head Manager
+  useSEO(currentPage, activeLang);
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const t = translations[activeLang] || translations.en;
@@ -519,7 +523,7 @@ export function App() {
               {t.navbar.kernel}
             </a>
 
-            {/* Standalone Pages UI Block (DOCUMENTATION, ABOUT, CHANGELOG) */}
+            {/* Standalone Pages UI Block (DOCUMENTATION, ABOUT, CHANGELOG, DISCUSSIONS) */}
             <div className="flex flex-col space-y-4 mt-5">
               <button 
                 onClick={() => { setIsMobileMenuOpen(false); handleNavigate('docs'); }}
@@ -544,6 +548,14 @@ export function App() {
                 }`}
               >
                 {activeLang === 'vi' ? 'Nhật ký cập nhật' : 'Changelog'}
+              </button>
+              <button 
+                onClick={() => { setIsMobileMenuOpen(false); handleNavigate('discussions'); }}
+                className={`text-right text-lg font-bold transition-colors uppercase tracking-wide ${
+                  currentPage === 'discussions' ? 'text-cyan-400' : 'text-slate-200 hover:text-cyan-400'
+                }`}
+              >
+                {activeLang === 'vi' ? 'Thảo luận' : 'Discussions'}
               </button>
 
               <div className="h-px bg-white/5 my-2"></div>

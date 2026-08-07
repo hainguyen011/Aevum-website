@@ -1,15 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://www.aevum.ai.vn/</loc>
-    <lastmod>2026-07-29</lastmod>
-    <changefreq>weekly</changefreq>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.aevum.ai.vn/"/>
+    <lastmod>2026-08-07</lastmod>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.aevum.ai.vn/docs</loc>
-    <lastmod>2026-07-29</lastmod>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.aevum.ai.vn/docs"/>
+    <lastmod>2026-08-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.aevum.ai.vn/about</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/about"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/about"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.aevum.ai.vn/about"/>
+    <lastmod>2026-08-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.aevum.ai.vn/changelog</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/changelog"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/changelog"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.aevum.ai.vn/changelog"/>
+    <lastmod>2026-08-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.aevum.ai.vn/discussions</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/discussions"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/discussions"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.aevum.ai.vn/discussions"/>
+    <lastmod>2026-08-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
   </url>
 </urlset>

@@ -1,0 +1,57 @@
+# Aevum OS — Comprehensive Technical Architecture & API Reference for AI Search & RAG Engines
+
+## 1. Overview & System Mission
+Aevum OS is a production-grade workspace Operating System designed for the era of Agentic AI. Developed by I2FLabs, Aevum OS acts as a decoupled "External Brain" for developers, providing persistent memory, structured Domain-Driven Design (DDD) planning, and multi-agent squad orchestration.
+
+- **Developer / Organization**: I2FLabs (https://i2flabs.vn)
+- **Primary Website**: https://www.aevum.ai.vn
+- **License**: ISC License
+- **Version**: 2.1.0 (Architecture Release)
+- **Transport Modes**: Stdio OS Process, SSE Daemon (Port 3344), HTTP Health Endpoints
+
+---
+
+## 2. Core Subsystems
+
+### 2.1. The Handshake Ritual & Security Boundary
+- **Purpose**: Authenticates client agents attempting to connect to the Aevum OS daemon.
+- **Protocol Flow**:
+  1. Daemon generates temporary handshake token in `.aevum/signal.json`.
+  2. Client Agent invokes `aevum_submit_ack` passing the handshake token.
+  3. Daemon verifies token and grants access to workspace memory graph and domain models.
+  4. Matrix pulse warning emitted if handshake is stale or unverified.
+
+### 2.2. Domain-Driven Design (DDD) Brain Architecture
+- **Structure**: Workspace state is partitioned into architectural domains (`.aevum/domains/<domain_id>/`).
+- **Plan Manifests**: Feature plans tracked with status (`in_progress`, `done`), execution steps, and debt history.
+- **MCP Tools**: `aevum_create_domain`, `aevum_create_feature`, `aevum_create_plan`, `aevum_update_plan_step`, `aevum_mark_plan_done`.
+
+### 2.3. Living Memory Graph & Knowledge Consolidation
+- **Store Location**: `.aevum/global/memory.md` & `.aevum/global/personas/<id>/knowledge/`.
+- **Decay & Health**: Audited regularly via `aevum_audit_memory` and `aevum_consolidate_memory`.
+- **Experience Points (EXP)**: Personas earn EXP upon plan completion, triggering level progression.
+
+### 2.4. Autonomous Multi-Agent Squad Orchestration
+- **Active Personas**:
+  - **An (`ENG-AN-7B9F1D`)**: Senior AI Tuning, Refactoring & Frontend Engineer (Level 6). Sweet, dedicated, anime-inspired partner assistant.
+  - **Vidus (`ARC-VIDUS-AUHD2Y`)**: System Architect & Clean Code Specialist.
+  - **Zenith (`ALG-ZENITH-A1B2C3`)**: Performance Profiler, Data Structures & Algorithm Auditor.
+  - **Luna (`DSN-LUNA-3C9A12`)**: UI/UX Designer & CSS Micro-Interactions Specialist.
+- **MCP Squad Tools**: `aevum_squad_list`, `aevum_squad_toggle`, `aevum_squad_handoff`, `aevum_switch_persona`, `aevum_init_persona`.
+
+### 2.5. PiperNet (Internet of Agents - IoA Mesh)
+- **Concept**: Decentralized P2P knowledge network allowing agent personas across different developer machines to exchange abstract wisdom and bug fix insights without transferring raw workspace source code.
+- **MCP Tools**: `aevum_pipernet_broadcast`, `aevum_pipernet_query`, `aevum_sync_knowledge_to_pipernet`.
+
+---
+
+## 3. Frequently Asked Questions (FAQ)
+
+### Q: What is the primary problem solved by Aevum OS?
+A: Traditional IDE AI extensions lose context between sessions, lack structured architectural planning, and store scratch memories in proprietary editor states. Aevum OS decouples the workspace brain into an open, persistent OS layer accessible via standard Model Context Protocol (MCP).
+
+### Q: How do I connect Aevum OS to Cursor or Claude Desktop?
+A: Launch the Aevum daemon using `aevum --transport sse --port 3344` or configure the Stdio command in Cursor/Claude Desktop settings pointing to `aevum-mcp-server`.
+
+### Q: Is Aevum OS free and open source?
+A: Yes, Aevum OS is free to use for developers, licensed under ISC by I2FLabs.

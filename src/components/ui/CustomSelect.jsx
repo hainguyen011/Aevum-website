@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { ChevronDown } from 'lucide-react';
 
 /**
  * Custom Cyberpunk / TUI Select Component
@@ -42,9 +43,12 @@ export const CustomSelect = ({ options, value, onChange, placeholder = 'Select o
         <span className="truncate pr-2 font-mono text-xs">{selectedLabel || placeholder}</span>
         
         {/* Chevron Arrow Icon */}
-        <span className={`text-slate-400 text-[10px] transform transition-transform duration-200 ${isOpen ? 'rotate-180 text-cyan-400' : ''}`}>
-          ▼
-        </span>
+        <ChevronDown 
+          size={13} 
+          className={`text-slate-400 shrink-0 transform transition-transform duration-200 ${
+            isOpen ? 'rotate-180 text-cyan-400' : ''
+          }`} 
+        />
       </div>
 
       {/* Custom Dropdown List */}

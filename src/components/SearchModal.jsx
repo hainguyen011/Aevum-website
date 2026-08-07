@@ -33,6 +33,20 @@ export const SearchModal = ({ isOpen, onClose, onNavigate, activeLang }) => {
       icon: Cpu,
       action: () => { onNavigate('about'); onClose(); }
     },
+    {
+      id: 'page-changelog',
+      title: isVi ? 'Nhật ký Cập nhật (Changelog)' : 'Product Changelog',
+      category: isVi ? 'Trang' : 'Pages',
+      icon: Layers,
+      action: () => { onNavigate('changelog'); onClose(); }
+    },
+    {
+      id: 'page-discussions',
+      title: isVi ? 'Cộng đồng Thảo luận (Discussions)' : 'Community Discussions',
+      category: isVi ? 'Trang' : 'Pages',
+      icon: BookOpen,
+      action: () => { onNavigate('discussions'); onClose(); }
+    },
 
     // Subsystems & Architecture
     {

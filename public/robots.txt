@@ -29,8 +29,16 @@ Allow: /
 User-agent: cohere-ai
 Allow: /
 
+User-agent: Bytespider
+Allow: /
+
+User-agent: DeepSeekBot
+Allow: /
+
 User-agent: facebookexternalhit
 Allow: /
 
-# Declare XML Sitemap path for search indexers
+# Declare LLMs-txt & XML Sitemap paths for AI & search indexers
 Sitemap: https://www.aevum.ai.vn/sitemap.xml
+LLMs-txt: https://www.aevum.ai.vn/llms.txt
+

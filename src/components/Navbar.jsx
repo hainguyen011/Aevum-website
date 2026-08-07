@@ -125,7 +125,7 @@ export const Navbar = ({
   };
 
   return (
-    <div ref={featuresRef} className="w-full border-b border-white/10 bg-[#0B0B11]/90 backdrop-blur-md sticky top-0 z-30 flex flex-col transition-all duration-300">
+    <div ref={featuresRef} className="w-full border-b border-white/10 bg-[#0B0B11]/90 backdrop-blur-md sticky top-0 z-40 flex flex-col transition-all duration-300">
       
       {/* Main Navbar Top Row */}
       <div className="w-full flex items-center justify-between px-4 sm:px-6 lg:px-8 xl:px-10 py-4">
@@ -147,11 +147,11 @@ export const Navbar = ({
           </a>
 
           {/* Desktop Nav Links */}
-          <nav className="hidden lg:flex items-center gap-2.5 xl:gap-3.5 text-xs font-semibold whitespace-nowrap text-nowrap">
+          <nav className="hidden lg:flex items-center gap-4 xl:gap-6 text-xs font-semibold whitespace-nowrap text-nowrap">
             
             {/* Desktop Features & Architecture Toggle Button */}
             {(() => {
-              const isButtonActive = featuresOpen || Boolean(activeSection);
+              const isButtonActive = featuresOpen || Boolean(activeSection) || currentPage === 'home';
               return (
                 <button 
                   onClick={() => setFeaturesOpen(prev => !prev)}
@@ -166,9 +166,6 @@ export const Navbar = ({
                 </button>
               );
             })()}
-            
-            {/* Vertical Separator */}
-            <span className="w-px h-3 bg-white/10 shrink-0"></span>
 
             {/* Docs Link */}
             <button 
@@ -181,9 +178,6 @@ export const Navbar = ({
               {t.navbar.docs}
             </button>
 
-            {/* Vertical Separator */}
-            <span className="w-px h-3 bg-white/10 shrink-0"></span>
-
             {/* About Link */}
             <button 
               onClick={() => onNavigate('about')}
@@ -194,9 +188,6 @@ export const Navbar = ({
             >
               {t.navbar.about}
             </button>
-
-            {/* Vertical Separator */}
-            <span className="w-px h-3 bg-white/10 shrink-0"></span>
 
             {/* Changelog Link */}
             <button 
@@ -209,14 +200,11 @@ export const Navbar = ({
               {isVi ? 'Nhật ký cập nhật' : 'Changelog'}
             </button>
 
-            {/* Vertical Separator */}
-            <span className="w-px h-3 bg-white/10 shrink-0"></span>
-
             {/* Discussions & Bug Hunter Link */}
             <button 
               onClick={() => onNavigate('discussions')}
               className={`transition-colors font-semibold whitespace-nowrap text-nowrap ${
-                currentPage === 'discussions' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
+                currentPage === 'discussions' ? 'text-cyan-400' : 'text-slate-300 hover:text-cyan-400'
               }`}
               style={{ whiteSpace: 'nowrap', textWrap: 'nowrap' }}
             >

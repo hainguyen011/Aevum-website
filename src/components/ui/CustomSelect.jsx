@@ -38,7 +38,7 @@ export const CustomSelect = ({ options, value, onChange, placeholder = 'Select o
         onClick={() => setIsOpen((prev) => !prev)}
         className={`w-full bg-[#07080e] border ${
           isOpen ? 'border-cyan-400 text-cyan-300' : 'border-white/10 text-slate-200 hover:border-white/30'
-        } rounded px-2.5 py-1 flex items-center justify-between cursor-pointer transition-all select-none ${buttonClassName}`}
+        } rounded-md px-3 py-2 flex items-center justify-between cursor-pointer transition-all select-none ${buttonClassName}`}
       >
         <span className="truncate pr-2 font-mono text-xs">{selectedLabel || placeholder}</span>
         

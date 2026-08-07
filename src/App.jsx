@@ -179,7 +179,7 @@ export function App() {
   }, [isMobileMenuOpen]);
 
   // Helper scroll function
-  const scrollToTarget = (target, offset = -20) => {
+  const scrollToTarget = (target, offset = -80) => {
     if (window.lenis) {
       window.lenis.scrollTo(target, { offset, duration: 1.2 });
     } else if (typeof target === 'string') {
@@ -198,7 +198,7 @@ export function App() {
       const el = document.getElementById(target);
       if (el) {
         if (window.lenis) {
-          window.lenis.scrollTo(el, { offset: -40, duration: 1.2 });
+          window.lenis.scrollTo(el, { offset: -80, duration: 1.2 });
         } else {
           el.scrollIntoView({ behavior: 'smooth' });
         }
@@ -237,7 +237,7 @@ export function App() {
         setTimeout(() => {
           const el = document.getElementById(hash);
           if (el) {
-            scrollToTarget(el, -40);
+            scrollToTarget(el, -80);
           }
         }, 100);
       } else {
@@ -495,11 +495,25 @@ export function App() {
           {/* Navigation Links */}
           <div className="flex flex-col space-y-4 drawer-nav-list">
             <a 
+              href="#cli" 
+              onClick={(e) => handleNavLink(e, 'cli')}
+              className="text-right text-lg font-bold text-slate-200 hover:text-cyan-400 transition-colors uppercase tracking-wide"
+            >
+              {t.navbar.kernel}
+            </a>
+            <a 
               href="#breakthroughs" 
               onClick={(e) => handleNavLink(e, 'breakthroughs')}
               className="text-right text-lg font-bold text-slate-200 hover:text-cyan-400 transition-colors uppercase tracking-wide"
             >
               {t.navbar.breakthroughs}
+            </a>
+            <a 
+              href="#agents" 
+              onClick={(e) => handleNavLink(e, 'agents')}
+              className="text-right text-lg font-bold text-slate-200 hover:text-cyan-400 transition-colors uppercase tracking-wide"
+            >
+              {t.navbar.agents}
             </a>
             <a 
               href="#architecture" 
@@ -514,13 +528,6 @@ export function App() {
               className="text-right text-lg font-bold text-slate-200 hover:text-cyan-400 transition-colors uppercase tracking-wide"
             >
               {t.navbar.orchestration}
-            </a>
-            <a 
-              href="#cli" 
-              onClick={(e) => handleNavLink(e, 'cli')}
-              className="text-right text-lg font-bold text-slate-200 hover:text-cyan-400 transition-colors uppercase tracking-wide"
-            >
-              {t.navbar.kernel}
             </a>
 
             {/* Standalone Pages UI Block (DOCUMENTATION, ABOUT, CHANGELOG, DISCUSSIONS) */}

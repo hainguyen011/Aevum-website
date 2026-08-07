@@ -130,7 +130,7 @@ export const SearchModal = ({ isOpen, onClose, onNavigate, activeLang }) => {
       const el = document.getElementById(targetId);
       if (el) {
         if (window.lenis) {
-          window.lenis.scrollTo(el, { offset: -40, duration: 1.2 });
+          window.lenis.scrollTo(el, { offset: -80, duration: 1.2 });
         } else {
           el.scrollIntoView({ behavior: 'smooth' });
         }

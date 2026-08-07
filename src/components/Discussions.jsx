@@ -762,7 +762,7 @@ export function Discussions({ activeLang, user, userProfile, onOpenAuthModal, in
         {/* ── RIGHT COLUMN: Reserved Sidebar Container (5 cols) ── */}
         <div className="lg:col-span-5 space-y-5 px-6 lg:px-10 py-8 h-full">
           <div className="bg-[#07080e] border border-white/10 rounded-md p-5 font-mono space-y-4 sticky top-24">
-            <div className="flex items-center justify-between border-b border-white/10 pb-3">
+            <div className="flex items-center justify-between mb-3">
               <span className="text-xs font-bold text-cyan-400 tracking-wider uppercase">
                 {isVi ? 'KHU VỰC DÀNH RIÊNG' : 'SIDEBAR WIDGET'}
               </span>

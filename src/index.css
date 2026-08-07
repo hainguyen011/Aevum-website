@@ -90,6 +90,18 @@ html[data-theme="light"] {
   scrollbar-width: none;
 }
 
+/* Scroll Margin Top for Sticky Navbar Clearance */
+#cli,
+#breakthroughs,
+#agents,
+#architecture,
+#orchestration,
+#testimonials,
+#unikorn,
+#i2flabs {
+  scroll-margin-top: 80px;
+}
+
 /* Horizontal bounce for swipe-hint chevron */
 @keyframes bounce-x {
   0%, 100% { transform: translateX(0); }

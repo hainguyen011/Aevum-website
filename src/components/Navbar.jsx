@@ -32,7 +32,7 @@ export const Navbar = ({
       return;
     }
 
-    const sections = ['breakthroughs', 'agents', 'architecture', 'orchestration', 'testimonials', 'unikorn', 'i2flabs', 'cli'];
+    const sections = ['cli', 'breakthroughs', 'agents', 'architecture', 'orchestration', 'testimonials', 'unikorn', 'i2flabs'];
 
     const handleScroll = () => {
       if (window.scrollY < 350) {
@@ -77,6 +77,7 @@ export const Navbar = ({
 
   // Get active section label or default fallback
   const getButtonLabel = () => {
+    if (activeSection === 'cli') return t.navbar.kernel;
     if (activeSection === 'breakthroughs') return t.navbar.breakthroughs;
     if (activeSection === 'agents') return t.navbar.agents;
     if (activeSection === 'architecture') return t.navbar.architecture;
@@ -84,7 +85,6 @@ export const Navbar = ({
     if (activeSection === 'testimonials') return t.navbar.testimonials;
     if (activeSection === 'unikorn') return t.navbar.unikorn;
     if (activeSection === 'i2flabs') return t.navbar.i2flabs;
-    if (activeSection === 'cli') return t.navbar.kernel;
     return isVi ? 'Kiến trúc & Tính năng' : 'Features & Architecture';
   };
 
@@ -109,7 +109,7 @@ export const Navbar = ({
       const el = document.getElementById(target);
       if (el) {
         if (window.lenis) {
-          window.lenis.scrollTo(el, { offset: -40, duration: 1.2 });
+          window.lenis.scrollTo(el, { offset: -80, duration: 1.2 });
         } else {
           el.scrollIntoView({ behavior: 'smooth' });
         }
@@ -315,6 +315,15 @@ export const Navbar = ({
         <div className="max-w-6xl mx-auto px-4 sm:px-8 flex items-center justify-between text-xs">
           <div className="flex items-center gap-5 sm:gap-7 font-medium overflow-x-auto no-scrollbar py-1 pr-4">
             <a 
+              href="#cli" 
+              onClick={(e) => { handleNavLink(e, 'cli'); setFeaturesOpen(false); }}
+              className={`transition-colors whitespace-nowrap shrink-0 ${
+                activeSection === 'cli' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
+              }`}
+            >
+              {t.navbar.kernel}
+            </a>
+            <a 
               href="#breakthroughs" 
               onClick={(e) => { handleNavLink(e, 'breakthroughs'); setFeaturesOpen(false); }}
               className={`transition-colors whitespace-nowrap shrink-0 ${
@@ -376,15 +385,6 @@ export const Navbar = ({
               }`}
             >
               {t.navbar.i2flabs}
-            </a>
-            <a 
-              href="#cli" 
-              onClick={(e) => { handleNavLink(e, 'cli'); setFeaturesOpen(false); }}
-              className={`transition-colors whitespace-nowrap shrink-0 ${
-                activeSection === 'cli' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
-              }`}
-            >
-              {t.navbar.kernel}
             </a>
           </div>
 

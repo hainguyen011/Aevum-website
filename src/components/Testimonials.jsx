@@ -78,7 +78,7 @@ export const Testimonials = ({ activeLang }) => {
           </div>
         </div>
         <p className="text-slate-300 text-xs leading-relaxed">
-          "{rev.text}"
+          {rev.text}
         </p>
       </div>
       <div className="border-subtle-t px-6 sm:px-8 py-4 text-[11px] text-[#38bdf8] font-mono flex items-center font-semibold">

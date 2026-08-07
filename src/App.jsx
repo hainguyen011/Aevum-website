@@ -24,7 +24,7 @@ import { useScrollReveal } from './hooks/useScrollReveal';
 import { useSEO } from './hooks/useSEO';
 import logoImg from '../assets/logos/AevumOS-transparent.png';
 import { translations } from './data/translations';
-import { Search, X, Eye, EyeOff, Sun, Atom, User, Globe } from 'lucide-react';
+import { Search, X, Eye, ScanEye, Sun, Atom, User, Globe } from 'lucide-react';
 import { AuthModal } from './components/AuthModal';
 import { supabase } from './services/supabaseClient';
 import { DiscussionService } from './services/DiscussionService';
@@ -680,7 +680,7 @@ export function App() {
           }`}
           title={activeLang === 'vi' ? "Bật/Tắt bảo vệ mắt" : "Toggle Eye Care"}
         >
-          {isEyeCare ? <EyeOff size={15} className="text-amber-400" /> : <Eye size={15} />}
+          {isEyeCare ? <ScanEye size={18} className="text-amber-400" /> : <Eye size={18} />}
         </button>
 
 

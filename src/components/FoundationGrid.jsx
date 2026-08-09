@@ -24,7 +24,7 @@ export const FoundationGrid = ({ activeLang }) => {
   }
 
   return (
-    <div className="border-subtle-b bg-[#0B0B11]">
+    <div id="architecture" className="border-subtle-b bg-[#0B0B11]">
       
       {/* Section Title */}
       <div className="p-8 sm:p-12 text-center border-subtle-b bg-[#0B0B11]">

@@ -52,15 +52,15 @@ export const Testimonials = ({ activeLang }) => {
     setActiveSlide(idx);
   };
 
-  // Highlight Pied Piper & Community in title
+  // Highlight Community in title
   const titleText = t.testimonials.title;
   let titleNode = titleText;
-  if (titleText.includes('Pied Piper & Community')) {
-    const parts = titleText.split('Pied Piper & Community');
-    titleNode = <>{parts[0]}<span className="gradient-text">Pied Piper & Community</span>{parts[1]}</>;
-  } else if (titleText.includes('Pied Piper & Cộng đồng')) {
-    const parts = titleText.split('Pied Piper & Cộng đồng');
-    titleNode = <>{parts[0]}<span className="gradient-text">Pied Piper & Cộng đồng</span>{parts[1]}</>;
+  if (titleText.includes('Community')) {
+    const parts = titleText.split('Community');
+    titleNode = <>{parts[0]}<span className="text-cyan-400">Community</span>{parts[1]}</>;
+  } else if (titleText.includes('Cộng đồng')) {
+    const parts = titleText.split('Cộng đồng');
+    titleNode = <>{parts[0]}<span className="text-cyan-400">Cộng đồng</span>{parts[1]}</>;
   }
 
   const ReviewCard = ({ rev, className = '' }) => (
@@ -81,7 +81,7 @@ export const Testimonials = ({ activeLang }) => {
           {rev.text}
         </p>
       </div>
-      <div className="border-subtle-t px-6 sm:px-8 py-4 text-[11px] text-[#38bdf8] font-mono flex items-center font-semibold">
+      <div className="border-subtle-t px-6 sm:px-8 py-4 text-[11px] text-white font-mono flex items-center font-semibold">
         {rev.role}
       </div>
     </div>
@@ -111,7 +111,7 @@ export const Testimonials = ({ activeLang }) => {
               <p className="text-xs text-slate-400 font-medium">{t.testimonials.installs}</p>
             </div>
             <div data-reveal data-reveal-delay="200" className="space-y-1">
-              <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono">99.9%</div>
+              <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono">-85%</div>
               <p className="text-xs text-slate-400 font-medium">{t.testimonials.score}</p>
             </div>
             <div data-reveal data-reveal-delay="300" className="space-y-1">

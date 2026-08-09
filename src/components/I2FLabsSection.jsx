@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { ArrowRight } from 'lucide-react';
 import i2fLabsLogo from '../../assets/I2FLabs-logo.png';
 import { translations } from '../data/translations';
 
@@ -169,38 +170,12 @@ export const I2FLabsSection = ({ activeLang }) => {
       {/* === Hero Header: Content Left / Cute Dodging Logo Right === */}
       <div className="grid grid-cols-1 lg:grid-cols-2 items-stretch min-h-[280px]">
 
-        {/* LEFT: Hero Content */}
-        <div className="px-8 sm:px-12 py-10 sm:py-14 space-y-4 lg:border-r border-white/10 flex flex-col justify-center order-2 lg:order-1">
-          {/* Label */}
-          <div className="text-[10px] font-mono font-bold text-cyan-400 tracking-[0.2em] uppercase select-none">
-            ENGINEERED BY I2FLABS VIET NAM
-          </div>
-
-          {/* Title */}
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white font-display leading-tight">
-            {titleNode}
-          </h2>
-
-          {/* Description */}
-          <p className="text-slate-400 text-xs sm:text-sm leading-relaxed max-w-lg">
-            {t.i2flabs.desc}
-          </p>
-
-          {/* Subtle Accent Line */}
-          <div className="flex items-center gap-3 pt-2">
-            <div className="h-[1px] w-8 bg-cyan-400/50"></div>
-            <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">
-              I2FLabs Core R&D — Hanoi / Saigon, Vietnam
-            </span>
-          </div>
-        </div>
-
-        {/* RIGHT: Cute Interactive Dodging Logo Container */}
+        {/* LEFT: Cute Interactive Dodging Logo Container */}
         <div 
           ref={containerRef}
           data-is-taunting={isTaunting ? "true" : "false"}
           data-dodge-count={dodgeCount}
-          className="i2f-logo-stage relative flex items-center justify-center px-8 sm:px-12 pt-16 pb-12 sm:pt-20 sm:pb-16 order-1 lg:order-2 select-none min-h-[300px]"
+          className="i2f-logo-stage relative flex items-center justify-center px-8 sm:px-12 pt-16 pb-12 sm:pt-20 sm:pb-16 order-1 select-none min-h-[300px]"
         >
           {/* Dodging Flask Logo Element + Dynamic Floating Quote */}
           <div
@@ -238,6 +213,32 @@ export const I2FLabsSection = ({ activeLang }) => {
                 isTaunting ? 'animate-giggle' : ''
               }`}
             />
+          </div>
+        </div>
+
+        {/* RIGHT: Hero Content */}
+        <div className="px-8 sm:px-12 py-10 sm:py-14 space-y-4 flex flex-col justify-center order-2">
+          {/* Label */}
+          <div className="text-[10px] font-mono font-bold text-cyan-400 tracking-[0.2em] uppercase select-none">
+            ENGINEERED BY I2FLABS VIET NAM
+          </div>
+
+          {/* Title */}
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white font-display leading-tight">
+            {titleNode}
+          </h2>
+
+          {/* Description */}
+          <p className="text-slate-400 text-xs sm:text-sm leading-relaxed max-w-lg">
+            {t.i2flabs.desc}
+          </p>
+
+          {/* Subtle Arrow Icon */}
+          <div className="flex items-center gap-2 pt-2">
+            <ArrowRight size={13} className="text-white shrink-0" />
+            <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">
+              I2FLabs Core R&D — Hanoi / Saigon, Vietnam
+            </span>
           </div>
         </div>
 

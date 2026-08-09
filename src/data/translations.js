@@ -125,12 +125,12 @@ export const translations = {
     },
     testimonials: {
       tag: "CỘNG ĐỒNG & CHUYÊN GIA",
-      title: "Được yêu thích bởi Pied Piper & Cộng đồng",
+      title: "Được yêu thích bởi Cộng đồng",
       desc: "Được tin dùng bởi các kỹ sư và nhà sáng tạo công nghệ hàng đầu trên toàn thế giới.",
       installs: "Lượt cài đặt OpenVSX",
-      score: "Điểm Weissman",
+      score: "Giảm hao hụt Token",
       bootTime: "Thời gian khởi động Daemon",
-      r1Text: '“Thuật toán nén ngữ cảnh Middle-Out của Aevum OS thật điên rồ! Nó duy trì Điểm số Weissman 100% trên toàn bộ biệt đội agent của chúng tôi mà không làm mất một byte nào.”',
+      r1Text: '“Thuật toán nén ngữ cảnh Middle-Out của Aevum OS thật điên rồ! Nó giúp giảm tới 85% hao hụt token trên toàn bộ biệt đội agent của chúng tôi mà không làm mất một byte nào.”',
       r2Text: '“Tôi đã xây dựng Anton để xử lý tải hệ thống, nhưng daemon Aevum OS chạy cục bộ khiến các IDE truyền thống trông thật trẻ con. Không thể hack, nhanh kinh hoàng và vượt trội về mọi mặt.”',
       r3Text: '“Tôi đã thử viết các script chuyển giao agent tùy chỉnh, nhưng điều phối biệt đội của Aevum OS quá mượt mà đến nỗi Gilfoyle cũng không thể tìm ra một lỗi nào trong triển khai của tôi.”',
       r4Text: '“Bộ não ngoại vi DDD của Aevum OS liên kết sự cộng hưởng tâm hồn của biệt đội chúng tôi một cách hoàn hảo. Tôi cảm thấy an tâm khi biết các kế hoạch tên miền được thu hoạch vào Bộ nhớ Toàn cục.”'
@@ -327,12 +327,12 @@ export const translations = {
     },
     testimonials: {
       tag: "COMMUNITY & EXPERTS",
-      title: "Loved by Pied Piper & Community",
+      title: "Loved by Community",
       desc: "Used by visionary engineers and tech innovators worldwide.",
       installs: "OpenVSX Installs",
-      score: "Weissman Score",
+      score: "Token Waste Reduced",
       bootTime: "Daemon Boot Time",
-      r1Text: '“The Middle-Out context compression algorithm in Aevum OS is insane! It maintains 100% Weissman Score across our entire agent squad without dropping a single byte.”',
+      r1Text: '“The Middle-Out context compression algorithm in Aevum OS is insane! It cuts token waste by up to 85% across our entire agent squad without dropping a single byte.”',
       r2Text: '“I built Anton to handle system load, but the local Aevum OS daemon makes traditional IDEs look like child\'s play. Unhackable, blazingly fast, and superior in every metric.”',
       r3Text: '“I tried writing custom agent handoff scripts, but Aevum OS squad orchestration is so smooth that even Gilfoyle couldn\'t find a single flaw in my deployment.”',
       r4Text: '“The DDD external brain in Aevum OS aligns our squad\'s soul resonance perfectly. It gives me peace of mind knowing domain plans are harvested into Global Memory.”'

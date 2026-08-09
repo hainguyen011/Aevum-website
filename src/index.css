@@ -302,10 +302,9 @@ h1, h2, h3, .font-display {
   font-family: var(--font-sans);
   letter-spacing: -0.01em;
   border-radius: 6px;
-  background: transparent;
-  color: var(--electron-blue);
+  background: var(--electron-blue);
+  color: #000000 !important;
   border: none !important;
-  box-shadow: inset 0 0 0 1px var(--electron-blue) !important;
   transition: var(--transition-smooth);
   cursor: pointer;
   text-decoration: none;
@@ -313,8 +312,18 @@ h1, h2, h3, .font-display {
 
 .btn-electron:hover {
   background: var(--electron-blue);
-  color: #000000;
-  box-shadow: inset 0 0 0 1px var(--electron-blue) !important;
+  opacity: 0.9;
+  color: #000000 !important;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.4) !important;
+}
+
+html[data-theme="light"] .btn-electron {
+  color: #ffffff !important;
+}
+
+html[data-theme="light"] .btn-electron:hover {
+  color: #ffffff !important;
+  box-shadow: 0 0 16px rgba(2, 132, 199, 0.4) !important;
 }
 
 .btn-ghost {
@@ -344,8 +353,12 @@ h1, h2, h3, .font-display {
 
 /* Typography & Gradient Text */
 .gradient-text {
-  color: #ffffff;
+  color: var(--text-primary);
   display: inline-block;
+}
+
+html[data-theme="light"] .gradient-text {
+  color: #0F172A !important;
 }
 
 /* Code Box & Inputs */
@@ -859,9 +872,33 @@ html[data-theme="light"] .border-beam-btn:hover {
     linear-gradient(140deg, #0369a1 0%, rgba(2, 132, 199, 0.85) 20%, rgba(2, 132, 199, 0.35) 50%, rgba(15, 23, 42, 0.15) 75%, transparent 95%) !important;
 }
 
-html[data-theme="light"] .code-box,
+html[data-theme="light"] .code-box {
+  background: #F1F5F9 !important;
+  border: 1px solid rgba(15, 23, 42, 0.1) !important;
+  color: #0F172A !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02) !important;
+}
+
+html[data-theme="light"] .code-header {
+  background: #E2E8F0 !important;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.1) !important;
+}
+
 html[data-theme="light"] code {
   color: #0F172A !important;
+}
+
+html[data-theme="light"] .text-emerald-400,
+html[data-theme="light"] .text-emerald-500 {
+  color: #059669 !important;
+}
+
+html[data-theme="light"] .text-indigo-400 {
+  color: #4f46e5 !important;
+}
+
+html[data-theme="light"] .text-purple-400 {
+  color: #7c3aed !important;
 }
 
 html[data-theme="light"] ::-webkit-scrollbar-track {
@@ -1009,16 +1046,32 @@ html[data-theme="light"] .cta-banner .btn-ghost:hover {
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.45) !important;
 }
 
-.cta-banner .btn-electron,
-html[data-theme="light"] .cta-banner .btn-electron {
-  color: #38bdf8 !important;
-  box-shadow: inset 0 0 0 1px #38bdf8 !important;
-}
-
-.cta-banner .btn-electron:hover,
-html[data-theme="light"] .cta-banner .btn-electron:hover {
+.cta-banner .btn-electron {
   background: #38bdf8 !important;
   color: #000000 !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.cta-banner .btn-electron:hover {
+  background: #38bdf8 !important;
+  opacity: 0.9 !important;
+  color: #000000 !important;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.4) !important;
+}
+
+html[data-theme="light"] .cta-banner .btn-electron {
+  background: #0284c7 !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+html[data-theme="light"] .cta-banner .btn-electron:hover {
+  background: #0284c7 !important;
+  opacity: 0.9 !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 16px rgba(2, 132, 199, 0.4) !important;
 }
 
 /* ==========================================================================

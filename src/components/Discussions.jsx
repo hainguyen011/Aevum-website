@@ -8,6 +8,8 @@ import { ReleaseService } from '../services/ReleaseService';
 import { TranslationService } from '../services/TranslationService';
 import { CustomSelect } from './ui/CustomSelect';
 
+import anHi from '../../assets/stickers/An_Collection/An_Hi.png';
+
 export function Discussions({ activeLang, user, userProfile, onOpenAuthModal, initialVersionFilter = 'all' }) {
   const [discussions, setDiscussions] = useState([]);
   const [releases, setReleases] = useState([]);
@@ -101,6 +103,7 @@ export function Discussions({ activeLang, user, userProfile, onOpenAuthModal, in
 
   const isVi = activeLang === 'vi';
   const isAdmin = userProfile?.role === 'admin' || user?.email?.includes('admin') || user?.email === 'hainguyen011@gmail.com';
+
 
   const handleToggleUpvote = async (discussionId) => {
     if (!user) {
@@ -298,7 +301,7 @@ export function Discussions({ activeLang, user, userProfile, onOpenAuthModal, in
       case 'feedback':
         return <span className="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30 font-mono"><MessageCircle size={12} /> {isVi ? 'Phản hồi' : 'Feedback'}</span>;
       default:
-        return <span className="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-mono"><MessageSquare size={12} /> {isVi ? 'Thảo luận' : 'Discussion'}</span>;
+        return <span className="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 font-mono"><MessageSquare size={12} /> {isVi ? 'Thảo luận' : 'Discussion'}</span>;
     }
   };
 
@@ -340,7 +343,7 @@ export function Discussions({ activeLang, user, userProfile, onOpenAuthModal, in
             <div className="flex items-center justify-between gap-2">
               <div className="flex items-center gap-2 text-[11px] text-white font-mono font-bold tracking-wide uppercase">
                 <span className="text-slate-400">LOCATION:</span>
-                <span className="text-cyan-400">~/DISCUSSIONS</span>
+                <span className="text-slate-300">~/DISCUSSIONS</span>
               </div>
               
               {/* New Discussion Button */}
@@ -400,7 +403,7 @@ export function Discussions({ activeLang, user, userProfile, onOpenAuthModal, in
                     value={selectedVersion}
                     onChange={(val) => setSelectedVersion(val)}
                     className="h-8 text-[11px]"
-                    buttonClassName="h-8 py-0 px-2.5 text-[11px] text-cyan-400 font-mono flex items-center justify-between"
+                    buttonClassName="h-8 py-0 px-2.5 text-[11px] text-slate-300 hover:text-white font-mono flex items-center justify-between"
                   />
                 </div>
 
@@ -489,7 +492,7 @@ export function Discussions({ activeLang, user, userProfile, onOpenAuthModal, in
                       <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
                         {/* Left: Version & Type Badges + Translate Badge */}
                         <div className="flex items-center gap-2 flex-wrap">
-                          <span className="text-xs font-bold font-mono px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
+                          <span className="text-xs font-bold font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/10">
                             {item.release_version}
                           </span>
                           {getTypeBadge(item.type)}
@@ -627,7 +630,7 @@ export function Discussions({ activeLang, user, userProfile, onOpenAuthModal, in
                               key={reply.id}
                               className={`p-2.5 rounded text-[11px] font-mono space-y-1 transition-all ${
                                 isAdminRep
-                                  ? 'bg-cyan-950/20 border border-cyan-500/30 text-cyan-100'
+                                  ? 'bg-[#0e111a] border border-blue-900/30 text-slate-200'
                                   : 'bg-[#0B0B11] border border-white/5 text-slate-300'
                               }`}
                             >
@@ -650,7 +653,7 @@ export function Discussions({ activeLang, user, userProfile, onOpenAuthModal, in
                                     {reply.user_name || reply.user_email?.split('@')[0]}
                                   </span>
                                   {isAdminRep && (
-                                    <span className="text-[8px] font-mono px-1 py-0.2 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 uppercase">
+                                    <span className="text-[8px] font-mono px-1 py-0.2 rounded bg-blue-950/40 text-blue-300 border border-blue-900/30 uppercase">
                                       Admin
                                     </span>
                                   )}
@@ -761,27 +764,29 @@ export function Discussions({ activeLang, user, userProfile, onOpenAuthModal, in
 
         {/* ── RIGHT COLUMN: Reserved Sidebar Container (5 cols) ── */}
         <div className="lg:col-span-5 space-y-5 px-6 lg:px-10 py-8 h-full">
-          <div className="bg-[#07080e] border border-white/10 rounded-md p-5 font-mono space-y-4 sticky top-24">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-bold text-cyan-400 tracking-wider uppercase">
-                {isVi ? 'KHU VỰC DÀNH RIÊNG' : 'SIDEBAR WIDGET'}
-              </span>
-              <span className="text-[10px] px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-300 border border-cyan-500/30">
-                RESERVED
-              </span>
+          <div className="bg-transparent border border-white/10 rounded-none p-6 font-mono space-y-5 sticky top-24 shadow-none">
+
+            {/* An Mascot Sticker */}
+            <div className="flex justify-center py-2 select-none">
+              <img 
+                src={anHi} 
+                alt="An Mascot Sticker" 
+                className="w-32 h-32 object-contain"
+              />
             </div>
-            
-            <div className="p-6 rounded bg-[#0B0B11] border border-white/5 text-center space-y-3 py-16">
-              <Sparkles size={24} className="mx-auto text-slate-600 animate-pulse" />
-              <p className="text-xs font-bold text-slate-300">
-                {isVi ? 'Cột Phải Dành Riêng' : 'Reserved Right Sidebar'}
+
+            {/* Notification / Description */}
+            <div className="space-y-3 text-xs leading-relaxed text-slate-400 text-center font-mono">
+              <p className="font-bold text-slate-200">
+                {isVi ? 'Cột Phải Dành Riêng cho Widget' : 'Reserved Widget Column'}
               </p>
-              <p className="text-[11px] text-slate-500 leading-relaxed max-w-xs mx-auto">
+              <p>
                 {isVi 
-                  ? 'Không gian đã được sắp xếp sẵn cho các Widget và thông tin phụ trong tương lai.' 
-                  : 'Space reserved for upcoming modular sidebar widgets and extra info.'}
+                  ? 'Không gian này được thiết kế để tích hợp các Widget điều khiển, danh sách phiên bản và các tiện ích tương tác trong tương lai.' 
+                  : 'This column is reserved for modular widgets, release logs, and future interactive utilities.'}
               </p>
             </div>
+
           </div>
         </div>
 
@@ -827,7 +832,7 @@ export function Discussions({ activeLang, user, userProfile, onOpenAuthModal, in
                     value={newVersion}
                     onChange={(val) => setNewVersion(val)}
                     className="h-8 text-xs"
-                    buttonClassName="h-8 py-0 px-2.5 text-xs text-cyan-300 font-mono flex items-center justify-between"
+                    buttonClassName="h-8 py-0 px-2.5 text-xs text-slate-300 hover:text-white font-mono flex items-center justify-between"
                   />
                 </div>
 

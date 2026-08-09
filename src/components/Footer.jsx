@@ -47,14 +47,14 @@ export const Footer = ({ onNavigate, activeLang }) => {
             <div className="flex flex-wrap items-center gap-4 pt-2 text-slate-400 font-mono text-[11px]">
               <button 
                 onClick={() => onNavigate('docs')} 
-                className="text-cyan-400 hover:underline hover:text-cyan-300 transition-colors font-semibold"
+                className="text-white hover:underline hover:text-slate-200 transition-colors font-semibold"
               >
                 {t.footer.links.docs}
               </button>
               <span className="text-white/10">•</span>
               <button 
                 onClick={() => onNavigate('about')} 
-                className="text-cyan-400 hover:underline hover:text-cyan-300 transition-colors font-semibold"
+                className="text-white hover:underline hover:text-slate-200 transition-colors font-semibold"
               >
                 {t.navbar.about}
               </button>

@@ -105,7 +105,7 @@ export const SubNavTabs = ({ activeLang }) => {
                     key={idx} 
                     className="px-2.5 py-1 rounded bg-white/[0.03] border border-white/10 text-[11px] font-mono text-slate-300"
                   >
-                    ✓ {pill}
+                    <span className="text-cyan-400 font-bold mr-1">✓</span>{pill}
                   </span>
                 ))}
               </div>

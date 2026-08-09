@@ -221,8 +221,8 @@ export const Navbar = ({
             onClick={onOpenSearch}
             className="hidden lg:flex items-center gap-3 bg-white/[0.04] hover:bg-white/[0.08] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] px-3 py-1.5 rounded-lg text-slate-400 cursor-pointer transition-all group"
           >
-            <Search size={14} className="group-hover:text-cyan-400 transition-colors" />
-            <span className="text-xs font-mono text-slate-400 group-hover:text-slate-300">
+            <Search size={14} className="group-hover:text-white transition-colors" />
+            <span className="text-xs font-mono text-slate-400 group-hover:text-white">
               {isVi ? 'Tìm kiếm OS...' : 'Search OS...'}
             </span>
             <kbd className="hidden sm:inline-block text-[10px] font-mono bg-white/10 px-1.5 py-0.5 rounded text-slate-400 border border-white/10 ml-2">
@@ -239,13 +239,13 @@ export const Navbar = ({
             return (
               <button
                 onClick={() => { setProfileOpen(o => !o); setFeaturesOpen(false); }}
-                className="flex items-center gap-1.5 text-xs font-mono text-cyan-400 hover:text-cyan-300 px-2.5 py-1.5 transition-all cursor-pointer group"
+                className="flex items-center gap-1.5 text-xs font-mono text-slate-300 hover:text-white px-2.5 py-1.5 transition-all cursor-pointer group"
                 title={isVi ? "Xem tài khoản Aevum" : "View Aevum profile"}
               >
                 {avatarUrl ? (
-                  <img src={avatarUrl} alt="avatar" className="w-5 h-5 rounded-full object-cover border border-cyan-400/40" />
+                  <img src={avatarUrl} alt="avatar" className="w-5 h-5 rounded-full object-cover border border-white/20" />
                 ) : (
-                  <User size={13} className="text-cyan-400" />
+                  <User size={13} className="text-slate-400 group-hover:text-white transition-colors" />
                 )}
                 <span className="font-bold uppercase tracking-wider max-w-[80px] truncate text-white">
                   {(user.user_metadata?.full_name || user.email.split('@')[0]).split(' ')[0]}
@@ -259,8 +259,8 @@ export const Navbar = ({
               className="flex items-center gap-1.5 text-xs font-mono text-slate-300 hover:text-white bg-white/[0.04] hover:bg-white/[0.08] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] px-2.5 py-1.5 rounded-lg transition-all cursor-pointer group"
               title={isVi ? "Đăng nhập tài khoản" : "Sign in to Aevum account"}
             >
-              <User size={13} className="text-slate-400 group-hover:text-cyan-400 transition-colors" />
-              <span className="font-bold uppercase tracking-wider group-hover:text-cyan-400 transition-colors">
+              <User size={13} className="text-slate-400 group-hover:text-white transition-colors" />
+              <span className="font-bold uppercase tracking-wider text-slate-300 group-hover:text-white transition-colors">
                 {isVi ? 'Đăng nhập' : 'Sign In'}
               </span>
             </button>

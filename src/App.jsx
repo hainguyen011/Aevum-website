@@ -5,7 +5,6 @@ import { SubNavTabs } from './components/SubNavTabs';
 import { BentoGrid } from './components/BentoGrid';
 import { AgentsShowcase } from './components/AgentsShowcase';
 import { FoundationGrid } from './components/FoundationGrid';
-import { FrameworkFlow } from './components/FrameworkFlow';
 import { Testimonials } from './components/Testimonials';
 import { UnikornSection } from './components/UnikornSection';
 import { I2FLabsSection } from './components/I2FLabsSection';
@@ -397,10 +396,7 @@ export function App() {
             {/* Section 2: Architecture & Foundation Grid Row */}
             <FoundationGrid activeLang={activeLang} />
 
-            {/* Section 3: Framework Integration Flow */}
-            <FrameworkFlow activeLang={activeLang} />
-
-            {/* Section 4: Testimonials & Community Stats */}
+            {/* Section 3: Testimonials & Community Stats */}
             <Testimonials activeLang={activeLang} />
 
             {/* Section 5: Dedicated Unikorn Vietnam Feature Section */}

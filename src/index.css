@@ -656,12 +656,45 @@ body.docs-menu-active .app-content-wrapper {
 }
 
 /* ==========================================================================
-   Aevum Light Mode High-Contrast Tech Overrides
+   Smooth Eye-Relaxing View Transitions (Circular Wave Sweep Theme Reveal)
    ========================================================================== */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
 
-/* Smooth Global Theme Transition */
-body, .monolithic-frame, .grid-cell, .glass-panel, .glass-card, .glass-modal, nav, footer, header {
-  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 9999;
+}
+
+/* Smooth Cohesive Theme Transition - Eliminates Asynchronous Strobe / Flicker */
+body,
+header,
+nav,
+footer,
+main,
+section,
+div,
+p,
+span,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+button,
+a,
+kbd,
+code,
+input,
+svg {
+  transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease, fill 0.18s ease, stroke 0.18s ease;
 }
 
 html[data-theme="light"] {
@@ -846,6 +879,31 @@ html[data-theme="light"] .light-logo {
   display: block !important;
 }
 
+/* Hero ASCII Graphic Theme Adaptation */
+.hero-ascii-art {
+  mix-blend-mode: screen;
+  opacity: 0.95;
+  filter: none;
+  transition: filter 0.18s ease, opacity 0.18s ease;
+}
+
+html[data-theme="light"] .hero-ascii-art {
+  mix-blend-mode: multiply !important;
+  filter: invert(1) !important;
+  opacity: 1 !important;
+}
+
+.hero-ascii-mobile {
+  mix-blend-mode: screen;
+  opacity: 0.15;
+}
+
+html[data-theme="light"] .hero-ascii-mobile {
+  mix-blend-mode: multiply !important;
+  filter: invert(1) !important;
+  opacity: 0.25 !important;
+}
+
 /* I2FLabs Right Panel Background (Transparent in Electron/Dark Mode, Dark Electron Blue in Light Mode) */
 .i2f-logo-stage {
   background-color: transparent;
@@ -963,7 +1021,7 @@ html[data-theme="light"] .theme-toggle-btn:hover {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   will-change: transform, opacity;
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.25s ease, opacity 0.25s ease;
 }
 
 /* Baseline Inactive Entry Position (Coming from Bottom) */

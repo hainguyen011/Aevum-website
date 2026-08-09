@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { flushSync } from 'react-dom';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { SubNavTabs } from './components/SubNavTabs';
@@ -82,8 +83,45 @@ export function App() {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
-  const handleToggleTheme = () => {
-    setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
+  const handleToggleTheme = (e) => {
+    const nextTheme = theme === 'dark' ? 'light' : 'dark';
+
+    // Fallback if browser doesn't support View Transitions API
+    if (!document.startViewTransition) {
+      setTheme(nextTheme);
+      return;
+    }
+
+    const x = e?.clientX ?? (window.innerWidth - 60);
+    const y = e?.clientY ?? (window.innerHeight / 2);
+    const endRadius = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y)
+    );
+
+    const transition = document.startViewTransition(() => {
+      flushSync(() => {
+        setTheme(nextTheme);
+        document.documentElement.setAttribute('data-theme', nextTheme);
+      });
+    });
+
+    transition.ready.then(() => {
+      const clipPath = [
+        `circle(0px at ${x}px ${y}px)`,
+        `circle(${endRadius}px at ${x}px ${y}px)`
+      ];
+      document.documentElement.animate(
+        {
+          clipPath: clipPath
+        },
+        {
+          duration: 800,
+          easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
+          pseudoElement: '::view-transition-new(root)'
+        }
+      );
+    });
   };
 
   // Initialize Lenis smooth scroll engine
@@ -596,7 +634,7 @@ export function App() {
               <div className="flex items-center gap-3">
                 {/* Theme Mode Toggle Button (Icon-Only GPU-Accelerated Smooth Transition) */}
                 <button
-                  onClick={handleToggleTheme}
+                  onClick={(e) => handleToggleTheme(e)}
                   className="theme-toggle-btn"
                   title={theme === 'dark' ? "Light Mode" : "Dark Mode"}
                   aria-label="Toggle Theme Mode"
@@ -682,7 +720,7 @@ export function App() {
 
         {/* Theme Toggle */}
         <button
-          onClick={handleToggleTheme}
+          onClick={(e) => handleToggleTheme(e)}
           className="utility-bar-btn flex items-center justify-center w-[42px] h-[42px] border-0 transition-all duration-200 cursor-pointer rounded-none active:scale-[0.92] select-none"
           title={
             activeLang === 'vi' 

@@ -841,9 +841,44 @@ html[data-theme="light"] .animate-pop-in {
   border-color: rgba(15, 23, 42, 0.1) !important;
 }
 
-/* Custom Cursor Ring in Light Mode - Translucent Black / Dark Slate */
-html[data-theme="light"] .custom-cursor-ring {
-  border-color: rgba(15, 23, 42, 0.45) !important;
+/* Auth Modal Cosmic Left Panel Text & Background in Light Mode */
+.auth-cosmic-panel {
+  background-color: #04060d !important;
+}
+html[data-theme="light"] .auth-cosmic-panel h2,
+html[data-theme="light"] .auth-cosmic-panel .text-white,
+html[data-theme="light"] .auth-cosmic-panel .text-slate-100,
+html[data-theme="light"] .auth-cosmic-panel .text-slate-200 {
+  color: #FFFFFF !important;
+}
+html[data-theme="light"] .auth-cosmic-panel p,
+html[data-theme="light"] .auth-cosmic-panel .text-slate-300,
+html[data-theme="light"] .auth-cosmic-panel .text-slate-300\/80 {
+  color: rgba(226, 232, 240, 0.85) !important;
+}
+html[data-theme="light"] .auth-cosmic-panel .text-slate-400 {
+  color: #94a3b8 !important;
+}
+html[data-theme="light"] .auth-cosmic-panel .text-slate-500 {
+  color: #64748b !important;
+}
+html[data-theme="light"] .auth-cosmic-panel .bg-white\/\[0\.04\],
+html[data-theme="light"] .auth-cosmic-panel .bg-white\/5 {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+}
+html[data-theme="light"] .auth-cosmic-panel .border-white\/\[0\.08\],
+html[data-theme="light"] .auth-cosmic-panel .border-white\/10 {
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+/* Auth Modal Button & Active Tab White Text in Light Mode */
+html[data-theme="light"] .auth-tab-active,
+html[data-theme="light"] .auth-btn-submit,
+html[data-theme="light"] .auth-btn-submit span,
+.auth-tab-active,
+.auth-btn-submit,
+.auth-btn-submit span {
+  color: #FFFFFF !important;
 }
 
 /* Agent Showcase Card Gradient Overlay */

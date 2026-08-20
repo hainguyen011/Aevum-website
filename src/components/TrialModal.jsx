@@ -9,7 +9,7 @@ import anLoverSticker from '../../assets/stickers/An_Collection/An_Lover.png';
  * Step 2: Engineering Context & Product Roadmap Survey
  * Step 3: Creative & Fun Agent Customization Survey
  */
-export const TrialModal = ({ isOpen, onClose, activeLang }) => {
+export const TrialModal = ({ isOpen, onClose, activeLang, user }) => {
   const [currentStep, setCurrentStep] = useState(1);
 
   const [formData, setFormData] = useState({
@@ -27,6 +27,17 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
     agentVibe: 'Chuyên nghiệp, nghiêm túc & chính xác',
     customNotes: ''
   });
+
+  // Automatically prefill user metadata from Supabase
+  useEffect(() => {
+    if (user) {
+      setFormData((prev) => ({
+        ...prev,
+        name: user.user_metadata?.full_name || prev.name || '',
+        email: user.email || prev.email || ''
+      }));
+    }
+  }, [user]);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -266,7 +277,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
 
               <button
                 onClick={handleReset}
-                className="w-full max-w-md mx-auto py-2.5 text-xs sm:text-sm font-bold uppercase tracking-wider rounded-md border border-[#38bdf8] bg-[#38bdf8]/15 text-white hover:bg-[#38bdf8] hover:text-black transition-all cursor-pointer font-mono"
+                className="w-full max-w-md mx-auto py-2.5 text-xs sm:text-sm font-bold uppercase tracking-wider rounded-md border border-[#0ea5e9] bg-[#0ea5e9]/15 text-white hover:bg-[#0ea5e9] hover:text-black transition-all cursor-pointer font-mono"
               >
                 {activeLang === 'vi' ? 'Đóng cửa sổ' : 'Close Window'}
               </button>
@@ -321,7 +332,12 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
                     {/* Input: Email */}
                     <div className="space-y-1.5">
                       <label className="text-xs font-bold text-slate-300 flex items-center justify-between">
-                        <span>{activeLang === 'vi' ? 'Email liên hệ / GitHub Account' : 'Work Email / GitHub'} *</span>
+                        <span>{activeLang === 'vi' ? 'Email liên hệ' : 'Work Email'} *</span>
+                        {user && (
+                          <span className="text-[10px] text-cyan-400 font-mono font-normal">
+                            {activeLang === 'vi' ? 'Đã liên kết tài khoản' : 'Linked account'}
+                          </span>
+                        )}
                       </label>
                       <input
                         type="email"
@@ -329,8 +345,13 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
                         required
                         value={formData.email}
                         onChange={handleChange}
+                        readOnly={!!user}
                         placeholder="dev@company.com"
-                        className="w-full bg-[#0B0B11] border border-white/15 rounded-md px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-400 transition-colors"
+                        className={`w-full rounded-md px-3.5 py-2.5 text-xs focus:outline-none transition-colors ${
+                          user 
+                            ? 'bg-white/[0.02] border-white/10 text-slate-400 cursor-not-allowed' 
+                            : 'bg-[#0B0B11] border-white/15 text-white focus:border-cyan-400'
+                        }`}
                       />
                     </div>
 
@@ -473,7 +494,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
               </div>
 
               {/* Full Width Bottom Action Bar - FLUSH to edges, NO padding at bottom */}
-              <div className="w-full bg-[#0B0B11] border border-[#38bdf8] relative z-10 font-mono">
+              <div className="w-full bg-[#0B0B11] border border-[#0ea5e9] relative z-10 font-mono">
                 <div className="flex items-stretch w-full rounded-none overflow-hidden">
                   <button
                     type="button"
@@ -496,7 +517,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
                   {currentStep < 3 ? (
                     <button
                       type="submit"
-                      className="flex-1 w-full bg-[#38bdf8] hover:bg-[#38bdf8]/90 text-black font-bold py-4 text-xs sm:text-sm uppercase tracking-wider rounded-none transition-all cursor-pointer flex items-center justify-center gap-2"
+                      className="flex-1 w-full bg-[#0ea5e9] hover:bg-[#0ea5e9]/90 text-black font-bold py-4 text-xs sm:text-sm uppercase tracking-wider rounded-none transition-all cursor-pointer flex items-center justify-center gap-2"
                     >
                       <span>{activeLang === 'vi' ? 'Tiếp theo' : 'Next Step'}</span>
                       <ArrowRight className="w-4.5 h-4.5 text-black stroke-[2.5]" />
@@ -505,7 +526,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang }) => {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="flex-1 w-full bg-[#38bdf8] hover:bg-[#38bdf8]/90 text-black font-bold py-4 text-xs sm:text-sm uppercase tracking-wider rounded-none flex items-center justify-center gap-2 transition-all cursor-pointer"
+                      className="flex-1 w-full bg-[#0ea5e9] hover:bg-[#0ea5e9]/90 text-black font-bold py-4 text-xs sm:text-sm uppercase tracking-wider rounded-none flex items-center justify-center gap-2 transition-all cursor-pointer"
                     >
                       {isSubmitting ? (
                         <>

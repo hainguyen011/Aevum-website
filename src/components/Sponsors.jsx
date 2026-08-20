@@ -87,7 +87,7 @@ export const Sponsors = ({ activeLang = 'vi' }) => {
                 key={idx}
                 className="w-64 p-5 border-subtle bg-[#0e0f17] hover:bg-[#131520] hover:border-cyan-500/40 rounded-xl flex-shrink-0 flex flex-col justify-between transition-all duration-200 group/card relative overflow-hidden"
               >
-                <span className="text-[9px] font-mono font-bold text-[#38bdf8] tracking-wider">
+                <span className="text-[9px] font-mono font-bold text-[#0ea5e9] tracking-wider">
                   {item.tag}
                 </span>
                 <div className="my-2">

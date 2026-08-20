@@ -23,7 +23,7 @@ export const FrameworkFlow = ({ activeLang }) => {
         </span>
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight mt-3 font-display">
           {title1} <br />
-          <span className="text-[#38bdf8] inline-block font-extrabold mt-2">
+          <span className="text-[#0ea5e9] inline-block font-extrabold mt-2">
             {title2}
           </span>
         </h2>

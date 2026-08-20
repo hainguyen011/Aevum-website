@@ -6,6 +6,7 @@ import { SubNavTabs } from './components/SubNavTabs';
 import { BentoGrid } from './components/BentoGrid';
 import { AgentsShowcase } from './components/AgentsShowcase';
 import { FoundationGrid } from './components/FoundationGrid';
+import { FrameworkFlow } from './components/FrameworkFlow';
 import { Testimonials } from './components/Testimonials';
 import { UnikornSection } from './components/UnikornSection';
 import { I2FLabsSection } from './components/I2FLabsSection';
@@ -17,6 +18,7 @@ import { Docs } from './components/Docs';
 import { About } from './components/About';
 import { Changelog } from './components/Changelog';
 import { Discussions } from './components/Discussions';
+import { Pricing } from './components/Pricing';
 import { TrialModal } from './components/TrialModal';
 import { SearchModal } from './components/SearchModal';
 import { CustomCursor } from './components/CustomCursor';
@@ -24,7 +26,7 @@ import { useScrollReveal } from './hooks/useScrollReveal';
 import { useSEO } from './hooks/useSEO';
 import logoImg from '../assets/logos/AevumOS-transparent.png';
 import { translations } from './data/translations';
-import { Search, X, Eye, ScanEye, Sun, Atom, User, Globe } from 'lucide-react';
+import { Search, X, Eye, ScanEye, Sun, Atom, User, Globe, Sparkles } from 'lucide-react';
 import { AuthModal } from './components/AuthModal';
 import { supabase } from './services/supabaseClient';
 import { DiscussionService } from './services/DiscussionService';
@@ -34,6 +36,7 @@ export function App() {
   const [isTrialModalOpen, setIsTrialModalOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [pendingOpenTrial, setPendingOpenTrial] = useState(false);
   const [user, setUser] = useState(null);
   const [userProfile, setUserProfile] = useState(null);
   const [isEyeCare, setIsEyeCare] = useState(() => {
@@ -42,6 +45,22 @@ export function App() {
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem('aevum-theme') || 'dark';
   });
+
+  const handleOpenTrialModal = () => {
+    if (!user) {
+      setPendingOpenTrial(true);
+      setIsAuthModalOpen(true);
+    } else {
+      setIsTrialModalOpen(true);
+    }
+  };
+
+  useEffect(() => {
+    if (user && pendingOpenTrial) {
+      setPendingOpenTrial(false);
+      setIsTrialModalOpen(true);
+    }
+  }, [user, pendingOpenTrial]);
 
   // Supabase Auth session listener
   useEffect(() => {
@@ -259,6 +278,9 @@ export function App() {
       if (path === 'about' || hash === 'about') {
         setCurrentPage('about');
         scrollToTarget(0);
+      } else if (path === 'pricing' || hash === 'pricing') {
+        setCurrentPage('pricing');
+        scrollToTarget(0);
       } else if (path === 'docs' || hash === 'docs') {
         setCurrentPage('docs');
         scrollToTarget(0);
@@ -317,6 +339,15 @@ export function App() {
           ? 'Aevum OS là Hệ điều hành không gian làm việc độc lập và Bộ não ngoại vi — lưu giữ bộ nhớ hướng tên miền (DDD), biểu đồ bộ nhớ tự phục hồi và điều phối biệt đội đa agent tự trị.'
           : 'Aevum OS is an independent workspace Operating System and External Brain housing domain-driven planning, self-healing memory graphs, and autonomous multi-agent squad orchestration.',
         url: 'https://www.aevum.ai.vn/'
+      },
+      pricing: {
+        title: isVi
+          ? 'Bảng Giá & Gói Phân Hạng Thành Viên — Aevum OS'
+          : 'Transparent Pricing & Membership Tiers — Aevum OS',
+        description: isVi
+          ? 'Bảng giá chính thức Aevum OS: Gói Community miễn phí vĩnh viễn Local-First và gói Pro siêu việt tặng 14 ngày trải nghiệm Biệt đội Đa Agent & Đồng bộ Ký ức Đám mây.'
+          : 'Official pricing for Aevum OS: Free forever Local-First Community tier and supercharged Pro tier with 14-Day Free Beta Trial for Autonomous Multi-Agent Squads.',
+        url: 'https://www.aevum.ai.vn/pricing'
       },
       docs: {
         title: isVi
@@ -415,7 +446,7 @@ export function App() {
             {/* Hero 2-Column Grid Row */}
             <Hero 
               onNavigate={handleNavigate} 
-              onOpenTrialModal={() => setIsTrialModalOpen(true)}
+              onOpenTrialModal={handleOpenTrialModal}
               activeLang={activeLang} 
             />
 
@@ -428,31 +459,53 @@ export function App() {
             {/* Dedicated Default Aevum AI Agents Squad Showcase Section */}
             <AgentsShowcase 
               activeLang={activeLang} 
-              onOpenTrialModal={() => setIsTrialModalOpen(true)} 
+              onOpenTrialModal={handleOpenTrialModal} 
             />
 
             {/* Section 2: Architecture & Foundation Grid Row */}
             <FoundationGrid activeLang={activeLang} />
 
-            {/* Section 3: Testimonials & Community Stats */}
+            {/* Section 3: Framework Integration Flow */}
+            <FrameworkFlow activeLang={activeLang} />
+
+            {/* Section 4: Transparent Pricing & Membership Tiers */}
+            <Pricing 
+              activeLang={activeLang} 
+              onOpenTrialModal={handleOpenTrialModal} 
+              onOpenAuthModal={() => setIsAuthModalOpen(true)} 
+              showDetails={false}
+              onNavigate={handleNavigate}
+            />
+
+            {/* Section 5: Testimonials & Community Stats */}
             <Testimonials activeLang={activeLang} />
 
-            {/* Section 5: Dedicated Unikorn Vietnam Feature Section */}
+            {/* Section 6: Dedicated Unikorn Vietnam Feature Section */}
             <UnikornSection activeLang={activeLang} />
 
-            {/* Section 6: Dedicated I2FLabs Development Team Section */}
+            {/* Section 7: Dedicated I2FLabs Development Team Section */}
             <I2FLabsSection activeLang={activeLang} />
 
-            {/* Section 7: Open Source Sponsors */}
+            {/* Section 8: Open Source Sponsors */}
             <Sponsors activeLang={activeLang} />
 
-            {/* Section 8: CTA Banner */}
+            {/* Section 9: CTA Banner */}
             <CtaBanner 
               onNavigate={handleNavigate} 
-              onOpenTrialModal={() => setIsTrialModalOpen(true)}
+              onOpenTrialModal={handleOpenTrialModal} 
               activeLang={activeLang} 
             />
           </>
+        )}
+
+        {currentPage === 'pricing' && (
+          <Pricing 
+            activeLang={activeLang} 
+            onOpenTrialModal={handleOpenTrialModal} 
+            onOpenAuthModal={() => setIsAuthModalOpen(true)} 
+            showDetails={true}
+            onNavigate={handleNavigate}
+          />
         )}
 
         {currentPage === 'docs' && (
@@ -563,9 +616,24 @@ export function App() {
             >
               {t.navbar.orchestration}
             </a>
+            <a 
+              href="#pricing" 
+              onClick={(e) => handleNavLink(e, 'pricing')}
+              className="text-right text-lg font-bold text-slate-200 hover:text-cyan-400 transition-colors uppercase tracking-wide"
+            >
+              {t.navbar.pricing}
+            </a>
 
-            {/* Standalone Pages UI Block (DOCUMENTATION, ABOUT, CHANGELOG, DISCUSSIONS) */}
+            {/* Standalone Pages UI Block (PRICING, DOCUMENTATION, ABOUT, CHANGELOG, DISCUSSIONS) */}
             <div className="flex flex-col space-y-4 mt-5">
+              <button 
+                onClick={() => { setIsMobileMenuOpen(false); handleNavigate('pricing'); }}
+                className={`text-right text-lg font-bold transition-colors uppercase tracking-wide ${
+                  currentPage === 'pricing' ? 'text-cyan-400' : 'text-slate-200 hover:text-cyan-400'
+                }`}
+              >
+                {t.navbar.pricing}
+              </button>
               <button 
                 onClick={() => { setIsMobileMenuOpen(false); handleNavigate('docs'); }}
                 className={`text-right text-lg font-bold transition-colors uppercase tracking-wide ${
@@ -672,6 +740,7 @@ export function App() {
         isOpen={isTrialModalOpen}
         onClose={() => setIsTrialModalOpen(false)}
         activeLang={activeLang}
+        user={user}
       />
 
       {/* Supabase User Authentication Modal */}

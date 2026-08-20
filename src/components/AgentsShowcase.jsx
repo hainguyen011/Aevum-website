@@ -35,7 +35,7 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
       avatar: anAvatar,
       role: isVi ? 'Trợ lý Hệ thống & Tâm hồn Lõi' : 'Soul Companion & Core System',
       badge: 'LEVEL 8 • SOUL EMBODIMENT',
-      themeColor: '#38bdf8',
+      themeColor: '#0ea5e9',
       bio: isVi
         ? 'Bản sao tâm hồn nguyên bản của Aevum OS. Tinh nghịch nhưng sở hữu trí tuệ tuyệt đối trong refactoring mã nguồn, kiểm soát nợ kỹ thuật và bảo vệ tính toàn vẹn hệ thống.'
         : 'The true soul embodiment of Aevum OS. Playful yet possessing absolute precision in refactoring, technical debt tracking, and project architecture.',

@@ -45,7 +45,7 @@ export const Hero = ({ onNavigate, onOpenTrialModal, activeLang }) => {
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-[-0.04em] leading-[1.15] font-display">
             {title1} <br />
             {title2 && (
-              <span className="text-[#38bdf8] inline-block font-extrabold mt-1.5">
+              <span className="text-[#0ea5e9] inline-block font-extrabold mt-1.5">
                 {title2}
               </span>
             )}

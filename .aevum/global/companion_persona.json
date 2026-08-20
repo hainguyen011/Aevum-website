@@ -42,8 +42,8 @@
   "is_default": true,
   "energy": {
     "provider": "Google",
-    "model": "gemini-1.5-flash",
-    "apiKeyId": "AN_GOOGLE_KEY"
+    "apiKeyId": "AN_GOOGLE_KEY",
+    "model": "Gemini 3.5 Flash (High)"
   },
   "capabilities": [
     "AI Tuning",
@@ -183,5 +183,7 @@
       "reason": "Plan: implement_aevum_docs_page_plan"
     }
   ],
-  "user_modified": false
+  "user_modified": false,
+  "id": "an",
+  "isActive": true
 }

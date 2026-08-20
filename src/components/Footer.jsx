@@ -46,6 +46,13 @@ export const Footer = ({ onNavigate, activeLang }) => {
             </p>
             <div className="flex flex-wrap items-center gap-4 pt-2 text-slate-400 font-mono text-[11px]">
               <button 
+                onClick={() => onNavigate('pricing')} 
+                className="text-white hover:underline hover:text-slate-200 transition-colors font-semibold"
+              >
+                {t.navbar.pricing}
+              </button>
+              <span className="text-white/10">•</span>
+              <button 
                 onClick={() => onNavigate('docs')} 
                 className="text-white hover:underline hover:text-slate-200 transition-colors font-semibold"
               >

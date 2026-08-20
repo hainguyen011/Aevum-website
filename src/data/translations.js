@@ -11,6 +11,7 @@ export const translations = {
       kernel: "Nhân OS",
       docs: "Tài liệu",
       about: "Giới thiệu",
+      pricing: "Bảng giá",
       searchPlaceholder: "Tìm kiếm OS...",
       searchShortcut: "Ctrl K"
     },
@@ -156,7 +157,7 @@ export const translations = {
         eco: "Hệ sinh thái Agent"
       },
       copyright: "Bản quyền © 2026 I2FLabs Việt Nam. Hệ điều hành Agent tự trị.",
-      status: "Aevum OS Standalone MCP Daemon • Nhân đang hoạt động"
+      status: "Aevum OS Standalone MCP Daemon • Nhân hệ thống trực tuyến"
     },
     unikorn: {
       tag: "UNIKORN VIỆT NAM",
@@ -213,6 +214,7 @@ export const translations = {
       kernel: "Kernel",
       docs: "Documentation",
       about: "About",
+      pricing: "Pricing",
       searchPlaceholder: "Search OS...",
       searchShortcut: "Ctrl K"
     },

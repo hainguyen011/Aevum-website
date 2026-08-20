@@ -70,7 +70,7 @@ export const Testimonials = ({ activeLang }) => {
           <img
             src={rev.avatar}
             alt={rev.name}
-            className="w-10 h-10 rounded-full object-cover border border-[#38bdf8]/40"
+            className="w-10 h-10 rounded-full object-cover border border-[#0ea5e9]/40"
           />
           <div>
             <h4 className="text-xs font-bold text-white leading-none font-display">{rev.name}</h4>

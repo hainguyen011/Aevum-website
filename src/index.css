@@ -1649,15 +1649,17 @@ html[data-theme="light"] .pricing-details-btn:hover {
 }
 
 /* ==========================================================================
-   Profile Page Pristine Light Mode Overrides (Pure White Backgrounds)
+   Profile Page Pristine Light Mode Overrides (Pure White Backgrounds & Crisp Contrast)
    ========================================================================== */
 html[data-theme="light"] .profile-page {
   color: #0F172A !important;
 }
 
-html[data-theme="light"] .profile-card {
+html[data-theme="light"] .profile-card,
+html[data-theme="light"] .profile-page .border-beam-card {
   background-color: #FFFFFF !important;
-  border-color: rgba(15, 23, 42, 0.08) !important;
+  background-image: none !important;
+  border: 1px solid rgba(15, 23, 42, 0.08) !important;
   box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.02) !important;
 }
 
@@ -1670,29 +1672,34 @@ html[data-theme="light"] .profile-page .text-white {
 
 html[data-theme="light"] .profile-page .text-slate-200,
 html[data-theme="light"] .profile-page .text-slate-300 {
-  color: #334155 !important;
+  color: #1E293B !important;
 }
 
 html[data-theme="light"] .profile-page .text-slate-400 {
+  color: #334155 !important;
+}
+
+html[data-theme="light"] .profile-page .text-slate-500 {
   color: #64748B !important;
 }
 
 /* Profile Light Mode Sub-nav Tabs */
 html[data-theme="light"] .profile-tab-active {
-  background-color: #F0F9FF !important;
+  background-color: #E0F2FE !important;
   color: #0284c7 !important;
-  border-color: rgba(14, 165, 233, 0.4) !important;
+  border-color: #38bdf8 !important;
   font-weight: 700 !important;
 }
 
 html[data-theme="light"] .profile-tab-inactive {
-  color: #475569 !important;
+  color: #334155 !important;
+  font-weight: 600 !important;
   background-color: transparent !important;
   border-color: transparent !important;
 }
 
 html[data-theme="light"] .profile-tab-inactive:hover {
-  background-color: #F8FAFC !important;
+  background-color: #F1F5F9 !important;
   color: #0F172A !important;
 }
 
@@ -1706,6 +1713,7 @@ html[data-theme="light"] .profile-perk-card {
 /* Profile Light Mode Action Link (Transparent & Crisp) */
 html[data-theme="light"] .profile-action-link {
   color: #0284c7 !important;
+  font-weight: 700 !important;
   background-color: transparent !important;
   border: none !important;
 }
@@ -1743,7 +1751,8 @@ html[data-theme="light"] .profile-code-box {
 html[data-theme="light"] .profile-breadcrumb-btn {
   background-color: #FFFFFF !important;
   border-color: rgba(15, 23, 42, 0.1) !important;
-  color: #475569 !important;
+  color: #334155 !important;
+  font-weight: 600 !important;
 }
 
 html[data-theme="light"] .profile-breadcrumb-btn:hover {
@@ -1761,8 +1770,9 @@ html[data-theme="light"] .profile-progress-box {
 /* Profile Contact Buttons in Light Mode */
 html[data-theme="light"] .profile-contact-btn {
   background-color: #FFFFFF !important;
-  border-color: rgba(15, 23, 42, 0.1) !important;
-  color: #334155 !important;
+  border-color: rgba(15, 23, 42, 0.12) !important;
+  color: #1E293B !important;
+  font-weight: 600 !important;
 }
 
 html[data-theme="light"] .profile-contact-btn svg {
@@ -1771,5 +1781,6 @@ html[data-theme="light"] .profile-contact-btn svg {
 
 html[data-theme="light"] .profile-contact-btn:hover {
   background-color: #F1F5F9 !important;
+  border-color: rgba(15, 23, 42, 0.2) !important;
   color: #0F172A !important;
 }

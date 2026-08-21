@@ -233,13 +233,19 @@ export const I2FLabsSection = ({ activeLang }) => {
             {t.i2flabs.desc}
           </p>
 
-          {/* Subtle Arrow Icon */}
-          <div className="flex items-center gap-2 pt-2">
-            <ArrowRight size={13} className="text-white shrink-0" />
-            <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">
+          {/* Team Website Link */}
+          <a 
+            href="https://i2flabs.vercel.app/"
+            target="_blank" 
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 pt-2 group cursor-pointer w-fit"
+            title="Visit I2FLabs Website"
+          >
+            <ArrowRight size={13} className="text-cyan-400 group-hover:translate-x-1 transition-transform shrink-0" />
+            <span className="text-[10px] font-mono text-slate-400 group-hover:text-cyan-300 uppercase tracking-widest transition-colors group-hover:underline underline-offset-4">
               I2FLabs Core R&D — Hanoi / Saigon, Vietnam
             </span>
-          </div>
+          </a>
         </div>
 
       </div>

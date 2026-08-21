@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { X, ArrowLeft, ArrowRight } from 'lucide-react';
+import { X, ArrowLeft, ArrowRight, Zap, CheckCircle2, ShieldCheck, Cpu, Sparkles } from 'lucide-react';
 import { CustomSelect } from './ui/CustomSelect';
+import { supabase } from '../services/supabaseClient';
+import { MembershipService } from '../services/MembershipService';
 import anLoverSticker from '../../assets/stickers/An_Collection/An_Lover.png';
 
 /**
@@ -41,12 +43,14 @@ export const TrialModal = ({ isOpen, onClose, activeLang, user }) => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [activationResult, setActivationResult] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
 
   // Lock background body scroll when modal is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
-      console.log('🛠️ [Aevum OS] Ready for Serverless API dispatch at /api/send-email');
+      setErrorMessage('');
     } else {
       document.body.style.overflow = '';
       if (window.lenis) window.lenis.start();
@@ -87,6 +91,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang, user }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setErrorMessage('');
 
     const payload = {
       timestamp: new Date().toISOString(),
@@ -111,7 +116,18 @@ export const TrialModal = ({ isOpen, onClose, activeLang, user }) => {
       console.warn('LocalStorage backup error:', err);
     }
 
-    // 2. Submit to Serverless API Endpoint (which syncs to Sheet & sends Welcome Email)
+    // 2. Kích hoạt Pro Beta Trial trực tiếp lên backend Aevum-cloud (nếu có user session)
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session?.access_token) {
+        const cloudResult = await MembershipService.activateProTrial(payload, session.access_token);
+        setActivationResult(cloudResult);
+      }
+    } catch (cloudErr) {
+      console.warn('[Cloud Activation] Không thể kích hoạt qua Cloud API (sẽ gửi qua fallback serverless):', cloudErr);
+    }
+
+    // 3. Submit to Serverless API Endpoint (syncs to Sheet & sends Welcome Email)
     try {
       const response = await fetch('/api/send-email', {
         method: 'POST',
@@ -122,24 +138,19 @@ export const TrialModal = ({ isOpen, onClose, activeLang, user }) => {
       });
 
       if (!response.ok) {
-        let errorData;
-        try {
-          errorData = await response.json();
-        } catch (_) {
-          errorData = { error: `HTTP ${response.status} (${response.statusText || 'Not Found'})` };
-        }
-        console.error('[API Error] Registration failed:', errorData);
+        console.warn('[Email Dispatch] Serverless email endpoint returned non-OK status');
       }
     } catch (err) {
-      console.error('[Connection Error] Failed to submit to API:', err);
+      console.warn('[Email Dispatch Error]:', err);
     }
 
-    // Simulate brief network delay for authentic TUI feedback
+    // Authentic TUI feedback completion
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSubmitted(true);
-    }, 1000);
+    }, 800);
   };
+
 
   const handleReset = () => {
     setFormData({
@@ -252,36 +263,45 @@ export const TrialModal = ({ isOpen, onClose, activeLang, user }) => {
           )}
 
           {isSubmitted ? (
-            /* Success Confirmation Screen with An's Sticker */
-            <div className="p-6 sm:p-12 space-y-5 text-center py-4 font-mono relative z-10 flex-1 overflow-y-auto flex flex-col justify-center">
+            /* Success Confirmation Screen with An's Sticker & Pro Beta Activation Status */
+            <div className="p-6 sm:p-10 space-y-4 text-center py-4 font-mono relative z-10 flex-1 overflow-y-auto flex flex-col justify-center">
               {/* An's Lover Sticker */}
-              <div className="relative mx-auto w-32 h-32 sm:w-40 sm:h-40 flex items-center justify-center">
+              <div className="relative mx-auto w-24 h-24 sm:w-28 sm:h-28 flex items-center justify-center">
                 <img
                   src={anLoverSticker}
                   alt="An Lover Sticker"
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-contain drop-shadow-[0_0_15px_rgba(6,182,212,0.4)]"
                 />
               </div>
 
               {/* Thank you title & message */}
-              <div className="space-y-2 max-w-md mx-auto">
-                <h3 className="text-lg sm:text-xl font-bold text-cyan-400 uppercase tracking-tight">
-                  {activeLang === 'vi' ? 'CẢM ƠN BẠN ĐÃ ĐỒNG HÀNH CÙNG AEVUM OS!' : 'THANK YOU FOR JOINING AEVUM OS!'}
+              <div className="space-y-2 max-w-md mx-auto py-2">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-[11px] font-bold uppercase tracking-widest">
+                  <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>{activeLang === 'vi' ? 'BẢO LƯU 1 THÁNG (30 NGÀY) PRO BETA • EARLY ACCESS WAITLIST' : '1-MONTH (30-DAY) PRO RESERVED • BETA WAITLIST'}</span>
+                </div>
+                <h3 className="text-base sm:text-lg font-bold text-white uppercase tracking-tight pt-1">
+                  {activeLang === 'vi' ? 'GHI DANH EARLY ACCESS THÀNH CÔNG!' : 'EARLY ACCESS WAITLIST CONFIRMED!'}
                 </h3>
-                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                <p className="text-xs text-slate-300 leading-relaxed">
                   {activeLang === 'vi'
-                    ? 'An và Đội ngũ I2FLabs Việt Nam xin chân thành cảm ơn những đóng góp quý báu của bạn. Mã nạp Daemon Early Access sẽ được gửi đến Email của bạn sớm nhất!'
-                    : 'An and the I2FLabs team deeply appreciate your valuable feedback! Your activation key will be delivered to your email inbox shortly.'}
+                    ? `Tài khoản (${formData.email || user?.email || 'của bạn'}) đã được ghi danh thành công vào hàng đợi Beta Tester. Gói 1 tháng (30 ngày) trải nghiệm Aevum Pro đã được bảo lưu nguyên vẹn và sẽ tự động bắt đầu đếm khi bạn tải và kích hoạt máy trạm đầu tiên.`
+                    : `Your account (${formData.email || user?.email || 'your account'}) is now on the Early Access Waitlist. Your 1-month (30-day) Pro Beta trial is fully reserved and will activate upon linking your first workstation.`}
                 </p>
               </div>
 
-              <button
-                onClick={handleReset}
-                className="w-full max-w-md mx-auto py-2.5 text-xs sm:text-sm font-bold uppercase tracking-wider rounded-md border border-[#0ea5e9] bg-[#0ea5e9]/15 text-white hover:bg-[#0ea5e9] hover:text-black transition-all cursor-pointer font-mono"
-              >
-                {activeLang === 'vi' ? 'Đóng cửa sổ' : 'Close Window'}
-              </button>
+              <div className="max-w-md mx-auto w-full pt-3">
+                <button
+                  onClick={handleReset}
+                  className="w-full py-3 text-xs font-bold uppercase tracking-wider rounded border border-[#0ea5e9] bg-[#0ea5e9] text-black hover:bg-[#0ea5e9]/90 transition-all cursor-pointer font-mono flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20"
+                >
+                  <Zap className="w-4 h-4 text-black fill-black" />
+                  <span>{activeLang === 'vi' ? 'Xác Nhận & Hoàn Tất' : 'Confirm & Complete'}</span>
+                </button>
+              </div>
+
             </div>
+
           ) : (
             <form onSubmit={currentStep === 3 ? handleSubmit : handleNextStep} className="flex flex-col flex-1 min-h-0 relative z-10 font-mono">
 
@@ -347,11 +367,10 @@ export const TrialModal = ({ isOpen, onClose, activeLang, user }) => {
                         onChange={handleChange}
                         readOnly={!!user}
                         placeholder="dev@company.com"
-                        className={`w-full rounded-md px-3.5 py-2.5 text-xs focus:outline-none transition-colors ${
-                          user 
-                            ? 'bg-white/[0.02] border-white/10 text-slate-400 cursor-not-allowed' 
+                        className={`w-full rounded-md px-3.5 py-2.5 text-xs focus:outline-none transition-colors ${user
+                            ? 'bg-white/[0.02] border-white/10 text-slate-400 cursor-not-allowed'
                             : 'bg-[#0B0B11] border-white/15 text-white focus:border-cyan-400'
-                        }`}
+                          }`}
                       />
                     </div>
 
@@ -545,9 +564,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang, user }) => {
           )}
 
         </div>
-
       </div>
-
     </div>
   );
 };

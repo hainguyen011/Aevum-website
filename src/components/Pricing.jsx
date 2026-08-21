@@ -23,17 +23,18 @@ export const Pricing = ({ activeLang = 'vi', onOpenTrialModal, onOpenAuthModal, 
 
   const faqs = [
     {
-      q: isVi ? "Chương trình 14 ngày Pro Beta hoạt động như thế nào?" : "How does the 14-Day Pro Beta Trial work?",
+      q: isVi ? "Chương trình 1 tháng (30 ngày) Pro Beta hoạt động như thế nào?" : "How does the 1-Month (30-Day) Pro Beta Trial work?",
       a: isVi 
-        ? "Mọi tài khoản khi đăng ký trên Aevum OS đều được tự động kích hoạt Hạng PRO trong 14 ngày (trọn vẹn 1 chu kỳ Sprint 2 tuần). Hoàn toàn không cần thẻ tín dụng."
-        : "Every new account registered on Aevum OS automatically gets full PRO access for 14 days (a complete 2-week Sprint cycle). No credit card required."
+        ? "Mọi tài khoản khi đăng ký trên Aevum OS đều được tự động kích hoạt bảo lưu Hạng PRO trong 1 tháng (30 ngày). Hoàn toàn không cần thẻ tín dụng."
+        : "Every new account registered on Aevum OS automatically gets full PRO access for 1 month (30 days). No credit card required."
     },
     {
-      q: isVi ? "Hết 14 ngày dùng thử, dữ liệu .aevum/ của tôi có bị mất không?" : "Will I lose my .aevum/ data after the trial ends?",
+      q: isVi ? "Hết 1 tháng dùng thử, dữ liệu .aevum/ của tôi có bị mất không?" : "Will I lose my .aevum/ data after the trial ends?",
       a: isVi
         ? "Hoàn toàn KHÔNG! Aevum OS là Local-First. Toàn bộ mã nguồn, cấu trúc DDD và ký ức trong .aevum/ trên máy trạm của bạn vẫn được giữ nguyên 100% và tiếp tục dùng trên Hạng Community."
         : "Never! Aevum OS is strictly Local-First. All code, DDD structure, and local memory in .aevum/ stay completely intact on your machine on the Community tier."
     },
+
     {
       q: isVi ? "Cơ chế BYOK hỗ trợ những nhà cung cấp LLM và mô hình nào?" : "Which LLM providers and models are supported via BYOK?",
       a: isVi
@@ -300,7 +301,7 @@ export const Pricing = ({ activeLang = 'vi', onOpenTrialModal, onOpenAuthModal, 
               <div className="pricing-sub-pro pl-2 mt-1.5 py-0.5">
                 <span className="text-[11px] font-mono font-bold block whitespace-nowrap leading-none">
                   {billingCycle === 'monthly' 
-                    ? (isVi ? 'Tặng 14 ngày dùng thử PRO' : '14-day free trial included')
+                    ? (isVi ? 'Tặng 1 tháng (30 ngày) dùng thử PRO' : '1-month (30-day) free trial included')
                     : (isVi ? 'Tiết kiệm 20% (~165k/tháng)' : 'Save 20% (~$7/mo)')}
                 </span>
               </div>
@@ -344,13 +345,27 @@ export const Pricing = ({ activeLang = 'vi', onOpenTrialModal, onOpenAuthModal, 
             </div>
           </div>
 
-          <button
-            onClick={onOpenTrialModal}
-            className="pricing-btn-pro w-full py-3.5 px-3 rounded-lg text-[11px] sm:text-xs font-mono font-black uppercase tracking-tight transition-all flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap"
-          >
-            <span className="whitespace-nowrap">{isVi ? 'Kích Hoạt 14 Ngày Pro Miễn Phí' : 'Start 14-Day Pro Free Trial'}</span>
-            <ArrowRight size={14} className="stroke-[2.5] shrink-0" />
-          </button>
+          <div className="relative w-full pt-4">
+            {/* Tag tab peeking clearly from behind the button on the right side with transparent bg */}
+            <div className="absolute -top-3.5 right-3 z-0 pointer-events-none">
+              <span className="pricing-pro-tag inline-flex items-center px-2.5 pt-1 pb-4 rounded-t-[5px] text-[9px] font-mono font-bold uppercase tracking-wider bg-transparent border border-cyan-400 text-cyan-300 whitespace-nowrap select-none">
+                {isVi ? 'Dành cho Beta Tester' : 'For Beta Testers'}
+              </span>
+            </div>
+
+
+            <button
+              onClick={onOpenTrialModal}
+              className="pricing-btn-pro relative z-10 w-full py-3.5 px-3 rounded-lg text-[11px] sm:text-xs font-mono font-black uppercase tracking-tight transition-all flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap"
+            >
+              <span className="whitespace-nowrap">{isVi ? 'Đăng Ký Trải Nghiệm' : 'Register Early Access'}</span>
+              <ArrowRight size={14} className="stroke-[2.5] shrink-0" />
+            </button>
+          </div>
+
+
+
+
         </div>
 
         {/* COLUMN 3: ENTERPRISE TIER (PREMIUM CYBER AMETHYST & DEDICATED BESPOKE CTA) */}

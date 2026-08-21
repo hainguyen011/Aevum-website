@@ -49,8 +49,8 @@ export const Pricing = ({ activeLang = 'vi', onOpenTrialModal, onOpenAuthModal, 
     {
       q: isVi ? "Tôi có thể liên kết bao nhiêu máy trạm (Machine ID Binding)?" : "How many workstations can I link?",
       a: isVi
-        ? "Hạng Community hỗ trợ 1 máy trạm cố định. Hạng Pro hỗ trợ tối đa 5 máy tính đồng thời (Laptop, PC văn phòng, Mac) với cơ chế đồng bộ Ký ức đám mây. Gói Enterprise hỗ trợ không giới hạn số lượng thiết bị trong tổ chức."
-        : "Community supports 1 linked workstation. Pro supports up to 5 concurrent machines (Laptop, Desktop, Mac) with Living Memory cloud roaming. Enterprise offers unlimited workstation bindings across your organization."
+        ? "Hạng Community hỗ trợ 1 máy trạm cố định. Hạng Pro hỗ trợ tối đa 5 máy tính đồng thời (Laptop, PC văn phòng, Mac) với cơ chế đồng bộ Ký ức đám mây. Gói Enterprise hỗ trợ số lượng máy trạm linh hoạt theo thỏa thuận hợp đồng."
+        : "Community supports 1 linked workstation. Pro supports up to 5 concurrent machines (Laptop, Desktop, Mac) with Living Memory cloud roaming. Enterprise offers custom workstation bindings tailored to your agreement."
     },
     {
       q: isVi ? "Mã nguồn và dữ liệu dự án của tôi được bảo mật thế nào?" : "How is my project source code and data secured?",
@@ -411,7 +411,7 @@ export const Pricing = ({ activeLang = 'vi', onOpenTrialModal, onOpenAuthModal, 
                 </p>
                 <p className="flex items-center gap-2.5">
                   <Check size={14} className="text-purple-400 shrink-0 stroke-[2.5]" />
-                  <span>{isVi ? 'Không giới hạn số lượng máy trạm & Seats' : 'Unlimited Workstation Bindings & Seats'}</span>
+                  <span>{isVi ? 'Số lượng máy trạm & Seats theo thỏa thuận' : 'Custom Workstation Bindings & Seats (Customizable)'}</span>
                 </p>
                 <p className="flex items-center gap-2.5">
                   <Check size={14} className="text-purple-400 shrink-0 stroke-[2.5]" />
@@ -489,7 +489,7 @@ export const Pricing = ({ activeLang = 'vi', onOpenTrialModal, onOpenAuthModal, 
                       <td className="py-3 px-4 font-sans font-medium text-white">{isVi ? 'Giới hạn máy trạm (Machine ID)' : 'Max Workstations'}</td>
                       <td className="py-3 px-4 text-center">1 Thiết bị</td>
                       <td className="py-3 px-4 text-center text-cyan-400 font-bold">5 Thiết bị (Đổi máy linh hoạt)</td>
-                      <td className="py-3 px-4 text-center text-purple-400 font-bold">Không giới hạn</td>
+                      <td className="py-3 px-4 text-center text-purple-400 font-bold">{isVi ? 'Theo thỏa thuận' : 'Custom Agreement'}</td>
                     </tr>
                     <tr>
                       <td className="py-3 px-4 font-sans font-medium text-white">{isVi ? 'Multi-Agent Squad Mode' : 'Multi-Agent Squad Mode'}</td>

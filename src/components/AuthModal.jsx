@@ -266,7 +266,7 @@ export const AuthModal = ({ isOpen, onClose, activeLang, user, userProfile }) =>
                   onClick={() => { setMode('signin'); setError(''); setMessage(''); }}
                   className={`px-4 py-1.5 rounded-none text-xs font-semibold uppercase tracking-wider transition-all duration-150 cursor-pointer ${
                     mode === 'signin'
-                      ? 'bg-[#0284c7] text-white hover:bg-[#0369a1]'
+                      ? 'auth-tab-active bg-[#0284c7] !text-white hover:bg-[#0369a1]'
                       : 'text-slate-400 hover:text-white hover:bg-white/[0.04]'
                   }`}
                 >
@@ -277,7 +277,7 @@ export const AuthModal = ({ isOpen, onClose, activeLang, user, userProfile }) =>
                   onClick={() => { setMode('signup'); setError(''); setMessage(''); }}
                   className={`px-4 py-1.5 rounded-none text-xs font-semibold uppercase tracking-wider transition-all duration-150 cursor-pointer ${
                     mode === 'signup'
-                      ? 'bg-[#0284c7] text-white hover:bg-[#0369a1]'
+                      ? 'auth-tab-active bg-[#0284c7] !text-white hover:bg-[#0369a1]'
                       : 'text-slate-400 hover:text-white hover:bg-white/[0.04]'
                   }`}
                 >
@@ -415,7 +415,7 @@ export const AuthModal = ({ isOpen, onClose, activeLang, user, userProfile }) =>
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-[#0284c7] hover:bg-[#0369a1] active:brightness-75 text-white py-3 px-4 rounded-none text-xs font-bold uppercase tracking-wider transition-all duration-150 cursor-pointer flex items-center justify-center gap-2"
+                  className="auth-btn-submit w-full bg-[#0284c7] hover:bg-[#0369a1] active:brightness-75 !text-white py-3 px-4 rounded-none text-xs font-bold uppercase tracking-wider transition-all duration-150 cursor-pointer flex items-center justify-center gap-2"
                 >
                   {loading ? (isVi ? 'Đang gửi link...' : 'Sending Link...') : (isVi ? 'Gửi liên kết khôi phục' : 'Send Reset Link')}
                   <ArrowRight size={14} />
@@ -580,7 +580,7 @@ export const AuthModal = ({ isOpen, onClose, activeLang, user, userProfile }) =>
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-[#0284c7] hover:bg-[#0369a1] active:brightness-75 text-white py-3.5 px-5 rounded-none text-xs font-bold uppercase tracking-wider transition-all duration-150 cursor-pointer flex items-center justify-center gap-2 mt-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="auth-btn-submit w-full bg-[#0284c7] hover:bg-[#0369a1] active:brightness-75 !text-white py-3.5 px-5 rounded-none text-xs font-bold uppercase tracking-wider transition-all duration-150 cursor-pointer flex items-center justify-center gap-2 mt-3 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <span className="flex items-center gap-2">
                     {loading ? (

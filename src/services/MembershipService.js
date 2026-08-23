@@ -1,15 +1,6 @@
-/**
- * MembershipService - Kết nối với Aevum Cloud Backend
- * Quản lý bảng giá, kích hoạt 14-Day Pro Beta Trial và lấy thông tin quyền hạn (Entitlements).
- */
+import { API_CONFIG } from '../config/apiConfig.js';
 
-const getCloudApiUrl = () => {
-  const envUrl = import.meta.env.VITE_AEVUM_CLOUD_URL;
-  if (envUrl) {
-    return envUrl.replace(/\/+$/, '');
-  }
-  return 'http://localhost:4000';
-};
+const getCloudApiUrl = () => API_CONFIG.AEVUM_CLOUD_URL;
 
 export const MembershipService = {
   /**

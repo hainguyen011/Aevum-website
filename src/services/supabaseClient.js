@@ -1,7 +1,8 @@
 import { createClient } from '@supabase/supabase-js';
+import { API_CONFIG } from '../config/apiConfig.js';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
+const supabaseUrl = API_CONFIG.SUPABASE_URL;
+const supabaseAnonKey = API_CONFIG.SUPABASE_ANON_KEY;
 
 if (!supabaseUrl || !supabaseAnonKey) {
   console.warn(
@@ -10,3 +11,4 @@ if (!supabaseUrl || !supabaseAnonKey) {
 }
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+

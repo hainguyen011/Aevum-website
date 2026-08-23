@@ -161,16 +161,17 @@ html[data-theme="light"] {
   animation: cuteGiggle 0.55s ease-in-out 2 forwards;
 }
 
-/* Electron Blue Top-Left Corner Highlight (Left edge light extends ~60% down) */
+/* Electron Blue Top-Left Corner Highlight (Softer, eye-friendly contrast) */
 .border-beam-btn {
   position: relative !important;
   background: #0b0c14 !important;
-  border-radius: 0.5rem !important;
+  border-radius: 5px !important;
   z-index: 1 !important;
   border: 1px solid transparent !important;
+
   background-image: 
     linear-gradient(#0b0c14, #0b0c14), 
-    linear-gradient(140deg, #0ea5e9 0%, rgba(14, 165, 233, 0.65) 20%, rgba(14, 165, 233, 0.25) 45%, rgba(255, 255, 255, 0.05) 65%, transparent 90%) !important;
+    linear-gradient(140deg, #0284c7 0%, rgba(14, 165, 233, 0.35) 20%, rgba(14, 165, 233, 0.12) 45%, rgba(255, 255, 255, 0.03) 65%, transparent 90%) !important;
   background-origin: border-box !important;
   background-clip: padding-box, border-box !important;
   box-shadow: none !important;
@@ -180,9 +181,87 @@ html[data-theme="light"] {
 .border-beam-btn:hover {
   background-image: 
     linear-gradient(#111320, #111320), 
-    linear-gradient(140deg, #38bdf8 0%, rgba(14, 165, 233, 0.85) 20%, rgba(14, 165, 233, 0.35) 50%, rgba(255, 255, 255, 0.1) 75%, transparent 95%) !important;
+    linear-gradient(140deg, #0ea5e9 0%, rgba(14, 165, 233, 0.5) 20%, rgba(14, 165, 233, 0.2) 50%, rgba(255, 255, 255, 0.06) 75%, transparent 95%) !important;
   box-shadow: none !important;
 }
+
+/* Electron Blue Top-Left Corner Highlight for Bento Cards (Subtle, Muted Cyber Glow) */
+.border-beam-card {
+  position: relative;
+  border-radius: 8px;
+  border: 1px solid transparent !important;
+  background: #0b0c14 !important;
+  background-image: 
+    linear-gradient(#0b0c14, #0b0c14), 
+    linear-gradient(135deg, #0284c7 0%, rgba(14, 165, 233, 0.4) 18%, rgba(14, 165, 233, 0.12) 45%, rgba(255, 255, 255, 0.03) 70%, transparent 95%) !important;
+  background-origin: border-box !important;
+  background-clip: padding-box, border-box !important;
+  box-shadow: none !important;
+}
+
+/* Membership Badges (Electron Beam Border Edition - Softer Tone) */
+.membership-badge-pro {
+  position: relative;
+  border-radius: 4px !important;
+  border: 1px solid transparent !important;
+  background: #0b0c14 !important;
+  background-image: 
+    linear-gradient(#0b0c14, #0b0c14), 
+    linear-gradient(140deg, #0284c7 0%, rgba(14, 165, 233, 0.4) 25%, rgba(14, 165, 233, 0.12) 55%, rgba(255, 255, 255, 0.04) 75%, transparent 100%) !important;
+  background-origin: border-box !important;
+  background-clip: padding-box, border-box !important;
+  box-shadow: none !important;
+}
+.membership-badge-pro .badge-text {
+  background: linear-gradient(to right, #0284c7, #38bdf8, #0284c7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.membership-badge-pro .badge-divider {
+  border-color: rgba(14, 165, 233, 0.25);
+}
+
+
+.membership-badge-enterprise {
+  position: relative;
+  border-radius: 4px !important;
+  border: 1px solid transparent !important;
+  background: #0b0c14 !important;
+  background-image: 
+    linear-gradient(#0b0c14, #0b0c14), 
+    linear-gradient(140deg, #c084fc 0%, rgba(168, 85, 247, 0.85) 25%, rgba(168, 85, 247, 0.25) 55%, rgba(255, 255, 255, 0.08) 75%, transparent 100%) !important;
+  background-origin: border-box !important;
+  background-clip: padding-box, border-box !important;
+  box-shadow: none !important;
+}
+.membership-badge-enterprise .badge-text {
+  background: linear-gradient(to right, #c084fc, #e879f9, #a855f7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.membership-badge-community {
+  position: relative;
+  border-radius: 4px !important;
+  border: 1px solid transparent !important;
+  background: #0b0c14 !important;
+  background-image: 
+    linear-gradient(#0b0c14, #0b0c14), 
+    linear-gradient(140deg, #34d399 0%, rgba(16, 185, 129, 0.85) 25%, rgba(16, 185, 129, 0.25) 55%, rgba(255, 255, 255, 0.08) 75%, transparent 100%) !important;
+  background-origin: border-box !important;
+  background-clip: padding-box, border-box !important;
+  box-shadow: none !important;
+}
+
+.membership-badge-community .badge-text {
+  background: linear-gradient(to right, #34d399, #2dd4bf, #10b981);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 
 * {
   box-sizing: border-box;
@@ -963,16 +1042,122 @@ html[data-theme="light"] .i2f-logo-stage .absolute {
 
 html[data-theme="light"] .border-beam-btn {
   background: #FFFFFF !important;
+  border: 1px solid transparent !important;
   background-image: 
     linear-gradient(#FFFFFF, #FFFFFF), 
-    linear-gradient(140deg, #0284c7 0%, rgba(2, 132, 199, 0.65) 20%, rgba(2, 132, 199, 0.25) 45%, rgba(15, 23, 42, 0.1) 65%, transparent 90%) !important;
+    linear-gradient(140deg, #0ea5e9 0%, #38bdf8 25%, rgba(14, 165, 233, 0.5) 50%, rgba(14, 165, 233, 0.25) 75%, rgba(14, 165, 233, 0.35) 100%) !important;
+  background-origin: border-box !important;
+  background-clip: padding-box, border-box !important;
+  box-shadow: none !important;
 }
 
 html[data-theme="light"] .border-beam-btn:hover {
   background-image: 
     linear-gradient(#F8FAFC, #F8FAFC), 
-    linear-gradient(140deg, #0369a1 0%, rgba(2, 132, 199, 0.85) 20%, rgba(2, 132, 199, 0.35) 50%, rgba(15, 23, 42, 0.15) 75%, transparent 95%) !important;
+    linear-gradient(140deg, #0284c7 0%, #0ea5e9 25%, rgba(14, 165, 233, 0.65) 50%, rgba(14, 165, 233, 0.35) 75%, rgba(14, 165, 233, 0.45) 100%) !important;
+  box-shadow: none !important;
 }
+
+html[data-theme="light"] .border-beam-btn span,
+html[data-theme="light"] .border-beam-btn svg {
+  color: #0F172A !important;
+}
+
+html[data-theme="light"] .border-beam-card {
+  background: #FFFFFF !important;
+  background-image: 
+    linear-gradient(#FFFFFF, #FFFFFF), 
+    linear-gradient(135deg, #0ea5e9 0%, #38bdf8 20%, rgba(14, 165, 233, 0.4) 45%, rgba(14, 165, 233, 0.15) 70%, rgba(14, 165, 233, 0.2) 100%) !important;
+}
+
+html[data-theme="light"] .pricing-pro-tag {
+  background: transparent !important;
+  color: #0284c7 !important;
+  border-color: #0ea5e9 !important;
+}
+
+/* Header Unikorn Logo Theme Switching & Optical Size Alignment */
+.unikorn-header-light {
+  display: block !important;
+  width: 14px !important;
+  height: 14px !important;
+}
+.unikorn-header-dark {
+  display: none !important;
+  width: 17px !important;
+  height: 17px !important;
+  transform: scale(1.22) !important;
+}
+
+html[data-theme="light"] .unikorn-header-light {
+  display: none !important;
+}
+html[data-theme="light"] .unikorn-header-dark {
+  display: block !important;
+}
+
+
+
+
+
+
+
+/* Light Mode for Membership Badges (Prominent Electron Beam Border) */
+html[data-theme="light"] .membership-badge-pro {
+  background: #FFFFFF !important;
+  background-image: 
+    linear-gradient(#FFFFFF, #FFFFFF), 
+    linear-gradient(140deg, #0ea5e9 0%, #38bdf8 25%, rgba(14, 165, 233, 0.45) 50%, rgba(14, 165, 233, 0.25) 75%, rgba(14, 165, 233, 0.35) 100%) !important;
+  background-origin: border-box !important;
+  background-clip: padding-box, border-box !important;
+}
+html[data-theme="light"] .membership-badge-pro .badge-text {
+  background: linear-gradient(to right, #0284c7, #0ea5e9, #0284c7) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+html[data-theme="light"] .membership-badge-pro .badge-divider {
+  border-color: rgba(14, 165, 233, 0.4) !important;
+}
+
+html[data-theme="light"] .membership-badge-enterprise {
+  background: #FFFFFF !important;
+  background-image: 
+    linear-gradient(#FFFFFF, #FFFFFF), 
+    linear-gradient(140deg, #a855f7 0%, #c084fc 25%, rgba(168, 85, 247, 0.45) 50%, rgba(168, 85, 247, 0.25) 75%, rgba(168, 85, 247, 0.35) 100%) !important;
+  background-origin: border-box !important;
+  background-clip: padding-box, border-box !important;
+}
+html[data-theme="light"] .membership-badge-enterprise .badge-text {
+  background: linear-gradient(to right, #9333ea, #a855f7, #9333ea) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+html[data-theme="light"] .membership-badge-community {
+  background: #FFFFFF !important;
+  background-image: 
+    linear-gradient(#FFFFFF, #FFFFFF), 
+    linear-gradient(140deg, #10b981 0%, #34d399 25%, rgba(16, 185, 129, 0.45) 50%, rgba(16, 185, 129, 0.25) 75%, rgba(16, 185, 129, 0.35) 100%) !important;
+  background-origin: border-box !important;
+  background-clip: padding-box, border-box !important;
+}
+html[data-theme="light"] .membership-badge-community .badge-text {
+  background: linear-gradient(to right, #059669, #10b981, #059669) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+html[data-theme="light"] .admin-badge {
+  background: #F1F5F9 !important;
+  border-color: #CBD5E1 !important;
+  color: #334155 !important;
+}
+
+
 
 html[data-theme="light"] .code-box {
   background: #F1F5F9 !important;
@@ -1461,4 +1646,141 @@ html[data-theme="light"] .pricing-details-btn:hover {
   background-color: #0284c7 !important;
   border-color: #0284c7 !important;
   color: #FFFFFF !important;
+}
+
+/* ==========================================================================
+   Profile Page Pristine Light Mode Overrides (Pure White Backgrounds & Crisp Contrast)
+   ========================================================================== */
+html[data-theme="light"] .profile-page {
+  color: #0F172A !important;
+}
+
+html[data-theme="light"] .profile-card,
+html[data-theme="light"] .profile-page .border-beam-card {
+  background-color: #FFFFFF !important;
+  background-image: none !important;
+  border: 1px solid rgba(15, 23, 42, 0.08) !important;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.02) !important;
+}
+
+html[data-theme="light"] .profile-page h2,
+html[data-theme="light"] .profile-page h3,
+html[data-theme="light"] .profile-page h4,
+html[data-theme="light"] .profile-page .text-white {
+  color: #0F172A !important;
+}
+
+html[data-theme="light"] .profile-page .text-slate-200,
+html[data-theme="light"] .profile-page .text-slate-300 {
+  color: #1E293B !important;
+}
+
+html[data-theme="light"] .profile-page .text-slate-400 {
+  color: #334155 !important;
+}
+
+html[data-theme="light"] .profile-page .text-slate-500 {
+  color: #64748B !important;
+}
+
+/* Profile Light Mode Sub-nav Tabs */
+html[data-theme="light"] .profile-tab-active {
+  background-color: #E0F2FE !important;
+  color: #0284c7 !important;
+  border-color: #38bdf8 !important;
+  font-weight: 700 !important;
+}
+
+html[data-theme="light"] .profile-tab-inactive {
+  color: #334155 !important;
+  font-weight: 600 !important;
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+
+html[data-theme="light"] .profile-tab-inactive:hover {
+  background-color: #F1F5F9 !important;
+  color: #0F172A !important;
+}
+
+/* Profile Light Mode Perk Sub-cards (Transparent & Borderless) */
+html[data-theme="light"] .profile-perk-card {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Profile Light Mode Action Link (Transparent & Crisp) */
+html[data-theme="light"] .profile-action-link {
+  color: #0284c7 !important;
+  font-weight: 700 !important;
+  background-color: transparent !important;
+  border: none !important;
+}
+
+html[data-theme="light"] .profile-action-link:hover {
+  color: #0369a1 !important;
+}
+
+/* Profile Light Mode Companion Note */
+html[data-theme="light"] .profile-companion-box {
+  background-color: #F0F9FF !important;
+  border-color: rgba(14, 165, 233, 0.3) !important;
+}
+
+html[data-theme="light"] .profile-companion-box span {
+  color: #0284c7 !important;
+}
+
+html[data-theme="light"] .profile-companion-box p {
+  color: #334155 !important;
+}
+
+/* Profile Light Mode Progress Bar */
+html[data-theme="light"] .profile-progress-track {
+  background-color: #E2E8F0 !important;
+}
+
+/* Profile Light Mode Code & Tokens */
+html[data-theme="light"] .profile-code-box {
+  background-color: #F8FAFC !important;
+  border-color: #CBD5E1 !important;
+  color: #0284c7 !important;
+}
+
+html[data-theme="light"] .profile-breadcrumb-btn {
+  background-color: #FFFFFF !important;
+  border-color: rgba(15, 23, 42, 0.1) !important;
+  color: #334155 !important;
+  font-weight: 600 !important;
+}
+
+html[data-theme="light"] .profile-breadcrumb-btn:hover {
+  background-color: #F8FAFC !important;
+  color: #0F172A !important;
+}
+
+/* Profile Light Mode Progress Box (Docked Card Footer with Rounded Top & Bottom) */
+html[data-theme="light"] .profile-progress-box {
+  background-color: #F8FAFC !important;
+  border-top: 1px solid rgba(15, 23, 42, 0.08) !important;
+  border-radius: 8px !important;
+}
+
+/* Profile Contact Buttons in Light Mode */
+html[data-theme="light"] .profile-contact-btn {
+  background-color: #FFFFFF !important;
+  border-color: rgba(15, 23, 42, 0.12) !important;
+  color: #1E293B !important;
+  font-weight: 600 !important;
+}
+
+html[data-theme="light"] .profile-contact-btn svg {
+  color: #0F172A !important;
+}
+
+html[data-theme="light"] .profile-contact-btn:hover {
+  background-color: #F1F5F9 !important;
+  border-color: rgba(15, 23, 42, 0.2) !important;
+  color: #0F172A !important;
 }

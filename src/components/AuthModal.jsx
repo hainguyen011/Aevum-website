@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { 
   X, Mail, Lock, User, Eye, EyeOff, Sparkles, LogOut, CheckCircle, 
-  AlertTriangle, ArrowRight 
+  AlertTriangle, ArrowRight, Zap, ShieldCheck 
 } from 'lucide-react';
 import { supabase } from '../services/supabaseClient';
+import { MembershipService } from '../services/MembershipService';
+import { MembershipBadge } from './ui/MembershipBadge';
 import logoImg from '../../assets/logos/AevumOS-transparent.png';
+
 import earthImg from '../../assets/earth2.png';
 
 export const AuthModal = ({ isOpen, onClose, activeLang, user, userProfile }) => {
@@ -16,6 +19,7 @@ export const AuthModal = ({ isOpen, onClose, activeLang, user, userProfile }) =>
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
+  const [entitlements, setEntitlements] = useState(null);
 
   const isVi = activeLang === 'vi';
 
@@ -38,6 +42,13 @@ export const AuthModal = ({ isOpen, onClose, activeLang, user, userProfile }) =>
       setMessage('');
       if (user) {
         setMode('profile');
+        supabase.auth.getSession().then(({ data: { session } }) => {
+          if (session?.access_token) {
+            MembershipService.getCurrentEntitlements(session.access_token).then(data => {
+              if (data) setEntitlements(data);
+            });
+          }
+        });
       } else {
         setMode('signin');
       }
@@ -50,6 +61,7 @@ export const AuthModal = ({ isOpen, onClose, activeLang, user, userProfile }) =>
       if (window.lenis) window.lenis.start();
     };
   }, [isOpen, user]);
+
 
   if (!isOpen) return null;
 
@@ -344,25 +356,32 @@ export const AuthModal = ({ isOpen, onClose, activeLang, user, userProfile }) =>
               const displayName = user.user_metadata?.full_name || user.user_metadata?.name || user.email?.split('@')[0];
               const initials = displayName?.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
 
+              const tierSlug = (entitlements?.tier || (entitlements?.isPro ? 'pro' : 'community')).toLowerCase();
               return (
                 <div className="flex flex-col items-center gap-5 py-3">
-                  {/* Avatar */}
-                  <div>
+                  {/* Clean Soft Rounded Avatar */}
+                  <div className="w-20 h-20 rounded-[8px] overflow-hidden flex items-center justify-center shrink-0">
                     {avatarUrl ? (
                       <img
                         src={avatarUrl}
                         alt={displayName}
-                        className="w-20 h-20 rounded-none object-cover border-2 border-cyan-400/60"
+                        className="w-full h-full object-cover"
                       />
                     ) : (
-                      <div className="w-20 h-20 rounded-none bg-[#0d1222] border-2 border-cyan-400/60 flex items-center justify-center text-cyan-300 text-xl font-bold tracking-wider font-mono">
+                      <div className="w-full h-full bg-cyan-950 flex items-center justify-center text-white text-xl font-bold tracking-wider font-mono">
                         {initials}
                       </div>
                     )}
                   </div>
 
+
+
+
+
+
+
                   {/* User Information Card */}
-                  <div className="w-full bg-white/[0.03] border border-white/10 rounded-none p-4 text-center space-y-1.5">
+                  <div className="w-full bg-white/[0.03] border border-white/10 rounded-none p-4 text-center space-y-2">
                     <div className="flex items-center justify-center gap-2">
                       <p className="text-base font-bold text-white tracking-wide">{displayName}</p>
                       <span className="px-2 py-0.5 rounded-none text-[10px] font-mono font-semibold uppercase bg-cyan-500/15 border border-cyan-500/30 text-cyan-300">
@@ -370,14 +389,24 @@ export const AuthModal = ({ isOpen, onClose, activeLang, user, userProfile }) =>
                       </span>
                     </div>
                     <p className="text-xs text-slate-400 font-mono">{user.email}</p>
-                    
-                    <div className="pt-2 flex items-center justify-center gap-2">
-                      <span className="inline-flex items-center gap-1.5 text-[10px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-none uppercase tracking-wider">
+
+                    {/* Membership Tier Badge */}
+                    <div className="pt-1 flex flex-col items-center gap-1.5">
+                      <MembershipBadge
+                        tier={entitlements?.tier || (entitlements?.isPro ? 'pro' : 'community')}
+                        isTrial={entitlements?.isTrial}
+                        trialDaysRemaining={entitlements?.trialDaysRemaining}
+                        size="md"
+                      />
+
+                      <span className="inline-flex items-center gap-1.5 text-[10px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-0.5 rounded-none uppercase tracking-wider">
                         <span className="w-1.5 h-1.5 rounded-none bg-emerald-400 animate-pulse" />
-                        {isVi ? 'Phiên làm việc đang hoạt động' : 'Active session connected'}
+                        {isVi ? 'Đã liên kết Aevum Cloud' : 'Linked to Aevum Cloud'}
                       </span>
                     </div>
                   </div>
+
+
 
                   {/* Sign Out Button */}
                   <button

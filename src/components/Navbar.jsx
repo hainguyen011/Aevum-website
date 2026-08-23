@@ -1,9 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, Facebook, ChevronDown, Globe, Eye, EyeOff, Sun, Atom, Menu, X, Sparkles, Layers, Network, Terminal, ArrowRight, Mail, User, LogOut } from 'lucide-react';
+import { Search, Facebook, ChevronDown, Globe, Eye, EyeOff, Sun, Atom, Menu, X, Sparkles, Layers, Network, Terminal, ArrowRight, Mail, User, LogOut, Zap } from 'lucide-react';
 import logoImg from '../../assets/logos/AevumOS-transparent.png';
 import unikornLogo from '../../assets/unikorn-logo.png';
+import unikornLogoDark from '../../assets/unikorn-logo-dark.png';
 import { translations } from '../data/translations';
+
 import { supabase } from '../services/supabaseClient';
+import { MembershipService } from '../services/MembershipService';
+import { MembershipBadge } from './ui/MembershipBadge';
 
 export const Navbar = ({ 
   currentPage, 
@@ -22,9 +26,25 @@ export const Navbar = ({
   const [resourcesOpen, setResourcesOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState(null);
+  const [entitlements, setEntitlements] = useState(null);
   const featuresRef = useRef(null);
   const isVi = activeLang === 'vi';
   const t = translations[activeLang] || translations.en;
+
+  useEffect(() => {
+    if (user) {
+      supabase.auth.getSession().then(({ data: { session } }) => {
+        if (session?.access_token) {
+          MembershipService.getCurrentEntitlements(session.access_token).then(data => {
+            if (data) setEntitlements(data);
+          });
+        }
+      });
+    } else {
+      setEntitlements(null);
+    }
+  }, [user]);
+
 
   // Dynamic Scroll Spy using high-performance IntersectionObserver (No layout thrashing / scroll lag)
   useEffect(() => {
@@ -151,12 +171,13 @@ export const Navbar = ({
               return (
                 <button 
                   onClick={() => setFeaturesOpen(prev => !prev)}
-                  className={`flex items-center gap-1.5 text-xs font-semibold py-1.5 px-3 rounded-lg transition-all duration-200 cursor-pointer font-mono ${
+                  className={`flex items-center gap-1.5 text-xs font-semibold py-1.5 px-3 rounded-[5px] transition-all duration-200 cursor-pointer font-mono ${
                     isButtonActive
                       ? 'border-beam-btn text-white'
                       : 'text-white border border-white/20 bg-white/[0.04] hover:bg-white/[0.08] hover:border-white/40'
                   }`}
                 >
+
                   <span className="relative z-10 font-bold tracking-wide text-white">{getButtonLabel()}</span>
                   <ChevronDown size={13} className={`relative z-10 text-white transition-transform duration-300 ${featuresOpen ? 'rotate-180' : ''}`} />
                 </button>
@@ -218,27 +239,61 @@ export const Navbar = ({
             </div>
           </div>
 
-          {/* Supabase User Authentication Button (Full Height, No Border-Radius, No Background) */}
+          {/* Supabase User Authentication Button */}
           {user ? (() => {
             const avatarUrl = user.user_metadata?.avatar_url || user.user_metadata?.picture;
+            const displayName = user.user_metadata?.full_name || user.user_metadata?.name || user.email.split('@')[0];
+            const initials = displayName.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+            const tierSlug = (entitlements?.tier || (entitlements?.isPro ? 'pro' : 'community')).toLowerCase();
+
+            const isWaitlist = entitlements?.isWaitlist || entitlements?.status === 'beta_waitlist';
+            const tierLabel = entitlements?.isPro
+              ? (isWaitlist ? 'Waitlist (1M)' : (entitlements.isTrial ? 'Pro Beta' : 'Pro'))
+              : entitlements?.tier === 'enterprise'
+              ? 'Enterprise'
+              : 'Community';
+
+
+
+            const tierTextGradient = tierSlug === 'pro'
+              ? 'bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-sky-300 to-cyan-400'
+              : tierSlug === 'enterprise'
+              ? 'bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-fuchsia-300 to-purple-400'
+              : 'bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-400';
+
             return (
               <button
                 onClick={() => { setProfileOpen(o => !o); setFeaturesOpen(false); }}
-                className="flex items-center self-stretch gap-2 text-xs font-mono text-slate-300 hover:text-white px-4 sm:px-5 border-l border-r border-white/10 bg-transparent hover:bg-white/[0.04] transition-all cursor-pointer group rounded-none"
+                className="flex items-center self-stretch gap-2.5 text-xs font-mono text-slate-300 hover:text-white px-3 sm:px-4 border-l border-r border-white/10 bg-transparent hover:bg-white/[0.04] transition-all cursor-pointer group rounded-none"
                 title={isVi ? "Xem tài khoản Aevum" : "View Aevum profile"}
               >
-                {avatarUrl ? (
-                  <img src={avatarUrl} alt="avatar" className="w-5 h-5 rounded-full object-cover border border-white/20" />
-                ) : (
-                  <User size={13} className="text-slate-400 group-hover:text-cyan-400 transition-colors" />
-                )}
-                <span className="font-bold uppercase tracking-wider max-w-[90px] truncate text-white group-hover:text-cyan-400">
-                  {(user.user_metadata?.full_name || user.email.split('@')[0]).split(' ')[0]}
-                </span>
+                {/* Clean Soft Rounded Avatar */}
+                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-[6px] overflow-hidden flex items-center justify-center shrink-0">
+                  {avatarUrl ? (
+                    <img src={avatarUrl} alt="avatar" className="w-full h-full object-cover" />
+                  ) : (
+                    <div className="w-full h-full bg-cyan-950 flex items-center justify-center text-white text-xs font-mono font-bold">
+                      {initials}
+                    </div>
+                  )}
+                </div>
+
+                {/* Name & Transparent Member Tier Beneath */}
+                <div className="flex flex-col items-start justify-center leading-none text-left max-w-[110px]">
+                  <span className="font-bold uppercase tracking-wider truncate text-white text-xs">
+                    {displayName.split(' ')[0]}
+                  </span>
+                  <span className={`text-[8.5px] font-mono font-semibold uppercase tracking-wider pt-0.5 ${tierTextGradient}`}>
+                    {tierLabel}
+                  </span>
+                </div>
+
+
                 <ChevronDown size={11} className={`text-white transition-transform duration-200 ${profileOpen ? 'rotate-180' : ''}`} />
               </button>
             );
           })() : (
+
             <button
               onClick={onOpenAuthModal}
               className="flex items-center self-stretch gap-2 text-xs font-mono text-slate-300 hover:text-white px-4 sm:px-5 border-l border-r border-white/10 bg-transparent hover:bg-white/[0.04] transition-all cursor-pointer group rounded-none"
@@ -265,11 +320,13 @@ export const Navbar = ({
               href="https://unikorn.vn" 
               target="_blank" 
               rel="noreferrer"
-              className="opacity-70 hover:opacity-100 transition-opacity p-1"
+              className="opacity-70 hover:opacity-100 transition-opacity p-1 flex items-center justify-center"
               title="Unikorn - Creative Tech Agency"
             >
-              <img src={unikornLogo} alt="Unikorn Logo" className="w-3.5 h-3.5 object-contain" />
+              <img src={unikornLogo} alt="Unikorn Logo" className="w-3.5 h-3.5 object-contain unikorn-header-light" />
+              <img src={unikornLogoDark} alt="Unikorn Logo" className="w-3.5 h-3.5 object-contain unikorn-header-dark" />
             </a>
+
             <a
               href="mailto:hainguyen011238@gmail.com"
               className="text-slate-400 hover:text-white transition-colors p-1"
@@ -444,30 +501,63 @@ export const Navbar = ({
           }`}
         >
           <div className="max-w-6xl mx-auto px-4 sm:px-8 flex items-center justify-between">
-            {/* Avatar + Info */}
-            <div className="flex items-center gap-3">
+            {/* Avatar + Info -> Click to redirect to Profile Page */}
+            <div 
+              onClick={() => {
+                if (onNavigate) {
+                  onNavigate('profile');
+                  setProfileOpen(false);
+                }
+              }}
+              className="flex items-center gap-3 cursor-pointer group/user select-none transition-all"
+              title={isVi ? "Xem trang thông tin cá nhân Profile" : "View Profile Page"}
+            >
               {(() => {
                 const avatarUrl = user.user_metadata?.avatar_url || user.user_metadata?.picture;
                 const displayName = user.user_metadata?.full_name || user.user_metadata?.name || user.email.split('@')[0];
                 const initials = displayName.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
-                return avatarUrl ? (
-                  <img src={avatarUrl} alt={displayName} className="w-9 h-9 rounded-full object-cover" style={{ border: '1px solid rgba(34,211,238,0.35)', boxShadow: 'inset 0 0 0 2px rgba(34,211,238,0.1)' }} />
-                ) : (
-                  <div className="w-9 h-9 rounded-full bg-cyan-500/10 flex items-center justify-center text-cyan-300 text-xs font-bold" style={{ border: '1px solid rgba(34,211,238,0.35)', boxShadow: 'inset 0 0 0 2px rgba(34,211,238,0.1)' }}>
-                    {initials}
+
+                return (
+                  <div className="w-10 h-10 rounded-[6px] overflow-hidden flex items-center justify-center shrink-0 group-hover/user:opacity-85 transition-opacity">
+                    {avatarUrl ? (
+                      <img src={avatarUrl} alt={displayName} className="w-full h-full object-cover" />
+                    ) : (
+                      <div className="w-full h-full bg-cyan-950 flex items-center justify-center text-white text-xs font-bold font-mono">
+                        {initials}
+                      </div>
+                    )}
                   </div>
                 );
               })()}
+
               <div>
-                <p className="text-xs font-bold text-white tracking-wide flex items-center gap-1">
-                  <span>{user.user_metadata?.full_name || user.user_metadata?.name || user.email.split('@')[0]}</span>
-                  <span className="text-[10px] text-white/70 font-mono font-normal">
-                    ({userProfile?.role === 'admin' ? 'Admin' : 'user'})
+                <div className="flex items-center gap-1.5 flex-wrap">
+                  <span className="text-xs font-bold text-white group-hover/user:text-cyan-400 transition-colors tracking-wide">
+                    {user.user_metadata?.full_name || user.user_metadata?.name || user.email.split('@')[0]}
                   </span>
-                </p>
-                <p className="text-[10px] text-slate-500">{user.email}</p>
+                  
+                  {/* Minimalist Premium Membership Tier Badge */}
+                  <MembershipBadge
+                    tier={entitlements?.tier || (entitlements?.isPro ? 'pro' : 'community')}
+                    isTrial={entitlements?.isTrial}
+                    isWaitlist={entitlements?.isWaitlist || entitlements?.status === 'beta_waitlist'}
+                    trialDaysRemaining={entitlements?.trialDaysRemaining}
+                    size="xs"
+                  />
+
+
+                  {userProfile?.role === 'admin' && (
+                    <span className="admin-badge inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-mono font-bold uppercase tracking-wider bg-white/[0.06] border border-white/20 text-slate-300 select-none">
+                      Admin
+                    </span>
+                  )}
+                </div>
+                <p className="text-[10px] text-slate-500 group-hover/user:text-slate-400 transition-colors">{user.email}</p>
               </div>
             </div>
+
+
+
 
             {/* Actions */}
             <div className="flex items-center gap-3">

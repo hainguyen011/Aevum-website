@@ -66,6 +66,7 @@ export const Footer = ({ onNavigate, activeLang }) => {
                 {t.navbar.about}
               </button>
               <span className="text-white/10">•</span>
+              <a href="https://i2flabs.vercel.app/" target="_blank" rel="noreferrer" className="hover:text-cyan-400 transition-colors">I2FLabs</a>
               <a href="https://open-vsx.org/extension/I2FLabs/aevum" target="_blank" rel="noreferrer" className="hover:text-cyan-400 transition-colors">{t.footer.links.openVsx}</a>
               <a href="https://unikorn.vn/p/aevum" target="_blank" rel="noreferrer" className="hover:text-cyan-400 transition-colors">{t.footer.links.unikorn}</a>
               <a href="https://github.com/hainguyen011" target="_blank" rel="noreferrer" className="hover:text-cyan-400 transition-colors">{t.footer.links.github}</a>

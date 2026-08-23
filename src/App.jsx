@@ -19,7 +19,10 @@ import { About } from './components/About';
 import { Changelog } from './components/Changelog';
 import { Discussions } from './components/Discussions';
 import { Pricing } from './components/Pricing';
+import { Profile } from './components/Profile';
+import { AuthLockGate } from './components/ui/AuthLockGate';
 import { TrialModal } from './components/TrialModal';
+
 import { SearchModal } from './components/SearchModal';
 import { CustomCursor } from './components/CustomCursor';
 import { useScrollReveal } from './hooks/useScrollReveal';
@@ -37,6 +40,7 @@ export function App() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [pendingOpenTrial, setPendingOpenTrial] = useState(false);
+  const [pendingRedirectPage, setPendingRedirectPage] = useState(null);
   const [user, setUser] = useState(null);
   const [userProfile, setUserProfile] = useState(null);
   const [isEyeCare, setIsEyeCare] = useState(() => {
@@ -60,7 +64,13 @@ export function App() {
       setPendingOpenTrial(false);
       setIsTrialModalOpen(true);
     }
-  }, [user, pendingOpenTrial]);
+    if (user && pendingRedirectPage) {
+      const target = pendingRedirectPage;
+      setPendingRedirectPage(null);
+      handleNavigate(target);
+    }
+  }, [user, pendingOpenTrial, pendingRedirectPage]);
+
 
   // Supabase Auth session listener
   useEffect(() => {
@@ -317,6 +327,13 @@ export function App() {
 
   // Handle routing navigation and scroll to top with Clean URL paths
   const handleNavigate = (page) => {
+    const protectedPages = ['docs', 'changelog', 'discussions', 'profile'];
+    if (protectedPages.includes(page) && !user) {
+      setPendingRedirectPage(page);
+      setIsAuthModalOpen(true);
+      return;
+    }
+
     setCurrentPage(page);
     if (page === 'landing') {
       window.history.pushState(null, '', '/');
@@ -325,6 +342,7 @@ export function App() {
     }
     scrollToTarget(0);
   };
+
 
   // Dynamic SEO & Meta Tags Manager per Page & Language
   useEffect(() => {
@@ -509,7 +527,16 @@ export function App() {
         )}
 
         {currentPage === 'docs' && (
-          <Docs activeLang={activeLang} />
+          user ? (
+            <Docs activeLang={activeLang} />
+          ) : (
+            <AuthLockGate 
+              activeLang={activeLang} 
+              onOpenAuthModal={() => setIsAuthModalOpen(true)} 
+              onNavigate={handleNavigate}
+              pageName={activeLang === 'vi' ? 'Tài liệu Kỹ thuật (Docs)' : 'Documentation'}
+            />
+          )
         )}
 
         {currentPage === 'about' && (
@@ -517,17 +544,47 @@ export function App() {
         )}
 
         {currentPage === 'changelog' && (
-          <Changelog activeLang={activeLang} onNavigate={handleNavigate} />
+          user ? (
+            <Changelog activeLang={activeLang} onNavigate={handleNavigate} />
+          ) : (
+            <AuthLockGate 
+              activeLang={activeLang} 
+              onOpenAuthModal={() => setIsAuthModalOpen(true)} 
+              onNavigate={handleNavigate}
+              pageName={activeLang === 'vi' ? 'Nhật ký Cập nhật (Changelog)' : 'Changelog'}
+            />
+          )
         )}
 
         {currentPage === 'discussions' && (
-          <Discussions 
+          user ? (
+            <Discussions 
+              activeLang={activeLang} 
+              user={user} 
+              userProfile={userProfile} 
+              onOpenAuthModal={() => setIsAuthModalOpen(true)} 
+            />
+          ) : (
+            <AuthLockGate 
+              activeLang={activeLang} 
+              onOpenAuthModal={() => setIsAuthModalOpen(true)} 
+              onNavigate={handleNavigate}
+              pageName={activeLang === 'vi' ? 'Kênh Thảo luận (Discussions)' : 'Discussions'}
+            />
+          )
+        )}
+
+
+        {currentPage === 'profile' && (
+          <Profile 
             activeLang={activeLang} 
             user={user} 
             userProfile={userProfile} 
-            onOpenAuthModal={() => setIsAuthModalOpen(true)} 
+            onNavigate={handleNavigate}
+            onOpenTrialModal={handleOpenTrialModal}
           />
         )}
+
 
         {/* Footer */}
         <Footer onNavigate={handleNavigate} activeLang={activeLang} />

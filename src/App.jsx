@@ -31,6 +31,7 @@ import logoImg from '../assets/logos/AevumOS-transparent.png';
 import { translations } from './data/translations';
 import { Search, X, Eye, ScanEye, Sun, Atom, User, Globe, Sparkles } from 'lucide-react';
 import { AuthModal } from './components/AuthModal';
+import { DesktopAuthSuccessModal } from './components/DesktopAuthSuccessModal';
 import { supabase } from './services/supabaseClient';
 import { DiscussionService } from './services/DiscussionService';
 
@@ -909,24 +910,14 @@ export function App() {
         user={user}
       />
 
-      {/* Desktop Auth Handoff Success Toast */}
-      {desktopAuthConnected && (
-        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[99999] bg-[#141414] border border-cyan-500/40 rounded-lg p-4 shadow-2xl flex items-center gap-3 animate-bounce">
-          <div className="w-8 h-8 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold">
-            ✓
-          </div>
-          <div className="flex flex-col">
-            <span className="text-sm font-semibold text-white">Xác thực thành công với Aevum OS!</span>
-            <span className="text-xs text-slate-400">Phiên làm việc và gói thành viên đã được đồng bộ. Bạn có thể quay lại ứng dụng.</span>
-          </div>
-          <button 
-            onClick={() => setDesktopAuthConnected(false)}
-            className="ml-2 text-slate-400 hover:text-white p-1"
-          >
-            <X size={14} />
-          </button>
-        </div>
-      )}
+      {/* Desktop Auth Handoff Success Modal */}
+      <DesktopAuthSuccessModal
+        isOpen={desktopAuthConnected}
+        onClose={() => setDesktopAuthConnected(false)}
+        activeLang={activeLang}
+        user={user}
+        userProfile={userProfile}
+      />
 
       {/* Supabase User Authentication Modal */}
       <AuthModal

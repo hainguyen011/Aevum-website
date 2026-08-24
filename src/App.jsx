@@ -72,13 +72,43 @@ export function App() {
   }, [user, pendingOpenTrial, pendingRedirectPage]);
 
 
-  // Handle ?auth=signin or ?auth=login parameter to automatically open AuthModal
+  // State for Desktop Handoff Banner
+  const [desktopAuthConnected, setDesktopAuthConnected] = useState(false);
+
+  // Handle ?auth=signin, ?auth=login, or ?auth=desktop parameter to automatically open AuthModal
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    if (params.get('auth') === 'signin' || params.get('auth') === 'login' || params.get('openAuth') === 'true') {
+    const authType = params.get('auth');
+    const nonce = params.get('nonce');
+
+    if (authType === 'signin' || authType === 'login' || authType === 'desktop' || params.get('openAuth') === 'true') {
       setIsAuthModalOpen(true);
     }
-  }, []);
+
+    // If user is already logged in and auth=desktop with nonce, broadcast session immediately
+    if (authType === 'desktop' && nonce && user) {
+      supabase.auth.getSession().then(({ data: { session } }) => {
+        if (session) {
+          const channel = supabase.channel(`auth-handoff:${nonce}`);
+          channel.subscribe((status) => {
+            if (status === 'SUBSCRIBED') {
+              channel.send({
+                type: 'broadcast',
+                event: 'session',
+                payload: {
+                  access_token: session.access_token,
+                  refresh_token: session.refresh_token,
+                  user: session.user,
+                },
+              });
+              setDesktopAuthConnected(true);
+              setIsAuthModalOpen(false);
+            }
+          });
+        }
+      });
+    }
+  }, [user]);
 
   // Supabase Auth session listener
   useEffect(() => {
@@ -807,6 +837,25 @@ export function App() {
         activeLang={activeLang}
         user={user}
       />
+
+      {/* Desktop Auth Handoff Success Toast */}
+      {desktopAuthConnected && (
+        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[99999] bg-[#141414] border border-cyan-500/40 rounded-lg p-4 shadow-2xl flex items-center gap-3 animate-bounce">
+          <div className="w-8 h-8 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold">
+            ✓
+          </div>
+          <div className="flex flex-col">
+            <span className="text-sm font-semibold text-white">Xác thực thành công với Aevum OS!</span>
+            <span className="text-xs text-slate-400">Phiên làm việc và gói thành viên đã được đồng bộ. Bạn có thể quay lại ứng dụng.</span>
+          </div>
+          <button 
+            onClick={() => setDesktopAuthConnected(false)}
+            className="ml-2 text-slate-400 hover:text-white p-1"
+          >
+            <X size={14} />
+          </button>
+        </div>
+      )}
 
       {/* Supabase User Authentication Modal */}
       <AuthModal

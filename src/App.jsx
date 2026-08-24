@@ -96,8 +96,11 @@ export function App() {
 
   // Dedicated Desktop Broadcast function with multiple heartbeat retries
   const broadcastDesktopSession = useCallback(async (forcedNonce) => {
+    const isDesktopIntent = getQueryParam('auth') === 'desktop' || Boolean(getQueryParam('nonce')) || Boolean(sessionStorage.getItem('aevum_desktop_nonce'));
     const effectiveNonce = forcedNonce || getQueryParam('nonce') || sessionStorage.getItem('aevum_desktop_nonce');
-    if (!effectiveNonce) return;
+    
+    // Chỉ kích hoạt và hiển thị thông báo kết nối nếu đăng nhập bắt nguồn từ Aevum OS
+    if (!isDesktopIntent || !effectiveNonce) return;
 
     try {
       const { data: { session } } = await supabase.auth.getSession();
@@ -130,6 +133,9 @@ export function App() {
 
           setDesktopAuthConnected(true);
           setIsAuthModalOpen(false);
+
+          // Xóa nonce khỏi sessionStorage sau khi đã phát thành công
+          sessionStorage.removeItem('aevum_desktop_nonce');
 
           setTimeout(() => {
             channel.unsubscribe();

@@ -97,6 +97,7 @@ export const AuthModal = ({ isOpen, onClose, activeLang, user, userProfile }) =>
                     user: session.user,
                   },
                 });
+                sessionStorage.removeItem('aevum_desktop_nonce');
                 setTimeout(() => channel.unsubscribe(), 5000);
               }
             });

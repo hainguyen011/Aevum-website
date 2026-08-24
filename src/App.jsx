@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { flushSync } from 'react-dom';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';

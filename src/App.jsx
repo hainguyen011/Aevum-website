@@ -75,74 +75,118 @@ export function App() {
   // State for Desktop Handoff Banner
   const [desktopAuthConnected, setDesktopAuthConnected] = useState(false);
 
+  // Helper to extract query parameters from regular search, hash route, or full href
+  const getQueryParam = (name) => {
+    try {
+      const searchParams = new URLSearchParams(window.location.search);
+      if (searchParams.get(name)) return searchParams.get(name);
+
+      if (window.location.hash.includes('?')) {
+        const hashQuery = window.location.hash.substring(window.location.hash.indexOf('?'));
+        const hashParams = new URLSearchParams(hashQuery);
+        if (hashParams.get(name)) return hashParams.get(name);
+      }
+
+      const match = window.location.href.match(new RegExp(`[?&]${name}=([^&#]*)`));
+      return match ? decodeURIComponent(match[1]) : null;
+    } catch (e) {
+      return null;
+    }
+  };
+
+  // Dedicated Desktop Broadcast function with multiple heartbeat retries
+  const broadcastDesktopSession = useCallback(async (forcedNonce) => {
+    const effectiveNonce = forcedNonce || getQueryParam('nonce') || sessionStorage.getItem('aevum_desktop_nonce');
+    if (!effectiveNonce) return;
+
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session || !session.user) return;
+
+      console.log('[Desktop Handoff] Broadcasting token to channel:', `auth-handoff:${effectiveNonce}`);
+      const channel = supabase.channel(`auth-handoff:${effectiveNonce}`);
+
+      channel.subscribe((status) => {
+        if (status === 'SUBSCRIBED') {
+          const sendSession = () => {
+            channel.send({
+              type: 'broadcast',
+              event: 'session',
+              payload: {
+                access_token: session.access_token,
+                refresh_token: session.refresh_token,
+                user: session.user,
+              },
+            });
+          };
+
+          // Send immediately and repeat across a 4-second window
+          sendSession();
+          setTimeout(sendSession, 400);
+          setTimeout(sendSession, 900);
+          setTimeout(sendSession, 1600);
+          setTimeout(sendSession, 2500);
+          setTimeout(sendSession, 3800);
+
+          setDesktopAuthConnected(true);
+          setIsAuthModalOpen(false);
+
+          setTimeout(() => {
+            channel.unsubscribe();
+          }, 8000);
+        }
+      });
+    } catch (err) {
+      console.error('[Desktop Handoff] Broadcast failed:', err);
+    }
+  }, []);
+
   // Handle ?auth=signin, ?auth=login, or ?auth=desktop parameter to automatically open AuthModal
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const authType = params.get('auth');
-    const urlNonce = params.get('nonce');
+    const authType = getQueryParam('auth');
+    const urlNonce = getQueryParam('nonce');
 
     if (urlNonce) {
       sessionStorage.setItem('aevum_desktop_nonce', urlNonce);
     }
 
-    const effectiveNonce = urlNonce || sessionStorage.getItem('aevum_desktop_nonce');
-
-    if (authType === 'signin' || authType === 'login' || authType === 'desktop' || params.get('openAuth') === 'true') {
-      if (!user) {
-        setIsAuthModalOpen(true);
-      }
-    }
-
-    // If user is already logged in (or just logged in) and we have a desktop nonce, broadcast session
-    if (effectiveNonce && user) {
+    if (authType === 'signin' || authType === 'login' || authType === 'desktop' || getQueryParam('openAuth') === 'true') {
       supabase.auth.getSession().then(({ data: { session } }) => {
-        if (session) {
-          const channel = supabase.channel(`auth-handoff:${effectiveNonce}`);
-          channel.subscribe((status) => {
-            if (status === 'SUBSCRIBED') {
-              const sendSession = () => {
-                channel.send({
-                  type: 'broadcast',
-                  event: 'session',
-                  payload: {
-                    access_token: session.access_token,
-                    refresh_token: session.refresh_token,
-                    user: session.user,
-                  },
-                });
-              };
-
-              // Broadcast multiple times to guarantee receipt by Aevum OS
-              sendSession();
-              const t1 = setTimeout(sendSession, 600);
-              const t2 = setTimeout(sendSession, 1400);
-              const t3 = setTimeout(sendSession, 2500);
-
-              setDesktopAuthConnected(true);
-              setIsAuthModalOpen(false);
-
-              setTimeout(() => {
-                channel.unsubscribe();
-              }, 6000);
-            }
-          });
+        if (!session?.user) {
+          setIsAuthModalOpen(true);
+        } else {
+          broadcastDesktopSession(urlNonce);
         }
       });
     }
-  }, [user]);
+  }, [broadcastDesktopSession]);
+
+  // If user state updates and desktop nonce exists, broadcast session
+  useEffect(() => {
+    const effectiveNonce = getQueryParam('nonce') || sessionStorage.getItem('aevum_desktop_nonce');
+    if (effectiveNonce && user) {
+      broadcastDesktopSession(effectiveNonce);
+    }
+  }, [user, broadcastDesktopSession]);
 
   // Supabase Auth session listener
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
+      if (session?.user) {
+        broadcastDesktopSession();
+      }
     });
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       setUser(session?.user ?? null);
+      if (session?.user && (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED' || event === 'INITIAL_SESSION')) {
+        broadcastDesktopSession();
+      }
     });
 
     return () => subscription.unsubscribe();
-  }, []);
+  }, [broadcastDesktopSession]);
 
   // Fetch user profile (role, full_name) when session updates
   useEffect(() => {

@@ -253,7 +253,7 @@ export const Navbar = ({
               : 'Community';
 
             const tierTextGradient = tierSlug === 'enterprise'
-              ? 'bg-clip-text text-transparent bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-400'
+              ? 'bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-fuchsia-300 to-purple-400'
               : tierSlug === 'pro'
               ? 'bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-sky-300 to-cyan-400'
               : 'bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-400';

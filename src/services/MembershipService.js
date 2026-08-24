@@ -76,11 +76,9 @@ export const MembershipService = {
     // 2. Fallback trực tiếp qua Supabase Client
     try {
       let uid = userId;
-      let email = '';
       if (!uid) {
         const { data: { user } } = await supabase.auth.getUser();
         uid = user?.id;
-        email = user?.email || '';
       }
 
       if (!uid) return null;
@@ -97,12 +95,10 @@ export const MembershipService = {
         .eq('id', uid)
         .maybeSingle();
 
-      const userEmail = email || profile?.email || '';
-      const isAdmin = profile?.role === 'admin' || ['nguyenhuyhaidx2@gmail.com', 'hainguyen0112358@gmail.com'].includes(userEmail.toLowerCase());
-
-      const tier = isAdmin ? 'enterprise' : (membership?.tier_slug || (profile?.membership_tier ? profile.membership_tier.toLowerCase() : 'community'));
-      const status = membership?.status || 'active';
-      const isPro = tier === 'pro' || isAdmin;
+      const rawTier = membership?.tier_slug || profile?.membership_tier || 'community';
+      const tier = rawTier.toLowerCase();
+      const status = membership?.status || profile?.membership_status || 'active';
+      const isPro = tier === 'pro';
       const isWaitlist = status === 'beta_waitlist';
       const isTrial = status === 'pro_trial' || isWaitlist;
 
@@ -113,7 +109,7 @@ export const MembershipService = {
         isTrial,
         isWaitlist,
         trialDaysRemaining: isWaitlist ? 30 : 30,
-        role: isAdmin ? 'admin' : (profile?.role || 'user'),
+        role: profile?.role || 'user',
       };
     } catch (err) {
       console.warn('[MembershipService] Lỗi fallback Supabase:', err);

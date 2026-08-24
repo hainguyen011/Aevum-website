@@ -93,7 +93,8 @@ export const Profile = ({
   const displayName = user.user_metadata?.full_name || user.user_metadata?.name || user.email?.split('@')[0];
   const initials = displayName?.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase() || 'AE';
   const role = userProfile?.role || 'member';
-  const tierSlug = (entitlements?.tier || (entitlements?.isPro ? 'pro' : 'community')).toLowerCase();
+  const effectiveTier = (userProfile?.membership_tier || entitlements?.tier || (entitlements?.isPro ? 'PRO' : 'COMMUNITY')).toUpperCase();
+  const tierSlug = effectiveTier.toLowerCase();
   const isWaitlist = entitlements?.isWaitlist || entitlements?.status === 'beta_waitlist';
   const isTrial = entitlements?.isTrial ?? (tierSlug === 'pro');
   const trialDaysRemaining = entitlements?.trialDaysRemaining ?? 30;

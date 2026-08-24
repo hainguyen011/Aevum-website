@@ -72,6 +72,14 @@ export function App() {
   }, [user, pendingOpenTrial, pendingRedirectPage]);
 
 
+  // Handle ?auth=signin or ?auth=login parameter to automatically open AuthModal
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('auth') === 'signin' || params.get('auth') === 'login' || params.get('openAuth') === 'true') {
+      setIsAuthModalOpen(true);
+    }
+  }, []);
+
   // Supabase Auth session listener
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {

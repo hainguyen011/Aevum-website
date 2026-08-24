@@ -79,30 +79,51 @@ export function App() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const authType = params.get('auth');
-    const nonce = params.get('nonce');
+    const urlNonce = params.get('nonce');
 
-    if (authType === 'signin' || authType === 'login' || authType === 'desktop' || params.get('openAuth') === 'true') {
-      setIsAuthModalOpen(true);
+    if (urlNonce) {
+      sessionStorage.setItem('aevum_desktop_nonce', urlNonce);
     }
 
-    // If user is already logged in and auth=desktop with nonce, broadcast session immediately
-    if (authType === 'desktop' && nonce && user) {
+    const effectiveNonce = urlNonce || sessionStorage.getItem('aevum_desktop_nonce');
+
+    if (authType === 'signin' || authType === 'login' || authType === 'desktop' || params.get('openAuth') === 'true') {
+      if (!user) {
+        setIsAuthModalOpen(true);
+      }
+    }
+
+    // If user is already logged in (or just logged in) and we have a desktop nonce, broadcast session
+    if (effectiveNonce && user) {
       supabase.auth.getSession().then(({ data: { session } }) => {
         if (session) {
-          const channel = supabase.channel(`auth-handoff:${nonce}`);
+          const channel = supabase.channel(`auth-handoff:${effectiveNonce}`);
           channel.subscribe((status) => {
             if (status === 'SUBSCRIBED') {
-              channel.send({
-                type: 'broadcast',
-                event: 'session',
-                payload: {
-                  access_token: session.access_token,
-                  refresh_token: session.refresh_token,
-                  user: session.user,
-                },
-              });
+              const sendSession = () => {
+                channel.send({
+                  type: 'broadcast',
+                  event: 'session',
+                  payload: {
+                    access_token: session.access_token,
+                    refresh_token: session.refresh_token,
+                    user: session.user,
+                  },
+                });
+              };
+
+              // Broadcast multiple times to guarantee receipt by Aevum OS
+              sendSession();
+              const t1 = setTimeout(sendSession, 600);
+              const t2 = setTimeout(sendSession, 1400);
+              const t3 = setTimeout(sendSession, 2500);
+
               setDesktopAuthConnected(true);
               setIsAuthModalOpen(false);
+
+              setTimeout(() => {
+                channel.unsubscribe();
+              }, 6000);
             }
           });
         }

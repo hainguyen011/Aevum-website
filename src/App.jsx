@@ -99,7 +99,7 @@ export function App() {
   const broadcastDesktopSession = useCallback(async (forcedNonce) => {
     const isDesktopIntent = getQueryParam('auth') === 'desktop' || Boolean(getQueryParam('nonce')) || Boolean(sessionStorage.getItem('aevum_desktop_nonce'));
     const effectiveNonce = forcedNonce || getQueryParam('nonce') || sessionStorage.getItem('aevum_desktop_nonce');
-    
+
     // Chỉ kích hoạt và hiển thị thông báo kết nối nếu đăng nhập bắt nguồn từ Aevum OS
     if (!isDesktopIntent || !effectiveNonce) return;
 
@@ -124,13 +124,9 @@ export function App() {
             });
           };
 
-          // Send immediately and repeat across a 4-second window
+          // Send immediately and repeat once after 500ms
           sendSession();
-          setTimeout(sendSession, 400);
-          setTimeout(sendSession, 900);
-          setTimeout(sendSession, 1600);
-          setTimeout(sendSession, 2500);
-          setTimeout(sendSession, 3800);
+          setTimeout(sendSession, 500);
 
           setDesktopAuthConnected(true);
           setIsAuthModalOpen(false);
@@ -140,7 +136,7 @@ export function App() {
 
           setTimeout(() => {
             channel.unsubscribe();
-          }, 8000);
+          }, 4000);
         }
       });
     } catch (err) {
@@ -546,187 +542,186 @@ export function App() {
 
   return (
     <>
-      <div className={`min-h-screen bg-[#07080c] text-slate-100 selection:bg-cyan-500 selection:text-black w-full relative overflow-x-clip perspective-container ${
-        isMobileMenuOpen ? 'mobile-menu-active' : ''
-      }`}>
-      
-      {/* Page Content Wrapper (shrinks and pushes in 3D) */}
-      <div className="app-content-wrapper">
-        <div className="py-0 sm:py-8 w-full">
-          {/* Monolithic Seamless Grid Container Frame */}
-          <div className="monolithic-frame">
-        {/* Top Navbar Row */}
-        <Navbar 
-          currentPage={currentPage} 
-          onNavigate={handleNavigate} 
-          activeLang={activeLang} 
-          onChangeLang={handleLanguageChange} 
-          onOpenSearch={() => setIsSearchOpen(true)}
-          isMobileMenuOpen={isMobileMenuOpen}
-          onToggleMobileMenu={() => setIsMobileMenuOpen(prev => !prev)}
-          user={user}
-          userProfile={userProfile}
-          onOpenAuthModal={() => setIsAuthModalOpen(true)}
-        />
+      <div className={`min-h-screen bg-[#07080c] text-slate-100 selection:bg-cyan-500 selection:text-black w-full relative overflow-x-clip perspective-container ${isMobileMenuOpen ? 'mobile-menu-active' : ''
+        }`}>
 
-        {currentPage === 'landing' && (
-          <>
-            {/* Hero 2-Column Grid Row */}
-            <Hero 
-              onNavigate={handleNavigate} 
-              onOpenTrialModal={handleOpenTrialModal}
-              activeLang={activeLang} 
-            />
+        {/* Page Content Wrapper (shrinks and pushes in 3D) */}
+        <div className="app-content-wrapper">
+          <div className="py-0 sm:py-8 w-full">
+            {/* Monolithic Seamless Grid Container Frame */}
+            <div className="monolithic-frame">
+              {/* Top Navbar Row */}
+              <Navbar
+                currentPage={currentPage}
+                onNavigate={handleNavigate}
+                activeLang={activeLang}
+                onChangeLang={handleLanguageChange}
+                onOpenSearch={() => setIsSearchOpen(true)}
+                isMobileMenuOpen={isMobileMenuOpen}
+                onToggleMobileMenu={() => setIsMobileMenuOpen(prev => !prev)}
+                user={user}
+                userProfile={userProfile}
+                onOpenAuthModal={() => setIsAuthModalOpen(true)}
+              />
 
-            {/* Sub Nav Category Tabs Row */}
-            <SubNavTabs activeLang={activeLang} />
+              {currentPage === 'landing' && (
+                <>
+                  {/* Hero 2-Column Grid Row */}
+                  <Hero
+                    onNavigate={handleNavigate}
+                    onOpenTrialModal={handleOpenTrialModal}
+                    activeLang={activeLang}
+                  />
 
-            {/* Section 1: Bento Grid Feature Showcase Row */}
-            <BentoGrid activeLang={activeLang} />
+                  {/* Sub Nav Category Tabs Row */}
+                  <SubNavTabs activeLang={activeLang} />
 
-            {/* Dedicated Default Aevum AI Agents Squad Showcase Section */}
-            <AgentsShowcase 
-              activeLang={activeLang} 
-              onOpenTrialModal={handleOpenTrialModal} 
-            />
+                  {/* Section 1: Bento Grid Feature Showcase Row */}
+                  <BentoGrid activeLang={activeLang} />
 
-            {/* Section 2: Architecture & Foundation Grid Row */}
-            <FoundationGrid activeLang={activeLang} />
+                  {/* Dedicated Default Aevum AI Agents Squad Showcase Section */}
+                  <AgentsShowcase
+                    activeLang={activeLang}
+                    onOpenTrialModal={handleOpenTrialModal}
+                  />
 
-            {/* Section 3: Framework Integration Flow */}
-            <FrameworkFlow activeLang={activeLang} />
+                  {/* Section 2: Architecture & Foundation Grid Row */}
+                  <FoundationGrid activeLang={activeLang} />
 
-            {/* Section 4: Transparent Pricing & Membership Tiers */}
-            <Pricing 
-              activeLang={activeLang} 
-              onOpenTrialModal={handleOpenTrialModal} 
-              onOpenAuthModal={() => setIsAuthModalOpen(true)} 
-              showDetails={false}
-              onNavigate={handleNavigate}
-            />
+                  {/* Section 3: Framework Integration Flow */}
+                  <FrameworkFlow activeLang={activeLang} />
 
-            {/* Section 5: Testimonials & Community Stats */}
-            <Testimonials activeLang={activeLang} />
+                  {/* Section 4: Transparent Pricing & Membership Tiers */}
+                  <Pricing
+                    activeLang={activeLang}
+                    onOpenTrialModal={handleOpenTrialModal}
+                    onOpenAuthModal={() => setIsAuthModalOpen(true)}
+                    showDetails={false}
+                    onNavigate={handleNavigate}
+                  />
 
-            {/* Section 6: Dedicated Unikorn Vietnam Feature Section */}
-            <UnikornSection activeLang={activeLang} />
+                  {/* Section 5: Testimonials & Community Stats */}
+                  <Testimonials activeLang={activeLang} />
 
-            {/* Section 7: Dedicated I2FLabs Development Team Section */}
-            <I2FLabsSection activeLang={activeLang} />
+                  {/* Section 6: Dedicated Unikorn Vietnam Feature Section */}
+                  <UnikornSection activeLang={activeLang} />
 
-            {/* Section 8: Open Source Sponsors */}
-            <Sponsors activeLang={activeLang} />
+                  {/* Section 7: Dedicated I2FLabs Development Team Section */}
+                  <I2FLabsSection activeLang={activeLang} />
 
-            {/* Section 9: CTA Banner */}
-            <CtaBanner 
-              onNavigate={handleNavigate} 
-              onOpenTrialModal={handleOpenTrialModal} 
-              activeLang={activeLang} 
-            />
-          </>
-        )}
+                  {/* Section 8: Open Source Sponsors */}
+                  <Sponsors activeLang={activeLang} />
 
-        {currentPage === 'pricing' && (
-          <Pricing 
-            activeLang={activeLang} 
-            onOpenTrialModal={handleOpenTrialModal} 
-            onOpenAuthModal={() => setIsAuthModalOpen(true)} 
-            showDetails={true}
-            onNavigate={handleNavigate}
-          />
-        )}
+                  {/* Section 9: CTA Banner */}
+                  <CtaBanner
+                    onNavigate={handleNavigate}
+                    onOpenTrialModal={handleOpenTrialModal}
+                    activeLang={activeLang}
+                  />
+                </>
+              )}
 
-        {currentPage === 'docs' && (
-          user ? (
-            <Docs activeLang={activeLang} />
-          ) : (
-            <AuthLockGate 
-              activeLang={activeLang} 
-              onOpenAuthModal={() => setIsAuthModalOpen(true)} 
-              onNavigate={handleNavigate}
-              pageName={activeLang === 'vi' ? 'Tài liệu Kỹ thuật (Docs)' : 'Documentation'}
-            />
-          )
-        )}
+              {currentPage === 'pricing' && (
+                <Pricing
+                  activeLang={activeLang}
+                  onOpenTrialModal={handleOpenTrialModal}
+                  onOpenAuthModal={() => setIsAuthModalOpen(true)}
+                  showDetails={true}
+                  onNavigate={handleNavigate}
+                />
+              )}
 
-        {currentPage === 'about' && (
-          <About activeLang={activeLang} />
-        )}
+              {currentPage === 'docs' && (
+                user ? (
+                  <Docs activeLang={activeLang} />
+                ) : (
+                  <AuthLockGate
+                    activeLang={activeLang}
+                    onOpenAuthModal={() => setIsAuthModalOpen(true)}
+                    onNavigate={handleNavigate}
+                    pageName={activeLang === 'vi' ? 'Tài liệu Kỹ thuật (Docs)' : 'Documentation'}
+                  />
+                )
+              )}
 
-        {currentPage === 'changelog' && (
-          user ? (
-            <Changelog activeLang={activeLang} onNavigate={handleNavigate} />
-          ) : (
-            <AuthLockGate 
-              activeLang={activeLang} 
-              onOpenAuthModal={() => setIsAuthModalOpen(true)} 
-              onNavigate={handleNavigate}
-              pageName={activeLang === 'vi' ? 'Nhật ký Cập nhật (Changelog)' : 'Changelog'}
-            />
-          )
-        )}
+              {currentPage === 'about' && (
+                <About activeLang={activeLang} />
+              )}
 
-        {currentPage === 'discussions' && (
-          user ? (
-            <Discussions 
-              activeLang={activeLang} 
-              user={user} 
-              userProfile={userProfile} 
-              onOpenAuthModal={() => setIsAuthModalOpen(true)} 
-            />
-          ) : (
-            <AuthLockGate 
-              activeLang={activeLang} 
-              onOpenAuthModal={() => setIsAuthModalOpen(true)} 
-              onNavigate={handleNavigate}
-              pageName={activeLang === 'vi' ? 'Kênh Thảo luận (Discussions)' : 'Discussions'}
-            />
-          )
-        )}
+              {currentPage === 'changelog' && (
+                user ? (
+                  <Changelog activeLang={activeLang} onNavigate={handleNavigate} />
+                ) : (
+                  <AuthLockGate
+                    activeLang={activeLang}
+                    onOpenAuthModal={() => setIsAuthModalOpen(true)}
+                    onNavigate={handleNavigate}
+                    pageName={activeLang === 'vi' ? 'Nhật ký Cập nhật (Changelog)' : 'Changelog'}
+                  />
+                )
+              )}
 
-
-        {currentPage === 'profile' && (
-          <Profile 
-            activeLang={activeLang} 
-            user={user} 
-            userProfile={userProfile} 
-            onNavigate={handleNavigate}
-            onOpenTrialModal={handleOpenTrialModal}
-          />
-        )}
+              {currentPage === 'discussions' && (
+                user ? (
+                  <Discussions
+                    activeLang={activeLang}
+                    user={user}
+                    userProfile={userProfile}
+                    onOpenAuthModal={() => setIsAuthModalOpen(true)}
+                  />
+                ) : (
+                  <AuthLockGate
+                    activeLang={activeLang}
+                    onOpenAuthModal={() => setIsAuthModalOpen(true)}
+                    onNavigate={handleNavigate}
+                    pageName={activeLang === 'vi' ? 'Kênh Thảo luận (Discussions)' : 'Discussions'}
+                  />
+                )
+              )}
 
 
-        {/* Footer */}
-        <Footer onNavigate={handleNavigate} activeLang={activeLang} />
+              {currentPage === 'profile' && (
+                <Profile
+                  activeLang={activeLang}
+                  user={user}
+                  userProfile={userProfile}
+                  onNavigate={handleNavigate}
+                  onOpenTrialModal={handleOpenTrialModal}
+                />
+              )}
+
+
+              {/* Footer */}
+              <Footer onNavigate={handleNavigate} activeLang={activeLang} />
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    {/* Click-to-close overlay on content */}
-    {isMobileMenuOpen && (
-      <div 
-        className="fixed inset-0 z-40 lg:hidden cursor-pointer bg-transparent"
-        onClick={() => setIsMobileMenuOpen(false)}
-      />
-    )}
+      {/* Click-to-close overlay on content */}
+      {isMobileMenuOpen && (
+        <div
+          className="fixed inset-0 z-40 lg:hidden cursor-pointer bg-transparent"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
 
-    {/* 3D Slide-in Mobile Drawer (Fixed to Viewport 100vh) */}
-    <div className={`mobile-drawer lg:hidden bg-[#07080c] ${isMobileMenuOpen ? 'open' : ''}`}>
+      {/* 3D Slide-in Mobile Drawer (Fixed to Viewport 100vh) */}
+      <div className={`mobile-drawer lg:hidden bg-[#07080c] ${isMobileMenuOpen ? 'open' : ''}`}>
         {/* Fixed Top Header for Logo & Search Bar */}
         <div className="shrink-0 bg-[#07080c] pt-4 pb-3 px-4 space-y-3 z-10">
           {/* Top Row: Logo Aevum OS */}
           <div className="flex items-center justify-end">
             {/* Logo Aevum OS */}
-            <a 
-              href="#" 
+            <a
+              href="#"
               onClick={(e) => { e.preventDefault(); setIsMobileMenuOpen(false); handleNavigate('landing'); }}
               className="flex items-center gap-2 text-decoration-none group shrink-0"
             >
-              <img 
-                src={logoImg} 
-                alt="Aevum OS Logo" 
-                className="w-6 h-6 object-contain" 
+              <img
+                src={logoImg}
+                alt="Aevum OS Logo"
+                className="w-6 h-6 object-contain"
               />
               <span className="font-extrabold text-sm text-white tracking-wider font-display whitespace-nowrap">
                 AEVUM OS
@@ -735,7 +730,7 @@ export function App() {
           </div>
 
           {/* Search Bar */}
-          <div 
+          <div
             onClick={() => { setIsMobileMenuOpen(false); setIsSearchOpen(true); }}
             className="flex items-center bg-white/[0.03] border border-white/10 rounded-md px-3.5 py-2.5 text-xs text-slate-300 font-mono gap-2 hover:border-white/15 transition-all cursor-pointer"
           >
@@ -748,43 +743,43 @@ export function App() {
         <div className="flex-1 overflow-y-auto px-4 py-6" data-lenis-prevent>
           {/* Navigation Links */}
           <div className="flex flex-col space-y-4 drawer-nav-list">
-            <a 
-              href="#cli" 
+            <a
+              href="#cli"
               onClick={(e) => handleNavLink(e, 'cli')}
               className="text-right text-lg font-bold text-slate-200 hover:text-cyan-400 transition-colors uppercase tracking-wide"
             >
               {t.navbar.kernel}
             </a>
-            <a 
-              href="#breakthroughs" 
+            <a
+              href="#breakthroughs"
               onClick={(e) => handleNavLink(e, 'breakthroughs')}
               className="text-right text-lg font-bold text-slate-200 hover:text-cyan-400 transition-colors uppercase tracking-wide"
             >
               {t.navbar.breakthroughs}
             </a>
-            <a 
-              href="#agents" 
+            <a
+              href="#agents"
               onClick={(e) => handleNavLink(e, 'agents')}
               className="text-right text-lg font-bold text-slate-200 hover:text-cyan-400 transition-colors uppercase tracking-wide"
             >
               {t.navbar.agents}
             </a>
-            <a 
-              href="#architecture" 
+            <a
+              href="#architecture"
               onClick={(e) => handleNavLink(e, 'architecture')}
               className="text-right text-lg font-bold text-slate-200 hover:text-cyan-400 transition-colors uppercase tracking-wide"
             >
               {t.navbar.architecture}
             </a>
-            <a 
-              href="#orchestration" 
+            <a
+              href="#orchestration"
               onClick={(e) => handleNavLink(e, 'orchestration')}
               className="text-right text-lg font-bold text-slate-200 hover:text-cyan-400 transition-colors uppercase tracking-wide"
             >
               {t.navbar.orchestration}
             </a>
-            <a 
-              href="#pricing" 
+            <a
+              href="#pricing"
               onClick={(e) => handleNavLink(e, 'pricing')}
               className="text-right text-lg font-bold text-slate-200 hover:text-cyan-400 transition-colors uppercase tracking-wide"
             >
@@ -793,43 +788,38 @@ export function App() {
 
             {/* Standalone Pages UI Block (PRICING, DOCUMENTATION, ABOUT, CHANGELOG, DISCUSSIONS) */}
             <div className="flex flex-col space-y-4 mt-5">
-              <button 
+              <button
                 onClick={() => { setIsMobileMenuOpen(false); handleNavigate('pricing'); }}
-                className={`text-right text-lg font-bold transition-colors uppercase tracking-wide ${
-                  currentPage === 'pricing' ? 'text-cyan-400' : 'text-slate-200 hover:text-cyan-400'
-                }`}
+                className={`text-right text-lg font-bold transition-colors uppercase tracking-wide ${currentPage === 'pricing' ? 'text-cyan-400' : 'text-slate-200 hover:text-cyan-400'
+                  }`}
               >
                 {t.navbar.pricing}
               </button>
-              <button 
+              <button
                 onClick={() => { setIsMobileMenuOpen(false); handleNavigate('docs'); }}
-                className={`text-right text-lg font-bold transition-colors uppercase tracking-wide ${
-                  currentPage === 'docs' ? 'text-cyan-400' : 'text-slate-200 hover:text-cyan-400'
-                }`}
+                className={`text-right text-lg font-bold transition-colors uppercase tracking-wide ${currentPage === 'docs' ? 'text-cyan-400' : 'text-slate-200 hover:text-cyan-400'
+                  }`}
               >
                 {t.navbar.docs}
               </button>
-              <button 
+              <button
                 onClick={() => { setIsMobileMenuOpen(false); handleNavigate('about'); }}
-                className={`text-right text-lg font-bold transition-colors uppercase tracking-wide ${
-                  currentPage === 'about' ? 'text-cyan-400' : 'text-slate-200 hover:text-cyan-400'
-                }`}
+                className={`text-right text-lg font-bold transition-colors uppercase tracking-wide ${currentPage === 'about' ? 'text-cyan-400' : 'text-slate-200 hover:text-cyan-400'
+                  }`}
               >
                 {t.navbar.about}
               </button>
-              <button 
+              <button
                 onClick={() => { setIsMobileMenuOpen(false); handleNavigate('changelog'); }}
-                className={`text-right text-lg font-bold transition-colors uppercase tracking-wide ${
-                  currentPage === 'changelog' ? 'text-cyan-400' : 'text-slate-200 hover:text-cyan-400'
-                }`}
+                className={`text-right text-lg font-bold transition-colors uppercase tracking-wide ${currentPage === 'changelog' ? 'text-cyan-400' : 'text-slate-200 hover:text-cyan-400'
+                  }`}
               >
                 {activeLang === 'vi' ? 'Nhật ký cập nhật' : 'Changelog'}
               </button>
-              <button 
+              <button
                 onClick={() => { setIsMobileMenuOpen(false); handleNavigate('discussions'); }}
-                className={`text-right text-lg font-bold transition-colors uppercase tracking-wide ${
-                  currentPage === 'discussions' ? 'text-cyan-400' : 'text-slate-200 hover:text-cyan-400'
-                }`}
+                className={`text-right text-lg font-bold transition-colors uppercase tracking-wide ${currentPage === 'discussions' ? 'text-cyan-400' : 'text-slate-200 hover:text-cyan-400'
+                  }`}
               >
                 {activeLang === 'vi' ? 'Thảo luận' : 'Discussions'}
               </button>
@@ -837,7 +827,7 @@ export function App() {
               <div className="h-px bg-white/5 my-2"></div>
 
               {user ? (
-                <button 
+                <button
                   onClick={() => { setIsMobileMenuOpen(false); setIsAuthModalOpen(true); }}
                   className="text-right text-lg font-bold text-cyan-400 hover:text-cyan-300 transition-colors uppercase tracking-wide flex items-center justify-end gap-2"
                 >
@@ -845,7 +835,7 @@ export function App() {
                   <span className="max-w-[120px] truncate">{user.email.split('@')[0]}</span>
                 </button>
               ) : (
-                <button 
+                <button
                   onClick={() => { setIsMobileMenuOpen(false); setIsAuthModalOpen(true); }}
                   className="text-right text-lg font-bold text-slate-300 hover:text-cyan-400 transition-colors uppercase tracking-wide flex items-center justify-end gap-2"
                 >
@@ -882,14 +872,14 @@ export function App() {
 
                 {/* Language Switcher */}
                 <div className="flex items-center gap-2 border-l border-white/10 pl-3">
-                  <button 
+                  <button
                     onClick={() => { setActiveLang('vi'); setIsMobileMenuOpen(false); }}
                     className={`transition-colors font-bold ${activeLang === 'vi' ? 'text-cyan-400' : 'text-slate-400 hover:text-white'}`}
                   >
                     VI
                   </button>
                   <span className="text-white/10 text-[10px]">/</span>
-                  <button 
+                  <button
                     onClick={() => { setActiveLang('en'); setIsMobileMenuOpen(false); }}
                     className={`transition-colors font-bold ${activeLang === 'en' ? 'text-cyan-400' : 'text-slate-400 hover:text-white'}`}
                   >
@@ -903,7 +893,7 @@ export function App() {
       </div>
 
       {/* Early Access Trial Modal */}
-      <TrialModal 
+      <TrialModal
         isOpen={isTrialModalOpen}
         onClose={() => setIsTrialModalOpen(false)}
         activeLang={activeLang}
@@ -929,7 +919,7 @@ export function App() {
       />
 
       {/* Interactive Command Palette Search Modal */}
-      <SearchModal 
+      <SearchModal
         isOpen={isSearchOpen}
         onClose={() => setIsSearchOpen(false)}
         onNavigate={handleNavigate}
@@ -952,11 +942,10 @@ export function App() {
         {/* Eye Care Toggle */}
         <button
           onClick={() => setIsEyeCare(prev => !prev)}
-          className={`utility-bar-btn flex items-center justify-center w-[42px] h-[42px] transition-all duration-200 cursor-pointer rounded-none border-0 select-none ${
-            isEyeCare 
-              ? '!bg-amber-500/10 !text-amber-500 hover:!bg-amber-500/20' 
-              : ''
-          }`}
+          className={`utility-bar-btn flex items-center justify-center w-[42px] h-[42px] transition-all duration-200 cursor-pointer rounded-none border-0 select-none ${isEyeCare
+            ? '!bg-amber-500/10 !text-amber-500 hover:!bg-amber-500/20'
+            : ''
+            }`}
           title={activeLang === 'vi' ? "Bật/Tắt bảo vệ mắt" : "Toggle Eye Care"}
         >
           {isEyeCare ? <ScanEye size={18} className="text-amber-400" /> : <Eye size={18} />}
@@ -968,8 +957,8 @@ export function App() {
           onClick={(e) => handleToggleTheme(e)}
           className="utility-bar-btn flex items-center justify-center w-[42px] h-[42px] border-0 transition-all duration-200 cursor-pointer rounded-none active:scale-[0.92] select-none"
           title={
-            activeLang === 'vi' 
-              ? (theme === 'dark' ? "Chuyển sang Chế độ Sáng" : "Chuyển sang Chế độ Tối") 
+            activeLang === 'vi'
+              ? (theme === 'dark' ? "Chuyển sang Chế độ Sáng" : "Chuyển sang Chế độ Tối")
               : (theme === 'dark' ? "Switch to Light Mode" : "Switch to Dark Mode")
           }
           aria-label="Toggle Theme Mode"

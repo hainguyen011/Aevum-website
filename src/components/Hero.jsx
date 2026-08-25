@@ -30,6 +30,11 @@ export const Hero = ({ onNavigate, onOpenTrialModal, activeLang }) => {
           <img 
             src={asciiAsset} 
             alt="Aevum ASCII Watermark" 
+            width="320"
+            height="320"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
             className="w-full h-auto object-contain"
           />
         </div>
@@ -97,6 +102,11 @@ export const Hero = ({ onNavigate, onOpenTrialModal, activeLang }) => {
         <img 
           src={asciiAsset} 
           alt="Aevum ASCII Graphic" 
+          width="440"
+          height="440"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
           className="hero-ascii-art w-full max-w-[440px] h-auto object-contain select-none pointer-events-none"
         />
       </div>

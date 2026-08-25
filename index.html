@@ -219,12 +219,18 @@
     }
   </script>
 
-  <!-- Google Fonts: Inter & JetBrains Mono for High-Performance Typography -->
+  <!-- Critical Resource Preloads for 0ms First & Largest Contentful Paint -->
+  <link rel="preload" as="image" type="image/webp" href="/assets/logos/AevumOS-transparent.webp" fetchpriority="high">
+  <link rel="preload" as="image" type="image/webp" href="/assets/logos/Aevum-ascii.webp" fetchpriority="high">
+
+  <!-- Google Fonts: Asynchronous Non-Blocking High-Performance Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@500;700&display=swap"
-    rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@500;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@500;700&display=swap" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@500;700&display=swap">
+  </noscript>
 
 </head>
 

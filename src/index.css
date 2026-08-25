@@ -1,18 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=BBH+Bartle&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* ==========================================================================
-   Aevum Design System - Inter Neo-Grotesque Typography System
-   ========================================================================== */
-
-.font-bbh {
-  font-family: "BBH Bartle", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
 
 :root,
 html[data-theme="dark"] {

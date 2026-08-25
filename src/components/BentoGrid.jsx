@@ -2,11 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { translations } from '../data/translations';
 
-// Sticker Imports from Agent Collections
-import anHiSticker from '../../assets/stickers/An_Collection/An_Hi.png';
-import zenithCuriosSticker from '../../assets/stickers/Zenith_Collection/Zenith_Curios.png';
-import lunaLoverSticker from '../../assets/stickers/Luna_Collection/Luna_Lover.png';
-import vidusHipeSticker from '../../assets/stickers/Vidus_Collection/Vidus_Hipe.png';
+// Sticker Imports from Agent Collections (Optimized WebP)
+import anHiSticker from '../../assets/stickers/An_Collection/An_Hi.webp';
+import zenithCuriosSticker from '../../assets/stickers/Zenith_Collection/Zenith_Curios.webp';
+import lunaLoverSticker from '../../assets/stickers/Luna_Collection/Luna_Lover.webp';
+import vidusHipeSticker from '../../assets/stickers/Vidus_Collection/Vidus_Hipe.webp';
 
 export const BentoGrid = ({ activeLang }) => {
   const t = translations[activeLang] || translations.en;

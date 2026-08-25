@@ -1,6 +1,6 @@
 import React from 'react';
 import { Mail } from 'lucide-react';
-import logoImg from '../../assets/logos/AevumOS-transparent.png';
+import logoImg from '../../assets/logos/AevumOS-transparent.webp';
 import { translations } from '../data/translations';
 
 export const Footer = ({ onNavigate, activeLang }) => {

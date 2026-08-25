@@ -12,8 +12,8 @@ import anAvatar from '../../assets/agent-avatar/an_avatar.webp';
 import vidusAvatar from '../../assets/agent-avatar/vidus_avatar.webp';
 import zenithAvatar from '../../assets/agent-avatar/zenith_avatar.webp';
 import lunaAvatar from '../../assets/agent-avatar/luna_avatar.webp';
-import unikornLogo from '../../assets/unikorn-logo.png';
-import unikornLogoDark from '../../assets/unikorn-logo-dark.png';
+import unikornLogo from '../../assets/unikorn-logo.webp';
+import unikornLogoDark from '../../assets/unikorn-logo-dark.webp';
 
 
 export const Profile = ({ 

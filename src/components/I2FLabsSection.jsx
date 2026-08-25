@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ArrowRight } from 'lucide-react';
-import i2fLabsLogo from '../../assets/I2FLabs-logo.png';
+import i2fLabsLogo from '../../assets/I2FLabs-logo.webp';
 import { translations } from '../data/translations';
 
 export const I2FLabsSection = ({ activeLang }) => {

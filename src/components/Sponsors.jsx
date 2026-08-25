@@ -1,13 +1,13 @@
 import React from 'react';
 
-import anHi from '../../assets/stickers/An_Collection/An_Hi.png';
-import anLover from '../../assets/stickers/An_Collection/An_Lover.png';
-import anLover2 from '../../assets/stickers/An_Collection/An_Lover2.png';
-import anHipe from '../../assets/stickers/An_Collection/An_Hipe.png';
-import anCurios from '../../assets/stickers/An_Collection/An_Curios.png';
-import anAngry from '../../assets/stickers/An_Collection/An_Angry.png';
-import anLoading from '../../assets/stickers/An_Collection/An_Loading.png';
-import anByebye from '../../assets/stickers/An_Collection/An_byebye.png';
+import anHi from '../../assets/stickers/An_Collection/An_Hi.webp';
+import anLover from '../../assets/stickers/An_Collection/An_Lover.webp';
+import anLover2 from '../../assets/stickers/An_Collection/An_Lover2.webp';
+import anHipe from '../../assets/stickers/An_Collection/An_Hipe.webp';
+import anCurios from '../../assets/stickers/An_Collection/An_Curios.webp';
+import anAngry from '../../assets/stickers/An_Collection/An_Angry.webp';
+import anLoading from '../../assets/stickers/An_Collection/An_Loading.webp';
+import anByebye from '../../assets/stickers/An_Collection/An_byebye.webp';
 
 export const Sponsors = ({ activeLang = 'vi' }) => {
   const isVi = activeLang === 'vi';

@@ -6,7 +6,7 @@ import {
 import { supabase } from '../services/supabaseClient';
 import { MembershipService } from '../services/MembershipService';
 import { MembershipBadge } from './ui/MembershipBadge';
-import logoImg from '../../assets/logos/AevumOS-transparent.png';
+import logoImg from '../../assets/logos/AevumOS-transparent.webp';
 
 import earthImg from '../../assets/earth2.webp';
 

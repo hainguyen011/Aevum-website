@@ -3,7 +3,7 @@ import { X, ArrowLeft, ArrowRight, Zap, CheckCircle2, ShieldCheck, Cpu, Sparkles
 import { CustomSelect } from './ui/CustomSelect';
 import { supabase } from '../services/supabaseClient';
 import { MembershipService } from '../services/MembershipService';
-import anLoverSticker from '../../assets/stickers/An_Collection/An_Lover.png';
+import anLoverSticker from '../../assets/stickers/An_Collection/An_Lover.webp';
 
 /**
  * Multi-Step Early Access & Creative Survey Modal for Aevum OS

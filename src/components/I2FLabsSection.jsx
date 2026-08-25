@@ -209,6 +209,10 @@ export const I2FLabsSection = ({ activeLang }) => {
             <img
               src={i2fLabsLogo}
               alt="I2FLabs Viet Nam Logo"
+              loading="lazy"
+              decoding="async"
+              width="200"
+              height="160"
               className={`max-h-[130px] sm:max-h-[160px] w-auto object-contain select-none pointer-events-none transition-all ${
                 isTaunting ? 'animate-giggle' : ''
               }`}

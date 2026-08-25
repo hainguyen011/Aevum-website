@@ -52,6 +52,10 @@ export const UnikornSection = ({ activeLang }) => {
               <img 
                 src={topSimpleBadge} 
                 alt="Aevum Product of the Day - Unikorn.vn" 
+                loading="lazy"
+                decoding="async"
+                width="250"
+                height="150"
                 className="max-h-48 sm:max-h-60 lg:max-h-64 w-auto object-contain" 
               />
             </a>

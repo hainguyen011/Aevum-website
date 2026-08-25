@@ -179,6 +179,8 @@ export const BentoGrid = ({ activeLang }) => {
                 <img
                   src={item.sticker}
                   alt={item.agentName}
+                  loading="lazy"
+                  decoding="async"
                   className="h-32 w-auto object-contain select-none"
                 />
               </div>
@@ -192,10 +194,11 @@ export const BentoGrid = ({ activeLang }) => {
             <button
               key={idx}
               onClick={() => scrollToSlide(idx)}
-              className={`transition-all duration-300 rounded-full cursor-pointer ${
+              aria-label={`Go to slide ${idx + 1} - ${items[idx].title}`}
+              className={`transition-all duration-300 rounded-full cursor-pointer p-1 ${
                 activeSlide === idx
-                  ? 'w-5 h-1.5 bg-cyan-400'
-                  : 'w-1.5 h-1.5 bg-white/20 hover:bg-white/40'
+                  ? 'w-5 h-2 bg-cyan-400'
+                  : 'w-2 h-2 bg-white/20 hover:bg-white/40'
               }`}
             />
           ))}
@@ -282,6 +285,8 @@ export const BentoGrid = ({ activeLang }) => {
                   key={activeSlide}
                   src={items[activeSlide].sticker}
                   alt={items[activeSlide].agentName}
+                  loading="lazy"
+                  decoding="async"
                   className="h-44 sm:h-52 w-auto object-contain transition-all duration-500 animate-pulse-slow select-none"
                 />
               </div>

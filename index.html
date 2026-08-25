@@ -219,11 +219,11 @@
     }
   </script>
 
-  <!-- Google Fonts: JetBrains Mono & Fira Code for Authentic Developer Terminal Experience -->
+  <!-- Google Fonts: Inter & JetBrains Mono for High-Performance Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@500;700&display=swap"
     rel="stylesheet">
 
 </head>
@@ -231,27 +231,6 @@
 <body class="bg-[#0B0B11] text-slate-100 antialiased selection:bg-cyan-500 selection:text-black">
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
-
-  <!-- Lenis Smooth Scroll (Inertial Smooth Scrolling) -->
-  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.36/dist/lenis.min.js"></script>
-  <script>
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: true,
-      wheelMultiplier: 1,
-      smoothTouch: false
-    });
-
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-
-    requestAnimationFrame(raf);
-  </script>
 </body>
 
 </html>

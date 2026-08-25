@@ -35,45 +35,14 @@ export const FrameworkFlow = ({ activeLang }) => {
       {/* High-Tech External Brain Infographic Graphic Container with Scale Reveal */}
       <div data-reveal="scale" className="bg-[#07080E] relative flex items-center justify-center">
 
-        <div className="w-full relative flex items-center justify-center" style={{ maxHeight: "350px" }}>
-          <div className='image-box'>
+        <div className="w-full relative flex items-center justify-center py-6 px-4" style={{ maxHeight: "400px" }}>
+          <div className="max-w-2xl w-full flex items-center justify-center">
             <img
               src={HeadGif}
               alt="Aevum External Brain Architecture Diagram"
-              className="w-full h-auto object-contain"
-              style={{ objectFit: "cover", }}
-            />
-          </div>
-          <div className='image-box'>
-            <img
-              src={HeadGif}
-              alt="Aevum External Brain Architecture Diagram"
-              className="w-full h-auto object-contain"
-              style={{ objectFit: "cover", }}
-            />
-          </div>
-          <div className='image-box'>
-            <img
-              src={HeadGif}
-              alt="Aevum External Brain Architecture Diagram"
-              className="w-full h-auto object-contain"
-              style={{ objectFit: "cover", }}
-            />
-          </div>
-          <div className='image-box'>
-            <img
-              src={HeadGif}
-              alt="Aevum External Brain Architecture Diagram"
-              className="w-full h-auto object-contain"
-              style={{ objectFit: "cover", }}
-            />
-          </div>
-          <div className='image-box'>
-            <img
-              src={HeadGif}
-              alt="Aevum External Brain Architecture Diagram"
-              className="w-full h-auto object-contain"
-              style={{ objectFit: "cover", }}
+              loading="lazy"
+              decoding="async"
+              className="w-full h-auto max-h-[350px] object-contain"
             />
           </div>
         </div>

@@ -138,6 +138,10 @@ export const Sponsors = ({ activeLang = 'vi' }) => {
                 <img 
                   src={item.sticker} 
                   alt={item.name} 
+                  loading="lazy"
+                  decoding="async"
+                  width="144"
+                  height="144"
                   className="w-28 h-28 sm:w-36 sm:h-36 object-contain shadow-none"
                   style={{ boxShadow: 'none', filter: 'none' }}
                 />

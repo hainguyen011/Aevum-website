@@ -991,6 +991,7 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
         {/* Eye Care Toggle */}
         <button
           onClick={() => setIsEyeCare(prev => !prev)}
+          aria-label="Toggle Eye Care Mode"
           className={`utility-bar-btn flex items-center justify-center w-[42px] h-[42px] transition-all duration-200 cursor-pointer rounded-none border-0 select-none ${isEyeCare
             ? '!bg-amber-500/10 !text-amber-500 hover:!bg-amber-500/20'
             : ''

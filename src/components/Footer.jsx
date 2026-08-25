@@ -1,7 +1,8 @@
 import React from 'react';
 import { Mail } from 'lucide-react';
-import logoImg from '../../assets/logos/AevumOS-transparent.webp';
 import { translations } from '../data/translations';
+
+const logoImg = '/assets/logos/AevumOS-transparent.webp';
 
 export const Footer = ({ onNavigate, activeLang }) => {
   const t = translations[activeLang] || translations.en;
@@ -19,19 +20,23 @@ export const Footer = ({ onNavigate, activeLang }) => {
       }
     };
 
-    onNavigate('landing');
-    setTimeout(scrollToElement, 150);
+    if (onNavigate) {
+      onNavigate('landing');
+      setTimeout(scrollToElement, 100);
+    } else {
+      scrollToElement();
+    }
   };
 
   return (
-    <footer className="bg-[#0B0B11] text-slate-400 text-xs">
+    <footer className="border-subtle-t bg-[#07080E] text-slate-400">
       
-      {/* Main Footer Links */}
-      <div className="p-8 sm:p-12">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
+      {/* Top Main Section with 12-Column Grid */}
+      <div className="px-8 sm:px-12 py-12 sm:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8">
           
-          {/* Brand Info */}
-          <div className="col-span-2 space-y-4">
+          {/* Brand & Identity Column (Spans 2 on desktop) */}
+          <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-2">
               <button 
                 onClick={() => onNavigate('landing')}
@@ -119,7 +124,7 @@ export const Footer = ({ onNavigate, activeLang }) => {
       </div>
 
       {/* Edge-to-Edge Divider Line & Bottom Copyright Bar */}
-      <div className="border-subtle-t px-8 sm:px-12 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500 font-mono text-[11px]">
+      <div className="border-subtle-t px-8 sm:px-12 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-400 font-mono text-[11px]">
         <p>{t.footer.copyright}</p>
         <div className="flex items-center gap-4">
           <button

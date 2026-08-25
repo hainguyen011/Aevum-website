@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import asciiAsset from '../../assets/logos/Aevum-ascii.webp';
 import { translations } from '../data/translations';
+
+const asciiAsset = '/assets/logos/Aevum-ascii.webp';
 
 export const Hero = ({ onNavigate, onOpenTrialModal, activeLang }) => {
   const [copied, setCopied] = useState(false);
@@ -19,9 +20,9 @@ export const Hero = ({ onNavigate, onOpenTrialModal, activeLang }) => {
   const title2 = titleParts[1] ? `& ${titleParts[1].trim()}` : '';
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12">
+    <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[460px] border-subtle-b border-subtle-t bg-[#0B0B11]">
       
-      {/* Left Cell: Text Content */}
+      {/* Left Cell: Text Content & High-Conversion Action Prompts */}
       <div 
         className="relative overflow-hidden lg:col-span-7 p-8 sm:p-12 lg:p-14 lg:border-subtle-r flex flex-col justify-between space-y-8 bg-[#0B0B11]"
       >
@@ -42,7 +43,7 @@ export const Hero = ({ onNavigate, onOpenTrialModal, activeLang }) => {
         <div className="space-y-6 relative z-10">
           
           {/* Sub-brand / Tagline */}
-          <div className="text-[11px] font-mono tracking-widest text-slate-500 uppercase">
+          <div className="text-[11px] font-mono tracking-widest text-slate-400 uppercase">
             {t.hero.badge}
           </div>
           
@@ -82,7 +83,7 @@ export const Hero = ({ onNavigate, onOpenTrialModal, activeLang }) => {
         {/* CLI Exec Command Strip */}
         <div className="pt-4 font-mono text-xs space-y-2 relative z-10">
           <div className="flex items-center justify-between text-slate-400">
-            <span className="text-[11px] text-slate-500 uppercase">{t.hero.startKernel}</span>
+            <span className="text-[11px] text-slate-400 uppercase">{t.hero.startKernel}</span>
             <button onClick={handleCopy} className="text-cyan-400 hover:text-cyan-300 text-[11px]">
               {copied ? "✓ " + (activeLang === 'vi' ? "Đã chép" : "Copied") : t.hero.copyCmd}
             </button>

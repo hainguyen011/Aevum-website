@@ -190,19 +190,23 @@ export const BentoGrid = ({ activeLang }) => {
           ))}
         </div>
 
-        {/* Mobile Dot Indicators */}
-        <div className="flex justify-center items-center gap-2.5 py-3 border-subtle-t">
+        {/* Mobile Dot Indicators (44x44px Touch Targets for Accessibility) */}
+        <div className="flex justify-center items-center gap-1 py-3 border-subtle-t">
           {items.map((_, idx) => (
             <button
               key={idx}
               onClick={() => scrollToSlide(idx)}
               aria-label={`Go to slide ${idx + 1} - ${items[idx].title}`}
-              className={`transition-all duration-300 rounded-full cursor-pointer p-1 ${
-                activeSlide === idx
-                  ? 'w-5 h-2 bg-cyan-400'
-                  : 'w-2 h-2 bg-white/20 hover:bg-white/40'
-              }`}
-            />
+              className="min-w-[44px] min-h-[44px] flex items-center justify-center cursor-pointer p-2"
+            >
+              <span
+                className={`block transition-all duration-300 rounded-full ${
+                  activeSlide === idx
+                    ? 'w-6 h-2 bg-cyan-400'
+                    : 'w-2 h-2 bg-white/20 hover:bg-white/40'
+                }`}
+              />
+            </button>
           ))}
         </div>
       </div>

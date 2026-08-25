@@ -182,20 +182,24 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
           ))}
         </div>
 
-        {/* Dot Indicators */}
-        <div className="flex justify-center items-center gap-2.5 py-4 bg-[#07080E] border-subtle-b">
+        {/* Dot Indicators (44x44px Touch Targets for Accessibility) */}
+        <div className="flex justify-center items-center gap-1 py-4 bg-[#07080E] border-subtle-b">
           {agents.map((agent, idx) => (
             <button
               key={idx}
               onClick={() => scrollToSlide(idx)}
               aria-label={`Xem persona ${agent.name} (${agent.role})`}
               title={`Persona ${agent.name}`}
-              className={`transition-all duration-300 rounded-full cursor-pointer ${
-                activeSlide === idx
-                  ? 'w-5 h-1.5 bg-cyan-400'
-                  : 'w-1.5 h-1.5 bg-white/20 hover:bg-white/40'
-              }`}
-            />
+              className="min-w-[44px] min-h-[44px] flex items-center justify-center cursor-pointer p-2"
+            >
+              <span
+                className={`block transition-all duration-300 rounded-full ${
+                  activeSlide === idx
+                    ? 'w-6 h-2 bg-cyan-400'
+                    : 'w-2 h-2 bg-white/20 hover:bg-white/40'
+                }`}
+              />
+            </button>
           ))}
         </div>
       </div>

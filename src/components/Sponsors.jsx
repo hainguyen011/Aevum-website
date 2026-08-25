@@ -49,9 +49,9 @@ export const Sponsors = ({ activeLang = 'vi' }) => {
     { sticker: anByebye, name: 'Anton ByeBye' },
   ];
 
-  // Duplicate for seamless 100% infinite marquee looping
-  const platformsLoop = [...basePlatforms, ...basePlatforms, ...basePlatforms];
-  const stickersLoop = [...antonStickers, ...antonStickers, ...antonStickers, ...antonStickers];
+  // Duplicate for seamless 100% infinite marquee looping with optimized DOM footprint
+  const platformsLoop = [...basePlatforms, ...basePlatforms];
+  const stickersLoop = [...antonStickers, ...antonStickers];
 
   return (
     <div id="orchestration" className="border-subtle-b bg-[#0B0B11]">

@@ -593,6 +593,12 @@ html[data-theme="light"] .gradient-text {
   left: 150%;
 }
 
+/* Optimize Below-The-Fold Performance via Content-Visibility */
+#agents, #orchestration, #foundation, #framework {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 600px;
+}
+
 /* Eye Care Mode (Chống mỏi mắt) - Warm overlay filter */
 .eye-care-overlay {
   position: fixed;

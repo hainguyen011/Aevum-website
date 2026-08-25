@@ -119,9 +119,18 @@ export const Footer = ({ onNavigate, activeLang }) => {
       {/* Edge-to-Edge Divider Line & Bottom Copyright Bar */}
       <div className="border-subtle-t px-8 sm:px-12 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500 font-mono text-[11px]">
         <p>{t.footer.copyright}</p>
-        <p className="text-cyan-400">
-          {t.footer.status}
-        </p>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => onNavigate('privacy')}
+            className="hover:text-cyan-400 transition-colors"
+          >
+            {activeLang === 'vi' ? 'Chính sách Bảo mật' : 'Privacy Policy'}
+          </button>
+          <span className="text-white/10">•</span>
+          <p className="text-cyan-400">
+            {t.footer.status}
+          </p>
+        </div>
       </div>
 
     </footer>

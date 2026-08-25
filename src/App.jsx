@@ -22,6 +22,7 @@ import { Pricing } from './components/Pricing';
 import { Profile } from './components/Profile';
 import { AuthLockGate } from './components/ui/AuthLockGate';
 import { TrialModal } from './components/TrialModal';
+import { Privacy } from './components/Privacy';
 
 import { SearchModal } from './components/SearchModal';
 import { CustomCursor } from './components/CustomCursor';
@@ -406,6 +407,9 @@ export function App() {
       } else if (path === 'discussions' || hash === 'discussions') {
         setCurrentPage('discussions');
         scrollToTarget(0);
+      } else if (path === 'privacy' || hash === 'privacy') {
+        setCurrentPage('privacy');
+        scrollToTarget(0);
       } else if (hash && hash !== 'landing' && hash !== 'home') {
         // Landing anchor section (#breakthroughs, #architecture, #orchestration, #cli)
         setCurrentPage('landing');
@@ -499,6 +503,15 @@ export function App() {
           ? 'Xem lịch sử cập nhật của Aevum OS: Các tính năng mới, cải tiến hiệu năng và bản sửa lỗi của biệt đội AI agent từ I2FLabs.'
           : 'View the changelog and update history of Aevum OS: New features, performance enhancements, and bug fixes from the I2FLabs team.',
         url: 'https://www.aevum.ai.vn/changelog'
+      },
+      privacy: {
+        title: isVi
+          ? 'Chính sách Bảo mật — Aevum OS'
+          : 'Privacy Policy — Aevum OS',
+        description: isVi
+          ? 'Chính sách Bảo mật của I2FLabs và Aevum OS: Cách chúng tôi thu thập, sử dụng và bảo vệ dữ liệu cá nhân của bạn.'
+          : 'Privacy Policy of I2FLabs and Aevum OS: How we collect, use, and protect your personal data.',
+        url: 'https://www.aevum.ai.vn/privacy'
       }
     };
 
@@ -677,6 +690,10 @@ export function App() {
                     pageName={activeLang === 'vi' ? 'Kênh Thảo luận (Discussions)' : 'Discussions'}
                   />
                 )
+              )}
+
+              {currentPage === 'privacy' && (
+                <Privacy activeLang={activeLang} />
               )}
 
 

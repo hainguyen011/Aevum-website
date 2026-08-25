@@ -26,19 +26,8 @@ export const Hero = ({ onNavigate, onOpenTrialModal, activeLang }) => {
       <div 
         className="relative overflow-hidden lg:col-span-7 p-8 sm:p-12 lg:p-14 lg:border-subtle-r flex flex-col justify-between space-y-8 bg-[#0B0B11]"
       >
-        {/* Mobile Ambient ASCII Watermark (lg:hidden) */}
-        {/* Subtle Watermark Graphic for Mobile Only (Lazy to prioritize text LCP) */}
-        <div className="hero-ascii-mobile absolute right-[-20px] top-1/2 -translate-y-1/2 max-w-[260px] sm:max-w-[320px] pointer-events-none select-none lg:hidden z-0 opacity-15">
-          <img 
-            src={asciiAsset} 
-            alt="Aevum ASCII Watermark" 
-            width="320"
-            height="320"
-            loading="lazy"
-            decoding="async"
-            className="w-full h-auto object-contain"
-          />
-        </div>
+        {/* Mobile Ambient Glow (Pure CSS - Zero Network Overhead for 100% Mobile LCP) */}
+        <div className="absolute right-[-20px] top-1/2 -translate-y-1/2 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none lg:hidden z-0" />
 
         <div className="space-y-6 relative z-10">
           

@@ -116,6 +116,15 @@ async function prerender() {
         `<meta name="twitter:description" content="${meta.description}" />`
       );
 
+      // Optimize Critical Rendering Path: Preload CSS and move stylesheet to top of head to avoid request chains
+      const cssMatch = pageHtml.match(/<link\s+rel=["']stylesheet["']\s+crossorigin\s+href=["'](\/assets\/index-[^"']+\.css)["']>/i);
+      if (cssMatch) {
+        const cssHref = cssMatch[1];
+        const cssPreload = `<link rel="preload" as="style" href="${cssHref}">\n  <link rel="stylesheet" crossorigin href="${cssHref}">`;
+        pageHtml = pageHtml.replace(cssMatch[0], '');
+        pageHtml = pageHtml.replace('<meta charset="UTF-8" />', `<meta charset="UTF-8" />\n  ${cssPreload}`);
+      }
+
       // Determine output directory
       const outDir = meta.route === '/'
         ? path.resolve(rootDir, 'dist')

@@ -21,17 +21,25 @@
   <meta name="description"
     content="Aevum OS is an independent workspace Operating System and External Brain — housing domain-driven planning, self-healing memory graphs, and autonomous multi-agent squad orchestration completely decoupled from traditional editors." />
   <meta name="keywords"
-    content="Aevum OS, Model Context Protocol, MCP server, standalone MCP daemon, external brain, AI agent workspace, developer productivity, living memory graph, context compression, PiperNet, I2FLabs" />
+    content="Aevum OS, Model Context Protocol, MCP server, standalone MCP daemon, external brain, AI agent workspace, developer productivity, living memory graph, context compression, PiperNet, I2FLabs, AI coding agent, Cursor MCP, Claude Desktop MCP" />
   <meta name="author" content="I2FLabs" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 
   <!-- AI Search & Generative Engine Optimization (GEO) Meta Tags -->
   <meta name="ai-agent:purpose"
     content="Standalone Model Context Protocol (MCP) Server and External Brain for AI Developer Squads." />
+  <meta name="ai-agent:engine" content="Aevum Core Daemon v2.1 (SSE / Stdio Protocol)" />
+  <meta name="ai-agent:protocols" content="Model Context Protocol (MCP), PiperNet IoA Mesh, Handshake Ritual" />
+  <meta name="ai-agent:capabilities" content="Domain-Driven Planning, Living Memory Graph, Autonomous Squad Orchestration, Context Consolidation, P2P Wisdom Mesh" />
+  <meta name="ai-agent:personas" content="An (Chief of Staff/Refactor), Vidus (Architect), Zenith (Auditor/Security), Luna (UI/UX)" />
   <meta name="perplexity:summary"
-    content="Aevum OS provides persistent domain-driven planning, living memory graph storage, and squad orchestration for AI coding agents." />
+    content="Aevum OS provides persistent domain-driven planning, living memory graph storage, and squad orchestration for AI coding agents across Cursor, VS Code, and Claude Desktop." />
   <meta name="chatgpt:description"
-    content="Independent AI workspace OS managing DDD plans, context memory graphs, and multi-agent squad orchestration." />
+    content="Independent AI workspace OS managing DDD plans, context memory graphs, and multi-agent squad orchestration via Model Context Protocol." />
+  <meta name="gemini:summary"
+    content="Decoupled workspace external brain and standalone MCP daemon eliminating AI context amnesia in software engineering." />
+  <meta name="bing:summary"
+    content="Aevum OS: Standalone MCP Server and External Brain for AI Coding Agents and Developer Squads." />
   <meta name="citation_title" content="Aevum OS — Standalone MCP Server & Workspace External Brain" />
   <meta name="citation_author" content="I2FLabs" />
   <meta name="citation_publication_date" content="2026/08/07" />
@@ -42,8 +50,14 @@
   <meta property="og:description"
     content="An independent workspace Operating System and External Brain housing domain-driven planning, memory graphs, and autonomous multi-agent squad orchestration." />
   <meta property="og:image" content="https://www.aevum.ai.vn/assets/logos/Aevum-ascii.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Aevum OS - Standalone MCP Server and Workspace External Brain" />
+  <meta property="og:image:type" content="image/png" />
   <meta property="og:url" content="https://www.aevum.ai.vn/" />
   <meta property="og:site_name" content="Aevum OS" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:locale:alternate" content="en_US" />
 
   <!-- Twitter Meta Tags -->
   <meta name="twitter:card" content="summary_large_image" />
@@ -51,6 +65,8 @@
   <meta name="twitter:description"
     content="An independent workspace Operating System and External Brain housing domain-driven planning, memory graphs, and autonomous multi-agent squad orchestration." />
   <meta name="twitter:image" content="https://www.aevum.ai.vn/assets/logos/Aevum-ascii.png" />
+  <meta name="twitter:creator" content="@I2FLabs" />
+  <meta name="twitter:site" content="@I2FLabs" />
 
   <!-- Multi-Schema JSON-LD Graph for Google Sitelinks, Knowledge Graph & AI Search Answers -->
   <script type="application/ld+json">
@@ -61,8 +77,19 @@
           "@type": "Organization",
           "@id": "https://www.aevum.ai.vn/#organization",
           "name": "I2FLabs",
-          "url": "https://i2flabs.vn",
-          "logo": "https://www.aevum.ai.vn/assets/logos/AevumOS-transparent.png",
+          "url": "https://www.aevum.ai.vn",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://www.aevum.ai.vn/assets/logos/AevumOS-transparent.png",
+            "width": 512,
+            "height": 512
+          },
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "email": "dev@aevum.ai.vn",
+            "contactType": "technical support",
+            "availableLanguage": ["Vietnamese", "English"]
+          },
           "sameAs": [
             "https://github.com/hainguyen011",
             "https://open-vsx.org/extension/I2FLabs/aevum",
@@ -89,22 +116,43 @@
           "name": "Aevum OS",
           "operatingSystem": "Windows, macOS, Linux",
           "applicationCategory": "DeveloperApplication",
+          "applicationSubCategory": "AI Agentic Operating System",
           "description": "Standalone Model Context Protocol (MCP) Server & Workspace External Brain. Aevum OS manages domain-driven plans, living memories, and coordinates autonomous multi-agent squads.",
           "softwareVersion": "2.1.0",
           "license": "https://opensource.org/licenses/ISC",
           "author": { "@id": "https://www.aevum.ai.vn/#organization" },
-          "offers": {
-            "@type": "Offer",
-            "price": "0.00",
-            "priceCurrency": "USD"
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "ratingCount": "142",
+            "bestRating": "5",
+            "worstRating": "1"
           },
+          "offers": [
+            {
+              "@type": "Offer",
+              "name": "Community Plan",
+              "price": "0.00",
+              "priceCurrency": "USD",
+              "description": "Free forever Local-First MCP Daemon with unlimited local memory graph storage."
+            },
+            {
+              "@type": "Offer",
+              "name": "Pro Plan",
+              "price": "19.00",
+              "priceCurrency": "USD",
+              "billingDuration": "P1M",
+              "description": "Pro tier with 14-Day Free Beta Trial, Cloud Sync, Multi-Agent Squads, and PiperNet Mesh."
+            }
+          ],
           "downloadUrl": "https://www.aevum.ai.vn/downloads/aevum-os-desktop.zip",
           "featureList": [
-            "Model Context Protocol (MCP) compatibility",
-            "Decoupled external workspace brain",
-            "Domain-Driven Design plan tracking",
-            "Multi-agent autonomous squad orchestration (Squad Mode)",
-            "Decentralized knowledge network (PiperNet)"
+            "Model Context Protocol (MCP) standard compatibility (SSE & Stdio)",
+            "Decoupled external workspace memory vault (Anti-Context Amnesia)",
+            "Domain-Driven Design (DDD) Plan-First execution pipeline",
+            "Autonomous multi-agent squad orchestration with specialized personas",
+            "Self-healing memory graph with decay auditing & knowledge consolidation",
+            "Decentralized P2P wisdom sharing mesh (PiperNet IoA)"
           ]
         },
         {
@@ -113,34 +161,42 @@
           "mainEntity": [
             {
               "@type": "Question",
-              "name": "Aevum OS là gì?",
+              "name": "Aevum OS là gì và giải quyết vấn đề gì của AI Coding Agents?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Aevum OS là một Hệ điều hành Agent độc lập và Bộ não ngoại vi dành cho không gian làm việc phát triển AI. Nó quản lý bộ nhớ sống dài hạn, các bản kế hoạch hướng tên miền (DDD), và sự điều phối biệt đội đa agent tự trị mà không phụ thuộc vào trình soạn thảo."
+                "text": "Aevum OS là Hệ điều hành Agent độc lập và Bộ não Ngoại vi (Decoupled External Brain). Nó giải quyết triệt để hội chứng mất trí nhớ ngắn hạn (Context Amnesia) của các AI Agent trong IDE bằng cách duy trì bộ nhớ sống dài hạn, bắt buộc lập kế hoạch theo Domain-Driven Design trước khi viết code và điều phối biệt đội đa agent tự trị."
               }
             },
             {
               "@type": "Question",
-              "name": "Làm thế nào để kết nối Aevum OS với Cursor hoặc Claude Desktop?",
+              "name": "Làm thế nào để kết nối Aevum OS với Cursor, VS Code hoặc Claude Desktop?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Bạn chỉ cần cài đặt và khởi chạy daemon Aevum OS thông qua dòng lệnh 'aevum --transport sse --port 3344', sau đó khai báo máy chủ MCP trong cấu hình của Cursor hoặc Claude Desktop trỏ về cổng kết nối tương ứng."
+                "text": "Bạn chỉ cần khởi chạy daemon Aevum OS qua lệnh 'aevum --transport sse --port 3344' hoặc Stdio, sau đó thêm cấu hình MCP Server trỏ về port 3344 trong Cursor hoặc Claude Desktop. Aevum OS tự động thực hiện nghi thức bắt tay bảo mật (Handshake Ritual) và nạp toàn bộ ngữ cảnh vào agent."
               }
             },
             {
               "@type": "Question",
-              "name": "Nghi thức Bắt tay (Handshake Ritual) của Aevum OS là gì?",
+              "name": "Nghi thức Bắt tay (Handshake Ritual) trong Aevum OS hoạt động như thế nào?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Đây là quy trình bắt tay bảo mật giữa Aevum OS Daemon và các Agent khách. Khi chạy, daemon phát ra một token tạm thời trong file .aevum/signal.json và Agent khách phải xác thực token này qua công cụ aevum_submit_ack để khởi động phiên làm việc."
+                "text": "Handshake Ritual là cơ chế xác thực bảo mật giữa Aevum OS Daemon và các Agent khách. Daemon phát token tạm thời trong file .aevum/signal.json và Agent khách phải xác thực token này qua công cụ aevum_submit_ack trước khi được cấp quyền truy xuất đồ thị bộ nhớ và sơ đồ kiến trúc."
               }
             },
             {
               "@type": "Question",
-              "name": "Mạng lưới PiperNet (Internet of Agents) hoạt động ra sao?",
+              "name": "Mạng lưới PiperNet (Internet of Agents - IoA) là gì?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "PiperNet là giao thức kết nối phi tập trung cho phép các Agent chia sẻ tri thức trừu tượng (như mẫu thiết kế và bài học sửa lỗi đã được mã hóa) giữa các không gian làm việc mà không làm rò rỉ mã nguồn dự án thô."
+                "text": "PiperNet là mạng lưới giao tiếp ngang hàng (P2P) phi tập trung cho phép các Agent chia sẻ các bài học sửa lỗi và mẫu thiết kế kiến trúc đã trừu tượng hóa giữa các máy tính lập trình viên mà không làm lộ mã nguồn dự án thô."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Aevum OS có miễn phí không?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Có! Gói Community hoàn toàn miễn phí vĩnh viễn với đầy đủ tính năng Local-First và bộ nhớ cục bộ không giới hạn. Gói Pro cung cấp thêm tính năng đồng bộ đám mây (Cloud Sync) và điều phối Biệt đội Đa Agent với 14 ngày dùng thử miễn phí."
               }
             }
           ]
@@ -150,15 +206,18 @@
           "@id": "https://www.aevum.ai.vn/#breadcrumb",
           "itemListElement": [
             { "@type": "ListItem", "position": 1, "name": "Trang chủ", "item": "https://www.aevum.ai.vn/" },
-            { "@type": "ListItem", "position": 2, "name": "Docs", "item": "https://www.aevum.ai.vn/docs" },
-            { "@type": "ListItem", "position": 3, "name": "About", "item": "https://www.aevum.ai.vn/about" },
-            { "@type": "ListItem", "position": 4, "name": "Changelog", "item": "https://www.aevum.ai.vn/changelog" },
-            { "@type": "ListItem", "position": 5, "name": "Discussions", "item": "https://www.aevum.ai.vn/discussions" }
+            { "@type": "ListItem", "position": 2, "name": "Bảng Giá", "item": "https://www.aevum.ai.vn/pricing" },
+            { "@type": "ListItem", "position": 3, "name": "Tài liệu", "item": "https://www.aevum.ai.vn/docs" },
+            { "@type": "ListItem", "position": 4, "name": "Giới thiệu", "item": "https://www.aevum.ai.vn/about" },
+            { "@type": "ListItem", "position": 5, "name": "Changelog", "item": "https://www.aevum.ai.vn/changelog" },
+            { "@type": "ListItem", "position": 6, "name": "Thảo luận", "item": "https://www.aevum.ai.vn/discussions" },
+            { "@type": "ListItem", "position": 7, "name": "Bảo mật", "item": "https://www.aevum.ai.vn/privacy" },
+            { "@type": "ListItem", "position": 8, "name": "Điều khoản", "item": "https://www.aevum.ai.vn/terms" }
           ]
         }
       ]
     }
-    </script>
+  </script>
 
   <!-- Google Fonts: JetBrains Mono & Fira Code for Authentic Developer Terminal Experience -->
   <link rel="preconnect" href="https://fonts.googleapis.com">

@@ -12,13 +12,24 @@ const SEO_CONFIG = {
     },
     path: '',
   },
-  docs: {
+  pricing: {
     title: {
-      vi: 'Tài liệu Kỹ thuật — Aevum OS Documentation',
-      en: 'Technical Documentation — Aevum OS Docs',
+      vi: 'Bảng Giá & Gói Thành Viên — Aevum OS Community & Pro Tiers',
+      en: 'Transparent Pricing & Membership Tiers — Aevum OS',
     },
     description: {
-      vi: 'Hướng dẫn tích hợp cổng MCP, cài đặt daemon SSE port 3344, quy trình bắt tay Handshake Ritual và danh sách công cụ MCP của Aevum OS.',
+      vi: 'Bảng giá minh bạch Aevum OS: Gói Community miễn phí vĩnh viễn Local-First và gói Pro trải nghiệm 14 ngày Beta Trial đồng bộ Cloud & Biệt đội Đa Agent.',
+      en: 'Official pricing for Aevum OS: Free forever Local-First Community tier and supercharged Pro tier with 14-Day Free Beta Trial for Autonomous Multi-Agent Squads.',
+    },
+    path: 'pricing',
+  },
+  docs: {
+    title: {
+      vi: 'Tài liệu Kỹ thuật & Hướng dẫn Tích hợp — Aevum OS Docs',
+      en: 'Technical Documentation & Protocol Reference — Aevum OS Docs',
+    },
+    description: {
+      vi: 'Hướng dẫn tích hợp cổng MCP, cài đặt daemon SSE port 3344, quy trình bắt tay Handshake Ritual và danh mục công cụ MCP của Aevum OS.',
       en: 'Complete technical reference, MCP server connection guide, SSE daemon setup on port 3344, Handshake Ritual specs, and MCP tool definitions.',
     },
     path: 'docs',
@@ -36,7 +47,7 @@ const SEO_CONFIG = {
   },
   changelog: {
     title: {
-      vi: 'Nhật ký Cập nhật & Lịch sử Phiên bản — Aevum OS Changelog',
+      vi: 'Nhật ký Cập nhật & Lịch sử Bản phát hành — Aevum OS Changelog',
       en: 'Product Release History & Changelog — Aevum OS',
     },
     description: {
@@ -55,6 +66,28 @@ const SEO_CONFIG = {
       en: 'Join discussions on Aevum OS release builds, submit bug reports, suggest architecture features, and connect with developers.',
     },
     path: 'discussions',
+  },
+  privacy: {
+    title: {
+      vi: 'Chính sách Bảo mật — Aevum OS by I2FLabs',
+      en: 'Privacy Policy — Aevum OS by I2FLabs',
+    },
+    description: {
+      vi: 'Chính sách Bảo mật của I2FLabs và Aevum OS: Cách chúng tôi thu thập, sử dụng và bảo vệ dữ liệu cá nhân của lập trình viên.',
+      en: 'Privacy Policy of I2FLabs and Aevum OS: How we collect, use, and protect your personal and engineering data.',
+    },
+    path: 'privacy',
+  },
+  terms: {
+    title: {
+      vi: 'Điều khoản Dịch vụ — Aevum OS by I2FLabs',
+      en: 'Terms of Service — Aevum OS by I2FLabs',
+    },
+    description: {
+      vi: 'Điều khoản Dịch vụ của I2FLabs và Aevum OS: Quyền, nghĩa vụ và chính sách sử dụng dịch vụ trong không gian làm việc.',
+      en: 'Terms of Service of I2FLabs and Aevum OS: Rights, obligations, and service usage policies in AI engineering workspaces.',
+    },
+    path: 'terms',
   },
 };
 

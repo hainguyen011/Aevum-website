@@ -91,9 +91,9 @@ export const Sponsors = ({ activeLang = 'vi' }) => {
                   {item.tag}
                 </span>
                 <div className="my-2">
-                  <h4 className="text-sm font-extrabold text-white font-display group-hover/card:text-cyan-400 transition-colors">
+                  <h3 className="text-sm font-extrabold text-white font-display group-hover/card:text-cyan-400 transition-colors">
                     {item.name}
-                  </h4>
+                  </h3>
                   <p className="text-[11px] text-slate-400 mt-1 font-mono">
                     {item.desc}
                   </p>

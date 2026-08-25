@@ -609,140 +609,142 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
                 onOpenAuthModal={() => setIsAuthModalOpen(true)}
               />
 
-              {currentPage === 'landing' && (
-                <>
-                  {/* Hero 2-Column Grid Row */}
-                  <Hero
-                    onNavigate={handleNavigate}
-                    onOpenTrialModal={handleOpenTrialModal}
-                    activeLang={activeLang}
-                  />
+              <main id="main-content" role="main" className="w-full">
+                {currentPage === 'landing' && (
+                  <>
+                    {/* Hero 2-Column Grid Row */}
+                    <Hero
+                      onNavigate={handleNavigate}
+                      onOpenTrialModal={handleOpenTrialModal}
+                      activeLang={activeLang}
+                    />
 
-                  {/* Sub Nav Category Tabs Row */}
-                  <SubNavTabs activeLang={activeLang} />
+                    {/* Sub Nav Category Tabs Row */}
+                    <SubNavTabs activeLang={activeLang} />
 
-                  {/* Section 1: Bento Grid Feature Showcase Row */}
-                  <BentoGrid activeLang={activeLang} />
+                    {/* Section 1: Bento Grid Feature Showcase Row */}
+                    <BentoGrid activeLang={activeLang} />
 
-                  {/* Dedicated Default Aevum AI Agents Squad Showcase Section */}
-                  <AgentsShowcase
-                    activeLang={activeLang}
-                    onOpenTrialModal={handleOpenTrialModal}
-                  />
+                    {/* Dedicated Default Aevum AI Agents Squad Showcase Section */}
+                    <AgentsShowcase
+                      activeLang={activeLang}
+                      onOpenTrialModal={handleOpenTrialModal}
+                    />
 
-                  {/* Section 2: Architecture & Foundation Grid Row */}
-                  <FoundationGrid activeLang={activeLang} />
+                    {/* Section 2: Architecture & Foundation Grid Row */}
+                    <FoundationGrid activeLang={activeLang} />
 
-                  {/* Section 3: Framework Integration Flow */}
-                  <FrameworkFlow activeLang={activeLang} />
+                    {/* Section 3: Framework Integration Flow */}
+                    <FrameworkFlow activeLang={activeLang} />
 
-                  {/* Section 4: Transparent Pricing & Membership Tiers */}
+                    {/* Section 4: Transparent Pricing & Membership Tiers */}
+                    <Pricing
+                      activeLang={activeLang}
+                      onOpenTrialModal={handleOpenTrialModal}
+                      onOpenAuthModal={() => setIsAuthModalOpen(true)}
+                      showDetails={false}
+                      onNavigate={handleNavigate}
+                    />
+
+                    {/* Section 5: Testimonials & Community Stats */}
+                    <Testimonials activeLang={activeLang} />
+
+                    {/* Section 6: Dedicated Unikorn Vietnam Feature Section */}
+                    <UnikornSection activeLang={activeLang} />
+
+                    {/* Section 7: Dedicated I2FLabs Development Team Section */}
+                    <I2FLabsSection activeLang={activeLang} />
+
+                    {/* Section 8: Open Source Sponsors */}
+                    <Sponsors activeLang={activeLang} />
+
+                    {/* Section 9: CTA Banner */}
+                    <CtaBanner
+                      onNavigate={handleNavigate}
+                      onOpenTrialModal={handleOpenTrialModal}
+                      activeLang={activeLang}
+                    />
+                  </>
+                )}
+
+                {currentPage === 'pricing' && (
                   <Pricing
                     activeLang={activeLang}
                     onOpenTrialModal={handleOpenTrialModal}
                     onOpenAuthModal={() => setIsAuthModalOpen(true)}
-                    showDetails={false}
+                    showDetails={true}
                     onNavigate={handleNavigate}
                   />
-
-                  {/* Section 5: Testimonials & Community Stats */}
-                  <Testimonials activeLang={activeLang} />
-
-                  {/* Section 6: Dedicated Unikorn Vietnam Feature Section */}
-                  <UnikornSection activeLang={activeLang} />
-
-                  {/* Section 7: Dedicated I2FLabs Development Team Section */}
-                  <I2FLabsSection activeLang={activeLang} />
-
-                  {/* Section 8: Open Source Sponsors */}
-                  <Sponsors activeLang={activeLang} />
-
-                  {/* Section 9: CTA Banner */}
-                  <CtaBanner
-                    onNavigate={handleNavigate}
-                    onOpenTrialModal={handleOpenTrialModal}
-                    activeLang={activeLang}
-                  />
-                </>
-              )}
-
-              {currentPage === 'pricing' && (
-                <Pricing
-                  activeLang={activeLang}
-                  onOpenTrialModal={handleOpenTrialModal}
-                  onOpenAuthModal={() => setIsAuthModalOpen(true)}
-                  showDetails={true}
-                  onNavigate={handleNavigate}
-                />
-              )}
-
-              <Suspense fallback={<div className="min-h-[40vh] flex items-center justify-center font-mono text-xs text-slate-500">Loading...</div>}>
-                {currentPage === 'docs' && (
-                  user ? (
-                    <Docs activeLang={activeLang} />
-                  ) : (
-                    <AuthLockGate
-                      activeLang={activeLang}
-                      onOpenAuthModal={() => setIsAuthModalOpen(true)}
-                      onNavigate={handleNavigate}
-                      pageName={activeLang === 'vi' ? 'Tài liệu Kỹ thuật (Docs)' : 'Documentation'}
-                    />
-                  )
                 )}
 
-                {currentPage === 'about' && (
-                  <About activeLang={activeLang} />
-                )}
+                <Suspense fallback={<div className="min-h-[40vh] flex items-center justify-center font-mono text-xs text-slate-400">Loading...</div>}>
+                  {currentPage === 'docs' && (
+                    user ? (
+                      <Docs activeLang={activeLang} />
+                    ) : (
+                      <AuthLockGate
+                        activeLang={activeLang}
+                        onOpenAuthModal={() => setIsAuthModalOpen(true)}
+                        onNavigate={handleNavigate}
+                        pageName={activeLang === 'vi' ? 'Tài liệu Kỹ thuật (Docs)' : 'Documentation'}
+                      />
+                    )
+                  )}
 
-                {currentPage === 'changelog' && (
-                  user ? (
-                    <Changelog activeLang={activeLang} onNavigate={handleNavigate} />
-                  ) : (
-                    <AuthLockGate
-                      activeLang={activeLang}
-                      onOpenAuthModal={() => setIsAuthModalOpen(true)}
-                      onNavigate={handleNavigate}
-                      pageName={activeLang === 'vi' ? 'Nhật ký Cập nhật (Changelog)' : 'Changelog'}
-                    />
-                  )
-                )}
+                  {currentPage === 'about' && (
+                    <About activeLang={activeLang} />
+                  )}
 
-                {currentPage === 'discussions' && (
-                  user ? (
-                    <Discussions
+                  {currentPage === 'changelog' && (
+                    user ? (
+                      <Changelog activeLang={activeLang} onNavigate={handleNavigate} />
+                    ) : (
+                      <AuthLockGate
+                        activeLang={activeLang}
+                        onOpenAuthModal={() => setIsAuthModalOpen(true)}
+                        onNavigate={handleNavigate}
+                        pageName={activeLang === 'vi' ? 'Nhật ký Cập nhật (Changelog)' : 'Changelog'}
+                      />
+                    )
+                  )}
+
+                  {currentPage === 'discussions' && (
+                    user ? (
+                      <Discussions
+                        activeLang={activeLang}
+                        user={user}
+                        userProfile={userProfile}
+                        onOpenAuthModal={() => setIsAuthModalOpen(true)}
+                      />
+                    ) : (
+                      <AuthLockGate
+                        activeLang={activeLang}
+                        onOpenAuthModal={() => setIsAuthModalOpen(true)}
+                        onNavigate={handleNavigate}
+                        pageName={activeLang === 'vi' ? 'Kênh Thảo luận (Discussions)' : 'Discussions'}
+                      />
+                    )
+                  )}
+
+                  {currentPage === 'privacy' && (
+                    <Privacy activeLang={activeLang} />
+                  )}
+
+                  {currentPage === 'terms' && (
+                    <Terms activeLang={activeLang} />
+                  )}
+
+                  {currentPage === 'profile' && (
+                    <Profile
                       activeLang={activeLang}
                       user={user}
                       userProfile={userProfile}
-                      onOpenAuthModal={() => setIsAuthModalOpen(true)}
-                    />
-                  ) : (
-                    <AuthLockGate
-                      activeLang={activeLang}
-                      onOpenAuthModal={() => setIsAuthModalOpen(true)}
                       onNavigate={handleNavigate}
-                      pageName={activeLang === 'vi' ? 'Kênh Thảo luận (Discussions)' : 'Discussions'}
+                      onOpenTrialModal={handleOpenTrialModal}
                     />
-                  )
-                )}
-
-                {currentPage === 'privacy' && (
-                  <Privacy activeLang={activeLang} />
-                )}
-
-                {currentPage === 'terms' && (
-                  <Terms activeLang={activeLang} />
-                )}
-
-                {currentPage === 'profile' && (
-                  <Profile
-                    activeLang={activeLang}
-                    user={user}
-                    userProfile={userProfile}
-                    onNavigate={handleNavigate}
-                    onOpenTrialModal={handleOpenTrialModal}
-                  />
-                )}
-              </Suspense>
+                  )}
+                </Suspense>
+              </main>
 
               {/* Footer */}
               <Footer onNavigate={handleNavigate} activeLang={activeLang} />

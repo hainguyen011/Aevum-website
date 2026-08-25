@@ -77,7 +77,7 @@ export const Testimonials = ({ activeLang }) => {
             className="w-10 h-10 rounded-full object-cover border border-[#0ea5e9]/40"
           />
           <div>
-            <h4 className="text-xs font-bold text-white leading-none font-display">{rev.name}</h4>
+            <h3 className="text-xs font-bold text-white leading-none font-display">{rev.name}</h3>
             <span className="text-[11px] text-slate-400 font-mono">{rev.handle}</span>
           </div>
         </div>

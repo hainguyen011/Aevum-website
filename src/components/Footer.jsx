@@ -89,7 +89,7 @@ export const Footer = ({ onNavigate, activeLang }) => {
 
           {/* Architecture Column */}
           <div className="space-y-3">
-            <h4 className="font-bold text-white uppercase tracking-wider text-[11px] font-mono">{t.footer.cols.arch}</h4>
+            <h3 className="font-bold text-white uppercase tracking-wider text-[11px] font-mono">{t.footer.cols.arch}</h3>
             <ul className="space-y-2">
               <li><a href="#breakthroughs" onClick={(e) => handleNavLink(e, 'breakthroughs')} className="hover:text-cyan-400 transition-colors">{activeLang === 'vi' ? 'Nghi thức Bắt tay' : 'The Handshake Ritual'}</a></li>
               <li><a href="#breakthroughs" onClick={(e) => handleNavLink(e, 'breakthroughs')} className="hover:text-cyan-400 transition-colors">{activeLang === 'vi' ? 'Bộ não hướng Tên miền' : 'Domain-Driven Brain'}</a></li>
@@ -100,7 +100,7 @@ export const Footer = ({ onNavigate, activeLang }) => {
 
           {/* Execution Modes Column */}
           <div className="space-y-3">
-            <h4 className="font-bold text-white uppercase tracking-wider text-[11px] font-mono">{t.footer.cols.exec}</h4>
+            <h3 className="font-bold text-white uppercase tracking-wider text-[11px] font-mono">{t.footer.cols.exec}</h3>
             <ul className="space-y-2">
               <li><a href="#cli" onClick={(e) => handleNavLink(e, 'cli')} className="hover:text-cyan-400 transition-colors">SSE Daemon (Port 3344)</a></li>
               <li><a href="#cli" onClick={(e) => handleNavLink(e, 'cli')} className="hover:text-cyan-400 transition-colors">Stdio OS Process</a></li>
@@ -111,7 +111,7 @@ export const Footer = ({ onNavigate, activeLang }) => {
 
           {/* Agent Ecosystem Column */}
           <div className="space-y-3">
-            <h4 className="font-bold text-white uppercase tracking-wider text-[11px] font-mono">{t.footer.cols.eco}</h4>
+            <h3 className="font-bold text-white uppercase tracking-wider text-[11px] font-mono">{t.footer.cols.eco}</h3>
             <ul className="space-y-2">
               <li><a href="#orchestration" onClick={(e) => handleNavLink(e, 'orchestration')} className="hover:text-cyan-400 transition-colors">Autonomous Agents</a></li>
               <li><a href="#orchestration" onClick={(e) => handleNavLink(e, 'orchestration')} className="hover:text-cyan-400 transition-colors">Claude Desktop Squads</a></li>

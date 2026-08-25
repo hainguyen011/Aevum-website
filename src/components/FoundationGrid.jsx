@@ -60,10 +60,10 @@ export const FoundationGrid = ({ activeLang }) => {
               <span className="text-[10px] text-cyan-400 font-mono">{t.foundationGrid.c1ToolType}</span>
             </div>
             <div className="p-3 text-xs font-mono text-slate-200 space-y-1.5">
-              <p className="text-cyan-400">• aevum_create_domain <span className="text-slate-500">(name, features)</span></p>
-              <p className="text-cyan-400">• aevum_create_plan <span className="text-slate-500">(domain, title, steps)</span></p>
-              <p className="text-emerald-400">• aevum_update_plan_step <span className="text-slate-500">(step_id, status)</span></p>
-              <p className="text-emerald-400">• aevum_capture_evidence <span className="text-slate-500">(logs, screenshot)</span></p>
+              <p className="text-cyan-400">• aevum_create_domain <span className="text-slate-400">(name, features)</span></p>
+              <p className="text-cyan-400">• aevum_create_plan <span className="text-slate-400">(domain, title, steps)</span></p>
+              <p className="text-emerald-400">• aevum_update_plan_step <span className="text-slate-400">(step_id, status)</span></p>
+              <p className="text-emerald-400">• aevum_capture_evidence <span className="text-slate-400">(logs, screenshot)</span></p>
             </div>
           </div>
         </div>
@@ -86,10 +86,10 @@ export const FoundationGrid = ({ activeLang }) => {
               <span className="text-[10px] text-emerald-400 font-mono">{t.foundationGrid.c2ToolType}</span>
             </div>
             <div className="p-3 text-xs font-mono text-slate-200 space-y-1.5">
-              <p className="text-cyan-400">• aevum_squad_handoff <span className="text-slate-500">(from_persona, to_persona)</span></p>
-              <p className="text-cyan-400">• aevum_squad_huddle <span className="text-slate-500">(topic, personas)</span></p>
-              <p className="text-emerald-400">• aevum_add_memory <span className="text-slate-500">(fact, category)</span></p>
-              <p className="text-emerald-400">• aevum_submit_ack <span className="text-slate-500">(handshake_token)</span></p>
+              <p className="text-cyan-400">• aevum_squad_handoff <span className="text-slate-400">(from_persona, to_persona)</span></p>
+              <p className="text-cyan-400">• aevum_squad_huddle <span className="text-slate-400">(topic, personas)</span></p>
+              <p className="text-emerald-400">• aevum_add_memory <span className="text-slate-400">(fact, category)</span></p>
+              <p className="text-emerald-400">• aevum_submit_ack <span className="text-slate-400">(handshake_token)</span></p>
             </div>
           </div>
         </div>

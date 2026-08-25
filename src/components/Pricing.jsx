@@ -190,7 +190,7 @@ export const Pricing = ({ activeLang = 'vi', onOpenTrialModal, onOpenAuthModal, 
                 <span className="text-2xl sm:text-3xl font-black text-white font-mono tracking-tight whitespace-nowrap">
                   0 VNĐ
                 </span>
-                <span className="text-xs text-slate-500 font-mono whitespace-nowrap">
+                <span className="text-xs text-slate-400 font-mono whitespace-nowrap">
                   {isVi ? '/ Trọn đời' : '/ Forever'}
                 </span>
               </div>
@@ -227,12 +227,12 @@ export const Pricing = ({ activeLang = 'vi', onOpenTrialModal, onOpenAuthModal, 
                   <Check size={14} className="text-emerald-400 shrink-0 stroke-[2.5]" />
                   <span>{isVi ? 'Tối đa 1 máy trạm liên kết' : 'Max 1 linked Workstation'}</span>
                 </p>
-                <p className="flex items-center gap-2.5 text-slate-500">
-                  <X size={14} className="text-slate-500 shrink-0" />
+                <p className="flex items-center gap-2.5 text-slate-400">
+                  <X size={14} className="text-slate-400 shrink-0" />
                   <span>{isVi ? 'Multi-Agent Squad Mode (Khóa)' : 'Multi-Agent Squad Mode (Locked)'}</span>
                 </p>
-                <p className="flex items-center gap-2.5 text-slate-500">
-                  <X size={14} className="text-slate-500 shrink-0" />
+                <p className="flex items-center gap-2.5 text-slate-400">
+                  <X size={14} className="text-slate-400 shrink-0" />
                   <span>{isVi ? 'Living Memory Cloud Sync (Khóa)' : 'Living Memory Cloud Sync (Locked)'}</span>
                 </p>
               </div>
@@ -399,7 +399,7 @@ export const Pricing = ({ activeLang = 'vi', onOpenTrialModal, onOpenAuthModal, 
                 <span className="text-2xl sm:text-3xl font-black text-white font-mono tracking-tight whitespace-nowrap">
                   {isVi ? 'Tùy Chỉnh' : 'Custom'}
                 </span>
-                <span className="text-xs text-slate-500 font-mono whitespace-nowrap">
+                <span className="text-xs text-slate-400 font-mono whitespace-nowrap">
                   {isVi ? '/ Đội ngũ' : '/ Tailored'}
                 </span>
               </div>
@@ -508,13 +508,13 @@ export const Pricing = ({ activeLang = 'vi', onOpenTrialModal, onOpenAuthModal, 
                     </tr>
                     <tr>
                       <td className="py-3 px-4 font-sans font-medium text-white">{isVi ? 'Multi-Agent Squad Mode' : 'Multi-Agent Squad Mode'}</td>
-                      <td className="py-3 px-4 text-center text-slate-500">—</td>
+                      <td className="py-3 px-4 text-center text-slate-400">—</td>
                       <td className="py-3 px-4 text-center text-cyan-400 font-bold">✓ Không giới hạn</td>
                       <td className="py-3 px-4 text-center text-purple-400 font-bold">✓ Đa Biệt đội Song song</td>
                     </tr>
                     <tr>
                       <td className="py-3 px-4 font-sans font-medium text-white">{isVi ? 'Living Memory Cloud Sync' : 'Living Memory Cloud Sync'}</td>
-                      <td className="py-3 px-4 text-center text-slate-500">—</td>
+                      <td className="py-3 px-4 text-center text-slate-400">—</td>
                       <td className="py-3 px-4 text-center text-cyan-400 font-bold">✓ Tự động đồng bộ Đám mây</td>
                       <td className="py-3 px-4 text-center text-purple-400 font-bold">✓ Private Cluster Sync</td>
                     </tr>

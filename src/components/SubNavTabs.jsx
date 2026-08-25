@@ -90,9 +90,9 @@ export const SubNavTabs = ({ activeLang }) => {
             
             {/* Left Column: Subsystem Overview & Feature Pills */}
             <div className="lg:col-span-7 space-y-3">
-              <h3 className="text-xl sm:text-2xl font-bold text-white font-display">
+              <h2 className="text-xl sm:text-2xl font-bold text-white font-display">
                 {activeDetail.title}
-              </h3>
+              </h2>
 
               <p className="text-slate-400 text-xs sm:text-sm leading-relaxed max-w-2xl font-sans">
                 {activeDetail.desc}
@@ -140,7 +140,7 @@ export const SubNavTabs = ({ activeLang }) => {
 
                 {/* Code Body */}
                 <div className="p-4 text-xs leading-relaxed overflow-x-auto text-white bg-[#030407]">
-                  <div className="text-slate-500 text-[10px] pb-1">// Executing subsystem command</div>
+                  <div className="text-slate-400 text-[10px] pb-1">// Executing subsystem command</div>
                   <code className="text-white font-mono font-semibold break-all">
                     {activeDetail.cmd}
                   </code>

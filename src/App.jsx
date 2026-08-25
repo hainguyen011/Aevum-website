@@ -23,6 +23,7 @@ import { Profile } from './components/Profile';
 import { AuthLockGate } from './components/ui/AuthLockGate';
 import { TrialModal } from './components/TrialModal';
 import { Privacy } from './components/Privacy';
+import { Terms } from './components/Terms';
 
 import { SearchModal } from './components/SearchModal';
 import { CustomCursor } from './components/CustomCursor';
@@ -410,6 +411,9 @@ export function App() {
       } else if (path === 'privacy' || hash === 'privacy') {
         setCurrentPage('privacy');
         scrollToTarget(0);
+      } else if (path === 'terms' || hash === 'terms') {
+        setCurrentPage('terms');
+        scrollToTarget(0);
       } else if (hash && hash !== 'landing' && hash !== 'home') {
         // Landing anchor section (#breakthroughs, #architecture, #orchestration, #cli)
         setCurrentPage('landing');
@@ -505,13 +509,18 @@ export function App() {
         url: 'https://www.aevum.ai.vn/changelog'
       },
       privacy: {
-        title: isVi
-          ? 'Chính sách Bảo mật — Aevum OS'
-          : 'Privacy Policy — Aevum OS',
+        title: isVi ? 'Chính sách Bảo mật — Aevum OS' : 'Privacy Policy — Aevum OS',
         description: isVi
           ? 'Chính sách Bảo mật của I2FLabs và Aevum OS: Cách chúng tôi thu thập, sử dụng và bảo vệ dữ liệu cá nhân của bạn.'
           : 'Privacy Policy of I2FLabs and Aevum OS: How we collect, use, and protect your personal data.',
         url: 'https://www.aevum.ai.vn/privacy'
+      },
+      terms: {
+        title: isVi ? 'Điều khoản Dịch vụ — Aevum OS' : 'Terms of Service — Aevum OS',
+        description: isVi
+          ? 'Điều khoản Dịch vụ của I2FLabs và Aevum OS: Quyền, nghĩa vụ và chính sách sử dụng dịch vụ.'
+          : 'Terms of Service of I2FLabs and Aevum OS: Rights, obligations, and service usage policies.',
+        url: 'https://www.aevum.ai.vn/terms'
       }
     };
 
@@ -694,6 +703,10 @@ export function App() {
 
               {currentPage === 'privacy' && (
                 <Privacy activeLang={activeLang} />
+              )}
+
+              {currentPage === 'terms' && (
+                <Terms activeLang={activeLang} />
               )}
 
 

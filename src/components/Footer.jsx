@@ -127,6 +127,13 @@ export const Footer = ({ onNavigate, activeLang }) => {
             {activeLang === 'vi' ? 'Chính sách Bảo mật' : 'Privacy Policy'}
           </button>
           <span className="text-white/10">•</span>
+          <button
+            onClick={() => onNavigate('terms')}
+            className="hover:text-cyan-400 transition-colors"
+          >
+            {activeLang === 'vi' ? 'Điều khoản Dịch vụ' : 'Terms of Service'}
+          </button>
+          <span className="text-white/10">•</span>
           <p className="text-cyan-400">
             {t.footer.status}
           </p>

@@ -826,13 +826,6 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
             >
               {t.navbar.orchestration}
             </a>
-            <a
-              href="#pricing"
-              onClick={(e) => handleNavLink(e, 'pricing')}
-              className="text-right text-lg font-bold text-slate-200 hover:text-cyan-400 transition-colors uppercase tracking-wide"
-            >
-              {t.navbar.pricing}
-            </a>
 
             {/* Standalone Pages UI Block (PRICING, DOCUMENTATION, ABOUT, CHANGELOG, DISCUSSIONS) */}
             <div className="flex flex-col space-y-4 mt-5">

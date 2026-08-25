@@ -81,6 +81,30 @@ export const AuthModal = ({ isOpen, onClose, activeLang, user, userProfile }) =>
 
       if (signInError) throw signInError;
       
+      const desktopNonce = sessionStorage.getItem('aevum_desktop_nonce');
+      if (desktopNonce) {
+        supabase.auth.getSession().then(({ data: { session } }) => {
+          if (session) {
+            const channel = supabase.channel(`auth-handoff:${desktopNonce}`);
+            channel.subscribe((status) => {
+              if (status === 'SUBSCRIBED') {
+                channel.send({
+                  type: 'broadcast',
+                  event: 'session',
+                  payload: {
+                    access_token: session.access_token,
+                    refresh_token: session.refresh_token,
+                    user: session.user,
+                  },
+                });
+                sessionStorage.removeItem('aevum_desktop_nonce');
+                setTimeout(() => channel.unsubscribe(), 5000);
+              }
+            });
+          }
+        });
+      }
+
       setMessage(isVi ? 'Đăng nhập thành công! Đang kết nối...' : 'Successfully signed in! Connecting...');
       setTimeout(() => {
         onClose();

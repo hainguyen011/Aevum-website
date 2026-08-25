@@ -34,11 +34,9 @@ export const Navbar = ({
   useEffect(() => {
     if (user) {
       supabase.auth.getSession().then(({ data: { session } }) => {
-        if (session?.access_token) {
-          MembershipService.getCurrentEntitlements(session.access_token).then(data => {
-            if (data) setEntitlements(data);
-          });
-        }
+        MembershipService.getCurrentEntitlements(session?.access_token, user.id).then(data => {
+          if (data) setEntitlements(data);
+        });
       });
     } else {
       setEntitlements(null);
@@ -244,21 +242,20 @@ export const Navbar = ({
             const avatarUrl = user.user_metadata?.avatar_url || user.user_metadata?.picture;
             const displayName = user.user_metadata?.full_name || user.user_metadata?.name || user.email.split('@')[0];
             const initials = displayName.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
-            const tierSlug = (entitlements?.tier || (entitlements?.isPro ? 'pro' : 'community')).toLowerCase();
+            const effectiveTier = (userProfile?.membership_tier || entitlements?.tier || (entitlements?.isPro ? 'PRO' : 'COMMUNITY')).toUpperCase();
+            const tierSlug = effectiveTier.toLowerCase();
 
             const isWaitlist = entitlements?.isWaitlist || entitlements?.status === 'beta_waitlist';
-            const tierLabel = entitlements?.isPro
-              ? (isWaitlist ? 'Waitlist (1M)' : (entitlements.isTrial ? 'Pro Beta' : 'Pro'))
-              : entitlements?.tier === 'enterprise'
+            const tierLabel = effectiveTier === 'ENTERPRISE'
               ? 'Enterprise'
+              : (effectiveTier === 'PRO' || entitlements?.isPro)
+              ? (isWaitlist ? 'Waitlist (1M)' : (entitlements?.isTrial ? 'Pro Beta' : 'Pro'))
               : 'Community';
 
-
-
-            const tierTextGradient = tierSlug === 'pro'
-              ? 'bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-sky-300 to-cyan-400'
-              : tierSlug === 'enterprise'
+            const tierTextGradient = tierSlug === 'enterprise'
               ? 'bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-fuchsia-300 to-purple-400'
+              : tierSlug === 'pro'
+              ? 'bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-sky-300 to-cyan-400'
               : 'bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-400';
 
             return (
@@ -538,7 +535,7 @@ export const Navbar = ({
                   
                   {/* Minimalist Premium Membership Tier Badge */}
                   <MembershipBadge
-                    tier={entitlements?.tier || (entitlements?.isPro ? 'pro' : 'community')}
+                    tier={userProfile?.membership_tier || entitlements?.tier || (entitlements?.isPro ? 'pro' : 'community')}
                     isTrial={entitlements?.isTrial}
                     isWaitlist={entitlements?.isWaitlist || entitlements?.status === 'beta_waitlist'}
                     trialDaysRemaining={entitlements?.trialDaysRemaining}

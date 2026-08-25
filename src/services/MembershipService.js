@@ -1,4 +1,4 @@
-import { API_CONFIG } from '../config/apiConfig.js';
+import { supabase } from './supabaseClient.js';
 
 const getCloudApiUrl = () => API_CONFIG.AEVUM_CLOUD_URL;
 
@@ -51,23 +51,68 @@ export const MembershipService = {
 
   /**
    * Lấy thông tin quyền hạn & trạng thái gói cước của người dùng hiện tại
-   * @param {string} accessToken JWT access token từ Supabase Auth
+   * Tự động fallback sang truy vấn trực tiếp Supabase Database khi Cloud API 401 hoặc offline
    */
-  async getCurrentEntitlements(accessToken) {
-    if (!accessToken) return null;
+  async getCurrentEntitlements(accessToken, userId) {
+    // 1. Thử gọi qua Aevum Cloud Backend
+    if (accessToken) {
+      try {
+        const response = await fetch(`${getCloudApiUrl()}/api/v1/memberships/current`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${accessToken}`
+          }
+        });
 
-    try {
-      const response = await fetch(`${getCloudApiUrl()}/api/v1/memberships/current`, {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${accessToken}`
+        if (response.ok) {
+          const data = await response.json();
+          if (data && data.tier) return data;
         }
-      });
+      } catch (error) {
+        // Tiếp tục fallback bên dưới
+      }
+    }
 
-      if (!response.ok) return null;
-      return await response.json();
-    } catch (error) {
-      console.warn('[MembershipService] Lỗi lấy quyền hạn membership:', error);
+    // 2. Fallback trực tiếp qua Supabase Client
+    try {
+      let uid = userId;
+      if (!uid) {
+        const { data: { user } } = await supabase.auth.getUser();
+        uid = user?.id;
+      }
+
+      if (!uid) return null;
+
+      const { data: membership } = await supabase
+        .from('user_memberships')
+        .select('*')
+        .eq('user_id', uid)
+        .maybeSingle();
+
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', uid)
+        .maybeSingle();
+
+      const rawTier = membership?.tier_slug || profile?.membership_tier || 'community';
+      const tier = rawTier.toLowerCase();
+      const status = membership?.status || profile?.membership_status || 'active';
+      const isPro = tier === 'pro';
+      const isWaitlist = status === 'beta_waitlist';
+      const isTrial = status === 'pro_trial' || isWaitlist;
+
+      return {
+        tier,
+        status,
+        isPro,
+        isTrial,
+        isWaitlist,
+        trialDaysRemaining: isWaitlist ? 30 : 30,
+        role: profile?.role || 'user',
+      };
+    } catch (err) {
+      console.warn('[MembershipService] Lỗi fallback Supabase:', err);
       return null;
     }
   },

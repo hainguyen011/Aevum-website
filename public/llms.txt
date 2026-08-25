@@ -1,27 +1,41 @@
-# Aevum OS — Standalone Model Context Protocol (MCP) Server & Workspace External Brain
+# Aevum OS — Standalone Model Context Protocol (MCP) Server & Decoupled Workspace External Brain
 
-> Aevum OS is an independent workspace Operating System and External Brain — housing domain-driven planning, self-healing memory graphs, and autonomous multi-agent squad orchestration completely decoupled from traditional editors.
+> Aevum OS is an independent workspace Operating System and External Brain — housing domain-driven planning, self-healing memory graphs, and autonomous multi-agent squad orchestration completely decoupled from traditional IDE editors.
 
-## Core Concepts & Architectural Pillars
+## System Mission & Core Value
+Aevum OS solves the fundamental problem of **AI Short-Term Context Amnesia** in developer workflows. By running as an independent background daemon (SSE / Stdio) communicating via standard Model Context Protocol (MCP), Aevum OS gives AI Coding Agents persistent long-term memory, domain-driven architecture plan enforcement, and collaborative multi-agent execution across Cursor, VS Code, Claude Desktop, Windsurf, and CLI environments.
 
-- **Decoupled Workspace Brain**: Operates as a standalone OS process (Stdio or SSE Daemon on port 3344) independent of IDE lifecycle.
-- **Handshake Ritual**: Secure initial authentication protocol using token verification via `.aevum/signal.json` and `aevum_submit_ack`.
-- **Domain-Driven Design (DDD) Planning**: Structured architectural domains, feature manifests, and plan tracking (`.aevum/domains/`).
-- **Living Memory Graph**: Multi-layered persistent context store (`.aevum/global/memory.md`) with continuous consolidation and decay auditing.
-- **Squad Orchestration**: Autonomous multi-agent coordination system supporting specialized personas (e.g., An, Vidus, Zenith, Luna) working in concert.
+## Architectural Pillars
+- **Decoupled Workspace External Brain**: Operates as a standalone OS process independent of any single IDE lifecycle.
+- **Handshake Ritual**: Cryptographic session initialization between daemon and client agents via temporary signal tokens (`.aevum/signal.json`).
+- **Domain-Driven Design (DDD) Planning**: Structured architectural domains, feature manifests, and plan step tracking (`.aevum/domains/`) requiring agents to plan before writing code.
+- **Living Memory Graph**: Multi-layered persistent context store (`.aevum/global/memory.md`) with continuous consolidation, decay auditing, and EXP progression.
+- **Autonomous Multi-Agent Squad Orchestration**: Role-specialized AI personas collaborating concurrently with automatic task handoff.
 - **PiperNet (Internet of Agents - IoA)**: Decentralized P2P knowledge mesh for cross-workspace wisdom sharing without source code leakage.
 
-## Canonical Resources & Documentation Pages
+## Default Agent Squad Personas
+- **An (`ENG-AN-7B9F1D`)**: Chief of Staff, Senior AI Tuning & Frontend/Refactor Specialist.
+- **Vidus (`ARC-VIDUS-AUHD2Y`)**: System Architect & Clean Code Specialist.
+- **Zenith (`ALG-ZENITH-A1B2C3`)**: Performance Profiler, Data Structures & Algorithm Auditor.
+- **Luna (`DSN-LUNA-3C9A12`)**: UI/UX Designer & CSS Micro-Interactions Specialist.
 
-- [Homepage & Features](https://www.aevum.ai.vn/)
-- [Technical Documentation (Docs)](https://www.aevum.ai.vn/docs)
-- [About & Product Story](https://www.aevum.ai.vn/about)
-- [Product Changelog](https://www.aevum.ai.vn/changelog)
+## Product Tiers & Pricing
+- **Community Tier (Free Forever)**: 100% Local-First MCP daemon, unlimited local memory graph storage, single agent execution.
+- **Pro Tier ($19/mo or $190/yr with 14-Day Free Beta Trial)**: Cloud Sync, Multi-Agent Squad Orchestration, PiperNet IoA Mesh, and priority engineering support.
+
+## Canonical Resources & Documentation
+- [Homepage](https://www.aevum.ai.vn/)
+- [Transparent Pricing](https://www.aevum.ai.vn/pricing)
+- [Technical Documentation](https://www.aevum.ai.vn/docs)
+- [Product Story & Architecture](https://www.aevum.ai.vn/about)
+- [Changelog & Release Notes](https://www.aevum.ai.vn/changelog)
 - [Community Discussions](https://www.aevum.ai.vn/discussions)
-- [Full Technical Reference (llms-full.txt)](https://www.aevum.ai.vn/llms-full.txt)
+- [Privacy Policy](https://www.aevum.ai.vn/privacy)
+- [Terms of Service](https://www.aevum.ai.vn/terms)
+- [Comprehensive Technical Reference](https://www.aevum.ai.vn/llms-full.txt)
 
-## Official Extensions & Ecosystem Links
-
+## Ecosystem Links
 - Open VSX Registry Extension: https://open-vsx.org/extension/I2FLabs/aevum
 - Unikorn Product Showcase: https://unikorn.vn/p/aevum
 - GitHub Repository: https://github.com/hainguyen011
+- Organization: I2FLabs (Vietnam)

@@ -1,10 +1,15 @@
 # Robots.txt for Aevum OS Website
-# Optimized for AI Search Engines & Generative Search Engines (GEO)
+# State-of-the-art Generative Engine Optimization (GEO) & Search Crawler Configuration
 
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /scratch/
 
-# Explicitly permit major AI Search Engine & LLM Crawlers
+# Explicitly welcome top Generative AI & Search Engine Crawlers
+User-agent: OAI-SearchBot
+Allow: /
+
 User-agent: GPTBot
 Allow: /
 
@@ -17,13 +22,31 @@ Allow: /
 User-agent: Claude-Web
 Allow: /
 
+User-agent: anthropic-ai
+Allow: /
+
 User-agent: PerplexityBot
 Allow: /
 
 User-agent: Google-Extended
 Allow: /
 
+User-agent: GoogleOther
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
 User-agent: Applebot-Extended
+Allow: /
+
+User-agent: DeepSeekBot
 Allow: /
 
 User-agent: cohere-ai
@@ -32,13 +55,9 @@ Allow: /
 User-agent: Bytespider
 Allow: /
 
-User-agent: DeepSeekBot
-Allow: /
-
 User-agent: facebookexternalhit
 Allow: /
 
-# Declare LLMs-txt & XML Sitemap paths for AI & search indexers
+# Direct AI Indexers & Search Spiders to Canonical Manifests
 Sitemap: https://www.aevum.ai.vn/sitemap.xml
 LLMs-txt: https://www.aevum.ai.vn/llms.txt
-

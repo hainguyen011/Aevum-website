@@ -109,6 +109,8 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
           alt={agent.name}
           loading="lazy"
           decoding="async"
+          width="400"
+          height="520"
           className={`absolute inset-0 w-full h-full object-cover object-center transition-[opacity,filter] duration-[900ms] ease-in-out ${
             isActive
               ? 'opacity-95 brightness-110'
@@ -186,6 +188,8 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
             <button
               key={idx}
               onClick={() => scrollToSlide(idx)}
+              aria-label={`Xem persona ${agent.name} (${agent.role})`}
+              title={`Persona ${agent.name}`}
               className={`transition-all duration-300 rounded-full cursor-pointer ${
                 activeSlide === idx
                   ? 'w-5 h-1.5 bg-cyan-400'

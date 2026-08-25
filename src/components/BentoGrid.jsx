@@ -181,6 +181,8 @@ export const BentoGrid = ({ activeLang }) => {
                   alt={item.agentName}
                   loading="lazy"
                   decoding="async"
+                  width="128"
+                  height="128"
                   className="h-32 w-auto object-contain select-none"
                 />
               </div>
@@ -287,6 +289,8 @@ export const BentoGrid = ({ activeLang }) => {
                   alt={items[activeSlide].agentName}
                   loading="lazy"
                   decoding="async"
+                  width="208"
+                  height="208"
                   className="h-44 sm:h-52 w-auto object-contain transition-all duration-500 animate-pulse-slow select-none"
                 />
               </div>

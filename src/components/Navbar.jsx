@@ -443,6 +443,7 @@ export const Navbar = ({
 
           <button 
             onClick={() => setFeaturesOpen(false)}
+            aria-label={isVi ? "Đóng danh mục tính năng" : "Close features menu"}
             className="text-slate-500 hover:text-white transition-colors p-1 cursor-pointer"
             title={isVi ? "Đóng" : "Close"}
           >
@@ -487,6 +488,7 @@ export const Navbar = ({
 
           <button 
             onClick={() => setResourcesOpen(false)}
+            aria-label={isVi ? "Đóng danh mục tài liệu & cộng đồng" : "Close resources menu"}
             className="text-slate-500 hover:text-white transition-colors p-1 cursor-pointer"
             title={isVi ? "Đóng" : "Close"}
           >

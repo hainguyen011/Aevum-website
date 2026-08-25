@@ -10,28 +10,28 @@ export const Testimonials = ({ activeLang }) => {
     {
       name: 'Richard Hendricks',
       handle: '@richard_pp',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80',
+      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&auto=format&fit=crop&q=75&fm=webp',
       text: t.testimonials.r1Text,
       role: 'Founder & CEO, Pied Piper',
     },
     {
       name: 'Bertram Gilfoyle',
       handle: '@gilfoyle_laVey',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop&q=75&fm=webp',
       text: t.testimonials.r2Text,
       role: 'Systems Architect, Pied Piper',
     },
     {
       name: 'Dinesh Chugtai',
       handle: '@dinesh_pp',
-      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80',
+      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&auto=format&fit=crop&q=75&fm=webp',
       text: t.testimonials.r3Text,
       role: 'Senior Engineer, Pied Piper',
     },
     {
       name: 'Jared Dunn',
       handle: '@jared_pp',
-      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&auto=format&fit=crop&q=80',
+      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&auto=format&fit=crop&q=75&fm=webp',
       text: t.testimonials.r4Text,
       role: 'Chief Operating Officer, Pied Piper',
     },
@@ -143,10 +143,12 @@ export const Testimonials = ({ activeLang }) => {
 
         {/* Dot Indicators */}
         <div className="flex justify-center items-center gap-2.5 py-3 border-subtle-t">
-          {reviews.map((_, idx) => (
+          {reviews.map((rev, idx) => (
             <button
               key={idx}
               onClick={() => scrollToSlide(idx)}
+              aria-label={`Xem nhận xét từ ${rev.name} (${rev.role})`}
+              title={`Nhận xét của ${rev.name}`}
               className={`transition-all duration-300 rounded-full cursor-pointer ${
                 activeSlide === idx
                   ? 'w-5 h-1.5 bg-cyan-400'

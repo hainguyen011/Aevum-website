@@ -42,6 +42,8 @@ export const FrameworkFlow = ({ activeLang }) => {
               alt="Aevum External Brain Architecture Diagram"
               loading="lazy"
               decoding="async"
+              width="320"
+              height="320"
               className="w-full h-auto max-h-[350px] object-contain"
             />
           </div>

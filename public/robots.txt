@@ -60,4 +60,4 @@ Allow: /
 
 # Direct AI Indexers & Search Spiders to Canonical Manifests
 Sitemap: https://www.aevum.ai.vn/sitemap.xml
-LLMs-txt: https://www.aevum.ai.vn/llms.txt
+# LLMs-txt: https://www.aevum.ai.vn/llms.txt

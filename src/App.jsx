@@ -896,6 +896,7 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
               {/* Close Button at the end */}
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
+                aria-label={activeLang === 'vi' ? 'Đóng bảng điều hướng' : 'Close navigation menu'}
                 className="flex items-center gap-1.5 text-slate-400 hover:text-white transition-colors font-bold uppercase py-1 px-2.5 rounded-md hover:bg-white/5 border border-white/10 text-xs cursor-pointer"
               >
                 <X size={14} className="shrink-0 text-slate-400" />

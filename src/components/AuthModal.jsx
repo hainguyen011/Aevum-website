@@ -20,6 +20,7 @@ export const AuthModal = ({ isOpen, onClose, activeLang, user, userProfile }) =>
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
   const [entitlements, setEntitlements] = useState(null);
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
 
   const isVi = activeLang === 'vi';
 
@@ -67,6 +68,10 @@ export const AuthModal = ({ isOpen, onClose, activeLang, user, userProfile }) =>
 
   const handleSignIn = async (e) => {
     e.preventDefault();
+    if (!agreedToTerms) {
+      setError(isVi ? 'Bạn cần tick chọn đồng ý với Điều khoản Dịch vụ & Chính sách Bảo mật.' : 'You must agree to the Terms of Service & Privacy Policy.');
+      return;
+    }
     if (!email || !password) return;
 
     setLoading(true);
@@ -118,6 +123,10 @@ export const AuthModal = ({ isOpen, onClose, activeLang, user, userProfile }) =>
 
   const handleSignUp = async (e) => {
     e.preventDefault();
+    if (!agreedToTerms) {
+      setError(isVi ? 'Bạn cần tick chọn đồng ý với Điều khoản Dịch vụ & Chính sách Bảo mật.' : 'You must agree to the Terms of Service & Privacy Policy.');
+      return;
+    }
     if (!email || !password) return;
     if (!isPwdValid) {
       setError(isVi ? 'Mật khẩu chưa đáp ứng yêu cầu bảo mật.' : 'Password does not meet security requirements.');
@@ -184,6 +193,10 @@ export const AuthModal = ({ isOpen, onClose, activeLang, user, userProfile }) =>
   };
 
   const handleGoogleSignIn = async () => {
+    if (!agreedToTerms) {
+      setError(isVi ? 'Bạn cần tick chọn đồng ý với Điều khoản Dịch vụ & Chính sách Bảo mật trước khi tiếp tục.' : 'Please tick to agree to the Terms of Service & Privacy Policy before continuing.');
+      return;
+    }
     setLoading(true);
     setError('');
     
@@ -627,6 +640,70 @@ export const AuthModal = ({ isOpen, onClose, activeLang, user, userProfile }) =>
                       </div>
                     </div>
                   )}
+                </div>
+
+                {/* Mandatory Terms & Privacy Policy Agreement Checkbox */}
+                <div className="flex items-start gap-2.5 pt-1.5 pb-0.5 select-none">
+                  <input
+                    type="checkbox"
+                    id="modal-terms-checkbox"
+                    checked={agreedToTerms}
+                    onChange={(e) => {
+                      setAgreedToTerms(e.target.checked);
+                      if (e.target.checked && error) setError('');
+                    }}
+                    required
+                    className="mt-0.5 w-4 h-4 rounded-none border border-white/20 bg-white/5 text-[#0284c7] focus:ring-0 focus:ring-offset-0 cursor-pointer accent-[#0284c7] shrink-0"
+                  />
+                  <label htmlFor="modal-terms-checkbox" className="text-[11px] text-slate-400 font-mono leading-relaxed cursor-pointer">
+                    {isVi ? (
+                      <>
+                        Tôi đã đọc và đồng ý với{' '}
+                        <a
+                          href="/terms"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sky-400 hover:text-sky-300 underline underline-offset-2 transition-colors font-semibold"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          Điều khoản Dịch vụ
+                        </a>{' '}
+                        &{' '}
+                        <a
+                          href="/privacy"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sky-400 hover:text-sky-300 underline underline-offset-2 transition-colors font-semibold"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          Chính sách Bảo mật
+                        </a>
+                      </>
+                    ) : (
+                      <>
+                        I have read and agree to the{' '}
+                        <a
+                          href="/terms"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sky-400 hover:text-sky-300 underline underline-offset-2 transition-colors font-semibold"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          Terms of Service
+                        </a>{' '}
+                        &{' '}
+                        <a
+                          href="/privacy"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sky-400 hover:text-sky-300 underline underline-offset-2 transition-colors font-semibold"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          Privacy Policy
+                        </a>
+                      </>
+                    )}
+                  </label>
                 </div>
 
                 {/* Main Submit Action Button - Soothing Electron Blue */}

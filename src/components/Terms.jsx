@@ -1,439 +1,401 @@
-import { useEffect, useRef } from 'react';
-import { FileText, Users, Shield, AlertTriangle, Ban, CreditCard, RefreshCw, Scale, Globe, Mail, CheckCircle, AlertCircle } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 
 const SECTIONS = (lang) => {
   const isVi = lang === 'vi';
   return [
     {
       id: 'acceptance',
-      icon: CheckCircle,
-      color: '#10b981',
+      nav: isVi ? '1. Chấp nhận' : '1. Acceptance',
       title: isVi ? '1. Chấp nhận Điều khoản' : '1. Acceptance of Terms',
-      content: isVi
-        ? `Bằng cách truy cập hoặc sử dụng bất kỳ dịch vụ nào của Aevum OS (bao gồm aevum.ai.vn, Aevum OS desktop app, Aevum Cloud API và các sản phẩm liên quan), bạn đồng ý bị ràng buộc bởi Điều khoản Dịch vụ này.
-
-Nếu bạn sử dụng dịch vụ thay mặt cho một tổ chức, bạn xác nhận rằng bạn có thẩm quyền chấp nhận các điều khoản này thay mặt cho tổ chức đó.
-
-Nếu bạn không đồng ý với bất kỳ phần nào của các điều khoản này, bạn không được phép sử dụng dịch vụ của chúng tôi.
-
-Các Điều khoản này áp dụng từ ngày 01/01/2026 và được cập nhật lần cuối vào tháng 08/2026.`
-        : `By accessing or using any Aevum OS services (including aevum.ai.vn, Aevum OS desktop app, Aevum Cloud API, and related products), you agree to be bound by these Terms of Service.
-
-If you use the services on behalf of an organization, you confirm that you have the authority to accept these terms on behalf of that organization.
-
-If you do not agree with any part of these terms, you are not permitted to use our services.
-
-These Terms are effective as of January 1, 2026 and were last updated in August 2026.`
+      content: [
+        {
+          type: 'p',
+          text: isVi
+            ? 'Bằng việc truy cập hoặc sử dụng bất kỳ dịch vụ nào của Aevum OS (bao gồm aevum.ai.vn, Aevum OS Desktop App, Aevum Cloud API và các công cụ liên quan), bạn đồng ý tuân thủ và chịu sự ràng buộc bởi các Điều khoản Dịch vụ này.'
+            : 'By accessing or using any Aevum OS services (including aevum.ai.vn, Aevum OS Desktop App, Aevum Cloud API, and related tools), you agree to be bound by these Terms of Service.'
+        },
+        {
+          type: 'p',
+          text: isVi
+            ? 'Nếu bạn đại diện cho một tổ chức hoặc doanh nghiệp, bạn xác nhận rằng bạn có đầy đủ thẩm quyền pháp lý để ràng buộc tổ chức đó với các điều khoản này. Nếu bạn không đồng ý với bất kỳ phần nào, vui lòng không sử dụng dịch vụ.'
+            : 'If you are using the services on behalf of an organization, you confirm that you have legal authority to bind that entity to these terms. If you do not agree with any part, please discontinue use immediately.'
+        },
+        {
+          type: 'meta',
+          text: isVi ? 'Hiệu lực: 01/01/2026  ·  Cập nhật: Tháng 08/2026' : 'Effective: 01/01/2026  ·  Updated: August 2026'
+        }
+      ]
     },
     {
       id: 'eligibility',
-      icon: Users,
-      color: '#8b5cf6',
-      title: isVi ? '2. Điều kiện sử dụng' : '2. Eligibility',
-      content: isVi
-        ? `Để sử dụng dịch vụ Aevum OS, bạn phải đáp ứng các điều kiện sau:
-
-► ĐỘ TUỔI
-• Bạn phải từ 13 tuổi trở lên
-• Nếu dưới 18 tuổi, cần có sự đồng ý của phụ huynh hoặc người giám hộ hợp pháp
-
-► TÀI KHOẢN
-• Cung cấp thông tin đăng ký chính xác và đầy đủ
-• Bảo mật mật khẩu và thông tin tài khoản của bạn
-• Chịu trách nhiệm về mọi hoạt động xảy ra dưới tài khoản của bạn
-• Thông báo ngay cho chúng tôi nếu phát hiện truy cập trái phép
-
-► TUÂN THỦ PHÁP LUẬT
-• Không sử dụng dịch vụ cho mục đích bất hợp pháp
-• Tuân thủ luật pháp địa phương, quốc gia và quốc tế áp dụng`
-        : `To use Aevum OS services, you must meet the following conditions:
-
-► AGE
-• You must be at least 13 years old
-• If under 18, parental or legal guardian consent is required
-
-► ACCOUNT
-• Provide accurate and complete registration information
-• Keep your password and account information secure
-• You are responsible for all activities that occur under your account
-• Notify us immediately if you discover unauthorized access
-
-► LEGAL COMPLIANCE
-• Do not use the services for illegal purposes
-• Comply with applicable local, national, and international laws`
+      nav: isVi ? '2. Điều kiện sử dụng' : '2. Eligibility',
+      title: isVi ? '2. Điều kiện sử dụng & Tài khoản' : '2. Eligibility & Account Responsibilities',
+      content: [
+        {
+          type: 'group',
+          label: isVi ? 'Yêu cầu người dùng' : 'User requirements',
+          items: isVi
+            ? [
+                'Độ tuổi tối thiểu: từ 13 tuổi trở lên (hoặc độ tuổi tối thiểu theo quy định tại quốc gia sở tại)',
+                'Cung cấp thông tin xác thực chính xác khi đăng ký tài khoản qua Email hoặc OAuth',
+                'Tự chịu trách nhiệm bảo mật thông tin đăng nhập, token xác thực và các hoạt động phát sinh từ tài khoản',
+                'Thông báo ngay cho I2FLabs khi phát hiện có dấu hiệu truy cập trái phép'
+              ]
+            : [
+                'Minimum age: 13 years or older (or the minimum legal age in your jurisdiction)',
+                'Provide accurate verification info when registering via Email or OAuth',
+                'Maintain confidentiality of credentials, access tokens, and all activities under your account',
+                'Promptly notify I2FLabs upon discovering any unauthorized account activity'
+              ]
+        }
+      ]
     },
     {
       id: 'services',
-      icon: Globe,
-      color: '#0ea5e9',
-      title: isVi ? '3. Mô tả Dịch vụ' : '3. Description of Services',
-      content: isVi
-        ? `Aevum OS cung cấp các dịch vụ sau:
-
-01. AEVUM OS (COMMUNITY - MIỄN PHÍ)
-    • MCP Server daemon chạy cục bộ (Local-First)
-    • Living Memory Graph lưu trữ trên thiết bị của bạn
-    • Tích hợp với Cursor, VS Code, Claude Desktop
-    • Giới hạn: 1 agent, memory cục bộ không giới hạn
-
-02. AEVUM OS (PRO - TRẢ PHÍ)
-    • Tất cả tính năng Community
-    • Cloud Sync - đồng bộ memory qua đám mây
-    • Multi-agent Squad Orchestration
-    • PiperNet IoA Mesh kết nối biệt đội
-    • Hỗ trợ ưu tiên từ đội ngũ I2FLabs
-
-03. AEVUM CLOUD API
-    • REST API cho tích hợp hệ thống bên thứ ba
-    • License management và validation
-    • Webhook và event streaming
-
-Chúng tôi có quyền thay đổi, tạm dừng hoặc ngừng bất kỳ tính năng nào của dịch vụ với thông báo trước 30 ngày (trừ trường hợp khẩn cấp bảo mật).`
-        : `Aevum OS provides the following services:
-
-01. AEVUM OS (COMMUNITY - FREE)
-    • Local-First MCP Server daemon
-    • Living Memory Graph stored on your device
-    • Integration with Cursor, VS Code, Claude Desktop
-    • Limit: 1 agent, unlimited local memory
-
-02. AEVUM OS (PRO - PAID)
-    • All Community features
-    • Cloud Sync - memory synchronization across devices
-    • Multi-agent Squad Orchestration
-    • PiperNet IoA Mesh for squad connectivity
-    • Priority support from I2FLabs team
-
-03. AEVUM CLOUD API
-    • REST API for third-party system integration
-    • License management and validation
-    • Webhooks and event streaming
-
-We reserve the right to modify, suspend, or discontinue any feature of the service with 30 days notice (except in security emergencies).`
+      nav: isVi ? '3. Dịch vụ & Phân hạng' : '3. Service Tiers',
+      title: isVi ? '3. Mô tả Dịch vụ & Các gói sử dụng' : '3. Services & Subscription Tiers',
+      content: [
+        {
+          type: 'group',
+          label: isVi ? 'Gói Community (Local-First — Miễn phí)' : 'Community Tier (Local-First — Free)',
+          items: isVi
+            ? [
+                'Chạy MCP Daemon trực tiếp trên máy cục bộ',
+                'Lưu trữ Living Memory Graph cục bộ không giới hạn',
+                'Tích hợp 1:1 với IDE (Cursor, VS Code, Claude Desktop)',
+                'Không yêu cầu kết nối đám mây bắt buộc'
+              ]
+            : [
+                'Run standalone MCP Daemon locally on your workstation',
+                'Unlimited local Living Memory Graph storage',
+                '1:1 integration with IDEs (Cursor, VS Code, Claude Desktop)',
+                'No mandatory cloud connection required'
+              ]
+        },
+        {
+          type: 'group',
+          label: isVi ? 'Gói Pro & Enterprise (Cloud Sync & Squads)' : 'Pro & Enterprise Tiers (Cloud Sync & Squads)',
+          items: isVi
+            ? [
+                'Đồng bộ hóa Context & Memory Graph đa thiết bị an toàn qua Aevum Cloud',
+                'Điều phối đội ngũ đa Agent tự trị (Autonomous Multi-Agent Squads)',
+                'Mạng lưới giao tiếp phân tán PiperNet Mesh',
+                'Hỗ trợ kỹ thuật ưu tiên từ đội ngũ phát triển I2FLabs'
+              ]
+            : [
+                'End-to-end encrypted Context & Memory Graph synchronization via Aevum Cloud',
+                'Autonomous Multi-Agent Squad Orchestration',
+                'PiperNet Mesh distributed agent network',
+                'Priority technical support from the I2FLabs core team'
+              ]
+        }
+      ]
     },
     {
-      id: 'usage',
-      icon: Shield,
-      color: '#f59e0b',
-      title: isVi ? '4. Sử dụng Chấp nhận được' : '4. Acceptable Use',
-      content: isVi
-        ? `Bạn đồng ý KHÔNG sử dụng dịch vụ để:
-
-✗ Vi phạm bất kỳ luật pháp hoặc quy định nào hiện hành
-✗ Gửi spam, phần mềm độc hại hoặc nội dung có hại
-✗ Xâm phạm quyền sở hữu trí tuệ của người khác
-✗ Đánh lừa hoặc giả mạo danh tính người khác
-✗ Thu thập dữ liệu trái phép từ dịch vụ (scraping)
-✗ Thực hiện tấn công từ chối dịch vụ (DDoS)
-✗ Cố gắng truy cập trái phép vào hệ thống của chúng tôi
-✗ Khai thác tiền mã hóa không được phép
-✗ Phân phối lại hoặc bán lại dịch vụ mà không có sự đồng ý
-
-Vi phạm các quy tắc này có thể dẫn đến đình chỉ hoặc chấm dứt tài khoản ngay lập tức, không hoàn tiền.`
-        : `You agree NOT to use the services to:
-
-✗ Violate any applicable law or regulation
-✗ Send spam, malware, or harmful content
-✗ Infringe the intellectual property rights of others
-✗ Deceive or impersonate others
-✗ Collect data from the service without authorization (scraping)
-✗ Conduct denial-of-service attacks (DDoS)
-✗ Attempt unauthorized access to our systems
-✗ Conduct unauthorized cryptocurrency mining
-✗ Redistribute or resell the service without consent
-
-Violation of these rules may result in immediate account suspension or termination without refund.`
+      id: 'acceptable-use',
+      nav: isVi ? '4. Quy định sử dụng' : '4. Acceptable Use',
+      title: isVi ? '4. Quy tắc sử dụng được chấp nhận' : '4. Acceptable Use Policy',
+      content: [
+        {
+          type: 'p',
+          text: isVi
+            ? 'Người dùng cam kết không sử dụng Aevum OS cho các mục đích vi phạm pháp luật hoặc gây phương hại đến hệ thống:'
+            : 'You agree not to use Aevum OS for unlawful purposes or activities that compromise system integrity:'
+        },
+        {
+          type: 'list',
+          items: isVi
+            ? [
+                'Phát tán mã độc, virus, tấn công DDoS hoặc cố gắng xâm nhập trái phép hạ tầng Aevum Cloud',
+                'Sử dụng dịch vụ để thu thập, phân tích trái phép dữ liệu của người khác mà không có sự đồng ý',
+                'Đảo ngược kỹ thuật (reverse engineering), sao chép mã nguồn các thành phần độc quyền khi chưa được cấp phép',
+                'Khai thác hoặc lạm dụng tài nguyên API ngoài hạn mức quy định'
+              ]
+            : [
+                'Distributing malware, viruses, DDoS attacks, or attempting unauthorized access to Aevum Cloud infrastructure',
+                'Using the service to unlawfully harvest or analyze personal data without consent',
+                'Reverse engineering or duplicating proprietary system binaries without explicit authorization',
+                'Abusing API rate limits or service quotas beyond fair-use allocations'
+              ]
+        }
+      ]
     },
     {
-      id: 'ip',
-      icon: FileText,
-      color: '#ec4899',
-      title: isVi ? '5. Sở hữu Trí tuệ' : '5. Intellectual Property',
-      content: isVi
-        ? `► TÀI SẢN CỦA I2FLABS
-Tất cả nội dung, phần mềm, thiết kế, nhãn hiệu và tài liệu của Aevum OS là tài sản độc quyền của I2FLabs. Bạn không được sao chép, sửa đổi, phân phối hoặc tạo sản phẩm phái sinh mà không có sự cho phép bằng văn bản.
-
-► TÀI SẢN CỦA BẠN
-Bạn giữ toàn quyền sở hữu đối với dữ liệu và nội dung bạn tạo ra khi sử dụng dịch vụ (memory graph, plans, code context). Chúng tôi không có bất kỳ quyền nào đối với nội dung của bạn.
-
-► GIẤY PHÉP SỬ DỤNG
-Khi sử dụng dịch vụ, bạn cấp cho I2FLabs giấy phép hạn chế để lưu trữ và xử lý dữ liệu của bạn nhằm cung cấp dịch vụ. Giấy phép này chấm dứt khi bạn xóa dữ liệu hoặc tài khoản.
-
-► MÃ NGUỒN MỞ
-Một số thành phần của Aevum OS có thể sử dụng các thư viện mã nguồn mở. Danh sách đầy đủ có thể được xem trong phần LICENSES của phần mềm.`
-        : `► I2FLABS PROPERTY
-All content, software, design, trademarks, and documentation of Aevum OS are the exclusive property of I2FLabs. You may not copy, modify, distribute, or create derivative works without written permission.
-
-► YOUR PROPERTY
-You retain full ownership of the data and content you create while using the services (memory graph, plans, code context). We have no rights over your content.
-
-► LICENSE TO USE
-By using the service, you grant I2FLabs a limited license to store and process your data in order to provide the service. This license terminates when you delete your data or account.
-
-► OPEN SOURCE
-Some components of Aevum OS may use open-source libraries. A full list can be viewed in the LICENSES section of the software.`
+      id: 'intellectual-property',
+      nav: isVi ? '5. Sở hữu trí tuệ' : '5. Intellectual Property',
+      title: isVi ? '5. Quyền Sở hữu Trí tuệ & Quyền tác giả' : '5. Intellectual Property & Ownership',
+      content: [
+        {
+          type: 'group',
+          label: isVi ? 'Dữ liệu và mã nguồn của bạn' : 'Your data and code',
+          items: isVi
+            ? [
+                'Bạn giữ toàn quyền sở hữu 100% đối với toàn bộ source code, plans, notes và memory graph do bạn tạo ra',
+                'I2FLabs không sở hữu, không thương mại hóa và không sử dụng dữ liệu của bạn để huấn luyện mô hình công cộng'
+              ]
+            : [
+                'You retain 100% ownership over all source code, architectural plans, notes, and memory graphs you create',
+                'I2FLabs does not claim ownership, commercialize, or use your private data to train public foundation models'
+              ]
+        },
+        {
+          type: 'group',
+          label: isVi ? 'Tài sản của I2FLabs' : 'I2FLabs assets',
+          items: isVi
+            ? [
+                'Thương hiệu Aevum OS, logo, giao diện người dùng, tài liệu và mã nguồn nền tảng thuộc quyền sở hữu của I2FLabs',
+                'Các thành phần mã nguồn mở được phát hành theo giấy phép open-source tương ứng đính kèm trong repository'
+              ]
+            : [
+                'The Aevum OS brand, logos, user interfaces, documentation, and platform code are proprietary to I2FLabs',
+                'Open-source components are distributed under their respective licenses included in the repositories'
+              ]
+        }
+      ]
     },
     {
       id: 'payment',
-      icon: CreditCard,
-      color: '#14b8a6',
-      title: isVi ? '6. Thanh toán & Đăng ký' : '6. Payment & Subscriptions',
-      content: isVi
-        ? `► GÓI PRO - ĐĂNG KÝ ĐỊNH KỲ
-• Thanh toán theo chu kỳ hàng tháng hoặc hàng năm
-• Giá có thể thay đổi với thông báo trước 30 ngày
-• Đăng ký tự động gia hạn trừ khi bạn hủy trước ngày gia hạn
-
-► CHÍNH SÁCH HOÀN TIỀN
-• Beta Trial (7-14 ngày): Hoàn tiền đầy đủ trong vòng 7 ngày nếu không hài lòng
-• Đăng ký tháng: Không hoàn tiền sau khi đã thanh toán
-• Đăng ký năm: Hoàn tiền một phần trong vòng 30 ngày đầu
-
-► HỦY ĐĂNG KÝ
-• Bạn có thể hủy bất cứ lúc nào qua trang Profile
-• Khi hủy, quyền truy cập Pro được duy trì đến hết chu kỳ thanh toán đã trả
-• Dữ liệu local của bạn không bị ảnh hưởng khi hủy
-
-► THUẾ
-Giá hiển thị chưa bao gồm thuế. Thuế áp dụng theo luật địa phương của bạn.`
-        : `► PRO PLAN - RECURRING SUBSCRIPTION
-• Billed monthly or annually
-• Prices may change with 30 days notice
-• Subscription auto-renews unless cancelled before the renewal date
-
-► REFUND POLICY
-• Beta Trial (7-14 days): Full refund within 7 days if unsatisfied
-• Monthly subscription: No refund after payment
-• Annual subscription: Partial refund within the first 30 days
-
-► CANCELLATION
-• You can cancel at any time via the Profile page
-• Upon cancellation, Pro access is maintained until the end of the paid billing period
-• Your local data is not affected when you cancel
-
-► TAXES
-Displayed prices exclude taxes. Applicable taxes are determined by your local laws.`
-    },
-    {
-      id: 'termination',
-      icon: Ban,
-      color: '#ef4444',
-      title: isVi ? '7. Chấm dứt Tài khoản' : '7. Account Termination',
-      content: isVi
-        ? `► CHẤM DỨT BỞI BẠN
-Bạn có thể xóa tài khoản bất cứ lúc nào qua trang cài đặt Profile. Khi xóa tài khoản:
-• Tất cả dữ liệu cloud của bạn sẽ bị xóa trong vòng 30 ngày
-• Dữ liệu local trên thiết bị của bạn không bị ảnh hưởng
-• Đăng ký Pro (nếu có) sẽ bị hủy, không hoàn lại phần còn lại
-
-► CHẤM DỨT BỞI I2FLABS
-Chúng tôi có thể đình chỉ hoặc chấm dứt tài khoản của bạn nếu:
-• Vi phạm Điều khoản Dịch vụ này
-• Không thanh toán đúng hạn
-• Hoạt động gian lận hoặc lạm dụng hệ thống
-• Theo yêu cầu của cơ quan pháp luật
-
-Trong trường hợp vi phạm nghiêm trọng, chúng tôi có quyền chấm dứt tài khoản ngay lập tức mà không cần thông báo trước.`
-        : `► TERMINATION BY YOU
-You can delete your account at any time via the Profile settings page. Upon account deletion:
-• All your cloud data will be deleted within 30 days
-• Local data on your device is not affected
-• Pro subscription (if any) will be cancelled, with no refund for remaining period
-
-► TERMINATION BY I2FLABS
-We may suspend or terminate your account if:
-• You violate these Terms of Service
-• Payment is not made on time
-• Fraudulent or abusive system activity
-• Required by law enforcement
-
-In cases of serious violations, we reserve the right to terminate accounts immediately without prior notice.`
+      nav: isVi ? '6. Thanh toán & Hoàn tiền' : '6. Billing & Refunds',
+      title: isVi ? '6. Thanh toán, Gia hạn & Chính sách Hoàn tiền' : '6. Payments, Renewals & Refund Policy',
+      content: [
+        {
+          type: 'group',
+          label: isVi ? 'Đăng ký & Chu kỳ thanh toán' : 'Subscriptions & billing cycles',
+          items: isVi
+            ? [
+                'Các gói dịch vụ trả phí được tính theo chu kỳ hàng tháng hoặc hàng năm',
+                'Gói dịch vụ tự động gia hạn trừ khi bạn hủy trước ngày bắt đầu chu kỳ kế tiếp',
+                'Bạn có thể quản lý và hủy gói bất cứ lúc nào trong trang Hồ sơ cá nhân (Profile)'
+              ]
+            : [
+                'Paid plans are billed on a recurring monthly or annual basis',
+                'Subscriptions renew automatically unless cancelled before the next billing date',
+                'You can manage or cancel your subscription anytime via your Profile settings'
+              ]
+        },
+        {
+          type: 'group',
+          label: isVi ? 'Chính sách hoàn tiền' : 'Refund policy',
+          items: isVi
+            ? [
+                'Chương trình Dùng thử (Trial): Trải nghiệm đầy đủ tính năng Pro theo thời hạn thông báo',
+                'Hỗ trợ xem xét hoàn tiền trong vòng 7 ngày đầu tiên nếu dịch vụ gặp sự cố kỹ thuật không thể khắc phục'
+              ]
+            : [
+                'Trial Program: Full access to Pro tier features during the designated trial period',
+                'Refund requests considered within the first 7 days if persistent technical failures prevent service usage'
+              ]
+        }
+      ]
     },
     {
       id: 'liability',
-      icon: AlertTriangle,
-      color: '#f59e0b',
-      title: isVi ? '8. Giới hạn Trách nhiệm' : '8. Limitation of Liability',
-      content: isVi
-        ? `Dịch vụ được cung cấp "nguyên trạng" (AS-IS) không có bảo đảm nào, rõ ràng hay ngụ ý.
-
-I2FLabs không chịu trách nhiệm về:
-• Mất mát dữ liệu do lỗi phần cứng, phần mềm hoặc sự cố không lường trước
-• Gián đoạn dịch vụ do bảo trì, sự cố kỹ thuật hoặc sự kiện bất khả kháng
-• Thiệt hại gián tiếp, ngẫu nhiên hoặc đặc biệt phát sinh từ việc sử dụng dịch vụ
-• Hành động của bên thứ ba hoặc dịch vụ tích hợp
-
-► GIỚI HẠN BỒI THƯỜNG
-Trong mọi trường hợp, trách nhiệm tối đa của I2FLabs không vượt quá số tiền bạn đã thanh toán trong 3 tháng gần nhất hoặc 500.000 VNĐ, tùy giá trị nào lớn hơn.
-
-Một số khu vực pháp lý không cho phép giới hạn trách nhiệm nhất định, vì vậy các giới hạn trên có thể không áp dụng đầy đủ với bạn.`
-        : `Services are provided "AS-IS" without any warranties, express or implied.
-
-I2FLabs is not liable for:
-• Data loss due to hardware, software failures, or unforeseen incidents
-• Service interruptions due to maintenance, technical failures, or force majeure
-• Indirect, incidental, or special damages arising from use of the service
-• Actions of third parties or integrated services
-
-► LIABILITY CAP
-In any case, the maximum liability of I2FLabs shall not exceed the amount you paid in the most recent 3 months or 500,000 VND, whichever is greater.
-
-Some jurisdictions do not allow certain liability limitations, so the above limits may not fully apply to you.`
+      nav: isVi ? '7. Giới hạn trách nhiệm' : '7. Liability Limits',
+      title: isVi ? '7. Tuyên bố miễn trừ & Giới hạn Trách nhiệm' : '7. Disclaimer & Limitation of Liability',
+      content: [
+        {
+          type: 'p',
+          text: isVi
+            ? 'Aevum OS được cung cấp theo nguyên tắc "nguyên trạng" (AS-IS). Chúng tôi nỗ lực tối đa để đảm bảo tính ổn định và bảo mật, tuy nhiên:'
+            : 'Aevum OS is provided on an "AS-IS" and "AS-AVAILABLE" basis. While we strive for maximum reliability and security:'
+        },
+        {
+          type: 'list',
+          items: isVi
+            ? [
+                'Chúng tôi không chịu trách nhiệm cho các mất mát dữ liệu phát sinh từ lỗi phần cứng cục bộ, cấu hình sai của người dùng hoặc sự cố mạng bên ngoài',
+                'AI Agent là công cụ hỗ trợ; người dùng có trách nhiệm kiểm duyệt mã nguồn và các quyết định kiến trúc trước khi triển khai sản xuất',
+                'Tổng mức bồi thường trách nhiệm tối đa (nếu có) không vượt quá số tiền bạn đã thanh toán cho dịch vụ trong 3 tháng gần nhất'
+              ]
+            : [
+                'We are not liable for data loss caused by local hardware failures, improper user configuration, or external network outages',
+                'AI Agents are assistive tools; developers retain sole responsibility for reviewing code and architecture before production deployment',
+                'Our maximum aggregate liability shall not exceed the amount paid by you for the service during the preceding 3 months'
+              ]
+        }
+      ]
     },
     {
-      id: 'changes',
-      icon: RefreshCw,
-      color: '#6366f1',
-      title: isVi ? '9. Thay đổi Điều khoản' : '9. Changes to Terms',
-      content: isVi
-        ? `Chúng tôi có quyền sửa đổi Điều khoản Dịch vụ này bất cứ lúc nào.
-
-► QUY TRÌNH CẬP NHẬT
-• Thay đổi nhỏ (không ảnh hưởng đến quyền lợi): Cập nhật trang web, hiệu lực ngay
-• Thay đổi quan trọng: Thông báo qua email ít nhất 30 ngày trước khi có hiệu lực
-• Thay đổi khẩn cấp (bảo mật): Có thể hiệu lực ngay lập tức với thông báo đồng thời
-
-► CHẤP NHẬN THAY ĐỔI
-Việc tiếp tục sử dụng dịch vụ sau khi các thay đổi có hiệu lực đồng nghĩa với việc bạn chấp nhận Điều khoản mới.
-
-Nếu bạn không đồng ý với các thay đổi, bạn có quyền ngừng sử dụng dịch vụ và xóa tài khoản trước ngày thay đổi có hiệu lực.`
-        : `We reserve the right to modify these Terms of Service at any time.
-
-► UPDATE PROCESS
-• Minor changes (not affecting rights): Website update, effective immediately
-• Material changes: Email notification at least 30 days before taking effect
-• Emergency changes (security): May take effect immediately with simultaneous notice
-
-► ACCEPTANCE OF CHANGES
-Continued use of the service after changes take effect constitutes acceptance of the new Terms.
-
-If you do not agree with the changes, you have the right to stop using the service and delete your account before the effective date.`
-    },
-    {
-      id: 'governing',
-      icon: Scale,
-      color: '#0ea5e9',
-      title: isVi ? '10. Luật áp dụng & Liên hệ' : '10. Governing Law & Contact',
-      content: isVi
-        ? `► LUẬT ÁP DỤNG
-Điều khoản này được điều chỉnh bởi luật pháp Việt Nam. Mọi tranh chấp phát sinh sẽ được giải quyết tại tòa án có thẩm quyền tại Việt Nam.
-
-► GIẢI QUYẾT TRANH CHẤP
-Trước khi khởi kiện, các bên đồng ý cố gắng giải quyết tranh chấp thông qua thương lượng thiện chí trong vòng 60 ngày.
-
-► LIÊN HỆ
-Email: dev@aevum.ai.vn
-Tổ chức: I2FLabs, Việt Nam
-Website: https://www.aevum.ai.vn
-
-► THỜI GIAN PHẢN HỒI
-• Thắc mắc về điều khoản: 5 – 7 ngày làm việc
-• Khiếu nại về vi phạm: Tối đa 15 ngày làm việc
-
-Nếu bất kỳ điều khoản nào được xác định là không hợp lệ hoặc không thể thi hành, các điều khoản còn lại vẫn có hiệu lực đầy đủ.`
-        : `► GOVERNING LAW
-These Terms are governed by the laws of Vietnam. Any disputes arising will be resolved in the competent courts of Vietnam.
-
-► DISPUTE RESOLUTION
-Before filing a lawsuit, parties agree to attempt to resolve disputes through good-faith negotiation within 60 days.
-
-► CONTACT
-Email: dev@aevum.ai.vn
-Organization: I2FLabs, Vietnam
-Website: https://www.aevum.ai.vn
-
-► RESPONSE TIMES
-• Terms inquiries: 5 – 7 business days
-• Violation complaints: Up to 15 business days
-
-If any provision is found to be invalid or unenforceable, the remaining provisions remain in full effect.`
+      id: 'contact',
+      nav: isVi ? '8. Liên hệ & Pháp lý' : '8. Contact & Legal',
+      title: isVi ? '8. Luật điều chỉnh & Thông tin Liên hệ' : '8. Governing Law & Contact Information',
+      content: [
+        {
+          type: 'p',
+          text: isVi
+            ? 'Các Điều khoản này được điều chỉnh và giải thích theo pháp luật Việt Nam. Mọi thắc mắc hoặc yêu cầu hỗ trợ pháp lý, vui lòng liên hệ:'
+            : 'These Terms are governed by and construed in accordance with the laws of Vietnam. For any legal inquiries or support:'
+        },
+        {
+          type: 'contact',
+          lines: [
+            { label: 'Email', value: 'dev@aevum.ai.vn', href: 'mailto:dev@aevum.ai.vn' },
+            { label: isVi ? 'Đơn vị phát triển' : 'Organization', value: 'I2FLabs, Việt Nam' },
+            { label: 'Website', value: 'aevum.ai.vn', href: 'https://www.aevum.ai.vn' },
+          ]
+        },
+        {
+          type: 'note',
+          text: isVi
+            ? 'I2FLabs có quyền cập nhật Điều khoản Dịch vụ khi cần thiết. Chúng tôi sẽ đăng tải phiên bản mới và thông báo ngày hiệu lực trên trang web.'
+            : 'I2FLabs reserves the right to revise these Terms as necessary. Updated versions will be published with an updated effective date.'
+        }
+      ]
     }
   ];
 };
 
+const renderBlock = (block, idx, color) => {
+  switch (block.type) {
+    case 'p':
+      return <p key={idx} style={{ margin: '0 0 0.85rem', lineHeight: 1.75 }}>{block.text}</p>;
+    case 'meta':
+      return (
+        <p key={idx} style={{ margin: '1rem 0 0', fontSize: '0.75rem', color: 'var(--text-muted)', fontFamily: "var(--font-mono, monospace)", letterSpacing: '0.02em' }}>
+          {block.text}
+        </p>
+      );
+    case 'note':
+      return (
+        <div key={idx} style={{ margin: '1rem 0 0', padding: '0.75rem 1rem', borderLeft: `2px solid ${color}`, background: 'var(--bg-cell)', fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>
+          {block.text}
+        </div>
+      );
+    case 'group':
+      return (
+        <div key={idx} style={{ marginTop: '1.25rem' }}>
+          <p style={{ margin: '0 0 0.5rem', fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '0.08em', fontFamily: "var(--font-mono, monospace)" }}>
+            {block.label}
+          </p>
+          <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
+            {block.items.map((item, i) => (
+              <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.6rem', padding: '0.3rem 0', fontSize: '0.83rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+                <span style={{ flexShrink: 0, marginTop: '0.45rem', width: 4, height: 4, borderRadius: '50%', background: color, display: 'inline-block' }} />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
+    case 'list':
+      return (
+        <ul key={idx} style={{ margin: '0.75rem 0 0', padding: 0, listStyle: 'none' }}>
+          {block.items.map((item, i) => (
+            <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.6rem', padding: '0.35rem 0', fontSize: '0.83rem', color: 'var(--text-secondary)', lineHeight: 1.6, borderBottom: '1px solid var(--border-faint)' }}>
+              <span style={{ flexShrink: 0, marginTop: '0.45rem', width: 4, height: 4, borderRadius: '50%', background: color, display: 'inline-block' }} />
+              {item}
+            </li>
+          ))}
+        </ul>
+      );
+    case 'contact':
+      return (
+        <div key={idx} style={{ marginTop: '0.75rem', border: '1px solid var(--border-faint)', overflow: 'hidden' }}>
+          {block.lines.map(({ label, value, href }, i) => (
+            <div key={i} style={{ display: 'flex', borderBottom: i < block.lines.length - 1 ? '1px solid var(--border-faint)' : 'none' }}>
+              <div style={{ width: '30%', flexShrink: 0, padding: '0.55rem 0.85rem', fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-muted)', fontFamily: "var(--font-mono, monospace)", background: 'var(--bg-cell)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>{label}</div>
+              <div style={{ flex: 1, padding: '0.55rem 0.85rem', fontSize: '0.82rem', color: 'var(--text-secondary)' }}>
+                {href ? <a href={href} style={{ color: color, textDecoration: 'none' }}>{value}</a> : value}
+              </div>
+            </div>
+          ))}
+        </div>
+      );
+    default:
+      return null;
+  }
+};
+
 export const Terms = ({ activeLang = 'vi' }) => {
   const isVi = activeLang === 'vi';
-  const containerRef = useRef(null);
   const sections = SECTIONS(activeLang);
+  const [activeId, setActiveId] = useState(sections[0].id);
+  const sectionRefs = useRef({});
+  const color = 'var(--electron-blue, #0ea5e9)';
 
   useEffect(() => {
-    if (containerRef.current) {
-      containerRef.current.querySelectorAll('.terms-section').forEach((el, i) => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        setTimeout(() => {
-          el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-          el.style.opacity = '1';
-          el.style.transform = 'translateY(0)';
-        }, i * 70);
-      });
-    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveId(entry.target.id);
+        });
+      },
+      { rootMargin: '-20% 0px -70% 0px', threshold: 0 }
+    );
+    Object.values(sectionRefs.current).forEach((el) => { if (el) observer.observe(el); });
+    return () => observer.disconnect();
   }, [activeLang]);
 
   return (
-    <div ref={containerRef} style={{ padding: '2rem 0 4rem', maxWidth: '860px', margin: '0 auto', fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
-      {/* Header */}
-      <div className="terms-section" style={{ padding: '2.5rem 2rem 2rem', borderBottom: '1px solid var(--border-faint)', marginBottom: '0.5rem' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-          <div style={{ width: 40, height: 40, borderRadius: 10, background: 'rgba(99,102,241,0.12)', border: '1px solid rgba(99,102,241,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-            <Scale size={20} color="#6366f1" />
-          </div>
-          <div>
-            <div style={{ fontSize: '0.65rem', color: '#6366f1', fontFamily: "var(--font-mono, monospace)", fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.25rem' }}>I2FLabs · Aevum OS</div>
-            <h1 style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--text-primary)', margin: 0, letterSpacing: '-0.02em' }}>
-              {isVi ? 'Điều khoản Dịch vụ' : 'Terms of Service'}
-            </h1>
-          </div>
-        </div>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', alignItems: 'center' }}>
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.72rem', color: '#10b981', fontFamily: "var(--font-mono, monospace)", background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.2)', borderRadius: 6, padding: '0.25rem 0.6rem' }}>
-            <CheckCircle size={11} />{isVi ? 'Hiệu lực từ 01/01/2026' : 'Effective 01/01/2026'}
-          </span>
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.72rem', color: '#f59e0b', fontFamily: "var(--font-mono, monospace)", background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.2)', borderRadius: 6, padding: '0.25rem 0.6rem' }}>
-            <AlertCircle size={11} />{isVi ? 'Cập nhật: Tháng 08/2026' : 'Updated: August 2026'}
-          </span>
-        </div>
-        <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.6, margin: '1.25rem 0 0' }}>
+    <div style={{ padding: '3rem 2rem 5rem', fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
+      {/* Page header */}
+      <div style={{ maxWidth: 860, margin: '0 auto 3rem', paddingBottom: '2rem', borderBottom: '1px solid var(--border-faint)' }}>
+        <p style={{ margin: '0 0 0.5rem', fontSize: '0.7rem', color: color, fontFamily: "var(--font-mono, monospace)", fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.12em' }}>
+          I2FLabs · Aevum OS
+        </p>
+        <h1 style={{ margin: '0 0 0.75rem', fontSize: '2rem', fontWeight: 700, color: 'var(--text-primary)', letterSpacing: '-0.03em', lineHeight: 1.2 }}>
+          {isVi ? 'Điều khoản Dịch vụ' : 'Terms of Service'}
+        </h1>
+        <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6, maxWidth: 560 }}>
           {isVi
-            ? 'Điều khoản Dịch vụ này là thỏa thuận pháp lý giữa bạn và I2FLabs về việc sử dụng các sản phẩm và dịch vụ Aevum OS. Vui lòng đọc kỹ trước khi sử dụng.'
-            : 'These Terms of Service constitute a legal agreement between you and I2FLabs regarding the use of Aevum OS products and services. Please read carefully before using.'}
+            ? 'Văn bản này xác lập quyền, nghĩa vụ và các quy tắc sử dụng giữa người dùng và I2FLabs khi truy cập hệ sinh thái Aevum OS.'
+            : 'This document defines the rights, responsibilities, and terms between users and I2FLabs when accessing the Aevum OS ecosystem.'}
         </p>
       </div>
 
-      {/* Sections */}
-      {sections.map((section, idx) => {
-        const Icon = section.icon;
-        return (
-          <div key={section.id} className="terms-section" style={{ margin: '0.25rem 0', padding: '1.75rem 2rem', borderBottom: idx < sections.length - 1 ? '1px solid var(--border-faint)' : 'none', transition: 'background 0.15s ease', cursor: 'default' }}
-            onMouseEnter={e => e.currentTarget.style.background = 'var(--bg-cell)'}
-            onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '1.1rem' }}>
-              <div style={{ width: 32, height: 32, borderRadius: 8, flexShrink: 0, background: section.color + '15', border: '1px solid ' + section.color + '30', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Icon size={15} color={section.color} />
-              </div>
-              <h2 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-primary)', margin: 0, letterSpacing: '-0.01em' }}>{section.title}</h2>
-            </div>
-            <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', lineHeight: 1.75, whiteSpace: 'pre-line', paddingLeft: '2.6rem' }}>
-              {section.content.split('\n').map((line, i) => {
-                if (line.startsWith('✓')) return <div key={i} style={{ color: '#10b981', fontWeight: 600, marginTop: i > 0 ? '0.4rem' : 0, fontFamily: "var(--font-mono, monospace)", fontSize: '0.78rem' }}>{line}</div>;
-                if (line.startsWith('✗')) return <div key={i} style={{ color: '#ef4444', fontWeight: 600, marginTop: i > 0 ? '0.4rem' : 0, fontFamily: "var(--font-mono, monospace)", fontSize: '0.78rem' }}>{line}</div>;
-                if (line.startsWith('►')) return <div key={i} style={{ color: section.color, fontWeight: 600, marginTop: i > 0 ? '0.75rem' : 0, fontFamily: "var(--font-mono, monospace)", fontSize: '0.78rem' }}>{line}</div>;
-                if (/^\d{2}\./.test(line)) return <div key={i} style={{ color: 'var(--text-primary)', fontWeight: 600, marginTop: i > 0 ? '0.75rem' : 0 }}>{line}</div>;
-                return <div key={i}>{line}</div>;
-              })}
-            </div>
-          </div>
-        );
-      })}
+      {/* 2-column layout */}
+      <div style={{ maxWidth: 860, margin: '0 auto', display: 'flex', gap: '3.5rem', alignItems: 'flex-start' }}>
+        {/* Left: sticky nav */}
+        <nav style={{ width: 180, flexShrink: 0, position: 'sticky', top: 96 }}>
+          <p style={{ margin: '0 0 0.75rem', fontSize: '0.65rem', color: 'var(--text-muted)', fontFamily: "var(--font-mono, monospace)", textTransform: 'uppercase', letterSpacing: '0.12em', fontWeight: 600 }}>
+            {isVi ? 'Mục lục' : 'Contents'}
+          </p>
+          <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.1rem' }}>
+            {sections.map((s) => {
+              const isActive = activeId === s.id;
+              return (
+                <li key={s.id}>
+                  <a
+                    href={`#${s.id}`}
+                    onClick={(e) => { e.preventDefault(); document.getElementById(s.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }}
+                    style={{
+                      display: 'block',
+                      padding: '0.3rem 0.6rem',
+                      fontSize: '0.78rem',
+                      color: isActive ? 'var(--text-primary)' : 'var(--text-muted)',
+                      fontWeight: isActive ? 600 : 400,
+                      textDecoration: 'none',
+                      borderLeft: `2px solid ${isActive ? color : 'transparent'}`,
+                      transition: 'all 0.15s ease',
+                      lineHeight: 1.4,
+                    }}
+                  >
+                    {s.nav}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
 
-      {/* Footer */}
-      <div className="terms-section" style={{ margin: '1.5rem 2rem 0', padding: '1.25rem 1.5rem', background: 'rgba(99,102,241,0.04)', border: '1px solid rgba(99,102,241,0.15)', borderRadius: 12, display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
-        <Scale size={16} color="#6366f1" style={{ flexShrink: 0, marginTop: 2 }} />
-        <p style={{ margin: 0, fontSize: '0.78rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>
-          {isVi ? 'Bằng cách sử dụng Aevum OS, bạn xác nhận đã đọc, hiểu và đồng ý với toàn bộ Điều khoản Dịch vụ này. Mọi thắc mắc: ' : 'By using Aevum OS, you confirm you have read, understood, and agreed to these Terms of Service. Questions: '}
-          <a href="mailto:dev@aevum.ai.vn" style={{ color: '#6366f1', textDecoration: 'none' }}>dev@aevum.ai.vn</a>.
-        </p>
+        {/* Right: content */}
+        <div style={{ flex: 1, minWidth: 0 }}>
+          {sections.map((section, i) => (
+            <section
+              key={section.id}
+              id={section.id}
+              ref={(el) => { sectionRefs.current[section.id] = el; }}
+              style={{ marginBottom: i < sections.length - 1 ? '3rem' : 0, scrollMarginTop: 100 }}
+            >
+              <h2 style={{ margin: '0 0 1rem', fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-primary)', letterSpacing: '-0.01em', paddingBottom: '0.75rem', borderBottom: '1px solid var(--border-faint)' }}>
+                {section.title}
+              </h2>
+              <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                {section.content.map((block, idx) => renderBlock(block, idx, color))}
+              </div>
+            </section>
+          ))}
+        </div>
       </div>
     </div>
   );

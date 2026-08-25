@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useState, useEffect, useCallback, lazy, Suspense } from 'react';
 import { flushSync } from 'react-dom';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
@@ -14,28 +14,29 @@ import { Sponsors } from './components/Sponsors';
 import { CtaBanner } from './components/CtaBanner';
 import { Footer } from './components/Footer';
 import { ScrollToTop } from './components/ScrollToTop';
-import { Docs } from './components/Docs';
-import { About } from './components/About';
-import { Changelog } from './components/Changelog';
-import { Discussions } from './components/Discussions';
 import { Pricing } from './components/Pricing';
-import { Profile } from './components/Profile';
 import { AuthLockGate } from './components/ui/AuthLockGate';
-import { TrialModal } from './components/TrialModal';
-import { Privacy } from './components/Privacy';
-import { Terms } from './components/Terms';
-
-import { SearchModal } from './components/SearchModal';
 import { CustomCursor } from './components/CustomCursor';
 import { useScrollReveal } from './hooks/useScrollReveal';
 import { useSEO } from './hooks/useSEO';
 import logoImg from '../assets/logos/AevumOS-transparent.png';
 import { translations } from './data/translations';
 import { Search, X, Eye, ScanEye, Sun, Atom, User, Globe, Sparkles } from 'lucide-react';
-import { AuthModal } from './components/AuthModal';
-import { DesktopAuthSuccessModal } from './components/DesktopAuthSuccessModal';
 import { supabase } from './services/supabaseClient';
 import { DiscussionService } from './services/DiscussionService';
+
+// Code-split heavy standalone pages & interactive modals
+const Docs = lazy(() => import('./components/Docs').then(m => ({ default: m.Docs })));
+const About = lazy(() => import('./components/About').then(m => ({ default: m.About })));
+const Changelog = lazy(() => import('./components/Changelog').then(m => ({ default: m.Changelog })));
+const Discussions = lazy(() => import('./components/Discussions').then(m => ({ default: m.Discussions })));
+const Profile = lazy(() => import('./components/Profile').then(m => ({ default: m.Profile })));
+const Privacy = lazy(() => import('./components/Privacy').then(m => ({ default: m.Privacy })));
+const Terms = lazy(() => import('./components/Terms').then(m => ({ default: m.Terms })));
+const SearchModal = lazy(() => import('./components/SearchModal').then(m => ({ default: m.SearchModal })));
+const AuthModal = lazy(() => import('./components/AuthModal').then(m => ({ default: m.AuthModal })));
+const TrialModal = lazy(() => import('./components/TrialModal').then(m => ({ default: m.TrialModal })));
+const DesktopAuthSuccessModal = lazy(() => import('./components/DesktopAuthSuccessModal').then(m => ({ default: m.DesktopAuthSuccessModal })));
 
 export function App({ initialPage = null, initialLang = 'vi' }) {
   const [currentPage, setCurrentPage] = useState(() => {
@@ -671,73 +672,73 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
                 />
               )}
 
-              {currentPage === 'docs' && (
-                user ? (
-                  <Docs activeLang={activeLang} />
-                ) : (
-                  <AuthLockGate
-                    activeLang={activeLang}
-                    onOpenAuthModal={() => setIsAuthModalOpen(true)}
-                    onNavigate={handleNavigate}
-                    pageName={activeLang === 'vi' ? 'Tài liệu Kỹ thuật (Docs)' : 'Documentation'}
-                  />
-                )
-              )}
+              <Suspense fallback={<div className="min-h-[40vh] flex items-center justify-center font-mono text-xs text-slate-500">Loading...</div>}>
+                {currentPage === 'docs' && (
+                  user ? (
+                    <Docs activeLang={activeLang} />
+                  ) : (
+                    <AuthLockGate
+                      activeLang={activeLang}
+                      onOpenAuthModal={() => setIsAuthModalOpen(true)}
+                      onNavigate={handleNavigate}
+                      pageName={activeLang === 'vi' ? 'Tài liệu Kỹ thuật (Docs)' : 'Documentation'}
+                    />
+                  )
+                )}
 
-              {currentPage === 'about' && (
-                <About activeLang={activeLang} />
-              )}
+                {currentPage === 'about' && (
+                  <About activeLang={activeLang} />
+                )}
 
-              {currentPage === 'changelog' && (
-                user ? (
-                  <Changelog activeLang={activeLang} onNavigate={handleNavigate} />
-                ) : (
-                  <AuthLockGate
-                    activeLang={activeLang}
-                    onOpenAuthModal={() => setIsAuthModalOpen(true)}
-                    onNavigate={handleNavigate}
-                    pageName={activeLang === 'vi' ? 'Nhật ký Cập nhật (Changelog)' : 'Changelog'}
-                  />
-                )
-              )}
+                {currentPage === 'changelog' && (
+                  user ? (
+                    <Changelog activeLang={activeLang} onNavigate={handleNavigate} />
+                  ) : (
+                    <AuthLockGate
+                      activeLang={activeLang}
+                      onOpenAuthModal={() => setIsAuthModalOpen(true)}
+                      onNavigate={handleNavigate}
+                      pageName={activeLang === 'vi' ? 'Nhật ký Cập nhật (Changelog)' : 'Changelog'}
+                    />
+                  )
+                )}
 
-              {currentPage === 'discussions' && (
-                user ? (
-                  <Discussions
+                {currentPage === 'discussions' && (
+                  user ? (
+                    <Discussions
+                      activeLang={activeLang}
+                      user={user}
+                      userProfile={userProfile}
+                      onOpenAuthModal={() => setIsAuthModalOpen(true)}
+                    />
+                  ) : (
+                    <AuthLockGate
+                      activeLang={activeLang}
+                      onOpenAuthModal={() => setIsAuthModalOpen(true)}
+                      onNavigate={handleNavigate}
+                      pageName={activeLang === 'vi' ? 'Kênh Thảo luận (Discussions)' : 'Discussions'}
+                    />
+                  )
+                )}
+
+                {currentPage === 'privacy' && (
+                  <Privacy activeLang={activeLang} />
+                )}
+
+                {currentPage === 'terms' && (
+                  <Terms activeLang={activeLang} />
+                )}
+
+                {currentPage === 'profile' && (
+                  <Profile
                     activeLang={activeLang}
                     user={user}
                     userProfile={userProfile}
-                    onOpenAuthModal={() => setIsAuthModalOpen(true)}
-                  />
-                ) : (
-                  <AuthLockGate
-                    activeLang={activeLang}
-                    onOpenAuthModal={() => setIsAuthModalOpen(true)}
                     onNavigate={handleNavigate}
-                    pageName={activeLang === 'vi' ? 'Kênh Thảo luận (Discussions)' : 'Discussions'}
+                    onOpenTrialModal={handleOpenTrialModal}
                   />
-                )
-              )}
-
-              {currentPage === 'privacy' && (
-                <Privacy activeLang={activeLang} />
-              )}
-
-              {currentPage === 'terms' && (
-                <Terms activeLang={activeLang} />
-              )}
-
-
-              {currentPage === 'profile' && (
-                <Profile
-                  activeLang={activeLang}
-                  user={user}
-                  userProfile={userProfile}
-                  onNavigate={handleNavigate}
-                  onOpenTrialModal={handleOpenTrialModal}
-                />
-              )}
-
+                )}
+              </Suspense>
 
               {/* Footer */}
               <Footer onNavigate={handleNavigate} activeLang={activeLang} />
@@ -933,39 +934,46 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
         </div>
       </div>
 
-      {/* Early Access Trial Modal */}
-      <TrialModal
-        isOpen={isTrialModalOpen}
-        onClose={() => setIsTrialModalOpen(false)}
-        activeLang={activeLang}
-        user={user}
-      />
+      {/* Lazy-loaded Interactive Modals */}
+      <Suspense fallback={null}>
+        {isTrialModalOpen && (
+          <TrialModal
+            isOpen={isTrialModalOpen}
+            onClose={() => setIsTrialModalOpen(false)}
+            activeLang={activeLang}
+            user={user}
+          />
+        )}
 
-      {/* Desktop Auth Handoff Success Modal */}
-      <DesktopAuthSuccessModal
-        isOpen={desktopAuthConnected}
-        onClose={() => setDesktopAuthConnected(false)}
-        activeLang={activeLang}
-        user={user}
-        userProfile={userProfile}
-      />
+        {desktopAuthConnected && (
+          <DesktopAuthSuccessModal
+            isOpen={desktopAuthConnected}
+            onClose={() => setDesktopAuthConnected(false)}
+            activeLang={activeLang}
+            user={user}
+            userProfile={userProfile}
+          />
+        )}
 
-      {/* Supabase User Authentication Modal */}
-      <AuthModal
-        isOpen={isAuthModalOpen}
-        onClose={() => setIsAuthModalOpen(false)}
-        activeLang={activeLang}
-        user={user}
-        userProfile={userProfile}
-      />
+        {isAuthModalOpen && (
+          <AuthModal
+            isOpen={isAuthModalOpen}
+            onClose={() => setIsAuthModalOpen(false)}
+            activeLang={activeLang}
+            user={user}
+            userProfile={userProfile}
+          />
+        )}
 
-      {/* Interactive Command Palette Search Modal */}
-      <SearchModal
-        isOpen={isSearchOpen}
-        onClose={() => setIsSearchOpen(false)}
-        onNavigate={handleNavigate}
-        activeLang={activeLang}
-      />
+        {isSearchOpen && (
+          <SearchModal
+            isOpen={isSearchOpen}
+            onClose={() => setIsSearchOpen(false)}
+            onNavigate={handleNavigate}
+            activeLang={activeLang}
+          />
+        )}
+      </Suspense>
 
       {/* Floating Cyber HUD Utility Toolbar (Fixed to Viewport - Shifted Right of Content Edge) */}
       <div className="fixed right-[calc(6vw-50px)] top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col items-center bg-transparent p-0 w-[42px] transition-all duration-300 group rounded-none">

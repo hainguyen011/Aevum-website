@@ -8,7 +8,7 @@ import { MembershipService } from '../services/MembershipService';
 import { MembershipBadge } from './ui/MembershipBadge';
 import logoImg from '../../assets/logos/AevumOS-transparent.png';
 
-import earthImg from '../../assets/earth2.png';
+import earthImg from '../../assets/earth2.webp';
 
 export const AuthModal = ({ isOpen, onClose, activeLang, user, userProfile }) => {
   const [mode, setMode] = useState('signin'); // 'signin' | 'signup' | 'forgot' | 'profile'

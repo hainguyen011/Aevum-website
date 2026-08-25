@@ -1,5 +1,5 @@
 import React from 'react';
-import nasaHubbleBg from '../../assets/nasa-hubble-space-telescope-k20fpgVfoPE-unsplash.jpg';
+import nasaHubbleBg from '../../assets/nasa-hubble-space-telescope.webp';
 import { translations } from '../data/translations';
 
 export const CtaBanner = ({ onNavigate, onOpenTrialModal, activeLang }) => {

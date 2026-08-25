@@ -334,13 +334,15 @@ export const Navbar = ({
           </div>
 
           {/* Mobile Hamburger Menu Toggle */}
-          <button
-            onClick={onToggleMobileMenu}
-            className="lg:hidden p-2 self-center mr-4 text-slate-300 hover:text-white bg-white/5 border border-white/10 rounded-lg transition-colors cursor-pointer"
-            aria-label="Toggle Mobile Navigation"
-          >
-            {isMobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
-          </button>
+          <div className="lg:hidden flex items-center justify-center px-3 sm:px-4">
+            <button
+              onClick={onToggleMobileMenu}
+              className="flex items-center justify-center w-9 h-9 text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 active:scale-95 border border-white/10 rounded-lg transition-all cursor-pointer"
+              aria-label="Toggle Mobile Navigation"
+            >
+              {isMobileMenuOpen ? <X size={18} className="shrink-0" /> : <Menu size={18} className="shrink-0" />}
+            </button>
+          </div>
 
         </div>
       </div>

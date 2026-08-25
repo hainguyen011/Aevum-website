@@ -22,8 +22,6 @@ import { useSEO } from './hooks/useSEO';
 import logoImg from '../assets/logos/AevumOS-transparent.webp';
 import { translations } from './data/translations';
 import { Search, X, Eye, ScanEye, Sun, Atom, User, Globe, Sparkles } from 'lucide-react';
-import { supabase } from './services/supabaseClient';
-import { DiscussionService } from './services/DiscussionService';
 
 // Code-split heavy standalone pages & interactive modals
 const Docs = lazy(() => import('./components/Docs').then(m => ({ default: m.Docs })));
@@ -122,6 +120,7 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
     if (!isDesktopIntent || !effectiveNonce) return;
 
     try {
+      const { supabase } = await import('./services/supabaseClient');
       const { data: { session } } = await supabase.auth.getSession();
       if (!session || !session.user) return;
 
@@ -172,12 +171,14 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
     }
 
     if (authType === 'signin' || authType === 'login' || authType === 'desktop' || getQueryParam('openAuth') === 'true') {
-      supabase.auth.getSession().then(({ data: { session } }) => {
-        if (!session?.user) {
-          setIsAuthModalOpen(true);
-        } else {
-          broadcastDesktopSession(urlNonce);
-        }
+      import('./services/supabaseClient').then(({ supabase }) => {
+        supabase.auth.getSession().then(({ data: { session } }) => {
+          if (!session?.user) {
+            setIsAuthModalOpen(true);
+          } else {
+            broadcastDesktopSession(urlNonce);
+          }
+        });
       });
     }
   }, [broadcastDesktopSession]);
@@ -190,30 +191,38 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
     }
   }, [user, broadcastDesktopSession]);
 
-  // Supabase Auth session listener
+  // Supabase Auth session listener (asynchronous on client only)
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
-      if (session?.user) {
-        broadcastDesktopSession();
-      }
+    let unsub = null;
+    import('./services/supabaseClient').then(({ supabase }) => {
+      supabase.auth.getSession().then(({ data: { session } }) => {
+        setUser(session?.user ?? null);
+        if (session?.user) {
+          broadcastDesktopSession();
+        }
+      });
+
+      const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+        setUser(session?.user ?? null);
+        if (session?.user && (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED' || event === 'INITIAL_SESSION')) {
+          broadcastDesktopSession();
+        }
+      });
+      unsub = subscription;
     });
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      setUser(session?.user ?? null);
-      if (session?.user && (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED' || event === 'INITIAL_SESSION')) {
-        broadcastDesktopSession();
-      }
-    });
-
-    return () => subscription.unsubscribe();
+    return () => {
+      if (unsub) unsub.unsubscribe();
+    };
   }, [broadcastDesktopSession]);
 
   // Fetch user profile (role, full_name) when session updates
   useEffect(() => {
     if (user?.id) {
-      DiscussionService.getUserProfile(user.id).then(profile => {
-        setUserProfile(profile);
+      import('./services/DiscussionService').then(({ DiscussionService }) => {
+        DiscussionService.getUserProfile(user.id).then(profile => {
+          setUserProfile(profile);
+        });
       });
     } else {
       setUserProfile(null);

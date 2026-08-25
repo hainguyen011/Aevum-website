@@ -4,9 +4,6 @@ const logoImg = '/assets/logos/AevumOS-transparent.webp';
 import unikornLogo from '../../assets/unikorn-logo.webp';
 import unikornLogoDark from '../../assets/unikorn-logo-dark.webp';
 import { translations } from '../data/translations';
-
-import { supabase } from '../services/supabaseClient';
-import { MembershipService } from '../services/MembershipService';
 import { MembershipBadge } from './ui/MembershipBadge';
 
 export const Navbar = ({ 
@@ -33,9 +30,14 @@ export const Navbar = ({
 
   useEffect(() => {
     if (user) {
-      supabase.auth.getSession().then(({ data: { session } }) => {
-        MembershipService.getCurrentEntitlements(session?.access_token, user.id).then(data => {
-          if (data) setEntitlements(data);
+      Promise.all([
+        import('../services/supabaseClient'),
+        import('../services/MembershipService')
+      ]).then(([{ supabase }, { MembershipService }]) => {
+        supabase.auth.getSession().then(({ data: { session } }) => {
+          MembershipService.getCurrentEntitlements(session?.access_token, user.id).then(data => {
+            if (data) setEntitlements(data);
+          });
         });
       });
     } else {
@@ -556,18 +558,18 @@ export const Navbar = ({
                     </span>
                   )}
                 </div>
-                <p className="text-[10px] text-slate-500 group-hover/user:text-slate-400 transition-colors">{user.email}</p>
+                <p className="text-[10px] text-slate-400 group-hover/user:text-slate-300 transition-colors">{user.email}</p>
               </div>
             </div>
 
-
-
-
             {/* Actions */}
             <div className="flex items-center gap-3">
-
               <button
-                onClick={async () => { await supabase.auth.signOut(); setProfileOpen(false); }}
+                onClick={async () => {
+                  const { supabase } = await import('../services/supabaseClient');
+                  await supabase.auth.signOut();
+                  setProfileOpen(false);
+                }}
                 className="border border-red-500/30 hover:border-red-400/60 rounded-md px-3 py-1.5 uppercase tracking-widest transition-colors cursor-pointer font-mono font-bold text-red-400 hover:text-red-300"
                 style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '10px', lineHeight: 1 }}
               >
@@ -576,7 +578,8 @@ export const Navbar = ({
               </button>
               <button
                 onClick={() => setProfileOpen(false)}
-                className="text-slate-500 hover:text-white transition-colors p-1 cursor-pointer ml-2"
+                className="text-slate-400 hover:text-white transition-colors p-1 cursor-pointer ml-2"
+                aria-label="Close profile modal"
               >
                 <X size={14} />
               </button>

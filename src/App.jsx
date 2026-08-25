@@ -37,8 +37,17 @@ import { DesktopAuthSuccessModal } from './components/DesktopAuthSuccessModal';
 import { supabase } from './services/supabaseClient';
 import { DiscussionService } from './services/DiscussionService';
 
-export function App() {
-  const [currentPage, setCurrentPage] = useState('landing');
+export function App({ initialPage = null, initialLang = 'vi' }) {
+  const [currentPage, setCurrentPage] = useState(() => {
+    if (initialPage) return initialPage;
+    if (typeof window !== 'undefined') {
+      const path = window.location.pathname.replace(/^\/+/, '').toLowerCase();
+      if (['pricing', 'docs', 'about', 'changelog', 'discussions', 'privacy', 'terms'].includes(path)) {
+        return path;
+      }
+    }
+    return 'landing';
+  });
   const [isTrialModalOpen, setIsTrialModalOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -47,10 +56,16 @@ export function App() {
   const [user, setUser] = useState(null);
   const [userProfile, setUserProfile] = useState(null);
   const [isEyeCare, setIsEyeCare] = useState(() => {
-    return localStorage.getItem('aevum-eyecare') === 'true';
+    if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+      return localStorage.getItem('aevum-eyecare') === 'true';
+    }
+    return false;
   });
   const [theme, setTheme] = useState(() => {
-    return localStorage.getItem('aevum-theme') || 'dark';
+    if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+      return localStorage.getItem('aevum-theme') || 'dark';
+    }
+    return 'dark';
   });
 
   const handleOpenTrialModal = () => {
@@ -310,8 +325,11 @@ export function App() {
 
   // Language Preference Manager (Default to 'vi')
   const [activeLang, setActiveLang] = useState(() => {
-    const saved = localStorage.getItem('aevum-lang');
-    return saved === 'en' ? 'en' : 'vi';
+    if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+      const saved = localStorage.getItem('aevum-lang');
+      return saved === 'en' ? 'en' : 'vi';
+    }
+    return initialLang;
   });
 
   const handleLanguageChange = (lang) => {

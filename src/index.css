@@ -1378,29 +1378,29 @@ html[data-theme="light"] .cta-banner .btn-electron:hover {
    ========================================================================== */
 
 .pricing-btn-pro {
-  background-color: #0284c7 !important;
+  background-color: #0369a1 !important;
   color: #ffffff !important;
   border: 1px solid rgba(56, 189, 248, 0.4) !important;
-  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.3) !important;
+  box-shadow: 0 4px 14px rgba(3, 105, 161, 0.3) !important;
   transition: all 0.2s ease;
 }
 
 .pricing-btn-pro:hover {
-  background-color: #0369a1 !important;
+  background-color: #075985 !important;
   border-color: rgba(56, 189, 248, 0.7) !important;
-  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.45) !important;
+  box-shadow: 0 6px 20px rgba(3, 105, 161, 0.45) !important;
 }
 
 html[data-theme="light"] .pricing-btn-pro {
-  background-color: #0284c7 !important;
+  background-color: #0369a1 !important;
   color: #ffffff !important;
-  border: 1px solid rgba(2, 132, 199, 0.3) !important;
-  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.25) !important;
+  border: 1px solid rgba(3, 105, 161, 0.3) !important;
+  box-shadow: 0 4px 14px rgba(3, 105, 161, 0.25) !important;
 }
 
 html[data-theme="light"] .pricing-btn-pro:hover {
-  background-color: #0369a1 !important;
-  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.4) !important;
+  background-color: #075985 !important;
+  box-shadow: 0 6px 20px rgba(3, 105, 161, 0.4) !important;
 }
 
 .pricing-btn-community {
@@ -1594,12 +1594,12 @@ html[data-theme="light"] .pricing-sub-enterprise {
 
 /* Pricing Switcher Pill & White Text Highlighting */
 .pricing-switch-pill {
-  background-color: #0284c7 !important;
+  background-color: #0369a1 !important;
 }
 
 html[data-theme="light"] .pricing-switch-pill {
-  background-color: #0284c7 !important;
-  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.3) !important;
+  background-color: #0369a1 !important;
+  box-shadow: 0 2px 8px rgba(3, 105, 161, 0.3) !important;
 }
 
 .pricing-switch-btn-active,
@@ -1608,7 +1608,7 @@ html[data-theme="light"] .pricing-switch-btn-active {
 }
 
 .pricing-switch-btn-inactive {
-  color: #94A3B8;
+  color: #cbd5e1;
 }
 
 .pricing-switch-btn-inactive:hover {
@@ -1616,7 +1616,7 @@ html[data-theme="light"] .pricing-switch-btn-active {
 }
 
 html[data-theme="light"] .pricing-switch-btn-inactive {
-  color: #64748B !important;
+  color: #475569 !important;
 }
 
 html[data-theme="light"] .pricing-switch-btn-inactive:hover {

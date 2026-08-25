@@ -149,7 +149,7 @@ export const BentoGrid = ({ activeLang }) => {
                   <span className="text-[10px] font-mono font-bold text-cyan-400 tracking-wider uppercase">
                     {item.tag}
                   </span>
-                  <span className="text-xs font-mono font-extrabold text-white/20">
+                  <span className="text-xs font-mono font-extrabold text-slate-300">
                     {item.num}
                   </span>
                 </div>
@@ -223,7 +223,7 @@ export const BentoGrid = ({ activeLang }) => {
                 <span className={`px-3 py-1 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider border ${items[activeSlide].badgeColor}`}>
                   {items[activeSlide].tag}
                 </span>
-                <span className="text-xs font-mono font-extrabold text-white/30">
+                <span className="text-xs font-mono font-extrabold text-slate-300">
                   {items[activeSlide].num} / 04
                 </span>
               </div>
@@ -267,7 +267,7 @@ export const BentoGrid = ({ activeLang }) => {
                   <span className="text-xs font-mono font-extrabold text-cyan-700 uppercase tracking-wider">
                     {items[activeSlide].agentName}
                   </span>
-                  <span className="text-[10px] font-mono font-bold text-slate-400">VOICE STREAM</span>
+                  <span className="text-[10px] font-mono font-bold text-slate-600">VOICE STREAM</span>
                 </div>
                 
                 <p className="text-slate-900 text-sm sm:text-base font-semibold leading-relaxed font-sans min-h-[52px]">

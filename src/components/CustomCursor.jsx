@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import unikornLogo from '../../assets/unikorn-logo.png';
-import unikornLogoDark from '../../assets/unikorn-logo-dark.png';
+import unikornLogo from '../../assets/unikorn-logo.webp';
+import unikornLogoDark from '../../assets/unikorn-logo-dark.webp';
 
 export const CustomCursor = () => {
   const [pos, setPos] = useState({ x: -100, y: -100 });

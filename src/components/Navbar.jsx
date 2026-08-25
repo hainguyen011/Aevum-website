@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Search, Facebook, ChevronDown, Globe, Eye, EyeOff, Sun, Atom, Menu, X, Sparkles, Layers, Network, Terminal, ArrowRight, Mail, User, LogOut, Zap } from 'lucide-react';
-import logoImg from '../../assets/logos/AevumOS-transparent.png';
-import unikornLogo from '../../assets/unikorn-logo.png';
+import logoImg from '../../assets/logos/AevumOS-transparent.webp';
+import unikornLogo from '../../assets/unikorn-logo.webp';
 import unikornLogoDark from '../../assets/unikorn-logo-dark.webp';
 import { translations } from '../data/translations';
 
@@ -309,6 +309,7 @@ export const Navbar = ({
               href="https://facebook.com" 
               target="_blank" 
               rel="noreferrer"
+              aria-label="Facebook I2FLabs"
               className="text-slate-400 hover:text-white transition-colors p-1"
             >
               <Facebook size={14} />
@@ -317,15 +318,17 @@ export const Navbar = ({
               href="https://unikorn.vn" 
               target="_blank" 
               rel="noreferrer"
+              aria-label="Unikorn Vietnam Creative Tech Agency"
               className="opacity-70 hover:opacity-100 transition-opacity p-1 flex items-center justify-center"
               title="Unikorn - Creative Tech Agency"
             >
-              <img src={unikornLogo} alt="Unikorn Logo" className="w-3.5 h-3.5 object-contain unikorn-header-light" />
-              <img src={unikornLogoDark} alt="Unikorn Logo" className="w-3.5 h-3.5 object-contain unikorn-header-dark" />
+              <img src={unikornLogo} alt="Unikorn Logo" width="14" height="14" className="w-3.5 h-3.5 object-contain unikorn-header-light" />
+              <img src={unikornLogoDark} alt="Unikorn Logo" width="14" height="14" className="w-3.5 h-3.5 object-contain unikorn-header-dark" />
             </a>
 
             <a
               href="mailto:hainguyen011238@gmail.com"
+              aria-label="Email Aevum OS Support"
               className="text-slate-400 hover:text-white transition-colors p-1"
               title="hainguyen011238@gmail.com"
             >

@@ -70,6 +70,10 @@ export const Testimonials = ({ activeLang }) => {
           <img
             src={rev.avatar}
             alt={rev.name}
+            loading="lazy"
+            decoding="async"
+            width="40"
+            height="40"
             className="w-10 h-10 rounded-full object-cover border border-[#0ea5e9]/40"
           />
           <div>

@@ -107,6 +107,8 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
         <img
           src={agent.avatar}
           alt={agent.name}
+          loading="lazy"
+          decoding="async"
           className={`absolute inset-0 w-full h-full object-cover object-center transition-[opacity,filter] duration-[900ms] ease-in-out ${
             isActive
               ? 'opacity-95 brightness-110'

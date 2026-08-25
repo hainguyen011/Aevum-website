@@ -8,7 +8,7 @@ import { ReleaseService } from '../services/ReleaseService';
 import { TranslationService } from '../services/TranslationService';
 import { CustomSelect } from './ui/CustomSelect';
 
-import anHi from '../../assets/stickers/An_Collection/An_Hi.png';
+import anHi from '../../assets/stickers/An_Collection/An_Hi.webp';
 
 export function Discussions({ activeLang, user, userProfile, onOpenAuthModal, initialVersionFilter = 'all' }) {
   const [discussions, setDiscussions] = useState([]);

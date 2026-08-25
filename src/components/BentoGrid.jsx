@@ -2,11 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { translations } from '../data/translations';
 
-// Sticker Imports from Agent Collections
-import anHiSticker from '../../assets/stickers/An_Collection/An_Hi.png';
-import zenithCuriosSticker from '../../assets/stickers/Zenith_Collection/Zenith_Curios.png';
-import lunaLoverSticker from '../../assets/stickers/Luna_Collection/Luna_Lover.png';
-import vidusHipeSticker from '../../assets/stickers/Vidus_Collection/Vidus_Hipe.png';
+// Sticker Imports from Agent Collections (Optimized WebP)
+import anHiSticker from '../../assets/stickers/An_Collection/An_Hi.webp';
+import zenithCuriosSticker from '../../assets/stickers/Zenith_Collection/Zenith_Curios.webp';
+import lunaLoverSticker from '../../assets/stickers/Luna_Collection/Luna_Lover.webp';
+import vidusHipeSticker from '../../assets/stickers/Vidus_Collection/Vidus_Hipe.webp';
 
 export const BentoGrid = ({ activeLang }) => {
   const t = translations[activeLang] || translations.en;
@@ -179,6 +179,8 @@ export const BentoGrid = ({ activeLang }) => {
                 <img
                   src={item.sticker}
                   alt={item.agentName}
+                  loading="lazy"
+                  decoding="async"
                   className="h-32 w-auto object-contain select-none"
                 />
               </div>
@@ -192,10 +194,11 @@ export const BentoGrid = ({ activeLang }) => {
             <button
               key={idx}
               onClick={() => scrollToSlide(idx)}
-              className={`transition-all duration-300 rounded-full cursor-pointer ${
+              aria-label={`Go to slide ${idx + 1} - ${items[idx].title}`}
+              className={`transition-all duration-300 rounded-full cursor-pointer p-1 ${
                 activeSlide === idx
-                  ? 'w-5 h-1.5 bg-cyan-400'
-                  : 'w-1.5 h-1.5 bg-white/20 hover:bg-white/40'
+                  ? 'w-5 h-2 bg-cyan-400'
+                  : 'w-2 h-2 bg-white/20 hover:bg-white/40'
               }`}
             />
           ))}
@@ -282,6 +285,8 @@ export const BentoGrid = ({ activeLang }) => {
                   key={activeSlide}
                   src={items[activeSlide].sticker}
                   alt={items[activeSlide].agentName}
+                  loading="lazy"
+                  decoding="async"
                   className="h-44 sm:h-52 w-auto object-contain transition-all duration-500 animate-pulse-slow select-none"
                 />
               </div>

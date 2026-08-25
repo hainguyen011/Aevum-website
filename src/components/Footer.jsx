@@ -1,6 +1,6 @@
 import React from 'react';
 import { Mail } from 'lucide-react';
-import logoImg from '../../assets/logos/AevumOS-transparent.png';
+import logoImg from '../../assets/logos/AevumOS-transparent.webp';
 import { translations } from '../data/translations';
 
 export const Footer = ({ onNavigate, activeLang }) => {
@@ -35,44 +35,46 @@ export const Footer = ({ onNavigate, activeLang }) => {
             <div className="flex items-center gap-2">
               <button 
                 onClick={() => onNavigate('landing')}
-                className="flex items-center gap-2 text-left"
+                aria-label="Aevum OS Homepage"
+                className="flex items-center gap-2 text-left p-1 cursor-pointer"
               >
-                <img src={logoImg} alt="Aevum OS Logo" className="w-6 h-6 object-contain" />
+                <img src={logoImg} alt="Aevum OS Logo" width="24" height="24" className="w-6 h-6 object-contain" />
                 <span className="font-bold text-white text-base tracking-tight font-display">AEVUM OS</span>
               </button>
             </div>
             <p className="text-slate-400 max-w-sm text-xs leading-relaxed">
               {t.footer.brandDesc}
             </p>
-            <div className="flex flex-wrap items-center gap-4 pt-2 text-slate-400 font-mono text-[11px]">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 pt-2 text-slate-400 font-mono text-[11px]">
               <button 
                 onClick={() => onNavigate('pricing')} 
-                className="text-white hover:underline hover:text-slate-200 transition-colors font-semibold"
+                className="text-white hover:underline hover:text-slate-200 transition-colors font-semibold py-1.5 cursor-pointer"
               >
                 {t.navbar.pricing}
               </button>
               <span className="text-white/10">•</span>
               <button 
                 onClick={() => onNavigate('docs')} 
-                className="text-white hover:underline hover:text-slate-200 transition-colors font-semibold"
+                className="text-white hover:underline hover:text-slate-200 transition-colors font-semibold py-1.5 cursor-pointer"
               >
                 {t.footer.links.docs}
               </button>
               <span className="text-white/10">•</span>
               <button 
                 onClick={() => onNavigate('about')} 
-                className="text-white hover:underline hover:text-slate-200 transition-colors font-semibold"
+                className="text-white hover:underline hover:text-slate-200 transition-colors font-semibold py-1.5 cursor-pointer"
               >
                 {t.navbar.about}
               </button>
               <span className="text-white/10">•</span>
-              <a href="https://i2flabs.vercel.app/" target="_blank" rel="noreferrer" className="hover:text-cyan-400 transition-colors">I2FLabs</a>
-              <a href="https://open-vsx.org/extension/I2FLabs/aevum" target="_blank" rel="noreferrer" className="hover:text-cyan-400 transition-colors">{t.footer.links.openVsx}</a>
-              <a href="https://unikorn.vn/p/aevum" target="_blank" rel="noreferrer" className="hover:text-cyan-400 transition-colors">{t.footer.links.unikorn}</a>
-              <a href="https://github.com/hainguyen011" target="_blank" rel="noreferrer" className="hover:text-cyan-400 transition-colors">{t.footer.links.github}</a>
+              <a href="https://i2flabs.vercel.app/" target="_blank" rel="noreferrer" aria-label="I2FLabs Official Website" className="hover:text-cyan-400 transition-colors py-1.5">I2FLabs</a>
+              <a href="https://open-vsx.org/extension/I2FLabs/aevum" target="_blank" rel="noreferrer" aria-label="Aevum Open VSX Extension" className="hover:text-cyan-400 transition-colors py-1.5">{t.footer.links.openVsx}</a>
+              <a href="https://unikorn.vn/p/aevum" target="_blank" rel="noreferrer" aria-label="Unikorn Product Hunt Page" className="hover:text-cyan-400 transition-colors py-1.5">{t.footer.links.unikorn}</a>
+              <a href="https://github.com/hainguyen011" target="_blank" rel="noreferrer" aria-label="GitHub Repository" className="hover:text-cyan-400 transition-colors py-1.5">{t.footer.links.github}</a>
               <a 
                 href="mailto:hainguyen011238@gmail.com" 
-                className="hover:text-cyan-400 transition-colors" 
+                aria-label="Email Aevum OS Support"
+                className="hover:text-cyan-400 transition-colors py-1.5" 
                 title="hainguyen011238@gmail.com"
               >
                 Mail

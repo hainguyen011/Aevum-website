@@ -19,7 +19,7 @@ import { AuthLockGate } from './components/ui/AuthLockGate';
 import { CustomCursor } from './components/CustomCursor';
 import { useScrollReveal } from './hooks/useScrollReveal';
 import { useSEO } from './hooks/useSEO';
-import logoImg from '../assets/logos/AevumOS-transparent.png';
+import logoImg from '../assets/logos/AevumOS-transparent.webp';
 import { translations } from './data/translations';
 import { Search, X, Eye, ScanEye, Sun, Atom, User, Globe, Sparkles } from 'lucide-react';
 import { supabase } from './services/supabaseClient';
@@ -277,8 +277,12 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
     });
   };
 
-  // Initialize Lenis smooth scroll engine
+  // Initialize Lenis smooth scroll engine (Desktop only to prevent mobile reflows)
   useEffect(() => {
+    if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) {
+      return;
+    }
+
     const LenisClass = window.Lenis;
     if (!LenisClass) return;
 
@@ -991,6 +995,7 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
         {/* Eye Care Toggle */}
         <button
           onClick={() => setIsEyeCare(prev => !prev)}
+          aria-label="Toggle Eye Care Mode"
           className={`utility-bar-btn flex items-center justify-center w-[42px] h-[42px] transition-all duration-200 cursor-pointer rounded-none border-0 select-none ${isEyeCare
             ? '!bg-amber-500/10 !text-amber-500 hover:!bg-amber-500/20'
             : ''

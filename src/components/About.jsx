@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import logoImg from '../../assets/logos/AevumOS-transparent.png';
+import logoImg from '../../assets/logos/AevumOS-transparent.webp';
 
 export const About = ({ activeLang }) => {
   const [isLoading, setIsLoading] = useState(true);

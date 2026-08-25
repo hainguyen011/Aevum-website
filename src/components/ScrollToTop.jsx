@@ -37,7 +37,7 @@ export const ScrollToTop = () => {
     <button
       onClick={scrollToTop}
       aria-label="Scroll to top"
-      className="fixed bottom-6 right-6 z-50 p-2 bg-[#030407] border border-cyan-500/30 hover:border-cyan-400 text-cyan-400 hover:bg-cyan-500/10 rounded-md shadow-2xl transition-all duration-200 group cursor-pointer flex items-center justify-center"
+      className="fixed bottom-6 right-6 z-50 w-11 h-11 bg-[#030407] border border-cyan-500/30 hover:border-cyan-400 text-cyan-400 hover:bg-cyan-500/10 rounded-md shadow-2xl transition-all duration-200 group cursor-pointer flex items-center justify-center"
     >
       {/* Pure SVG Chevron Up Arrow */}
       <svg 

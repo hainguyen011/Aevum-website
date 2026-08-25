@@ -1,4 +1,4 @@
-import HeadGif from "../../assets/head.gif";
+import HeadGif from "../../assets/head.webp";
 import { translations } from '../data/translations';
 
 export const FrameworkFlow = ({ activeLang }) => {

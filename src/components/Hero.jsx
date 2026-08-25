@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import asciiAsset from '../../assets/logos/Aevum-ascii.png';
+import asciiAsset from '../../assets/logos/Aevum-ascii.webp';
 import { translations } from '../data/translations';
 
 export const Hero = ({ onNavigate, onOpenTrialModal, activeLang }) => {

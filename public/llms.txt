@@ -21,6 +21,7 @@ Aevum OS solves AI Context Amnesia by providing persistent Domain-Driven Design 
 - [Product Story & Architecture](https://www.aevum.ai.vn/about): Philosophy of decoupling workspace intelligence from single-editor lifecycles.
 - [Release Changelog](https://www.aevum.ai.vn/changelog): Version history and architectural updates of Aevum OS.
 - [Community Discussions](https://www.aevum.ai.vn/discussions): Developer community forum for bug reporting and feature suggestions.
+- [Unikorn Product Showcase](https://unikorn.vn/p/aevum): Aevum OS featured product showcase and community voting on Unikorn Vietnam.
 
 ## Optional
 

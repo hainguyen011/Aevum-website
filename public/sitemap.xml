@@ -122,6 +122,14 @@
     <priority>0.85</priority>
   </url>
 
+  <!-- Unikorn Product Showcase -->
+  <url>
+    <loc>https://www.aevum.ai.vn/#unikorn</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
   <!-- Privacy Policy -->
   <url>
     <loc>https://www.aevum.ai.vn/privacy</loc>

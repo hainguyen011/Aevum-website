@@ -7,7 +7,7 @@ const SEO_CONFIG = {
       en: 'Aevum OS — Standalone MCP Server & Workspace External Brain',
     },
     description: {
-      vi: 'Aevum OS là Hệ điều hành Agent độc lập và Bộ não Ngoại vi — hỗ trợ cấu hình MCP cho Cursor và Claude Desktop, lập kế hoạch DDD, đồ thị bộ nhớ tự phục hồi và khắc phục triệt để AI Context Amnesia.',
+      vi: 'Aevum OS là Hệ điều hành Agent độc lập và Bộ não Ngoại vi — duy trì đồ thị bộ nhớ sống, quy hoạch kiến trúc và điều phối biệt đội AI tự trị qua giao thức MCP chuẩn hóa.',
       en: 'Aevum OS is an independent workspace Operating System and External Brain — housing domain-driven planning, self-healing memory graphs, and autonomous multi-agent squad orchestration for Cursor and Claude Desktop.',
     },
     keywords: {

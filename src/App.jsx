@@ -681,17 +681,17 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
                   </>
                 )}
 
-                {currentPage === 'pricing' && (
-                  <Pricing
-                    activeLang={activeLang}
-                    onOpenTrialModal={handleOpenTrialModal}
-                    onOpenAuthModal={() => setIsAuthModalOpen(true)}
-                    showDetails={true}
-                    onNavigate={handleNavigate}
-                  />
-                )}
-
                 <Suspense fallback={<div className="min-h-[40vh] flex items-center justify-center font-mono text-xs text-slate-400">Loading...</div>}>
+                  {currentPage === 'pricing' && (
+                    <Pricing
+                      activeLang={activeLang}
+                      onOpenTrialModal={handleOpenTrialModal}
+                      onOpenAuthModal={() => setIsAuthModalOpen(true)}
+                      showDetails={true}
+                      onNavigate={handleNavigate}
+                    />
+                  )}
+
                   {currentPage === 'docs' && (
                     user ? (
                       <Docs activeLang={activeLang} />

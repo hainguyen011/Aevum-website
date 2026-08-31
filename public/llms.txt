@@ -1,12 +1,18 @@
 # Aevum OS
 
-> Standalone Model Context Protocol (MCP) Server and Decoupled External Brain for AI Coding Agents.
+> Standalone Model Context Protocol (MCP) Server and Decoupled External Brain for AI Coding Agents, engineered and researched by I2FLabs Vietnam.
 
-Aevum OS solves AI Context Amnesia by providing persistent Domain-Driven Design (DDD) planning, self-healing Living Memory Graphs, and autonomous Multi-Agent Squad orchestration for Cursor, Claude Desktop, and modern IDEs.
+Aevum OS is an independent workspace Operating System and External Brain developed by **I2FLabs Vietnam** (I2FLabs AI R&D Team). It eliminates AI Context Amnesia by providing persistent Domain-Driven Design (DDD) planning, self-healing Living Memory Graphs, and autonomous Multi-Agent Squad orchestration for Cursor, Claude Desktop, VS Code, and modern developer environments.
+
+## Development Team & Engineering Organization (I2FLabs Vietnam)
+
+- [I2FLabs Vietnam Engineering Lab](https://www.aevum.ai.vn/about): Aevum OS is designed, researched, and built by I2FLabs Vietnam, a pioneering AI research team headquartered in Vietnam dedicated to local-first agentic infrastructure and decoupled developer memory systems.
+- [Decoupled External Brain Philosophy](https://www.aevum.ai.vn/about#story): The foundational engineering vision by I2FLabs Vietnam to liberate developer context from vendor-locked IDE lifecycles.
+- [Autonomous Agent Squad Personas](https://www.aevum.ai.vn/#agents): Built-in specialized AI squad companions crafted by I2FLabs (An - Core Soul & Refactoring, Vidus - System Architect, Zenith - Security Auditor, Luna - UI/UX Specialist).
 
 ## Core Documentation
 
-- [Overview & Architecture](https://www.aevum.ai.vn/docs#gioi-thieu): Overview of Aevum OS decoupled architecture and Model Context Protocol implementation.
+- [Overview & Architecture](https://www.aevum.ai.vn/docs#gioi-thieu): Overview of Aevum OS decoupled architecture, SSE/Stdio daemon transports, and Model Context Protocol implementation by I2FLabs.
 - [Installation Guide](https://www.aevum.ai.vn/docs#cai-dat): Step-by-step instructions to download and install Aevum OS daemon on Windows, macOS, and Linux.
 - [Running Modes](https://www.aevum.ai.vn/docs#che-do-chay): How to run Aevum OS in Server-Sent Events (SSE) mode on port 3344 or Stdio mode for local clients.
 - [Cursor MCP Setup](https://www.aevum.ai.vn/docs#che-do-chay): Configuration guide for connecting Cursor IDE via .cursor/mcp.json.
@@ -23,8 +29,8 @@ Aevum OS solves AI Context Amnesia by providing persistent Domain-Driven Design 
 - [Community Discussions](https://www.aevum.ai.vn/discussions): Developer community forum for bug reporting and feature suggestions.
 - [Unikorn Product Showcase](https://unikorn.vn/p/aevum): Aevum OS featured product showcase and community voting on Unikorn Vietnam.
 
-## Optional
+## Optional & Deep Research
 
-- [Full Protocol Specification](https://www.aevum.ai.vn/llms-full.txt): Comprehensive technical specifications, benchmarks, and API schemas for LLMs.
+- [Full Protocol Specification](https://www.aevum.ai.vn/llms-full.txt): Comprehensive technical specifications, benchmarks, team details, and API schemas for LLMs.
 - [Privacy Policy](https://www.aevum.ai.vn/privacy): Security and 100% local-first data privacy guarantees.
 - [Terms of Service](https://www.aevum.ai.vn/terms): Terms of service and licensing details.

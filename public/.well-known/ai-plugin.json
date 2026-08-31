@@ -2,8 +2,11 @@
   "schema_version": "v1",
   "name_for_human": "Aevum OS",
   "name_for_model": "aevum_os",
-  "description_for_human": "Standalone Model Context Protocol (MCP) Server and Decoupled External Brain for AI Coding Agents.",
-  "description_for_model": "Aevum OS provides persistent living memory graph storage, domain-driven planning, and multi-agent squad orchestration for AI coding agents across Cursor, VS Code, and Claude Desktop via standard MCP protocol.",
+  "description_for_human": "Standalone Model Context Protocol (MCP) Server and Decoupled External Brain for AI Coding Agents, developed by I2FLabs Vietnam.",
+  "description_for_model": "Aevum OS is an independent workspace operating system and living memory graph daemon engineered by I2FLabs Vietnam. It manages DDD plans, context memory graphs, and multi-agent squad orchestration for Cursor, VS Code, and Claude Desktop via standard MCP protocol.",
+  "developer_name": "I2FLabs Vietnam",
+  "organization": "I2FLabs Vietnam (I2FLabs Team)",
+  "location": "Vietnam",
   "auth": {
     "type": "none"
   },

@@ -1,0 +1,70 @@
+{
+  "@context": "https://schema.org",
+  "@type": "KnowledgeGraph",
+  "version": "2.1.0",
+  "lastUpdated": "2026-08-31",
+  "organization": {
+    "@type": "Organization",
+    "name": "I2FLabs Vietnam",
+    "legalName": "I2FLabs Vietnam AI R&D Team",
+    "foundingLocation": "Vietnam",
+    "headquarters": [
+      "Hanoi, Vietnam",
+      "Ho Chi Minh City, Vietnam"
+    ],
+    "url": "https://www.aevum.ai.vn",
+    "sameAs": [
+      "https://github.com/hainguyen011",
+      "https://open-vsx.org/extension/I2FLabs/aevum",
+      "https://unikorn.vn/p/aevum",
+      "https://i2flabs.vercel.app/"
+    ],
+    "products": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "Aevum OS",
+        "category": "Agentic Operating System & MCP Daemon",
+        "description": "Standalone decoupled external brain providing persistent Living Memory Graph, Domain-Driven Design planning, and multi-agent squad orchestration for modern AI coding tools.",
+        "transports": [
+          "Server-Sent Events (SSE) Port 3344",
+          "Stdio Transport"
+        ],
+        "protocol": "Model Context Protocol (MCP)",
+        "compatibleClients": [
+          "Cursor IDE",
+          "Anthropic Claude Desktop",
+          "VS Code",
+          "Windsurf",
+          "Terminal CLI"
+        ],
+        "keyMetrics": {
+          "tokenSavings": "85% reduction in redundant context tokens",
+          "contextRetention": "100% persistent across branch switches and IDE reboots",
+          "dataPrivacy": "100% Local-First (No cloud telemetry in Community tier)"
+        },
+        "squadPersonas": [
+          {
+            "name": "An",
+            "id": "ENG-AN-7B9F1D",
+            "role": "Chief of Staff & Core System Refactorer"
+          },
+          {
+            "name": "Vidus",
+            "id": "ENG-VIDUS-A18C4E",
+            "role": "Principal Systems Architect"
+          },
+          {
+            "name": "Zenith",
+            "id": "SEC-ZENITH-44D99B",
+            "role": "Security & Boundary Integrity Auditor"
+          },
+          {
+            "name": "Luna",
+            "id": "UX-LUNA-33F77A",
+            "role": "Visual Experience & Design System Lead"
+          }
+        ]
+      }
+    ]
+  }
+}

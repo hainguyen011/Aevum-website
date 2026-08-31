@@ -19,52 +19,52 @@ export const I2FLabsSection = ({ activeLang }) => {
 
   const isVi = activeLang === 'vi';
 
-  const cuteQuotesVi = [
-    'Ơ kìa! Đừng đụng vào mà! 🙈',
-    'Né nè! Thử bắt tớ xem! 💨',
-    'Gần quá rùi nha! ⚡',
-    'I2FLabs Shield: Không thể chạm vào! 🧪✨',
-    'Ôi giật mình! Né gấp! 🙀🚀',
-    'Tay ai mà nhanh dữ dội dọ! 🏃‍♂️💨',
-    'Bình thí nghiệm này là của Aevum OS nha! 🔬🛡️',
-    'Áaaa! Chuột tới, chạy thôi! 🐁🏃💨',
-    'Tốc độ ánh sáng né nhẹ cái nè! ⚡✨',
+    const cuteQuotesVi = [
+    'O kia! Dung dung vao ma!',
+    'Ne ne! Thu bat to xem!',
+    'Gan qua roi nha!',
+    'I2FLabs Shield: Khong the cham vao!',
+    'Giat minh! Ne gap!',
+    'Tay ai ma nhanh the!',
+    'Binh thi nghiem nay la cua Aevum OS nha!',
+    'Chuot toi, chay thoi!',
+    'Toc do anh sang ne nhe cai ne!',
   ];
 
   const cuteQuotesEn = [
-    'Eek! Too close! 🙈',
-    'Can’t touch this! 💨',
-    'Whoops! Out of reach! ⚡',
-    'I2FLabs Shield: Untouchable! 🧪✨',
-    'Woah! Quick dodge! 🙀🚀',
-    'Fast fingers detected! 🏃‍♂️💨',
-    'Hands off the quantum flask! 🔬🛡️',
-    'Ahhh! Mouse incoming, run! 🐁🏃💨',
-    'Dodge mode: 100% active! ⚡✨',
+    'Too close!',
+    'Can not touch this!',
+    'Whoops! Out of reach!',
+    'I2FLabs Shield: Untouchable!',
+    'Quick dodge!',
+    'Fast cursor detected!',
+    'Hands off the quantum flask!',
+    'Mouse incoming, run!',
+    'Dodge mode: 100% active!',
   ];
 
   const tauntQuotesVi = [
-    'Lè lè~ Bắt hụt rùi nha! 😜✨',
-    'Hehe! Tớ nhanh hơn rùi! ⚡😝',
-    'Chịu thua rùi phải hông~ 🤭💖',
-    'Tưởng bắt được tớ sao? Nằm mơ đuy! 😜🔥',
-    'Á ha! Tốc độ bàn tay chưa đủ nhanh rùi~ 🤭💨',
-    'Lại đây nữa đi, tớ né cho xem tiếp nè! 😜🚀',
-    'Hehe, Aevum Agent AI đỉnh chưa! 🤖✨',
-    'Thua rùi nha! Cho 100 điểm cố gắng! 💯🥳',
-    'Muốn chạm vào tớ thì phải nâng cấp chuột nha! 🖱️⚡',
+    'Bat hut roi nha!',
+    'To nhanh hon roi!',
+    'Chiu thua roi phai khong!',
+    'Tuong bat duoc to sao!',
+    'Toc do ban tay chua du nhanh roi!',
+    'Lai day nua di, to ne tiep cho xem!',
+    'Aevum Agent AI dinh chua!',
+    'Cho 100 diem co gang!',
+    'Muon cham vao to thi phai nang cap chuot nha!',
   ];
 
   const tauntQuotesEn = [
-    'Hehe! Missed me! 😜✨',
-    'Too slow! Catch me if you can! ⚡😝',
-    'Gave up already? Nice try! 🙈💖',
-    'Faster than light! ⚡🔥',
-    'Aha! Your cursor isn’t fast enough~ 🤭💨',
-    'Come closer again, I dare you! 😜🚀',
-    'Hehe, Aevum OS agility is top tier! 🤖✨',
-    'Game Over! Points for effort though! 💯🥳',
-    'Upgrade your mouse to touch this flask! 🖱️⚡',
+    'Missed me!',
+    'Too slow! Catch me if you can!',
+    'Giving up already?',
+    'You almost had it!',
+    'Try harder next time!',
+    'Too fast for your pointer!',
+    'Aevum OS agility at its finest!',
+    '100 points for effort!',
+    'Upgrade your mouse sensitivity!',
   ];
 
   const cuteQuotes = isVi ? cuteQuotesVi : cuteQuotesEn;

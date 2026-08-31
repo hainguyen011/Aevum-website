@@ -134,5 +134,19 @@ export function useSEO(currentPage = 'landing', activeLang = 'vi') {
     // 4. Update html lang attribute
     document.documentElement.setAttribute('lang', lang);
 
+    // 5. Ensure Favicon is explicitly refreshed across all dynamic tabs
+    const setFavicon = (href, type, rel = 'icon') => {
+      let link = document.querySelector(`link[rel="${rel}"]`);
+      if (!link) {
+        link = document.createElement('link');
+        link.setAttribute('rel', rel);
+        document.head.appendChild(link);
+      }
+      if (type) link.setAttribute('type', type);
+      link.setAttribute('href', href);
+    };
+
+    setFavicon('/favicon-32x32.png?v=3.2', 'image/png', 'icon');
+    setFavicon('/favicon.ico?v=3.2', 'image/x-icon', 'shortcut icon');
   }, [currentPage, activeLang]);
 }

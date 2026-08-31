@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   
   <!-- Homepage -->
   <url>
@@ -8,9 +9,18 @@
     <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.aevum.ai.vn/"/>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/og-image.png</image:loc>
+      <image:title>Aevum OS — Standalone MCP Server and Workspace External Brain</image:title>
+      <image:caption>Decoupled AI Workspace Operating System for Cursor and Claude Desktop</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/aevum-logo-512.png</image:loc>
+      <image:title>Aevum OS Brand Logo</image:title>
+    </image:image>
   </url>
 
   <!-- Pricing & Membership Tiers -->
@@ -19,7 +29,7 @@
     <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/pricing"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/pricing"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.aevum.ai.vn/pricing"/>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
@@ -30,29 +40,51 @@
     <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.aevum.ai.vn/docs"/>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- Technical Documentation Subtopics -->
+  <url>
+    <loc>https://www.aevum.ai.vn/docs#gioi-thieu</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.aevum.ai.vn/docs#cai-dat</loc>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
-
-  <!-- About & Product Story -->
   <url>
-    <loc>https://www.aevum.ai.vn/about</loc>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/about"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/about"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.aevum.ai.vn/about"/>
-    <lastmod>2026-08-25</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://www.aevum.ai.vn/docs#che-do-chay</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.aevum.ai.vn/docs#cau-truc-du-an</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
-
-  <!-- Product Changelog -->
   <url>
-    <loc>https://www.aevum.ai.vn/changelog</loc>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/changelog"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/changelog"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.aevum.ai.vn/changelog"/>
-    <lastmod>2026-08-25</lastmod>
+    <loc>https://www.aevum.ai.vn/docs#quy-trinh-bat-tay</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.aevum.ai.vn/docs#danh-muc-cong-cu</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.aevum.ai.vn/docs#nang-cao</loc>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
   </url>
@@ -63,8 +95,30 @@
     <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/discussions"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/discussions"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.aevum.ai.vn/discussions"/>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Product Changelog -->
+  <url>
+    <loc>https://www.aevum.ai.vn/changelog</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/changelog"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/changelog"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.aevum.ai.vn/changelog"/>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- About & Product Story -->
+  <url>
+    <loc>https://www.aevum.ai.vn/about</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/about"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/about"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.aevum.ai.vn/about"/>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
 
@@ -74,7 +128,7 @@
     <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/privacy"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/privacy"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.aevum.ai.vn/privacy"/>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
@@ -85,7 +139,7 @@
     <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/terms"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/terms"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.aevum.ai.vn/terms"/>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>

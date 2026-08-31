@@ -37,6 +37,9 @@ Allow: /
 User-agent: Googlebot
 Allow: /
 
+User-agent: Googlebot-Image
+Allow: /
+
 User-agent: Bingbot
 Allow: /
 
@@ -58,6 +61,14 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: Discordbot
+Allow: /
+
 # Direct AI Indexers & Search Spiders to Canonical Manifests
 Sitemap: https://www.aevum.ai.vn/sitemap.xml
-# LLMs-txt: https://www.aevum.ai.vn/llms.txt

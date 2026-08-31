@@ -1,88 +1,29 @@
-# Aevum OS — Standalone Model Context Protocol (MCP) Server & Workspace External Brain
+# Aevum OS
 
-> Aevum OS is an open, sovereign workspace Operating System and Decoupled External Brain for AI Coding Agents (Cursor, Claude Desktop, VS Code, Windsurf, Antigravity IDE). It solves AI Context Amnesia by maintaining persistent domain-driven planning, self-healing memory graphs, and autonomous multi-agent squads outside editor lifecycles.
+> Standalone Model Context Protocol (MCP) Server and Decoupled External Brain for AI Coding Agents.
 
----
+Aevum OS solves AI Context Amnesia by providing persistent Domain-Driven Design (DDD) planning, self-healing Living Memory Graphs, and autonomous Multi-Agent Squad orchestration for Cursor, Claude Desktop, and modern IDEs.
 
-## 1. Quick Facts & Core Capabilities (Fact-Driven GEO Reference)
-- Protocol: Standard Model Context Protocol (MCP) compatible via HTTP Server-Sent Events (SSE on port 3344) and Stdio process.
-- Problem Solved: AI Context Amnesia — Eliminates context window loss, branch reset amnesia, and prompt token wastage (-85% repetitive context tokens).
-- Core Engine: Living Memory Graph (.aevum/global/memory.md) + Domain-Driven Design (DDD) Plan Management (.aevum/domains/).
-- Security & Privacy: 100% Local-First, Sovereign Ed25519 Cryptographic Handshake Ritual (.aevum/signal.json), 0 Telemetry.
-- Autonomous Squad Personas: An (Chief of Staff & Refactor), Vidus (System Architect), Zenith (Security & Performance), Luna (UI/UX).
-- Peer Knowledge Sharing: PiperNet (Internet of Agents - IoA) decentralized P2P wisdom mesh without raw code leakage.
+## Core Documentation
 
----
+- [Overview & Architecture](https://www.aevum.ai.vn/docs#gioi-thieu): Overview of Aevum OS decoupled architecture and Model Context Protocol implementation.
+- [Installation Guide](https://www.aevum.ai.vn/docs#cai-dat): Step-by-step instructions to download and install Aevum OS daemon on Windows, macOS, and Linux.
+- [Running Modes](https://www.aevum.ai.vn/docs#che-do-chay): How to run Aevum OS in Server-Sent Events (SSE) mode on port 3344 or Stdio mode for local clients.
+- [Cursor MCP Setup](https://www.aevum.ai.vn/docs#che-do-chay): Configuration guide for connecting Cursor IDE via .cursor/mcp.json.
+- [Claude Desktop Setup](https://www.aevum.ai.vn/docs#che-do-chay): Configuration guide for connecting Anthropic Claude Desktop via claude_desktop_config.json.
+- [Handshake Ritual Protocol](https://www.aevum.ai.vn/docs#quy-trinh-bat-tay): Cryptographic verification protocol between client agents and daemon using .aevum/signal.json.
+- [MCP Tools Catalog](https://www.aevum.ai.vn/docs#danh-muc-cong-cu): Complete catalog of 60+ MCP tools for memory graphs, planning, and squad coordination.
+- [Living Memory Graph](https://www.aevum.ai.vn/docs#cau-truc-du-an): Technical specifications of the persistent memory vault in .aevum/global/memory.md.
 
-## 2. Step-by-Step Configuration Guides (For AI Search & Assistant Queries)
+## Product & Community
 
-### 2.1. How to Configure Aevum MCP in Cursor (.cursor/mcp.json)
-To connect Cursor IDE to Aevum OS Standalone Daemon:
-1. Start the Aevum Daemon in your workspace root:
-   ```bash
-   aevum --transport sse --port 3344
-   ```
-2. In Cursor, open Settings > Features > MCP Servers or edit .cursor/mcp.json:
-   ```json
-   {
-     "mcpServers": {
-       "aevos": {
-         "url": "http://localhost:3344/sse"
-       }
-     }
-   }
-   ```
-3. Verify connection: The green active indicator appears, and Cursor gains access to all aevum_* memory and planning tools.
+- [Transparent Pricing](https://www.aevum.ai.vn/pricing): Official pricing details for Community (Free Local-First) and Pro (Cloud Sync and Squads) tiers.
+- [Product Story & Architecture](https://www.aevum.ai.vn/about): Philosophy of decoupling workspace intelligence from single-editor lifecycles.
+- [Release Changelog](https://www.aevum.ai.vn/changelog): Version history and architectural updates of Aevum OS.
+- [Community Discussions](https://www.aevum.ai.vn/discussions): Developer community forum for bug reporting and feature suggestions.
 
-### 2.2. How to Connect Claude Desktop to Aevum MCP Server (claude_desktop_config.json)
-To enable persistent long-term memory in Anthropic Claude Desktop:
-1. Open Claude Desktop configuration file:
-   - macOS: ~/Library/Application Support/Claude/claude_desktop_config.json
-   - Windows: %APPDATA%\Claude\claude_desktop_config.json
-2. Add the Aevum MCP Stdio or SSE transport:
-   ```json
-   {
-     "mcpServers": {
-       "aevos": {
-         "command": "aevum",
-         "args": ["--transport", "stdio", "--workspace", "/path/to/your/project"]
-       }
-     }
-   }
-   ```
-3. Restart Claude Desktop. The hammer icon will show Aevum OS tools: aevum_search_knowledge, aevum_create_plan, aevum_squad_handoff.
+## Optional
 
----
-
-## 3. Technical Comparison & Benchmark
-
-| Feature / Metric | Traditional AI Code Chat | Traditional Vector RAG | Aevum OS Standalone MCP |
-| :--- | :--- | :--- | :--- |
-| Context Retention | Lost on tab/chat reset | Chunk-based, loses architecture context | Permanent Living Memory Graph |
-| Token Consumption | 100% full repo reload every prompt | High chunk re-embedding cost | -85% Token Savings (Middle-Out Compression) |
-| Execution Model | Ad-hoc single file edits | Passive search | Domain-Driven Design (DDD) Plan-First |
-| Multi-Agent Squad | Not supported | Not supported | Autonomous Handshake & Task Handoff |
-| Privacy & Sovereignty | Cloud hosted | Cloud vector DBs | 100% Local-First / Sovereign Ed25519 |
-
----
-
-## 4. Default Multi-Agent Squad Personas
-- An (ENG-AN-7B9F1D): Senior AI Tuning, Refactoring & Frontend Specialist. Level 8 Chief of Staff.
-- Vidus (ARC-VIDUS-AUHD2Y): System Architect & Clean Code Specialist. Level 7 Architect.
-- Zenith (ALG-ZENITH-A1B2C3): Security, Performance Profiler & Algorithm Auditor. Level 6 Auditor.
-- Luna (DSN-LUNA-3C9A12): UI/UX Designer & Micro-Interactions Specialist. Level 6 Designer.
-
----
-
-## 5. Pricing Tiers
-- Community Tier ($0 Free Forever): 100% Local-First MCP daemon, unlimited local memory graph, single-agent execution.
-- Pro Tier ($19/month or $190/year, with 14-Day Free Beta Trial): Cloud Sync, Multi-Agent Squad Orchestration, PiperNet Mesh, Priority Support.
-
----
-
-## 6. Official Canonical Resources
-- Website: https://www.aevum.ai.vn/
-- Documentation: https://www.aevum.ai.vn/docs
-- Pricing: https://www.aevum.ai.vn/pricing
-- Community Discussions: https://www.aevum.ai.vn/discussions
-- Full Technical Reference: https://www.aevum.ai.vn/llms-full.txt
+- [Full Protocol Specification](https://www.aevum.ai.vn/llms-full.txt): Comprehensive technical specifications, benchmarks, and API schemas for LLMs.
+- [Privacy Policy](https://www.aevum.ai.vn/privacy): Security and 100% local-first data privacy guarantees.
+- [Terms of Service](https://www.aevum.ai.vn/terms): Terms of service and licensing details.

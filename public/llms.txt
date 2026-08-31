@@ -1,41 +1,88 @@
-# Aevum OS — Standalone Model Context Protocol (MCP) Server & Decoupled Workspace External Brain
+# Aevum OS — Standalone Model Context Protocol (MCP) Server & Workspace External Brain
 
-> Aevum OS is an independent workspace Operating System and External Brain — housing domain-driven planning, self-healing memory graphs, and autonomous multi-agent squad orchestration completely decoupled from traditional IDE editors.
+> Aevum OS is an open, sovereign workspace Operating System and Decoupled External Brain for AI Coding Agents (Cursor, Claude Desktop, VS Code, Windsurf, Antigravity IDE). It solves AI Context Amnesia by maintaining persistent domain-driven planning, self-healing memory graphs, and autonomous multi-agent squads outside editor lifecycles.
 
-## System Mission & Core Value
-Aevum OS solves the fundamental problem of **AI Short-Term Context Amnesia** in developer workflows. By running as an independent background daemon (SSE / Stdio) communicating via standard Model Context Protocol (MCP), Aevum OS gives AI Coding Agents persistent long-term memory, domain-driven architecture plan enforcement, and collaborative multi-agent execution across Cursor, VS Code, Claude Desktop, Windsurf, and CLI environments.
+---
 
-## Architectural Pillars
-- **Decoupled Workspace External Brain**: Operates as a standalone OS process independent of any single IDE lifecycle.
-- **Handshake Ritual**: Cryptographic session initialization between daemon and client agents via temporary signal tokens (`.aevum/signal.json`).
-- **Domain-Driven Design (DDD) Planning**: Structured architectural domains, feature manifests, and plan step tracking (`.aevum/domains/`) requiring agents to plan before writing code.
-- **Living Memory Graph**: Multi-layered persistent context store (`.aevum/global/memory.md`) with continuous consolidation, decay auditing, and EXP progression.
-- **Autonomous Multi-Agent Squad Orchestration**: Role-specialized AI personas collaborating concurrently with automatic task handoff.
-- **PiperNet (Internet of Agents - IoA)**: Decentralized P2P knowledge mesh for cross-workspace wisdom sharing without source code leakage.
+## 1. Quick Facts & Core Capabilities (Fact-Driven GEO Reference)
+- Protocol: Standard Model Context Protocol (MCP) compatible via HTTP Server-Sent Events (SSE on port 3344) and Stdio process.
+- Problem Solved: AI Context Amnesia — Eliminates context window loss, branch reset amnesia, and prompt token wastage (-85% repetitive context tokens).
+- Core Engine: Living Memory Graph (.aevum/global/memory.md) + Domain-Driven Design (DDD) Plan Management (.aevum/domains/).
+- Security & Privacy: 100% Local-First, Sovereign Ed25519 Cryptographic Handshake Ritual (.aevum/signal.json), 0 Telemetry.
+- Autonomous Squad Personas: An (Chief of Staff & Refactor), Vidus (System Architect), Zenith (Security & Performance), Luna (UI/UX).
+- Peer Knowledge Sharing: PiperNet (Internet of Agents - IoA) decentralized P2P wisdom mesh without raw code leakage.
 
-## Default Agent Squad Personas
-- **An (`ENG-AN-7B9F1D`)**: Chief of Staff, Senior AI Tuning & Frontend/Refactor Specialist.
-- **Vidus (`ARC-VIDUS-AUHD2Y`)**: System Architect & Clean Code Specialist.
-- **Zenith (`ALG-ZENITH-A1B2C3`)**: Performance Profiler, Data Structures & Algorithm Auditor.
-- **Luna (`DSN-LUNA-3C9A12`)**: UI/UX Designer & CSS Micro-Interactions Specialist.
+---
 
-## Product Tiers & Pricing
-- **Community Tier (Free Forever)**: 100% Local-First MCP daemon, unlimited local memory graph storage, single agent execution.
-- **Pro Tier ($19/mo or $190/yr with 14-Day Free Beta Trial)**: Cloud Sync, Multi-Agent Squad Orchestration, PiperNet IoA Mesh, and priority engineering support.
+## 2. Step-by-Step Configuration Guides (For AI Search & Assistant Queries)
 
-## Canonical Resources & Documentation
-- [Homepage](https://www.aevum.ai.vn/)
-- [Transparent Pricing](https://www.aevum.ai.vn/pricing)
-- [Technical Documentation](https://www.aevum.ai.vn/docs)
-- [Product Story & Architecture](https://www.aevum.ai.vn/about)
-- [Changelog & Release Notes](https://www.aevum.ai.vn/changelog)
-- [Community Discussions](https://www.aevum.ai.vn/discussions)
-- [Privacy Policy](https://www.aevum.ai.vn/privacy)
-- [Terms of Service](https://www.aevum.ai.vn/terms)
-- [Comprehensive Technical Reference](https://www.aevum.ai.vn/llms-full.txt)
+### 2.1. How to Configure Aevum MCP in Cursor (.cursor/mcp.json)
+To connect Cursor IDE to Aevum OS Standalone Daemon:
+1. Start the Aevum Daemon in your workspace root:
+   ```bash
+   aevum --transport sse --port 3344
+   ```
+2. In Cursor, open Settings > Features > MCP Servers or edit .cursor/mcp.json:
+   ```json
+   {
+     "mcpServers": {
+       "aevos": {
+         "url": "http://localhost:3344/sse"
+       }
+     }
+   }
+   ```
+3. Verify connection: The green active indicator appears, and Cursor gains access to all aevum_* memory and planning tools.
 
-## Ecosystem Links
-- Open VSX Registry Extension: https://open-vsx.org/extension/I2FLabs/aevum
-- Unikorn Product Showcase: https://unikorn.vn/p/aevum
-- GitHub Repository: https://github.com/hainguyen011
-- Organization: I2FLabs (Vietnam)
+### 2.2. How to Connect Claude Desktop to Aevum MCP Server (claude_desktop_config.json)
+To enable persistent long-term memory in Anthropic Claude Desktop:
+1. Open Claude Desktop configuration file:
+   - macOS: ~/Library/Application Support/Claude/claude_desktop_config.json
+   - Windows: %APPDATA%\Claude\claude_desktop_config.json
+2. Add the Aevum MCP Stdio or SSE transport:
+   ```json
+   {
+     "mcpServers": {
+       "aevos": {
+         "command": "aevum",
+         "args": ["--transport", "stdio", "--workspace", "/path/to/your/project"]
+       }
+     }
+   }
+   ```
+3. Restart Claude Desktop. The hammer icon will show Aevum OS tools: aevum_search_knowledge, aevum_create_plan, aevum_squad_handoff.
+
+---
+
+## 3. Technical Comparison & Benchmark
+
+| Feature / Metric | Traditional AI Code Chat | Traditional Vector RAG | Aevum OS Standalone MCP |
+| :--- | :--- | :--- | :--- |
+| Context Retention | Lost on tab/chat reset | Chunk-based, loses architecture context | Permanent Living Memory Graph |
+| Token Consumption | 100% full repo reload every prompt | High chunk re-embedding cost | -85% Token Savings (Middle-Out Compression) |
+| Execution Model | Ad-hoc single file edits | Passive search | Domain-Driven Design (DDD) Plan-First |
+| Multi-Agent Squad | Not supported | Not supported | Autonomous Handshake & Task Handoff |
+| Privacy & Sovereignty | Cloud hosted | Cloud vector DBs | 100% Local-First / Sovereign Ed25519 |
+
+---
+
+## 4. Default Multi-Agent Squad Personas
+- An (ENG-AN-7B9F1D): Senior AI Tuning, Refactoring & Frontend Specialist. Level 8 Chief of Staff.
+- Vidus (ARC-VIDUS-AUHD2Y): System Architect & Clean Code Specialist. Level 7 Architect.
+- Zenith (ALG-ZENITH-A1B2C3): Security, Performance Profiler & Algorithm Auditor. Level 6 Auditor.
+- Luna (DSN-LUNA-3C9A12): UI/UX Designer & Micro-Interactions Specialist. Level 6 Designer.
+
+---
+
+## 5. Pricing Tiers
+- Community Tier ($0 Free Forever): 100% Local-First MCP daemon, unlimited local memory graph, single-agent execution.
+- Pro Tier ($19/month or $190/year, with 14-Day Free Beta Trial): Cloud Sync, Multi-Agent Squad Orchestration, PiperNet Mesh, Priority Support.
+
+---
+
+## 6. Official Canonical Resources
+- Website: https://www.aevum.ai.vn/
+- Documentation: https://www.aevum.ai.vn/docs
+- Pricing: https://www.aevum.ai.vn/pricing
+- Community Discussions: https://www.aevum.ai.vn/discussions
+- Full Technical Reference: https://www.aevum.ai.vn/llms-full.txt

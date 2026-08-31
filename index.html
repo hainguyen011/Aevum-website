@@ -39,7 +39,7 @@
   <meta name="description"
     content="Aevum OS is an independent workspace Operating System and External Brain — housing domain-driven planning, self-healing memory graphs, and autonomous multi-agent squad orchestration completely decoupled from traditional editors." />
   <meta name="keywords"
-    content="Aevum OS, Model Context Protocol, MCP server, standalone MCP daemon, external brain, AI agent workspace, developer productivity, living memory graph, context compression, PiperNet, I2FLabs, AI coding agent, Cursor MCP, Claude Desktop MCP" />
+    content="Cấu hình MCP Cursor, Kết nối Claude Desktop MCP, Standalone MCP Server, Local-First AI Memory, AI quên ngữ cảnh code, Fix AI Context Amnesia, Giảm hao hụt token, Aevum OS, Model Context Protocol, MCP server daemon, external brain, living memory graph, context compression, PiperNet, I2FLabs, AI coding agent, Cursor MCP, Claude Desktop MCP setup" />
   <meta name="author" content="I2FLabs" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 
@@ -88,154 +88,270 @@
 
   <!-- Multi-Schema JSON-LD Graph for Google Sitelinks, Knowledge Graph & AI Search Answers -->
   <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
     {
-      "@context": "https://schema.org",
-      "@graph": [
+      "@type": "Organization",
+      "@id": "https://www.aevum.ai.vn/#organization",
+      "name": "I2FLabs",
+      "url": "https://www.aevum.ai.vn",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.aevum.ai.vn/icon-512.png",
+        "width": 512,
+        "height": 512
+      },
+      "image": "https://www.aevum.ai.vn/icon-512.png",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "dev@aevum.ai.vn",
+        "contactType": "technical support",
+        "availableLanguage": [
+          "Vietnamese",
+          "English"
+        ]
+      },
+      "sameAs": [
+        "https://github.com/hainguyen011",
+        "https://open-vsx.org/extension/I2FLabs/aevum",
+        "https://unikorn.vn/p/aevum"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.aevum.ai.vn/#website",
+      "url": "https://www.aevum.ai.vn/",
+      "name": "Aevum OS",
+      "description": "Standalone Model Context Protocol (MCP) Server & Workspace External Brain",
+      "publisher": {
+        "@id": "https://www.aevum.ai.vn/#organization"
+      },
+      "inLanguage": [
+        "vi-VN",
+        "en-US"
+      ],
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.aevum.ai.vn/docs?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://www.aevum.ai.vn/#software",
+      "name": "Aevum OS",
+      "operatingSystem": "Windows, macOS, Linux",
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "AI Agentic Operating System",
+      "description": "Standalone Model Context Protocol (MCP) Server & Workspace External Brain. Aevum OS manages domain-driven plans, living memories, and coordinates autonomous multi-agent squads.",
+      "softwareVersion": "2.1.0",
+      "license": "https://opensource.org/licenses/ISC",
+      "author": {
+        "@id": "https://www.aevum.ai.vn/#organization"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "142",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "offers": [
         {
-          "@type": "Organization",
-          "@id": "https://www.aevum.ai.vn/#organization",
-          "name": "I2FLabs",
-          "url": "https://www.aevum.ai.vn",
-          "logo": {
-            "@type": "ImageObject",
-            "url": "https://www.aevum.ai.vn/icon-512.png",
-            "width": 512,
-            "height": 512
-          },
-          "image": "https://www.aevum.ai.vn/icon-512.png",
-          "contactPoint": {
-            "@type": "ContactPoint",
-            "email": "dev@aevum.ai.vn",
-            "contactType": "technical support",
-            "availableLanguage": ["Vietnamese", "English"]
-          },
-          "sameAs": [
-            "https://github.com/hainguyen011",
-            "https://open-vsx.org/extension/I2FLabs/aevum",
-            "https://unikorn.vn/p/aevum"
-          ]
+          "@type": "Offer",
+          "name": "Community Plan",
+          "price": "0.00",
+          "priceCurrency": "USD",
+          "description": "Free forever Local-First MCP Daemon with unlimited local memory graph storage."
         },
         {
-          "@type": "WebSite",
-          "@id": "https://www.aevum.ai.vn/#website",
-          "url": "https://www.aevum.ai.vn/",
-          "name": "Aevum OS",
-          "description": "Standalone Model Context Protocol (MCP) Server & Workspace External Brain",
-          "publisher": { "@id": "https://www.aevum.ai.vn/#organization" },
-          "inLanguage": ["vi-VN", "en-US"],
-          "potentialAction": {
-            "@type": "SearchAction",
-            "target": "https://www.aevum.ai.vn/docs?q={search_term_string}",
-            "query-input": "required name=search_term_string"
+          "@type": "Offer",
+          "name": "Pro Plan",
+          "price": "19.00",
+          "priceCurrency": "USD",
+          "billingDuration": "P1M",
+          "description": "Pro tier with 14-Day Free Beta Trial, Cloud Sync, Multi-Agent Squads, and PiperNet Mesh."
+        }
+      ],
+      "downloadUrl": "https://www.aevum.ai.vn/downloads/aevum-os-desktop.zip",
+      "featureList": [
+        "Model Context Protocol (MCP) standard compatibility (SSE & Stdio)",
+        "Decoupled external workspace memory vault (Anti-Context Amnesia)",
+        "Domain-Driven Design (DDD) Plan-First execution pipeline",
+        "Autonomous multi-agent squad orchestration with specialized personas",
+        "Self-healing memory graph with decay auditing & knowledge consolidation",
+        "Decentralized P2P wisdom sharing mesh (PiperNet IoA)"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.aevum.ai.vn/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Aevum OS là gì và giải quyết vấn đề gì của AI Coding Agents?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Aevum OS là Hệ điều hành Agent độc lập và Bộ não Ngoại vi (Decoupled External Brain). Nó giải quyết triệt để hội chứng mất trí nhớ ngắn hạn (Context Amnesia) của các AI Agent trong IDE bằng cách duy trì bộ nhớ sống dài hạn, bắt buộc lập kế hoạch theo Domain-Driven Design trước khi viết code và điều phối biệt đội đa agent tự trị."
           }
         },
         {
-          "@type": "SoftwareApplication",
-          "@id": "https://www.aevum.ai.vn/#software",
-          "name": "Aevum OS",
-          "operatingSystem": "Windows, macOS, Linux",
-          "applicationCategory": "DeveloperApplication",
-          "applicationSubCategory": "AI Agentic Operating System",
-          "description": "Standalone Model Context Protocol (MCP) Server & Workspace External Brain. Aevum OS manages domain-driven plans, living memories, and coordinates autonomous multi-agent squads.",
-          "softwareVersion": "2.1.0",
-          "license": "https://opensource.org/licenses/ISC",
-          "author": { "@id": "https://www.aevum.ai.vn/#organization" },
-          "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.9",
-            "ratingCount": "142",
-            "bestRating": "5",
-            "worstRating": "1"
-          },
-          "offers": [
-            {
-              "@type": "Offer",
-              "name": "Community Plan",
-              "price": "0.00",
-              "priceCurrency": "USD",
-              "description": "Free forever Local-First MCP Daemon with unlimited local memory graph storage."
-            },
-            {
-              "@type": "Offer",
-              "name": "Pro Plan",
-              "price": "19.00",
-              "priceCurrency": "USD",
-              "billingDuration": "P1M",
-              "description": "Pro tier with 14-Day Free Beta Trial, Cloud Sync, Multi-Agent Squads, and PiperNet Mesh."
-            }
-          ],
-          "downloadUrl": "https://www.aevum.ai.vn/downloads/aevum-os-desktop.zip",
-          "featureList": [
-            "Model Context Protocol (MCP) standard compatibility (SSE & Stdio)",
-            "Decoupled external workspace memory vault (Anti-Context Amnesia)",
-            "Domain-Driven Design (DDD) Plan-First execution pipeline",
-            "Autonomous multi-agent squad orchestration with specialized personas",
-            "Self-healing memory graph with decay auditing & knowledge consolidation",
-            "Decentralized P2P wisdom sharing mesh (PiperNet IoA)"
-          ]
+          "@type": "Question",
+          "name": "Làm thế nào để kết nối Aevum OS với Cursor, VS Code hoặc Claude Desktop?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Bạn chỉ cần khởi chạy daemon Aevum OS qua lệnh 'aevum --transport sse --port 3344' hoặc Stdio, sau đó thêm cấu hình MCP Server trỏ về port 3344 trong Cursor hoặc Claude Desktop. Aevum OS tự động thực hiện nghi thức bắt tay bảo mật (Handshake Ritual) và nạp toàn bộ ngữ cảnh vào agent."
+          }
         },
         {
-          "@type": "FAQPage",
-          "@id": "https://www.aevum.ai.vn/#faq",
-          "mainEntity": [
-            {
-              "@type": "Question",
-              "name": "Aevum OS là gì và giải quyết vấn đề gì của AI Coding Agents?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Aevum OS là Hệ điều hành Agent độc lập và Bộ não Ngoại vi (Decoupled External Brain). Nó giải quyết triệt để hội chứng mất trí nhớ ngắn hạn (Context Amnesia) của các AI Agent trong IDE bằng cách duy trì bộ nhớ sống dài hạn, bắt buộc lập kế hoạch theo Domain-Driven Design trước khi viết code và điều phối biệt đội đa agent tự trị."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Làm thế nào để kết nối Aevum OS với Cursor, VS Code hoặc Claude Desktop?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Bạn chỉ cần khởi chạy daemon Aevum OS qua lệnh 'aevum --transport sse --port 3344' hoặc Stdio, sau đó thêm cấu hình MCP Server trỏ về port 3344 trong Cursor hoặc Claude Desktop. Aevum OS tự động thực hiện nghi thức bắt tay bảo mật (Handshake Ritual) và nạp toàn bộ ngữ cảnh vào agent."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Nghi thức Bắt tay (Handshake Ritual) trong Aevum OS hoạt động như thế nào?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Handshake Ritual là cơ chế xác thực bảo mật giữa Aevum OS Daemon và các Agent khách. Daemon phát token tạm thời trong file .aevum/signal.json và Agent khách phải xác thực token này qua công cụ aevum_submit_ack trước khi được cấp quyền truy xuất đồ thị bộ nhớ và sơ đồ kiến trúc."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Mạng lưới PiperNet (Internet of Agents - IoA) là gì?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "PiperNet là mạng lưới giao tiếp ngang hàng (P2P) phi tập trung cho phép các Agent chia sẻ các bài học sửa lỗi và mẫu thiết kế kiến trúc đã trừu tượng hóa giữa các máy tính lập trình viên mà không làm lộ mã nguồn dự án thô."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Aevum OS có miễn phí không?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Có! Gói Community hoàn toàn miễn phí vĩnh viễn với đầy đủ tính năng Local-First và bộ nhớ cục bộ không giới hạn. Gói Pro cung cấp thêm tính năng đồng bộ đám mây (Cloud Sync) và điều phối Biệt đội Đa Agent với 14 ngày dùng thử miễn phí."
-              }
-            }
-          ]
+          "@type": "Question",
+          "name": "Nghi thức Bắt tay (Handshake Ritual) trong Aevum OS hoạt động như thế nào?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Handshake Ritual là cơ chế xác thực bảo mật giữa Aevum OS Daemon và các Agent khách. Daemon phát token tạm thời trong file .aevum/signal.json và Agent khách phải xác thực token này qua công cụ aevum_submit_ack trước khi được cấp quyền truy xuất đồ thị bộ nhớ và sơ đồ kiến trúc."
+          }
         },
         {
-          "@type": "BreadcrumbList",
-          "@id": "https://www.aevum.ai.vn/#breadcrumb",
-          "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Trang chủ", "item": "https://www.aevum.ai.vn/" },
-            { "@type": "ListItem", "position": 2, "name": "Bảng Giá", "item": "https://www.aevum.ai.vn/pricing" },
-            { "@type": "ListItem", "position": 3, "name": "Tài liệu", "item": "https://www.aevum.ai.vn/docs" },
-            { "@type": "ListItem", "position": 4, "name": "Giới thiệu", "item": "https://www.aevum.ai.vn/about" },
-            { "@type": "ListItem", "position": 5, "name": "Changelog", "item": "https://www.aevum.ai.vn/changelog" },
-            { "@type": "ListItem", "position": 6, "name": "Thảo luận", "item": "https://www.aevum.ai.vn/discussions" },
-            { "@type": "ListItem", "position": 7, "name": "Bảo mật", "item": "https://www.aevum.ai.vn/privacy" },
-            { "@type": "ListItem", "position": 8, "name": "Điều khoản", "item": "https://www.aevum.ai.vn/terms" }
-          ]
+          "@type": "Question",
+          "name": "Mạng lưới PiperNet (Internet of Agents - IoA) là gì?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "PiperNet là mạng lưới giao tiếp ngang hàng (P2P) phi tập trung cho phép các Agent chia sẻ các bài học sửa lỗi và mẫu thiết kế kiến trúc đã trừu tượng hóa giữa các máy tính lập trình viên mà không làm lộ mã nguồn dự án thô."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Aevum OS có miễn phí không?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Có! Gói Community hoàn toàn miễn phí vĩnh viễn với đầy đủ tính năng Local-First và bộ nhớ cục bộ không giới hạn. Gói Pro cung cấp thêm tính năng đồng bộ đám mây (Cloud Sync) và điều phối Biệt đội Đa Agent với 14 ngày dùng thử miễn phí."
+          }
         }
       ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.aevum.ai.vn/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Trang chủ",
+          "item": "https://www.aevum.ai.vn/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Bảng Giá",
+          "item": "https://www.aevum.ai.vn/pricing"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Tài liệu",
+          "item": "https://www.aevum.ai.vn/docs"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Giới thiệu",
+          "item": "https://www.aevum.ai.vn/about"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "name": "Changelog",
+          "item": "https://www.aevum.ai.vn/changelog"
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "name": "Thảo luận",
+          "item": "https://www.aevum.ai.vn/discussions"
+        },
+        {
+          "@type": "ListItem",
+          "position": 7,
+          "name": "Bảo mật",
+          "item": "https://www.aevum.ai.vn/privacy"
+        },
+        {
+          "@type": "ListItem",
+          "position": 8,
+          "name": "Điều khoản",
+          "item": "https://www.aevum.ai.vn/terms"
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://www.aevum.ai.vn/docs#howto-cursor-mcp",
+      "name": "Hướng dẫn Cấu hình MCP Server Aevum OS trên Cursor IDE và Claude Desktop",
+      "description": "Cách kết nối Cursor IDE và Claude Desktop với Aevum OS Standalone MCP Server để xóa bỏ hoàn toàn chứng mất trí nhớ ngữ cảnh (AI Context Amnesia).",
+      "totalTime": "PT3M",
+      "estimatedCost": {
+        "@type": "MonetaryAmount",
+        "currency": "USD",
+        "value": "0"
+      },
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Khởi chạy Aevum OS Daemon",
+          "text": "Mở Terminal tại thư mục dự án và chạy lệnh: aevum --transport sse --port 3344",
+          "url": "https://www.aevum.ai.vn/docs#cai-dat"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Cấu hình MCP trên Cursor hoặc Claude Desktop",
+          "text": "Thêm server aevos trỏ tới URL http://localhost:3344/sse trong .cursor/mcp.json hoặc claude_desktop_config.json",
+          "url": "https://www.aevum.ai.vn/docs#che-do-chay"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Xác thực Handshake Ritual & Kích hoạt Bộ nhớ",
+          "text": "AI Agent tự động thực hiện nghi thức bắt tay bảo mật qua aevum_submit_ack và tải toàn bộ đồ thị bộ nhớ Living Memory Graph.",
+          "url": "https://www.aevum.ai.vn/docs#cau-truc-du-an"
+        }
+      ]
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://www.aevum.ai.vn/docs#techarticle-context-amnesia",
+      "headline": "Khắc phục AI Context Amnesia: Kiến trúc Bộ não Ngoại vi và Living Memory Graph cho AI Coding Agents",
+      "alternativeHeadline": "Solving AI Short-Term Memory Loss in Cursor & Claude via Standalone MCP Daemon",
+      "description": "Phân tích kỹ thuật chuyên sâu về cách Aevum OS giải quyết triệt để vấn đề mất trí nhớ ngữ cảnh của AI Coding Agents thông qua Domain-Driven Design và Memory Graph.",
+      "author": {
+        "@type": "Organization",
+        "name": "I2FLabs",
+        "url": "https://www.aevum.ai.vn"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "I2FLabs",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://www.aevum.ai.vn/aevum-logo-512.png"
+        }
+      },
+      "inLanguage": [
+        "vi",
+        "en"
+      ],
+      "about": [
+        "Model Context Protocol",
+        "AI Context Amnesia",
+        "Living Memory Graph",
+        "Cursor MCP Integration",
+        "Claude Desktop MCP Setup"
+      ]
     }
+  ]
+}
   </script>
 
   <!-- Critical Resource Preloads for 0ms First & Largest Contentful Paint -->

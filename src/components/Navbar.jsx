@@ -502,11 +502,11 @@ export const Navbar = ({
       {/* ── Profile Dropdown Strip ── */}
       {user && (
         <div
-          className={`w-full overflow-hidden transition-all duration-300 ease-out bg-[#0B0B11]/95 border-t border-white/5 ${
-            profileOpen ? 'max-h-24 opacity-100 py-3' : 'max-h-0 opacity-0 py-0 border-t-0'
+          className={`w-full overflow-hidden transition-all duration-300 ease-out bg-[#0B0B11]/98 backdrop-blur-md border-t border-white/10 ${
+            profileOpen ? 'max-h-48 sm:max-h-24 opacity-100 py-3 sm:py-2.5' : 'max-h-0 opacity-0 py-0 border-t-0'
           }`}
         >
-          <div className="max-w-6xl mx-auto px-4 sm:px-8 flex items-center justify-between">
+          <div className="max-w-6xl mx-auto px-4 sm:px-8 flex items-center justify-between gap-3">
             {/* Avatar + Info -> Click to redirect to Profile Page */}
             <div 
               onClick={() => {
@@ -515,7 +515,7 @@ export const Navbar = ({
                   setProfileOpen(false);
                 }
               }}
-              className="flex items-center gap-3 cursor-pointer group/user select-none transition-all"
+              className="flex items-center gap-3 cursor-pointer group/user select-none min-w-0 flex-1"
               title={isVi ? "Xem trang thông tin cá nhân Profile" : "View Profile Page"}
             >
               {(() => {
@@ -524,11 +524,11 @@ export const Navbar = ({
                 const initials = displayName.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
 
                 return (
-                  <div className="w-10 h-10 rounded-[6px] overflow-hidden flex items-center justify-center shrink-0 group-hover/user:opacity-85 transition-opacity">
+                  <div className="w-10 h-10 rounded-md bg-white/[0.04] border border-white/10 overflow-hidden flex items-center justify-center shrink-0 group-hover/user:border-cyan-400/40 transition-all">
                     {avatarUrl ? (
                       <img src={avatarUrl} alt={displayName} className="w-full h-full object-cover" />
                     ) : (
-                      <div className="w-full h-full bg-cyan-950 flex items-center justify-center text-white text-xs font-bold font-mono">
+                      <div className="w-full h-full bg-cyan-950 flex items-center justify-center text-cyan-300 text-xs font-bold font-mono">
                         {initials}
                       </div>
                     )}
@@ -536,9 +536,9 @@ export const Navbar = ({
                 );
               })()}
 
-              <div>
-                <div className="flex items-center gap-1.5 flex-wrap">
-                  <span className="text-xs font-bold text-white group-hover/user:text-cyan-400 transition-colors tracking-wide">
+              <div className="min-w-0 flex-1 space-y-1">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-xs font-bold text-white group-hover/user:text-cyan-400 transition-colors tracking-tight truncate">
                     {user.user_metadata?.full_name || user.user_metadata?.name || user.email.split('@')[0]}
                   </span>
                   
@@ -551,37 +551,42 @@ export const Navbar = ({
                     size="xs"
                   />
 
-
                   {userProfile?.role === 'admin' && (
-                    <span className="admin-badge inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-mono font-bold uppercase tracking-wider bg-white/[0.06] border border-white/20 text-slate-300 select-none">
+                    <span className="admin-badge inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-mono font-bold uppercase tracking-wider bg-white/[0.06] border border-white/20 text-slate-300 select-none shrink-0">
                       Admin
                     </span>
                   )}
                 </div>
-                <p className="text-[10px] text-slate-400 group-hover/user:text-slate-300 transition-colors">{user.email}</p>
+                <p className="text-[10px] sm:text-[11px] text-slate-400 group-hover/user:text-slate-300 transition-colors font-mono truncate max-w-[180px] sm:max-w-xs md:max-w-md m-0">
+                  {user.email}
+                </p>
               </div>
             </div>
 
             {/* Actions */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 shrink-0">
               <button
-                onClick={async () => {
+                onClick={async (e) => {
+                  e.stopPropagation();
                   const { supabase } = await import('../services/supabaseClient');
                   await supabase.auth.signOut();
                   setProfileOpen(false);
                 }}
-                className="border border-red-500/30 hover:border-red-400/60 rounded-md px-3 py-1.5 uppercase tracking-widest transition-colors cursor-pointer font-mono font-bold text-red-400 hover:text-red-300"
-                style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '10px', lineHeight: 1 }}
+                className="px-2.5 py-1.5 rounded-sm border border-red-500/30 hover:border-red-400/60 bg-red-500/5 hover:bg-red-500/15 text-red-400 hover:text-red-300 text-[10px] font-mono font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center gap-1.5 whitespace-nowrap shrink-0"
+                title={isVi ? 'Đăng xuất tài khoản' : 'Sign out'}
               >
-                <LogOut size={11} style={{ display: 'block' }} />
-                <span style={{ display: 'block', lineHeight: 1, transform: 'translateY(1px)' }}>{isVi ? 'Đăng xuất' : 'Sign Out'}</span>
+                <LogOut size={12} className="shrink-0" />
+                <span className="whitespace-nowrap">{isVi ? 'Đăng xuất' : 'Sign Out'}</span>
               </button>
               <button
-                onClick={() => setProfileOpen(false)}
-                className="text-slate-400 hover:text-white transition-colors p-1 cursor-pointer ml-2"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setProfileOpen(false);
+                }}
+                className="text-slate-400 hover:text-white transition-colors p-1.5 rounded-md hover:bg-white/5 cursor-pointer shrink-0"
                 aria-label="Close profile modal"
               >
-                <X size={14} />
+                <X size={15} />
               </button>
             </div>
           </div>

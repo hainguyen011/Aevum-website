@@ -1,12 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
+import { Menu, X, ChevronRight, Terminal, ShieldAlert } from 'lucide-react';
 
 const SECTIONS = (lang) => {
   const isVi = lang === 'vi';
   return [
     {
       id: 'acceptance',
-      nav: isVi ? '1. Chấp nhận' : '1. Acceptance',
-      title: isVi ? '1. Chấp nhận Điều khoản' : '1. Acceptance of Terms',
+      nav: isVi ? '1. Chấp nhận Điều khoản' : '1. Acceptance',
+      title: isVi ? '1. Chấp nhận Điều khoản Dịch vụ' : '1. Acceptance of Terms',
+      category: isVi ? 'Quy định Chung' : 'General Terms',
       content: [
         {
           type: 'p',
@@ -29,7 +32,8 @@ const SECTIONS = (lang) => {
     {
       id: 'eligibility',
       nav: isVi ? '2. Điều kiện sử dụng' : '2. Eligibility',
-      title: isVi ? '2. Điều kiện sử dụng & Tài khoản' : '2. Eligibility & Account Responsibilities',
+      title: isVi ? '2. Điều kiện sử dụng & Trách nhiệm Tài khoản' : '2. Eligibility & Account Responsibilities',
+      category: isVi ? 'Quy định Chung' : 'General Terms',
       content: [
         {
           type: 'group',
@@ -54,6 +58,7 @@ const SECTIONS = (lang) => {
       id: 'services',
       nav: isVi ? '3. Dịch vụ & Phân hạng' : '3. Service Tiers',
       title: isVi ? '3. Mô tả Dịch vụ & Các gói sử dụng' : '3. Services & Subscription Tiers',
+      category: isVi ? 'Dịch vụ & Quy tắc' : 'Services & Rules',
       content: [
         {
           type: 'group',
@@ -95,6 +100,7 @@ const SECTIONS = (lang) => {
       id: 'acceptable-use',
       nav: isVi ? '4. Quy định sử dụng' : '4. Acceptable Use',
       title: isVi ? '4. Quy tắc sử dụng được chấp nhận' : '4. Acceptable Use Policy',
+      category: isVi ? 'Dịch vụ & Quy tắc' : 'Services & Rules',
       content: [
         {
           type: 'p',
@@ -124,6 +130,7 @@ const SECTIONS = (lang) => {
       id: 'intellectual-property',
       nav: isVi ? '5. Sở hữu trí tuệ' : '5. Intellectual Property',
       title: isVi ? '5. Quyền Sở hữu Trí tuệ & Quyền tác giả' : '5. Intellectual Property & Ownership',
+      category: isVi ? 'Tài chính & Pháp lý' : 'Billing & Legal',
       content: [
         {
           type: 'group',
@@ -157,6 +164,7 @@ const SECTIONS = (lang) => {
       id: 'payment',
       nav: isVi ? '6. Thanh toán & Hoàn tiền' : '6. Billing & Refunds',
       title: isVi ? '6. Thanh toán, Gia hạn & Chính sách Hoàn tiền' : '6. Payments, Renewals & Refund Policy',
+      category: isVi ? 'Tài chính & Pháp lý' : 'Billing & Legal',
       content: [
         {
           type: 'group',
@@ -192,6 +200,7 @@ const SECTIONS = (lang) => {
       id: 'liability',
       nav: isVi ? '7. Giới hạn trách nhiệm' : '7. Liability Limits',
       title: isVi ? '7. Tuyên bố miễn trừ & Giới hạn Trách nhiệm' : '7. Disclaimer & Limitation of Liability',
+      category: isVi ? 'Tài chính & Pháp lý' : 'Billing & Legal',
       content: [
         {
           type: 'p',
@@ -219,6 +228,7 @@ const SECTIONS = (lang) => {
       id: 'contact',
       nav: isVi ? '8. Liên hệ & Pháp lý' : '8. Contact & Legal',
       title: isVi ? '8. Luật điều chỉnh & Thông tin Liên hệ' : '8. Governing Law & Contact Information',
+      category: isVi ? 'Tài chính & Pháp lý' : 'Billing & Legal',
       content: [
         {
           type: 'p',
@@ -245,32 +255,47 @@ const SECTIONS = (lang) => {
   ];
 };
 
-const renderBlock = (block, idx, color) => {
+const renderBlock = (block, idx, isVi) => {
   switch (block.type) {
     case 'p':
-      return <p key={idx} style={{ margin: '0 0 0.85rem', lineHeight: 1.75 }}>{block.text}</p>;
-    case 'meta':
       return (
-        <p key={idx} style={{ margin: '1rem 0 0', fontSize: '0.75rem', color: 'var(--text-muted)', fontFamily: "var(--font-mono, monospace)", letterSpacing: '0.02em' }}>
+        <p key={idx} className="text-slate-300 text-sm leading-relaxed mb-4">
           {block.text}
         </p>
       );
+    case 'meta':
+      return (
+        <div key={idx} className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-[#161B22] border border-white/5 text-slate-400 font-mono text-[11px] my-3">
+          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+          <span>{block.text}</span>
+        </div>
+      );
     case 'note':
       return (
-        <div key={idx} style={{ margin: '1rem 0 0', padding: '0.75rem 1rem', borderLeft: `2px solid ${color}`, background: 'var(--bg-cell)', fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>
-          {block.text}
+        <div key={idx} className="p-4 rounded-md border my-6 flex gap-3 bg-cyan-950/20 border-cyan-500/20 text-cyan-200">
+          <div className="pt-0.5 shrink-0">
+            <Terminal size={16} className="text-cyan-400" />
+          </div>
+          <div>
+            <div className="font-mono text-xs font-bold uppercase tracking-wider mb-1">
+              {isVi ? 'Lưu ý' : 'Note'}
+            </div>
+            <div className="text-xs leading-relaxed text-slate-300">
+              {block.text}
+            </div>
+          </div>
         </div>
       );
     case 'group':
       return (
-        <div key={idx} style={{ marginTop: '1.25rem' }}>
-          <p style={{ margin: '0 0 0.5rem', fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '0.08em', fontFamily: "var(--font-mono, monospace)" }}>
+        <div key={idx} className="my-5">
+          <div className="text-xs font-mono font-bold text-white uppercase tracking-wider mb-2 flex items-center gap-2">
+            <span className="w-1 h-2.5 bg-cyan-400 rounded-sm inline-block"></span>
             {block.label}
-          </p>
-          <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
+          </div>
+          <ul className="list-disc pl-5 my-2 space-y-2 text-slate-300 text-sm">
             {block.items.map((item, i) => (
-              <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.6rem', padding: '0.3rem 0', fontSize: '0.83rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-                <span style={{ flexShrink: 0, marginTop: '0.45rem', width: 4, height: 4, borderRadius: '50%', background: color, display: 'inline-block' }} />
+              <li key={i} className="leading-relaxed">
                 {item}
               </li>
             ))}
@@ -279,10 +304,9 @@ const renderBlock = (block, idx, color) => {
       );
     case 'list':
       return (
-        <ul key={idx} style={{ margin: '0.75rem 0 0', padding: 0, listStyle: 'none' }}>
+        <ul key={idx} className="list-disc pl-5 my-4 space-y-2 text-slate-300 text-sm">
           {block.items.map((item, i) => (
-            <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.6rem', padding: '0.35rem 0', fontSize: '0.83rem', color: 'var(--text-secondary)', lineHeight: 1.6, borderBottom: '1px solid var(--border-faint)' }}>
-              <span style={{ flexShrink: 0, marginTop: '0.45rem', width: 4, height: 4, borderRadius: '50%', background: color, display: 'inline-block' }} />
+            <li key={i} className="leading-relaxed">
               {item}
             </li>
           ))}
@@ -290,15 +314,27 @@ const renderBlock = (block, idx, color) => {
       );
     case 'contact':
       return (
-        <div key={idx} style={{ marginTop: '0.75rem', border: '1px solid var(--border-faint)', overflow: 'hidden' }}>
-          {block.lines.map(({ label, value, href }, i) => (
-            <div key={i} style={{ display: 'flex', borderBottom: i < block.lines.length - 1 ? '1px solid var(--border-faint)' : 'none' }}>
-              <div style={{ width: '30%', flexShrink: 0, padding: '0.55rem 0.85rem', fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-muted)', fontFamily: "var(--font-mono, monospace)", background: 'var(--bg-cell)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>{label}</div>
-              <div style={{ flex: 1, padding: '0.55rem 0.85rem', fontSize: '0.82rem', color: 'var(--text-secondary)' }}>
-                {href ? <a href={href} style={{ color: color, textDecoration: 'none' }}>{value}</a> : value}
-              </div>
-            </div>
-          ))}
+        <div key={idx} className="overflow-x-auto my-6 border border-white/10 rounded-lg">
+          <table className="w-full text-left text-xs border-collapse">
+            <tbody className="divide-y divide-white/5 font-sans">
+              {block.lines.map(({ label, value, href }, i) => (
+                <tr key={i} className="hover:bg-white/[0.02] transition-colors">
+                  <td className="px-4 py-3 font-mono font-semibold text-slate-400 uppercase tracking-wider w-1/3 bg-white/[0.01]">
+                    {label}
+                  </td>
+                  <td className="px-4 py-3 text-slate-200 break-all leading-relaxed">
+                    {href ? (
+                      <a href={href} className="text-cyan-400 hover:text-cyan-300 underline underline-offset-4">
+                        {value}
+                      </a>
+                    ) : (
+                      value
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       );
     default:
@@ -310,93 +346,269 @@ export const Terms = ({ activeLang = 'vi' }) => {
   const isVi = activeLang === 'vi';
   const sections = SECTIONS(activeLang);
   const [activeId, setActiveId] = useState(sections[0].id);
-  const sectionRefs = useRef({});
-  const color = 'var(--electron-blue, #0ea5e9)';
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isBtnVisible, setIsBtnVisible] = useState(true);
 
+  // Sync body class for 3D perspective mobile drawer (same as Docs page)
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveId(entry.target.id);
-        });
-      },
-      { rootMargin: '-20% 0px -70% 0px', threshold: 0 }
-    );
-    Object.values(sectionRefs.current).forEach((el) => { if (el) observer.observe(el); });
-    return () => observer.disconnect();
-  }, [activeLang]);
+    if (sidebarOpen) {
+      document.body.classList.add('docs-menu-active');
+    } else {
+      document.body.classList.remove('docs-menu-active');
+    }
+    return () => document.body.classList.remove('docs-menu-active');
+  }, [sidebarOpen]);
+
+  // Scroll spy implementation
+  useEffect(() => {
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (ticking) return;
+      ticking = true;
+
+      requestAnimationFrame(() => {
+        ticking = false;
+        const headingElements = sections.map((s) => document.getElementById(s.id)).filter(Boolean);
+        if (headingElements.length === 0) return;
+
+        const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 60;
+        let currentActive = '';
+
+        if (isAtBottom && sections.length > 0) {
+          currentActive = sections[sections.length - 1].id;
+        } else {
+          for (const el of headingElements) {
+            const rect = el.getBoundingClientRect();
+            if (rect.top <= 140) {
+              currentActive = el.id;
+            } else {
+              break;
+            }
+          }
+        }
+
+        if (!currentActive && sections.length > 0) {
+          currentActive = sections[0].id;
+        }
+
+        setActiveId((prev) => (prev !== currentActive ? currentActive : prev));
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [sections]);
+
+  const scrollToSection = (id) => {
+    setActiveId(id);
+    setSidebarOpen(false);
+    const el = document.getElementById(id);
+    if (el) {
+      if (window.lenis) {
+        window.lenis.scrollTo(el, { offset: -90, duration: 1.0 });
+      } else {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
+  // Group sections by category (Docs structure)
+  const categories = {};
+  sections.forEach((sec) => {
+    if (!categories[sec.category]) {
+      categories[sec.category] = [];
+    }
+    categories[sec.category].push(sec);
+  });
 
   return (
-    <div style={{ padding: '3rem 2rem 5rem', fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
-      {/* Page header */}
-      <div style={{ maxWidth: 860, margin: '0 auto 3rem', paddingBottom: '2rem', borderBottom: '1px solid var(--border-faint)' }}>
-        <p style={{ margin: '0 0 0.5rem', fontSize: '0.7rem', color: color, fontFamily: "var(--font-mono, monospace)", fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.12em' }}>
-          I2FLabs · Aevum OS
-        </p>
-        <h1 style={{ margin: '0 0 0.75rem', fontSize: '2rem', fontWeight: 700, color: 'var(--text-primary)', letterSpacing: '-0.03em', lineHeight: 1.2 }}>
-          {isVi ? 'Điều khoản Dịch vụ' : 'Terms of Service'}
-        </h1>
-        <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6, maxWidth: 560 }}>
-          {isVi
-            ? 'Văn bản này xác lập quyền, nghĩa vụ và các quy tắc sử dụng giữa người dùng và I2FLabs khi truy cập hệ sinh thái Aevum OS.'
-            : 'This document defines the rights, responsibilities, and terms between users and I2FLabs when accessing the Aevum OS ecosystem.'}
-        </p>
+    <div className="w-full min-h-[calc(100vh-73px)] bg-[#0B0B11] border-b border-white/5 block lg:flex lg:flex-row relative justify-between overflow-x-clip">
+      {/* Mobile Portal Drawer (Renders outside app-content-wrapper directly on body) */}
+      {typeof document !== 'undefined' && createPortal(
+        <div className={`docs-mobile-drawer lg:hidden ${sidebarOpen ? 'open' : ''}`}>
+          {/* Header Bar */}
+          <div className="shrink-0 flex items-center justify-between p-5 border-b border-white/5 bg-transparent">
+            <span className="font-mono text-xs font-bold text-white uppercase tracking-wider">
+              {isVi ? 'Điều khoản Dịch vụ' : 'Terms of Service'}
+            </span>
+            <button
+              onClick={() => setSidebarOpen(false)}
+              className="p-1.5 rounded-lg bg-white/5 text-slate-400 hover:text-white transition-colors cursor-pointer"
+            >
+              <X size={18} />
+            </button>
+          </div>
+
+          {/* Scrollable Categories List */}
+          <div className="flex-1 overflow-y-auto p-6 space-y-6 no-scrollbar docs-drawer-nav-list" data-lenis-prevent>
+            {Object.keys(categories).map((catName) => (
+              <div key={catName} className="space-y-2">
+                <div className="text-[11px] font-bold text-slate-400 uppercase tracking-widest px-2 mb-3">
+                  {catName}
+                </div>
+                <ul className="space-y-1">
+                  {categories[catName].map((sec) => {
+                    const isActive = sec.id === activeId;
+                    return (
+                      <li key={sec.id}>
+                        <button
+                          onClick={() => scrollToSection(sec.id)}
+                          className={`w-full flex items-center justify-between text-left py-2 px-3 rounded text-xs font-medium border transition-all duration-150 ease-out group cursor-pointer ${
+                            isActive
+                              ? 'text-cyan-400 font-bold bg-cyan-500/10 border-cyan-500/30'
+                              : 'text-slate-400 border-transparent hover:text-white hover:bg-white/[0.02]'
+                          }`}
+                        >
+                          <span className="truncate">{sec.nav}</span>
+                          <ChevronRight
+                            size={12}
+                            className={`transition-transform duration-150 ${
+                              isActive ? 'translate-x-0.5 text-cyan-400' : 'opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 text-slate-600'
+                            }`}
+                          />
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>,
+        document.body
+      )}
+
+      {/* Desktop Left Sidebar (Docs UI style) */}
+      <aside className="hidden lg:block w-64 border-r border-white/5 shrink-0">
+        <div className="sticky top-[73px] py-8 px-6 overflow-y-auto flex flex-col justify-between h-[calc(100vh-73px)]">
+          <div className="space-y-6">
+            {Object.keys(categories).map((catName) => (
+              <div key={catName} className="space-y-2">
+                <div className="text-[11px] font-bold text-slate-400 uppercase tracking-widest px-2 mb-3">
+                  {catName}
+                </div>
+                <ul className="space-y-1">
+                  {categories[catName].map((sec) => {
+                    const isActive = sec.id === activeId;
+                    return (
+                      <li key={sec.id}>
+                        <button
+                          onClick={() => scrollToSection(sec.id)}
+                          className={`w-full flex items-center justify-between text-left py-1.5 px-2.5 rounded text-xs font-medium border transition-all duration-150 ease-out group cursor-pointer ${
+                            isActive
+                              ? 'text-cyan-400 font-bold bg-cyan-500/10 border-cyan-500/30'
+                              : 'text-slate-400 border-transparent hover:text-white hover:bg-white/[0.01]'
+                          }`}
+                        >
+                          <span className="truncate">{sec.nav}</span>
+                          <ChevronRight
+                            size={12}
+                            className={`transition-transform duration-150 ${
+                              isActive ? 'translate-x-0.5 text-cyan-400' : 'opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 text-slate-600'
+                            }`}
+                          />
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </aside>
+
+      {/* Main View Wrapper */}
+      <div 
+        onClick={() => sidebarOpen && setSidebarOpen(false)}
+        className={`flex-1 flex flex-col xl:flex-row justify-between w-full bg-[#0B0B11] ${
+          sidebarOpen ? 'cursor-pointer' : ''
+        }`}
+      >
+        {/* Mobile Sticky Top-Left Menu Icon Button */}
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            setSidebarOpen(true);
+          }}
+          onMouseEnter={() => setIsBtnVisible(true)}
+          className={`lg:hidden sticky top-[76px] ml-4 mt-4 z-30 p-2 rounded-lg bg-[#0B0B11]/90 backdrop-blur-md hover:bg-white/10 text-white border border-white/15 transition-all duration-500 cursor-pointer flex items-center justify-center shadow-lg active:scale-95 self-start ${
+            isBtnVisible ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-30 scale-90 hover:opacity-100'
+          }`}
+          aria-label="Toggle Menu"
+        >
+          <Menu size={18} className="text-white" />
+        </button>
+
+        {/* Main Content Area (Docs UI Style) */}
+        <main className="flex-1 px-6 md:px-12 lg:px-16 py-10 max-w-3xl xl:max-w-4xl w-full relative min-h-[500px]">
+          {/* Header */}
+          <div className="mb-8">
+            <div className="inline-flex items-center gap-1.5 text-xs font-mono text-cyan-400 mb-2 font-bold uppercase tracking-wider">
+              <span>I2FLABS</span>
+              <span className="text-slate-600">/</span>
+              <span>AEVUM OS</span>
+            </div>
+            <h1 className="text-3xl font-extrabold text-white tracking-tight mb-4 font-display">
+              {isVi ? 'Điều khoản Dịch vụ' : 'Terms of Service'}
+            </h1>
+            <p className="text-slate-300 text-sm leading-relaxed mb-6">
+              {isVi
+                ? 'Văn bản này xác lập quyền, nghĩa vụ và các quy tắc sử dụng giữa người dùng và I2FLabs khi truy cập hệ sinh thái Aevum OS.'
+                : 'This document defines the rights, responsibilities, and terms between users and I2FLabs when accessing the Aevum OS ecosystem.'}
+            </p>
+            <hr className="border-t border-white/5 my-8" />
+          </div>
+
+          {/* Sections List */}
+          <div className="space-y-12">
+            {sections.map((section) => (
+              <section key={section.id} id={section.id} className="scroll-mt-24">
+                <h2 className="text-xl font-bold text-white tracking-tight mb-4 font-display flex items-center gap-2">
+                  <span className="w-1.5 h-3 bg-cyan-500 rounded-sm"></span>
+                  {section.title}
+                </h2>
+                <div>
+                  {section.content.map((block, idx) => renderBlock(block, idx, isVi))}
+                </div>
+              </section>
+            ))}
+          </div>
+        </main>
       </div>
 
-      {/* 2-column layout */}
-      <div style={{ maxWidth: 860, margin: '0 auto', display: 'flex', gap: '3.5rem', alignItems: 'flex-start' }}>
-        {/* Left: sticky nav */}
-        <nav style={{ width: 180, flexShrink: 0, position: 'sticky', top: 96 }}>
-          <p style={{ margin: '0 0 0.75rem', fontSize: '0.65rem', color: 'var(--text-muted)', fontFamily: "var(--font-mono, monospace)", textTransform: 'uppercase', letterSpacing: '0.12em', fontWeight: 600 }}>
-            {isVi ? 'Mục lục' : 'Contents'}
-          </p>
-          <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.1rem' }}>
+      {/* Right Sidebar: Mini Index / On This Page (TOC) */}
+      <aside className="hidden xl:block w-56 relative border-l border-white/5">
+        <div className="sticky top-[73px] py-8">
+          {/* Label */}
+          <div className="text-[9px] font-mono font-bold text-slate-600 uppercase tracking-widest px-4 py-3 border-b border-white/5">
+            {isVi ? 'TRONG TRANG NÀY' : 'ON THIS PAGE'}
+          </div>
+
+          <ul className="font-mono text-[11px]">
             {sections.map((s) => {
-              const isActive = activeId === s.id;
+              const isActive = s.id === activeId;
               return (
-                <li key={s.id}>
-                  <a
-                    href={`#${s.id}`}
-                    onClick={(e) => { e.preventDefault(); document.getElementById(s.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }}
-                    style={{
-                      display: 'block',
-                      padding: '0.3rem 0.6rem',
-                      fontSize: '0.78rem',
-                      color: isActive ? 'var(--text-primary)' : 'var(--text-muted)',
-                      fontWeight: isActive ? 600 : 400,
-                      textDecoration: 'none',
-                      borderLeft: `2px solid ${isActive ? color : 'transparent'}`,
-                      transition: 'all 0.15s ease',
-                      lineHeight: 1.4,
-                    }}
+                <li key={s.id} className={`border-b border-white/5 ${isActive ? 'bg-white/[0.05]' : ''}`}>
+                  <button
+                    onClick={() => scrollToSection(s.id)}
+                    className={`w-full text-left px-4 py-2.5 transition-colors flex items-start gap-2 group cursor-pointer ${
+                      isActive
+                        ? 'text-white font-bold'
+                        : 'text-slate-500 hover:text-white hover:bg-white/[0.03]'
+                    }`}
                   >
-                    {s.nav}
-                  </a>
+                    <span className="line-clamp-2 leading-snug">{s.title}</span>
+                  </button>
                 </li>
               );
             })}
           </ul>
-        </nav>
-
-        {/* Right: content */}
-        <div style={{ flex: 1, minWidth: 0 }}>
-          {sections.map((section, i) => (
-            <section
-              key={section.id}
-              id={section.id}
-              ref={(el) => { sectionRefs.current[section.id] = el; }}
-              style={{ marginBottom: i < sections.length - 1 ? '3rem' : 0, scrollMarginTop: 100 }}
-            >
-              <h2 style={{ margin: '0 0 1rem', fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-primary)', letterSpacing: '-0.01em', paddingBottom: '0.75rem', borderBottom: '1px solid var(--border-faint)' }}>
-                {section.title}
-              </h2>
-              <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-                {section.content.map((block, idx) => renderBlock(block, idx, color))}
-              </div>
-            </section>
-          ))}
         </div>
-      </div>
+      </aside>
     </div>
   );
 };

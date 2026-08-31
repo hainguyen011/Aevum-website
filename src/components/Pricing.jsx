@@ -77,15 +77,15 @@ export const Pricing = ({ activeLang = 'vi', onOpenTrialModal, onOpenAuthModal, 
     <div id="pricing" className="border-subtle-b bg-[#0B0B11] text-slate-100 transition-colors">
       
       {/* ── 1. SECTION HEADER (ALIGN LEFT & SINGLE-LINE TITLE) ── */}
-      <div className="p-8 sm:p-12 lg:p-14 border-subtle-b bg-[#0B0B11] relative flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <div className="p-6 sm:p-10 lg:p-14 border-subtle-b bg-[#0B0B11] relative flex flex-col md:flex-row md:items-end justify-between gap-6">
         
-        {/* Left Side: Tag + Single-Line Title + Subtitle */}
+        {/* Left Side: Tag + Title + Subtitle */}
         <div className="text-left space-y-1.5 max-w-2xl">
           <span className="text-[11px] font-mono text-cyan-400 font-semibold tracking-widest uppercase block">
             {isVi ? 'ĐỒNG HÀNH CÙNG BUILDER' : 'EMPOWERING BUILDERS'}
           </span>
 
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-[-0.035em] font-display whitespace-nowrap">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-[-0.035em] font-display leading-tight">
             {isVi ? (
               <>Làm chủ công cụ. <span className="text-cyan-400">Hiện thực hóa ý tưởng.</span></>
             ) : (
@@ -174,7 +174,7 @@ export const Pricing = ({ activeLang = 'vi', onOpenTrialModal, onOpenAuthModal, 
               </span>
             </div>
 
-            <h3 className="text-xl sm:text-2xl font-bold text-white font-display whitespace-nowrap mb-1">
+            <h3 className="text-xl sm:text-2xl font-bold text-white font-display mb-1">
               Aevum Community
             </h3>
 
@@ -264,7 +264,7 @@ export const Pricing = ({ activeLang = 'vi', onOpenTrialModal, onOpenAuthModal, 
               </span>
             </div>
 
-            <h3 className="text-xl sm:text-2xl font-bold text-white font-display flex items-center gap-2 whitespace-nowrap mb-1">
+            <h3 className="text-xl sm:text-2xl font-bold text-white font-display flex items-center gap-2 mb-1">
               <span>Aevum Pro</span>
               <Zap size={18} className="text-cyan-400 fill-cyan-400 shrink-0" />
             </h3>
@@ -383,7 +383,7 @@ export const Pricing = ({ activeLang = 'vi', onOpenTrialModal, onOpenAuthModal, 
               </span>
             </div>
 
-            <h3 className="text-xl sm:text-2xl font-bold text-white font-display whitespace-nowrap mb-1">
+            <h3 className="text-xl sm:text-2xl font-bold text-white font-display mb-1">
               Aevum Enterprise
             </h3>
 

@@ -16,9 +16,14 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
 
   const handleScroll = () => {
     if (!scrollRef.current) return;
-    const { scrollLeft, offsetWidth } = scrollRef.current;
-    const idx = Math.round(scrollLeft / offsetWidth);
-    setActiveSlide(idx);
+    window.requestAnimationFrame(() => {
+      if (!scrollRef.current) return;
+      const { scrollLeft, clientWidth } = scrollRef.current;
+      if (clientWidth > 0) {
+        const idx = Math.round(scrollLeft / clientWidth);
+        setActiveSlide(idx);
+      }
+    });
   };
 
   const scrollToSlide = (idx) => {

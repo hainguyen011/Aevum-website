@@ -19,10 +19,15 @@ export const BentoGrid = ({ activeLang }) => {
 
   const handleScroll = () => {
     if (!scrollRef.current) return;
-    const { scrollLeft, children } = scrollRef.current;
-    const cardWidth = children[0]?.offsetWidth ?? scrollRef.current.offsetWidth;
-    const idx = Math.round(scrollLeft / cardWidth);
-    setActiveSlide(Math.min(Math.max(0, idx), items.length - 1));
+    window.requestAnimationFrame(() => {
+      if (!scrollRef.current) return;
+      const { scrollLeft, children, clientWidth } = scrollRef.current;
+      const cardWidth = children[0]?.clientWidth ?? clientWidth ?? 300;
+      if (cardWidth > 0) {
+        const idx = Math.round(scrollLeft / cardWidth);
+        setActiveSlide(Math.min(Math.max(0, idx), items.length - 1));
+      }
+    });
   };
 
   const scrollToSlide = (idx) => {

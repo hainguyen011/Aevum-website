@@ -39,15 +39,20 @@ export const Testimonials = ({ activeLang }) => {
 
   const handleScroll = () => {
     if (!scrollRef.current) return;
-    const { scrollLeft, children } = scrollRef.current;
-    const cardWidth = children[0]?.offsetWidth ?? scrollRef.current.offsetWidth;
-    const idx = Math.round(scrollLeft / cardWidth);
-    setActiveSlide(Math.min(Math.max(0, idx), reviews.length - 1));
+    window.requestAnimationFrame(() => {
+      if (!scrollRef.current) return;
+      const { scrollLeft, children, clientWidth } = scrollRef.current;
+      const cardWidth = children[0]?.clientWidth ?? clientWidth ?? 300;
+      if (cardWidth > 0) {
+        const idx = Math.round(scrollLeft / cardWidth);
+        setActiveSlide(Math.min(Math.max(0, idx), reviews.length - 1));
+      }
+    });
   };
 
   const scrollToSlide = (idx) => {
     if (!scrollRef.current) return;
-    const cardWidth = scrollRef.current.children[0]?.offsetWidth ?? scrollRef.current.offsetWidth;
+    const cardWidth = scrollRef.current.children[0]?.clientWidth ?? scrollRef.current.clientWidth ?? 300;
     scrollRef.current.scrollTo({ left: idx * cardWidth, behavior: 'smooth' });
     setActiveSlide(idx);
   };

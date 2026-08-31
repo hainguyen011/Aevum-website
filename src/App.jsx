@@ -3,18 +3,20 @@ import { flushSync } from 'react-dom';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { SubNavTabs } from './components/SubNavTabs';
-import { BentoGrid } from './components/BentoGrid';
-import { AgentsShowcase } from './components/AgentsShowcase';
-import { FoundationGrid } from './components/FoundationGrid';
-import { FrameworkFlow } from './components/FrameworkFlow';
-import { Testimonials } from './components/Testimonials';
-import { UnikornSection } from './components/UnikornSection';
-import { I2FLabsSection } from './components/I2FLabsSection';
-import { Sponsors } from './components/Sponsors';
-import { CtaBanner } from './components/CtaBanner';
-import { Footer } from './components/Footer';
 import { ScrollToTop } from './components/ScrollToTop';
-import { Pricing } from './components/Pricing';
+
+// Code-split below-the-fold landing components for ultra-fast Mobile FCP & LCP (<0.8s)
+const BentoGrid = lazy(() => import('./components/BentoGrid').then(m => ({ default: m.BentoGrid })));
+const AgentsShowcase = lazy(() => import('./components/AgentsShowcase').then(m => ({ default: m.AgentsShowcase })));
+const FoundationGrid = lazy(() => import('./components/FoundationGrid').then(m => ({ default: m.FoundationGrid })));
+const FrameworkFlow = lazy(() => import('./components/FrameworkFlow').then(m => ({ default: m.FrameworkFlow })));
+const Testimonials = lazy(() => import('./components/Testimonials').then(m => ({ default: m.Testimonials })));
+const UnikornSection = lazy(() => import('./components/UnikornSection').then(m => ({ default: m.UnikornSection })));
+const I2FLabsSection = lazy(() => import('./components/I2FLabsSection').then(m => ({ default: m.I2FLabsSection })));
+const Sponsors = lazy(() => import('./components/Sponsors').then(m => ({ default: m.Sponsors })));
+const CtaBanner = lazy(() => import('./components/CtaBanner').then(m => ({ default: m.CtaBanner })));
+const Pricing = lazy(() => import('./components/Pricing').then(m => ({ default: m.Pricing })));
+const Footer = lazy(() => import('./components/Footer').then(m => ({ default: m.Footer })));
 import { AuthLockGate } from './components/ui/AuthLockGate';
 import { CustomCursor } from './components/CustomCursor';
 import { useScrollReveal } from './hooks/useScrollReveal';
@@ -631,48 +633,51 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
                     {/* Sub Nav Category Tabs Row */}
                     <SubNavTabs activeLang={activeLang} />
 
-                    {/* Section 1: Bento Grid Feature Showcase Row */}
-                    <BentoGrid activeLang={activeLang} />
+                    {/* Below-the-fold Lazy Loaded Sections with zero main-thread block */}
+                    <Suspense fallback={<div className="min-h-[200px]" />}>
+                      {/* Section 1: Bento Grid Feature Showcase Row */}
+                      <BentoGrid activeLang={activeLang} />
 
-                    {/* Dedicated Default Aevum AI Agents Squad Showcase Section */}
-                    <AgentsShowcase
-                      activeLang={activeLang}
-                      onOpenTrialModal={handleOpenTrialModal}
-                    />
+                      {/* Dedicated Default Aevum AI Agents Squad Showcase Section */}
+                      <AgentsShowcase
+                        activeLang={activeLang}
+                        onOpenTrialModal={handleOpenTrialModal}
+                      />
 
-                    {/* Section 2: Architecture & Foundation Grid Row */}
-                    <FoundationGrid activeLang={activeLang} />
+                      {/* Section 2: Architecture & Foundation Grid Row */}
+                      <FoundationGrid activeLang={activeLang} />
 
-                    {/* Section 3: Framework Integration Flow */}
-                    <FrameworkFlow activeLang={activeLang} />
+                      {/* Section 3: Framework Integration Flow */}
+                      <FrameworkFlow activeLang={activeLang} />
 
-                    {/* Section 4: Transparent Pricing & Membership Tiers */}
-                    <Pricing
-                      activeLang={activeLang}
-                      onOpenTrialModal={handleOpenTrialModal}
-                      onOpenAuthModal={() => setIsAuthModalOpen(true)}
-                      showDetails={false}
-                      onNavigate={handleNavigate}
-                    />
+                      {/* Section 4: Transparent Pricing & Membership Tiers */}
+                      <Pricing
+                        activeLang={activeLang}
+                        onOpenTrialModal={handleOpenTrialModal}
+                        onOpenAuthModal={() => setIsAuthModalOpen(true)}
+                        showDetails={false}
+                        onNavigate={handleNavigate}
+                      />
 
-                    {/* Section 5: Testimonials & Community Stats */}
-                    <Testimonials activeLang={activeLang} />
+                      {/* Section 5: Testimonials & Community Stats */}
+                      <Testimonials activeLang={activeLang} />
 
-                    {/* Section 6: Dedicated Unikorn Vietnam Feature Section */}
-                    <UnikornSection activeLang={activeLang} />
+                      {/* Section 6: Dedicated Unikorn Vietnam Feature Section */}
+                      <UnikornSection activeLang={activeLang} />
 
-                    {/* Section 7: Dedicated I2FLabs Development Team Section */}
-                    <I2FLabsSection activeLang={activeLang} />
+                      {/* Section 7: Dedicated I2FLabs Development Team Section */}
+                      <I2FLabsSection activeLang={activeLang} />
 
-                    {/* Section 8: Open Source Sponsors */}
-                    <Sponsors activeLang={activeLang} />
+                      {/* Section 8: Open Source Sponsors */}
+                      <Sponsors activeLang={activeLang} />
 
-                    {/* Section 9: CTA Banner */}
-                    <CtaBanner
-                      onNavigate={handleNavigate}
-                      onOpenTrialModal={handleOpenTrialModal}
-                      activeLang={activeLang}
-                    />
+                      {/* Section 9: CTA Banner */}
+                      <CtaBanner
+                        onNavigate={handleNavigate}
+                        onOpenTrialModal={handleOpenTrialModal}
+                        activeLang={activeLang}
+                      />
+                    </Suspense>
                   </>
                 )}
 
@@ -756,7 +761,9 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
               </main>
 
               {/* Footer */}
-              <Footer onNavigate={handleNavigate} activeLang={activeLang} />
+              <Suspense fallback={null}>
+                <Footer onNavigate={handleNavigate} activeLang={activeLang} />
+              </Suspense>
             </div>
           </div>
         </div>

@@ -129,21 +129,21 @@ const SECTIONS = (lang) => {
           type: 'table',
           rows: isVi
             ? [
-                ['Supabase', 'Cơ sở dữ liệu và xác thực'],
-                ['Google OAuth', 'Đăng nhập qua Google'],
-                ['GitHub OAuth', 'Đăng nhập qua GitHub'],
-                ['Vercel', 'Hosting và CDN'],
-                ['GrowthBook', 'A/B testing ẩn danh'],
-                ['Resend', 'Gửi email thông báo'],
-              ]
+              ['Supabase', 'Cơ sở dữ liệu và xác thực'],
+              ['Google OAuth', 'Đăng nhập qua Google'],
+              ['GitHub OAuth', 'Đăng nhập qua GitHub'],
+              ['Vercel', 'Hosting và CDN'],
+              ['GrowthBook', 'A/B testing ẩn danh'],
+              ['Resend', 'Gửi email thông báo'],
+            ]
             : [
-                ['Supabase', 'Database and authentication'],
-                ['Google OAuth', 'Login via Google'],
-                ['GitHub OAuth', 'Login via GitHub'],
-                ['Vercel', 'Hosting and CDN'],
-                ['GrowthBook', 'Anonymous A/B testing'],
-                ['Resend', 'Transactional email'],
-              ]
+              ['Supabase', 'Database and authentication'],
+              ['Google OAuth', 'Login via Google'],
+              ['GitHub OAuth', 'Login via GitHub'],
+              ['Vercel', 'Hosting and CDN'],
+              ['GrowthBook', 'Anonymous A/B testing'],
+              ['Resend', 'Transactional email'],
+            ]
         }
       ]
     },
@@ -450,18 +450,16 @@ export const Privacy = ({ activeLang = 'vi' }) => {
                       <li key={sec.id}>
                         <button
                           onClick={() => scrollToSection(sec.id)}
-                          className={`w-full flex items-center justify-between text-left py-2 px-3 rounded text-xs font-medium border transition-all duration-150 ease-out group cursor-pointer ${
-                            isActive
-                              ? 'text-cyan-400 font-bold bg-cyan-500/10 border-cyan-500/30'
-                              : 'text-slate-400 border-transparent hover:text-white hover:bg-white/[0.02]'
-                          }`}
+                          className={`w-full flex items-center justify-between text-left py-2 px-3 rounded text-xs font-medium border transition-all duration-150 ease-out group cursor-pointer ${isActive
+                            ? 'text-cyan-400 font-bold bg-cyan-500/10 border-cyan-500/30'
+                            : 'text-slate-400 border-transparent hover:text-white hover:bg-white/[0.02]'
+                            }`}
                         >
                           <span className="truncate">{sec.nav}</span>
                           <ChevronRight
                             size={12}
-                            className={`transition-transform duration-150 ${
-                              isActive ? 'translate-x-0.5 text-cyan-400' : 'opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 text-slate-600'
-                            }`}
+                            className={`transition-transform duration-150 ${isActive ? 'translate-x-0.5 text-cyan-400' : 'opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 text-slate-600'
+                              }`}
                           />
                         </button>
                       </li>
@@ -491,18 +489,16 @@ export const Privacy = ({ activeLang = 'vi' }) => {
                       <li key={sec.id}>
                         <button
                           onClick={() => scrollToSection(sec.id)}
-                          className={`w-full flex items-center justify-between text-left py-1.5 px-2.5 rounded text-xs font-medium border transition-all duration-150 ease-out group cursor-pointer ${
-                            isActive
-                              ? 'text-cyan-400 font-bold bg-cyan-500/10 border-cyan-500/30'
-                              : 'text-slate-400 border-transparent hover:text-white hover:bg-white/[0.01]'
-                          }`}
+                          className={`w-full flex items-center justify-between text-left py-1.5 px-2.5 rounded text-xs font-medium border transition-all duration-150 ease-out group cursor-pointer ${isActive
+                            ? 'text-cyan-400 font-bold bg-cyan-500/10 border-cyan-500/30'
+                            : 'text-slate-400 border-transparent hover:text-white hover:bg-white/[0.01]'
+                            }`}
                         >
                           <span className="truncate">{sec.nav}</span>
                           <ChevronRight
                             size={12}
-                            className={`transition-transform duration-150 ${
-                              isActive ? 'translate-x-0.5 text-cyan-400' : 'opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 text-slate-600'
-                            }`}
+                            className={`transition-transform duration-150 ${isActive ? 'translate-x-0.5 text-cyan-400' : 'opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 text-slate-600'
+                              }`}
                           />
                         </button>
                       </li>
@@ -516,11 +512,10 @@ export const Privacy = ({ activeLang = 'vi' }) => {
       </aside>
 
       {/* Main View Wrapper */}
-      <div 
+      <div
         onClick={() => sidebarOpen && setSidebarOpen(false)}
-        className={`flex-1 flex flex-col xl:flex-row justify-between w-full bg-[#0B0B11] ${
-          sidebarOpen ? 'cursor-pointer' : ''
-        }`}
+        className={`flex-1 flex flex-col xl:flex-row justify-between w-full bg-[#0B0B11] ${sidebarOpen ? 'cursor-pointer' : ''
+          }`}
       >
         {/* Mobile Sticky Top-Left Menu Icon Button */}
         <button
@@ -529,9 +524,8 @@ export const Privacy = ({ activeLang = 'vi' }) => {
             setSidebarOpen(true);
           }}
           onMouseEnter={() => setIsBtnVisible(true)}
-          className={`lg:hidden sticky top-[76px] ml-4 mt-4 z-30 p-2 rounded-lg bg-[#0B0B11]/90 backdrop-blur-md hover:bg-white/10 text-white border border-white/15 transition-all duration-500 cursor-pointer flex items-center justify-center shadow-lg active:scale-95 self-start ${
-            isBtnVisible ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-30 scale-90 hover:opacity-100'
-          }`}
+          className={`lg:hidden sticky top-[76px] ml-4 mt-4 z-30 p-2 rounded-lg bg-[#0B0B11]/90 backdrop-blur-md hover:bg-white/10 text-white border border-white/15 transition-all duration-500 cursor-pointer flex items-center justify-center shadow-lg active:scale-95 self-start ${isBtnVisible ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-30 scale-90 hover:opacity-100'
+            }`}
           aria-label="Toggle Menu"
         >
           <Menu size={18} className="text-white" />
@@ -582,18 +576,17 @@ export const Privacy = ({ activeLang = 'vi' }) => {
             {isVi ? 'TRONG TRANG NÀY' : 'ON THIS PAGE'}
           </div>
 
-          <ul className="font-mono text-[11px]">
+          <ul className="text-xs">
             {sections.map((s) => {
               const isActive = s.id === activeId;
               return (
                 <li key={s.id} className={`border-b border-white/5 ${isActive ? 'bg-white/[0.05]' : ''}`}>
                   <button
                     onClick={() => scrollToSection(s.id)}
-                    className={`w-full text-left px-4 py-2.5 transition-colors flex items-start gap-2 group cursor-pointer ${
-                      isActive
-                        ? 'text-white font-bold'
-                        : 'text-slate-500 hover:text-white hover:bg-white/[0.03]'
-                    }`}
+                    className={`w-full text-left px-4 py-2.5 transition-colors flex items-start gap-2 group cursor-pointer ${isActive
+                      ? 'text-white font-bold'
+                      : 'text-slate-500 hover:text-white hover:bg-white/[0.03]'
+                      }`}
                   >
                     <span className="line-clamp-2 leading-snug">{s.title}</span>
                   </button>

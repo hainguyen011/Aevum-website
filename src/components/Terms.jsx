@@ -588,7 +588,7 @@ export const Terms = ({ activeLang = 'vi' }) => {
             {isVi ? 'TRONG TRANG NÀY' : 'ON THIS PAGE'}
           </div>
 
-          <ul className="font-mono text-[11px]">
+          <ul className="text-xs">
             {sections.map((s) => {
               const isActive = s.id === activeId;
               return (

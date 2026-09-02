@@ -128,7 +128,8 @@ async function prerender() {
         if (fs.existsSync(cssFilePath)) {
           const cssContent = fs.readFileSync(cssFilePath, 'utf-8');
           pageHtml = pageHtml.replace(cssMatch[0], `<style id="critical-css">${cssContent}</style>`);
-          pageHtml = pageHtml.replace(/<link\s+rel=["']preload["']\s+as=["']style["'][^>]*>\s*/gi, '');
+          // Only remove preload for the inlined index stylesheet, preserve Google Fonts and external resources!
+          pageHtml = pageHtml.replace(/<link\s+rel=["']preload["']\s+as=["']style["'][^>]*href=["'][^"']*assets\/index-[^"']*\.css["'][^>]*>\s*/gi, '');
         }
       }
 

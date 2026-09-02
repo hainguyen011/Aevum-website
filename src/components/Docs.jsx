@@ -657,7 +657,7 @@ export const Docs = ({ activeLang = 'vi' }) => {
           </div>
 
           {headings.length > 0 ? (
-            <ul className="font-mono text-[11px]">
+            <ul className="text-xs">
               {headings.map((h) => {
                 const isActive = h.id === activeHeadingId;
                 return (

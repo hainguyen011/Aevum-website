@@ -171,7 +171,7 @@ export const Navbar = ({
               return (
                 <button 
                   onClick={() => setFeaturesOpen(prev => !prev)}
-                  className={`flex items-center gap-1.5 text-xs font-semibold py-1.5 px-3 rounded-[5px] transition-all duration-200 cursor-pointer font-mono ${
+                  className={`flex items-center gap-1.5 text-xs font-semibold py-1.5 px-3 rounded-[5px] transition-all duration-200 cursor-pointer ${
                     isButtonActive
                       ? 'border-beam-btn text-white'
                       : 'text-white border border-white/20 bg-white/[0.04] hover:bg-white/[0.08] hover:border-white/40'
@@ -230,7 +230,7 @@ export const Navbar = ({
               className="flex items-center gap-3 bg-white/[0.04] hover:bg-white/[0.08] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] px-3 py-1.5 rounded-lg text-slate-400 cursor-pointer transition-all group"
             >
               <Search size={14} className="group-hover:text-white transition-colors" />
-              <span className="text-xs font-mono text-slate-400 group-hover:text-white">
+              <span className="text-xs text-slate-400 group-hover:text-white">
                 {isVi ? 'Tìm kiếm OS...' : 'Search OS...'}
               </span>
               <kbd className="hidden sm:inline-block text-[10px] font-mono bg-white/10 px-1.5 py-0.5 rounded text-slate-400 border border-white/10 ml-2">

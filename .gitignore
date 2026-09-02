@@ -46,3 +46,7 @@ Desktop.ini
 .env*
 !.env.example
 scratch/
+.aevum/
+.agents/
+.gemini/
+.antigravitycli/

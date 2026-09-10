@@ -373,7 +373,7 @@ export const AuthModal = ({ isOpen, onClose, activeLang, user, userProfile }) =>
 
             {/* Error Notification */}
             {error && (
-              <div className="mb-4 bg-red-950/30 border border-red-500/40 rounded-none p-3 flex items-start gap-2.5 text-xs text-red-300 animate-fadeIn">
+              <div className="auth-alert-error mb-4 bg-red-950/30 border border-red-500/40 rounded-none p-3 flex items-start gap-2.5 text-xs text-red-300 animate-fadeIn">
                 <AlertTriangle size={14} className="text-red-400 shrink-0 mt-0.5" />
                 <span className="leading-relaxed">{error}</span>
               </div>
@@ -381,7 +381,7 @@ export const AuthModal = ({ isOpen, onClose, activeLang, user, userProfile }) =>
 
             {/* Success Notification */}
             {message && (
-              <div className="mb-4 bg-emerald-950/30 border border-emerald-500/40 rounded-none p-3 flex items-start gap-2.5 text-xs text-emerald-300 animate-fadeIn">
+              <div className="auth-alert-success mb-4 bg-emerald-950/30 border border-emerald-500/40 rounded-none p-3 flex items-start gap-2.5 text-xs text-emerald-300 animate-fadeIn">
                 <CheckCircle size={14} className="text-emerald-400 shrink-0 mt-0.5" />
                 <span className="leading-relaxed">{message}</span>
               </div>

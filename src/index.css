@@ -801,6 +801,8 @@ html[data-theme="light"] .bg-\[\#07080d\],
 html[data-theme="light"] .bg-\[\#07080D\],
 html[data-theme="light"] .bg-\[\#07080e\],
 html[data-theme="light"] .bg-\[\#07080E\],
+html[data-theme="light"] .bg-\[\#05060A\],
+html[data-theme="light"] .bg-\[\#05060a\],
 html[data-theme="light"] .bg-\[\#0b0c14\],
 html[data-theme="light"] .bg-\[\#0b0c10\],
 html[data-theme="light"] .bg-slate-950,
@@ -958,6 +960,85 @@ html[data-theme="light"] .auth-btn-submit span,
 .auth-btn-submit,
 .auth-btn-submit span {
   color: #FFFFFF !important;
+}
+
+/* Auth Modal Alerts & Warning Light Mode Synchronization */
+html[data-theme="light"] .auth-alert-error,
+html[data-theme="light"] .bg-red-950\/30 {
+  background-color: #FEF2F2 !important;
+  border-color: #F87171 !important;
+}
+
+html[data-theme="light"] .auth-alert-error span,
+html[data-theme="light"] .auth-alert-error .text-red-300,
+html[data-theme="light"] .text-red-300 {
+  color: #991B1B !important;
+  font-weight: 500 !important;
+}
+
+html[data-theme="light"] .auth-alert-error svg,
+html[data-theme="light"] .auth-alert-error .text-red-400,
+html[data-theme="light"] .text-red-400 {
+  color: #DC2626 !important;
+}
+
+html[data-theme="light"] .auth-alert-success,
+html[data-theme="light"] .bg-emerald-950\/30 {
+  background-color: #F0FDF4 !important;
+  border-color: #86EFAC !important;
+}
+
+html[data-theme="light"] .auth-alert-success span,
+html[data-theme="light"] .auth-alert-success .text-emerald-300,
+html[data-theme="light"] .text-emerald-300 {
+  color: #166534 !important;
+  font-weight: 500 !important;
+}
+
+html[data-theme="light"] .auth-alert-success svg,
+html[data-theme="light"] .auth-alert-success .text-emerald-400,
+html[data-theme="light"] .text-emerald-400 {
+  color: #16A34A !important;
+}
+
+html[data-theme="light"] .bg-red-950\/20 {
+  background-color: #FEF2F2 !important;
+  border-color: #FCA5A5 !important;
+  color: #DC2626 !important;
+}
+
+html[data-theme="light"] .text-sky-400 {
+  color: #0284C7 !important;
+}
+
+html[data-theme="light"] .text-sky-400:hover,
+html[data-theme="light"] .hover\:text-sky-300:hover {
+  color: #0369A1 !important;
+}
+
+/* Footer Bottom Copyright Bar Light Mode Synchronization */
+html[data-theme="light"] .footer-bottom-bar,
+html[data-theme="light"] .bg-\[\#05060A\],
+html[data-theme="light"] .bg-\[\#05060a\] {
+  background-color: #F1F5F9 !important;
+  border-top: 1px solid rgba(15, 23, 42, 0.08) !important;
+}
+
+html[data-theme="light"] .footer-bottom-bar p,
+html[data-theme="light"] .footer-bottom-bar .text-slate-400 {
+  color: #64748B !important;
+}
+
+html[data-theme="light"] .footer-bottom-bar button {
+  color: #64748B !important;
+}
+
+html[data-theme="light"] .footer-bottom-bar button:hover {
+  color: #0284C7 !important;
+}
+
+html[data-theme="light"] .footer-bottom-bar .text-white\/10 {
+  color: rgba(15, 23, 42, 0.25) !important;
 }
 
 /* Agent Showcase Card Gradient Overlay */

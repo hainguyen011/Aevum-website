@@ -162,7 +162,7 @@ export const Footer = ({ onNavigate, activeLang }) => {
       </div>
 
       {/* Edge-to-Edge Divider Line & Bottom Copyright Bar */}
-      <div className="border-t border-white/5 bg-[#05060A]">
+      <div className="footer-bottom-bar border-t border-white/5 bg-[#05060A]">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 py-5 pb-16 sm:pb-5 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 text-slate-400 font-mono text-[11px]">
           {/* Copyright text */}
           <p className="text-center sm:text-left m-0 text-slate-400 text-xs sm:text-[11px] leading-relaxed">

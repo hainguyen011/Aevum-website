@@ -11,21 +11,21 @@ export const AnnouncementBanner = ({ onNavigate, activeLang }) => {
 
   const itemContent = (keyPrefix) => (
     <div key={keyPrefix} className="flex items-center gap-4 px-8 shrink-0">
-      <span className="text-cyan-400 font-mono text-[11px] font-bold tracking-wider uppercase">
+      <span className="announcement-badge text-cyan-400 font-mono text-[11px] font-bold tracking-wider uppercase">
         {badgeText}
       </span>
 
-      <span className="text-slate-600 font-mono text-xs select-none">/</span>
+      <span className="announcement-divider text-slate-600 font-mono text-xs select-none">/</span>
 
-      <span className="text-xs font-mono text-slate-300">
+      <span className="announcement-text text-xs font-mono text-slate-300">
         {mainMessage}
       </span>
 
-      <span className="text-xs font-mono font-medium text-cyan-400 group-hover:text-cyan-300 transition-colors">
+      <span className="announcement-cta text-xs font-mono font-medium text-cyan-400 group-hover:text-cyan-300 transition-colors">
         {ctaText} &rarr;
       </span>
 
-      <span className="text-slate-700 font-mono text-xs select-none pl-4">—</span>
+      <span className="announcement-emdash text-slate-700 font-mono text-xs select-none pl-4">—</span>
     </div>
   );
 
@@ -40,12 +40,12 @@ export const AnnouncementBanner = ({ onNavigate, activeLang }) => {
           onNavigate && onNavigate('changelog');
         }
       }}
-      className="group relative w-full overflow-hidden bg-[#060b13] border-b border-cyan-500/25 cursor-pointer py-2 transition-colors hover:bg-[#09121f] select-none"
+      className="announcement-banner group relative w-full overflow-hidden bg-[#060b13] border-b border-cyan-500/25 cursor-pointer py-2 transition-colors hover:bg-[#09121f] select-none"
       title={isVi ? "Bấm để xem nhật ký cập nhật & tải về" : "Click to view changelog & download"}
     >
       {/* Edge Fade Gradients for smooth infinite sliding */}
-      <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-[#060b13] to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-[#060b13] to-transparent z-10 pointer-events-none" />
+      <div className="announcement-fade-left absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-[#060b13] to-transparent z-10 pointer-events-none" />
+      <div className="announcement-fade-right absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-[#060b13] to-transparent z-10 pointer-events-none" />
 
       {/* Infinite Seamless Running Marquee */}
       <div className="flex w-max animate-marquee group-hover:[animation-play-state:paused]">

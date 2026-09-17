@@ -1865,3 +1865,47 @@ html[data-theme="light"] .profile-contact-btn:hover {
   border-color: rgba(15, 23, 42, 0.2) !important;
   color: #0F172A !important;
 }
+
+/* Announcement Banner Light Mode Adaptation */
+html[data-theme="light"] .announcement-banner {
+  background-color: #F1F5F9 !important;
+  border-bottom: 1px solid rgba(2, 132, 199, 0.18) !important;
+}
+
+html[data-theme="light"] .announcement-banner:hover {
+  background-color: #E2E8F0 !important;
+}
+
+html[data-theme="light"] .announcement-fade-left {
+  background: linear-gradient(to right, #F1F5F9, transparent) !important;
+}
+
+html[data-theme="light"] .announcement-fade-right {
+  background: linear-gradient(to left, #F1F5F9, transparent) !important;
+}
+
+html[data-theme="light"] .announcement-badge {
+  color: #0284c7 !important;
+}
+
+html[data-theme="light"] .announcement-divider {
+  color: #94a3b8 !important;
+}
+
+html[data-theme="light"] .announcement-text {
+  color: #334155 !important;
+  font-weight: 500 !important;
+}
+
+html[data-theme="light"] .announcement-cta {
+  color: #0284c7 !important;
+  font-weight: 600 !important;
+}
+
+html[data-theme="light"] .announcement-banner:hover .announcement-cta {
+  color: #0369a1 !important;
+}
+
+html[data-theme="light"] .announcement-emdash {
+  color: #cbd5e1 !important;
+}

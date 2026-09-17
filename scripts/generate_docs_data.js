@@ -264,7 +264,6 @@ Tùy theo bài toán kỹ thuật cần giải quyết, bạn có thể triệu 
 | \`summon Vidus\` | **Vidus** (\`ARC-VIDUS-AUHD2Y\`) | Trưởng ban Kiến trúc Hệ thống, Clean Architecture, Bảo mật Zero-Trust. |
 | \`summon Zenith\` | **Zenith** (\`ALG-ZENITH-A1B2C3\`) | Kiểm toán Hiệu năng cao (Performance Audit), Profiling & Tối ưu Thuật toán. |
 | \`summon Luna\` | **Luna** (\`ENG-LUNA-4C9D2E\`) | Thiết kế Giao diện UI/UX, Micro-Animations, Dark Mode & Tailwind Design System. |
-| \`summon Hiếu\` | **Hiếu** (\`LEG-HIEU-8F4A2C\`) | Chief Legal Counsel, Pháp lý Hợp đồng, Khiếu nại hành chính & Giải quyết tranh chấp. |
 
 ---
 

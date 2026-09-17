@@ -50,18 +50,60 @@ Aevum OS cung cấp các gói cài đặt máy tính để bàn chính thức (D
 
 ## Các bước Cài đặt
 
-### Bước 1: Tải về Bản cài đặt Chính thức (Desktop Package)
-Tải bản cài đặt mới nhất của Aevum OS phù hợp với hệ điều hành của bạn:
-- **Windows**: [Tải về Aevum OS Desktop Installer (Aevum-OS-Setup-1.0.0-beta.1.exe)](/downloads/Aevum-OS-Setup-1.0.0-beta.1.exe)
-- **macOS**: [Tải về Gói Aevum OS cho macOS (.dmg / .zip)](/downloads/Aevum-OS-macOS.dmg)
+### Bước 1: Tải về Bản cài đặt Mới nhất (Desktop Package)
+Tải bản cài đặt chính thức của Aevum OS phù hợp với hệ điều hành của bạn trực tiếp tại [Trang Nhật ký Cập nhật (~/RELEASES)](/changelog) hoặc [GitHub Releases](https://github.com/hainguyen011/aevum-os-releases/releases/latest):
+- **Windows (x64 / ARM64)**: Tải tệp \`Aevum-OS-Setup-1.0.0-beta.0.exe\`
+- **macOS (Apple Silicon M-Series)**: Tải tệp \`Aevum-OS-1.0.0-beta.0-mac-arm64.dmg\` hoặc \`.zip\`
+- **macOS (Intel x64)**: Tải tệp \`Aevum-OS-1.0.0-beta.0-mac-x64.dmg\` hoặc \`.zip\`
 
 Bộ cài đặt chính thức tự động thiết lập:
-- Tạo shortcut ứng dụng trên Desktop và Start Menu.
+- Tạo shortcut ứng dụng trên Desktop và Start Menu / Launchpad.
 - Đăng ký giao thức liên kết hệ thống \`aevum://\`.
 - Đăng ký định dạng tệp lưu trữ bộ nhớ ngữ cảnh \`.aevum\`.
 - Tích hợp tính năng tự động kiểm tra và cập nhật phiên bản mới (Auto-Updater).
 
-### Bước 2: Cài đặt và Đăng ký Lệnh CLI Toàn cầu
+---
+
+## ⚠️ Lưu ý Quan trọng Trong Giai đoạn Thử nghiệm (Beta Preview)
+
+Hiện tại, Aevum OS đang trong giai đoạn phát hành thử nghiệm cộng đồng (**Public Beta**). Do phần mềm chưa tích hợp chứng chỉ ký số doanh nghiệp trả phí (EV Code Signing / Apple Notarization), hệ điều hành có thể hiển thị cảnh báo bảo vệ mặc định khi mở file cài đặt lần đầu. Ứng dụng an toàn 100% và không chứa mã độc.
+
+### 1. Trên Windows — Xử lý Màn hình Xanh SmartScreen (2 giây)
+
+Khi chạy file cài đặt \`.exe\`, nếu xuất hiện bảng cảnh báo màu xanh *"Windows protected your PC"* (\`Publisher: Unknown publisher\`):
+
+\`\`\`text
+┌────────────────────────────────────────────────────────┐
+│ Windows protected your PC                              │
+│ Microsoft Defender SmartScreen prevented an...         │
+│                                                        │
+│ [Bước 1] 👉 Bấm vào: "More info"                      │
+│                                                        │
+│ App: Aevum-OS-Setup-1.0.0-beta.0.exe                  │
+│ Publisher: Unknown publisher                           │
+│                                                        │
+│          [Bước 2] 👉 [ Run anyway ]   [ Don't run ]    │
+└────────────────────────────────────────────────────────┘
+\`\`\`
+
+1. **Bước 1**: Nhấp chuột vào dòng chữ gạch chân **"More info"** (hoặc *Thông tin khác*).
+2. **Bước 2**: Nút **"Run anyway"** (hoặc *Vẫn chạy*) sẽ xuất hiện ở góc dưới bên phải -> Bấm vào **"Run anyway"** để tiến hành cài đặt.
+
+---
+
+### 2. Trên macOS — Xử lý Cảnh báo Apple Gatekeeper
+
+Trên macOS, nếu hệ thống hiển thị thông báo *"App cannot be opened because Apple cannot check it for malicious software"*:
+
+- **Cách 1 (Nhanh nhất)**: Nhấn giữ phím **Control** (hoặc nhấp chuột phải) vào tệp ứng dụng \`Aevum OS\` -> Chọn **Open** trong menu -> Chọn tiếp **Open** ở hộp thoại xác nhận.
+- **Cách 2 (Qua Cài đặt Hệ thống)**:
+  1. Mở **System Settings** (Cài đặt hệ thống) -> chọn mục **Privacy & Security** (Quyền riêng tư & Bảo mật).
+  2. Cuộn xuống phần **Security**, bạn sẽ thấy thông báo về việc \`Aevum OS\` bị chặn.
+  3. Bấm vào nút **"Open Anyway"** (Vẫn mở) và nhập mật khẩu máy để xác nhận.
+
+---
+
+### Bước 2: Cài đặt và Đăng ký Lệnh CLI Toàn cầu (Tùy chọn)
 Nếu bạn muốn sử dụng lệnh \`aevum\` trực tiếp từ Terminal hoặc cấu hình cho các IDE khách:
 
 \`\`\`bash

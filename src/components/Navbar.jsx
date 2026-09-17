@@ -5,6 +5,7 @@ import unikornLogo from '../../assets/unikorn-logo.webp';
 import unikornLogoDark from '../../assets/unikorn-logo-dark.webp';
 import { translations } from '../data/translations';
 import { MembershipBadge } from './ui/MembershipBadge';
+import { AnnouncementBanner } from './AnnouncementBanner';
 
 export const Navbar = ({ 
   currentPage, 
@@ -143,6 +144,9 @@ export const Navbar = ({
   return (
     <div ref={featuresRef} className="w-full border-b border-white/10 bg-[#0B0B11]/90 backdrop-blur-md sticky top-0 z-40 flex flex-col transition-all duration-300">
       
+      {/* Top Accent Marquee Announcement Banner */}
+      <AnnouncementBanner onNavigate={onNavigate} activeLang={activeLang} />
+
       {/* Main Navbar Top Row */}
       <div className="w-full flex items-stretch justify-between pl-4 sm:pl-6 lg:pl-8 xl:pl-10 pr-0 h-16">
         {/* Left Cell: Logo + Main Navigation */}

@@ -19,7 +19,7 @@ export const translations = {
       badge: "I2FLABS VIỆT NAM • HỆ ĐIỀU HÀNH AGENT ĐỘC LẬP",
       title: "Hệ điều hành Agent & Bộ não ngoại vi",
       desc: "Aevum OS là Hệ điều hành độc lập & Bộ não Ngoại vi cho AI Agent — tích hợp lập kế hoạch DDD, biểu đồ bộ nhớ tự phục hồi và điều phối biệt đội Agent tự trị tách biệt khỏi mọi IDE.",
-      downloadBtn: "Tải xuống",
+      downloadBtn: "Tải xuống ngay",
       docsBtn: "Đọc tài liệu",
       startKernel: "KHỞI CHẠY NHÂN OS:",
       copyCmd: "Sao chép lệnh"
@@ -140,7 +140,7 @@ export const translations = {
       tag: "SẴN SÀNG TRIỂN KHAI",
       title: "Triển khai Aevum OS trên Hệ thống của bạn",
       desc: "Chạy `aevum --transport sse` để kết nối tức thì Cursor, Claude Desktop và Antigravity IDE với bộ nhớ ngữ cảnh thống nhất.",
-      downloadBtn: "Tải xuống",
+      downloadBtn: "Tải xuống ngay",
       docsBtn: "Đọc tài liệu"
     },
     footer: {
@@ -222,7 +222,7 @@ export const translations = {
       badge: "BY I2FLABS VIETNAM • STANDALONE AGENTIC OS",
       title: "Agentic Operating System & External Brain",
       desc: "Aevum OS is an independent workspace OS & External Brain — integrating DDD plans, self-healing memory graphs, and autonomous squad orchestration decoupled from traditional editors.",
-      downloadBtn: "Download",
+      downloadBtn: "Download Now",
       docsBtn: "Read Documentation",
       startKernel: "START KERNEL:",
       copyCmd: "Copy command"
@@ -343,7 +343,7 @@ export const translations = {
       tag: "READY FOR DEPLOYMENT",
       title: "Deploy Aevum OS on Your Infrastructure",
       desc: "Run `aevum --transport sse` to instantly connect Cursor, Claude Desktop, and Antigravity IDE to your unified context engine.",
-      downloadBtn: "Download",
+      downloadBtn: "Download Now",
       docsBtn: "Read Documentation"
     },
     footer: {

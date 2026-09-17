@@ -57,19 +57,19 @@ export const DesktopAuthSuccessModal = ({ isOpen, onClose, activeLang, user, use
   const tier = userProfile?.membership_tier || 'ENTERPRISE';
 
   return (
-    <div className="fixed inset-0 z-[99999] bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-      {/* Widened Modal Container without Box-Shadow */}
+    <div className="fixed inset-0 z-[99999] desktop-auth-modal-backdrop flex items-center justify-center p-4 animate-in fade-in duration-200">
+      {/* Modal Container */}
       <div 
-        className="relative w-full max-w-[560px] bg-[#121212] border border-white/10 rounded-2xl p-6 sm:p-8 flex flex-col gap-6 animate-in fade-in zoom-in-95 duration-200"
+        className="relative w-full max-w-[560px] desktop-auth-modal-container rounded-2xl p-6 sm:p-8 flex flex-col gap-6 animate-in zoom-in-95 duration-200 transition-colors"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Header Row with Close Button */}
         <div className="flex items-start justify-between gap-4">
           <div className="flex flex-col gap-1.5 pr-6">
-            <h3 className="text-2xl font-bold text-white tracking-tight leading-snug">
+            <h3 className="text-2xl font-bold desktop-auth-modal-title tracking-tight leading-snug transition-colors">
               {isVi ? 'Xác thực thành công với Aevum OS!' : 'Successfully Authenticated with Aevum OS!'}
             </h3>
-            <p className="text-sm text-slate-400 leading-relaxed">
+            <p className="text-sm desktop-auth-modal-desc leading-relaxed transition-colors">
               {isVi 
                 ? 'Phiên làm việc và quyền lợi gói thành viên đã được đồng bộ hóa an toàn về ứng dụng máy tính. Bạn có thể quay trở lại Aevum OS để tiếp tục làm việc.'
                 : 'Your session and membership tier have been securely synced to your desktop application. You can return to Aevum OS to continue.'}
@@ -79,7 +79,7 @@ export const DesktopAuthSuccessModal = ({ isOpen, onClose, activeLang, user, use
           {/* Close button */}
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white flex items-center justify-center transition-colors border border-white/5 flex-shrink-0"
+            className="w-8 h-8 rounded-lg desktop-auth-modal-close flex items-center justify-center transition-colors flex-shrink-0"
             aria-label="Close Modal"
           >
             <X size={16} />
@@ -87,9 +87,9 @@ export const DesktopAuthSuccessModal = ({ isOpen, onClose, activeLang, user, use
         </div>
 
         {/* User Profile Summary Card */}
-        <div className="bg-[#181818] border border-white/5 rounded-lg p-4 flex items-center justify-between gap-4">
+        <div className="desktop-auth-modal-card rounded-xl p-4 flex items-center justify-between gap-4 transition-colors">
           <div className="flex items-center gap-3.5 min-w-0">
-            <div className="w-11 h-11 rounded-lg bg-gradient-to-br from-cyan-600 via-indigo-600 to-purple-600 text-white font-semibold text-xs flex items-center justify-center flex-shrink-0 border border-white/10 overflow-hidden">
+            <div className="w-11 h-11 rounded-lg bg-gradient-to-br from-cyan-600 via-indigo-600 to-purple-600 font-semibold text-xs flex items-center justify-center flex-shrink-0 overflow-hidden desktop-auth-avatar shadow-sm">
               {user?.user_metadata?.avatar_url ? (
                 <img 
                   src={user.user_metadata.avatar_url} 
@@ -100,17 +100,17 @@ export const DesktopAuthSuccessModal = ({ isOpen, onClose, activeLang, user, use
                   }}
                 />
               ) : (
-                <span>{getInitials(displayName, displayEmail)}</span>
+                <span className="desktop-auth-initials font-bold">{getInitials(displayName, displayEmail)}</span>
               )}
             </div>
             <div className="flex flex-col min-w-0 gap-0.5">
-              <span className="text-sm font-semibold text-white truncate">{displayName}</span>
-              <span className="text-xs text-slate-400 font-mono truncate">{displayEmail}</span>
+              <span className="text-sm font-semibold desktop-auth-user-name truncate transition-colors">{displayName}</span>
+              <span className="text-xs font-mono desktop-auth-user-email truncate transition-colors">{displayEmail}</span>
             </div>
           </div>
 
           <div className="flex-shrink-0">
-            <span className="text-[11px] font-semibold px-3 py-1.5 rounded-md bg-amber-500/10 border border-amber-500/30 text-amber-400 whitespace-nowrap uppercase tracking-wider">
+            <span className="text-[11px] font-semibold px-3 py-1.5 rounded-md desktop-auth-tier-badge whitespace-nowrap uppercase tracking-wider transition-colors">
               {getTierDisplay(tier)}
             </span>
           </div>
@@ -121,7 +121,7 @@ export const DesktopAuthSuccessModal = ({ isOpen, onClose, activeLang, user, use
           <button
             type="button"
             onClick={onClose}
-            className="flex-1 py-2.5 px-5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white font-medium text-sm border border-white/10 transition-colors text-center"
+            className="flex-1 py-2.5 px-5 rounded-lg desktop-auth-btn-cancel font-medium text-sm transition-colors text-center"
           >
             {isVi ? 'Đóng' : 'Close'}
           </button>
@@ -129,7 +129,7 @@ export const DesktopAuthSuccessModal = ({ isOpen, onClose, activeLang, user, use
           <button
             type="button"
             onClick={handleLetsGo}
-            className="flex-[1.3] py-2.5 px-6 rounded-lg bg-gradient-to-r from-cyan-500 via-sky-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-semibold text-sm flex items-center justify-center gap-2 transition-colors"
+            className="flex-[1.3] py-2.5 px-6 rounded-lg desktop-auth-btn-action font-semibold text-sm flex items-center justify-center gap-2 transition-all text-center"
           >
             <span>Let's Go</span>
             <ArrowRight size={15} />
@@ -139,3 +139,5 @@ export const DesktopAuthSuccessModal = ({ isOpen, onClose, activeLang, user, use
     </div>
   );
 };
+
+export default DesktopAuthSuccessModal;

@@ -1041,6 +1041,184 @@ html[data-theme="light"] .footer-bottom-bar .text-white\/10 {
   color: rgba(15, 23, 42, 0.25) !important;
 }
 
+/* ==========================================================================
+   Desktop Authentication Success Modal (Dark & Light Theme)
+   ========================================================================== */
+
+/* --- Default / Dark Mode --- */
+.desktop-auth-modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.desktop-auth-modal-container {
+  background-color: #121217;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.desktop-auth-modal-title {
+  color: #FFFFFF;
+}
+
+.desktop-auth-modal-desc {
+  color: #94A3B8;
+}
+
+.desktop-auth-modal-close {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #94A3B8;
+}
+
+.desktop-auth-modal-close:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+}
+
+.desktop-auth-modal-card {
+  background-color: #18181F;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.desktop-auth-avatar {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #FFFFFF !important;
+}
+
+.desktop-auth-avatar .desktop-auth-initials,
+.desktop-auth-avatar span {
+  color: #FFFFFF !important;
+}
+
+.desktop-auth-user-name {
+  color: #FFFFFF;
+}
+
+.desktop-auth-user-email {
+  color: #94A3B8;
+}
+
+.desktop-auth-tier-badge {
+  background-color: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  color: #FBBF24;
+}
+
+.desktop-auth-btn-cancel {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #E2E8F0;
+}
+
+.desktop-auth-btn-cancel:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+}
+
+.desktop-auth-btn-action {
+  background: linear-gradient(135deg, #06b6d4, #0284c7, #2563eb);
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+}
+
+.desktop-auth-btn-action:hover {
+  background: linear-gradient(135deg, #22d3ee, #0284c7, #1d4ed8);
+  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.45);
+}
+
+.desktop-auth-btn-action span,
+.desktop-auth-btn-action svg {
+  color: #FFFFFF !important;
+}
+
+/* --- Light Mode Adaptations --- */
+html[data-theme="light"] .desktop-auth-modal-backdrop {
+  background-color: rgba(15, 23, 42, 0.45) !important;
+}
+
+html[data-theme="light"] .desktop-auth-modal-container {
+  background-color: #FFFFFF !important;
+  border: 1px solid rgba(15, 23, 42, 0.1) !important;
+  box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(15, 23, 42, 0.04) !important;
+}
+
+html[data-theme="light"] .desktop-auth-modal-title {
+  color: #0F172A !important;
+}
+
+html[data-theme="light"] .desktop-auth-modal-desc {
+  color: #475569 !important;
+}
+
+html[data-theme="light"] .desktop-auth-modal-close {
+  background-color: #F1F5F9 !important;
+  border: 1px solid #E2E8F0 !important;
+  color: #64748B !important;
+}
+
+html[data-theme="light"] .desktop-auth-modal-close:hover {
+  background-color: #E2E8F0 !important;
+  color: #0F172A !important;
+}
+
+html[data-theme="light"] .desktop-auth-modal-card {
+  background-color: #F8FAFC !important;
+  border: 1px solid #E2E8F0 !important;
+}
+
+html[data-theme="light"] .desktop-auth-avatar {
+  border: 1px solid rgba(15, 23, 42, 0.1) !important;
+}
+
+html[data-theme="light"] .desktop-auth-avatar .desktop-auth-initials,
+html[data-theme="light"] .desktop-auth-avatar span {
+  color: #FFFFFF !important;
+}
+
+html[data-theme="light"] .desktop-auth-user-name {
+  color: #0F172A !important;
+}
+
+html[data-theme="light"] .desktop-auth-user-email {
+  color: #64748B !important;
+}
+
+html[data-theme="light"] .desktop-auth-tier-badge {
+  background-color: #FEF3C7 !important;
+  border: 1px solid #FCD34D !important;
+  color: #B45309 !important;
+  font-weight: 700 !important;
+}
+
+html[data-theme="light"] .desktop-auth-btn-cancel {
+  background-color: #F1F5F9 !important;
+  border: 1px solid #E2E8F0 !important;
+  color: #334155 !important;
+}
+
+html[data-theme="light"] .desktop-auth-btn-cancel:hover {
+  background-color: #E2E8F0 !important;
+  color: #0F172A !important;
+}
+
+html[data-theme="light"] .desktop-auth-btn-action {
+  background: linear-gradient(135deg, #0284c7, #0ea5e9, #2563eb) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35) !important;
+}
+
+html[data-theme="light"] .desktop-auth-btn-action:hover {
+  background: linear-gradient(135deg, #0369a1, #0284c7, #1d4ed8) !important;
+  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.45) !important;
+}
+
+html[data-theme="light"] .desktop-auth-btn-action span,
+html[data-theme="light"] .desktop-auth-btn-action svg {
+  color: #FFFFFF !important;
+}
+
 /* Agent Showcase Card Gradient Overlay */
 .agent-card-gradient {
   background: linear-gradient(to top, #07080E 0%, rgba(7, 8, 14, 0.9) 65%, transparent 100%);

@@ -42,7 +42,7 @@ export const CtaBanner = ({ onNavigate, onOpenTrialModal, activeLang }) => {
 
           <div className="pt-2 flex flex-wrap items-center justify-center gap-4">
             <button 
-              onClick={onOpenTrialModal}
+              onClick={() => onNavigate('changelog')}
               className="btn-electron"
             >
               <span>{t.ctaBanner.downloadBtn}</span>

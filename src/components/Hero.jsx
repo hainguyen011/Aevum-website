@@ -54,7 +54,7 @@ export const Hero = ({ onNavigate, onOpenTrialModal, activeLang }) => {
           {/* Action Buttons */}
           <div className="flex flex-wrap items-center gap-4 pt-2">
             <button 
-              onClick={onOpenTrialModal}
+              onClick={() => onNavigate('changelog')}
               className="btn-electron"
             >
               {t.hero.downloadBtn}

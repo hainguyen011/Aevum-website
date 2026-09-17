@@ -92,30 +92,95 @@ export function Changelog({ activeLang, onNavigate }) {
 
   const getDownloadItems = (release) => {
     if (!release || !release.assets) return [];
+    const items = [];
+
+    // 1. Windows Installers (.exe)
     const exeAssets = release.assets.filter(a => a.name.endsWith('.exe'));
-    if (!exeAssets.length) return [];
+    const winArm = exeAssets.find(a => /arm64|aarch64/i.test(a.name));
+    const winX64 = exeAssets.find(a => !/arm64|aarch64/i.test(a.name));
 
-    // Prioritize assets containing "setup" in their names
-    const setupAssets = exeAssets.filter(a => a.name.toLowerCase().includes('setup'));
-    const targetAssets = setupAssets.length ? setupAssets : exeAssets;
-
-    const armAsset = targetAssets.find(a => a.name.toLowerCase().includes('arm'));
-    const x64Asset = targetAssets.find(a => !a.name.toLowerCase().includes('arm')) || targetAssets[0];
-
-    return [
-      {
-        id: 'x64',
+    if (winX64) {
+      items.push({
+        id: 'win-x64',
         label: 'Windows x64 (.exe)',
-        url: x64Asset.browser_download_url,
-        name: x64Asset.name
-      },
-      {
-        id: 'arm64',
+        url: winX64.browser_download_url,
+        name: winX64.name
+      });
+    }
+    if (winArm) {
+      items.push({
+        id: 'win-arm64',
         label: 'Windows ARM64 (.exe)',
-        url: armAsset ? armAsset.browser_download_url : x64Asset.browser_download_url,
-        name: armAsset ? armAsset.name : x64Asset.name
-      }
-    ];
+        url: winArm.browser_download_url,
+        name: winArm.name
+      });
+    }
+
+    // 2. macOS Installers (.dmg)
+    const dmgAssets = release.assets.filter(a => a.name.endsWith('.dmg'));
+    const macArmDmg = dmgAssets.find(a => /arm64|apple|m1|m2/i.test(a.name));
+    const macX64Dmg = dmgAssets.find(a => /x64|intel/i.test(a.name));
+    const macUniversalDmg = dmgAssets.find(a => !/arm64|x64/i.test(a.name));
+
+    if (macArmDmg) {
+      items.push({
+        id: 'mac-arm64-dmg',
+        label: 'macOS Apple Silicon (.dmg)',
+        url: macArmDmg.browser_download_url,
+        name: macArmDmg.name
+      });
+    }
+    if (macX64Dmg) {
+      items.push({
+        id: 'mac-x64-dmg',
+        label: 'macOS Intel (.dmg)',
+        url: macX64Dmg.browser_download_url,
+        name: macX64Dmg.name
+      });
+    }
+    if (!macArmDmg && !macX64Dmg && macUniversalDmg) {
+      items.push({
+        id: 'mac-dmg',
+        label: 'macOS (.dmg)',
+        url: macUniversalDmg.browser_download_url,
+        name: macUniversalDmg.name
+      });
+    }
+
+    // 3. macOS Portable Archives (.zip)
+    const zipAssets = release.assets.filter(a => a.name.endsWith('.zip') && !a.name.includes('.blockmap'));
+    const macArmZip = zipAssets.find(a => /mac/i.test(a.name) && /arm64|apple/i.test(a.name));
+    const macX64Zip = zipAssets.find(a => /mac/i.test(a.name) && /x64|intel/i.test(a.name));
+
+    if (macArmZip) {
+      items.push({
+        id: 'mac-arm64-zip',
+        label: 'macOS Apple Silicon (.zip)',
+        url: macArmZip.browser_download_url,
+        name: macArmZip.name
+      });
+    }
+    if (macX64Zip) {
+      items.push({
+        id: 'mac-x64-zip',
+        label: 'macOS Intel (.zip)',
+        url: macX64Zip.browser_download_url,
+        name: macX64Zip.name
+      });
+    }
+
+    // 4. Linux Installers (.AppImage / .deb)
+    const linuxAssets = release.assets.filter(a => a.name.endsWith('.AppImage') || a.name.endsWith('.deb'));
+    linuxAssets.forEach(l => {
+      items.push({
+        id: `linux-${l.name}`,
+        label: `Linux (${l.name.split('.').pop()})`,
+        url: l.browser_download_url,
+        name: l.name
+      });
+    });
+
+    return items;
   };
 
   const formatDate = (dateStr) => {

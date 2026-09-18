@@ -102,7 +102,7 @@ export const Profile = ({
 
   const mockApiKey = `ae_live_${user.id.replace(/-/g, '').slice(0, 24)}_sec`;
   const createdAt = user.created_at ? new Date(user.created_at).toLocaleDateString(isVi ? 'vi-VN' : 'en-US', {
-    year: 'numeric', month: 'short', day: 'numeric'
+    year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC'
   }) : '2026';
 
   return (
@@ -332,6 +332,15 @@ export const Profile = ({
                         style={{ width: isWaitlist ? '100%' : `${Math.min(100, Math.max(5, (trialDaysRemaining / 30) * 100))}%` }}
                       />
                     </div>
+
+                    {entitlements?.expiresAt && !isWaitlist && (
+                      <div className="flex items-center justify-between text-[11px] font-mono text-slate-400 pt-0.5">
+                        <span>{isVi ? 'Hạn chót quốc tế (UTC):' : 'Expiry Deadline (UTC):'}</span>
+                        <span className="text-sky-300 font-bold">
+                          {new Date(entitlements.expiresAt).toUTCString().replace('GMT', 'UTC')}
+                        </span>
+                      </div>
+                    )}
                     {isWaitlist && (
                       <div className="space-y-2 pt-0.5">
                         <p className="text-[11px] text-slate-400 leading-relaxed">

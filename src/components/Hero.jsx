@@ -20,7 +20,7 @@ export const Hero = ({ onNavigate, onOpenTrialModal, activeLang }) => {
   const title2 = titleParts[1] ? `& ${titleParts[1].trim()}` : '';
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[460px] border-subtle-b border-subtle-t bg-[#0B0B11]">
+    <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[460px] border-subtle-b bg-[#0B0B11]">
       
       {/* Left Cell: Text Content & High-Conversion Action Prompts */}
       <div 

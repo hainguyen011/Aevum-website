@@ -1,7 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 export const AnnouncementBanner = ({ onNavigate, activeLang }) => {
+  const [isScrolled, setIsScrolled] = useState(false);
   const isVi = activeLang === 'vi';
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY || document.documentElement.scrollTop || (window.lenis ? window.lenis.scroll : 0);
+      setIsScrolled(scrollY > 25);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    if (window.lenis && typeof window.lenis.on === 'function') {
+      window.lenis.on('scroll', handleScroll);
+    }
+
+    handleScroll();
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (window.lenis && typeof window.lenis.off === 'function') {
+        window.lenis.off('scroll', handleScroll);
+      }
+    };
+  }, []);
 
   const badgeText = 'AEVUM OS v1.0.0-BETA.0';
   const mainMessage = isVi
@@ -32,7 +54,7 @@ export const AnnouncementBanner = ({ onNavigate, activeLang }) => {
   return (
     <div
       role="button"
-      tabIndex={0}
+      tabIndex={isScrolled ? -1 : 0}
       onClick={() => onNavigate && onNavigate('changelog')}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -40,7 +62,11 @@ export const AnnouncementBanner = ({ onNavigate, activeLang }) => {
           onNavigate && onNavigate('changelog');
         }
       }}
-      className="announcement-banner group relative w-full overflow-hidden bg-[#060b13] border-b border-cyan-500/25 cursor-pointer py-2 transition-colors hover:bg-[#09121f] select-none"
+      className={`announcement-banner group relative w-full overflow-hidden bg-[#060b13] cursor-pointer select-none transition-all duration-300 ease-in-out hover:bg-[#09121f] ${
+        isScrolled
+          ? 'max-h-0 opacity-0 py-0 border-b-0 pointer-events-none'
+          : 'max-h-12 opacity-100 py-2 border-b border-cyan-500/25 pointer-events-auto'
+      }`}
       title={isVi ? "Bấm để xem nhật ký cập nhật & tải về" : "Click to view changelog & download"}
     >
       {/* Edge Fade Gradients for smooth infinite sliding */}

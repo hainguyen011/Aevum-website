@@ -602,7 +602,7 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
 
         {/* Page Content Wrapper (shrinks and pushes in 3D) */}
         <div className="app-content-wrapper">
-          <div className="py-0 sm:py-8 w-full relative">
+          <div className="py-3 sm:py-6 lg:py-8 w-full relative">
             {/* Neuro-Aesthetic Focal Spine Aura (Soft Golden-Ratio Central Illumination) */}
             <div className="pointer-events-none absolute inset-0 overflow-hidden -z-10 select-none">
               <div className="sticky top-1/4 w-[480px] sm:w-[720px] h-[480px] sm:h-[720px] mx-auto bg-gradient-to-b from-cyan-500/[0.03] via-sky-500/[0.015] to-transparent rounded-full blur-[160px] opacity-70" />
@@ -999,13 +999,13 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
         )}
       </Suspense>
 
-      {/* Floating Cyber HUD Utility Toolbar (Fixed to Viewport - Shifted Right of Content Edge) */}
-      <div className="fixed right-[calc(6vw-50px)] top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col items-center bg-transparent p-0 w-[42px] transition-all duration-300 group rounded-none">
+      {/* Floating Cyber HUD Utility Toolbar (Fixed to Viewport Right) */}
+      <div className="fixed right-2 sm:right-3 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col items-center bg-[#07080E]/90 backdrop-blur-md border border-white/10 p-0.5 w-[38px] transition-all duration-300 group rounded-md shadow-2xl">
 
         {/* Language Switcher Toggle (Placed above Eye Care Toggle) */}
         <button
           onClick={() => handleLanguageChange(activeLang === 'vi' ? 'en' : 'vi')}
-          className="utility-bar-btn flex items-center justify-center w-[42px] h-[42px] transition-all duration-200 cursor-pointer rounded-none border-0 select-none text-slate-300 hover:text-cyan-400 font-mono"
+          className="utility-bar-btn flex items-center justify-center w-[34px] h-[34px] transition-all duration-200 cursor-pointer rounded select-none text-slate-300 hover:text-cyan-400 font-mono"
           title={activeLang === 'vi' ? "Chuyển sang Tiếng Anh (EN)" : "Switch to Vietnamese (VI)"}
           aria-label="Toggle Language"
         >
@@ -1016,20 +1016,19 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
         <button
           onClick={() => setIsEyeCare(prev => !prev)}
           aria-label="Toggle Eye Care Mode"
-          className={`utility-bar-btn flex items-center justify-center w-[42px] h-[42px] transition-all duration-200 cursor-pointer rounded-none border-0 select-none ${isEyeCare
+          className={`utility-bar-btn flex items-center justify-center w-[34px] h-[34px] transition-all duration-200 cursor-pointer rounded select-none ${isEyeCare
             ? '!bg-amber-500/10 !text-amber-500 hover:!bg-amber-500/20'
             : ''
             }`}
           title={activeLang === 'vi' ? "Bật/Tắt bảo vệ mắt" : "Toggle Eye Care"}
         >
-          {isEyeCare ? <ScanEye size={18} className="text-amber-400" /> : <Eye size={18} />}
+          {isEyeCare ? <ScanEye size={17} className="text-amber-400" /> : <Eye size={17} />}
         </button>
-
 
         {/* Theme Toggle */}
         <button
           onClick={(e) => handleToggleTheme(e)}
-          className="utility-bar-btn flex items-center justify-center w-[42px] h-[42px] border-0 transition-all duration-200 cursor-pointer rounded-none active:scale-[0.92] select-none"
+          className="utility-bar-btn flex items-center justify-center w-[34px] h-[34px] transition-all duration-200 cursor-pointer rounded active:scale-[0.92] select-none"
           title={
             activeLang === 'vi'
               ? (theme === 'dark' ? "Chuyển sang Chế độ Sáng" : "Chuyển sang Chế độ Tối")
@@ -1038,8 +1037,8 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
           aria-label="Toggle Theme Mode"
         >
           <div className="theme-icon-wrapper">
-            <Sun size={18} className="theme-icon theme-icon-sun" />
-            <Atom size={18} className="theme-icon theme-icon-electron" />
+            <Sun size={17} className="theme-icon theme-icon-sun" />
+            <Atom size={17} className="theme-icon theme-icon-electron" />
           </div>
         </button>
       </div>

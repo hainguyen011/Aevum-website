@@ -605,6 +605,11 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
           <div className="py-0 sm:py-8 w-full">
             {/* Monolithic Seamless Grid Container Frame */}
             <div className="monolithic-frame">
+              {/* Neuro-Aesthetic Focal Spine Aura (Soft Golden-Ratio Central Illumination) */}
+              <div className="pointer-events-none absolute inset-0 overflow-hidden -z-10 select-none">
+                <div className="sticky top-1/4 w-[480px] sm:w-[720px] h-[480px] sm:h-[720px] mx-auto bg-gradient-to-b from-cyan-500/[0.03] via-sky-500/[0.015] to-transparent rounded-full blur-[160px] opacity-70" />
+              </div>
+
               {/* Top Navbar Row */}
               <Navbar
                 currentPage={currentPage}

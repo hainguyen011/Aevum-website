@@ -27,7 +27,7 @@ export const FoundationGrid = ({ activeLang }) => {
     <div id="architecture" className="border-subtle-b bg-[#0B0B11]">
       
       {/* Section Title */}
-      <div className="p-8 sm:p-12 text-center border-subtle-b bg-[#0B0B11]">
+      <div className="section-header-optical text-center border-subtle-b bg-[#0B0B11]">
         <span className="text-[11px] font-mono text-cyan-400 font-semibold tracking-widest uppercase">
           {t.foundationGrid.tag}
         </span>

@@ -100,7 +100,7 @@ export const Testimonials = ({ activeLang }) => {
     <div id="testimonials" className="border-subtle-b bg-[#0B0B11]">
 
       {/* Header & Metrics */}
-      <div data-reveal className="p-8 sm:p-12 border-subtle-b border-scan">
+      <div data-reveal className="section-header-optical border-subtle-b border-scan">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
           <div className="lg:col-span-6 space-y-2">
             <div className="text-[11px] font-mono text-cyan-400 font-semibold tracking-widest uppercase">

@@ -154,7 +154,7 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
     <div id="agents" className="border-subtle-b bg-[#0B0B11]">
 
       {/* Section Header */}
-      <div className="p-8 sm:p-12 text-center border-subtle-b bg-[#0B0B11] border-scan">
+      <div className="section-header-optical text-center border-subtle-b bg-[#0B0B11] border-scan">
         <span className="text-[11px] font-mono text-cyan-400 font-semibold tracking-widest uppercase">
           {isVi ? 'BIỆT ĐỘI AGENT MẶC ĐỊNH' : 'DEFAULT SQUAD PERSONAS'}
         </span>

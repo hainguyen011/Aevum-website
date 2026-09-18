@@ -142,7 +142,11 @@ export const Navbar = ({
   };
 
   return (
-    <div ref={featuresRef} className="w-full border-subtle-b bg-[#0B0B11]/90 backdrop-blur-md sticky top-0 z-40 flex flex-col transition-all duration-300">
+    <div 
+      ref={featuresRef} 
+      className="w-full border-subtle-b bg-[#0B0B11]/90 backdrop-blur-md !sticky top-0 z-40 flex flex-col transition-all duration-300"
+      style={{ position: 'sticky', top: 0, zIndex: 40 }}
+    >
       
       {/* Top Accent Marquee Announcement Banner */}
       <AnnouncementBanner onNavigate={onNavigate} activeLang={activeLang} />

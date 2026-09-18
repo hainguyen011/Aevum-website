@@ -326,27 +326,6 @@ h1, h2, h3, .font-display {
 
 .border-subtle-b {
   border-bottom: 1px solid var(--border-faint);
-  position: relative;
-}
-
-/* Optical Faint Gradient Accent across Section Dividers (Golden Ratio 14.6% - 85.4%) */
-.border-subtle-b::after {
-  content: '';
-  position: absolute;
-  bottom: -1px;
-  left: 14.6%;
-  right: 14.6%;
-  height: 1px;
-  background: linear-gradient(
-    90deg, 
-    transparent 0%, 
-    rgba(255, 255, 255, 0.03) 25%, 
-    rgba(6, 182, 212, 0.14) 50%, 
-    rgba(255, 255, 255, 0.03) 75%, 
-    transparent 100%
-  );
-  pointer-events: none;
-  z-index: 1;
 }
 
 .border-subtle-t {
@@ -391,7 +370,6 @@ h1, h2, h3, .font-display {
   border: 1px solid var(--border-faint);
   border-radius: 0;
   box-shadow: 0 0 100px -25px rgba(6, 182, 212, 0.04), 0 24px 48px -18px rgba(0, 0, 0, 0.55) !important;
-  position: relative;
 }
 
 @media (max-width: 768px) {

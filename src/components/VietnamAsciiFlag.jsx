@@ -1,42 +1,29 @@
-import React, { useRef, useEffect, useState, useMemo } from 'react';
-import { Sparkles, Wind, Eye, RefreshCw, Layers } from 'lucide-react';
+import React, { useRef, useEffect } from 'react';
 
 /**
- * VietnamAsciiFlag - Hiệu ứng Lá Cờ Việt Nam 3D bằng Ký tự ASCII & Typography Wireframe
- * Lấy cảm hứng từ Aevum ASCII Ribbon Typography với hiệu ứng cờ bay phấp phới chân thực,
- * ánh sáng tương phản 3D và các chế độ hiển thị linh hoạt.
+ * VietnamAsciiFlag - Hiệu ứng Lá cờ Việt Nam 3D bằng Ký tự ASCII Trắng Tinh Khiết & Trong suốt
+ * Phong cách Typography Ribbon Wireframe nghệ thuật, tối giản tuyệt đối, không UI rườm rà.
  */
 export const VietnamAsciiFlag = ({ 
   className = '', 
-  height = 480,
-  interactive = true,
-  defaultTheme = 'national' // 'national' | 'wireframe' | 'cyber'
+  height = 460,
+  interactive = true 
 }) => {
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
-  
-  const [theme, setTheme] = useState(defaultTheme); // 'national' | 'wireframe' | 'cyber'
-  const [windIntensity, setWindIntensity] = useState(1.0); // 0.5: gentle, 1.0: normal, 1.8: storm
-  const [mousePos, setMousePos] = useState({ x: -1000, y: -1000, radius: 80, force: 0 });
-  const [fps, setFps] = useState(60);
-
-  // Thư viện ký tự mật độ ánh sáng (Darkest -> Brightest)
-  const CHAR_RAMP = ' .:-=+*#%@';
-  const STAR_CHARS = '★*#%@+';
+  const mouseRef = useRef({ x: -1000, y: -1000, force: 0 });
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext('2d', { alpha: false });
+    const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
     let animationFrameId;
     let time = 0;
     let lastTime = performance.now();
-    let frameCount = 0;
-    let lastFpsUpdate = performance.now();
 
-    // Thiết lập kích thước Canvas dựa theo container
+    // Đồng bộ kích thước canvas với màn hình và DPR
     const resizeCanvas = () => {
       const container = containerRef.current;
       if (!container) return;
@@ -47,15 +34,19 @@ export const VietnamAsciiFlag = ({
       canvas.height = height * dpr;
       canvas.style.width = `${rect.width}px`;
       canvas.style.height = `${height}px`;
-      ctx.scale(dpr, dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
 
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
+    // Ký tự mật độ ánh sáng phong cách nghệ thuật trắng tinh khiết
+    const DENSITY_RAMP = ' .:-=+*#%@';
+    const STAR_DENSE_CHARS = '★*#%@+';
+
     // Thuật toán kiểm tra điểm có nằm trong Ngôi Sao 5 Cánh hay không
     const isPointInStar = (x, y, cx, cy, R) => {
-      const r = R * 0.381966; // Tỷ lệ bán kính trong chuẩn của sao vàng
+      const r = R * 0.381966; // Tỷ lệ chuẩn bán kính trong của sao vàng
       const points = [];
       for (let i = 0; i < 10; i++) {
         const angle = -Math.PI / 2 + (i * Math.PI) / 5;
@@ -76,174 +67,164 @@ export const VietnamAsciiFlag = ({
       return inside;
     };
 
-    // Vòng lặp render hiệu ứng
-    const render = (now) => {
-      const delta = (now - lastTime) / 1000;
-      lastTime = now;
-      time += delta * windIntensity;
-
-      // Tính toán FPS thực tế
-      frameCount++;
-      if (now - lastFpsUpdate >= 1000) {
-        setFps(Math.round((frameCount * 1000) / (now - lastFpsUpdate)));
-        frameCount = 0;
-        lastFpsUpdate = now;
+    // Kiểm tra điểm có gần viền cạnh ngôi sao để vẽ đường viền sắc nét
+    const isNearStarEdge = (x, y, cx, cy, R) => {
+      const r = R * 0.381966;
+      const points = [];
+      for (let i = 0; i < 10; i++) {
+        const angle = -Math.PI / 2 + (i * Math.PI) / 5;
+        const radius = i % 2 === 0 ? R : r;
+        points.push({
+          x: cx + radius * Math.cos(angle),
+          y: cy + radius * Math.sin(angle)
+        });
       }
+
+      for (let i = 0, j = points.length - 1; i < points.length; j = i++) {
+        const p1 = points[i];
+        const p2 = points[j];
+        const l2 = (p2.x - p1.x) ** 2 + (p2.y - p1.y) ** 2;
+        if (l2 === 0) continue;
+        const t = Math.max(0, Math.min(1, ((x - p1.x) * (p2.x - p1.x) + (y - p1.y) * (p2.y - p1.y)) / l2));
+        const projX = p1.x + t * (p2.x - p1.x);
+        const projY = p1.y + t * (p2.y - p1.y);
+        const dist = Math.hypot(x - projX, y - projY);
+        if (dist <= 0.85) return true;
+      }
+      return false;
+    };
+
+    // Vòng lặp render chính
+    const render = (now) => {
+      const delta = Math.min((now - lastTime) / 1000, 0.1);
+      lastTime = now;
+      time += delta * 1.1;
 
       const rect = containerRef.current ? containerRef.current.getBoundingClientRect() : { width: 800, height };
       const w = rect.width;
       const h = height;
 
-      // Xóa và đổ nền tối sâu chuẩn Cyberpunk
-      ctx.fillStyle = '#08080C';
-      ctx.fillRect(0, 0, w, h);
+      // Xóa canvas hoàn toàn trong suốt (Transparent background)
+      ctx.clearRect(0, 0, w, h);
 
-      // Kích thước ô lưới ký tự ASCII
-      const cellW = 8.5;
-      const cellH = 13.5;
-      const cols = Math.floor(w / cellW);
-      const rows = Math.floor(h / cellH);
+      // Độ phân giải ma trận ký tự mật độ cao, sắc nét
+      const cellW = 7.0;
+      const cellH = 11.5;
 
-      // Tỉ lệ lá cờ: Căn giữa trong canvas
-      const flagRatio = 3 / 2; // Tỉ lệ chuẩn 3:2 của Quốc kỳ
-      let flagWidth = w * 0.88;
+      // Kích thước chuẩn tỉ lệ lá cờ 3:2
+      const flagRatio = 3 / 2;
+      let flagWidth = w * 0.82;
       let flagHeight = flagWidth / flagRatio;
-      if (flagHeight > h * 0.88) {
-        flagHeight = h * 0.88;
+      if (flagHeight > h * 0.82) {
+        flagHeight = h * 0.82;
         flagWidth = flagHeight * flagRatio;
       }
 
-      const startX = (w - flagWidth) / 2;
-      const startY = (h - flagHeight) / 2;
       const flagCols = Math.floor(flagWidth / cellW);
       const flagRows = Math.floor(flagHeight / cellH);
+      const startX = (w - flagCols * cellW) / 2;
+      const startY = (h - flagRows * cellH) / 2;
 
-      const startCol = Math.floor(startX / cellW);
-      const startRow = Math.floor(startY / cellH);
-
-      // Tâm và bán kính sao vàng
+      // Tâm và bán kính sao 5 cánh
       const starCx = flagCols / 2;
       const starCy = flagRows / 2;
       const starRadius = Math.min(flagCols, flagRows) * 0.28;
 
-      ctx.font = 'bold 11px "JetBrains Mono", "Courier New", monospace';
+      ctx.font = '10px "JetBrains Mono", "SF Mono", "Courier New", monospace';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
 
-      // Vẽ từng ký tự trên mạng lưới cờ 3D
+      // Vẽ lưới ký tự 3D lượn sóng
       for (let r = 0; r < flagRows; r++) {
         for (let c = 0; c < flagCols; c++) {
-          const u = c / flagCols; // 0 -> 1 theo chiều ngang
-          const v = r / flagRows; // 0 -> 1 theo chiều dọc
+          const u = c / flagCols; // Trục ngang 0 -> 1
+          const v = r / flagRows; // Trục dọc 0 -> 1
 
-          // 1. Phương trình mô phỏng sóng lượn 3D của lá vải
-          // Gió thổi từ cột cờ (trái u=0) ra đuôi cờ (phải u=1)
-          const waveAmp = (u * 14 + 4) * windIntensity;
-          const wave1 = Math.sin(u * 7.5 - time * 4.2 + v * 2.5) * waveAmp;
-          const wave2 = Math.cos(u * 12.0 - time * 5.8 + v * 4.0) * (waveAmp * 0.35);
-          const wave3 = Math.sin(v * 6.0 - time * 2.5) * 3;
+          // 1. Sóng vải lượn 3D tự nhiên, mượt mà
+          const waveAmp = u * 16 + 5;
+          const wave1 = Math.sin(u * 6.8 - time * 3.8 + v * 2.2) * waveAmp;
+          const wave2 = Math.cos(u * 11.2 - time * 5.2 + v * 3.6) * (waveAmp * 0.32);
+          const wave3 = Math.sin(v * 5.5 - time * 2.0) * 4;
           
           let z = wave1 + wave2 + wave3;
 
-          // 2. Tương tác chuột làm xao động mặt cờ (Mouse Wind Wave)
-          const px = (startCol + c) * cellW;
-          const py = (startRow + r) * cellH;
-          if (mousePos.force > 0) {
-            const distToMouse = Math.hypot(px - mousePos.x, py - mousePos.y);
-            if (distToMouse < mousePos.radius) {
-              const mousePerturbation = Math.cos((distToMouse / mousePos.radius) * Math.PI) * mousePos.force * 18;
+          // 2. Tương tác gợn sóng từ chuột
+          const px = startX + c * cellW;
+          const py = startY + r * cellH;
+          if (mouseRef.current.force > 0) {
+            const distToMouse = Math.hypot(px - mouseRef.current.x, py - mouseRef.current.y);
+            if (distToMouse < 100) {
+              const mousePerturbation = Math.cos((distToMouse / 100) * Math.PI) * mouseRef.current.force * 16;
               z += mousePerturbation;
             }
           }
 
-          // 3. Tính góc pháp tuyến (Normal Vector) để đánh bóng bề mặt sáng tối
-          // Đạo hàm theo chiều sóng gió để tính cường độ ánh sáng chiếu tới
-          const dz_du = Math.cos(u * 7.5 - time * 4.2 + v * 2.5) * 7.5 * waveAmp;
-          const normalX = -dz_du * 0.04;
+          // 3. Đánh bóng ánh sáng (Lighting normal)
+          const dz_du = Math.cos(u * 6.8 - time * 3.8 + v * 2.2) * 6.8 * waveAmp;
+          const normalX = -dz_du * 0.035;
           const normalY = -0.3;
           const normalZ = 1.0;
           
-          // Hướng nguồn sáng chính (Top-Left Light Source)
-          const lightX = 0.5;
+          // Hướng nguồn sáng chính chiếu góc trên
+          const lightX = 0.55;
           const lightY = -0.7;
-          const lightZ = 0.6;
+          const lightZ = 0.65;
           const dot = (normalX * lightX + normalY * lightY + normalZ * lightZ) / 
                       Math.sqrt(normalX * normalX + normalY * normalY + normalZ * normalZ);
           
-          // Cường độ ánh sáng từ 0.15 đến 1.0
-          const intensity = Math.max(0.15, Math.min(1.0, 0.55 + dot * 0.45));
+          const intensity = Math.max(0.12, Math.min(1.0, 0.52 + dot * 0.48));
 
-          // 4. Phân loại vùng: Ngôi sao vàng hay Nền cờ đỏ
+          // 4. Kiểm tra phân vùng Ngôi Sao & Cạnh Viền
           const inStar = isPointInStar(c, r, starCx, starCy, starRadius);
-
-          // 5. Chọn ký tự theo mật độ ánh sáng
-          let charIndex = Math.floor(intensity * (CHAR_RAMP.length - 1));
-          let char = CHAR_RAMP[charIndex];
-
-          // Tạo viền sắc nét vi mô kiểu ASCII Ribbon (Edge contours)
+          const nearStarEdge = isNearStarEdge(c, r, starCx, starCy, starRadius);
           const isFlagBorder = (c === 0 || c === flagCols - 1 || r === 0 || r === flagRows - 1);
+
+          // 5. Lựa chọn ký tự theo phong cách Ribbon Wireframe
+          let char = '';
+          let alpha = 0.2 + intensity * 0.8;
+
           if (isFlagBorder) {
-            if (r === 0 || r === flagRows - 1) char = '=';
-            else if (c === 0 || c === flagCols - 1) char = '|';
-          }
-
-          // 6. Phối màu theo chủ đề được chọn
-          let color = '';
-          let glowColor = '';
-
-          if (theme === 'national') {
-            if (inStar) {
-              // Ngôi sao vàng năm cánh (Gold/Yellow gradient rực rỡ)
-              const starBrightness = Math.min(255, Math.floor(200 + intensity * 55));
-              color = `rgb(${starBrightness}, ${Math.floor(starBrightness * 0.82)}, 20)`;
-              char = STAR_CHARS[charIndex % STAR_CHARS.length];
-              glowColor = 'rgba(255, 215, 0, 0.4)';
+            // Viền ngoài cờ nét thanh tú
+            if (r === 0 || r === flagRows - 1) char = '-';
+            else char = '|';
+            alpha = 0.85;
+          } else if (nearStarEdge) {
+            // Viền cạnh ngôi sao sắc nét
+            char = '*';
+            alpha = 1.0;
+          } else if (inStar) {
+            // Thân ngôi sao vàng nổi bật với mật độ cao
+            const sIdx = Math.floor(intensity * (STAR_DENSE_CHARS.length - 1));
+            char = STAR_DENSE_CHARS[sIdx];
+            alpha = 0.95 + intensity * 0.05;
+          } else {
+            // Nền lá cờ dệt bằng các đường contour wireframe tinh tế (giống logo chữ A)
+            if (r % 2 === 0) {
+              const cIdx = Math.floor(intensity * (DENSITY_RAMP.length - 1));
+              char = DENSITY_RAMP[cIdx];
             } else {
-              // Nền cờ đỏ rực rỡ (Crimson Red shading)
-              const redVal = Math.min(255, Math.floor(140 + intensity * 115));
-              const greenVal = Math.floor(intensity * 35);
-              const blueVal = Math.floor(intensity * 35);
-              color = `rgb(${redVal}, ${greenVal}, ${blueVal})`;
-              glowColor = 'rgba(218, 37, 29, 0.15)';
-            }
-          } else if (theme === 'wireframe') {
-            // Phong cách đơn sắc giống nguyên bản logo Aevum chữ A
-            const vVal = Math.min(255, Math.floor(intensity * 255));
-            color = inStar ? `rgb(255, 255, 255)` : `rgb(${vVal}, ${vVal}, ${vVal})`;
-            if (inStar) char = '*';
-          } else if (theme === 'cyber') {
-            // Phong cách Cyberpunk Neon (Cyan & Amber Gold)
-            if (inStar) {
-              color = `rgb(255, 200, 50)`;
-              char = '★';
-            } else {
-              const cVal = Math.min(255, Math.floor(60 + intensity * 195));
-              color = `rgb(20, ${cVal}, ${Math.floor(cVal * 0.9)})`;
+              // Hàng xen kẽ dạng lưới wireframe thanh lịch
+              char = intensity > 0.65 ? ':' : intensity > 0.35 ? '.' : ' ';
             }
           }
 
-          // Tọa độ vẽ sau khi chiếu độ sâu 3D
-          const drawX = px + z * 0.25;
-          const drawY = py + z * 0.45;
+          // 6. Màu sắc: Trắng tinh khiết với độ trong suốt (White Monochrome Wireframe)
+          if (char !== ' ') {
+            const drawX = px + z * 0.28;
+            const drawY = py + z * 0.42;
 
-          ctx.fillStyle = color;
-          ctx.fillText(char, drawX, drawY);
+            if (inStar) {
+              // Ngôi sao trắng sáng rực rỡ (Pure Bright White Highlight)
+              ctx.fillStyle = `rgba(255, 255, 255, ${alpha.toFixed(2)})`;
+            } else {
+              // Nền vải cờ trắng xám thanh lịch có chiều sâu
+              ctx.fillStyle = `rgba(240, 243, 246, ${(alpha * 0.72).toFixed(2)})`;
+            }
+
+            ctx.fillText(char, drawX, drawY);
+          }
         }
       }
-
-      // Vẽ hiệu ứng cột cờ công nghệ bên trái (Flagpole Mast)
-      const poleX = startX - 8;
-      const poleYStart = startY - 15;
-      const poleYEnd = startY + flagHeight + 35;
-      
-      ctx.fillStyle = '#475569';
-      ctx.fillRect(poleX, poleYStart, 3.5, poleYEnd - poleYStart);
-      
-      // Đỉnh cột cờ mạ vàng phát sáng
-      ctx.fillStyle = '#EAB308';
-      ctx.beginPath();
-      ctx.arc(poleX + 1.75, poleYStart, 5, 0, Math.PI * 2);
-      ctx.fill();
 
       animationFrameId = requestAnimationFrame(render);
     };
@@ -254,111 +235,35 @@ export const VietnamAsciiFlag = ({
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('resize', resizeCanvas);
     };
-  }, [theme, windIntensity, mousePos, height]);
+  }, [height]);
 
-  // Xử lý tương tác rê chuột tạo sóng gió
+  // Tương tác chuột mượt mà không độ trễ
   const handleMouseMove = (e) => {
     if (!interactive || !containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
-    setMousePos({
+    mouseRef.current = {
       x: e.clientX - rect.left,
       y: e.clientY - rect.top,
-      radius: 90,
       force: 1.0
-    });
+    };
   };
 
   const handleMouseLeave = () => {
-    setMousePos(prev => ({ ...prev, force: 0 }));
+    mouseRef.current.force = 0;
   };
 
   return (
     <div 
       ref={containerRef}
-      className={`vietnam-ascii-flag-container relative w-full overflow-hidden rounded-xl border border-white/10 bg-[#08080C] select-none ${className}`}
+      className={`vietnam-ascii-flag-container relative w-full overflow-hidden select-none bg-transparent ${className}`}
       style={{ height: `${height}px` }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Canvas vẽ các ký tự ASCII 3D */}
       <canvas 
         ref={canvasRef} 
-        className="w-full h-full block cursor-crosshair"
+        className="w-full h-full block bg-transparent cursor-grab active:cursor-grabbing"
       />
-
-      {/* Floating HUD Badges & Metadata */}
-      <div className="absolute top-4 left-4 backdrop-blur-md bg-black/70 border border-white/15 px-3.5 py-1.5 rounded-lg flex items-center gap-2.5 text-xs font-mono text-slate-200 shadow-xl pointer-events-none">
-        <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping" />
-        <span className="font-bold text-white tracking-wider uppercase">VIETNAM SOVEREIGN AI CORE</span>
-        <span className="hidden sm:inline text-slate-400">• ASCII WIREFRAME FLAG</span>
-      </div>
-
-      <div className="absolute bottom-4 left-4 backdrop-blur-md bg-black/70 border border-white/15 px-3 py-1 rounded-md hidden sm:flex items-center gap-2 text-[11px] font-mono text-slate-400 pointer-events-none">
-        <span className="text-emerald-400 font-bold">{fps} FPS</span>
-        <span>•</span>
-        <span>60 Hz Fluid Matrix</span>
-      </div>
-
-      {/* Interactive Controls Toolbar (Top Right) */}
-      <div className="absolute top-4 right-4 flex items-center gap-2">
-        
-        {/* Theme Switcher */}
-        <div className="backdrop-blur-md bg-black/75 border border-white/15 p-1 rounded-lg flex items-center gap-1 shadow-lg">
-          <button
-            onClick={() => setTheme('national')}
-            className={`px-2.5 py-1 rounded text-[10px] font-mono font-bold transition-all cursor-pointer ${
-              theme === 'national' 
-                ? 'bg-red-600/80 text-white shadow-md shadow-red-500/30' 
-                : 'text-slate-400 hover:text-white bg-transparent'
-            }`}
-            title="Nguyên bản Quốc kỳ (Đỏ & Vàng)"
-          >
-            🇻🇳 Đỏ Vàng
-          </button>
-
-          <button
-            onClick={() => setTheme('wireframe')}
-            className={`px-2.5 py-1 rounded text-[10px] font-mono font-bold transition-all cursor-pointer ${
-              theme === 'wireframe' 
-                ? 'bg-white/20 text-white shadow-md' 
-                : 'text-slate-400 hover:text-white bg-transparent'
-            }`}
-            title="Đơn sắc Aevum Ribbon ASCII"
-          >
-            Chữ A ASCII
-          </button>
-
-          <button
-            onClick={() => setTheme('cyber')}
-            className={`px-2.5 py-1 rounded text-[10px] font-mono font-bold transition-all cursor-pointer ${
-              theme === 'cyber' 
-                ? 'bg-cyan-500/30 text-cyan-300 border border-cyan-500/40' 
-                : 'text-slate-400 hover:text-white bg-transparent'
-            }`}
-            title="Cyberpunk Matrix Neon"
-          >
-            Cyber Matrix
-          </button>
-        </div>
-
-        {/* Wind Breeze Controller */}
-        <button
-          onClick={() => setWindIntensity(prev => prev === 1.0 ? 1.8 : prev === 1.8 ? 0.5 : 1.0)}
-          className="backdrop-blur-md bg-black/75 border border-white/15 hover:border-white/30 text-slate-300 hover:text-white p-2 rounded-lg transition-all cursor-pointer shadow-lg flex items-center gap-1.5 text-xs font-mono"
-          title="Chỉnh tốc độ gió phấp phới"
-        >
-          <Wind size={13} className={windIntensity > 1.2 ? 'text-cyan-400 animate-pulse' : 'text-slate-400'} />
-          <span className="hidden md:inline text-[10px]">
-            {windIntensity === 1.8 ? 'Gió lộng' : windIntensity === 0.5 ? 'Gió nhẹ' : 'Gió chuẩn'}
-          </span>
-        </button>
-      </div>
-
-      {/* Floating Bottom Right Watermark */}
-      <div className="absolute bottom-4 right-4 backdrop-blur-md bg-black/70 border border-white/15 px-3 py-1.5 rounded-lg flex items-center gap-1.5 text-[11px] font-mono text-cyan-300 shadow-xl pointer-events-none">
-        <Sparkles size={12} className="text-yellow-400" />
-        <span className="tracking-wide">I2FLABS SOVEREIGN PRIDE</span>
-      </div>
     </div>
   );
 };

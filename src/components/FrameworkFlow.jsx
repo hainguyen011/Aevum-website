@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
-import VietnamInfraImg from "../../assets/aevum_vietnam_ai_infra.jpg";
+import React from 'react';
 import { VietnamAsciiFlag } from './VietnamAsciiFlag';
 import { translations } from '../data/translations';
-import { ShieldCheck, Cpu, Globe, Sparkles } from 'lucide-react';
+import { ShieldCheck, Cpu, Globe } from 'lucide-react';
 
 export const FrameworkFlow = ({ activeLang }) => {
-  const [viewMode, setViewMode] = useState('ascii'); // 'ascii' | 'mesh'
   const t = translations[activeLang] || translations.en;
   const isVi = activeLang === 'vi';
 
@@ -37,65 +35,15 @@ export const FrameworkFlow = ({ activeLang }) => {
         </p>
       </div>
 
-      {/* High-Tech Vietnam AI Infrastructure & 3D ASCII Sovereign Flag Container */}
-      <div className="relative flex items-center justify-center bg-transparent py-8 sm:py-12 px-4 sm:px-8 overflow-hidden">
+      {/* High-Tech Vietnam AI Sovereign 3D ASCII Flag Display */}
+      <div className="relative flex items-center justify-center bg-transparent py-4 sm:py-8 px-4 sm:px-8 overflow-hidden">
         {/* Subtle glowing ambient backdrop */}
         <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
-          <div className="w-[420px] sm:w-[680px] h-[300px] sm:h-[450px] bg-red-500/10 rounded-full blur-[120px] -z-10" />
+          <div className="w-[420px] sm:w-[680px] h-[300px] sm:h-[450px] bg-cyan-500/10 rounded-full blur-[140px] -z-10" />
         </div>
 
-        <div className="max-w-4xl w-full relative z-10 rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-[#07080e] group">
-          {/* Interactive Mode Switcher */}
-          <div className="absolute top-4 right-4 sm:top-5 sm:right-5 z-20 backdrop-blur-md bg-black/80 border border-white/15 p-1 rounded-lg flex items-center gap-1 shadow-2xl">
-            <button
-              onClick={() => setViewMode('ascii')}
-              className={`px-3 py-1 rounded text-xs font-mono font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-                viewMode === 'ascii' 
-                  ? 'bg-red-600/90 text-white shadow-lg shadow-red-500/30' 
-                  : 'text-slate-400 hover:text-white bg-transparent'
-              }`}
-            >
-              <span>🇻🇳 Cờ ASCII 3D</span>
-            </button>
-            <button
-              onClick={() => setViewMode('mesh')}
-              className={`px-3 py-1 rounded text-xs font-mono font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-                viewMode === 'mesh' 
-                  ? 'bg-cyan-500/30 text-cyan-200 border border-cyan-500/30' 
-                  : 'text-slate-400 hover:text-white bg-transparent'
-              }`}
-            >
-              <span>📡 Lưới Hạ Tầng</span>
-            </button>
-          </div>
-
-          {viewMode === 'ascii' ? (
-            <VietnamAsciiFlag height={480} defaultTheme="national" />
-          ) : (
-            <div className="relative">
-              <img
-                src={VietnamInfraImg}
-                alt="Aevum OS - Ha Tang AI Agent Tien Phong Viet Nam (Hanoi - Da Nang - Ho Chi Minh City)"
-                loading="lazy"
-                decoding="async"
-                width="1280"
-                height="720"
-                className="w-full h-auto object-cover max-h-[500px] transition-transform duration-700 group-hover:scale-[1.015]"
-              />
-
-              {/* Floating Glass HUD Overlay Badges */}
-              <div className="absolute top-4 left-4 sm:top-5 sm:left-5 backdrop-blur-md bg-black/65 border border-white/15 px-3.5 py-1.5 rounded-lg flex items-center gap-2 text-xs font-mono text-slate-200 shadow-lg">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                <span className="font-semibold text-white">VIETNAM AI MESH</span>
-                <span className="hidden sm:inline text-slate-400">• HANOI • DA NANG • HCM CITY</span>
-              </div>
-
-              <div className="absolute bottom-4 right-4 sm:bottom-5 sm:right-5 backdrop-blur-md bg-black/65 border border-white/15 px-3.5 py-1.5 rounded-lg hidden sm:flex items-center gap-2 text-xs font-mono text-cyan-300 shadow-lg">
-                <Sparkles size={14} className="text-cyan-400" />
-                <span>I2FLABS SOVEREIGN CORE</span>
-              </div>
-            </div>
-          )}
+        <div className="max-w-4xl w-full relative z-10 flex items-center justify-center">
+          <VietnamAsciiFlag height={480} />
         </div>
       </div>
 

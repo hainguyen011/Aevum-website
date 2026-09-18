@@ -392,6 +392,33 @@ h1, h2, h3, .font-display {
   }
 }
 
+/* Precise Right-Edge Seam Anchor for HUD Toolbar & ScrollToTop */
+:root {
+  --frame-edge-offset: max(2.75rem, calc((100vw - 1640px) / 2));
+}
+
+@media (max-width: 1280px) {
+  :root {
+    --frame-edge-offset: 2.25rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --frame-edge-offset: 1.75rem;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --frame-edge-offset: 0.75rem;
+  }
+}
+
+.docked-right-seam {
+  right: calc(var(--frame-edge-offset) - 19px) !important;
+}
+
 /* Cell Division Helpers */
 .grid-cell {
   background-color: var(--bg-cell);

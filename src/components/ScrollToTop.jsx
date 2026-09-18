@@ -38,7 +38,7 @@ export const ScrollToTop = () => {
       onClick={scrollToTop}
       aria-label="Scroll to top"
       title="Lên đầu trang (Scroll to top)"
-      className="fixed bottom-4 sm:bottom-6 right-2 sm:right-3 z-40 w-[38px] h-[38px] bg-[#07080E]/90 backdrop-blur-md border border-white/10 hover:border-cyan-400/50 text-slate-300 hover:text-cyan-400 rounded-md shadow-2xl transition-all duration-200 group cursor-pointer flex items-center justify-center active:scale-95"
+      className="fixed bottom-4 sm:bottom-6 docked-right-seam z-40 w-[38px] h-[38px] bg-[#07080E]/95 backdrop-blur-md border border-white/10 hover:border-cyan-400/50 text-slate-300 hover:text-cyan-400 rounded-md shadow-2xl transition-all duration-200 group cursor-pointer flex items-center justify-center active:scale-95"
     >
       {/* Pure SVG Chevron Up Arrow */}
       <svg 

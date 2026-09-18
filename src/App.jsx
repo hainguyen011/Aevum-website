@@ -999,8 +999,8 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
         )}
       </Suspense>
 
-      {/* Floating Cyber HUD Utility Toolbar (Fixed to Viewport Right) */}
-      <div className="fixed right-2 sm:right-3 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col items-center bg-[#07080E]/90 backdrop-blur-md border border-white/10 p-0.5 w-[38px] transition-all duration-300 group rounded-md shadow-2xl">
+      {/* Floating Cyber HUD Utility Toolbar (Docked Exactly on Right Edge Seam) */}
+      <div className="fixed docked-right-seam top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col items-center bg-[#07080E]/95 backdrop-blur-md border border-white/10 p-0.5 w-[38px] transition-all duration-300 group rounded-md shadow-2xl">
 
         {/* Language Switcher Toggle (Placed above Eye Care Toggle) */}
         <button

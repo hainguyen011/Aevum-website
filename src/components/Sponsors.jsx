@@ -1,5 +1,4 @@
 import React from 'react';
-import { Heart } from 'lucide-react';
 
 import anHi from '../../assets/stickers/An_Collection/An_Hi.webp';
 import anLover from '../../assets/stickers/An_Collection/An_Lover.webp';
@@ -229,22 +228,12 @@ export const Sponsors = ({ activeLang = 'vi' }) => {
         </p>
       </div>
 
-      {/* 2. Precision Hairline Logo Wall (Flat, Matte, Zero Glare, Zero Loud Shadows) */}
+      {/* 2. Precision Hairline Logo Wall (Flat, Matte, Thin 1px Borders, Zero Glare) */}
       <div>
-        {/* Tier Label Strip */}
-        <div className="flex items-center justify-between px-6 sm:px-8 py-3 border-subtle-b bg-[#0B0B11]">
-          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400 font-semibold flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400/80 inline-block" />
-            {isVi ? 'ĐỐI TÁC & NHÀ TÀI TRỢ CHIẾN LƯỢC' : 'GOLD SPONSORS & STRATEGIC BACKERS'}
-          </span>
-          <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wider hidden sm:inline-block">
-            {isVi ? 'HỆ THỐNG MÃ NGUỒN MỞ' : 'OPEN ECOSYSTEM'}
-          </span>
-        </div>
 
-        {/* 5-Column Precision Hairline Grid (Vite Style) */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 border-b border-subtle bg-[#0B0B11]">
-          {sponsorsList.map((item, idx) => {
+        {/* 5-Column Precision Hairline Grid (Exact 1px Thin Lines, No Doubling) */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-[1px] bg-white/[0.06] border-b border-subtle">
+          {sponsorsList.map((item) => {
             if (item.isCallout) {
               return (
                 <a
@@ -252,15 +241,11 @@ export const Sponsors = ({ activeLang = 'vi' }) => {
                   href={item.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="Trở thành nhà tài trợ Aevum OS"
-                  className="h-24 sm:h-28 flex flex-col items-center justify-center p-4 border-r border-b lg:border-b-0 border-subtle text-slate-400 hover:text-cyan-400 hover:bg-white/[0.02] transition-colors duration-200 group text-center select-none"
+                  aria-label={isVi ? "Tài trợ Aevum OS" : "Sponsor Aevum OS"}
+                  className="h-24 sm:h-28 flex items-center justify-center p-5 bg-[#0B0B11] hover:bg-[#0f1018] text-slate-400/70 hover:text-cyan-400 transition-colors duration-200 select-none group"
                 >
-                  <div className="flex items-center gap-1.5 text-xs font-mono font-semibold tracking-wider group-hover:text-cyan-400 transition-colors">
-                    <Heart size={14} className="text-pink-400/80 group-hover:text-pink-400 transition-colors" />
-                    <span>{isVi ? '+ Tài trợ dự án' : '+ Sponsor Us'}</span>
-                  </div>
-                  <span className="text-[10px] font-mono text-slate-500 mt-1">
-                    {isVi ? 'GitHub Sponsors' : 'Open Collective'}
+                  <span className="text-xs sm:text-sm font-mono font-bold tracking-widest uppercase transition-transform duration-200 group-hover:scale-[1.03]">
+                    {isVi ? 'TÀI TRỢ' : 'SPONSOR'}
                   </span>
                 </a>
               );
@@ -274,7 +259,7 @@ export const Sponsors = ({ activeLang = 'vi' }) => {
                 rel="noopener noreferrer"
                 title={item.id}
                 aria-label={`Đối tác ${item.id}`}
-                className="h-24 sm:h-28 flex items-center justify-center p-5 border-r border-b sm:border-b border-subtle text-slate-400/60 hover:text-slate-200 hover:bg-white/[0.02] transition-colors duration-200 select-none group"
+                className="h-24 sm:h-28 flex items-center justify-center p-5 bg-[#0B0B11] hover:bg-[#0f1018] text-slate-400/60 hover:text-slate-200 transition-colors duration-200 select-none group"
               >
                 <div className="transition-transform duration-200 group-hover:scale-[1.03]">
                   {item.component}

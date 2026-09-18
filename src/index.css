@@ -429,6 +429,39 @@ h1, h2, h3, .font-display {
   background-color: var(--bg-cell-hover);
 }
 
+/* Precise Hairline Sponsors Grid (Zero subpixel rounding, Zero duplicate borders) */
+.sponsor-grid-cell {
+  border-right: 1px solid var(--border-faint);
+  border-bottom: 1px solid var(--border-faint);
+}
+
+@media (min-width: 1024px) {
+  .sponsor-grid-cell:nth-child(5n) {
+    border-right: none;
+  }
+  .sponsor-grid-cell:nth-child(n+11) {
+    border-bottom: none;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .sponsor-grid-cell:nth-child(3n) {
+    border-right: none;
+  }
+  .sponsor-grid-cell:nth-child(n+13) {
+    border-bottom: none;
+  }
+}
+
+@media (max-width: 639px) {
+  .sponsor-grid-cell:nth-child(2n) {
+    border-right: none;
+  }
+  .sponsor-grid-cell:nth-child(n+15) {
+    border-bottom: none;
+  }
+}
+
 /* Buttons with Subtle Gentle Rounded Corners (6px) & Inset Box Shadow Borders */
 .btn-electron {
   display: inline-flex;

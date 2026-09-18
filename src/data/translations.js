@@ -120,9 +120,18 @@ export const translations = {
       c2ToolType: "API biệt đội & bộ nhớ"
     },
     frameworkFlow: {
-      tag: "HẠ TẦNG BỘ NHỚ THỐNG NHẤT",
-      title: "Không gian làm việc & Bộ não Ngoại vi Thống nhất",
-      desc: "Aevum OS là nguồn dữ liệu tin cậy duy nhất (Single Source of Truth) cho bộ nhớ ngữ cảnh, các quyết định kiến trúc và trạng thái của biệt đội Agent trên mọi môi trường phát triển."
+      tag: "TIÊN PHONG ĐỔI MỚI • VIỆT NAM",
+      title: "Hạ Tầng AI Agent Độc Lập & Bộ Não Ngoại Vi Tiên Phong",
+      desc: "Kiến tạo bởi I2FLabs tại Việt Nam, Aevum OS tiên phong thiết lập hạ tầng điều phối AI Agent tự chủ và bộ não ngoại vi chuẩn hóa — bảo vệ chủ quyền dữ liệu số, xóa bỏ mất trí nhớ ngữ cảnh và đưa trí tuệ kỹ sư Việt vươn tầm thế giới.",
+      pillar1Tag: "CHỦ QUYỀN DỮ LIỆU",
+      pillar1Title: "100% Tự chủ & Bảo mật Cục bộ",
+      pillar1Desc: "Daemon chạy độc lập trên máy chủ cục bộ, mã hóa Ed25519, không phụ thuộc đám mây đóng.",
+      pillar2Tag: "CHUẨN MỰC QUỐC TẾ",
+      pillar2Title: "98 Công cụ MCP Đỉnh cao",
+      pillar2Desc: "Kết nối liền mạch mọi IDE hàng đầu thế giới: Cursor, Claude Desktop, Windsurf và Antigravity.",
+      pillar3Tag: "MẠNG LƯỚI TRI THỨC",
+      pillar3Title: "PiperNet IoA Mesh Toàn cầu",
+      pillar3Desc: "Đưa giải pháp và kiến trúc của kỹ sư Việt hòa vào mạng lưới trí tuệ AI phân tán không biên giới."
     },
     testimonials: {
       tag: "CỘNG ĐỒNG & CHUYÊN GIA",
@@ -323,9 +332,18 @@ export const translations = {
       c2ToolType: "Squad & Memory API"
     },
     frameworkFlow: {
-      tag: "UNIFIED MEMORY INFRASTRUCTURE",
-      title: "Central Workspace & Unified External Brain",
-      desc: "Aevum OS serves as the single source of truth for context memory, architectural decisions, and agent squad state across all your AI development environments."
+      tag: "PIONEERING INNOVATION INFRASTRUCTURE • VIETNAM",
+      title: "Pioneering Sovereign AI Agent Infrastructure & External Brain in Vietnam",
+      desc: "Engineered and incubated by I2FLabs in Vietnam, Aevum OS pioneers independent sovereign AI agent orchestration and decoupled cognitive memory — safeguarding developer data sovereignty, eradicating context amnesia, and empowering Vietnamese software innovators on the global AI frontier.",
+      pillar1Tag: "DATA SOVEREIGNTY",
+      pillar1Title: "100% Local & Sovereign Security",
+      pillar1Desc: "Independent daemon infrastructure operating entirely offline with Ed25519 cryptography and zero vendor lock-in.",
+      pillar2Tag: "GLOBAL STANDARDS",
+      pillar2Title: "98 Enterprise MCP Tools",
+      pillar2Desc: "Seamless standardized interoperability across world-class IDEs: Cursor, Claude Desktop, Windsurf, and Antigravity.",
+      pillar3Tag: "KNOWLEDGE MESH",
+      pillar3Title: "Global PiperNet IoA Mesh",
+      pillar3Desc: "Connecting Vietnamese engineering breakthroughs to a decentralized collective network of autonomous agents."
     },
     testimonials: {
       tag: "COMMUNITY & EXPERTS",

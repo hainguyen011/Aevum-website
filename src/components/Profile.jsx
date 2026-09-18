@@ -399,14 +399,14 @@ export const Profile = ({
                     </div>
                     <p className="text-[11px] text-slate-400 leading-relaxed">
                       {isVi 
-                        ? 'Kích hoạt 4 Persona chuyên sâu: An (Companion), Vidus (Architect), Zenith (Tester), Luna (Security).'
-                        : 'Access to 4 specialized Personas: An (Companion), Vidus (Architect), Zenith (Tester), Luna (Security).'}
+                        ? 'Kích hoạt 4 Persona chuyên sâu: An (Companion & AI Tuning), Luna (UI/UX Architect), Vidus (System Architect), Zenith (QA & Performance).'
+                        : 'Access to 4 specialized Personas: An (Companion & AI Tuning), Luna (UI/UX Architect), Vidus (System Architect), Zenith (QA & Performance).'}
                     </p>
                     <div className="flex items-center gap-1.5 pt-1">
-                      <img src={anAvatar} alt="An" className="w-5 h-5 rounded-full border border-sky-400/40" title="An" />
-                      <img src={vidusAvatar} alt="Vidus" className="w-5 h-5 rounded-full border border-purple-400/40" title="Vidus" />
-                      <img src={zenithAvatar} alt="Zenith" className="w-5 h-5 rounded-full border border-sky-400/40" title="Zenith" />
-                      <img src={lunaAvatar} alt="Luna" className="w-5 h-5 rounded-full border border-emerald-400/40" title="Luna" />
+                      <img src={anAvatar} alt="An" className="w-5 h-5 rounded-full border border-sky-400/40" title="An (AI Tuning)" />
+                      <img src={lunaAvatar} alt="Luna" className="w-5 h-5 rounded-full border border-emerald-400/40" title="Luna (UI/UX Architect)" />
+                      <img src={vidusAvatar} alt="Vidus" className="w-5 h-5 rounded-full border border-purple-400/40" title="Vidus (System Architect)" />
+                      <img src={zenithAvatar} alt="Zenith" className="w-5 h-5 rounded-full border border-sky-400/40" title="Zenith (QA & Performance)" />
                     </div>
                   </div>
 
@@ -423,7 +423,7 @@ export const Profile = ({
                     <p className="text-[11px] text-slate-400 leading-relaxed">
                       {isVi 
                         ? 'Ký ức dài hạn được mã hóa AES-256 lưu cục bộ và đồng bộ tự động qua Aevum Cloud Vault.'
-                        : 'Long-term engineering memory encrypted with AES-256 and synced seamlessly with Aevum Cloud Vault.'}
+                        : 'AES-256 encrypted persistent memory graphs synced continuously across devices via Cloud Vault.'}
                     </p>
                   </div>
 
@@ -451,7 +451,7 @@ export const Profile = ({
                         Linked Workstations
                       </span>
                       <span className="text-[10px] text-sky-300 font-bold">
-                        {tierSlug === 'pro' ? '1 / 5 MACHINES' : '1 / 1 MACHINE'}
+                        {tierSlug === 'pro' ? `${entitlements?.activeMachinesCount || 1} / 5 MACHINES` : `${entitlements?.activeMachinesCount || 1} / 1 MACHINE`}
                       </span>
                     </div>
                     <p className="text-[11px] text-slate-400 leading-relaxed">
@@ -479,41 +479,77 @@ export const Profile = ({
                   </p>
                 </div>
                 <span className="text-xs text-sky-300 font-bold px-2.5 py-1 rounded bg-sky-950/40 border border-sky-500/30">
-                  {isVi ? '1/5 ĐANG HOẠT ĐỘNG' : '1/5 ACTIVE'}
+                  {isVi ? `${entitlements?.activeMachinesCount || 1}/${entitlements?.maxMachines || 5} ĐANG HOẠT ĐỘNG` : `${entitlements?.activeMachinesCount || 1}/${entitlements?.maxMachines || 5} ACTIVE`}
                 </span>
               </div>
 
-              {/* Workstation Row 1 (Current Active Machine) */}
-              <div className="profile-perk-card p-4 rounded-[6px] bg-white/[0.03] border border-sky-500/30 space-y-3">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-[5px] bg-sky-950/40 border border-sky-500/30 flex items-center justify-center text-sky-300">
-                      <Laptop className="w-5 h-5" />
-                    </div>
-                    <div>
+              {/* Workstation List */}
+              {entitlements?.workstations && entitlements.workstations.length > 0 ? (
+                entitlements.workstations.map((ws, idx) => (
+                  <div key={ws.id || ws.machine_id || idx} className="profile-perk-card p-4 rounded-[6px] bg-white/[0.03] border border-sky-500/30 space-y-3">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <div className="flex items-center gap-3">
+                        <div className="w-9 h-9 rounded-[5px] bg-sky-950/40 border border-sky-500/30 flex items-center justify-center text-sky-300">
+                          <Laptop className="w-5 h-5" />
+                        </div>
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs font-bold text-white">{ws.machine_name || ws.os_info?.hostname || `Workstation-${idx + 1}`}</span>
+                            {idx === 0 && (
+                              <span className="px-1.5 py-0.2 text-[9px] rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-bold uppercase">
+                                {isVi ? 'GẦN NHẤT' : 'RECENT'}
+                              </span>
+                            )}
+                          </div>
+                          <span className="text-[10px] text-slate-400 font-mono">
+                            {ws.os_info?.platform || 'OS'} {ws.os_info?.arch || ''} {ws.os_info?.cpuModel ? `• ${ws.os_info.cpuModel.slice(0, 28)}` : ''}
+                          </span>
+                        </div>
+                      </div>
+
                       <div className="flex items-center gap-2">
-                        <span className="text-xs font-bold text-white">DevWorkstation-Primary</span>
-                        <span className="px-1.5 py-0.2 text-[9px] rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-bold uppercase">
-                          {isVi ? 'MÁY HIỆN TẠI' : 'THIS DEVICE'}
+                        <span className={`text-[10px] font-bold flex items-center gap-1 ${ws.is_active ? 'text-emerald-400' : 'text-slate-500'}`}>
+                          <span className={`w-2 h-2 rounded-full ${ws.is_active ? 'bg-emerald-400 animate-pulse' : 'bg-slate-500'}`} />
+                          {ws.is_active ? 'ONLINE' : 'INACTIVE'}
                         </span>
                       </div>
-                      <span className="text-[10px] text-slate-400 font-mono">Windows 11 x64 • Node v20 • SSE Daemon Port: 3344</span>
+                    </div>
+
+                    <div className="text-[11px] font-mono text-slate-400 pt-2 border-t border-white/5 flex items-center justify-between">
+                      <span>Machine ID: <span className="text-slate-300 font-bold">{ws.machine_id}</span></span>
+                      <span className="text-slate-500">
+                        {isVi ? 'Xác minh:' : 'Verified:'} {ws.last_verified_at ? new Date(ws.last_verified_at).toLocaleDateString('vi-VN') : 'Mới'}
+                      </span>
                     </div>
                   </div>
+                ))
+              ) : (
+                <div className="profile-perk-card p-4 rounded-[6px] bg-white/[0.03] border border-sky-500/30 space-y-3">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 rounded-[5px] bg-sky-950/40 border border-sky-500/30 flex items-center justify-center text-sky-300">
+                        <Laptop className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs font-bold text-white">Workstation-Primary</span>
+                          <span className="px-1.5 py-0.2 text-[9px] rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-bold uppercase">
+                            {isVi ? 'MÁY HIỆN TẠI' : 'THIS DEVICE'}
+                          </span>
+                        </div>
+                        <span className="text-[10px] text-slate-400 font-mono">Windows 11 x64 • SSE Daemon Port: 3344</span>
+                      </div>
+                    </div>
 
-                  <div className="flex items-center gap-2">
-                    <span className="text-[10px] text-emerald-400 font-bold flex items-center gap-1">
-                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                      ONLINE
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] text-emerald-400 font-bold flex items-center gap-1">
+                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                        ONLINE
+                      </span>
+                    </div>
                   </div>
                 </div>
-
-                <div className="text-[11px] font-mono text-slate-400 pt-2 border-t border-white/5 flex items-center justify-between">
-                  <span>Machine Fingerprint: <span className="text-slate-300 font-bold">ed25519_9f8a...3e1c</span></span>
-                  <span className="text-slate-500">{isVi ? 'Đồng bộ lúc: Vừa xong' : 'Last sync: Just now'}</span>
-                </div>
-              </div>
+              )}
 
               {/* Instructions on adding machines */}
               <div className="profile-perk-card p-4 rounded-[6px] bg-white/[0.01] border border-white/5 space-y-2 text-xs">

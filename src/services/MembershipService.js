@@ -1,4 +1,5 @@
 import { supabase } from './supabaseClient.js';
+import { API_CONFIG } from '../config/apiConfig.js';
 
 const getCloudApiUrl = () => API_CONFIG.AEVUM_CLOUD_URL;
 
@@ -102,13 +103,37 @@ export const MembershipService = {
       const isWaitlist = status === 'beta_waitlist';
       const isTrial = status === 'pro_trial' || isWaitlist;
 
+      let trialDaysRemaining = 30;
+      if (membership?.trial_ends_at) {
+        const msRemaining = new Date(membership.trial_ends_at).getTime() - Date.now();
+        trialDaysRemaining = Math.max(0, Math.ceil(msRemaining / (1000 * 60 * 60 * 24)));
+      } else if (isWaitlist) {
+        trialDaysRemaining = 30;
+      }
+
+      // Lấy danh sách máy trạm thực tế đã liên kết
+      const { data: workstations } = await supabase
+        .from('license_activations')
+        .select('*')
+        .eq('user_id', uid)
+        .order('last_verified_at', { ascending: false });
+
+      const activeMachinesCount = workstations?.filter(w => w.is_active)?.length || 0;
+
       return {
         tier,
         status,
         isPro,
         isTrial,
         isWaitlist,
-        trialDaysRemaining: isWaitlist ? 30 : 30,
+        trialDaysRemaining,
+        trialStartedAt: membership?.trial_started_at,
+        trialEndsAt: membership?.trial_ends_at,
+        currentPeriodEnd: membership?.current_period_end,
+        expiresAt: isTrial ? membership?.trial_ends_at : membership?.current_period_end,
+        maxMachines: isPro ? 5 : 1,
+        activeMachinesCount: Math.max(1, activeMachinesCount),
+        workstations: workstations || [],
         role: profile?.role || 'user',
       };
     } catch (err) {

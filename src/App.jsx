@@ -1000,12 +1000,12 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
       </Suspense>
 
       {/* Floating Cyber HUD Utility Toolbar (Docked Exactly on Right Edge Seam) */}
-      <div className="fixed docked-right-seam top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col items-center bg-[#07080E]/95 backdrop-blur-md border border-white/10 p-0.5 w-[38px] transition-all duration-300 group rounded-md shadow-2xl">
+      <div className="fixed docked-right-seam top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col items-center bg-[#07080E]/95 [html[data-theme='light']_&]:bg-white/95 backdrop-blur-md border border-white/10 [html[data-theme='light']_&]:border-slate-300/80 p-0.5 w-[38px] transition-all duration-300 group rounded-md shadow-2xl [html[data-theme='light']_&]:shadow-md">
 
         {/* Language Switcher Toggle (Placed above Eye Care Toggle) */}
         <button
           onClick={() => handleLanguageChange(activeLang === 'vi' ? 'en' : 'vi')}
-          className="utility-bar-btn flex items-center justify-center w-[34px] h-[34px] transition-all duration-200 cursor-pointer rounded select-none text-slate-300 hover:text-cyan-400 font-mono"
+          className="utility-bar-btn flex items-center justify-center w-[34px] h-[34px] transition-all duration-200 cursor-pointer rounded select-none text-slate-300 [html[data-theme='light']_&]:text-slate-600 hover:text-cyan-400 [html[data-theme='light']_&]:hover:text-cyan-600 font-mono"
           title={activeLang === 'vi' ? "Chuyển sang Tiếng Anh (EN)" : "Switch to Vietnamese (VI)"}
           aria-label="Toggle Language"
         >
@@ -1016,19 +1016,19 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
         <button
           onClick={() => setIsEyeCare(prev => !prev)}
           aria-label="Toggle Eye Care Mode"
-          className={`utility-bar-btn flex items-center justify-center w-[34px] h-[34px] transition-all duration-200 cursor-pointer rounded select-none ${isEyeCare
-            ? '!bg-amber-500/10 !text-amber-500 hover:!bg-amber-500/20'
+          className={`utility-bar-btn flex items-center justify-center w-[34px] h-[34px] transition-all duration-200 cursor-pointer rounded select-none text-slate-300 [html[data-theme='light']_&]:text-slate-600 hover:text-cyan-400 [html[data-theme='light']_&]:hover:text-cyan-600 ${isEyeCare
+            ? '!bg-amber-500/10 !text-amber-500 [html[data-theme="light"]_&]:!bg-amber-500/15 [html[data-theme="light"]_&]:!text-amber-600 hover:!bg-amber-500/20'
             : ''
             }`}
           title={activeLang === 'vi' ? "Bật/Tắt bảo vệ mắt" : "Toggle Eye Care"}
         >
-          {isEyeCare ? <ScanEye size={17} className="text-amber-400" /> : <Eye size={17} />}
+          {isEyeCare ? <ScanEye size={17} className="text-amber-400 [html[data-theme='light']_&]:text-amber-600" /> : <Eye size={17} />}
         </button>
 
         {/* Theme Toggle */}
         <button
           onClick={(e) => handleToggleTheme(e)}
-          className="utility-bar-btn flex items-center justify-center w-[34px] h-[34px] transition-all duration-200 cursor-pointer rounded active:scale-[0.92] select-none"
+          className="utility-bar-btn flex items-center justify-center w-[34px] h-[34px] transition-all duration-200 cursor-pointer rounded active:scale-[0.92] select-none text-slate-300 [html[data-theme='light']_&]:text-slate-600 hover:text-cyan-400 [html[data-theme='light']_&]:hover:text-cyan-600"
           title={
             activeLang === 'vi'
               ? (theme === 'dark' ? "Chuyển sang Chế độ Sáng" : "Chuyển sang Chế độ Tối")

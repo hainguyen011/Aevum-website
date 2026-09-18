@@ -26,6 +26,16 @@ export const ReleaseService = {
     }
 
     const data = await res.json();
-    return Array.isArray(data) ? data : [];
+    if (!Array.isArray(data)) return [];
+
+    // Sort descending by published_at / created_at (newest release first)
+    return data.sort((a, b) => {
+      const timeA = new Date(a.published_at || a.created_at || 0).getTime();
+      const timeB = new Date(b.published_at || b.created_at || 0).getTime();
+      if (timeB !== timeA) {
+        return timeB - timeA;
+      }
+      return (b.tag_name || b.name || '').localeCompare(a.tag_name || a.name || '', undefined, { numeric: true });
+    });
   }
 };

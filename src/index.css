@@ -419,6 +419,22 @@ h1, h2, h3, .font-display {
   right: calc(var(--frame-edge-offset) - 19px) !important;
 }
 
+html[data-theme="light"] .docked-right-seam {
+  background-color: rgba(255, 255, 255, 0.96) !important;
+  border-color: rgba(203, 213, 225, 0.8) !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.06) !important;
+}
+
+html[data-theme="light"] .docked-right-seam button,
+html[data-theme="light"] .docked-right-seam .utility-bar-btn {
+  color: #475569 !important;
+}
+
+html[data-theme="light"] .docked-right-seam button:hover,
+html[data-theme="light"] .docked-right-seam .utility-bar-btn:hover {
+  color: #0284c7 !important;
+}
+
 /* Cell Division Helpers */
 .grid-cell {
   background-color: var(--bg-cell);

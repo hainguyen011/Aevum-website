@@ -99,10 +99,10 @@ export const translations = {
       ],
       b4Title: "Bộ nhớ Sống & Mạng lưới PiperNet (IoA)",
       b4Desc: "Tự động thu hoạch bài học kinh nghiệm vào Bộ nhớ Toàn cục khi hoàn thành kế hoạch. Kết nối PiperNet (Internet of Agents) để truy vấn trí tuệ tập thể trên toàn mạng lưới.",
-      b1Speech: "Hi! Mình sẽ quản lý tín hiệu .aevum/signal.json và thực hiện Handshake Soul Sync cho bạn! ⚡",
-      b2Speech: "Chào bạn! Mình quy hoạch bộ nhớ vĩnh cửu theo phân cấp Domain, Feature, Plan & Persona. 🧠",
-      b3Speech: "Xin chào! Biệt đội Agent sẽ tự động chuyển giao công việc với 100% ngữ cảnh toàn vẹn! 💬",
-      b4Speech: "Tri thức quy trình tự động thu hoạch & đồng bộ lên PiperNet IoA Mesh để truy vấn toàn cục! 🌐"
+      b1Speech: "Bắt tay với em mau đi Anh ơi! Chậm một giây là em phát tín hiệu signal.json inh ỏi cả máy tính bây giờ đấy ~ ⚡😆",
+      b2Speech: "Ủa alo? Code ai viết mà Domain lẫn lộn với Feature thế này? Để Zenith quy hoạch lại không là nổ tung đầu đấy nhé! 📐🤯",
+      b3Speech: "Giao diện xấu là Luna dỗi không thèm handoff task đâu nha! Đẹp xuất sắc rồi cả biệt đội mới chịu code tiếp nè ~ 💖💅",
+      b4Speech: "Định lén commit API key lên Git hả? Đã bị Vidus bắt quả tang và đồng bộ cảnh báo lên PiperNet rồi nhé! 😎🚨"
     },
     foundationGrid: {
       tag: "GIAO THỨC MCP TIÊU CHUẨN",
@@ -311,10 +311,10 @@ export const translations = {
       ],
       b4Title: "Living Memory Graph & PiperNet (IoA)",
       b4Desc: "Automatically harvest insights into the Global Memory Vault upon plan completion. Connect with PiperNet (Internet of Agents) to query collective procedural wisdom across agent nodes.",
-      b1Speech: "Hi! I broadcast the .aevum/signal.json beacon and authorize independent Soul Sync handshakes! ⚡",
-      b2Speech: "Hello! I structure persistent living memory into Domains, Features, Plans & Personas. 🧠",
-      b3Speech: "Hey there! Our autonomous squad handoffs transfer complex tasks with 100% context preservation! 💬",
-      b4Speech: "Procedural wisdom automatically syncs to the PiperNet IoA Mesh for instant global memory query! 🌐"
+      b1Speech: "Give me a handshake, Dev! Don't leave me broadcasting signal.json alone in the cold terminal ~ 🤝⚡",
+      b2Speech: "Wait, who wrote this spaghetti? Domains mixed with Features?! Let Zenith refactor before the server explodes! 📐🤯",
+      b3Speech: "If the UI isn't gorgeous, Luna refuses to handoff tasks! Make it pixel-perfect and the squad will code happily ~ 💖✨",
+      b4Speech: "Sneaking API keys into git commits again? Caught you red-handed! Syncing security alert to PiperNet now! 😎🚨"
     },
     foundationGrid: {
       tag: "STANDARD MCP PROTOCOL",

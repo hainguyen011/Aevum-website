@@ -127,7 +127,7 @@ export const SubNavTabs = ({ activeLang }) => {
               opacity: mobilePill.opacity,
             }}
           >
-            <div className="w-full h-full bg-cyan-500/10 border-b-2 border-cyan-400" />
+            <div className="w-full h-full bg-transparent border-b-2 border-cyan-400" />
           </div>
 
           {rawTabs.map((tab) => {
@@ -174,10 +174,10 @@ export const SubNavTabs = ({ activeLang }) => {
             opacity: hoverPill.opacity,
           }}
         >
-          <div className="w-full h-full bg-white/[0.025] border-t border-white/10" />
+          <div className="w-full h-full bg-white/[0.02]" />
         </div>
 
-        {/* Active Fluid Liquid Pill (Sliding morphing highlighter with laser glow) */}
+        {/* Active Fluid Indicator (100% Transparent BG, Flat Crisp Bottom Border, Zero Glare) */}
         <div
           className="absolute top-0 bottom-0 pointer-events-none transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] z-0"
           style={{
@@ -186,17 +186,11 @@ export const SubNavTabs = ({ activeLang }) => {
             opacity: desktopPill.opacity,
           }}
         >
-          {/* Subtle Cyber Gradient Backdrop */}
-          <div className="w-full h-full bg-gradient-to-b from-cyan-500/[0.12] via-cyan-500/[0.06] to-cyan-500/[0.16] backdrop-blur-[2px]" />
-          
-          {/* Ambient Inner Glow */}
-          <div className="absolute inset-0 bg-cyan-400/[0.04] blur-sm" />
+          {/* 100% Transparent Background */}
+          <div className="w-full h-full bg-transparent" />
 
-          {/* Top Subtle Edge Highlight */}
-          <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent" />
-
-          {/* Bottom High-Tech Laser Beam */}
-          <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_0_12px_rgba(34,211,238,0.7)]" />
+          {/* Flat Crisp Bottom Active Underline (No Glow, No Shadow) */}
+          <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-cyan-400" />
         </div>
 
         {/* Tab Buttons */}
@@ -209,15 +203,12 @@ export const SubNavTabs = ({ activeLang }) => {
               ref={(el) => (desktopTabRefs.current[tab.key] = el)}
               onClick={() => handleTabClick(tab.key)}
               onMouseEnter={() => handleDesktopTabHover(tab.key)}
-              className={`relative z-10 py-4 px-3 flex items-center justify-center gap-1.5 text-xs font-mono font-medium transition-colors duration-200 border-r border-white/5 last:border-r-0 cursor-pointer select-none ${
+              className={`relative z-10 py-4 px-3 flex items-center justify-center text-xs font-mono font-medium transition-colors duration-200 border-r border-white/5 last:border-r-0 cursor-pointer select-none ${
                 isActive
                   ? 'text-cyan-300 font-bold'
                   : 'text-slate-400 hover:text-slate-200'
               }`}
             >
-              {isActive && (
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.9)] animate-pulse shrink-0" />
-              )}
               <span className="truncate">{displayName}</span>
             </button>
           );

@@ -121,8 +121,8 @@ export const translations = {
     },
     frameworkFlow: {
       tag: "TIÊN PHONG ĐỔI MỚI • VIỆT NAM",
-      title: "Hạ Tầng AI Agent Độc Lập & Bộ Não Ngoại Vi Tiên Phong",
-      desc: "Kiến tạo bởi I2FLabs tại Việt Nam, Aevum OS tiên phong thiết lập hạ tầng điều phối AI Agent tự chủ và bộ não ngoại vi chuẩn hóa — bảo vệ chủ quyền dữ liệu số, xóa bỏ mất trí nhớ ngữ cảnh và đưa trí tuệ kỹ sư Việt vươn tầm thế giới.",
+      title: "Hạ Tầng AI Agent Tự Chủ & Bộ Não Ngoại Vi",
+      desc: "Nền tảng điều phối đa tác tử và lưu trữ nhận thức phân tán do I2FLabs phát triển — bảo vệ trọn vẹn chủ quyền dữ liệu số và loại bỏ giới hạn ngữ cảnh.",
       pillar1Tag: "CHỦ QUYỀN DỮ LIỆU",
       pillar1Title: "100% Tự chủ & Bảo mật Cục bộ",
       pillar1Desc: "Daemon chạy độc lập trên máy chủ cục bộ, mã hóa Ed25519, không phụ thuộc đám mây đóng.",
@@ -333,8 +333,8 @@ export const translations = {
     },
     frameworkFlow: {
       tag: "PIONEERING INNOVATION INFRASTRUCTURE • VIETNAM",
-      title: "Pioneering Sovereign AI Agent Infrastructure & External Brain in Vietnam",
-      desc: "Engineered and incubated by I2FLabs in Vietnam, Aevum OS pioneers independent sovereign AI agent orchestration and decoupled cognitive memory — safeguarding developer data sovereignty, eradicating context amnesia, and empowering Vietnamese software innovators on the global AI frontier.",
+      title: "Sovereign AI Infrastructure & Cognitive Memory",
+      desc: "Autonomous multi-agent orchestration and decoupled cognitive memory by I2FLabs — ensuring complete data sovereignty and zero context loss.",
       pillar1Tag: "DATA SOVEREIGNTY",
       pillar1Title: "100% Local & Sovereign Security",
       pillar1Desc: "Independent daemon infrastructure operating entirely offline with Ed25519 cryptography and zero vendor lock-in.",

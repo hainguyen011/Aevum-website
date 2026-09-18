@@ -8,8 +8,8 @@ export const FrameworkFlow = ({ activeLang }) => {
   const isVi = activeLang === 'vi';
 
   const titleText = t.frameworkFlow?.title || '';
-  let title1 = isVi ? "Hạ Tầng AI Agent Độc Lập" : "Pioneering Sovereign AI Agent Infrastructure";
-  let title2 = isVi ? "& Bộ Não Ngoại Vi Tiên Phong Tại Việt Nam" : "& Sovereign Innovation in Vietnam";
+  let title1 = isVi ? "Hạ Tầng AI Agent Tự Chủ" : "Sovereign AI Infrastructure";
+  let title2 = isVi ? "& Bộ Não Ngoại Vi" : "& Cognitive Memory";
 
   if (titleText.includes("&")) {
     const parts = titleText.split("&");
@@ -21,13 +21,8 @@ export const FrameworkFlow = ({ activeLang }) => {
     <div id="framework-flow" className="border-subtle-b bg-[#0B0B11] relative overflow-hidden">
 
       {/* Section Header */}
-      <div className="p-8 sm:p-12 text-center border-subtle-b bg-[#0B0B11] relative z-10 border-scan">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-[11px] font-mono font-semibold uppercase tracking-wider mb-3">
-          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-          <span>{t.frameworkFlow.tag}</span>
-        </div>
-        
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight mt-2 font-display">
+      <div className="pt-10 pb-6 sm:pt-14 sm:pb-8 px-6 sm:px-12 text-center border-subtle-b bg-[#0B0B11] relative z-10 border-scan">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight font-display">
           {title1} <span className="text-gradient block sm:inline">{title2}</span>
         </h2>
         <p className="text-slate-400 max-w-2xl mx-auto text-sm sm:text-base mt-3 font-normal leading-relaxed">

@@ -49,23 +49,23 @@ export const Footer = ({ onNavigate, activeLang }) => {
               {t.footer.brandDesc}
             </p>
             
-            {/* Quick Links / Badges */}
-            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 pt-2 text-slate-400 font-mono text-[11px]">
+            {/* Quick Text Links */}
+            <div className="flex flex-wrap items-center gap-x-3.5 gap-y-2 pt-2 text-slate-400 font-mono text-xs">
               <button 
                 onClick={() => onNavigate('pricing')} 
-                className="px-2.5 py-1 rounded-sm bg-white/[0.03] hover:bg-white/[0.08] hover:text-white border border-white/5 transition-all text-xs font-semibold cursor-pointer"
+                className="hover:text-cyan-400 transition-colors cursor-pointer bg-transparent border-none p-0 text-left"
               >
                 {t.navbar.pricing}
               </button>
               <button 
                 onClick={() => onNavigate('docs')} 
-                className="px-2.5 py-1 rounded-sm bg-white/[0.03] hover:bg-white/[0.08] hover:text-white border border-white/5 transition-all text-xs font-semibold cursor-pointer"
+                className="hover:text-cyan-400 transition-colors cursor-pointer bg-transparent border-none p-0 text-left"
               >
                 {t.footer.links.docs}
               </button>
               <button 
                 onClick={() => onNavigate('about')} 
-                className="px-2.5 py-1 rounded-sm bg-white/[0.03] hover:bg-white/[0.08] hover:text-white border border-white/5 transition-all text-xs font-semibold cursor-pointer"
+                className="hover:text-cyan-400 transition-colors cursor-pointer bg-transparent border-none p-0 text-left"
               >
                 {t.navbar.about}
               </button>
@@ -74,7 +74,7 @@ export const Footer = ({ onNavigate, activeLang }) => {
                 target="_blank" 
                 rel="noreferrer" 
                 aria-label="I2FLabs Official Website" 
-                className="px-2.5 py-1 rounded-sm bg-white/[0.03] hover:bg-white/[0.08] hover:text-cyan-400 border border-white/5 transition-all text-xs"
+                className="hover:text-cyan-400 transition-colors"
               >
                 I2FLabs
               </a>
@@ -83,7 +83,7 @@ export const Footer = ({ onNavigate, activeLang }) => {
                 target="_blank" 
                 rel="noreferrer" 
                 aria-label="Aevum Open VSX Extension" 
-                className="px-2.5 py-1 rounded-sm bg-white/[0.03] hover:bg-white/[0.08] hover:text-cyan-400 border border-white/5 transition-all text-xs"
+                className="hover:text-cyan-400 transition-colors"
               >
                 {t.footer.links.openVsx}
               </a>
@@ -92,7 +92,7 @@ export const Footer = ({ onNavigate, activeLang }) => {
                 target="_blank" 
                 rel="noreferrer" 
                 aria-label="Unikorn Product Hunt Page" 
-                className="px-2.5 py-1 rounded-sm bg-white/[0.03] hover:bg-white/[0.08] hover:text-cyan-400 border border-white/5 transition-all text-xs"
+                className="hover:text-cyan-400 transition-colors"
               >
                 {t.footer.links.unikorn}
               </a>
@@ -101,14 +101,14 @@ export const Footer = ({ onNavigate, activeLang }) => {
                 target="_blank" 
                 rel="noreferrer" 
                 aria-label="GitHub Repository" 
-                className="px-2.5 py-1 rounded-sm bg-white/[0.03] hover:bg-white/[0.08] hover:text-cyan-400 border border-white/5 transition-all text-xs"
+                className="hover:text-cyan-400 transition-colors"
               >
                 GitHub
               </a>
               <a 
                 href="mailto:hainguyen011238@gmail.com" 
-                aria-label="Email Aevum OS Support"
-                className="px-2.5 py-1 rounded-sm bg-white/[0.03] hover:bg-white/[0.08] hover:text-cyan-400 border border-white/5 transition-all text-xs" 
+                aria-label="Email Aevum OS Support" 
+                className="hover:text-cyan-400 transition-colors" 
                 title="hainguyen011238@gmail.com"
               >
                 Mail

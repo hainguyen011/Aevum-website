@@ -9,7 +9,6 @@ import { ScrollToTop } from './components/ScrollToTop';
 const BentoGrid = lazy(() => import('./components/BentoGrid').then(m => ({ default: m.BentoGrid })));
 const AgentsShowcase = lazy(() => import('./components/AgentsShowcase').then(m => ({ default: m.AgentsShowcase })));
 const FoundationGrid = lazy(() => import('./components/FoundationGrid').then(m => ({ default: m.FoundationGrid })));
-const FrameworkFlow = lazy(() => import('./components/FrameworkFlow').then(m => ({ default: m.FrameworkFlow })));
 const Testimonials = lazy(() => import('./components/Testimonials').then(m => ({ default: m.Testimonials })));
 const UnikornSection = lazy(() => import('./components/UnikornSection').then(m => ({ default: m.UnikornSection })));
 const I2FLabsSection = lazy(() => import('./components/I2FLabsSection').then(m => ({ default: m.I2FLabsSection })));
@@ -647,10 +646,7 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
                       {/* Section 2: Architecture & Foundation Grid Row */}
                       <FoundationGrid activeLang={activeLang} />
 
-                      {/* Section 3: Framework Integration Flow */}
-                      <FrameworkFlow activeLang={activeLang} />
-
-                      {/* Section 4: Transparent Pricing & Membership Tiers */}
+                      {/* Section 3: Transparent Pricing & Membership Tiers */}
                       <Pricing
                         activeLang={activeLang}
                         onOpenTrialModal={handleOpenTrialModal}

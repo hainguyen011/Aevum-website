@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { translations } from '../data/translations';
 import { Copy, Check, Terminal, ChevronRight } from 'lucide-react';
 
@@ -17,6 +17,89 @@ export const SubNavTabs = ({ activeLang }) => {
   const [activeTabKey, setActiveTabKey] = useState('tab1');
   const [copied, setCopied] = useState(false);
 
+  // Desktop indicator positions
+  const desktopContainerRef = useRef(null);
+  const desktopTabRefs = useRef({});
+  const [desktopPill, setDesktopPill] = useState({ left: 0, width: 0, opacity: 0 });
+  const [hoverPill, setHoverPill] = useState({ left: 0, width: 0, opacity: 0 });
+
+  // Mobile indicator positions
+  const mobileContainerRef = useRef(null);
+  const mobileTabRefs = useRef({});
+  const [mobilePill, setMobilePill] = useState({ left: 0, width: 0, opacity: 0 });
+
+  // Measure and update active indicator coordinates
+  const updateIndicators = useCallback(() => {
+    // 1. Desktop indicator update
+    const dContainer = desktopContainerRef.current;
+    const dActiveEl = desktopTabRefs.current[activeTabKey];
+    if (dContainer && dActiveEl) {
+      const cRect = dContainer.getBoundingClientRect();
+      const elRect = dActiveEl.getBoundingClientRect();
+      setDesktopPill({
+        left: elRect.left - cRect.left,
+        width: elRect.width,
+        opacity: 1,
+      });
+    }
+
+    // 2. Mobile indicator update
+    const mContainer = mobileContainerRef.current;
+    const mActiveEl = mobileTabRefs.current[activeTabKey];
+    if (mContainer && mActiveEl) {
+      setMobilePill({
+        left: mActiveEl.offsetLeft,
+        width: mActiveEl.offsetWidth,
+        opacity: 1,
+      });
+    }
+  }, [activeTabKey]);
+
+  useEffect(() => {
+    // Initial and responsive measurements
+    updateIndicators();
+    const handleResize = () => {
+      requestAnimationFrame(updateIndicators);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [updateIndicators]);
+
+  // Handle Desktop Hover Ghost Pill
+  const handleDesktopTabHover = (key) => {
+    if (key === activeTabKey) {
+      setHoverPill(prev => ({ ...prev, opacity: 0 }));
+      return;
+    }
+    const dContainer = desktopContainerRef.current;
+    const targetEl = desktopTabRefs.current[key];
+    if (dContainer && targetEl) {
+      const cRect = dContainer.getBoundingClientRect();
+      const elRect = targetEl.getBoundingClientRect();
+      setHoverPill({
+        left: elRect.left - cRect.left,
+        width: elRect.width,
+        opacity: 1,
+      });
+    }
+  };
+
+  const handleDesktopTabLeave = () => {
+    setHoverPill(prev => ({ ...prev, opacity: 0 }));
+  };
+
+  const handleTabClick = (key) => {
+    setActiveTabKey(key);
+    setCopied(false);
+    setHoverPill(prev => ({ ...prev, opacity: 0 }));
+
+    // Smooth scroll mobile tab into center view
+    const mActiveEl = mobileTabRefs.current[key];
+    if (mActiveEl && typeof mActiveEl.scrollIntoView === 'function') {
+      mActiveEl.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+  };
+
   const activeDetail = t.subNavDetails?.[activeTabKey];
 
   const handleCopy = (text) => {
@@ -26,25 +109,39 @@ export const SubNavTabs = ({ activeLang }) => {
   };
 
   return (
-    <div id="cli" className="border-subtle-b border-subtle-t bg-[#0B0B11]">
-      {/* Mobile: Sharp Square Horizontal Scroll Tabs Bar with Swipe Hint */}
+    <div id="cli" className="border-subtle-b bg-[#0B0B11] relative">
+      
+      {/* Mobile: Sharp Horizontal Scroll Tabs Bar with Fluid Morphing Indicator */}
       <div className="relative md:hidden border-subtle-b bg-[#0B0B11]">
-        {/* Scrollable Tab Row */}
-        <div className="flex overflow-x-auto no-scrollbar" data-lenis-prevent>
+        <div 
+          ref={mobileContainerRef}
+          className="relative flex overflow-x-auto no-scrollbar scroll-smooth" 
+          data-lenis-prevent
+        >
+          {/* Mobile Fluid Morphing Indicator Pill */}
+          <div
+            className="absolute top-0 bottom-0 pointer-events-none transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] z-0"
+            style={{
+              transform: `translate3d(${mobilePill.left}px, 0, 0)`,
+              width: `${mobilePill.width}px`,
+              opacity: mobilePill.opacity,
+            }}
+          >
+            <div className="w-full h-full bg-cyan-500/10 border-b-2 border-cyan-400" />
+          </div>
+
           {rawTabs.map((tab) => {
             const isActive = activeTabKey === tab.key;
             const displayName = t.subNavTabs?.[tab.key] || tab.default;
             return (
               <button
                 key={tab.key}
-                onClick={() => {
-                  setActiveTabKey(tab.key);
-                  setCopied(false);
-                }}
-                className={`whitespace-nowrap py-3.5 px-4 text-xs font-mono transition-all shrink-0 cursor-pointer rounded-none border-r border-white/5 ${
+                ref={(el) => (mobileTabRefs.current[tab.key] = el)}
+                onClick={() => handleTabClick(tab.key)}
+                className={`relative z-10 whitespace-nowrap py-3.5 px-4 text-xs font-mono transition-colors shrink-0 cursor-pointer rounded-none border-r border-white/5 ${
                   isActive
-                    ? 'bg-cyan-500/10 text-cyan-300 font-bold'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-white/[0.02]'
+                    ? 'text-cyan-300 font-bold'
+                    : 'text-slate-400 hover:text-slate-200'
                 }`}
               >
                 {displayName}
@@ -54,29 +151,73 @@ export const SubNavTabs = ({ activeLang }) => {
         </div>
 
         {/* Right Fade + Chevron Swipe Hint Overlay */}
-        <div className="pointer-events-none absolute right-0 top-0 h-full w-12 flex items-center justify-end pr-1" style={{background: 'linear-gradient(to right, transparent, var(--bg-dark) 80%)'}}>
+        <div 
+          className="pointer-events-none absolute right-0 top-0 h-full w-12 flex items-center justify-end pr-1 z-20" 
+          style={{ background: 'linear-gradient(to right, transparent, var(--bg-dark) 80%)' }}
+        >
           <ChevronRight size={14} className="text-slate-500 animate-bounce-x" />
         </div>
       </div>
 
-      {/* Desktop: 6-Grid Tab Buttons Bar */}
-      <div className="hidden md:grid md:grid-cols-6 border-subtle-b bg-[#0B0B11]">
+      {/* Desktop: 6-Grid Tab Buttons Bar with Fluid Morphing Indicator */}
+      <div 
+        ref={desktopContainerRef}
+        onMouseLeave={handleDesktopTabLeave}
+        className="hidden md:grid md:grid-cols-6 border-subtle-b bg-[#0B0B11] relative overflow-hidden"
+      >
+        {/* Hover Ghost Pill (Follows cursor smoothly between inactive tabs) */}
+        <div
+          className="absolute top-0 bottom-0 pointer-events-none transition-all duration-200 ease-out z-0"
+          style={{
+            transform: `translate3d(${hoverPill.left}px, 0, 0)`,
+            width: `${hoverPill.width}px`,
+            opacity: hoverPill.opacity,
+          }}
+        >
+          <div className="w-full h-full bg-white/[0.025] border-t border-white/10" />
+        </div>
+
+        {/* Active Fluid Liquid Pill (Sliding morphing highlighter with laser glow) */}
+        <div
+          className="absolute top-0 bottom-0 pointer-events-none transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] z-0"
+          style={{
+            transform: `translate3d(${desktopPill.left}px, 0, 0)`,
+            width: `${desktopPill.width}px`,
+            opacity: desktopPill.opacity,
+          }}
+        >
+          {/* Subtle Cyber Gradient Backdrop */}
+          <div className="w-full h-full bg-gradient-to-b from-cyan-500/[0.12] via-cyan-500/[0.06] to-cyan-500/[0.16] backdrop-blur-[2px]" />
+          
+          {/* Ambient Inner Glow */}
+          <div className="absolute inset-0 bg-cyan-400/[0.04] blur-sm" />
+
+          {/* Top Subtle Edge Highlight */}
+          <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent" />
+
+          {/* Bottom High-Tech Laser Beam */}
+          <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_0_12px_rgba(34,211,238,0.7)]" />
+        </div>
+
+        {/* Tab Buttons */}
         {rawTabs.map((tab) => {
           const isActive = activeTabKey === tab.key;
           const displayName = t.subNavTabs?.[tab.key] || tab.default;
           return (
             <button
               key={tab.key}
-              onClick={() => {
-                setActiveTabKey(tab.key);
-                setCopied(false);
-              }}
-              className={`py-4 px-3 flex items-center justify-center text-xs font-mono font-medium transition-all duration-200 border-r border-white/5 last:border-r-0 cursor-pointer ${
+              ref={(el) => (desktopTabRefs.current[tab.key] = el)}
+              onClick={() => handleTabClick(tab.key)}
+              onMouseEnter={() => handleDesktopTabHover(tab.key)}
+              className={`relative z-10 py-4 px-3 flex items-center justify-center gap-1.5 text-xs font-mono font-medium transition-colors duration-200 border-r border-white/5 last:border-r-0 cursor-pointer select-none ${
                 isActive
-                  ? 'bg-cyan-500/10 text-cyan-300 font-bold'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-white/[0.02]'
+                  ? 'text-cyan-300 font-bold'
+                  : 'text-slate-400 hover:text-slate-200'
               }`}
             >
+              {isActive && (
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.9)] animate-pulse shrink-0" />
+              )}
               <span className="truncate">{displayName}</span>
             </button>
           );
@@ -85,7 +226,7 @@ export const SubNavTabs = ({ activeLang }) => {
 
       {/* Dynamic Interactive Detail Panel for Selected Tab */}
       {activeDetail && (
-        <div className="p-6 sm:p-8 bg-[#07080e] transition-all duration-300">
+        <div key={activeTabKey} className="p-6 sm:p-8 bg-[#07080e] transition-all duration-300 animate-fadeIn">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
             
             {/* Left Column: Subsystem Overview & Feature Pills */}
@@ -156,4 +297,3 @@ export const SubNavTabs = ({ activeLang }) => {
 };
 
 export default SubNavTabs;
-

@@ -363,8 +363,8 @@ h1, h2, h3, .font-display {
 
 /* Monolithic Grid Frame - Elevated with Neuro-Aesthetic Ambient Depth */
 .monolithic-frame {
-  width: calc(100% - 4rem);
-  max-width: 1780px;
+  width: calc(100% - 5.5rem);
+  max-width: 1640px;
   margin-left: auto;
   margin-right: auto;
   background-color: var(--bg-frame);
@@ -373,9 +373,15 @@ h1, h2, h3, .font-display {
   box-shadow: 0 0 100px -25px rgba(6, 182, 212, 0.04), 0 24px 48px -18px rgba(0, 0, 0, 0.55) !important;
 }
 
+@media (max-width: 1280px) {
+  .monolithic-frame {
+    width: calc(100% - 4.5rem);
+  }
+}
+
 @media (max-width: 1024px) {
   .monolithic-frame {
-    width: calc(100% - 3rem);
+    width: calc(100% - 3.5rem);
   }
 }
 

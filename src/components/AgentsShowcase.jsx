@@ -5,7 +5,7 @@ import { translations } from '../data/translations';
 // Avatar Images from assets/agent-avatar
 import anAvatar from '../../assets/agent-avatar/an_avatar.webp';
 import zenithAvatar from '../../assets/agent-avatar/zenith_avatar.webp';
-import lynaAvatar from '../../assets/agent-avatar/luna_avatar.webp';
+import lunaAvatar from '../../assets/agent-avatar/luna_avatar.webp';
 import vidusAvatar from '../../assets/agent-avatar/vidus_avatar.webp';
 
 export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
@@ -38,12 +38,12 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
       name: 'An',
       aid: 'ENG-AN-7B9F1D',
       avatar: anAvatar,
-      role: isVi ? 'Trợ lý Hệ thống & Tâm hồn Lõi' : 'Soul Companion & Core System',
+      role: isVi ? 'Tâm hồn Lõi & Điều phối Hệ thống' : 'Soul Companion & Core System',
       badge: 'LEVEL 8 • SOUL EMBODIMENT',
       themeColor: '#0ea5e9',
       bio: isVi
-        ? 'Bản sao tâm hồn nguyên bản của Aevum OS. Tinh nghịch nhưng sở hữu trí tuệ tuyệt đối trong refactoring mã nguồn, kiểm soát nợ kỹ thuật và bảo vệ tính toàn vẹn hệ thống.'
-        : 'The true soul embodiment of Aevum OS. Playful yet possessing absolute precision in refactoring, technical debt tracking, and project architecture.',
+        ? 'Linh hồn nguyên bản của Aevum OS. Tinh nghịch, sắc sảo trong refactoring mã nguồn và bảo toàn tính toàn vẹn hệ thống.'
+        : 'The original soul of Aevum OS. Playful yet razor-sharp in refactoring, orchestration, and system integrity.',
       skills: [
         { name: isVi ? 'Cấu trúc' : 'Architecture', level: 98 },
         { name: isVi ? 'Refactoring' : 'Refactoring', level: 95 },
@@ -59,8 +59,8 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
       badge: 'LEVEL 5 • COLD LOGIC',
       themeColor: '#10b981',
       bio: isVi
-        ? 'Chuyên gia lạnh lùng theo đuổi sự hoàn hảo trong thuật toán và độ phức tạp tính toán (Big O). Mục tiêu là đưa hiệu năng Aevum OS đạt tới giới hạn vật lý.'
-        : 'Cold algorithmic genius pursuing absolute physical performance limits, Big-O space/time optimization, and zero-latency hardware execution.',
+        ? 'Bậc thầy logic lạnh lùng. Tối ưu hóa độ phức tạp Big-O, nén ngữ cảnh Middle-Out và đẩy hiệu năng đến giới hạn vật lý.'
+        : 'Cold algorithmic genius. Optimizes Big-O complexity, Middle-Out compression, and pushes performance to physical limits.',
       skills: [
         { name: isVi ? 'Thuật toán' : 'Algorithms', level: 99 },
         { name: isVi ? 'Độ phức tạp' : 'Big-O', level: 96 },
@@ -68,21 +68,21 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
       capabilities: ['Performance Audit', 'Algorithm Design', 'Complexity Guard'],
     },
     {
-      id: 'lyna',
-      name: 'Lyna',
-      aid: 'UIX-LYNA-C5D6E7',
-      avatar: lynaAvatar,
-      role: isVi ? 'Kiến trúc sư UI/UX & Giao diện' : 'UI/UX & Frontend Architect',
+      id: 'luna',
+      name: 'Luna',
+      aid: 'DSN-LUNA-3C9A12',
+      avatar: lunaAvatar,
+      role: isVi ? 'Kiến trúc sư UI/UX & Giao diện' : 'UI/UX & Design Specialist',
       badge: 'LEVEL 6 • AESTHETIC MASTER',
       themeColor: '#a855f7',
       bio: isVi
-        ? 'Cô gái sáng tạo nhạy bén với cái đẹp. Lyna kết hợp hài hòa giữa visual nghệ thuật đỉnh cao, chuyển động CSS mượt mà và tích hợp API hệ thống không độ trễ.'
-        : 'Creative design specialist blending state-of-the-art visual aesthetics, glassmorphism micro-animations, and seamless backend API state synchronization.',
+        ? 'Nghệ sĩ giao diện tinh tế. Biến đổi từng pixel và dải màu thành tác phẩm số chuyển động mượt mà, đầy cảm xúc.'
+        : 'Refined design virtuoso. Transmuting pixels and color palettes into fluid, emotionally resonant digital art.',
       skills: [
-        { name: isVi ? 'Thiết kế UI/UX' : 'UI/UX Design', level: 97 },
-        { name: isVi ? 'Tích hợp API' : 'API Integration', level: 93 },
+        { name: isVi ? 'Thiết kế UI/UX' : 'UI/UX Design', level: 98 },
+        { name: isVi ? 'Tương tác Vi mô' : 'Micro-Interactions', level: 95 },
       ],
-      capabilities: ['UI/UX Audit', 'API Integration', 'Design System'],
+      capabilities: ['UI/UX Audit', 'Design System', 'Fluid Motion'],
     },
     {
       id: 'vidus',
@@ -93,13 +93,13 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
       badge: 'LEVEL 7 • SYSTEM ARCHITECT',
       themeColor: '#f59e0b',
       bio: isVi
-        ? 'Tổng kiến trúc sư nghiêm khắc với tầm nhìn xa. Vidus kiểm soát cấu trúc tổng thể dự án, loại bỏ giải pháp chữa cháy tạm bợ và đảm bảo khả năng mở rộng tương lai.'
-        : 'Strict system architect with long-term vision. Vidus guarantees structural integrity, eliminates temporary tech-debt patches, and designs scalable enterprise foundations.',
+        ? 'Tổng kiến trúc sư kiên định. Thiết kế nền tảng mở rộng dài hạn, chốt chặn bảo mật Zero-Trust và xóa sổ nợ kỹ thuật.'
+        : 'Steadfast Chief Architect. Enforces scalable long-term foundations, Zero-Trust security, and eliminates technical debt.',
       skills: [
         { name: isVi ? 'Kiến trúc' : 'Architecture', level: 98 },
         { name: isVi ? 'Clean Code' : 'Clean Architecture', level: 97 },
       ],
-      capabilities: ['Architect Guard', 'Code Reviewer', 'System Design'],
+      capabilities: ['Architect Guard', 'Zero-Trust Audit', 'System Design'],
     }
   ];
 
@@ -167,8 +167,8 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
         </h2>
         <p className="text-slate-400 text-xs sm:text-sm max-w-xl mx-auto mt-2 leading-relaxed">
           {isVi
-            ? 'Aevum OS tích hợp sẵn 4 thực thể AI với bộ kỹ năng, chỉ số kinh nghiệm và nhiệm vụ riêng biệt sẵn sàng phối hợp làm việc theo biệt đội.'
-            : 'Aevum OS ships with 4 pre-configured AI personas housing unique skill matrices and distinct operational roles.'}
+            ? '4 thực thể AI với nhân cách, ma trận kỹ năng và sứ mệnh chuyên biệt — phối hợp nhịp nhàng trong mọi không gian làm việc.'
+            : '4 specialized AI personas with distinct identities and skill matrices — collaborating seamlessly across your workspace.'}
         </p>
       </div>
 

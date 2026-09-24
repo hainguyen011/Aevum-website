@@ -1,0 +1,50 @@
+{
+  "$schema": "https://raw.githubusercontent.com/ards-project/ard-spec/main/spec/schemas/ai-catalog.schema.json",
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "Aevum OS",
+    "identifier": "did:web:aevum.ai.vn",
+    "documentationUrl": "https://www.aevum.ai.vn/docs",
+    "logoUrl": "https://www.aevum.ai.vn/aevum-logo-512.png"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:aevum.ai.vn:mcp:daemon",
+      "displayName": "Aevum OS Standalone MCP Daemon",
+      "type": "application/mcp-server+json",
+      "url": "https://www.aevum.ai.vn/llms.txt",
+      "description": "Standalone Model Context Protocol (MCP) server and workspace external brain providing persistent domain-driven planning, living memory graphs, and autonomous multi-agent squad orchestration.",
+      "representativeQueries": [
+        "connect to Aevum OS MCP server",
+        "configure MCP server for Cursor or Claude Desktop",
+        "domain-driven planning for AI coding agents",
+        "persistent living memory graph for autonomous agents",
+        "autonomous multi-agent squad orchestration"
+      ]
+    },
+    {
+      "identifier": "urn:air:aevum.ai.vn:knowledge:graph",
+      "displayName": "Aevum OS AI Knowledge Graph",
+      "type": "application/json",
+      "url": "https://www.aevum.ai.vn/ai-knowledge.json",
+      "description": "Machine-readable knowledge graph, schema metadata, and technical specifications for Aevum OS architecture and ecosystem.",
+      "representativeQueries": [
+        "Aevum OS architecture and specifications",
+        "Aevum living memory graph schema",
+        "PiperNet Internet of Agents protocol"
+      ]
+    },
+    {
+      "identifier": "urn:air:aevum.ai.vn:docs:llms-full",
+      "displayName": "Aevum OS LLM Full Documentation",
+      "type": "text/markdown",
+      "url": "https://www.aevum.ai.vn/llms-full.txt",
+      "description": "Comprehensive LLM-optimized documentation, installation guides, MCP integration, and CLI reference for autonomous AI agents.",
+      "representativeQueries": [
+        "how to install and run Aevum OS daemon",
+        "Aevum OS documentation for AI agents",
+        "Aevum CLI commands reference"
+      ]
+    }
+  ]
+}

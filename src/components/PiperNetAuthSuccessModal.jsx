@@ -34,34 +34,22 @@ export const PiperNetAuthSuccessModal = ({
   const [countdown, setCountdown] = React.useState(2);
 
   const handleReturnToHub = () => {
-    // 1. Nếu mở từ tab khác qua window.open, gửi tín hiệu và focus lại tab Chrome đó
+    // 1. Gửi tín hiệu và focus lại tab PiperNet Hub ban đầu
     if (window.opener && !window.opener.closed) {
       try {
         window.opener.postMessage({ type: 'PIPERNET_AUTH_SUCCESS' }, '*');
         window.opener.focus();
-        window.close();
-        return;
       } catch (e) {
         console.warn('[PiperNetAuth] Failed to focus opener:', e);
       }
     }
 
-    // 2. Chuyển hướng tab về returnUrl của PiperNet Hub
-    if (returnUrl) {
-      try {
-        const decoded = decodeURIComponent(returnUrl);
-        window.location.href = decoded;
-        return;
-      } catch (e) {
-        window.location.href = returnUrl;
-        return;
-      }
-    }
-
-    // 3. Fallback: tự đóng tab hiện tại
+    // 2. Đóng ngay tab aevum.ai.vn này để quay về tab PiperNet Hub, tránh dư thừa tab
     try {
       window.close();
-    } catch (e) {}
+    } catch (e) {
+      console.warn('[PiperNetAuth] window.close() failed:', e);
+    }
     onClose();
   };
 
@@ -135,7 +123,7 @@ export const PiperNetAuthSuccessModal = ({
             </p>
             <span className="text-xs font-mono text-[#00e5ff] flex items-center gap-1.5">
               <span className="inline-block w-2 h-2 rounded-full bg-[#00e5ff] animate-ping" />
-              {isVi ? `Tự động chuyển về PiperNet sau ${countdown} giây` : `Auto redirecting to PiperNet in ${countdown}s`}
+              {isVi ? `Đang tự động đóng tab này sau ${countdown} giây...` : `Auto closing this tab in ${countdown}s...`}
             </span>
           </div>
 
@@ -194,7 +182,7 @@ export const PiperNetAuthSuccessModal = ({
             onClick={handleReturnToHub}
             className="flex-[1.4] py-2.5 px-6 rounded-lg pipernet-auth-btn-action font-semibold text-sm flex items-center justify-center gap-2 transition-all text-center"
           >
-            <span>{isVi ? `Quay lại PiperNet ngay (${countdown}s)` : `Back to PiperNet Now (${countdown}s)`}</span>
+            <span>{isVi ? `Đóng tab ngay (${countdown}s)` : `Close tab now (${countdown}s)`}</span>
             <ExternalLink size={15} />
           </button>
         </div>

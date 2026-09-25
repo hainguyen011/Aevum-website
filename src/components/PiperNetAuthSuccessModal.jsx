@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import { X, ArrowRight, ExternalLink, Radio, CheckCircle2 } from 'lucide-react';
 
 /**
- * Dedicated Authentication Success Modal for PiperNet Hub
- * Designed with PiperNet Cyberpunk & Electronic Cyan aesthetic (#00e5ff)
+ * Minimalist Authentication Success Modal for PiperNet Hub
+ * Clean, flat, elegant dark theme without icons, box-shadows, or flashy glow.
+ * User manually clicks "Quay lại PiperNet" to focus Hub and close tab.
  */
 export const PiperNetAuthSuccessModal = ({ 
   isOpen, 
@@ -11,6 +11,7 @@ export const PiperNetAuthSuccessModal = ({
   activeLang = 'vi', 
   user, 
   userProfile, 
+  userSession = null,
   returnUrl = null 
 }) => {
   const isVi = activeLang === 'vi';
@@ -29,22 +30,46 @@ export const PiperNetAuthSuccessModal = ({
     };
   }, [isOpen]);
 
-  if (!isOpen) return null;
+  // Gửi session ngay lập tức tới opener khi modal mở
+  useEffect(() => {
+    if (!isOpen) return;
+    if (window.opener && !window.opener.closed) {
+      try {
+        window.opener.postMessage({
+          type: 'PIPERNET_AUTH_SUCCESS',
+          payload: {
+            access_token: userSession?.access_token,
+            refresh_token: userSession?.refresh_token,
+            user: user,
+          },
+        }, '*');
+      } catch (e) {
+        console.warn('[PiperNetAuth] Direct postMessage error:', e);
+      }
+    }
+  }, [isOpen, user, userSession]);
 
-  const [countdown, setCountdown] = React.useState(2);
+  if (!isOpen) return null;
 
   const handleReturnToHub = () => {
     // 1. Gửi tín hiệu và focus lại tab PiperNet Hub ban đầu
     if (window.opener && !window.opener.closed) {
       try {
-        window.opener.postMessage({ type: 'PIPERNET_AUTH_SUCCESS' }, '*');
+        window.opener.postMessage({
+          type: 'PIPERNET_AUTH_SUCCESS',
+          payload: {
+            access_token: userSession?.access_token,
+            refresh_token: userSession?.refresh_token,
+            user: user,
+          },
+        }, '*');
         window.opener.focus();
       } catch (e) {
         console.warn('[PiperNetAuth] Failed to focus opener:', e);
       }
     }
 
-    // 2. Đóng ngay tab aevum.ai.vn này để quay về tab PiperNet Hub, tránh dư thừa tab
+    // 2. Đóng tab aevum.ai.vn này để quay lại PiperNet Hub
     try {
       window.close();
     } catch (e) {
@@ -52,22 +77,6 @@ export const PiperNetAuthSuccessModal = ({
     }
     onClose();
   };
-
-  // Tự động quay lại tab PiperNet Hub sau thời gian đếm ngược
-  useEffect(() => {
-    if (!isOpen) return;
-    const timer = setInterval(() => {
-      setCountdown((prev) => {
-        if (prev <= 1) {
-          clearInterval(timer);
-          handleReturnToHub();
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-    return () => clearInterval(timer);
-  }, [isOpen, returnUrl]);
 
   const getInitials = (name, email) => {
     if (name && name.trim()) {
@@ -93,86 +102,60 @@ export const PiperNetAuthSuccessModal = ({
   const tier = userProfile?.membership_tier || 'ENTERPRISE';
 
   return (
-    <div className="fixed inset-0 z-[99999] pipernet-auth-modal-backdrop flex items-center justify-center p-4 animate-in fade-in duration-200">
-      {/* Modal Container */}
+    <div className="fixed inset-0 z-[99999] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+      {/* Modal Container: Flat, Minimalist, No Shadow */}
       <div 
-        className="relative w-full max-w-[560px] pipernet-auth-modal-container rounded-2xl p-6 sm:p-8 flex flex-col gap-6 animate-in zoom-in-95 duration-200 transition-colors"
+        className="relative w-full max-w-[480px] bg-[#121316] border border-white/10 rounded-xl p-6 flex flex-col gap-5 text-white"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Top Header Row with PiperNet Badge & Close Button */}
-        <div className="flex items-start justify-between gap-4">
-          <div className="flex flex-col gap-2 pr-4">
-            <div className="flex items-center gap-2">
-              <span className="pipernet-auth-tag flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-mono font-semibold tracking-wider uppercase">
-                <Radio size={12} className="animate-pulse text-[#00e5ff]" />
-                PiperNet Hub Mesh
-              </span>
-              <span className="pipernet-auth-mesh-ready flex items-center gap-1 text-[11px] font-mono text-[#10b981]">
-                <CheckCircle2 size={12} />
-                Synced
-              </span>
-            </div>
-
-            <h3 className="text-2xl font-bold pipernet-auth-modal-title tracking-tight leading-snug transition-colors">
-              {isVi ? 'Xác thực thành công với PiperNet!' : 'Successfully Connected to PiperNet!'}
-            </h3>
-            <p className="text-sm pipernet-auth-modal-desc leading-relaxed transition-colors">
-              {isVi 
-                ? 'Phiên làm việc Aevum và API Key của bạn đã được kết nối an toàn với PiperNet Hub. Đang tự động quay lại tab PiperNet Hub...'
-                : 'Your Aevum session and API Key credentials have been securely synced to PiperNet Hub. Returning to PiperNet Hub tab...'}
-            </p>
-            <span className="text-xs font-mono text-[#00e5ff] flex items-center gap-1.5">
-              <span className="inline-block w-2 h-2 rounded-full bg-[#00e5ff] animate-ping" />
-              {isVi ? `Đang tự động đóng tab này sau ${countdown} giây...` : `Auto closing this tab in ${countdown}s...`}
-            </span>
-          </div>
-
-          {/* Close button */}
-          <button
-            onClick={onClose}
-            className="w-8 h-8 rounded-lg pipernet-auth-modal-close flex items-center justify-center transition-colors flex-shrink-0"
-            aria-label="Close Modal"
-          >
-            <X size={16} />
-          </button>
+        {/* Header */}
+        <div className="flex flex-col gap-1.5">
+          <h3 className="text-xl font-semibold tracking-tight text-white">
+            {isVi ? 'Xác thực thành công với PiperNet' : 'Successfully Connected to PiperNet'}
+          </h3>
+          <p className="text-sm text-zinc-400 leading-relaxed">
+            {isVi 
+              ? 'Tài khoản Aevum của bạn đã được kết nối với PiperNet Hub.'
+              : 'Your Aevum account has been connected to PiperNet Hub.'}
+          </p>
         </div>
 
-        {/* User Profile Summary Card */}
-        <div className="pipernet-auth-modal-card rounded-xl p-4 flex items-center justify-between gap-4 transition-colors">
-          <div className="flex items-center gap-3.5 min-w-0">
-            <div className="w-11 h-11 rounded-lg bg-gradient-to-br from-[#00e5ff] via-[#0284c7] to-[#1e1b4b] font-semibold text-xs flex items-center justify-center flex-shrink-0 overflow-hidden pipernet-auth-avatar shadow-sm">
+        {/* User Profile Summary Card: Flat Minimalist */}
+        <div className="bg-[#18191d] border border-white/5 rounded-lg p-3.5 flex items-center justify-between gap-3">
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="w-10 h-10 rounded-full bg-zinc-800 text-xs font-semibold flex items-center justify-center text-white overflow-hidden flex-shrink-0">
               {user?.user_metadata?.avatar_url ? (
                 <img 
                   src={user.user_metadata.avatar_url} 
                   alt={displayName}
-                  className="w-full h-full object-cover rounded-lg"
+                  className="w-full h-full object-cover"
                   onError={(e) => {
                     e.currentTarget.style.display = 'none';
                   }}
                 />
               ) : (
-                <span className="pipernet-auth-initials font-bold text-white">{getInitials(displayName, displayEmail)}</span>
+                <span>{getInitials(displayName, displayEmail)}</span>
               )}
             </div>
-            <div className="flex flex-col min-w-0 gap-0.5">
-              <span className="text-sm font-semibold pipernet-auth-user-name truncate transition-colors">{displayName}</span>
-              <span className="text-xs font-mono pipernet-auth-user-email truncate transition-colors">{displayEmail}</span>
+            <div className="flex flex-col min-w-0">
+              <span className="text-sm font-medium text-white truncate">{displayName}</span>
+              <span className="text-xs text-zinc-400 truncate">{displayEmail}</span>
             </div>
           </div>
 
-          <div className="flex flex-col items-end gap-1.5 flex-shrink-0">
-            <span className="text-[11px] font-semibold px-3 py-1.5 rounded-md pipernet-auth-tier-badge whitespace-nowrap uppercase tracking-wider transition-colors">
+          <div className="flex-shrink-0">
+            <span className="text-xs text-zinc-400 border border-white/10 px-2.5 py-1 rounded bg-white/[0.02]">
               {getTierDisplay(tier)}
             </span>
           </div>
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex items-center justify-end gap-3 pt-1">
+        {/* Action Buttons: Clean Minimalist, Zero Glow */}
+        <div className="flex items-center justify-end gap-3 pt-2">
           <button
             type="button"
             onClick={onClose}
-            className="flex-1 py-2.5 px-5 rounded-lg pipernet-auth-btn-cancel font-medium text-sm transition-colors text-center"
+            className="px-4 py-2 rounded-lg text-sm text-zinc-400 hover:text-white transition-colors"
           >
             {isVi ? 'Đóng' : 'Close'}
           </button>
@@ -180,10 +163,9 @@ export const PiperNetAuthSuccessModal = ({
           <button
             type="button"
             onClick={handleReturnToHub}
-            className="flex-[1.4] py-2.5 px-6 rounded-lg pipernet-auth-btn-action font-semibold text-sm flex items-center justify-center gap-2 transition-all text-center"
+            className="px-5 py-2 rounded-lg text-sm font-semibold bg-white text-black hover:bg-zinc-200 transition-colors"
           >
-            <span>{isVi ? `Đóng tab ngay (${countdown}s)` : `Close tab now (${countdown}s)`}</span>
-            <ExternalLink size={15} />
+            {isVi ? 'Quay lại PiperNet' : 'Return to PiperNet'}
           </button>
         </div>
       </div>
@@ -192,3 +174,4 @@ export const PiperNetAuthSuccessModal = ({
 };
 
 export default PiperNetAuthSuccessModal;
+

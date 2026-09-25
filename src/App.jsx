@@ -94,6 +94,7 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
   // State for Desktop Handoff Banner & PiperNet Handoff
   const [desktopAuthConnected, setDesktopAuthConnected] = useState(false);
   const [pipernetAuthConnected, setPipernetAuthConnected] = useState(false);
+  const [authSession, setAuthSession] = useState(null);
   const [authReturnUrl, setAuthReturnUrl] = useState(() => {
     if (typeof window !== 'undefined' && typeof sessionStorage !== 'undefined') {
       return sessionStorage.getItem('aevum_return_url') || null;
@@ -145,8 +146,22 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
 
     try {
       const { supabase } = await import('./services/supabaseClient');
-      const { data: { session } } = await supabase.auth.getSession();
+      let { data: { session } } = await supabase.auth.getSession();
       if (!session || !session.user) return;
+
+      // Đảm bảo token luôn mới trước khi phát đi
+      const now = Math.floor(Date.now() / 1000);
+      if (session.expires_at && session.expires_at <= now + 60) {
+        try {
+          const { data: refreshed } = await supabase.auth.refreshSession();
+          if (refreshed?.session) {
+            session = refreshed.session;
+            setAuthSession(session);
+          }
+        } catch (refreshErr) {
+          console.warn('[Handoff] Token refresh warning:', refreshErr);
+        }
+      }
 
       const mode = isSilent ? 'Silent iframe' : (isPiperNet ? 'PiperNet' : 'Desktop');
       console.log(`[${mode} Handoff] Broadcasting token to channel:`, `auth-handoff:${effectiveNonce}`);
@@ -227,13 +242,40 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
 
     // Silent iframe mode: broadcast if logged in, no UI, no modal
     if (authType === 'iframe' && urlNonce) {
-      import('./services/supabaseClient').then(({ supabase }) => {
-        supabase.auth.getSession().then(({ data: { session } }) => {
+      import('./services/supabaseClient').then(async ({ supabase }) => {
+        try {
+          let { data: { session } } = await supabase.auth.getSession();
           if (session?.user) {
+            const now = Math.floor(Date.now() / 1000);
+            if (session.expires_at && session.expires_at <= now + 60) {
+              const { data: refreshed } = await supabase.auth.refreshSession();
+              if (refreshed?.session) session = refreshed.session;
+            }
+
+            // Gửi postMessage trực tiếp cho parent window (PiperNet Hub)
+            if (window.parent && window.parent !== window) {
+              window.parent.postMessage({
+                type: 'PIPERNET_AUTH_SUCCESS',
+                payload: {
+                  access_token: session.access_token,
+                  refresh_token: session.refresh_token,
+                  user: session.user,
+                }
+              }, '*');
+            }
+
             broadcastDesktopSession(urlNonce, true);
+          } else {
+            // Không có session
+            if (window.parent && window.parent !== window) {
+              window.parent.postMessage({ type: 'PIPERNET_AUTH_NONE' }, '*');
+            }
           }
-          // Nếu không có session → im lặng, Hub sẽ timeout và bỏ qua
-        });
+        } catch {
+          if (window.parent && window.parent !== window) {
+            window.parent.postMessage({ type: 'PIPERNET_AUTH_NONE' }, '*');
+          }
+        }
       });
       return; // Không làm gì thêm với iframe mode
     }
@@ -253,7 +295,7 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
 
   // If user state updates and desktop/pipernet nonce exists, broadcast session
   useEffect(() => {
-    const effectiveNonce = getQueryParam('nonce') || sessionStorage.getItem('aevum_desktop_nonce');
+    const effectiveNonce = getQueryParam('nonce') || sessionStorage.getItem('aevum_pipernet_nonce') || sessionStorage.getItem('aevum_desktop_nonce');
     if (effectiveNonce && user) {
       broadcastDesktopSession(effectiveNonce);
     }
@@ -265,6 +307,7 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
     import('./services/supabaseClient').then(({ supabase }) => {
       supabase.auth.getSession().then(({ data: { session } }) => {
         setUser(session?.user ?? null);
+        setAuthSession(session ?? null);
         if (session?.user) {
           broadcastDesktopSession();
         }
@@ -272,6 +315,7 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
 
       const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
         setUser(session?.user ?? null);
+        setAuthSession(session ?? null);
         if (session?.user && (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED' || event === 'INITIAL_SESSION')) {
           broadcastDesktopSession();
         }
@@ -1053,6 +1097,7 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
             activeLang={activeLang}
             user={user}
             userProfile={userProfile}
+            userSession={authSession}
             returnUrl={authReturnUrl}
           />
         )}

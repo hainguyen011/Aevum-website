@@ -22,9 +22,21 @@ export const DesktopAuthSuccessModal = ({ isOpen, onClose, activeLang, user, use
     };
   }, [isOpen]);
 
-  if (!isOpen) return null;
+  // HARD GUARDRAIL: Never render desktop modal if client is pipernet
+  const isPiperNet = typeof window !== 'undefined' && (
+    window.location.search.includes('pipernet') ||
+    window.location.search.includes('pip_') ||
+    window.location.href.includes('pipernet') ||
+    (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('aevum_auth_client') === 'pipernet')
+  );
+
+  if (!isOpen || isPiperNet) return null;
 
   const handleLetsGo = () => {
+    if (isPiperNet) {
+      onClose();
+      return;
+    }
     try {
       window.location.href = 'aevum://auth-success';
     } catch (e) {

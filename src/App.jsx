@@ -36,6 +36,7 @@ const SearchModal = lazy(() => import('./components/SearchModal').then(m => ({ d
 const AuthModal = lazy(() => import('./components/AuthModal').then(m => ({ default: m.AuthModal })));
 const TrialModal = lazy(() => import('./components/TrialModal').then(m => ({ default: m.TrialModal })));
 const DesktopAuthSuccessModal = lazy(() => import('./components/DesktopAuthSuccessModal').then(m => ({ default: m.DesktopAuthSuccessModal })));
+const PiperNetAuthSuccessModal = lazy(() => import('./components/PiperNetAuthSuccessModal').then(m => ({ default: m.PiperNetAuthSuccessModal })));
 
 export function App({ initialPage = null, initialLang = 'vi' }) {
   const [currentPage, setCurrentPage] = useState(() => {
@@ -90,8 +91,15 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
   }, [user, pendingOpenTrial, pendingRedirectPage]);
 
 
-  // State for Desktop Handoff Banner
+  // State for Desktop Handoff Banner & PiperNet Handoff
   const [desktopAuthConnected, setDesktopAuthConnected] = useState(false);
+  const [pipernetAuthConnected, setPipernetAuthConnected] = useState(false);
+  const [authReturnUrl, setAuthReturnUrl] = useState(() => {
+    if (typeof window !== 'undefined' && typeof sessionStorage !== 'undefined') {
+      return sessionStorage.getItem('aevum_return_url') || null;
+    }
+    return null;
+  });
 
   // Helper to extract query parameters from regular search, hash route, or full href
   const getQueryParam = (name) => {
@@ -112,20 +120,36 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
     }
   };
 
-  // Dedicated Desktop Broadcast function with multiple heartbeat retries
-  const broadcastDesktopSession = useCallback(async (forcedNonce) => {
-    const isDesktopIntent = getQueryParam('auth') === 'desktop' || Boolean(getQueryParam('nonce')) || Boolean(sessionStorage.getItem('aevum_desktop_nonce'));
-    const effectiveNonce = forcedNonce || getQueryParam('nonce') || sessionStorage.getItem('aevum_desktop_nonce');
+  // Dedicated Desktop & PiperNet Broadcast function with multiple heartbeat retries
+  const broadcastDesktopSession = useCallback(async (forcedNonce, isSilent = false) => {
+    const authParam = getQueryParam('auth');
+    const clientParam = getQueryParam('client');
+    const storedClient = typeof sessionStorage !== 'undefined' ? sessionStorage.getItem('aevum_auth_client') : null;
+    const effectiveNonce = forcedNonce || getQueryParam('nonce') || sessionStorage.getItem('aevum_pipernet_nonce') || sessionStorage.getItem('aevum_desktop_nonce');
+    
+    // Strict PiperNet intent detection
+    const isPiperNet = authParam === 'pipernet' 
+      || clientParam === 'pipernet' 
+      || storedClient === 'pipernet'
+      || (typeof effectiveNonce === 'string' && effectiveNonce.startsWith('pip_'));
 
-    // Chỉ kích hoạt và hiển thị thông báo kết nối nếu đăng nhập bắt nguồn từ Aevum OS
-    if (!isDesktopIntent || !effectiveNonce) return;
+    const isHandoffIntent = authParam === 'desktop'
+      || authParam === 'pipernet'
+      || authParam === 'iframe'
+      || Boolean(getQueryParam('nonce'))
+      || Boolean(sessionStorage.getItem('aevum_desktop_nonce'))
+      || Boolean(sessionStorage.getItem('aevum_pipernet_nonce'));
+
+    // Chỉ kích hoạt nếu có nonce hợp lệ
+    if (!isHandoffIntent || !effectiveNonce) return;
 
     try {
       const { supabase } = await import('./services/supabaseClient');
       const { data: { session } } = await supabase.auth.getSession();
       if (!session || !session.user) return;
 
-      console.log('[Desktop Handoff] Broadcasting token to channel:', `auth-handoff:${effectiveNonce}`);
+      const mode = isSilent ? 'Silent iframe' : (isPiperNet ? 'PiperNet' : 'Desktop');
+      console.log(`[${mode} Handoff] Broadcasting token to channel:`, `auth-handoff:${effectiveNonce}`);
       const channel = supabase.channel(`auth-handoff:${effectiveNonce}`);
 
       channel.subscribe((status) => {
@@ -146,11 +170,21 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
           sendSession();
           setTimeout(sendSession, 500);
 
-          setDesktopAuthConnected(true);
-          setIsAuthModalOpen(false);
+          // Chỉ hiện UI khi không phải silent iframe mode
+          if (!isSilent) {
+            if (isPiperNet) {
+              setPipernetAuthConnected(true);
+              setDesktopAuthConnected(false);
+            } else {
+              setDesktopAuthConnected(true);
+              setPipernetAuthConnected(false);
+            }
+            setIsAuthModalOpen(false);
+          }
 
           // Xóa nonce khỏi sessionStorage sau khi đã phát thành công
           sessionStorage.removeItem('aevum_desktop_nonce');
+          sessionStorage.removeItem('aevum_pipernet_nonce');
 
           setTimeout(() => {
             channel.unsubscribe();
@@ -158,20 +192,53 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
         }
       });
     } catch (err) {
-      console.error('[Desktop Handoff] Broadcast failed:', err);
+      console.error('[Handoff] Broadcast failed:', err);
     }
   }, []);
 
-  // Handle ?auth=signin, ?auth=login, or ?auth=desktop parameter to automatically open AuthModal
+  // Handle ?auth=signin, ?auth=login, ?auth=desktop, ?auth=pipernet, ?auth=iframe parameter
   useEffect(() => {
     const authType = getQueryParam('auth');
+    const clientType = getQueryParam('client');
     const urlNonce = getQueryParam('nonce');
+    const returnUrl = getQueryParam('return_url') || getQueryParam('redirect_uri');
 
-    if (urlNonce) {
+    const isPiperNet = authType === 'pipernet'
+      || clientType === 'pipernet'
+      || (typeof urlNonce === 'string' && urlNonce.startsWith('pip_'))
+      || sessionStorage.getItem('aevum_auth_client') === 'pipernet';
+
+    if (isPiperNet) {
+      sessionStorage.setItem('aevum_auth_client', 'pipernet');
+      sessionStorage.removeItem('aevum_desktop_nonce');
+      if (urlNonce) sessionStorage.setItem('aevum_pipernet_nonce', urlNonce);
+    } else if (authType === 'desktop') {
+      sessionStorage.setItem('aevum_auth_client', 'desktop');
+      sessionStorage.removeItem('aevum_pipernet_nonce');
+      if (urlNonce) sessionStorage.setItem('aevum_desktop_nonce', urlNonce);
+    } else if (urlNonce) {
       sessionStorage.setItem('aevum_desktop_nonce', urlNonce);
     }
 
-    if (authType === 'signin' || authType === 'login' || authType === 'desktop' || getQueryParam('openAuth') === 'true') {
+    if (returnUrl) {
+      sessionStorage.setItem('aevum_return_url', returnUrl);
+      setAuthReturnUrl(returnUrl);
+    }
+
+    // Silent iframe mode: broadcast if logged in, no UI, no modal
+    if (authType === 'iframe' && urlNonce) {
+      import('./services/supabaseClient').then(({ supabase }) => {
+        supabase.auth.getSession().then(({ data: { session } }) => {
+          if (session?.user) {
+            broadcastDesktopSession(urlNonce, true);
+          }
+          // Nếu không có session → im lặng, Hub sẽ timeout và bỏ qua
+        });
+      });
+      return; // Không làm gì thêm với iframe mode
+    }
+
+    if (authType === 'signin' || authType === 'login' || authType === 'desktop' || authType === 'pipernet' || getQueryParam('openAuth') === 'true') {
       import('./services/supabaseClient').then(({ supabase }) => {
         supabase.auth.getSession().then(({ data: { session } }) => {
           if (!session?.user) {
@@ -184,7 +251,7 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
     }
   }, [broadcastDesktopSession]);
 
-  // If user state updates and desktop nonce exists, broadcast session
+  // If user state updates and desktop/pipernet nonce exists, broadcast session
   useEffect(() => {
     const effectiveNonce = getQueryParam('nonce') || sessionStorage.getItem('aevum_desktop_nonce');
     if (effectiveNonce && user) {
@@ -976,6 +1043,17 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
             activeLang={activeLang}
             user={user}
             userProfile={userProfile}
+          />
+        )}
+
+        {pipernetAuthConnected && (
+          <PiperNetAuthSuccessModal
+            isOpen={pipernetAuthConnected}
+            onClose={() => setPipernetAuthConnected(false)}
+            activeLang={activeLang}
+            user={user}
+            userProfile={userProfile}
+            returnUrl={authReturnUrl}
           />
         )}
 

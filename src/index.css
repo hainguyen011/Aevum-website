@@ -1325,6 +1325,183 @@ html[data-theme="light"] .desktop-auth-btn-action svg {
   color: #FFFFFF !important;
 }
 
+/* ==========================================================================
+   PiperNet Hub Authentication Success Modal (Dark & Light Theme)
+   ========================================================================== */
+
+/* --- Default / Dark Mode --- */
+.pipernet-auth-modal-backdrop {
+  background-color: rgba(5, 8, 16, 0.8);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.pipernet-auth-modal-container {
+  background-color: #0b0f19;
+  border: 1px solid rgba(0, 229, 255, 0.25);
+  box-shadow: 0 0 35px rgba(0, 229, 255, 0.08), 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+}
+
+.pipernet-auth-tag {
+  background-color: rgba(0, 229, 255, 0.08);
+  border: 1px solid rgba(0, 229, 255, 0.3);
+  color: #00e5ff;
+}
+
+.pipernet-auth-modal-title {
+  color: #FFFFFF;
+}
+
+.pipernet-auth-modal-desc {
+  color: #94A3B8;
+}
+
+.pipernet-auth-modal-close {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #94A3B8;
+}
+
+.pipernet-auth-modal-close:hover {
+  background-color: rgba(0, 229, 255, 0.1);
+  border-color: rgba(0, 229, 255, 0.3);
+  color: #00e5ff;
+}
+
+.pipernet-auth-modal-card {
+  background-color: #111624;
+  border: 1px solid rgba(0, 229, 255, 0.15);
+}
+
+.pipernet-auth-avatar {
+  border: 1px solid rgba(0, 229, 255, 0.4);
+  box-shadow: 0 0 10px rgba(0, 229, 255, 0.2);
+}
+
+.pipernet-auth-user-name {
+  color: #F8FAFC;
+}
+
+.pipernet-auth-user-email {
+  color: #94A3B8;
+}
+
+.pipernet-auth-tier-badge {
+  background-color: rgba(0, 229, 255, 0.1);
+  border: 1px solid rgba(0, 229, 255, 0.35);
+  color: #00e5ff;
+}
+
+.pipernet-auth-btn-cancel {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #E2E8F0;
+}
+
+.pipernet-auth-btn-cancel:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+}
+
+.pipernet-auth-btn-action {
+  background: linear-gradient(135deg, #00e5ff, #0284c7, #2563eb);
+  color: #000000 !important;
+  font-weight: 700;
+  box-shadow: 0 4px 18px rgba(0, 229, 255, 0.35);
+}
+
+.pipernet-auth-btn-action:hover {
+  background: linear-gradient(135deg, #38bdf8, #00e5ff, #0284c7);
+  box-shadow: 0 6px 24px rgba(0, 229, 255, 0.5);
+  color: #000000 !important;
+}
+
+.pipernet-auth-btn-action span,
+.pipernet-auth-btn-action svg {
+  color: #000000 !important;
+}
+
+/* --- Light Mode Adaptations --- */
+html[data-theme="light"] .pipernet-auth-modal-backdrop {
+  background-color: rgba(15, 23, 42, 0.5) !important;
+}
+
+html[data-theme="light"] .pipernet-auth-modal-container {
+  background-color: #FFFFFF !important;
+  border: 1px solid rgba(0, 180, 216, 0.25) !important;
+  box-shadow: 0 20px 45px -10px rgba(0, 180, 216, 0.15) !important;
+}
+
+html[data-theme="light"] .pipernet-auth-tag {
+  background-color: rgba(2, 132, 199, 0.08) !important;
+  border: 1px solid rgba(2, 132, 199, 0.25) !important;
+  color: #0284c7 !important;
+}
+
+html[data-theme="light"] .pipernet-auth-modal-title {
+  color: #0F172A !important;
+}
+
+html[data-theme="light"] .pipernet-auth-modal-desc {
+  color: #475569 !important;
+}
+
+html[data-theme="light"] .pipernet-auth-modal-close {
+  background-color: #F1F5F9 !important;
+  border: 1px solid #E2E8F0 !important;
+  color: #64748B !important;
+}
+
+html[data-theme="light"] .pipernet-auth-modal-close:hover {
+  background-color: #E2E8F0 !important;
+  color: #0F172A !important;
+}
+
+html[data-theme="light"] .pipernet-auth-modal-card {
+  background: #F8FAFC !important;
+  border: 1px solid #E2E8F0 !important;
+}
+
+html[data-theme="light"] .pipernet-auth-avatar {
+  border: 1px solid rgba(2, 132, 199, 0.3) !important;
+}
+
+html[data-theme="light"] .pipernet-auth-user-name {
+  color: #0F172A !important;
+}
+
+html[data-theme="light"] .pipernet-auth-user-email {
+  color: #64748B !important;
+}
+
+html[data-theme="light"] .pipernet-auth-tier-badge {
+  background-color: #E0F2FE !important;
+  border: 1px solid #BAE6FD !important;
+  color: #0369A1 !important;
+}
+
+html[data-theme="light"] .pipernet-auth-btn-cancel {
+  background-color: #F1F5F9 !important;
+  border: 1px solid #E2E8F0 !important;
+  color: #334155 !important;
+}
+
+html[data-theme="light"] .pipernet-auth-btn-cancel:hover {
+  background-color: #E2E8F0 !important;
+  color: #0F172A !important;
+}
+
+html[data-theme="light"] .pipernet-auth-btn-action {
+  background: linear-gradient(135deg, #0284c7, #0ea5e9, #06b6d4) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35) !important;
+}
+
+html[data-theme="light"] .pipernet-auth-btn-action span,
+html[data-theme="light"] .pipernet-auth-btn-action svg {
+  color: #FFFFFF !important;
+}
+
 /* Agent Showcase Card Gradient Overlay */
 .agent-card-gradient {
   background: linear-gradient(to top, #07080E 0%, rgba(7, 8, 14, 0.9) 65%, transparent 100%);

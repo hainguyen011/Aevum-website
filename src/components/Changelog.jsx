@@ -1,5 +1,17 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { Calendar, Download, RefreshCw, AlertCircle, MessageSquare } from 'lucide-react';
+import { 
+  Calendar, 
+  Download, 
+  RefreshCw, 
+  AlertCircle, 
+  MessageSquare, 
+  Folder, 
+  FolderOpen, 
+  ChevronDown, 
+  ChevronRight, 
+  Layers, 
+  List 
+} from 'lucide-react';
 import { TranslationService } from '../services/TranslationService';
 import { ReleaseService } from '../services/ReleaseService';
 
@@ -10,7 +22,64 @@ export function Changelog({ activeLang, onNavigate }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [translatedNotes, setTranslatedNotes] = useState('');
   const [isTranslating, setIsTranslating] = useState(false);
+  const [collapsedGroups, setCollapsedGroups] = useState({});
+  const [viewMode, setViewMode] = useState('grouped'); // 'grouped' | 'flat'
   const isVi = activeLang === 'vi';
+
+  // Categorize a release into a semantic group (e.g. Aevum-Beta-Test)
+  const categorizeRelease = (release) => {
+    if (!release) {
+      return {
+        groupId: 'aevum-releases',
+        groupName: 'AevumOS Releases',
+        groupBadge: isVi ? 'Bản phát hành' : 'Releases',
+        channel: 'general'
+      };
+    }
+
+    const tag = (release.tag_name || release.name || '').toLowerCase();
+    const name = (release.name || '').toLowerCase();
+
+    // 1. Beta test channel (e.g. v1.0.0-beta.4, beta.3, etc.)
+    if (tag.includes('beta') || name.includes('beta')) {
+      return {
+        groupId: 'aevum-beta-test',
+        groupName: 'Aevum-Beta-Test',
+        groupBadge: isVi ? 'Bản Thử Nghiệm' : 'Public Beta',
+        channel: 'beta'
+      };
+    }
+
+    // 2. Alpha test channel
+    if (tag.includes('alpha') || name.includes('alpha')) {
+      return {
+        groupId: 'aevum-alpha-test',
+        groupName: 'Aevum-Alpha-Test',
+        groupBadge: isVi ? 'Nội Bộ' : 'Alpha',
+        channel: 'alpha'
+      };
+    }
+
+    // 3. Stable / Official series (e.g. v1.0.0, v2.1.0)
+    const stableMatch = tag.match(/^v?(\d+\.\d+)(?:\.(\d+))?/i);
+    if (stableMatch) {
+      const majorMinor = stableMatch[1];
+      return {
+        groupId: `aevum-v${majorMinor}`,
+        groupName: `AevumOS v${majorMinor} (Official)`,
+        groupBadge: isVi ? 'Chính Thức' : 'Official',
+        channel: 'stable'
+      };
+    }
+
+    // 4. Fallback general group
+    return {
+      groupId: 'aevum-releases',
+      groupName: 'AevumOS Releases',
+      groupBadge: isVi ? 'Phát Hành' : 'Release',
+      channel: 'general'
+    };
+  };
 
   useEffect(() => {
     setIsLoading(true);
@@ -36,6 +105,64 @@ export function Changelog({ activeLang, onNavigate }) {
       });
   }, [activeLang]);
 
+  // Compute grouped releases with update numbering (e.g. Bản update 4, 3, 2, 1)
+  const groupedReleases = useMemo(() => {
+    const groupsMap = new Map();
+
+    releases.forEach((release, flatIdx) => {
+      const cat = categorizeRelease(release);
+      if (!groupsMap.has(cat.groupId)) {
+        groupsMap.set(cat.groupId, {
+          id: cat.groupId,
+          name: cat.groupName,
+          badge: cat.groupBadge,
+          channel: cat.channel,
+          items: []
+        });
+      }
+      groupsMap.get(cat.groupId).items.push({
+        release,
+        flatIdx
+      });
+    });
+
+    return Array.from(groupsMap.values()).map(group => {
+      const total = group.items.length;
+      const itemsWithLabels = group.items.map((item, itemIdx) => {
+        const tag = (item.release.tag_name || item.release.name || '').toLowerCase();
+        const betaMatch = tag.match(/beta\.?(\d+)/i);
+        let updateNum;
+
+        if (betaMatch && parseInt(betaMatch[1], 10) > 0) {
+          updateNum = parseInt(betaMatch[1], 10);
+        } else {
+          // Chronological fallback: earliest is 1, newest is total
+          updateNum = total - itemIdx;
+        }
+
+        const updateLabel = isVi ? `Bản update ${updateNum}` : `Update ${updateNum}`;
+
+        return {
+          ...item,
+          updateNum,
+          updateLabel
+        };
+      });
+
+      return {
+        ...group,
+        items: itemsWithLabels
+      };
+    });
+  }, [releases, isVi]);
+
+  const toggleGroup = (groupId) => {
+    setCollapsedGroups(prev => ({
+      ...prev,
+      [groupId]: !prev[groupId]
+    }));
+  };
+
   // Keyboard navigation [↑/↓]
   useEffect(() => {
     if (!releases.length) return;
@@ -52,9 +179,42 @@ export function Changelog({ activeLang, onNavigate }) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [releases.length]);
 
+  // Auto-expand group if active release is inside a collapsed group
+  useEffect(() => {
+    if (!releases.length || selectedIndex < 0 || selectedIndex >= releases.length) return;
+    const activeRelease = releases[selectedIndex];
+    if (!activeRelease) return;
+    const cat = categorizeRelease(activeRelease);
+    if (collapsedGroups[cat.groupId]) {
+      setCollapsedGroups(prev => ({
+        ...prev,
+        [cat.groupId]: false
+      }));
+    }
+  }, [selectedIndex, releases]);
+
   const selectedRelease = useMemo(() => {
     return releases[selectedIndex] || releases[0] || null;
   }, [releases, selectedIndex]);
+
+  // Selected release group & update metadata
+  const selectedMeta = useMemo(() => {
+    if (!selectedRelease) return null;
+    const cat = categorizeRelease(selectedRelease);
+    for (const g of groupedReleases) {
+      const match = g.items.find(i => i.flatIdx === selectedIndex);
+      if (match) {
+        return {
+          groupName: g.name,
+          updateLabel: match.updateLabel
+        };
+      }
+    }
+    return {
+      groupName: cat.groupName,
+      updateLabel: ''
+    };
+  }, [selectedRelease, groupedReleases, selectedIndex]);
 
   // Auto-translate release notes dynamically using TranslationService
   useEffect(() => {
@@ -95,7 +255,7 @@ export function Changelog({ activeLang, onNavigate }) {
     const formattedTag = rawTitle.startsWith('v') || rawTitle.startsWith('V')
       ? rawTitle
       : `v${rawTitle}`;
-    return `Aevum ${formattedTag}`;
+    return `AevumOS ${formattedTag}`;
   };
 
   const getDownloadItems = (release) => {
@@ -264,10 +424,42 @@ export function Changelog({ activeLang, onNavigate }) {
           {/* Column 1: Interactive Drill-down Menu (5 Cols) */}
           <div className="order-2 lg:order-1 lg:col-span-5 space-y-3 font-mono lg:border-r border-b lg:border-b-0 border-white/10 px-6 lg:px-10 py-8 h-full">
             
-            {/* Current Directory Breadcrumb */}
-            <div className="flex items-center gap-2 text-[11px] text-white font-mono font-bold tracking-wide uppercase">
-              <span className="text-slate-400">LOCATION:</span>
-              <span className="text-white">~/RELEASES</span>
+            {/* Current Directory Breadcrumb & View Mode Toggle */}
+            <div className="flex items-center justify-between text-[11px] text-white font-mono font-bold tracking-wide uppercase pb-1">
+              <div className="flex items-center gap-2">
+                <span className="text-slate-400">LOCATION:</span>
+                <span className="text-white">~/RELEASES</span>
+              </div>
+
+              {/* View Mode Switcher */}
+              <div className="flex items-center gap-1 bg-white/[0.04] p-0.5 rounded border border-white/10 text-[10px]">
+                <button
+                  type="button"
+                  onClick={() => setViewMode('grouped')}
+                  className={`flex items-center gap-1 px-2 py-0.5 rounded transition-colors ${
+                    viewMode === 'grouped'
+                      ? 'bg-cyan-500/20 text-cyan-300 font-bold border border-cyan-500/30'
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                  title={isVi ? "Xem gom nhóm theo phiên bản" : "View grouped by release family"}
+                >
+                  <Layers size={11} />
+                  <span>{isVi ? 'Gom nhóm' : 'Grouped'}</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setViewMode('flat')}
+                  className={`flex items-center gap-1 px-2 py-0.5 rounded transition-colors ${
+                    viewMode === 'flat'
+                      ? 'bg-cyan-500/20 text-cyan-300 font-bold border border-cyan-500/30'
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                  title={isVi ? "Xem danh sách toàn bộ" : "View flat release list"}
+                >
+                  <List size={11} />
+                  <span>{isVi ? 'Tất cả' : 'All'}</span>
+                </button>
+              </div>
             </div>
 
             {/* Releases Menu List */}
@@ -284,11 +476,110 @@ export function Changelog({ activeLang, onNavigate }) {
               <div className="text-xs text-slate-500 py-4 font-mono">
                 [EMPTY] No releases available.
               </div>
+            ) : viewMode === 'grouped' ? (
+              /* Grouped View */
+              <div className="space-y-3 font-mono text-xs sm:text-sm pt-1">
+                {groupedReleases.map((group) => {
+                  const isCollapsed = !!collapsedGroups[group.id];
+                  const hasSelected = group.items.some(item => item.flatIdx === selectedIndex);
+
+                  return (
+                    <div 
+                      key={group.id} 
+                      className={`rounded-lg border transition-all duration-200 overflow-hidden ${
+                        hasSelected 
+                          ? 'border-cyan-500/40 bg-[#12131C] shadow-[0_0_15px_rgba(6,182,212,0.06)]' 
+                          : 'border-white/10 bg-white/[0.02]'
+                      }`}
+                    >
+                      {/* Group Header (Clickable to collapse/expand) */}
+                      <button
+                        type="button"
+                        onClick={() => toggleGroup(group.id)}
+                        className={`w-full flex items-center justify-between px-3 py-2.5 cursor-pointer select-none transition-colors text-left ${
+                          hasSelected
+                            ? 'bg-cyan-950/40 text-white'
+                            : 'hover:bg-white/[0.04] text-slate-300'
+                        }`}
+                      >
+                        <div className="flex items-center gap-2 min-w-0">
+                          <span className="text-cyan-400 shrink-0">
+                            {isCollapsed ? <ChevronRight size={14} /> : <ChevronDown size={14} />}
+                          </span>
+                          {isCollapsed ? (
+                            <Folder size={14} className="text-slate-400 shrink-0" />
+                          ) : (
+                            <FolderOpen size={14} className="text-cyan-400 shrink-0" />
+                          )}
+                          <span className="font-bold tracking-wide text-xs sm:text-sm text-white truncate">
+                            {group.name}
+                          </span>
+                        </div>
+
+                        <div className="flex items-center gap-1.5 shrink-0 pl-2">
+                          <span className="text-[10px] font-mono text-cyan-300 bg-cyan-950/70 border border-cyan-500/30 px-2 py-0.5 rounded-full font-semibold">
+                            {group.items.length} {isVi ? 'bản update' : 'updates'}
+                          </span>
+                        </div>
+                      </button>
+
+                      {/* Group Releases Sub-items */}
+                      {!isCollapsed && (
+                        <div className="p-1 space-y-1 border-t border-white/5 bg-black/20">
+                          {group.items.map(({ release, flatIdx, updateLabel }) => {
+                            const isFocused = selectedIndex === flatIdx;
+                            const displayTitle = getDisplayTitle(release);
+
+                            return (
+                              <div
+                                key={release.id}
+                                onClick={() => setSelectedIndex(flatIdx)}
+                                onMouseEnter={() => setSelectedIndex(flatIdx)}
+                                className={`group flex flex-col py-2 px-2.5 rounded cursor-pointer transition-colors font-mono ${
+                                  isFocused
+                                    ? 'text-white font-bold bg-white/[0.08] shadow-[inset_2px_0_0_0_#22d3ee]'
+                                    : 'text-slate-300 hover:text-white hover:bg-white/[0.03]'
+                                }`}
+                              >
+                                <div className="flex items-center gap-2">
+                                  <span className="text-cyan-400 font-bold w-4 text-center shrink-0">
+                                    {isFocused ? '>' : ' '}
+                                  </span>
+
+                                  <span className="text-[10px] font-mono font-bold text-cyan-300 bg-cyan-950/80 border border-cyan-500/30 px-1.5 py-0.5 rounded shrink-0">
+                                    {updateLabel}
+                                  </span>
+
+                                  <span className={`flex-1 truncate ${
+                                    isFocused ? 'text-white font-bold' : 'text-slate-200'
+                                  }`}>
+                                    {displayTitle}
+                                  </span>
+
+                                  <span className="text-slate-400 text-xs font-mono font-bold shrink-0">
+                                    &gt;
+                                  </span>
+                                </div>
+
+                                <span className="text-slate-400 text-xs pl-6 pt-0.5 font-normal">
+                                  {formatDate(release.published_at)}
+                                </span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
             ) : (
+              /* Flat View */
               <div className="space-y-1 font-mono text-xs sm:text-sm pt-1">
                 {releases.map((release, idx) => {
                   const isFocused = selectedIndex === idx;
                   const displayTitle = getDisplayTitle(release);
+                  const cat = categorizeRelease(release);
 
                   return (
                     <div
@@ -297,22 +588,26 @@ export function Changelog({ activeLang, onNavigate }) {
                       onMouseEnter={() => setSelectedIndex(idx)}
                       className={`group flex flex-col py-2 px-2.5 rounded cursor-pointer transition-colors font-mono ${
                         isFocused
-                          ? 'text-white font-bold bg-white/[0.06]'
+                          ? 'text-white font-bold bg-white/[0.06] shadow-[inset_2px_0_0_0_#22d3ee]'
                           : 'text-slate-300 hover:text-white hover:bg-white/[0.02]'
                       }`}
                     >
                       <div className="flex items-center gap-2">
-                        <span className="text-white font-bold w-4 text-center">
+                        <span className="text-cyan-400 font-bold w-4 text-center shrink-0">
                           {isFocused ? '>' : ' '}
                         </span>
 
-                        <span className={`flex-1 ${
-                          isFocused ? 'text-white font-bold' : 'text-slate-200'
-                        }`}>
-                          {idx + 1}./ {displayTitle}
+                        <span className="text-[10px] font-mono font-bold text-cyan-300 bg-cyan-950/80 border border-cyan-500/30 px-1.5 py-0.5 rounded shrink-0">
+                          {cat.groupName}
                         </span>
 
-                        <span className="text-slate-400 text-xs font-mono font-bold">
+                        <span className={`flex-1 truncate ${
+                          isFocused ? 'text-white font-bold' : 'text-slate-200'
+                        }`}>
+                          {displayTitle}
+                        </span>
+
+                        <span className="text-slate-400 text-xs font-mono font-bold shrink-0">
                           &gt;
                         </span>
                       </div>
@@ -346,6 +641,11 @@ export function Changelog({ activeLang, onNavigate }) {
                   </div>
 
                   <div className="text-xs text-slate-400 font-mono space-y-1">
+                    {selectedMeta && (
+                      <div className="text-cyan-300/90 font-semibold">
+                        ► SERIES: {selectedMeta.groupName} {selectedMeta.updateLabel ? `(${selectedMeta.updateLabel})` : ''}
+                      </div>
+                    )}
                     <div>► PUBLISHED: {formatDate(selectedRelease.published_at)}</div>
                     <div>► REPO: hainguyen011/aevum-os-releases</div>
                   </div>

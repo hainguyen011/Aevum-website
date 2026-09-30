@@ -367,6 +367,7 @@ export function Changelog({ activeLang, onNavigate }) {
   const formatReleaseNotes = (notes) => {
     if (!notes) return '';
     return notes
+      .replace(/\r\n/g, '\n')
       .split('\n')
       .map((line, idx) => {
         const trimmed = line.trim();
@@ -375,6 +376,9 @@ export function Changelog({ activeLang, onNavigate }) {
         }
         if (trimmed.startsWith('##')) {
           return <h3 key={idx} className="text-sm sm:text-base font-bold text-white mt-5 mb-2 first:mt-0 font-mono border-b border-white/10 pb-1">{trimmed.replace(/^##\s*/, '')}</h3>;
+        }
+        if (trimmed.startsWith('#')) {
+          return <h3 key={idx} className="text-sm sm:text-base font-bold text-white mt-4 mb-2 first:mt-0 font-mono text-cyan-400 border-b border-white/10 pb-1">{trimmed.replace(/^#\s*/, '')}</h3>;
         }
         if (trimmed.startsWith('-') || trimmed.startsWith('*')) {
           const text = trimmed.replace(/^[-*]\s*/, '');

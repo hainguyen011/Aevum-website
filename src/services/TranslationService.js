@@ -30,6 +30,16 @@ export const TranslationService = {
   async translateMarkdown(md, targetLang = 'vi', sourceLang = 'auto') {
     if (!md) return '';
 
+    // If target is Vietnamese and text already contains Vietnamese diacritics, return original text to avoid Google Translate mangling markdown syntax
+    if (targetLang === 'vi' && /[àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]/i.test(md)) {
+      return md;
+    }
+
+    // If target is English and text has NO Vietnamese characters, return original text
+    if (targetLang === 'en' && !/[àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]/i.test(md)) {
+      return md;
+    }
+
     const placeholders = {};
     let placeholderCounter = 0;
 

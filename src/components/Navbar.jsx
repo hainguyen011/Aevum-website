@@ -196,7 +196,7 @@ export const Navbar = ({
             <button 
               onClick={() => { onNavigate('pricing'); setFeaturesOpen(false); setResourcesOpen(false); }}
               className={`transition-colors font-semibold whitespace-nowrap text-nowrap cursor-pointer ${
-                currentPage === 'pricing' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
+                currentPage === 'pricing' ? 'text-cyan-400' : 'text-slate-300 hover:text-cyan-400'
               }`}
             >
               {t.navbar.pricing}
@@ -206,7 +206,7 @@ export const Navbar = ({
             <button 
               onClick={() => { onNavigate('about'); setFeaturesOpen(false); setResourcesOpen(false); }}
               className={`transition-colors font-semibold whitespace-nowrap text-nowrap cursor-pointer ${
-                currentPage === 'about' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
+                currentPage === 'about' ? 'text-cyan-400' : 'text-slate-300 hover:text-cyan-400'
               }`}
             >
               {t.navbar.about}
@@ -216,8 +216,8 @@ export const Navbar = ({
             <button 
               onClick={() => { setResourcesOpen(prev => !prev); setFeaturesOpen(false); }}
               className={`flex items-center gap-1.5 transition-colors font-semibold whitespace-nowrap text-nowrap cursor-pointer ${
-                resourcesOpen || ['docs', 'changelog', 'discussions'].includes(currentPage)
-                  ? 'text-cyan-400 font-bold'
+                resourcesOpen || ['docs', 'changelog', 'discussions', 'explore'].includes(currentPage)
+                  ? 'text-cyan-400'
                   : 'text-slate-300 hover:text-cyan-400'
               }`}
             >
@@ -472,24 +472,32 @@ export const Navbar = ({
           <div className="flex items-center gap-5 sm:gap-7 font-medium overflow-x-auto no-scrollbar py-1 pr-4">
             <button 
               onClick={() => { onNavigate('docs'); setResourcesOpen(false); }}
-              className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-semibold ${
-                currentPage === 'docs' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
+              className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-medium ${
+                currentPage === 'docs' ? 'text-cyan-400' : 'text-slate-300 hover:text-cyan-400'
               }`}
             >
               {t.navbar.docs}
             </button>
             <button 
+              onClick={() => { onNavigate('explore'); setResourcesOpen(false); }}
+              className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-medium ${
+                currentPage === 'explore' || currentPage === 'kham-pha' || currentPage === 'learn' ? 'text-cyan-400' : 'text-slate-300 hover:text-cyan-400'
+              }`}
+            >
+              {isVi ? 'Khám phá Kỉ nguyên' : 'Era Academy'}
+            </button>
+            <button 
               onClick={() => { onNavigate('changelog'); setResourcesOpen(false); }}
-              className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-semibold ${
-                currentPage === 'changelog' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
+              className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-medium ${
+                currentPage === 'changelog' ? 'text-cyan-400' : 'text-slate-300 hover:text-cyan-400'
               }`}
             >
               {isVi ? 'Nhật ký cập nhật' : 'Changelog'}
             </button>
             <button 
               onClick={() => { onNavigate('discussions'); setResourcesOpen(false); }}
-              className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-semibold ${
-                currentPage === 'discussions' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
+              className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-medium ${
+                currentPage === 'discussions' ? 'text-cyan-400' : 'text-slate-300 hover:text-cyan-400'
               }`}
             >
               {isVi ? 'Thảo luận' : 'Discussions'}

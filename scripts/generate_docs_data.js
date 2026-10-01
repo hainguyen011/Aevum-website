@@ -52,9 +52,9 @@ Aevum OS cung cấp các gói cài đặt máy tính để bàn chính thức (D
 
 ### Bước 1: Tải về Bản cài đặt Mới nhất (Desktop Package)
 Tải bản cài đặt chính thức của Aevum OS phù hợp với hệ điều hành của bạn trực tiếp tại [Trang Nhật ký Cập nhật (~/RELEASES)](/changelog) hoặc [GitHub Releases](https://github.com/hainguyen011/aevum-os-releases/releases/latest):
-- **Windows (x64 / ARM64)**: Tải tệp \`Aevum-OS-Setup-1.0.0-beta.0.exe\`
-- **macOS (Apple Silicon M-Series)**: Tải tệp \`Aevum-OS-1.0.0-beta.0-mac-arm64.dmg\` hoặc \`.zip\`
-- **macOS (Intel x64)**: Tải tệp \`Aevum-OS-1.0.0-beta.0-mac-x64.dmg\` hoặc \`.zip\`
+- **Windows (x64 / ARM64)**: Tải tệp \`Aevum-OS-Setup-1.0.0-beta.4.exe\`
+- **macOS (Apple Silicon M-Series)**: Tải tệp \`Aevum-OS-1.0.0-beta.4-mac-arm64.dmg\` hoặc \`.zip\`
+- **macOS (Intel x64)**: Tải tệp \`Aevum-OS-1.0.0-beta.4-mac-x64.dmg\` hoặc \`.zip\`
 
 Bộ cài đặt chính thức tự động thiết lập:
 - Tạo shortcut ứng dụng trên Desktop và Start Menu / Launchpad.
@@ -79,7 +79,7 @@ Khi chạy file cài đặt \`.exe\`, nếu xuất hiện bảng cảnh báo mà
 │                                                        │
 │ [Bước 1] 👉 Bấm vào: "More info"                      │
 │                                                        │
-│ App: Aevum-OS-Setup-1.0.0-beta.0.exe                  │
+│ App: Aevum-OS-Setup-1.0.0-beta.4.exe                  │
 │ Publisher: Unknown publisher                           │
 │                                                        │
 │          [Bước 2] 👉 [ Run anyway ]   [ Don't run ]    │
@@ -103,29 +103,218 @@ Trên macOS, nếu hệ thống hiển thị thông báo *"App cannot be opened 
 
 ---
 
-### Bước 2: Cài đặt và Đăng ký Lệnh CLI Toàn cầu (Tùy chọn)
-Nếu bạn muốn sử dụng lệnh \`aevum\` trực tiếp từ Terminal hoặc cấu hình cho các IDE khách:
+### Bước 2: Cài đặt và Đăng ký Lệnh CLI Toàn cầu
 
+Aevum OS cung cấp công cụ dòng lệnh toàn cục hỗ trợ cả hai phương thức thiết lập:
+
+#### Cách A: Đăng ký qua npm link
 \`\`\`bash
-# Di chuyển vào thư mục dự án hoặc gói cài đặt
+# Di chuyển vào thư mục Aevum-os
 npm install
 npm run build
-
-# Đăng ký lệnh 'aevum' toàn cục trên hệ điều hành
 npm link
 \`\`\`
 
-*(Trên Windows nếu cần quyền Administrator, hãy mở PowerShell/Command Prompt với quyền Quản trị viên).*
+#### Cách B: Thêm thư mục bin vào PATH (Hỗ trợ Dynamic Path)
+Thêm đường dẫn thư mục \`bin\` của Aevum OS vào biến môi trường \`PATH\` của hệ điều hành. Thư mục này chứa sẵn các wrapper thông minh (\`aevum.cmd\`, \`aevum.ps1\`, \`aevum\`) tự động tìm vị trí cài đặt mà không phụ thuộc vào thư mục hiện tại.
 
-### Bước 3: Kiểm tra Cài đặt
-Xác nhận rằng lệnh \`aevum\` đã được nhận diện trên hệ thống:
+\`\`\`powershell
+# Trên PowerShell:
+$env:Path += ";D:\\I2FLabs\\Projects\\Aevum-os\\bin"
+\`\`\`
+
+---
+
+### Bước 3: Kiểm tra & Khởi tạo
+
+Xác nhận lệnh \`aevum\` đã hoạt động và kiểm tra các tính năng chính:
 
 \`\`\`bash
+# Kiểm tra trợ giúp và danh mục lệnh
 aevum --help
+
+# Kiểm tra phiên bản hệ thống
+aevum --version
+
+# Khởi tạo không gian làm việc Aevum cho dự án hiện tại
+aevum init
+
+# Kiểm tra trạng thái Daemon đang chạy
+aevum status
 \`\`\`
 
 > [!NOTE]
-> Nếu Terminal của bạn chưa nhận dạng được lệnh \`aevum\`, hãy khởi động lại Terminal hoặc kiểm tra biến môi trường \`PATH\` của hệ thống để đảm bảo đường dẫn thư mục npm global bin đã được thêm vào.`
+> Nếu Terminal của bạn chưa nhận dạng được lệnh \`aevum\`, hãy khởi động lại Terminal hoặc kiểm tra biến môi trường \`PATH\` của hệ thống để đảm bảo đường dẫn đã được cập nhật.`
+  },
+  {
+    id: "cli-terminal",
+    title: "Giao diện Dòng lệnh (CLI)",
+    category: "Hướng dẫn",
+    content: `# Giao diện Dòng lệnh Toàn diện (Aevum CLI Engine)
+
+Aevum OS cung cấp bộ công cụ dòng lệnh (**Aevum CLI**) độc lập, siêu tốc được xây dựng trực tiếp trên nền Node.js và TypeScript. CLI cho phép bạn tương tác, khởi tạo và điều phối hệ thống song song với giao diện đồ họa Desktop GUI.
+
+Toàn bộ giao diện CLI được thiết kế theo tiêu chuẩn Unix/GNU chuyên nghiệp:
+- Hỗ trợ đầy đủ cờ lệnh ngắn (POSIX) và cờ lệnh dài (GNU) như \`-w\`, \`-t\`, \`-p\`, \`-h\`, \`-v\`.
+- Phân giải đường dẫn động (Dynamic Path Resolution) cho phép đứng ở bất kỳ thư mục dự án nào để thực thi.
+- Màu sắc ANSI chuẩn Terminal, hiển thị trực quan không ký tự thừa.
+
+---
+
+## Cài đặt & Kích hoạt Toàn cục (Global CLI)
+
+### Cách 1: Sử dụng npm link (Khuyến nghị)
+Từ thư mục gốc dự án Aevum OS:
+\`\`\`bash
+npm run build
+npm link
+\`\`\`
+Lệnh \`aevum\` sẽ được đăng ký vào biến môi trường hệ thống và có thể gọi từ bất kỳ cửa sổ Terminal nào.
+
+### Cách 2: Thêm thư mục bin vào biến môi trường PATH
+Aevum OS cung cấp sẵn các tệp thực thi wrapper thông minh trong thư mục \`bin/\`:
+- \`bin/aevum.cmd\`: Dành cho Windows Command Prompt (\`cmd.exe\`)
+- \`bin/aevum.ps1\`: Dành cho Windows PowerShell
+- \`bin/aevum\`: Dành cho Linux / macOS Shell (\`bash\`, \`zsh\`)
+
+Chỉ cần thêm đường dẫn thư mục \`bin\` vào biến môi trường \`PATH\` của người dùng:
+\`\`\`powershell
+# Ví dụ trên Windows PowerShell:
+$env:Path += ";D:\\I2FLabs\\Projects\\Aevum-os\\bin"
+\`\`\`
+
+---
+
+## Danh mục Lệnh Chi tiết (Command Reference)
+
+### 1. \`aevum --help\` / \`aevum -h\` — Hướng dẫn Sử dụng
+Hiển thị danh sách đầy đủ các câu lệnh con (subcommands), các cờ tùy chọn (options) và cú pháp thực thi mẫu.
+
+\`\`\`bash
+aevum --help
+# hoặc:
+aevum -h
+aevum help
+\`\`\`
+
+---
+
+### 2. \`aevum --version\` / \`aevum -v\` — Kiểm tra Phiên bản
+Kiểm tra phiên bản hiện tại của Aevum OS, môi trường Node.js và kiến trúc hệ thống.
+
+\`\`\`bash
+aevum --version
+# hoặc:
+aevum -v
+aevum version
+\`\`\`
+
+---
+
+### 3. \`aevum status\` — Giám sát Tiến trình Daemon
+Kết nối trực tiếp tới Aevum Daemon đang chạy ngầm thông qua cổng HTTP (\`/api/ping\`) để kiểm tra trạng thái sức khỏe, thời gian hoạt động (uptime), Persona đang trực chiến và không gian làm việc.
+
+\`\`\`bash
+# Kiểm tra daemon trên cổng mặc định (3344)
+aevum status
+
+# Kiểm tra daemon trên cổng tùy chỉnh
+aevum status --port 8080
+# hoặc cờ ngắn:
+aevum status -p 8080
+\`\`\`
+
+Thông tin trả về:
+- Trạng thái kết nối (ONLINE / OFFLINE)
+- Phiên bản Aevum OS Daemon
+- Thời gian hoạt động (Uptime tính bằng giây)
+- Nhân vật đang hoạt động (Active Persona: An, Luna, Vidus...)
+- Cổng giao tiếp và thư mục không gian làm việc đang gắn kết
+
+---
+
+### 4. \`aevum init [dir]\` — Khởi tạo Không gian Làm việc Mới
+Tự động khởi tạo cấu trúc thư mục nhận thức \`.aevum/\` cho một dự án mã nguồn bất kỳ mà không làm ảnh hưởng đến mã nguồn hiện tại của bạn.
+
+\`\`\`bash
+# Khởi tạo ngay tại thư mục hiện tại:
+aevum init
+
+# Khởi tạo tại một thư mục dự án cụ thể:
+aevum init ./my-new-project
+\`\`\`
+
+Các tài nguyên được khởi tạo tự động:
+- Thư mục \`.aevum/domains/\` theo kiến trúc Domain-Driven Design (DDD).
+- Tệp chỉ mục cấu trúc \`.aevum/index.json\`.
+- Cấu hình bắt tay bảo mật \`.aevum/signal.json\`.
+- Kho bộ nhớ sống \`.aevum/memory/\`.
+
+---
+
+### 5. \`aevum gui\` — Khởi chạy Giao diện Đồ họa Desktop
+Khởi chạy hoặc đánh thức ứng dụng Aevum OS Desktop Control Center (Electron) trực tiếp từ dòng lệnh.
+
+\`\`\`bash
+aevum gui
+\`\`\`
+
+---
+
+### 6. Khởi chạy Daemon Máy chủ MCP (Daemon Mode)
+Khi chạy lệnh \`aevum\` kèm các tham số giao vận (hoặc không truyền subcommand), hệ thống sẽ khởi động máy chủ Fastify MCP Daemon để phục vụ các IDE khách (Cursor, Claude Desktop, Antigravity IDE):
+
+\`\`\`bash
+# Chạy máy chủ SSE trên cổng mặc định (3344) tại thư mục hiện tại:
+aevum
+
+# Chỉ định cổng và thư mục không gian làm việc cụ thể:
+aevum --workspace D:/MyProject --port 3344 --transport sse
+
+# Sử dụng cờ ngắn POSIX gọn gàng:
+aevum -w D:/MyProject -p 3344 -t sse
+
+# Chạy ở chế độ Stdio (dành cho client chạy dạng process con trực tiếp):
+aevum -w ./ -t stdio
+\`\`\`
+
+---
+
+## Bảng Tham chiếu Cờ Lệnh (Options & Flags)
+
+| Cờ ngắn | Cờ dài | Giá trị mặc định | Mô tả chức năng |
+|---|---|---|---|
+| \`-w\` | \`--workspace <path>\` | Thư mục hiện tại (\`process.cwd()\`) | Đường dẫn tuyệt đối hoặc tương đối tới không gian làm việc dự án. |
+| \`-t\` | \`--transport <sse / stdio>\` | \`sse\` | Giao thức giao vận MCP (\`sse\` cho HTTP Server hoặc \`stdio\` cho dòng lệnh trực tiếp). |
+| \`-p\` | \`--port <number>\` | \`3344\` | Cổng mạng lắng nghe kết nối của Fastify HTTP/SSE server. |
+| \`-h\` | \`--help\` | — | Hiển thị bảng trợ giúp và hướng dẫn chi tiết. |
+| \`-v\` | \`--version\` | — | Hiển thị phiên bản ứng dụng và thông số runtime. |
+
+---
+
+## Luồng Thực chiến Điển hình (Developer Workflows)
+
+### Workflow 1: Gắn kết Aevum vào Dự án Hiện hữu
+\`\`\`bash
+# 1. Di chuyển vào thư mục dự án
+cd /d/Projects/my-app
+
+# 2. Khởi tạo cấu trúc Aevum
+aevum init
+
+# 3. Khởi chạy MCP Daemon trong nền
+aevum -t sse -p 3344
+\`\`\`
+
+### Workflow 2: Kiểm tra Tiến trình & Nhịp sống Daemon
+\`\`\`bash
+aevum status
+\`\`\`
+
+### Workflow 3: Mở Bảng điều khiển Desktop song song
+\`\`\`bash
+aevum gui
+\`\`\``
   },
   {
     id: "che-do-chay",
@@ -133,44 +322,53 @@ aevum --help
     category: "Hướng dẫn",
     content: `# Các Chế độ Hoạt động của Aevum OS
 
-Aevum OS hỗ trợ cả giao diện dòng lệnh (CLI) hiệu năng cao lẫn giao diện đồ họa máy tính để bàn (Electron Desktop GUI) trực quan.
+Aevum OS hỗ trợ cả giao diện dòng lệnh (CLI) hiệu năng cao lẫn giao diện đồ họa máy tính để bàn (Electron Desktop GUI) trực quan, có thể hoạt động độc lập hoặc kết hợp song song.
 
 ---
 
 ## Chế độ A: Command Line Interface (CLI)
+
+Giao diện CLI của Aevum OS cung cấp các lệnh quản trị, khởi tạo dự án, kiểm tra nhịp sống và chạy daemon. Chi tiết đầy đủ xem tại [Giao diện Dòng lệnh (CLI)](#cli-terminal).
 
 ### 1. Server-Sent Events (SSE) Mode (Fastify Daemon Mặc định)
 Chạy Aevum như một HTTP/SSE server dựa trên **Fastify v4** siêu tốc để quản lý không gian làm việc được chỉ định. Đây là chế độ tiêu chuẩn khi bạn muốn các IDE khách (Cursor, Claude Desktop, Antigravity) kết nối qua giao vận SSE.
 
 \`\`\`bash
 aevum --workspace <duong_dan_project> --transport sse --port 3344
+# Hoặc cú pháp rút gọn POSIX:
+aevum -w <duong_dan_project> -t sse -p 3344
 \`\`\`
 
 *Lưu ý:*
-- Nếu bỏ qua tham số \`--workspace\`, máy chủ sẽ mặc định chọn thư mục chạy lệnh hiện tại (\`process.cwd()\`).
-- Nếu bỏ qua tham số \`--port\`, cổng mặc định được sử dụng sẽ là \`3344\`.
+- Nếu bỏ qua tham số \`-w / --workspace\`, máy chủ sẽ mặc định chọn thư mục chạy lệnh hiện tại (\`process.cwd()\`).
+- Nếu bỏ qua tham số \`-p / --port\`, cổng mặc định được sử dụng sẽ là \`3344\`.
+- Nếu bỏ qua tham số \`-t / --transport\`, giao thức mặc định sẽ là \`sse\`.
 
 ### 2. Stdio Mode
 Chạy máy chủ MCP giao tiếp qua dòng vào/ra chuẩn (stdio). Chế độ này thường được sử dụng bởi các IDE cục bộ chạy Aevum như một tiến trình con (child process) trực tiếp.
 
 \`\`\`bash
 aevum --workspace <duong_dan_project> --transport stdio
+# Hoặc cú pháp rút gọn POSIX:
+aevum -w <duong_dan_project> -t stdio
 \`\`\`
 
-### 3. Kiểm tra Trạng thái Sống (Health Check Endpoint)
-Bạn có thể ping kiểm tra xem Fastify daemon có hoạt động bình thường không bằng lệnh:
+### 3. Kiểm tra Trạng thái Daemon (Status Command)
+Thay vì sử dụng curl thủ công, bạn có thể kiểm tra trực tiếp trạng thái tiến trình nền bằng lệnh:
 
 \`\`\`bash
-curl http://127.0.0.1:3344/api/ping
+aevum status
 \`\`\`
 
 ---
 
 ## Chế độ B: Desktop Control Center (Electron GUI)
 
-Khởi chạy ứng dụng máy tính để bàn đầy đủ với giao diện trực quan cao cấp:
+Khởi chạy ứng dụng máy tính để bàn đầy đủ với giao diện trực quan cao cấp bằng lệnh:
 
 \`\`\`bash
+aevum gui
+# hoặc:
 npm run gui
 \`\`\`
 

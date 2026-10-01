@@ -27,7 +27,8 @@ export const CustomSelect = ({ options, value, onChange, placeholder = 'Select o
   };
 
   // Find label for current value
-  const selectedOption = options.find((opt) => opt.value === value || opt === value);
+  const safeOptions = Array.isArray(options) ? options : [];
+  const selectedOption = safeOptions.find((opt) => opt.value === value || opt === value);
   const selectedLabel = typeof selectedOption === 'object' ? selectedOption.label : selectedOption || value;
 
   return (

@@ -2370,3 +2370,148 @@ html[data-theme="light"] .announcement-banner:hover .announcement-cta {
 html[data-theme="light"] .announcement-emdash {
   color: #cbd5e1 !important;
 }
+
+/* ========================================================================= */
+/* ERA EXPLORATION LIGHT MODE FULL SYSTEM SYNCHRONIZATION                    */
+/* ========================================================================= */
+html[data-theme="light"] .era-exploration-root {
+  background-color: #F8FAFC !important;
+  color: #1E293B !important;
+}
+
+html[data-theme="light"] .era-exploration-root .bg-\[\#07080C\],
+html[data-theme="light"] .era-exploration-root .bg-\[\#07080c\],
+html[data-theme="light"] .era-exploration-root .bg-\[\#090A0F\],
+html[data-theme="light"] .era-exploration-root .bg-\[\#090a0f\],
+html[data-theme="light"] .era-exploration-root .bg-\[\#0B0B11\],
+html[data-theme="light"] .era-exploration-root .bg-\[\#0b0b11\] {
+  background-color: #F8FAFC !important;
+}
+
+html[data-theme="light"] .era-exploration-root aside,
+html[data-theme="light"] .era-exploration-root main,
+html[data-theme="light"] .era-exploration-root article {
+  background-color: transparent !important;
+  border-color: rgba(15, 23, 42, 0.08) !important;
+}
+
+html[data-theme="light"] .era-exploration-root .border-white\/5,
+html[data-theme="light"] .era-exploration-root .border-white\/10,
+html[data-theme="light"] .era-exploration-root .border-white\/15,
+html[data-theme="light"] .era-exploration-root .border-white\/20,
+html[data-theme="light"] .era-exploration-root .border-white\/\[0\.08\] {
+  border-color: rgba(15, 23, 42, 0.08) !important;
+}
+
+/* Cards in Grid */
+html[data-theme="light"] .era-exploration-root .bg-white\/\[0\.015\] {
+  background-color: #FFFFFF !important;
+  border-color: rgba(15, 23, 42, 0.08) !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.03);
+}
+
+html[data-theme="light"] .era-exploration-root .bg-white\/\[0\.015\]:hover {
+  background-color: #FFFFFF !important;
+  border-color: rgba(15, 23, 42, 0.18) !important;
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.05);
+}
+
+html[data-theme="light"] .era-exploration-root .bg-white\/\[0\.02\] {
+  background-color: #FFFFFF !important;
+}
+
+html[data-theme="light"] .era-exploration-root .bg-white\/\[0\.03\] {
+  background-color: #F1F5F9 !important;
+}
+
+html[data-theme="light"] .era-exploration-root .hover\:bg-white\/\[0\.03\]:hover {
+  background-color: #F1F5F9 !important;
+}
+
+html[data-theme="light"] .era-exploration-root .bg-white\/10 {
+  background-color: rgba(15, 23, 42, 0.07) !important;
+}
+
+/* Typography Overrides */
+html[data-theme="light"] .era-exploration-root h1,
+html[data-theme="light"] .era-exploration-root h2,
+html[data-theme="light"] .era-exploration-root .text-white {
+  color: #0F172A !important;
+}
+
+html[data-theme="light"] .era-exploration-root h3,
+html[data-theme="light"] .era-exploration-root h4,
+html[data-theme="light"] .era-exploration-root .text-slate-200 {
+  color: #1E293B !important;
+}
+
+html[data-theme="light"] .era-exploration-root p,
+html[data-theme="light"] .era-exploration-root li,
+html[data-theme="light"] .era-exploration-root .text-slate-300 {
+  color: #334155 !important;
+}
+
+html[data-theme="light"] .era-exploration-root .text-slate-400 {
+  color: #64748B !important;
+}
+
+html[data-theme="light"] .era-exploration-root .text-slate-500 {
+  color: #94A3B8 !important;
+}
+
+html[data-theme="light"] .era-exploration-root .text-slate-600 {
+  color: #CBD5E1 !important;
+}
+
+/* Code Blocks, Blockquotes, and Tables */
+html[data-theme="light"] .era-exploration-root pre {
+  background-color: #F1F5F9 !important;
+  border-color: rgba(15, 23, 42, 0.1) !important;
+  color: #0F172A !important;
+}
+
+html[data-theme="light"] .era-exploration-root code {
+  background-color: #F1F5F9 !important;
+  color: #0369A1 !important;
+  border-color: rgba(15, 23, 42, 0.1) !important;
+}
+
+html[data-theme="light"] .era-exploration-root table {
+  background-color: #FFFFFF !important;
+  border-color: rgba(15, 23, 42, 0.1) !important;
+}
+
+html[data-theme="light"] .era-exploration-root th {
+  background-color: #F1F5F9 !important;
+  color: #0F172A !important;
+  border-color: rgba(15, 23, 42, 0.1) !important;
+}
+
+html[data-theme="light"] .era-exploration-root td {
+  color: #334155 !important;
+  border-color: rgba(15, 23, 42, 0.08) !important;
+}
+
+html[data-theme="light"] .era-exploration-root blockquote {
+  border-color: rgba(15, 23, 42, 0.2) !important;
+  color: #334155 !important;
+}
+
+html[data-theme="light"] .era-exploration-root input {
+  background-color: #FFFFFF !important;
+  border-color: rgba(15, 23, 42, 0.15) !important;
+  color: #0F172A !important;
+}
+
+html[data-theme="light"] .era-exploration-root input::placeholder {
+  color: #94A3B8 !important;
+}
+
+/* Category arrow buttons */
+html[data-theme="light"] .era-exploration-root button.bg-\[\#07080C\] {
+  background-color: #FFFFFF !important;
+  color: #475569 !important;
+}
+html[data-theme="light"] .era-exploration-root button.bg-\[\#07080C\]:hover {
+  color: #0F172A !important;
+}

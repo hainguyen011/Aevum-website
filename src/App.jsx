@@ -24,26 +24,31 @@ import logoImg from '../assets/logos/AevumOS-transparent.webp';
 import { translations } from './data/translations';
 import { Search, X, Eye, ScanEye, Sun, Atom, User, Globe, Sparkles } from 'lucide-react';
 
+// Direct import for Docs ensures synchronous SSR snapshots for maximum Google SEO indexing
+import { Docs } from './components/Docs';
+
 // Code-split heavy standalone pages & interactive modals
-const Docs = lazy(() => import('./components/Docs').then(m => ({ default: m.Docs })));
 const About = lazy(() => import('./components/About').then(m => ({ default: m.About })));
 const Changelog = lazy(() => import('./components/Changelog').then(m => ({ default: m.Changelog })));
 const Discussions = lazy(() => import('./components/Discussions').then(m => ({ default: m.Discussions })));
 const Profile = lazy(() => import('./components/Profile').then(m => ({ default: m.Profile })));
 const Privacy = lazy(() => import('./components/Privacy').then(m => ({ default: m.Privacy })));
 const Terms = lazy(() => import('./components/Terms').then(m => ({ default: m.Terms })));
+const EraExploration = lazy(() => import('./components/EraExploration').then(m => ({ default: m.EraExploration })));
 const SearchModal = lazy(() => import('./components/SearchModal').then(m => ({ default: m.SearchModal })));
 const AuthModal = lazy(() => import('./components/AuthModal').then(m => ({ default: m.AuthModal })));
 const TrialModal = lazy(() => import('./components/TrialModal').then(m => ({ default: m.TrialModal })));
 const DesktopAuthSuccessModal = lazy(() => import('./components/DesktopAuthSuccessModal').then(m => ({ default: m.DesktopAuthSuccessModal })));
 const PiperNetAuthSuccessModal = lazy(() => import('./components/PiperNetAuthSuccessModal').then(m => ({ default: m.PiperNetAuthSuccessModal })));
 
-export function App({ initialPage = null, initialLang = 'vi' }) {
+export function App({ initialPage = null, initialLang = 'vi', initialDocId = null, initialLessonId = null }) {
   const [currentPage, setCurrentPage] = useState(() => {
     if (initialPage) return initialPage;
     if (typeof window !== 'undefined') {
       const path = window.location.pathname.replace(/^\/+/, '').toLowerCase();
-      if (['pricing', 'docs', 'about', 'changelog', 'discussions', 'privacy', 'terms'].includes(path)) {
+      if (['pricing', 'docs', 'about', 'changelog', 'discussions', 'privacy', 'terms', 'explore'].includes(path) || path.startsWith('docs/') || path.startsWith('explore/') || path === 'kham-pha' || path.startsWith('kham-pha/') || path === 'learn' || path.startsWith('learn/') || path === 'academy' || path.startsWith('academy/')) {
+        if (path.startsWith('docs/')) return 'docs';
+        if (path === 'kham-pha' || path.startsWith('kham-pha/') || path === 'learn' || path.startsWith('learn/') || path === 'academy' || path.startsWith('academy/') || path === 'explore' || path.startsWith('explore/')) return 'explore';
         return path;
       }
     }
@@ -543,9 +548,22 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
       } else if (path === 'pricing' || hash === 'pricing') {
         setCurrentPage('pricing');
         scrollToTarget(0);
-      } else if (path === 'docs' || hash === 'docs') {
+      } else if (path === 'docs' || path.startsWith('docs/') || hash === 'docs' || (typeof window !== 'undefined' && window.location.search.includes('doc='))) {
         setCurrentPage('docs');
-        scrollToTarget(0);
+        if (!window.location.hash) {
+          scrollToTarget(0);
+        }
+      } else if (path === 'explore' || path.startsWith('explore/') || path === 'kham-pha' || path.startsWith('kham-pha/') || path === 'learn' || path.startsWith('learn/') || path === 'academy' || path.startsWith('academy/') || hash === 'explore') {
+        setCurrentPage('explore');
+        // Cleanly rewrite legacy Vietnamese / alias routes to English /explore without full page reload
+        if (typeof window !== 'undefined' && (path.startsWith('kham-pha') || path.startsWith('learn') || path.startsWith('academy'))) {
+          const parts = window.location.pathname.replace(/^\/+/, '').split('/');
+          const suffix = parts[1] ? `/${parts[1]}` : '';
+          window.history.replaceState(null, '', `/explore${suffix}`);
+        }
+        if (!window.location.hash) {
+          scrollToTarget(0);
+        }
       } else if (path === 'changelog' || hash === 'changelog') {
         setCurrentPage('changelog');
         scrollToTarget(0);
@@ -584,8 +602,8 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
   }, []);
 
   // Handle routing navigation and scroll to top with Clean URL paths
-  const handleNavigate = (page) => {
-    const protectedPages = ['docs', 'changelog', 'discussions', 'profile'];
+  const handleNavigate = (page, docId = null, headingId = null) => {
+    const protectedPages = ['changelog', 'discussions', 'profile'];
     if (protectedPages.includes(page) && !user) {
       setPendingRedirectPage(page);
       setIsAuthModalOpen(true);
@@ -595,10 +613,21 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
     setCurrentPage(page);
     if (page === 'landing') {
       window.history.pushState(null, '', '/');
+      scrollToTarget(0);
+    } else if (page === 'docs') {
+      const url = docId ? `/docs?doc=${docId}${headingId ? `#${headingId}` : ''}` : '/docs';
+      window.history.pushState(null, '', url);
+      window.dispatchEvent(new Event('popstate'));
+      if (!headingId) scrollToTarget(0);
+    } else if (page === 'explore' || page === 'kham-pha' || page === 'learn') {
+      const url = docId ? `/explore/${docId}` : '/explore';
+      window.history.pushState(null, '', url);
+      window.dispatchEvent(new Event('popstate'));
+      scrollToTarget(0);
     } else {
       window.history.pushState(null, '', `/${page}`);
+      scrollToTarget(0);
     }
-    scrollToTarget(0);
   };
 
 
@@ -633,6 +662,15 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
           ? 'Khám phá bộ tài liệu kỹ thuật đầy đủ của Aevum OS: Hướng dẫn cài đặt MCP daemon, nghi thức bắt tay, công cụ bộ nhớ DDD, điều phối biệt đội agent và mạng lưới PiperNet.'
           : 'Explore complete Aevum OS technical documentation: MCP daemon setup, handshake ritual, DDD memory tools, autonomous squad orchestration, and PiperNet mesh.',
         url: 'https://www.aevum.ai.vn/docs'
+      },
+      explore: {
+        title: isVi
+          ? 'Khám phá Kỉ nguyên AI — Học viện Tri thức & Tác nhân Tự chủ | Aevum OS'
+          : 'Explore AI Era — Autonomous Agent Academy & Knowledge Hub | Aevum OS',
+        description: isVi
+          ? 'Khám phá kỉ nguyên Agentic AI: Giáo trình mở miễn phí về kiến trúc hệ điều hành agent, tối ưu ngữ cảnh MCP, trí nhớ nhận thức kép và đồ thị tri thức sống.'
+          : 'Explore the Agentic AI era: Free open academy on agent operating systems, MCP context engineering, dual-memory architectures, and living memory graphs.',
+        url: 'https://www.aevum.ai.vn/explore'
       },
       about: {
         title: isVi
@@ -805,16 +843,19 @@ export function App({ initialPage = null, initialLang = 'vi' }) {
                   )}
 
                   {currentPage === 'docs' && (
-                    user ? (
-                      <Docs activeLang={activeLang} />
-                    ) : (
-                      <AuthLockGate
-                        activeLang={activeLang}
-                        onOpenAuthModal={() => setIsAuthModalOpen(true)}
-                        onNavigate={handleNavigate}
-                        pageName={activeLang === 'vi' ? 'Tài liệu Kỹ thuật (Docs)' : 'Documentation'}
-                      />
-                    )
+                    <Docs
+                      activeLang={activeLang}
+                      onNavigate={handleNavigate}
+                      initialDocId={initialDocId}
+                    />
+                  )}
+
+                  {currentPage === 'explore' && (
+                    <EraExploration
+                      activeLang={activeLang}
+                      onNavigate={handleNavigate}
+                      initialLessonId={initialLessonId}
+                    />
                   )}
 
                   {currentPage === 'about' && (

@@ -14,6 +14,104 @@ import {
 } from 'lucide-react';
 import { TranslationService } from '../services/TranslationService';
 import { ReleaseService } from '../services/ReleaseService';
+import { CustomSelect } from './ui/CustomSelect';
+
+// Verified status mappings for established releases
+const KNOWN_RELEASE_STATUS = {
+  'v1.0.0-beta.4': 'upgrade',     // Major Hub & Squad Presence additions (Nâng cấp)
+  'v1.0.0-beta.3': 'improvement', // Tiered Plan & Canvas refactoring / optimization (Chỉnh sửa)
+  'v1.0.0-beta.2': 'improvement', // Auto-updater & packaging enhancements (Chỉnh sửa)
+  'v1.0.0-beta.0': 'fix',         // Initial beta with multiple engine bugfixes & stability patches (Sửa lỗi)
+};
+
+export const resolveReleaseStatus = (release, isVi = true) => {
+  const tag = (release?.tag_name || release?.name || '').trim();
+  const lowerTag = tag.toLowerCase();
+  const body = (release?.body || '').toLowerCase();
+  const name = (release?.name || '').toLowerCase();
+
+  let statusKey = KNOWN_RELEASE_STATUS[tag];
+
+  if (!statusKey) {
+    if (
+      lowerTag.includes('fix') ||
+      lowerTag.includes('patch') ||
+      lowerTag.includes('hotfix') ||
+      name.includes('sửa lỗi') ||
+      name.includes('bug') ||
+      name.includes('fix') ||
+      body.includes('### sửa lỗi') ||
+      body.includes('### fixes') ||
+      body.includes('### bug fixes')
+    ) {
+      statusKey = 'fix';
+    } else if (
+      lowerTag.includes('refactor') ||
+      lowerTag.includes('perf') ||
+      name.includes('chỉnh sửa') ||
+      name.includes('cải tiến') ||
+      name.includes('tối ưu') ||
+      body.includes('### cải tiến') ||
+      body.includes('### improvements') ||
+      body.includes('### refactor')
+    ) {
+      statusKey = 'improvement';
+    } else if (
+      lowerTag.includes('feat') ||
+      name.includes('nâng cấp') ||
+      name.includes('tính năng') ||
+      name.includes('feature') ||
+      body.includes('### tính năng mới') ||
+      body.includes('### new features') ||
+      body.includes('### features')
+    ) {
+      statusKey = 'upgrade';
+    } else {
+      statusKey = 'upgrade';
+    }
+  }
+
+  const config = {
+    upgrade: {
+      type: 'upgrade',
+      label: isVi ? 'Nâng cấp' : 'Upgrade',
+      formattedText: isVi ? '[Nâng cấp]' : '[Upgrade]',
+      className: 'text-slate-400 font-mono text-xs'
+    },
+    improvement: {
+      type: 'improvement',
+      label: isVi ? 'Chỉnh sửa' : 'Improvement',
+      formattedText: isVi ? '[Chỉnh sửa]' : '[Improvement]',
+      className: 'text-slate-400 font-mono text-xs'
+    },
+    fix: {
+      type: 'fix',
+      label: isVi ? 'Sửa lỗi' : 'Bugfix',
+      formattedText: isVi ? '[Sửa lỗi]' : '[Bugfix]',
+      className: 'text-slate-400 font-mono text-xs'
+    },
+    release: {
+      type: 'release',
+      label: isVi ? 'Phát hành' : 'Release',
+      formattedText: isVi ? '[Phát hành]' : '[Release]',
+      className: 'text-slate-400 font-mono text-xs'
+    }
+  };
+
+  return config[statusKey] || config.upgrade;
+};
+
+export const getDisplayTitle = (release) => {
+  if (!release) return '';
+  const rawTitle = (release.name && release.name.trim()) || release.tag_name || '';
+  if (rawTitle.toLowerCase().startsWith('aevum')) {
+    return rawTitle;
+  }
+  const formattedTag = rawTitle.startsWith('v') || rawTitle.startsWith('V')
+    ? rawTitle
+    : `v${rawTitle}`;
+  return `AevumOS ${formattedTag}`;
+};
 
 export function Changelog({ activeLang, onNavigate }) {
   const [releases, setReleases] = useState([]);
@@ -140,18 +238,32 @@ export function Changelog({ activeLang, onNavigate }) {
           updateNum = total - itemIdx;
         }
 
-        const updateLabel = isVi ? `Bản update ${updateNum}` : `Update ${updateNum}`;
+        const status = resolveReleaseStatus(item.release, isVi);
 
         return {
           ...item,
           updateNum,
-          updateLabel
+          status
         };
       });
 
       return {
         ...group,
         items: itemsWithLabels
+      };
+    });
+  }, [releases, isVi]);
+
+  // Options for Version Select dropdown
+  const selectOptions = useMemo(() => {
+    return releases.map((release, idx) => {
+      const status = resolveReleaseStatus(release, isVi);
+      const displayTitle = getDisplayTitle(release);
+      const isLatest = idx === 0;
+
+      return {
+        value: idx,
+        label: `${displayTitle}  ${status.formattedText}${isLatest ? (isVi ? ' (Mới nhất)' : ' (Latest)') : ''}`
       };
     });
   }, [releases, isVi]);
@@ -201,20 +313,21 @@ export function Changelog({ activeLang, onNavigate }) {
   const selectedMeta = useMemo(() => {
     if (!selectedRelease) return null;
     const cat = categorizeRelease(selectedRelease);
+    const status = resolveReleaseStatus(selectedRelease, isVi);
     for (const g of groupedReleases) {
       const match = g.items.find(i => i.flatIdx === selectedIndex);
       if (match) {
         return {
           groupName: g.name,
-          updateLabel: match.updateLabel
+          status: match.status
         };
       }
     }
     return {
       groupName: cat.groupName,
-      updateLabel: ''
+      status
     };
-  }, [selectedRelease, groupedReleases, selectedIndex]);
+  }, [selectedRelease, groupedReleases, selectedIndex, isVi]);
 
   // Auto-translate release notes dynamically using TranslationService
   useEffect(() => {
@@ -246,17 +359,6 @@ export function Changelog({ activeLang, onNavigate }) {
     };
   }, [selectedRelease?.id, activeLang, isVi]);
 
-  const getDisplayTitle = (release) => {
-    if (!release) return '';
-    const rawTitle = (release.name && release.name.trim()) || release.tag_name || '';
-    if (rawTitle.toLowerCase().startsWith('aevum')) {
-      return rawTitle;
-    }
-    const formattedTag = rawTitle.startsWith('v') || rawTitle.startsWith('V')
-      ? rawTitle
-      : `v${rawTitle}`;
-    return `AevumOS ${formattedTag}`;
-  };
 
   const getDownloadItems = (release) => {
     if (!release || !release.assets) return [];
@@ -425,48 +527,21 @@ export function Changelog({ activeLang, onNavigate }) {
         {/* Main Terminal Shell Body Container - 2-Column Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch relative z-10 w-full text-left font-mono flex-1 min-h-[500px]">
           
-          {/* Column 1: Interactive Drill-down Menu (5 Cols) */}
-          <div className="order-2 lg:order-1 lg:col-span-5 space-y-3 font-mono lg:border-r border-b lg:border-b-0 border-white/10 px-6 lg:px-10 py-8 h-full">
+          {/* Column 1: Interactive Drill-down Menu / Version Selector (5 Cols) */}
+          <div className="order-2 lg:order-1 lg:col-span-5 space-y-4 font-mono lg:border-r border-b lg:border-b-0 border-white/10 px-6 lg:px-10 py-8 h-full">
             
-            {/* Current Directory Breadcrumb & View Mode Toggle */}
-            <div className="flex items-center justify-between text-[11px] text-white font-mono font-bold tracking-wide uppercase pb-1">
+            {/* Current Directory Breadcrumb */}
+            <div className="flex items-center justify-between text-[11px] text-white font-mono font-bold tracking-wide uppercase pb-2 border-b border-white/10">
               <div className="flex items-center gap-2">
                 <span className="text-slate-400">LOCATION:</span>
                 <span className="text-white">~/RELEASES</span>
               </div>
-
-              {/* View Mode Switcher */}
-              <div className="flex items-center gap-1 bg-white/[0.04] p-0.5 rounded border border-white/10 text-[10px]">
-                <button
-                  type="button"
-                  onClick={() => setViewMode('grouped')}
-                  className={`flex items-center gap-1 px-2 py-0.5 rounded transition-colors ${
-                    viewMode === 'grouped'
-                      ? 'bg-cyan-500/20 text-cyan-300 font-bold border border-cyan-500/30'
-                      : 'text-slate-400 hover:text-white'
-                  }`}
-                  title={isVi ? "Xem gom nhóm theo phiên bản" : "View grouped by release family"}
-                >
-                  <Layers size={11} />
-                  <span>{isVi ? 'Gom nhóm' : 'Grouped'}</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setViewMode('flat')}
-                  className={`flex items-center gap-1 px-2 py-0.5 rounded transition-colors ${
-                    viewMode === 'flat'
-                      ? 'bg-cyan-500/20 text-cyan-300 font-bold border border-cyan-500/30'
-                      : 'text-slate-400 hover:text-white'
-                  }`}
-                  title={isVi ? "Xem danh sách toàn bộ" : "View flat release list"}
-                >
-                  <List size={11} />
-                  <span>{isVi ? 'Tất cả' : 'All'}</span>
-                </button>
-              </div>
+              <span className="text-[10px] text-slate-500 font-mono">
+                {releases.length} {isVi ? 'phiên bản' : 'releases'}
+              </span>
             </div>
 
-            {/* Releases Menu List */}
+            {/* Version Selector (Dạng Select - Default là bản mới nhất) */}
             {isLoading ? (
               <div className="flex items-center gap-2 text-xs text-slate-400 py-4 font-mono">
                 <RefreshCw size={14} className="animate-spin text-cyan-400" />
@@ -480,148 +555,121 @@ export function Changelog({ activeLang, onNavigate }) {
               <div className="text-xs text-slate-500 py-4 font-mono">
                 [EMPTY] No releases available.
               </div>
-            ) : viewMode === 'grouped' ? (
-              /* Grouped View */
-              <div className="space-y-3 font-mono text-xs sm:text-sm pt-1">
-                {groupedReleases.map((group) => {
-                  const isCollapsed = !!collapsedGroups[group.id];
-                  const hasSelected = group.items.some(item => item.flatIdx === selectedIndex);
+            ) : (
+              <div className="space-y-4 pt-1">
+                {/* Select Dropdown Control */}
+                <div className="space-y-1.5">
+                  <div className="flex items-center justify-between text-[11px] font-mono text-slate-400 uppercase tracking-wide">
+                    <span>{isVi ? 'Chọn phiên bản:' : 'Select Version:'}</span>
+                    <span className="text-[10px] text-slate-500 font-normal">
+                      {isVi ? 'Mặc định: mới nhất' : 'Default: latest'}
+                    </span>
+                  </div>
 
-                  return (
-                    <div 
-                      key={group.id} 
-                      className={`rounded-lg border transition-all duration-200 overflow-hidden ${
-                        hasSelected 
-                          ? 'border-cyan-500/40 bg-[#12131C] shadow-[0_0_15px_rgba(6,182,212,0.06)]' 
-                          : 'border-white/10 bg-white/[0.02]'
-                      }`}
-                    >
-                      {/* Group Header (Clickable to collapse/expand) */}
+                  <CustomSelect
+                    options={selectOptions}
+                    value={selectedIndex}
+                    onChange={(val) => setSelectedIndex(Number(val))}
+                    className="w-full"
+                    buttonClassName="bg-white/[0.02] border-white/15 hover:border-white/30 text-white py-2.5 px-3.5 rounded-lg backdrop-blur-sm"
+                  />
+                </div>
+
+                {/* Selected Version Overview Card */}
+                {selectedRelease && (
+                  <div className="rounded-lg border border-white/10 bg-white/[0.015] backdrop-blur-sm p-4 space-y-3 font-mono text-xs">
+                    <div className="flex items-center justify-between border-b border-white/10 pb-2.5">
+                      <div className="flex items-center gap-2 min-w-0">
+                        <Folder size={14} className="text-white shrink-0" />
+                        <span className="font-bold text-white truncate text-xs sm:text-sm">
+                          {getDisplayTitle(selectedRelease)}
+                        </span>
+                      </div>
+                      {selectedMeta?.status && (
+                        <span className="text-slate-400 text-xs font-mono shrink-0">
+                          {selectedMeta.status.formattedText}
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="space-y-1.5 text-[11px] text-slate-400">
+                      <div className="flex items-center justify-between">
+                        <span className="text-slate-500">PHÁT HÀNH:</span>
+                        <span className="text-slate-300">{formatDate(selectedRelease.published_at)}</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-slate-500">KÊNH:</span>
+                        <span className="text-slate-300">{selectedMeta?.groupName || 'Aevum-Beta-Test'}</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-slate-500">TAG:</span>
+                        <span className="text-white font-bold">{selectedRelease.tag_name || selectedRelease.name}</span>
+                      </div>
+                    </div>
+
+                    {/* Quick Stepper Navigation between releases */}
+                    <div className="flex items-center justify-between pt-2 border-t border-white/5 text-[11px]">
                       <button
                         type="button"
-                        onClick={() => toggleGroup(group.id)}
-                        className={`w-full flex items-center justify-between px-3 py-2.5 cursor-pointer select-none transition-colors text-left ${
-                          hasSelected
-                            ? 'bg-cyan-950/40 text-white'
-                            : 'hover:bg-white/[0.04] text-slate-300'
+                        disabled={selectedIndex >= releases.length - 1}
+                        onClick={() => setSelectedIndex(prev => Math.min(releases.length - 1, prev + 1))}
+                        className="text-slate-400 hover:text-white disabled:opacity-30 disabled:hover:text-slate-400 cursor-pointer flex items-center gap-1 transition-colors"
+                      >
+                        <span>&larr; {isVi ? 'Bản cũ hơn' : 'Older'}</span>
+                      </button>
+                      <span className="text-slate-600">|</span>
+                      <button
+                        type="button"
+                        disabled={selectedIndex <= 0}
+                        onClick={() => setSelectedIndex(prev => Math.max(0, prev - 1))}
+                        className="text-slate-400 hover:text-white disabled:opacity-30 disabled:hover:text-slate-400 cursor-pointer flex items-center gap-1 transition-colors"
+                      >
+                        <span>{isVi ? 'Bản mới hơn' : 'Newer'} &rarr;</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {/* Quick Version List (Pure text badges, transparent, zero box-shadow) */}
+                <div className="pt-2 space-y-1">
+                  <div className="text-[10px] text-slate-500 uppercase tracking-wider pb-1">
+                    {isVi ? 'Tất cả các bản cập nhật:' : 'All releases:'}
+                  </div>
+                  {releases.map((release, idx) => {
+                    const isFocused = selectedIndex === idx;
+                    const displayTitle = getDisplayTitle(release);
+                    const status = resolveReleaseStatus(release, isVi);
+
+                    return (
+                      <div
+                        key={release.id}
+                        onClick={() => setSelectedIndex(idx)}
+                        onMouseEnter={() => setSelectedIndex(idx)}
+                        className={`group flex items-center justify-between py-2 px-2.5 rounded cursor-pointer transition-colors font-mono text-xs ${
+                          isFocused
+                            ? 'text-white font-medium bg-white/[0.04]'
+                            : 'text-slate-400 hover:text-slate-200 hover:bg-white/[0.02]'
                         }`}
                       >
                         <div className="flex items-center gap-2 min-w-0">
-                          <span className="text-cyan-400 shrink-0">
-                            {isCollapsed ? <ChevronRight size={14} /> : <ChevronDown size={14} />}
+                          <span className="text-cyan-400 font-bold w-3 text-center shrink-0">
+                            {isFocused ? '>' : ' '}
                           </span>
-                          {isCollapsed ? (
-                            <Folder size={14} className="text-slate-400 shrink-0" />
-                          ) : (
-                            <FolderOpen size={14} className="text-cyan-400 shrink-0" />
-                          )}
-                          <span className="font-bold tracking-wide text-xs sm:text-sm text-white truncate">
-                            {group.name}
+                          <span className="text-slate-500 font-mono text-[11px] shrink-0">
+                            {status.formattedText}
+                          </span>
+                          <span className={`truncate ${isFocused ? 'text-white' : 'text-slate-300'}`}>
+                            {displayTitle}
                           </span>
                         </div>
-
-                        <div className="flex items-center gap-1.5 shrink-0 pl-2">
-                          <span className="text-[10px] font-mono text-cyan-300 bg-cyan-950/70 border border-cyan-500/30 px-2 py-0.5 rounded-full font-semibold">
-                            {group.items.length} {isVi ? 'bản update' : 'updates'}
-                          </span>
-                        </div>
-                      </button>
-
-                      {/* Group Releases Sub-items */}
-                      {!isCollapsed && (
-                        <div className="p-1 space-y-1 border-t border-white/5 bg-black/20">
-                          {group.items.map(({ release, flatIdx, updateLabel }) => {
-                            const isFocused = selectedIndex === flatIdx;
-                            const displayTitle = getDisplayTitle(release);
-
-                            return (
-                              <div
-                                key={release.id}
-                                onClick={() => setSelectedIndex(flatIdx)}
-                                onMouseEnter={() => setSelectedIndex(flatIdx)}
-                                className={`group flex flex-col py-2 px-2.5 rounded cursor-pointer transition-colors font-mono ${
-                                  isFocused
-                                    ? 'text-white font-bold bg-white/[0.08] shadow-[inset_2px_0_0_0_#22d3ee]'
-                                    : 'text-slate-300 hover:text-white hover:bg-white/[0.03]'
-                                }`}
-                              >
-                                <div className="flex items-center gap-2">
-                                  <span className="text-cyan-400 font-bold w-4 text-center shrink-0">
-                                    {isFocused ? '>' : ' '}
-                                  </span>
-
-                                  <span className="text-[10px] font-mono font-bold text-cyan-300 bg-cyan-950/80 border border-cyan-500/30 px-1.5 py-0.5 rounded shrink-0">
-                                    {updateLabel}
-                                  </span>
-
-                                  <span className={`flex-1 truncate ${
-                                    isFocused ? 'text-white font-bold' : 'text-slate-200'
-                                  }`}>
-                                    {displayTitle}
-                                  </span>
-
-                                  <span className="text-slate-400 text-xs font-mono font-bold shrink-0">
-                                    &gt;
-                                  </span>
-                                </div>
-
-                                <span className="text-slate-400 text-xs pl-6 pt-0.5 font-normal">
-                                  {formatDate(release.published_at)}
-                                </span>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            ) : (
-              /* Flat View */
-              <div className="space-y-1 font-mono text-xs sm:text-sm pt-1">
-                {releases.map((release, idx) => {
-                  const isFocused = selectedIndex === idx;
-                  const displayTitle = getDisplayTitle(release);
-                  const cat = categorizeRelease(release);
-
-                  return (
-                    <div
-                      key={release.id}
-                      onClick={() => setSelectedIndex(idx)}
-                      onMouseEnter={() => setSelectedIndex(idx)}
-                      className={`group flex flex-col py-2 px-2.5 rounded cursor-pointer transition-colors font-mono ${
-                        isFocused
-                          ? 'text-white font-bold bg-white/[0.06] shadow-[inset_2px_0_0_0_#22d3ee]'
-                          : 'text-slate-300 hover:text-white hover:bg-white/[0.02]'
-                      }`}
-                    >
-                      <div className="flex items-center gap-2">
-                        <span className="text-cyan-400 font-bold w-4 text-center shrink-0">
-                          {isFocused ? '>' : ' '}
-                        </span>
-
-                        <span className="text-[10px] font-mono font-bold text-cyan-300 bg-cyan-950/80 border border-cyan-500/30 px-1.5 py-0.5 rounded shrink-0">
-                          {cat.groupName}
-                        </span>
-
-                        <span className={`flex-1 truncate ${
-                          isFocused ? 'text-white font-bold' : 'text-slate-200'
-                        }`}>
-                          {displayTitle}
-                        </span>
-
-                        <span className="text-slate-400 text-xs font-mono font-bold shrink-0">
-                          &gt;
+                        <span className="text-[11px] text-slate-500 shrink-0 pl-2">
+                          {formatDate(release.published_at)}
                         </span>
                       </div>
+                    );
+                  })}
+                </div>
 
-                      <span className="text-slate-400 text-xs pl-6 pt-0.5 font-normal">
-                        {formatDate(release.published_at)}
-                      </span>
-                    </div>
-                  );
-                })}
               </div>
             )}
 
@@ -646,8 +694,13 @@ export function Changelog({ activeLang, onNavigate }) {
 
                   <div className="text-xs text-slate-400 font-mono space-y-1">
                     {selectedMeta && (
-                      <div className="text-cyan-300/90 font-semibold">
-                        ► SERIES: {selectedMeta.groupName} {selectedMeta.updateLabel ? `(${selectedMeta.updateLabel})` : ''}
+                      <div className="text-slate-300 font-semibold flex items-center gap-2">
+                        <span>► SERIES: {selectedMeta.groupName}</span>
+                        {selectedMeta.status && (
+                          <span className="text-slate-400 text-xs font-mono">
+                            {selectedMeta.status.formattedText}
+                          </span>
+                        )}
                       </div>
                     )}
                     <div>► PUBLISHED: {formatDate(selectedRelease.published_at)}</div>

@@ -45,48 +45,221 @@
     <priority>0.95</priority>
   </url>
 
-  <!-- Technical Documentation Subtopics -->
+  <!-- Era Academy & Open Knowledge Hub -->
   <url>
-    <loc>https://www.aevum.ai.vn/docs#gioi-thieu</loc>
-    <lastmod>2026-08-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
+    <loc>https://www.aevum.ai.vn/explore</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/explore"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.aevum.ai.vn/explore"/>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
   </url>
   <url>
-    <loc>https://www.aevum.ai.vn/docs#cai-dat</loc>
-    <lastmod>2026-08-31</lastmod>
+    <loc>https://www.aevum.ai.vn/explore/ai-la-gi-co-che-hoat-dong</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/ai-la-gi-co-che-hoat-dong"/>
+    <lastmod>2026-10-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://www.aevum.ai.vn/docs#che-do-chay</loc>
-    <lastmod>2026-08-31</lastmod>
+    <loc>https://www.aevum.ai.vn/explore/nghe-thuat-giao-tiep-ai-prompting</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/nghe-thuat-giao-tiep-ai-prompting"/>
+    <lastmod>2026-10-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://www.aevum.ai.vn/docs#cau-truc-du-an</loc>
-    <lastmod>2026-08-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://www.aevum.ai.vn/docs#quy-trinh-bat-tay</loc>
-    <lastmod>2026-08-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://www.aevum.ai.vn/docs#danh-muc-cong-cu</loc>
-    <lastmod>2026-08-31</lastmod>
+    <loc>https://www.aevum.ai.vn/explore/ai-trong-cac-nganh-nghe</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/ai-trong-cac-nganh-nghe"/>
+    <lastmod>2026-10-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://www.aevum.ai.vn/docs#nang-cao</loc>
-    <lastmod>2026-08-31</lastmod>
+    <loc>https://www.aevum.ai.vn/explore/bao-mat-quyen-rieng-tu-dao-duc-ai</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/bao-mat-quyen-rieng-tu-dao-duc-ai"/>
+    <lastmod>2026-10-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/tu-chatbot-den-agent</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/tu-chatbot-den-agent"/>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/vong-lap-nhan-thuc-ooda-react</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/vong-lap-nhan-thuc-ooda-react"/>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/hien-tuong-context-amnesia</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/hien-tuong-context-amnesia"/>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/kien-truc-giao-thuc-mcp</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/kien-truc-giao-thuc-mcp"/>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/mo-hinh-tri-nho-kep-stm-ltm</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/mo-hinh-tri-nho-kep-stm-ltm"/>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/thuat-toan-truy-hoi-spiking-lif</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/thuat-toan-truy-hoi-spiking-lif"/>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/mo-hinh-bang-den-blackboard-pattern</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/mo-hinh-bang-den-blackboard-pattern"/>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/autonomous-deep-research</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/autonomous-deep-research"/>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- Technical Documentation Subtopics & Guides -->
+  <url>
+    <loc>https://www.aevum.ai.vn/docs/gioi-thieu</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/gioi-thieu"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/gioi-thieu"/>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.aevum.ai.vn/docs/cai-dat</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/cai-dat"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/cai-dat"/>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://www.aevum.ai.vn/docs/cli-terminal</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/cli-terminal"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/cli-terminal"/>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://www.aevum.ai.vn/docs/che-do-chay</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/che-do-chay"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/che-do-chay"/>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.aevum.ai.vn/docs/handshake-ritual</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/handshake-ritual"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/handshake-ritual"/>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.aevum.ai.vn/docs/persona-system</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/persona-system"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/persona-system"/>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.aevum.ai.vn/docs/cognitive-dual-memory</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/cognitive-dual-memory"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/cognitive-dual-memory"/>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://www.aevum.ai.vn/docs/skill-system</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/skill-system"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/skill-system"/>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.aevum.ai.vn/docs/plan-lifecycle</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/plan-lifecycle"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/plan-lifecycle"/>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.aevum.ai.vn/docs/tips-tricks</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/tips-tricks"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/tips-tricks"/>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.aevum.ai.vn/docs/pipernet-mesh</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/pipernet-mesh"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/pipernet-mesh"/>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.aevum.ai.vn/docs/mcp-tools-reference</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/mcp-tools-reference"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/mcp-tools-reference"/>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://www.aevum.ai.vn/docs/living-memory-graph</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/living-memory-graph"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/living-memory-graph"/>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.aevum.ai.vn/docs/blackboard-hub</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/blackboard-hub"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/blackboard-hub"/>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.aevum.ai.vn/docs/deep-research-engine</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/deep-research-engine"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/deep-research-engine"/>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
   </url>
 
   <!-- Community Discussions -->

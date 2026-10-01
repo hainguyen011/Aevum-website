@@ -1,8 +1,30 @@
 import React, { useState, useEffect } from 'react';
+import { ReleaseService } from '../services/ReleaseService';
 
 export const AnnouncementBanner = ({ onNavigate, activeLang }) => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [latestVersion, setLatestVersion] = useState('v1.0.0-beta.4');
   const isVi = activeLang === 'vi';
+
+  useEffect(() => {
+    ReleaseService.getReleases()
+      .then((releases) => {
+        if (releases && releases.length > 0) {
+          const newest = releases[0];
+          const tag = newest.tag_name || newest.name || 'v1.0.0-beta.4';
+          setLatestVersion(tag);
+        }
+      })
+      .catch((err) => {
+        console.error('[AnnouncementBanner] Failed to fetch latest release:', err);
+      });
+  }, []);
+
+  const badgeText = `AEVUM OS ${latestVersion.toUpperCase()}`;
+  const mainMessage = isVi
+    ? `Bản cập nhật ${latestVersion} đã chính thức phát hành cho cả macOS & Windows`
+    : `Latest release ${latestVersion} is now available for macOS & Windows`;
+  const ctaText = isVi ? 'Tải xuống ngay' : 'Download now';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,12 +46,6 @@ export const AnnouncementBanner = ({ onNavigate, activeLang }) => {
       }
     };
   }, []);
-
-  const badgeText = 'AEVUM OS v1.0.0-BETA.0';
-  const mainMessage = isVi
-    ? 'Bản test đầu tiên đã chính thức được công khai cho cả macOS & Windows'
-    : 'First public beta is now officially available for macOS & Windows';
-  const ctaText = isVi ? 'Tải xuống ngay' : 'Download now';
 
   const itemContent = (keyPrefix) => (
     <div key={keyPrefix} className="flex items-center gap-4 px-8 shrink-0">

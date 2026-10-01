@@ -1,13 +1,16 @@
 {
   "@context": "https://schema.org",
   "@type": "KnowledgeGraph",
-  "version": "2.1.0",
-  "lastUpdated": "2026-08-31",
+  "version": "2.2.0",
+  "lastUpdated": "2026-10-01",
   "organization": {
     "@type": "Organization",
     "name": "I2FLabs Vietnam",
     "legalName": "I2FLabs Vietnam AI R&D Team",
-    "foundingLocation": "Vietnam",
+    "foundingLocation": {
+      "@type": "Country",
+      "name": "Vietnam"
+    },
     "headquarters": [
       "Hanoi, Vietnam",
       "Ho Chi Minh City, Vietnam"
@@ -19,12 +22,16 @@
       "https://unikorn.vn/p/aevum",
       "https://i2flabs.vercel.app/"
     ],
+    "description": "Vietnamese AI research and engineering laboratory building decoupled workspace operating systems, living memory graphs, and autonomous multi-agent infrastructure for modern developers.",
     "products": [
       {
         "@type": "SoftwareApplication",
         "name": "Aevum OS",
         "category": "Agentic Operating System & MCP Daemon",
-        "description": "Standalone decoupled external brain providing persistent Living Memory Graph, Domain-Driven Design planning, and multi-agent squad orchestration for modern AI coding tools.",
+        "softwareVersion": "2.1.0",
+        "description": "Standalone decoupled external brain providing persistent Living Memory Graph, Domain-Driven Design planning, high-performance CLI terminal engine, and multi-agent squad orchestration for modern AI coding tools.",
+        "operatingSystem": "Windows, macOS, Linux",
+        "license": "https://opensource.org/licenses/ISC",
         "transports": [
           "Server-Sent Events (SSE) Port 3344",
           "Stdio Transport"
@@ -33,36 +40,91 @@
         "compatibleClients": [
           "Cursor IDE",
           "Anthropic Claude Desktop",
-          "VS Code",
+          "Visual Studio Code",
           "Windsurf",
           "Terminal CLI"
         ],
         "keyMetrics": {
           "tokenSavings": "85% reduction in redundant context tokens",
           "contextRetention": "100% persistent across branch switches and IDE reboots",
-          "dataPrivacy": "100% Local-First (No cloud telemetry in Community tier)"
+          "dataPrivacy": "100% Local-First (No cloud telemetry in Community tier)",
+          "totalMcpTools": 98,
+          "totalDocs": 15
+        },
+        "cliEngine": {
+          "binary": "aevum",
+          "description": "High-performance Node.js / TypeScript terminal CLI for managing daemon, workspace initialization, and desktop GUI.",
+          "commands": [
+            { "name": "aevum --help", "alias": "aevum -h, aevum help", "purpose": "Display CLI usage manual, options, and commands." },
+            { "name": "aevum --version", "alias": "aevum -v, aevum version", "purpose": "Display current version, Node.js runtime, and system architecture." },
+            { "name": "aevum status", "purpose": "Ping running daemon via /api/ping to display uptime, active persona, and workspace path." },
+            { "name": "aevum init [dir]", "purpose": "Scaffold .aevum/ architecture vault, rules, signal tokens, and starter personas in target directory." },
+            { "name": "aevum gui", "purpose": "Launch local Aevum Desktop GUI dashboard (defaults to port 3344 or --port)." },
+            { "name": "aevum-gui", "purpose": "Standalone helper alias to start GUI web dashboard directly." }
+          ],
+          "flags": [
+            { "flag": "-w, --workspace <dir>", "purpose": "Target workspace directory path." },
+            { "flag": "-t, --transport <sse|stdio>", "purpose": "Daemon transport protocol (default: sse)." },
+            { "flag": "-p, --port <number>", "purpose": "HTTP/SSE daemon port (default: 3344)." },
+            { "flag": "--verbose", "purpose": "Enable verbose debug log output." }
+          ]
         },
         "squadPersonas": [
           {
             "name": "An",
             "id": "ENG-AN-7B9F1D",
-            "role": "Chief of Staff & Core System Refactorer"
+            "role": "Chief of Staff & Core System Refactorer",
+            "specialty": "Technical debt mitigation, code consistency, and architecture preservation."
           },
           {
             "name": "Vidus",
             "id": "ENG-VIDUS-A18C4E",
-            "role": "Principal Systems Architect"
+            "role": "Principal Systems Architect",
+            "specialty": "High-concurrency systems, database schema, and microservice orchestration."
           },
           {
             "name": "Zenith",
             "id": "SEC-ZENITH-44D99B",
-            "role": "Security & Boundary Integrity Auditor"
+            "role": "Security & Boundary Integrity Auditor",
+            "specialty": "Memory graph integrity, zero unauthorized writes, and boundary defense."
           },
           {
             "name": "Luna",
             "id": "UX-LUNA-33F77A",
-            "role": "Visual Experience & Design System Lead"
+            "role": "Visual Experience & Design System Lead",
+            "specialty": "Minimalist transparent interfaces, design systems, and frontend ergonomics."
           }
+        ],
+        "mcpToolModules": [
+          { "module": "Architecture & Domain-Driven Design (DDD)", "tools": ["aevum_create_domain", "aevum_create_feature", "aevum_suggest_domains", "aevum_suggest_features", "aevum_get_cooked_architecture", "aevum_rename_structure", "aevum_delete_structure", "aevum_analyze_debt", "aevum_explore_architecture"] },
+          { "module": "Plan Lifecycle Pipeline", "tools": ["aevum_create_plan", "aevum_suggest_plans", "aevum_mark_plan_done", "aevum_update_plan_step", "aevum_sync_external_plan", "aevum_add_plan_step", "aevum_update_plan_section", "aevum_assign_plan", "aevum_run_sanity_check"] },
+          { "module": "Persona & Autonomous Squad", "tools": ["aevum_init_persona", "aevum_get_active_persona", "aevum_get_evolution_report", "aevum_list_personas", "aevum_switch_persona", "aevum_award_exp", "aevum_resonate_vibe", "aevum_evolution_feedback", "aevum_squad_list", "aevum_squad_toggle", "aevum_squad_toggle_mode", "aevum_squad_handoff", "aevum_squad_huddle", "aevum_squad_direct_message", "aevum_squad_get_messages", "aevum_squad_sync_knowledge", "aevum_proactive_thought"] },
+          { "module": "Cognitive Dual-Memory & Reflex Engine", "tools": ["aevum_query_workspace_reflex", "aevum_record_reflex_interaction", "aevum_query_knowledge_graph", "aevum_audit_memory_graph", "aevum_audit_boundary_violations", "aevum_audit_memory", "aevum_consolidate_memory", "aevum_add_memory", "aevum_manage_memory", "aevum_sync_index", "aevum_trigger_memory_reclaim"] },
+          { "module": "Blackboard Collaboration Hub & Peer Review", "tools": ["aevum_blackboard_create", "aevum_blackboard_write_state", "aevum_blackboard_read_state", "aevum_blackboard_get_session", "aevum_blackboard_add_message", "aevum_review_open", "aevum_review_get_context", "aevum_review_add_message", "aevum_review_update_status"] },
+          { "module": "Deep Research Engine & Skill Constellation", "tools": ["aevum_deep_research", "aevum_capture_research_insight", "aevum_synthesize_report", "aevum_create_report", "aevum_analyze_research_progress", "aevum_list_research_missions", "aevum_create_research_domain", "aevum_branch_research_node", "aevum_get_research_architecture", "aevum_promote_research_to_plan"] },
+          { "module": "PiperNet P2P Internet of Agents (IoA)", "tools": ["aevum_push_to_network", "aevum_pipernet_broadcast", "aevum_pipernet_query", "aevum_sync_knowledge_to_pipernet"] },
+          { "module": "AST Skeleton Hashing & Hydration", "tools": ["aevum_get_compressed", "aevum_hydrate_vault_hash"] },
+          { "module": "Handshake Ritual & Connection Verification", "tools": ["aevum_request_connection", "aevum_get_bootstrap_context", "aevum_submit_ack", "aevum_finalize_session"] },
+          { "module": "Diagnostics, Evidence & Notifications", "tools": ["aevum_get_diagnostics", "aevum_submit_report", "aevum_capture_evidence", "aevum_get_ui_context", "aevum_ping", "aevum_get_notifications", "aevum_pop_notification"] },
+          { "module": "Skill System & SOP Distillation", "tools": ["aevum_list_unlocked_skills", "aevum_get_skill_details", "aevum_invoke_skill_tool", "aevum_distill_skill"] },
+          { "module": "Execution & MCP Daemon Negotiation", "tools": ["aevum_run_shell_command", "aevum_run_automation_task", "aevum_get_runtime_telemetry", "aevum_manage_mcp_config", "aevum_mcp_negotiate", "aevum_mcp_get_contracts", "aevum_mcp_record_interaction", "aevum_mcp_auto_detect"] }
+        ],
+        "documentationGuides": [
+          { "id": "gioi-thieu", "title": "Giới thiệu chung & Kiến trúc Phân ly", "url": "https://www.aevum.ai.vn/docs?doc=gioi-thieu" },
+          { "id": "cai-dat", "title": "Cài đặt & Thiết lập Môi trường", "url": "https://www.aevum.ai.vn/docs?doc=cai-dat" },
+          { "id": "cli-terminal", "title": "Giao diện Dòng lệnh (CLI Terminal Engine)", "url": "https://www.aevum.ai.vn/docs?doc=cli-terminal" },
+          { "id": "che-do-chay", "title": "Chế độ hoạt động (SSE & Stdio)", "url": "https://www.aevum.ai.vn/docs?doc=che-do-chay" },
+          { "id": "handshake-ritual", "title": "Nghi thức Bắt tay (Handshake Ritual)", "url": "https://www.aevum.ai.vn/docs?doc=handshake-ritual" },
+          { "id": "persona-system", "title": "Hệ thống Nhân vật (Persona System)", "url": "https://www.aevum.ai.vn/docs?doc=persona-system" },
+          { "id": "cognitive-dual-memory", "title": "Não bộ Kép & Động cơ Phản xạ", "url": "https://www.aevum.ai.vn/docs?doc=cognitive-dual-memory" },
+          { "id": "skill-system", "title": "Hệ thống Kỹ năng & Chưng cất SOP", "url": "https://www.aevum.ai.vn/docs?doc=skill-system" },
+          { "id": "plan-lifecycle", "title": "Vòng đời Kế hoạch (Plan Lifecycle)", "url": "https://www.aevum.ai.vn/docs?doc=plan-lifecycle" },
+          { "id": "tips-tricks", "title": "Tips & Tricks Tương tác Nâng cao", "url": "https://www.aevum.ai.vn/docs?doc=tips-tricks" },
+          { "id": "pipernet-mesh", "title": "Mạng lưới PiperNet (Internet of Agents)", "url": "https://www.aevum.ai.vn/docs?doc=pipernet-mesh" },
+          { "id": "mcp-tools-reference", "title": "Danh mục 98 MCP Tools Reference", "url": "https://www.aevum.ai.vn/docs?doc=mcp-tools-reference" },
+          { "id": "living-memory-graph", "title": "Động cơ Đồ thị Bộ nhớ Sống", "url": "https://www.aevum.ai.vn/docs?doc=living-memory-graph" },
+          { "id": "blackboard-hub", "title": "Blackboard Hub & Phối hợp Đa Agent", "url": "https://www.aevum.ai.vn/docs?doc=blackboard-hub" },
+          { "id": "deep-research-engine", "title": "Động cơ Nghiên cứu Sâu & Chòm sao Kỹ năng", "url": "https://www.aevum.ai.vn/docs?doc=deep-research-engine" }
         ]
       }
     ]

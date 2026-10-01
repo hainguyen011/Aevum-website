@@ -1,6 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { docsData } from '../src/data/docsData.js';
+import { curriculumModules } from '../src/data/learningCurriculum.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -9,56 +11,118 @@ const rootDir = path.resolve(__dirname, '..');
 const SEO_MAP = {
   landing: {
     route: '/',
+    pageKey: 'landing',
     title: 'Aevum OS — Standalone MCP Server & Bộ não Ngoại vi Không gian Làm việc',
     description: 'Aevum OS là Hệ điều hành Agent độc lập và Bộ não Ngoại vi — hỗ trợ lập kế hoạch DDD, đồ thị bộ nhớ tự phục hồi và điều phối biệt đội đa agent tự trị.',
     canonical: 'https://www.aevum.ai.vn/'
   },
   pricing: {
     route: '/pricing',
+    pageKey: 'pricing',
     title: 'Bảng Giá & Gói Thành Viên — Aevum OS Community & Pro Tiers',
     description: 'Bảng giá minh bạch Aevum OS: Gói Community miễn phí vĩnh viễn Local-First và gói Pro trải nghiệm 14 ngày Beta Trial đồng bộ Cloud & Biệt đội Đa Agent.',
     canonical: 'https://www.aevum.ai.vn/pricing'
   },
   docs: {
     route: '/docs',
-    title: 'Tài liệu Kỹ thuật & Hướng dẫn Tích hợp — Aevum OS Docs',
-    description: 'Hướng dẫn tích hợp cổng MCP, cài đặt daemon SSE port 3344, quy trình bắt tay Handshake Ritual và danh mục công cụ MCP của Aevum OS.',
+    pageKey: 'docs',
+    docId: 'gioi-thieu',
+    title: 'Tài liệu Kỹ thuật & Hướng dẫn Cấu hình MCP Cursor & Claude — Aevum OS Docs',
+    description: 'Hướng dẫn cấu hình MCP Server cho Cursor và Claude Desktop, cài đặt Fastify Daemon SSE port 3344, quy trình bắt tay Handshake Ritual và danh mục 98 công cụ MCP của Aevum OS.',
     canonical: 'https://www.aevum.ai.vn/docs'
+  },
+  explore: {
+    route: '/explore',
+    pageKey: 'explore',
+    title: 'Khám phá Kỉ nguyên AI — Học viện Tri thức & Tác nhân Tự chủ | Aevum OS',
+    description: 'Giáo trình mở miễn phí về hệ điều hành agent, tối ưu ngữ cảnh MCP, trí nhớ nhận thức kép và đồ thị tri thức sống cùng Aevum OS.',
+    canonical: 'https://www.aevum.ai.vn/explore'
   },
   about: {
     route: '/about',
+    pageKey: 'about',
     title: 'Giới thiệu & Triết lý Sản phẩm — Aevum OS by I2FLabs',
     description: 'Khám phá câu chuyện phát triển Aevum OS và sứ mệnh tách biệt bộ não AI khỏi IDE để mang lại khả năng ghi nhớ dài hạn cho lập trình viên.',
     canonical: 'https://www.aevum.ai.vn/about'
   },
   changelog: {
     route: '/changelog',
+    pageKey: 'changelog',
     title: 'Nhật ký Cập nhật & Lịch sử Bản phát hành — Aevum OS Changelog',
     description: 'Theo dõi các tính năng mới nhất, bản vá lỗi và nâng cấp kiến trúc cho Aevum OS và bộ tiện ích mở rộng I2FLabs.',
     canonical: 'https://www.aevum.ai.vn/changelog'
   },
   discussions: {
     route: '/discussions',
+    pageKey: 'discussions',
     title: 'Cộng đồng Thảo luận & Sửa lỗi — Aevum OS Community Discussions',
     description: 'Tham gia thảo luận về các phiên bản phát hành Aevum OS, báo lỗi, đóng góp ý kiến và kết nối với cộng đồng lập trình viên.',
     canonical: 'https://www.aevum.ai.vn/discussions'
   },
   privacy: {
     route: '/privacy',
+    pageKey: 'privacy',
     title: 'Chính sách Bảo mật — Aevum OS by I2FLabs',
     description: 'Chính sách Bảo mật của I2FLabs và Aevum OS: Cách chúng tôi thu thập, sử dụng và bảo vệ dữ liệu cá nhân của lập trình viên.',
     canonical: 'https://www.aevum.ai.vn/privacy'
   },
   terms: {
     route: '/terms',
+    pageKey: 'terms',
     title: 'Điều khoản Dịch vụ — Aevum OS by I2FLabs',
     description: 'Điều khoản Dịch vụ của I2FLabs và Aevum OS: Quyền, nghĩa vụ và chính sách sử dụng dịch vụ trong không gian làm việc.',
     canonical: 'https://www.aevum.ai.vn/terms'
   }
 };
 
+// Add all 15 Docs as individual deep prerender routes for 100% Google SEO Crawlability
+docsData.forEach((doc) => {
+  const cleanSnippet = doc.content
+    .replace(/#+\s+.*/g, '')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/`{1,3}[^`]*`{1,3}/g, '')
+    .replace(/[>*_|-]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .substring(0, 160);
+
+  SEO_MAP[`doc_${doc.id}`] = {
+    route: `/docs/${doc.id}`,
+    pageKey: 'docs',
+    docId: doc.id,
+    docData: doc,
+    title: `${doc.title} — Tài liệu Kỹ thuật Aevum OS`,
+    description: `${doc.title}: ${cleanSnippet}...`,
+    canonical: `https://www.aevum.ai.vn/docs/${doc.id}`
+  };
+});
+
+// Add all curriculum lessons as individual deep prerender routes for SEO
+curriculumModules.forEach((mod) => {
+  mod.lessons.forEach((lesson) => {
+    const cleanSnippet = lesson.content
+      .replace(/#+\s+.*/g, '')
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+      .replace(/`{1,3}[^`]*`{1,3}/g, '')
+      .replace(/[>*_|-]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .substring(0, 160);
+
+    SEO_MAP[`lesson_${lesson.id}`] = {
+      route: `/explore/${lesson.id}`,
+      pageKey: 'explore',
+      lessonId: lesson.id,
+      lessonData: lesson,
+      title: `${lesson.title} — Khám phá Kỉ nguyên AI | Aevum OS`,
+      description: `${lesson.title}: ${cleanSnippet}...`,
+      canonical: `https://www.aevum.ai.vn/explore/${lesson.id}`
+    };
+  });
+});
+
 async function prerender() {
-  console.log('[Prerender Snapshot] Starting static HTML generation...');
+  console.log('[Prerender Snapshot] Starting static HTML generation for SEO & Search Spiders...');
 
   const templatePath = path.resolve(rootDir, 'dist/index.html');
   if (!fs.existsSync(templatePath)) {
@@ -73,14 +137,14 @@ async function prerender() {
 
   const { render } = await import(`file://${ssrModulePath.replace(/\\/g, '/')}`);
 
-  const pages = Object.keys(SEO_MAP);
+  const snapshotKeys = Object.keys(SEO_MAP);
 
-  for (const pageKey of pages) {
-    const meta = SEO_MAP[pageKey];
-    console.log(`  📸 Rendering snapshot for: ${meta.route} (${pageKey})`);
+  for (const key of snapshotKeys) {
+    const meta = SEO_MAP[key];
+    console.log(`  📸 Rendering snapshot: ${meta.route} [${meta.pageKey}${meta.docId ? ':' + meta.docId : (meta.lessonId ? ':' + meta.lessonId : '')}]`);
 
     try {
-      const { html: appHtml } = render(pageKey, 'vi');
+      const { html: appHtml } = render(meta.pageKey, 'vi', meta.docId || null, meta.lessonId || null);
 
       // Inject rendered app HTML into #root
       let pageHtml = template.replace('<div id="root"></div>', `<div id="root">${appHtml}</div>`);
@@ -89,7 +153,7 @@ async function prerender() {
       pageHtml = pageHtml.replace(/<title>.*?<\/title>/i, `<title>${meta.title}</title>`);
       pageHtml = pageHtml.replace(
         /<meta\s+name=["']description["'][^>]*>/i,
-        `<meta name="description" content="${meta.description}" />`
+        `<meta name="description" content="${meta.description.replace(/"/g, '&quot;')}" />`
       );
       pageHtml = pageHtml.replace(
         /<link\s+rel=["']canonical["'][^>]*>/i,
@@ -97,11 +161,11 @@ async function prerender() {
       );
       pageHtml = pageHtml.replace(
         /<meta\s+property=["']og:title["'][^>]*>/i,
-        `<meta property="og:title" content="${meta.title}" />`
+        `<meta property="og:title" content="${meta.title.replace(/"/g, '&quot;')}" />`
       );
       pageHtml = pageHtml.replace(
         /<meta\s+property=["']og:description["'][^>]*>/i,
-        `<meta property="og:description" content="${meta.description}" />`
+        `<meta property="og:description" content="${meta.description.replace(/"/g, '&quot;')}" />`
       );
       pageHtml = pageHtml.replace(
         /<meta\s+property=["']og:url["'][^>]*>/i,
@@ -109,18 +173,144 @@ async function prerender() {
       );
       pageHtml = pageHtml.replace(
         /<meta\s+name=["']twitter:title["'][^>]*>/i,
-        `<meta name="twitter:title" content="${meta.title}" />`
+        `<meta name="twitter:title" content="${meta.title.replace(/"/g, '&quot;')}" />`
       );
       pageHtml = pageHtml.replace(
         /<meta\s+name=["']twitter:description["'][^>]*>/i,
-        `<meta name="twitter:description" content="${meta.description}" />`
+        `<meta name="twitter:description" content="${meta.description.replace(/"/g, '&quot;')}" />`
       );
 
+      // Inject JSON-LD Schema for TechArticle & BreadcrumbList if document
+      if (meta.docData) {
+        const schema = {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "TechArticle",
+              "@id": `${meta.canonical}#article`,
+              "isPartOf": { "@id": "https://www.aevum.ai.vn/#website" },
+              "headline": meta.title,
+              "description": meta.description,
+              "url": meta.canonical,
+              "inLanguage": "vi-VN",
+              "mainEntityOfPage": meta.canonical,
+              "articleSection": meta.docData.category,
+              "author": {
+                "@type": "Organization",
+                "name": "I2FLabs Vietnam",
+                "url": "https://www.aevum.ai.vn"
+              },
+              "publisher": {
+                "@type": "Organization",
+                "name": "I2FLabs Vietnam",
+                "url": "https://www.aevum.ai.vn",
+                "logo": {
+                  "@type": "ImageObject",
+                  "url": "https://www.aevum.ai.vn/icon-512.png"
+                }
+              },
+              "datePublished": "2026-08-01T08:00:00+07:00",
+              "dateModified": "2026-10-01T12:00:00+07:00"
+            },
+            {
+              "@type": "BreadcrumbList",
+              "@id": `${meta.canonical}#breadcrumb`,
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Trang chủ",
+                  "item": "https://www.aevum.ai.vn/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Tài liệu Kỹ thuật",
+                  "item": "https://www.aevum.ai.vn/docs"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 3,
+                  "name": meta.docData.category,
+                  "item": "https://www.aevum.ai.vn/docs"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 4,
+                  "name": meta.docData.title,
+                  "item": meta.canonical
+                }
+              ]
+            }
+          ]
+        };
+
+        const schemaTag = `<script id="aevum-doc-schema" type="application/ld+json">${JSON.stringify(schema, null, 2)}</script>`;
+        pageHtml = pageHtml.replace('</head>', `  ${schemaTag}\n</head>`);
+      }
+
+      // Inject JSON-LD Schema for LearningResource if lesson
+      if (meta.lessonData) {
+        const lessonSchema = {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "LearningResource",
+              "@id": `${meta.canonical}#lesson`,
+              "isPartOf": { "@id": "https://www.aevum.ai.vn/#website" },
+              "headline": meta.title,
+              "description": meta.description,
+              "url": meta.canonical,
+              "inLanguage": "vi-VN",
+              "educationalLevel": "Intermediate to Advanced",
+              "learningResourceType": "Lesson",
+              "author": {
+                "@type": "Organization",
+                "name": "I2FLabs Vietnam",
+                "url": "https://www.aevum.ai.vn"
+              },
+              "publisher": {
+                "@type": "Organization",
+                "name": "I2FLabs Vietnam",
+                "url": "https://www.aevum.ai.vn",
+                "logo": {
+                  "@type": "ImageObject",
+                  "url": "https://www.aevum.ai.vn/icon-512.png"
+                }
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "@id": `${meta.canonical}#breadcrumb`,
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Trang chủ",
+                  "item": "https://www.aevum.ai.vn/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Khám phá Kỉ nguyên",
+                  "item": "https://www.aevum.ai.vn/explore"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 3,
+                  "name": meta.lessonData.title,
+                  "item": meta.canonical
+                }
+              ]
+            }
+          ]
+        };
+
+        const schemaTag = `<script id="aevum-lesson-schema" type="application/ld+json">${JSON.stringify(lessonSchema, null, 2)}</script>`;
+        pageHtml = pageHtml.replace('</head>', `  ${schemaTag}\n</head>`);
+      }
+
       // Optimize Critical Rendering Path: Inline entire critical CSS directly into <style> in <head>
-      // This completely eliminates:
-      // 1. "Eliminate render-blocking resources" (0ms render-blocking penalty)
-      // 2. "Avoid chaining critical requests" (0 external CSS hops)
-      // 3. Delivers 0ms First & Largest Contentful Paint on Mobile & Desktop!
       const cssMatch = pageHtml.match(/<link\s+rel=["']stylesheet["']\s+crossorigin\s+href=["'](\/assets\/index-[^"']+\.css)["']>/i);
       if (cssMatch) {
         const cssRelativePath = cssMatch[1].replace(/^\//, '');
@@ -128,7 +318,6 @@ async function prerender() {
         if (fs.existsSync(cssFilePath)) {
           const cssContent = fs.readFileSync(cssFilePath, 'utf-8');
           pageHtml = pageHtml.replace(cssMatch[0], `<style id="critical-css">${cssContent}</style>`);
-          // Only remove preload for the inlined index stylesheet, preserve Google Fonts and external resources!
           pageHtml = pageHtml.replace(/<link\s+rel=["']preload["']\s+as=["']style["'][^>]*href=["'][^"']*assets\/index-[^"']*\.css["'][^>]*>\s*/gi, '');
         }
       }

@@ -35,58 +35,77 @@ Nâng tầm trải nghiệm phát triển với kiến trúc kế hoạch phân 
 ---
 *Phát hành tự động bởi Aevum CI/CD Engine*`
 };
+let cachedReleases = null;
+let inFlightPromise = null;
+let isTokenMarkedInvalid = false;
 
 export const ReleaseService = {
   /**
    * Fetches release list from GitHub releases API.
-   * Gracefully falls back to public unauthenticated request if token is invalid or expired.
+   * Caches results in-memory and deduplicates in-flight requests.
    */
   async getReleases() {
-    const token = import.meta.env.VITE_GITHUB_TOKEN;
-    const headers = {
-      'Accept': 'application/vnd.github+json'
-    };
-
-    if (token && token !== 'your_read_only_token_here' && !token.startsWith('github_pat_your')) {
-      headers['Authorization'] = `Bearer ${token}`;
+    if (cachedReleases) {
+      return cachedReleases;
     }
 
-    let res = await fetch('https://api.github.com/repos/hainguyen011/aevum-os-releases/releases', { headers });
-
-    // If token returned 401 (expired/revoked), retry unauthenticated since repository is public
-    if (res.status === 401 && headers['Authorization']) {
-      delete headers['Authorization'];
-      res = await fetch('https://api.github.com/repos/hainguyen011/aevum-os-releases/releases', { headers });
+    if (inFlightPromise) {
+      return inFlightPromise;
     }
 
-    if (!res.ok) {
-      throw new Error(`GitHub API error: ${res.status}`);
-    }
-
-    const data = await res.json();
-    if (!Array.isArray(data)) return [];
-
-    // Enrich truncated bodies with full verified release notes
-    const enriched = data.map((item) => {
-      const tag = item.tag_name || item.name || '';
-      const override = RELEASE_BODY_OVERRIDES[tag];
-      if (override && (!item.body || item.body.trim().endsWith(': Aev') || item.body.trim().endsWith('Giới thiệu') || item.body.length < 350)) {
-        return {
-          ...item,
-          body: override
+    inFlightPromise = (async () => {
+      try {
+        const token = import.meta.env.VITE_GITHUB_TOKEN;
+        const headers = {
+          'Accept': 'application/vnd.github+json'
         };
-      }
-      return item;
-    });
 
-    // Sort descending by published_at / created_at (newest release first)
-    return enriched.sort((a, b) => {
-      const timeA = new Date(a.published_at || a.created_at || 0).getTime();
-      const timeB = new Date(b.published_at || b.created_at || 0).getTime();
-      if (timeB !== timeA) {
-        return timeB - timeA;
+        if (!isTokenMarkedInvalid && token && token !== 'your_read_only_token_here' && !token.startsWith('github_pat_your')) {
+          headers['Authorization'] = `Bearer ${token}`;
+        }
+
+        let res = await fetch('https://api.github.com/repos/hainguyen011/aevum-os-releases/releases', { headers });
+
+        // If token returned 401 (expired/revoked), mark as invalid and retry unauthenticated
+        if (res.status === 401 && headers['Authorization']) {
+          isTokenMarkedInvalid = true;
+          delete headers['Authorization'];
+          res = await fetch('https://api.github.com/repos/hainguyen011/aevum-os-releases/releases', { headers });
+        }
+
+        if (!res.ok) {
+          throw new Error(`GitHub API error: ${res.status}`);
+        }
+
+        const data = await res.json();
+        if (!Array.isArray(data)) return [];
+
+        const enriched = data.map((item) => {
+          const tag = item.tag_name || item.name || '';
+          const override = RELEASE_BODY_OVERRIDES[tag];
+          if (override && (!item.body || item.body.trim().endsWith(': Aev') || item.body.trim().endsWith('Giới thiệu') || item.body.length < 350)) {
+            return {
+              ...item,
+              body: override
+            };
+          }
+          return item;
+        });
+
+        const sorted = enriched.sort((a, b) => {
+          const timeA = new Date(a.published_at || a.created_at || 0).getTime();
+          const timeB = new Date(b.published_at || b.created_at || 0).getTime();
+          if (timeB !== timeA) return timeB - timeA;
+          return (b.tag_name || b.name || '').localeCompare(a.tag_name || a.name || '', undefined, { numeric: true });
+        });
+
+        cachedReleases = sorted;
+        return sorted;
+      } finally {
+        inFlightPromise = null;
       }
-      return (b.tag_name || b.name || '').localeCompare(a.tag_name || a.name || '', undefined, { numeric: true });
-    });
+    })();
+
+    return inFlightPromise;
   }
 };

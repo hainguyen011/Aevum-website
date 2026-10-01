@@ -46,6 +46,21 @@ const SEO_CONFIG = {
     },
     path: 'docs',
   },
+  explore: {
+    title: {
+      vi: 'Khám phá Kỉ nguyên AI — Học viện Tri thức & Tác nhân Tự chủ | Aevum OS',
+      en: 'Explore AI Era — Autonomous Agent Academy & Knowledge Hub | Aevum OS',
+    },
+    description: {
+      vi: 'Khám phá kỉ nguyên Agentic AI: Giáo trình mở miễn phí về kiến trúc hệ điều hành agent, tối ưu ngữ cảnh MCP, trí nhớ nhận thức kép và đồ thị tri thức sống.',
+      en: 'Explore the Agentic AI era: Free open academy on agent operating systems, MCP context engineering, dual-memory architectures, and living memory graphs.',
+    },
+    keywords: {
+      vi: 'Khám phá kỉ nguyên AI, Học viện Agentic AI, Khóa học AI Agent miễn phí, Context Engineering, Model Context Protocol, Đồ thị bộ nhớ sống, Multi-Agent Squad, Aevum OS',
+      en: 'Explore AI Era, Agentic AI Academy, Free AI Agent Course, Context Engineering, Model Context Protocol, Living Memory Graph, Multi-Agent Squad, Aevum OS',
+    },
+    path: 'explore',
+  },
   about: {
     title: {
       vi: 'Giới thiệu & Triết lý Sản phẩm — Aevum OS by I2FLabs',

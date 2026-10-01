@@ -387,7 +387,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
       }
       if (part.startsWith('`') && part.endsWith('`')) {
         return (
-          <code key={index} className="px-1.5 py-0.5 rounded bg-white/[0.05] [html[data-theme='light']_&]:bg-slate-200/70 text-cyan-300 [html[data-theme='light']_&]:text-cyan-700 font-mono text-[11px] border border-white/5 [html[data-theme='light']_&]:border-slate-300">
+          <code key={index} className="px-1.5 py-0.5 rounded bg-white/[0.05] [html[data-theme='light']_&]:bg-slate-200/70 text-slate-200 [html[data-theme='light']_&]:text-slate-800 font-mono text-[11px] border border-white/5 [html[data-theme='light']_&]:border-slate-300">
             {part.slice(1, -1)}
           </code>
         );
@@ -455,13 +455,13 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
           codeLines = [];
         } else {
           elements.push(
-            <div key={`code-${i}`} className="my-6 rounded border border-white/10 [html[data-theme='light']_&]:border-slate-200 bg-[#07080C] [html[data-theme='light']_&]:bg-slate-100/90 overflow-hidden">
+            <div key={`code-${i}`} className="my-6 rounded border border-white/10 [html[data-theme='light']_&]:border-slate-200 bg-[#030407] [html[data-theme='light']_&]:bg-[#F1F5F9] overflow-hidden">
               {codeLanguage && (
                 <div className="flex items-center justify-between px-3.5 py-1.5 bg-white/[0.02] [html[data-theme='light']_&]:bg-slate-200/60 border-b border-white/5 [html[data-theme='light']_&]:border-slate-200 text-[11px] font-mono text-slate-400 [html[data-theme='light']_&]:text-slate-600">
                   <span>{codeLanguage}</span>
                 </div>
               )}
-              <pre className="p-4 text-xs sm:text-[13px] font-mono text-cyan-200/90 [html[data-theme='light']_&]:text-slate-800 overflow-x-auto leading-relaxed">
+              <pre className="p-4 text-xs sm:text-[13px] font-mono text-slate-200 [html[data-theme='light']_&]:text-slate-800 overflow-x-auto leading-relaxed">
                 <code>{codeLines.join('\n')}</code>
               </pre>
             </div>
@@ -513,7 +513,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
         const id = titleText.toLowerCase().replace(/[^\w\u00C0-\u1EF9\s-]/g, '').replace(/\s+/g, '-');
         elements.push(
           <div key={`h3-${i}`} id={id} className="pt-5 pb-2 scroll-mt-24">
-            <h3 className="text-sm sm:text-base font-semibold text-slate-200 [html[data-theme='light']_&]:text-slate-800 font-display">
+            <h3 className="text-sm sm:text-base font-semibold text-white [html[data-theme='light']_&]:text-slate-900 font-display">
               {titleText}
             </h3>
           </div>
@@ -524,7 +524,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
       // Blockquotes - Calm editorial styling
       if (line.startsWith('> ')) {
         elements.push(
-          <div key={`quote-${i}`} className="my-5 pl-4 border-l-2 border-cyan-500/70 [html[data-theme='light']_&]:border-cyan-600 text-slate-300 [html[data-theme='light']_&]:text-slate-700 italic text-xs sm:text-[13px] py-1 leading-relaxed">
+          <div key={`quote-${i}`} className="my-5 pl-4 border-l-2 border-white/40 [html[data-theme='light']_&]:border-slate-400 text-slate-300 [html[data-theme='light']_&]:text-slate-700 italic text-xs sm:text-[13px] py-1 leading-relaxed">
             {line.replace('> ', '')}
           </div>
         );
@@ -549,7 +549,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
         const num = numMatch ? numMatch[1] : '1';
         elements.push(
           <div key={`num-${i}`} className={`flex items-start gap-2.5 py-1 text-slate-300 [html[data-theme='light']_&]:text-slate-700 leading-relaxed ${fontSize === 'large' ? 'text-sm sm:text-base' : 'text-xs sm:text-sm'}`}>
-            <span className="font-mono text-cyan-400 [html[data-theme='light']_&]:text-cyan-600 font-semibold shrink-0">{num}.</span>
+            <span className="font-mono text-white [html[data-theme='light']_&]:text-slate-900 font-semibold shrink-0">{num}.</span>
             <div className="flex-1">{parseInlineStyles(itemText)}</div>
           </div>
         );
@@ -580,12 +580,12 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
   }, [activeContent, fontSize, parseInlineStyles]);
 
   return (
-    <div className="w-full min-h-[calc(100vh-73px)] bg-[#07080C] [html[data-theme='light']_&]:bg-[#F8FAFC] text-slate-200 [html[data-theme='light']_&]:text-slate-800 era-exploration-root font-sans">
+    <div className="w-full min-h-[calc(100vh-73px)] bg-[#0B0B11] [html[data-theme='light']_&]:bg-[#F8FAFC] text-slate-200 [html[data-theme='light']_&]:text-slate-800 era-exploration-root font-sans">
 
-      {/* Top Reading Progress Bar (Exact Docs Style) */}
+      {/* Top Reading Progress Bar (Monochrome Style) */}
       {viewMode === 'reader' && (
         <div
-          className="fixed top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-cyan-500 via-sky-400 to-cyan-300 z-50 transition-all duration-75 pointer-events-none"
+          className="fixed top-0 left-0 right-0 h-[2px] bg-white/80 [html[data-theme='light']_&]:bg-slate-700 z-50 transition-all duration-75 pointer-events-none"
           style={{ width: `${readingProgress}%` }}
           aria-hidden="true"
         />
@@ -654,14 +654,14 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
       {viewMode === 'grid' && (
         <div className="w-full">
           {/* Navigation & Search Strip */}
-          <div className="w-full border-b border-white/10 [html[data-theme='light']_&]:border-slate-200/80 bg-[#07080C] [html[data-theme='light']_&]:bg-[#F8FAFC] sticky top-16 z-30">
+          <div className="w-full border-b border-white/10 [html[data-theme='light']_&]:border-slate-200/80 bg-[#0B0B11] [html[data-theme='light']_&]:bg-[#F8FAFC] sticky top-16 z-30">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
               {/* Category Filter Links — scrollable with arrow nav */}
               <div className="relative flex items-center flex-1 min-w-0">
                 {tabCanScrollLeft && (
                   <button
                     onClick={() => scrollTabs(-1)}
-                    className="shrink-0 flex items-center justify-center w-6 h-6 mr-1 rounded text-slate-400 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors cursor-pointer z-10 bg-[#07080C] [html[data-theme='light']_&]:bg-[#F8FAFC]"
+                    className="shrink-0 flex items-center justify-center w-6 h-6 mr-1 rounded text-slate-400 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors cursor-pointer z-10 bg-[#0B0B11] [html[data-theme='light']_&]:bg-[#F8FAFC]"
                   >
                     <ChevronLeft size={14} />
                   </button>
@@ -699,7 +699,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                 {tabCanScrollRight && (
                   <button
                     onClick={() => scrollTabs(1)}
-                    className="shrink-0 flex items-center justify-center w-6 h-6 ml-1 rounded text-slate-400 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors cursor-pointer z-10 bg-[#07080C] [html[data-theme='light']_&]:bg-[#F8FAFC]"
+                    className="shrink-0 flex items-center justify-center w-6 h-6 ml-1 rounded text-slate-400 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors cursor-pointer z-10 bg-[#0B0B11] [html[data-theme='light']_&]:bg-[#F8FAFC]"
                   >
                     <ChevronRight size={14} />
                   </button>
@@ -714,7 +714,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder={isVi ? 'Tìm bài học...' : 'Search lessons...'}
-                  className="w-full pl-8 pr-7 py-1.5 rounded bg-white/[0.03] [html[data-theme='light']_&]:bg-white border border-white/10 [html[data-theme='light']_&]:border-slate-200 focus:border-white/20 [html[data-theme='light']_&]:focus:border-cyan-500 text-xs text-white [html[data-theme='light']_&]:text-slate-900 placeholder-slate-400 font-mono outline-none transition-colors"
+                  className="w-full pl-8 pr-7 py-1.5 rounded bg-white/[0.03] [html[data-theme='light']_&]:bg-white border border-white/10 [html[data-theme='light']_&]:border-slate-200 focus:border-white/30 [html[data-theme='light']_&]:focus:border-slate-400 text-xs text-white [html[data-theme='light']_&]:text-slate-900 placeholder-slate-400 font-mono outline-none transition-colors"
                 />
                 {searchQuery && (
                   <button
@@ -735,7 +735,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                 <p>{isVi ? 'Không tìm thấy bài học phù hợp.' : 'No lessons found.'}</p>
                 <button
                   onClick={() => { setSelectedCategory('all'); setSearchQuery(''); }}
-                  className="mt-2 text-cyan-400 hover:underline cursor-pointer"
+                  className="mt-2 text-white [html[data-theme='light']_&]:text-slate-900 underline underline-offset-4 cursor-pointer"
                 >
                   {isVi ? 'Xem tất cả bài học' : 'View all'}
                 </button>
@@ -768,7 +768,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                         )}
 
                         {/* Title */}
-                        <h3 className="text-sm sm:text-base font-semibold text-white [html[data-theme='light']_&]:text-slate-900 group-hover:text-cyan-400 [html[data-theme='light']_&]:group-hover:text-cyan-600 transition-colors leading-snug line-clamp-2">
+                        <h3 className="text-sm sm:text-base font-semibold text-white [html[data-theme='light']_&]:text-slate-900 group-hover:text-white [html[data-theme='light']_&]:group-hover:text-black transition-colors leading-snug line-clamp-2">
                           {lesson.title}
                         </h3>
 
@@ -824,7 +824,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                 />
 
                 {/* Drawer Container */}
-                <div className={`absolute top-0 bottom-0 left-0 w-80 max-w-[85vw] bg-[#07080C] [html[data-theme='light']_&]:bg-[#F8FAFC] border-r border-white/10 [html[data-theme='light']_&]:border-slate-200 shadow-2xl flex flex-col transition-transform duration-300 ${mobileDrawerOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+                <div className={`absolute top-0 bottom-0 left-0 w-80 max-w-[85vw] bg-[#0B0B11] [html[data-theme='light']_&]:bg-[#F8FAFC] border-r border-white/10 [html[data-theme='light']_&]:border-slate-200 shadow-2xl flex flex-col transition-transform duration-300 ${mobileDrawerOpen ? 'translate-x-0' : '-translate-x-full'}`}>
                   {/* Drawer Header */}
                   <div className="p-4 border-b border-white/10 [html[data-theme='light']_&]:border-slate-200 flex items-center justify-between">
                     <span className="font-mono text-xs font-bold text-white [html[data-theme='light']_&]:text-slate-900 uppercase tracking-wider">
@@ -855,7 +855,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                                 onClick={() => openLessonReader(lesson.id)}
                                 className={`w-full flex items-center justify-between text-left py-2 px-2.5 rounded text-xs transition-colors cursor-pointer ${
                                   isActive
-                                    ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600 bg-cyan-500/10 [html[data-theme="light"]_&]:bg-cyan-500/15 font-medium'
+                                    ? 'text-white [html[data-theme="light"]_&]:text-slate-900 bg-white/10 [html[data-theme="light"]_&]:bg-slate-200 font-medium'
                                     : 'text-slate-400 [html[data-theme="light"]_&]:text-slate-600 hover:text-white [html[data-theme="light"]_&]:hover:text-slate-900'
                                 }`}
                               >
@@ -892,7 +892,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                     value={sidebarFilterQuery}
                     onChange={(e) => setSidebarFilterQuery(e.target.value)}
                     placeholder={isVi ? 'Lọc bài học...' : 'Filter lessons...'}
-                    className="w-full bg-white/[0.02] [html[data-theme='light']_&]:bg-white border border-white/10 [html[data-theme='light']_&]:border-slate-200 rounded-md pl-8 pr-7 py-1.5 text-xs text-white [html[data-theme='light']_&]:text-slate-900 placeholder-slate-500 focus:outline-none focus:border-cyan-500/40 transition-colors font-mono"
+                    className="w-full bg-white/[0.02] [html[data-theme='light']_&]:bg-white border border-white/10 [html[data-theme='light']_&]:border-slate-200 rounded-md pl-8 pr-7 py-1.5 text-xs text-white [html[data-theme='light']_&]:text-slate-900 placeholder-slate-500 focus:outline-none focus:border-white/30 [html[data-theme='light']_&]:focus:border-slate-400 transition-colors font-mono"
                   />
                   {sidebarFilterQuery && (
                     <button
@@ -924,7 +924,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                               onClick={() => openLessonReader(lesson.id)}
                               className={`w-full flex items-center justify-between text-left py-1.5 px-2.5 rounded text-xs font-medium border transition-colors duration-150 ease-out group cursor-pointer ${
                                 isActive
-                                  ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600 bg-cyan-500/10 [html[data-theme="light"]_&]:bg-cyan-500/15 border-cyan-500/30 border-l-2 border-l-cyan-400 [html[data-theme="light"]_&]:border-l-cyan-600'
+                                  ? 'text-white [html[data-theme="light"]_&]:text-slate-900 bg-white/10 [html[data-theme="light"]_&]:bg-slate-200 border-white/20 border-l-2 border-l-white [html[data-theme="light"]_&]:border-l-slate-900'
                                   : 'text-slate-400 [html[data-theme="light"]_&]:text-slate-600 border-transparent hover:text-slate-200 [html[data-theme="light"]_&]:hover:text-slate-900 hover:bg-white/[0.015] [html[data-theme="light"]_&]:hover:bg-slate-200/50'
                               }`}
                             >
@@ -940,7 +940,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                                 size={12}
                                 className={`shrink-0 transition-transform duration-150 ${
                                   isActive
-                                    ? 'translate-x-0.5 text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600'
+                                    ? 'translate-x-0.5 text-white [html[data-theme="light"]_&]:text-slate-900'
                                     : 'opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 text-slate-500'
                                 }`}
                               />
@@ -973,24 +973,24 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
               }`}
               aria-label="Mở mục lục bài học"
             >
-              <Menu size={16} className="text-cyan-400" />
+              <Menu size={16} className="text-white [html[data-theme='light']_&]:text-slate-900" />
               <span className="text-xs font-mono font-medium">{isVi ? 'Mục lục' : 'Menu'}</span>
             </button>
 
             <article className="w-full max-w-4xl mx-auto px-6 sm:px-10 lg:px-12 py-8 lg:py-10 bg-transparent">
-              {/* Semantic Breadcrumbs (Exact Docs Style) */}
+              {/* Semantic Breadcrumbs (Monochrome Style) */}
               <nav aria-label="Breadcrumb" className="mb-5 flex items-center flex-wrap gap-2 text-xs font-mono text-slate-400 [html[data-theme='light']_&]:text-slate-500">
                 <a
                   href="/"
                   onClick={(e) => { e.preventDefault(); onNavigate?.('landing'); }}
-                  className="hover:text-cyan-400 [html[data-theme='light']_&]:hover:text-cyan-600 transition-colors"
+                  className="hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors"
                 >
                   {isVi ? 'Trang chủ' : 'Home'}
                 </a>
                 <ChevronRight size={12} className="text-slate-600 shrink-0" />
                 <button
                   onClick={backToGrid}
-                  className="hover:text-cyan-400 [html[data-theme='light']_&]:hover:text-cyan-600 transition-colors cursor-pointer"
+                  className="hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors cursor-pointer"
                 >
                   {isVi ? 'Khám phá' : 'Explore'}
                 </button>
@@ -999,7 +999,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                   {activeLesson.category}
                 </span>
                 <ChevronRight size={12} className="text-slate-600 shrink-0" />
-                <span className="text-cyan-400 [html[data-theme='light']_&]:text-cyan-600 font-semibold truncate max-w-[240px]">
+                <span className="text-white [html[data-theme='light']_&]:text-slate-900 font-semibold truncate max-w-[240px]">
                   {activeLesson.title}
                 </span>
               </nav>
@@ -1007,7 +1007,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
               {/* Minimalist Article Metadata Bar & Reader Controls */}
               <header className="flex flex-wrap items-center justify-between gap-3 pb-5 mb-8 border-b border-white/10 [html[data-theme='light']_&]:border-slate-200/80 text-xs font-mono text-slate-400 [html[data-theme='light']_&]:text-slate-500">
                 <div className="flex items-center flex-wrap gap-3">
-                  <span className="px-2 py-0.5 rounded bg-white/[0.03] text-cyan-400 [html[data-theme='light']_&]:text-cyan-600 border border-white/10 [html[data-theme='light']_&]:border-slate-200 uppercase tracking-wider text-[10px] font-semibold">
+                  <span className="px-2 py-0.5 rounded bg-white/[0.06] [html[data-theme='light']_&]:bg-slate-200/80 text-white [html[data-theme='light']_&]:text-slate-900 border border-white/15 [html[data-theme='light']_&]:border-slate-300 uppercase tracking-wider text-[10px] font-semibold">
                     {activeLesson.category}
                   </span>
                   <span className="flex items-center gap-1.5 text-slate-400 [html[data-theme='light']_&]:text-slate-500">
@@ -1023,10 +1023,10 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                   {/* Font Size Toggle for Reading Accessibility */}
                   <button
                     onClick={toggleFontSize}
-                    className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-white/[0.02] [html[data-theme='light']_&]:bg-white hover:bg-white/[0.05] border border-white/10 [html[data-theme='light']_&]:border-slate-200 hover:border-cyan-500/30 text-slate-400 [html[data-theme='light']_&]:text-slate-600 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-all text-xs cursor-pointer select-none"
+                    className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-white/[0.02] [html[data-theme='light']_&]:bg-white hover:bg-white/[0.05] border border-white/10 [html[data-theme='light']_&]:border-slate-200 hover:border-white/30 [html[data-theme='light']_&]:hover:border-slate-400 text-slate-400 [html[data-theme='light']_&]:text-slate-600 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-all text-xs cursor-pointer select-none"
                     title={fontSize === 'normal' ? (isVi ? 'Tăng kích thước chữ (115%)' : 'Increase font size') : (isVi ? 'Đặt lại cỡ chữ chuẩn' : 'Reset font size')}
                   >
-                    <Type size={13} className="text-cyan-400 [html[data-theme='light']_&]:text-cyan-600" />
+                    <Type size={13} className="text-white [html[data-theme='light']_&]:text-slate-900" />
                     <span className="text-[11px] font-mono">
                       {fontSize === 'normal' ? 'A' : 'A+'}
                     </span>
@@ -1057,7 +1057,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                   {/* Share Link */}
                   <button
                     onClick={handleCopyLessonLink}
-                    className="flex items-center gap-1 px-2.5 py-1 rounded bg-white/[0.02] [html[data-theme='light']_&]:bg-white hover:bg-white/[0.05] border border-white/10 [html[data-theme='light']_&]:border-slate-200 hover:border-cyan-500/30 text-slate-400 [html[data-theme='light']_&]:text-slate-600 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-all text-xs cursor-pointer select-none"
+                    className="flex items-center gap-1 px-2.5 py-1 rounded bg-white/[0.02] [html[data-theme='light']_&]:bg-white hover:bg-white/[0.05] border border-white/10 [html[data-theme='light']_&]:border-slate-200 hover:border-white/30 [html[data-theme='light']_&]:hover:border-slate-400 text-slate-400 [html[data-theme='light']_&]:text-slate-600 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-all text-xs cursor-pointer select-none"
                     title={isVi ? 'Sao chép liên kết bài học' : 'Copy lesson link'}
                   >
                     {copiedLink ? <Check size={12} className="text-emerald-400" /> : <Share2 size={12} />}
@@ -1108,7 +1108,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
 
               {/* Dynamic Real-time Translation Spinner Indicator */}
               {translatingContent && (
-                <div className="mb-6 p-3 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 [html[data-theme='light']_&]:text-cyan-700 text-xs font-mono flex items-center gap-3">
+                <div className="mb-6 p-3 rounded-lg bg-white/[0.04] border border-white/10 text-white [html[data-theme='light']_&]:bg-slate-100 [html[data-theme='light']_&]:border-slate-300 [html[data-theme='light']_&]:text-slate-900 text-xs font-mono flex items-center gap-3">
                   <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -1136,7 +1136,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                         <ChevronLeft size={11} />
                         <span>{isVi ? 'Bài trước' : 'Previous'}</span>
                       </div>
-                      <div className="text-xs sm:text-sm font-medium text-white [html[data-theme='light']_&]:text-slate-900 group-hover:text-cyan-400 [html[data-theme='light']_&]:group-hover:text-cyan-600 transition-colors truncate">
+                      <div className="text-xs sm:text-sm font-medium text-white [html[data-theme='light']_&]:text-slate-900 group-hover:text-white [html[data-theme='light']_&]:group-hover:text-slate-950 transition-colors truncate">
                         {prevLesson.title}
                       </div>
                     </button>
@@ -1151,7 +1151,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                         <span>{isVi ? 'Bài tiếp' : 'Next'}</span>
                         <ChevronRight size={11} />
                       </div>
-                      <div className="text-xs sm:text-sm font-medium text-white [html[data-theme='light']_&]:text-slate-900 group-hover:text-cyan-400 [html[data-theme='light']_&]:group-hover:text-cyan-600 transition-colors truncate">
+                      <div className="text-xs sm:text-sm font-medium text-white [html[data-theme='light']_&]:text-slate-900 group-hover:text-white [html[data-theme='light']_&]:group-hover:text-slate-950 transition-colors truncate">
                         {nextLesson.title}
                       </div>
                     </button>
@@ -1175,7 +1175,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                 {/* Header Bar */}
                 <div className="w-full px-4 py-3.5 border-b border-white/5 [html[data-theme='light']_&]:border-slate-200/80 flex items-center justify-between shrink-0 bg-transparent">
                   <span className="text-[10px] font-mono font-bold text-slate-400 [html[data-theme='light']_&]:text-slate-500 uppercase tracking-widest flex items-center gap-1.5">
-                    <AlignLeft size={12} className="text-cyan-400" />
+                    <AlignLeft size={12} className="text-white [html[data-theme='light']_&]:text-slate-900" />
                     {isVi ? 'TRONG TRANG NÀY' : 'ON THIS PAGE'}
                   </span>
                 </div>
@@ -1195,7 +1195,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                                 isH3 ? 'pl-6' : 'pl-3'
                               } ${
                                 isActive
-                                  ? 'border-l-2 -ml-[1px] border-cyan-400 [html[data-theme="light"]_&]:border-cyan-600 text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600 bg-cyan-500/[0.08] font-medium'
+                                  ? 'border-l-2 -ml-[1px] border-white [html[data-theme="light"]_&]:border-slate-900 text-white [html[data-theme="light"]_&]:text-slate-900 bg-white/[0.06] [html[data-theme="light"]_&]:bg-slate-200/60 font-medium'
                                   : isH3
                                   ? 'border-l-2 -ml-[1px] border-transparent text-slate-500 [html[data-theme="light"]_&]:text-slate-500 hover:text-slate-300 [html[data-theme="light"]_&]:hover:text-slate-900 hover:bg-white/[0.02]'
                                   : 'border-l-2 -ml-[1px] border-transparent text-slate-400 [html[data-theme="light"]_&]:text-slate-600 hover:text-slate-200 [html[data-theme="light"]_&]:hover:text-slate-900 hover:bg-white/[0.02]'
@@ -1224,10 +1224,10 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                         window.scrollTo({ top: 0, behavior: 'smooth' });
                       }
                     }}
-                    className="w-full flex items-center justify-between py-1.5 px-2.5 rounded bg-white/[0.02] [html[data-theme='light']_&]:bg-white hover:bg-white/[0.05] border border-white/10 [html[data-theme='light']_&]:border-slate-200 hover:border-cyan-500/30 text-slate-400 [html[data-theme='light']_&]:text-slate-600 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 text-[11px] font-mono transition-all cursor-pointer"
+                    className="w-full flex items-center justify-between py-1.5 px-2.5 rounded bg-white/[0.02] [html[data-theme='light']_&]:bg-white hover:bg-white/[0.05] border border-white/10 [html[data-theme='light']_&]:border-slate-200 hover:border-white/30 [html[data-theme='light']_&]:hover:border-slate-300 text-slate-400 [html[data-theme='light']_&]:text-slate-600 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 text-[11px] font-mono transition-all cursor-pointer"
                   >
                     <span>{isVi ? 'Lên đầu trang' : 'Back to top'}</span>
-                    <ArrowUp size={12} className="text-cyan-400" />
+                    <ArrowUp size={12} className="text-white [html[data-theme='light']_&]:text-slate-900" />
                   </button>
                 </div>
               </div>

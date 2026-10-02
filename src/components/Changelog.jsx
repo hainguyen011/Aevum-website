@@ -15,9 +15,16 @@ import {
 import { TranslationService } from '../services/TranslationService';
 import { ReleaseService } from '../services/ReleaseService';
 import { CustomSelect } from './ui/CustomSelect';
+import { marked } from 'marked';
+
+marked.setOptions({
+  gfm: true,
+  breaks: true,
+});
 
 // Verified status mappings for established releases
 const KNOWN_RELEASE_STATUS = {
+  'v1.0.0-beta.5': 'upgrade',     // Masonry Grid & Inset Box-Shadow Cyberpunk UI (Nâng cấp)
   'v1.0.0-beta.4': 'upgrade',     // Major Hub & Squad Presence additions (Nâng cấp)
   'v1.0.0-beta.3': 'improvement', // Tiered Plan & Canvas refactoring / optimization (Chỉnh sửa)
   'v1.0.0-beta.2': 'improvement', // Auto-updater & packaging enhancements (Chỉnh sửa)
@@ -467,44 +474,19 @@ export function Changelog({ activeLang, onNavigate }) {
   };
 
   const formatReleaseNotes = (notes) => {
-    if (!notes) return '';
-    return notes
-      .replace(/\r\n/g, '\n')
-      .split('\n')
-      .map((line, idx) => {
-        const trimmed = line.trim();
-        if (trimmed.startsWith('###')) {
-          return <h4 key={idx} className="text-xs sm:text-sm font-bold text-cyan-300 mt-4 mb-1.5 first:mt-0 font-mono">{trimmed.replace(/^###\s*/, '')}</h4>;
-        }
-        if (trimmed.startsWith('##')) {
-          return <h3 key={idx} className="text-sm sm:text-base font-bold text-white mt-5 mb-2 first:mt-0 font-mono border-b border-white/10 pb-1">{trimmed.replace(/^##\s*/, '')}</h3>;
-        }
-        if (trimmed.startsWith('#')) {
-          return <h3 key={idx} className="text-sm sm:text-base font-bold text-white mt-4 mb-2 first:mt-0 font-mono text-cyan-400 border-b border-white/10 pb-1">{trimmed.replace(/^#\s*/, '')}</h3>;
-        }
-        if (trimmed.startsWith('-') || trimmed.startsWith('*')) {
-          const text = trimmed.replace(/^[-*]\s*/, '');
-          return (
-            <li key={idx} className="text-slate-300 ml-4 list-disc pl-1 mb-1.5 leading-relaxed text-xs sm:text-sm font-mono">
-              {parseBoldText(text)}
-            </li>
-          );
-        }
-        if (trimmed === '---') {
-          return <hr key={idx} className="my-4 border-white/10" />;
-        }
-        if (trimmed) {
-          return <p key={idx} className="text-slate-400 mb-2 leading-relaxed text-xs sm:text-sm font-mono">{parseBoldText(trimmed)}</p>;
-        }
-        return <div key={idx} className="h-1.5" />;
-      });
-  };
-
-  const parseBoldText = (text) => {
-    const parts = text.split(/\*\*(.*?)\*\*/g);
-    return parts.map((part, index) =>
-      index % 2 === 1 ? <strong key={index} className="text-white font-semibold">{part}</strong> : part
-    );
+    if (!notes) return null;
+    try {
+      const rawHtml = marked.parse(notes);
+      return (
+        <div
+          className="github-markdown-body"
+          dangerouslySetInnerHTML={{ __html: rawHtml }}
+        />
+      );
+    } catch (e) {
+      console.error('[Changelog] Markdown parsing error:', e);
+      return <div className="text-slate-300 font-mono text-xs">{notes}</div>;
+    }
   };
 
   return (

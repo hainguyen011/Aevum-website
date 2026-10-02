@@ -2515,3 +2515,171 @@ html[data-theme="light"] .era-exploration-root button.bg-\[\#07080C\] {
 html[data-theme="light"] .era-exploration-root button.bg-\[\#07080C\]:hover {
   color: #0F172A !important;
 }
+
+/* ── Authentic GitHub-Flavored Markdown Renderer for Changelog ── */
+.github-markdown-body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif !important;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: #e6edf3;
+  word-wrap: break-word;
+  text-align: left;
+}
+
+.github-markdown-body h1 {
+  font-size: 1.65rem;
+  font-weight: 600;
+  color: #ffffff;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  letter-spacing: -0.015em;
+}
+.github-markdown-body h1:first-child {
+  margin-top: 0;
+}
+
+.github-markdown-body h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: #ffffff;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.github-markdown-body h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.github-markdown-body h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.github-markdown-body p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  line-height: 1.65;
+  color: #e6edf3;
+}
+
+.github-markdown-body hr {
+  height: 1px;
+  padding: 0;
+  margin: 1.5rem 0;
+  background-color: rgba(255, 255, 255, 0.15);
+  border: 0;
+}
+
+.github-markdown-body strong {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.github-markdown-body em {
+  font-style: italic;
+  color: #cbd5e1;
+}
+
+/* GitHub Authentic Nested List Styling */
+.github-markdown-body ul {
+  padding-left: 1.6rem !important;
+  margin-top: 0.25rem;
+  margin-bottom: 1rem;
+  list-style-type: disc !important;
+}
+
+.github-markdown-body ul ul {
+  list-style-type: circle !important;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+  padding-left: 1.6rem !important;
+}
+
+.github-markdown-body ul ul ul {
+  list-style-type: square !important;
+  padding-left: 1.4rem !important;
+}
+
+.github-markdown-body ol {
+  padding-left: 1.6rem !important;
+  margin-top: 0.25rem;
+  margin-bottom: 1rem;
+  list-style-type: decimal !important;
+}
+
+.github-markdown-body li {
+  margin-top: 0.35rem;
+  margin-bottom: 0.35rem;
+  line-height: 1.6;
+  color: #e6edf3;
+}
+
+.github-markdown-body li::marker {
+  color: #cbd5e1;
+}
+
+.github-markdown-body li > p {
+  margin-top: 0.35rem;
+  margin-bottom: 0.35rem;
+}
+
+/* GitHub Code Styling */
+.github-markdown-body code {
+  padding: 0.2em 0.45em;
+  margin: 0 0.15em;
+  font-size: 85%;
+  white-space: break-spaces;
+  background-color: rgba(110, 118, 129, 0.4);
+  border-radius: 6px;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace !important;
+  color: #e6edf3;
+}
+
+.github-markdown-body pre {
+  padding: 16px;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  background-color: #161b22;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.github-markdown-body pre code {
+  display: inline;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: transparent;
+  border: 0;
+}
+
+.github-markdown-body a {
+  color: #58a6ff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.github-markdown-body a:hover {
+  color: #79c0ff;
+}
+
+.github-markdown-body blockquote {
+  padding: 0 1rem;
+  color: #8b949e;
+  border-left: 0.25rem solid rgba(255, 255, 255, 0.2);
+  margin: 0 0 16px 0;
+}

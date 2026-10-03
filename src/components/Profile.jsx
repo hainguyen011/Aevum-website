@@ -3,7 +3,8 @@ import {
   User, Mail, Shield, Key, Laptop, Cpu, CheckCircle2, 
   Copy, Check, ArrowLeft, ArrowRight, RefreshCw, Zap, Sparkles, 
   Clock, Calendar, Globe, AlertCircle, LogOut, Terminal,
-  ExternalLink, Layers, ShieldCheck, HeartHandshake, Facebook
+  ExternalLink, Layers, ShieldCheck, HeartHandshake, Facebook,
+  CreditCard, Receipt, Landmark
 } from 'lucide-react';
 import { supabase } from '../services/supabaseClient';
 import { MembershipService } from '../services/MembershipService';
@@ -21,14 +22,80 @@ export const Profile = ({
   user, 
   userProfile, 
   onNavigate, 
-  onOpenTrialModal 
+  onOpenTrialModal,
+  onOpenPaymentModal
 }) => {
   const isVi = activeLang === 'vi';
   const [entitlements, setEntitlements] = useState(null);
   const [loading, setLoading] = useState(true);
   const [copiedField, setCopiedField] = useState(null);
   const [showApiKey, setShowApiKey] = useState(false);
-  const [activeTab, setActiveTab] = useState('overview'); // overview | workstations | security
+  const [activeTab, setActiveTab] = useState('overview'); // overview | workstations | security | billing
+  const [invoices, setInvoices] = useState([]);
+  const [invoicesLoading, setInvoicesLoading] = useState(false);
+  const [cancellingRenewal, setCancellingRenewal] = useState(false);
+  const [cancelMessage, setCancelMessage] = useState('');
+
+  // Fetch real-time entitlements from Aevum Cloud Backend
+  useEffect(() => {
+    let isMounted = true;
+    const fetchEntitlements = async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session?.access_token) {
+          const data = await MembershipService.getCurrentEntitlements(session.access_token);
+          if (isMounted && data) {
+            setEntitlements(data);
+          }
+        }
+      } catch (err) {
+        console.warn('[Profile] Error loading entitlements:', err);
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    };
+
+    fetchEntitlements();
+    return () => { isMounted = false; };
+  }, [user]);
+
+  // Fetch user invoices when switching to billing tab
+  useEffect(() => {
+    if (activeTab === 'billing') {
+      const fetchInvoices = async () => {
+        setInvoicesLoading(true);
+        try {
+          const { data: { session } } = await supabase.auth.getSession();
+          if (session?.access_token) {
+            const list = await MembershipService.getMyInvoices(session.access_token);
+            setInvoices(list);
+          }
+        } catch (err) {
+          console.warn('[Profile] Error loading invoices:', err);
+        } finally {
+          setInvoicesLoading(false);
+        }
+      };
+      fetchInvoices();
+    }
+  }, [activeTab]);
+
+  const handleCancelRenewal = async () => {
+    if (!window.confirm(isVi ? 'Bạn có chắc chắn muốn hủy tự động gia hạn gói cước?' : 'Are you sure you want to cancel auto-renewal?')) return;
+    setCancellingRenewal(true);
+    setCancelMessage('');
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session?.access_token) {
+        await MembershipService.cancelRenewal(session.access_token);
+        setCancelMessage(isVi ? 'Đã hủy tự động gia hạn thành công. Bạn vẫn giữ đặc quyền Pro cho tới hết chu kỳ.' : 'Auto-renewal cancelled successfully. Your Pro access remains active until the end of this billing cycle.');
+      }
+    } catch (err) {
+      setCancelMessage(err.message || 'Lỗi hủy tự động gia hạn');
+    } finally {
+      setCancellingRenewal(false);
+    }
+  };
 
   // Fetch real-time entitlements from Aevum Cloud Backend
   useEffect(() => {
@@ -245,6 +312,17 @@ export const Profile = ({
               }`}
             >
               <span>{isVi ? 'External Brain & Token' : 'External Brain & Token'}</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('billing')}
+              className={`w-full flex items-center px-3.5 py-2.5 rounded-[4px] text-xs font-mono font-bold uppercase tracking-wider text-left transition-all duration-150 cursor-pointer border ${
+                activeTab === 'billing'
+                  ? 'profile-tab-active bg-sky-950/40 text-sky-200 border-sky-500/30'
+                  : 'profile-tab-inactive text-slate-400 hover:text-white bg-transparent border-transparent hover:bg-white/[0.04]'
+              }`}
+            >
+              <span>{isVi ? 'Hóa đơn & Thanh toán' : 'Invoices & Billing'}</span>
             </button>
           </div>
 
@@ -643,6 +721,157 @@ export const Profile = ({
   }
 }`}</pre>
                 </div>
+              </div>
+            </div>
+          )}
+
+          {/* TAB 4: BILLING & INVOICES */}
+          {activeTab === 'billing' && (
+            <div className="space-y-6">
+              
+              {/* Payment Quick Action Header */}
+              <div className="profile-card p-6 rounded-[8px] bg-white/[0.02] border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="space-y-1">
+                  <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block">
+                    {isVi ? 'QUẢN LÝ ĐĂNG KÝ & THANH TOÁN' : 'SUBSCRIPTION & BILLING'}
+                  </span>
+                  <h3 className="text-base sm:text-lg font-bold text-white uppercase tracking-tight flex items-center gap-2">
+                    <span>{effectiveTier}</span>
+                    <span className="text-xs px-2 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-normal">
+                      Napas 24/7 Direct
+                    </span>
+                  </h3>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-3">
+                  <button
+                    onClick={() => onOpenPaymentModal ? onOpenPaymentModal('monthly') : onOpenTrialModal()}
+                    className="px-4 py-2 rounded-[5px] bg-[#0ea5e9] hover:bg-[#38bdf8] text-black font-bold text-xs uppercase tracking-wider transition-all cursor-pointer flex items-center gap-1.5 shadow-lg shadow-cyan-500/20 whitespace-nowrap"
+                  >
+                    <Zap className="w-3.5 h-3.5" />
+                    <span>{isVi ? 'Nâng Cấp Pro (VietQR)' : 'Upgrade Pro (VietQR)'}</span>
+                  </button>
+
+                  {tierSlug === 'pro' && (
+                    <button
+                      onClick={handleCancelRenewal}
+                      disabled={cancellingRenewal}
+                      className="px-3.5 py-2 rounded-[5px] bg-red-950/20 hover:bg-red-950/40 border border-red-500/30 text-red-300 font-mono text-[11px] font-bold uppercase transition-all cursor-pointer disabled:opacity-50"
+                    >
+                      {cancellingRenewal ? 'Đang xử lý...' : (isVi ? 'Hủy Tự Gia Hạn' : 'Cancel Renewal')}
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {cancelMessage && (
+                <div className="p-3 rounded-lg bg-sky-950/40 border border-sky-500/30 text-sky-200 text-xs">
+                  {cancelMessage}
+                </div>
+              )}
+
+              {/* Direct Bank Account Information Banner */}
+              <div className="p-4 rounded-[8px] bg-white/[0.02] border border-white/10 space-y-3 font-mono text-xs">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2 text-white font-bold">
+                    <Landmark className="w-4 h-4 text-cyan-400" />
+                    <span>Tài Khoản Nhận Chuyển Khoản Trực Tiếp</span>
+                  </div>
+                  <span className="text-[10px] text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">
+                    Techcombank Napas 24/7
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1 text-slate-300">
+                  <div className="p-2.5 rounded bg-black/30 border border-white/5">
+                    <span className="text-[10px] text-slate-500 block">Ngân hàng:</span>
+                    <span className="font-bold text-white">Techcombank (TCB)</span>
+                  </div>
+                  <div className="p-2.5 rounded bg-black/30 border border-white/5">
+                    <span className="text-[10px] text-slate-500 block">Số tài khoản:</span>
+                    <span className="font-bold text-cyan-400">112358420222</span>
+                  </div>
+                  <div className="p-2.5 rounded bg-black/30 border border-white/5">
+                    <span className="text-[10px] text-slate-500 block">Chủ tài khoản:</span>
+                    <span className="font-bold text-white uppercase">NGUYEN HUY HAI</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Invoices List Table */}
+              <div className="profile-card p-6 rounded-[8px] bg-white/[0.02] border border-white/10 space-y-4">
+                <div className="flex items-center justify-between">
+                  <h4 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                    <Receipt className="w-4 h-4 text-cyan-400" />
+                    <span>{isVi ? 'Lịch Sử Hóa Đơn & Đơn Hàng' : 'Invoices & Orders History'}</span>
+                  </h4>
+                  <span className="text-[10px] font-mono text-slate-400">
+                    {invoices.length} {isVi ? 'hóa đơn' : 'invoices'}
+                  </span>
+                </div>
+
+                {invoicesLoading ? (
+                  <div className="py-8 text-center text-xs text-slate-400 font-mono">
+                    <RefreshCw className="w-5 h-5 mx-auto animate-spin mb-2 text-cyan-400" />
+                    <span>Đang tải lịch sử hóa đơn...</span>
+                  </div>
+                ) : invoices.length === 0 ? (
+                  <div className="py-8 text-center text-xs text-slate-400 font-mono space-y-2">
+                    <Receipt className="w-8 h-8 mx-auto text-slate-600" />
+                    <p>{isVi ? 'Chưa có lịch sử giao dịch nào.' : 'No invoices found.'}</p>
+                  </div>
+                ) : (
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left font-mono text-xs">
+                      <thead>
+                        <tr className="border-b border-white/10 text-slate-400 text-[10px] uppercase">
+                          <th className="py-2.5 px-3">Mã đơn / ID</th>
+                          <th className="py-2.5 px-3">Gói</th>
+                          <th className="py-2.5 px-3">Số tiền</th>
+                          <th className="py-2.5 px-3">Kênh</th>
+                          <th className="py-2.5 px-3">Trạng thái</th>
+                          <th className="py-2.5 px-3">Ngày tạo</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-white/5">
+                        {invoices.map((inv) => {
+                          const isCompleted = inv.status === 'completed';
+                          const isPending = inv.status === 'pending';
+                          return (
+                            <tr key={inv.id} className="hover:bg-white/[0.02] transition-colors">
+                              <td className="py-3 px-3 text-slate-300 font-bold">
+                                {inv.metadata?.orderCode || inv.id.slice(0, 8)}
+                              </td>
+                              <td className="py-3 px-3 text-white uppercase">
+                                {inv.tier_slug || 'PRO'}
+                              </td>
+                              <td className="py-3 px-3 text-emerald-400 font-bold">
+                                {Number(inv.amount || 0).toLocaleString('vi-VN')} {inv.currency || 'VND'}
+                              </td>
+                              <td className="py-3 px-3 text-slate-400 text-[11px]">
+                                {inv.metadata?.providerName || inv.provider || 'VietQR'}
+                              </td>
+                              <td className="py-3 px-3">
+                                <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${
+                                  isCompleted 
+                                    ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30' 
+                                    : isPending 
+                                    ? 'bg-amber-500/10 text-amber-300 border border-amber-500/30' 
+                                    : 'bg-red-500/10 text-red-400 border border-red-500/30'
+                                }`}>
+                                  {inv.status}
+                                </span>
+                              </td>
+                              <td className="py-3 px-3 text-slate-400 text-[10px]">
+                                {new Date(inv.created_at).toLocaleDateString('vi-VN')}
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
               </div>
             </div>
           )}

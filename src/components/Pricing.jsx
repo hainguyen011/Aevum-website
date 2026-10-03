@@ -16,7 +16,14 @@ import {
   ChevronDown
 } from 'lucide-react';
 
-export const Pricing = ({ activeLang = 'vi', onOpenTrialModal, onOpenAuthModal, showDetails = true, onNavigate }) => {
+export const Pricing = ({ 
+  activeLang = 'vi', 
+  onOpenTrialModal, 
+  onOpenPaymentModal,
+  onOpenAuthModal, 
+  showDetails = true, 
+  onNavigate 
+}) => {
   const [billingCycle, setBillingCycle] = useState('monthly'); // 'monthly' | 'yearly'
   const [openFaq, setOpenFaq] = useState(0); // 1st FAQ open by default
   const isVi = activeLang === 'vi';
@@ -355,10 +362,12 @@ export const Pricing = ({ activeLang = 'vi', onOpenTrialModal, onOpenAuthModal, 
 
 
             <button
-              onClick={onOpenTrialModal}
-              className="pricing-btn-pro relative z-10 w-full py-3.5 px-3 rounded-lg text-[11px] sm:text-xs font-mono font-black uppercase tracking-tight transition-all flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap"
+              onClick={() => onOpenPaymentModal ? onOpenPaymentModal(billingCycle) : onOpenTrialModal()}
+              className="pricing-btn-pro relative z-10 w-full py-3.5 px-3 rounded-lg text-[11px] sm:text-xs font-mono font-black uppercase tracking-tight transition-all flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap shadow-lg shadow-cyan-500/20"
             >
-              <span className="whitespace-nowrap">{isVi ? 'Đăng Ký Trải Nghiệm' : 'Register Early Access'}</span>
+              <span className="whitespace-nowrap">
+                {isVi ? 'Nâng Cấp Pro (VietQR 24/7)' : 'Upgrade to Pro (VietQR)'}
+              </span>
               <ArrowRight size={14} className="stroke-[2.5] shrink-0" />
             </button>
           </div>

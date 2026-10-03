@@ -145,7 +145,7 @@ export const MembershipService = {
   /**
    * Khởi tạo yêu cầu nâng cấp gói Pro
    */
-  async requestUpgrade(billingCycle = 'monthly', accessToken) {
+  async requestUpgrade(billingCycle = 'monthly', accessToken, providerId) {
     if (!accessToken) throw new Error('Yêu cầu đăng nhập');
 
     const response = await fetch(`${getCloudApiUrl()}/api/v1/memberships/upgrade`, {
@@ -154,11 +154,90 @@ export const MembershipService = {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${accessToken}`
       },
-      body: JSON.stringify({ billingCycle })
+      body: JSON.stringify({ billingCycle, providerId })
     });
 
     const data = await response.json();
     if (!response.ok) throw new Error(data.error || 'Lỗi nâng cấp');
+    return data;
+  },
+
+  /**
+   * Lấy lịch sử hóa đơn thanh toán của người dùng
+   */
+  async getMyInvoices(accessToken) {
+    if (!accessToken) throw new Error('Yêu cầu đăng nhập');
+
+    const response = await fetch(`${getCloudApiUrl()}/api/v1/memberships/invoices`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      }
+    });
+
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || 'Lỗi tải lịch sử hóa đơn');
+    return data.data || [];
+  },
+
+  /**
+   * Hủy tự động gia hạn gói cước
+   */
+  async cancelRenewal(accessToken) {
+    if (!accessToken) throw new Error('Yêu cầu đăng nhập');
+
+    const response = await fetch(`${getCloudApiUrl()}/api/v1/memberships/cancel-renewal`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${accessToken}`
+      }
+    });
+
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || 'Lỗi hủy tự động gia hạn');
+    return data;
+  },
+
+  /**
+   * Lấy cấu hình cổng thanh toán và tài khoản ngân hàng nhận tiền
+   */
+  async getPaymentConfig() {
+    try {
+      const response = await fetch(`${getCloudApiUrl()}/api/payment/config`);
+      const data = await response.json();
+      return data?.data || null;
+    } catch (err) {
+      console.warn('[MembershipService] Lỗi lấy cấu hình thanh toán:', err);
+      return null;
+    }
+  },
+
+  /**
+   * Kiểm tra trạng thái đơn hàng thanh toán theo orderCode
+   */
+  async getOrderStatus(orderCode) {
+    const response = await fetch(`${getCloudApiUrl()}/api/payment/order/${orderCode}`);
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || 'Lỗi kiểm tra trạng thái đơn');
+    return data.data;
+  },
+
+  /**
+   * Hủy đơn hàng thanh toán đang pending
+   */
+  async cancelPaymentOrder(orderCode, accessToken) {
+    const headers = { 'Content-Type': 'application/json' };
+    if (accessToken) headers['Authorization'] = `Bearer ${accessToken}`;
+
+    const response = await fetch(`${getCloudApiUrl()}/api/payment/cancel-order`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ orderCode: Number(orderCode) })
+    });
+
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || 'Lỗi hủy đơn thanh toán');
     return data;
   }
 };

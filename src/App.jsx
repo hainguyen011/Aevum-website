@@ -38,6 +38,7 @@ const EraExploration = lazy(() => import('./components/EraExploration').then(m =
 const SearchModal = lazy(() => import('./components/SearchModal').then(m => ({ default: m.SearchModal })));
 const AuthModal = lazy(() => import('./components/AuthModal').then(m => ({ default: m.AuthModal })));
 const TrialModal = lazy(() => import('./components/TrialModal').then(m => ({ default: m.TrialModal })));
+const PaymentModal = lazy(() => import('./components/PaymentModal').then(m => ({ default: m.PaymentModal })));
 const DesktopAuthSuccessModal = lazy(() => import('./components/DesktopAuthSuccessModal').then(m => ({ default: m.DesktopAuthSuccessModal })));
 const PiperNetAuthSuccessModal = lazy(() => import('./components/PiperNetAuthSuccessModal').then(m => ({ default: m.PiperNetAuthSuccessModal })));
 
@@ -74,12 +75,24 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
     return 'dark';
   });
 
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+  const [paymentCycle, setPaymentCycle] = useState('monthly');
+
   const handleOpenTrialModal = () => {
     if (!user) {
       setPendingOpenTrial(true);
       setIsAuthModalOpen(true);
     } else {
       setIsTrialModalOpen(true);
+    }
+  };
+
+  const handleOpenPaymentModal = (cycle = 'monthly') => {
+    setPaymentCycle(cycle);
+    if (!user) {
+      setIsAuthModalOpen(true);
+    } else {
+      setIsPaymentModalOpen(true);
     }
   };
 
@@ -804,6 +817,7 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
                       <Pricing
                         activeLang={activeLang}
                         onOpenTrialModal={handleOpenTrialModal}
+                        onOpenPaymentModal={handleOpenPaymentModal}
                         onOpenAuthModal={() => setIsAuthModalOpen(true)}
                         showDetails={false}
                         onNavigate={handleNavigate}
@@ -836,6 +850,7 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
                     <Pricing
                       activeLang={activeLang}
                       onOpenTrialModal={handleOpenTrialModal}
+                      onOpenPaymentModal={handleOpenPaymentModal}
                       onOpenAuthModal={() => setIsAuthModalOpen(true)}
                       showDetails={true}
                       onNavigate={handleNavigate}
@@ -908,6 +923,7 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
                       userProfile={userProfile}
                       onNavigate={handleNavigate}
                       onOpenTrialModal={handleOpenTrialModal}
+                      onOpenPaymentModal={handleOpenPaymentModal}
                     />
                   )}
                 </Suspense>
@@ -1112,6 +1128,20 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
 
       {/* Lazy-loaded Interactive Modals */}
       <Suspense fallback={null}>
+        {isPaymentModalOpen && (
+          <PaymentModal
+            isOpen={isPaymentModalOpen}
+            onClose={() => setIsPaymentModalOpen(false)}
+            activeLang={activeLang}
+            user={user}
+            accessToken={authSession?.access_token}
+            initialCycle={paymentCycle}
+            onSuccess={() => {
+              window.location.reload();
+            }}
+          />
+        )}
+
         {isTrialModalOpen && (
           <TrialModal
             isOpen={isTrialModalOpen}

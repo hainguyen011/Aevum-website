@@ -81,22 +81,22 @@ export const Pricing = ({
   ];
 
   return (
-    <div id="pricing" className="border-subtle-b bg-[#0B0B11] text-slate-100 transition-colors">
+    <div id="pricing" className="border-subtle-b bg-[#07090D] text-slate-100 transition-colors">
       
       {/* ── 1. SECTION HEADER (ALIGN LEFT & SINGLE-LINE TITLE) ── */}
-      <div className="p-6 sm:p-10 lg:p-14 border-subtle-b bg-[#0B0B11] relative flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <div className="p-6 sm:p-10 lg:p-14 border-subtle-b bg-[#07090D] relative flex flex-col md:flex-row md:items-end justify-between gap-6">
         
         {/* Left Side: Tag + Title + Subtitle */}
         <div className="text-left space-y-1.5 max-w-2xl">
-          <span className="text-[11px] font-mono text-cyan-400 font-semibold tracking-widest uppercase block">
+          <span className="text-[11px] font-sans text-white/80 font-medium tracking-widest uppercase block">
             {isVi ? 'ĐỒNG HÀNH CÙNG BUILDER' : 'EMPOWERING BUILDERS'}
           </span>
 
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-[-0.035em] font-display leading-tight">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-medium sm:font-semibold text-white tracking-[0.01em] font-display leading-tight">
             {isVi ? (
-              <>Làm chủ công cụ. <span className="text-cyan-400">Hiện thực hóa ý tưởng.</span></>
+              <>Làm chủ công cụ. <span className="text-white">Hiện thực hóa ý tưởng.</span></>
             ) : (
-              <>Master your craft. <span className="text-cyan-400">Bring ideas to life.</span></>
+              <>Master your craft. <span className="text-white">Bring ideas to life.</span></>
             )}
           </h2>
           
@@ -470,10 +470,10 @@ export const Pricing = ({
 
       {/* ── 3. FEATURE COMPARISON MATRIX TABLE ── */}
       {showDetails ? (
-        <div className="p-8 sm:p-12 border-subtle-b bg-[#0B0B11]">
+        <div className="p-8 sm:p-12 border-subtle-b bg-[#07090D]">
           <div className="max-w-5xl mx-auto">
             <div className="text-left mb-6">
-              <span className="text-[11px] font-mono text-cyan-400 font-semibold tracking-widest uppercase">
+              <span className="text-[11px] font-mono text-white font-semibold tracking-widest uppercase">
                 {isVi ? 'MA TRẬN ĐỐI CHIẾU' : 'FEATURE MATRIX'}
               </span>
               <h3 className="text-xl sm:text-2xl font-bold text-white font-display mt-1">
@@ -547,7 +547,7 @@ export const Pricing = ({
         </div>
       ) : (
         /* Call-To-Action Button to view details on the dedicated page */
-        <div className="py-14 text-center bg-[#0B0B11] border-subtle-b">
+        <div className="py-14 text-center bg-[#07090D] border-subtle-b">
           <button
             onClick={() => {
               if (onNavigate) {
@@ -565,10 +565,10 @@ export const Pricing = ({
 
       {/* ── 4. FAQS ACCORDION DROPDOWN ── */}
       {showDetails && (
-        <div className="p-8 sm:p-12 lg:p-14 bg-[#0B0B11]">
+        <div className="p-8 sm:p-12 lg:p-14 bg-[#07090D]">
           <div className="max-w-4xl mx-auto">
             <div className="text-left mb-8">
-              <span className="text-[11px] font-mono text-cyan-400 font-semibold tracking-widest uppercase block">
+              <span className="text-[11px] font-mono text-white font-semibold tracking-widest uppercase block">
                 {isVi ? 'HỎI ĐÁP & HỖ TRỢ' : 'FAQS & KNOWLEDGE'}
               </span>
               <h3 className="text-xl sm:text-2xl font-bold text-white font-display mt-1">

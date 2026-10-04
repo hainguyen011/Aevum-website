@@ -15,7 +15,7 @@ export const CtaBanner = ({ onNavigate, onOpenTrialModal, activeLang }) => {
   }
 
   return (
-    <div className="w-full relative bg-[#0B0B11] border-subtle-b border-subtle-t overflow-hidden cta-banner">
+    <div className="w-full relative bg-[#07090D] border-subtle-b border-subtle-t overflow-hidden cta-banner">
       {/* Banner Card - NASA Hubble Space Telescope Background (Full Width & Height) */}
       <div 
         className="relative w-full py-20 sm:py-28 px-6 sm:px-12 text-center overflow-hidden bg-cover bg-center rounded-none"
@@ -23,17 +23,17 @@ export const CtaBanner = ({ onNavigate, onOpenTrialModal, activeLang }) => {
       >
         
         {/* Dark Overlay for Cosmic Glow & Ultra Readability */}
-        <div className="absolute inset-0 bg-[#0B0B11]/65 backdrop-blur-[0.5px] cta-overlay" />
+        <div className="absolute inset-0 bg-[#07090D]/65 backdrop-blur-[0.5px] cta-overlay" />
 
         <div className="relative z-10 max-w-2xl mx-auto space-y-6">
           
-          <div className="text-[11px] font-mono text-cyan-400 uppercase tracking-widest">
+          <div className="text-[11px] font-sans text-white/80 uppercase font-medium tracking-widest">
             {t.ctaBanner.tag}
           </div>
 
-          <h2 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight font-display">
+          <h2 className="text-4xl sm:text-5xl font-medium sm:font-semibold text-white tracking-[0.01em] leading-tight font-display">
             {title1} <br />
-            <span className="text-cyan-400">{title2}</span>
+            <span className="text-white">{title2}</span>
           </h2>
 
           <p className="text-slate-200 text-sm sm:text-base max-w-md mx-auto">

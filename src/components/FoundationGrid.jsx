@@ -11,24 +11,24 @@ export const FoundationGrid = ({ activeLang }) => {
     const parts = titleText.split("Công cụ MCP");
     titleNode = (
       <>
-        {parts[0]}<span className="text-cyan-400">Công cụ MCP</span>{parts[1]}
+        {parts[0]}<span className="text-white">Công cụ MCP</span>{parts[1]}
       </>
     );
   } else if (titleText.includes("MCP Tooling")) {
     const parts = titleText.split("MCP Tooling");
     titleNode = (
       <>
-        {parts[0]}<span className="text-cyan-400">MCP Tooling</span>{parts[1]}
+        {parts[0]}<span className="text-white">MCP Tooling</span>{parts[1]}
       </>
     );
   }
 
   return (
-    <div id="architecture" className="border-subtle-b bg-[#0B0B11]">
+    <div id="architecture" className="border-subtle-b bg-[#07090D]">
       
       {/* Section Title */}
-      <div className="section-header-optical text-center border-subtle-b bg-[#0B0B11]">
-        <span className="text-[11px] font-mono text-cyan-400 font-semibold tracking-widest uppercase">
+      <div className="section-header-optical text-center border-subtle-b bg-[#07090D]">
+        <span className="text-[11px] font-mono text-white font-semibold tracking-widest uppercase">
           {t.foundationGrid.tag}
         </span>
         <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-2 font-display">

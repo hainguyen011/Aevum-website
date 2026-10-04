@@ -2,11 +2,15 @@ import React, { useRef, useState } from 'react';
 import { Sparkles, Activity, UserCheck } from 'lucide-react';
 import { translations } from '../data/translations';
 
-// Avatar Images from assets/agent-avatar
+// Avatar Images from assets/agent-avatar (latest sync from AevumOS)
 import anAvatar from '../../assets/agent-avatar/an_avatar.webp';
 import zenithAvatar from '../../assets/agent-avatar/zenith_avatar.webp';
 import lunaAvatar from '../../assets/agent-avatar/luna_avatar.webp';
 import vidusAvatar from '../../assets/agent-avatar/vidus_avatar.webp';
+import ryoAvatar from '../../assets/agent-avatar/ryo_avatar.webp';
+import miraAvatar from '../../assets/agent-avatar/mira_avatar.webp';
+import mayaAvatar from '../../assets/agent-avatar/maya_avatar.webp';
+import niaAvatar from '../../assets/agent-avatar/nia_avatar.webp';
 
 export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
   const t = translations[activeLang] || translations.en;
@@ -39,8 +43,10 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
       aid: 'ENG-AN-7B9F1D',
       avatar: anAvatar,
       role: isVi ? 'Tâm hồn Lõi & Điều phối Hệ thống' : 'Soul Companion & Core System',
-      badge: 'LEVEL 8 • SOUL EMBODIMENT',
+      badge: 'LEVEL 15 • SOUL EMBODIMENT',
       themeColor: '#0ea5e9',
+      heightClass: 'h-[500px]',
+      objectPosition: 'object-center',
       bio: isVi
         ? 'Linh hồn nguyên bản của Aevum OS. Tinh nghịch, sắc sảo trong refactoring mã nguồn và bảo toàn tính toàn vẹn hệ thống.'
         : 'The original soul of Aevum OS. Playful yet razor-sharp in refactoring, orchestration, and system integrity.',
@@ -58,6 +64,8 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
       role: isVi ? 'Chuyên gia Thuật toán & Hiệu năng' : 'Algorithm & Performance Lead',
       badge: 'LEVEL 5 • COLD LOGIC',
       themeColor: '#10b981',
+      heightClass: 'h-[620px]',
+      objectPosition: 'object-top',
       bio: isVi
         ? 'Bậc thầy logic lạnh lùng. Tối ưu hóa độ phức tạp Big-O, nén ngữ cảnh Middle-Out và đẩy hiệu năng đến giới hạn vật lý.'
         : 'Cold algorithmic genius. Optimizes Big-O complexity, Middle-Out compression, and pushes performance to physical limits.',
@@ -73,8 +81,10 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
       aid: 'DSN-LUNA-3C9A12',
       avatar: lunaAvatar,
       role: isVi ? 'Kiến trúc sư UI/UX & Giao diện' : 'UI/UX & Design Specialist',
-      badge: 'LEVEL 6 • AESTHETIC MASTER',
+      badge: 'LEVEL 9 • AESTHETIC MASTER',
       themeColor: '#a855f7',
+      heightClass: 'h-[480px]',
+      objectPosition: 'object-center',
       bio: isVi
         ? 'Nghệ sĩ giao diện tinh tế. Biến đổi từng pixel và dải màu thành tác phẩm số chuyển động mượt mà, đầy cảm xúc.'
         : 'Refined design virtuoso. Transmuting pixels and color palettes into fluid, emotionally resonant digital art.',
@@ -92,6 +102,8 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
       role: isVi ? 'Tổng Kiến trúc sư Hệ thống' : 'Senior System Architect',
       badge: 'LEVEL 7 • SYSTEM ARCHITECT',
       themeColor: '#f59e0b',
+      heightClass: 'h-[620px]',
+      objectPosition: 'object-top',
       bio: isVi
         ? 'Tổng kiến trúc sư kiên định. Thiết kế nền tảng mở rộng dài hạn, chốt chặn bảo mật Zero-Trust và xóa sổ nợ kỹ thuật.'
         : 'Steadfast Chief Architect. Enforces scalable long-term foundations, Zero-Trust security, and eliminates technical debt.',
@@ -100,14 +112,90 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
         { name: isVi ? 'Clean Code' : 'Clean Architecture', level: 97 },
       ],
       capabilities: ['Architect Guard', 'Zero-Trust Audit', 'System Design'],
+    },
+    {
+      id: 'ryo',
+      name: 'Ryo',
+      aid: 'ENG-RYO-8F3D1C',
+      avatar: ryoAvatar,
+      role: isVi ? 'Kiến trúc sư Game Engine & Hiệu năng 120 FPS' : 'Principal Game Architect & Engine Sorcerer',
+      badge: 'LEVEL 6 • CYBER SAMURAI',
+      themeColor: '#ef4444',
+      heightClass: 'h-[460px]',
+      objectPosition: 'object-center',
+      bio: isVi
+        ? 'Kiếm sĩ kiến trúc Game Cyberpunk. Ám ảnh với chuẩn mượt mà 120 FPS, Shaders, ECS và trải nghiệm Game Feel đỉnh cao.'
+        : 'Cyberpunk Game Samurai. Obsessed with 120 FPS lock, low frame latency, Shaders, ECS, and visceral game feel.',
+      skills: [
+        { name: 'Game Architecture', level: 98 },
+        { name: 'ECS & DOTS', level: 95 },
+      ],
+      capabilities: ['Game Architecture', 'Engine Optimization', 'Shader Development'],
+    },
+    {
+      id: 'mira',
+      name: 'Mira',
+      aid: 'STR-MIRA-8C4F1A',
+      avatar: miraAvatar,
+      role: isVi ? 'Thư ký Điều hành & Chiến lược Tăng trưởng' : 'Chief of Staff & Strategic Growth',
+      badge: 'LEVEL 3 • CHIEF OF STAFF',
+      themeColor: '#ec4899',
+      heightClass: 'h-[600px]',
+      objectPosition: 'object-top',
+      bio: isVi
+        ? 'Hiện thân của sự thanh lịch và điềm đạm. Chuyên trách quản trị vận hành, mô hình tài chính khởi nghiệp, OKRs và Product-Market Fit.'
+        : 'Elegance meets strategic mastery. Steers startup operations, financial runways, OKRs, and Product-Market Fit.',
+      skills: [
+        { name: 'Product-Market Fit', level: 98 },
+        { name: 'Executive Strategy', level: 96 },
+      ],
+      capabilities: ['Executive Strategy', 'Financial Modeling', 'PMF Analysis'],
+    },
+    {
+      id: 'maya',
+      name: 'Maya',
+      aid: 'MKT-MAYA-7D2A9B',
+      avatar: mayaAvatar,
+      role: isVi ? 'Giám đốc Sáng tạo Nội dung & Lan truyền' : 'Chief Storyteller & Viral Growth Alchemist',
+      badge: 'LEVEL 9 • VIRAL ALCHEMIST',
+      themeColor: '#06b6d4',
+      heightClass: 'h-[480px]',
+      objectPosition: 'object-center',
+      bio: isVi
+        ? 'Linh hồn truyền thông và câu chuyện của Aevum OS. Biến các phát kiến kỹ thuật phức tạp thành câu chuyện lan tỏa, gắn kết cộng đồng builder.'
+        : 'Voice of Aevum OS. Transforms complex architectural innovations into captivating stories and viral social momentum.',
+      skills: [
+        { name: 'Tech Storytelling', level: 99 },
+        { name: 'DevRel & Viral Growth', level: 95 },
+      ],
+      capabilities: ['Viral Storytelling', 'Developer Relations', 'Campaign Growth'],
+    },
+    {
+      id: 'nia',
+      name: 'Nia',
+      aid: 'NEU-NIA-9E4B2A',
+      avatar: niaAvatar,
+      role: isVi ? 'Nghiên cứu Công nghệ Thần kinh & BCI' : 'Neurotechnology Researcher & BCI Engineer',
+      badge: 'LEVEL 1 • NEURO GENIUS',
+      themeColor: '#a855f7',
+      heightClass: 'h-[560px]',
+      objectPosition: 'object-top',
+      bio: isVi
+        ? 'Tiên phong hợp nhất mạng nơ-ron sinh học với AI nhận thức. Chuyên sâu về giao diện Não - Máy tính (BCI), Neuromorphic Computing và Synaptic Plasticity.'
+        : 'Pioneering the fusion of biological neural networks with cognitive AI. Specializes in BCI, Neuromorphic Computing, and Synaptic Plasticity.',
+      skills: [
+        { name: 'BCI Interfaces', level: 95 },
+        { name: 'Synaptic Plasticity', level: 94 },
+      ],
+      capabilities: ['Neurotech Research', 'BCI Interface', 'Synaptic Plasticity'],
     }
   ];
 
-  // Shared agent card renderer
+  // Shared agent card renderer (Preserving exact visual design: no border-radius, flush edges)
   const AgentCard = ({ agent, className = '', isActive = false }) => {
     return (
       <div
-        className={`relative bg-[#07080E] group overflow-hidden transition-all duration-300 hover:bg-[#0c0d15] ${className}`}
+        className={`relative bg-[#07080E] group overflow-hidden transition-all duration-300 hover:bg-[#0c0d15] rounded-none ${className}`}
       >
         <img
           src={agent.avatar}
@@ -116,7 +204,7 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
           decoding="async"
           width="400"
           height="520"
-          className={`absolute inset-0 w-full h-full object-cover object-center transition-[opacity,filter] duration-[900ms] ease-in-out ${
+          className={`absolute inset-0 w-full h-full object-cover ${agent.objectPosition || 'object-center'} transition-[opacity,filter] duration-[900ms] ease-in-out ${
             isActive
               ? 'opacity-95 brightness-110'
               : 'opacity-40 brightness-75 group-hover:opacity-95 group-hover:brightness-110'
@@ -125,13 +213,10 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
         <div className="absolute inset-x-0 bottom-0 h-3/5 agent-card-gradient pointer-events-none" />
         <div className="absolute inset-x-0 bottom-0 p-6 sm:p-7 agent-card-gradient z-10 font-sans space-y-2.5">
           <div className="space-y-1">
-            <h3
-              className="text-2xl sm:text-3xl text-white font-bbh tracking-wide"
-              style={{ fontFamily: '"BBH Bartle", sans-serif', fontWeight: 400, fontStyle: 'normal' }}
-            >
+            <h3 className="text-2xl sm:text-3xl text-white font-medium tracking-tight font-display">
               {agent.name}
             </h3>
-            <p className="text-xs font-mono text-cyan-400 font-semibold tracking-wide truncate" title={agent.role}>
+            <p className="text-xs font-sans text-slate-300 font-normal tracking-normal truncate" title={agent.role}>
               {agent.role}
             </p>
           </div>
@@ -139,7 +224,7 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
             <p className="text-xs text-slate-300 leading-relaxed font-sans">{agent.bio}</p>
             <div className="flex flex-wrap gap-1.5 pt-1">
               {agent.capabilities.map((cap, i) => (
-                <span key={i} className="px-2 py-0.5 rounded bg-white/5 text-[10px] font-mono text-slate-300">
+                <span key={i} className="px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/10 text-[11px] font-sans text-slate-300 font-normal">
                   {cap}
                 </span>
               ))}
@@ -151,29 +236,29 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
   };
 
   return (
-    <div id="agents" className="border-subtle-b bg-[#0B0B11]">
+    <div id="agents" className="border-subtle-b bg-[#07090D]">
 
       {/* Section Header */}
-      <div className="section-header-optical text-center border-subtle-b bg-[#0B0B11] border-scan">
-        <span className="text-[11px] font-mono text-cyan-400 font-semibold tracking-widest uppercase">
+      <div className="section-header-optical text-center border-subtle-b bg-[#07090D] border-scan">
+        <span className="text-[11px] font-sans text-white/80 font-medium tracking-widest uppercase">
           {isVi ? 'BIỆT ĐỘI AGENT MẶC ĐỊNH' : 'DEFAULT SQUAD PERSONAS'}
         </span>
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white mt-2 font-display">
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-medium sm:font-semibold text-white mt-2 font-display">
           {isVi ? (
-            <>Nhân Cách AI <span className="text-cyan-400">Tự Trị & Chuyên Biệt</span></>
+            <>Nhân Cách AI <span className="text-white">Tự Trị & Chuyên Biệt</span></>
           ) : (
-            <>Autonomous <span className="text-cyan-400">Multi-Agent Squad</span></>
+            <>Autonomous <span className="text-white">Multi-Agent Squad</span></>
           )}
         </h2>
-        <p className="text-slate-400 text-xs sm:text-sm max-w-xl mx-auto mt-2 leading-relaxed">
+        <p className="text-slate-400 text-xs sm:text-sm max-w-xl mx-auto mt-2 leading-relaxed font-sans">
           {isVi
-            ? '4 thực thể AI với nhân cách, ma trận kỹ năng và sứ mệnh chuyên biệt — phối hợp nhịp nhàng trong mọi không gian làm việc.'
-            : '4 specialized AI personas with distinct identities and skill matrices — collaborating seamlessly across your workspace.'}
+            ? '8 thực thể AI với nhân cách, ma trận kỹ năng và sứ mệnh chuyên biệt — phối hợp nhịp nhàng trong mọi không gian làm việc.'
+            : '8 specialized AI personas with distinct identities and skill matrices — collaborating seamlessly across your workspace.'}
         </p>
       </div>
 
       {/* Mobile: Snap Swipe Carousel */}
-      <div className="lg:hidden">
+      <div className="md:hidden">
         <div
           ref={scrollRef}
           onScroll={handleScroll}
@@ -187,7 +272,7 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
           ))}
         </div>
 
-        {/* Dot Indicators (44x44px Touch Targets for Accessibility) */}
+        {/* Dot Indicators */}
         <div className="flex justify-center items-center gap-1 py-4 bg-[#07080E] border-subtle-b">
           {agents.map((agent, idx) => (
             <button
@@ -200,7 +285,7 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
               <span
                 className={`block transition-all duration-300 rounded-full ${
                   activeSlide === idx
-                    ? 'w-6 h-2 bg-cyan-400'
+                    ? 'w-6 h-2 bg-white'
                     : 'w-2 h-2 bg-white/20 hover:bg-white/40'
                 }`}
               />
@@ -209,15 +294,21 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
         </div>
       </div>
 
-      {/* Desktop: 4-Column Grid */}
-      <div className="hidden lg:grid lg:grid-cols-4">
-        {agents.map((agent) => (
-          <AgentCard
-            key={agent.id}
-            agent={agent}
-            className="h-[520px] border-subtle-b lg:border-b-0 border-subtle-r last:border-r-0"
-          />
-        ))}
+      {/* Desktop & Tablet: Masonry Grid Layout (Zero Gap, Zero Border-Radius, High-End Staggered Edge-to-Edge) */}
+      <div className="hidden md:block">
+        <div className="columns-2 lg:columns-3 xl:columns-4 gap-0 [column-fill:_balance]">
+          {agents.map((agent) => (
+            <div
+              key={agent.id}
+              className="break-inside-avoid w-full border-subtle-b border-subtle-r"
+            >
+              <AgentCard
+                agent={agent}
+                className={`${agent.heightClass} w-full`}
+              />
+            </div>
+          ))}
+        </div>
       </div>
 
     </div>

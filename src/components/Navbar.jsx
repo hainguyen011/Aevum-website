@@ -25,9 +25,31 @@ export const Navbar = ({
   const [profileOpen, setProfileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState(null);
   const [entitlements, setEntitlements] = useState(null);
+  const [isScrolled, setIsScrolled] = useState(false);
   const featuresRef = useRef(null);
   const isVi = activeLang === 'vi';
   const t = translations[activeLang] || translations.en;
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY || document.documentElement.scrollTop || (window.lenis ? window.lenis.scroll : 0);
+      setIsScrolled(scrollY > 20);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    if (window.lenis && typeof window.lenis.on === 'function') {
+      window.lenis.on('scroll', handleScroll);
+    }
+
+    handleScroll();
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (window.lenis && typeof window.lenis.off === 'function') {
+        window.lenis.off('scroll', handleScroll);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (user) {
@@ -104,21 +126,22 @@ export const Navbar = ({
     return isVi ? 'Kiến trúc & Tính năng' : 'Features & Architecture';
   };
 
-  // Handle click outside to close features & resources Cyber HUD menus
+  // Handle click outside to close features, resources & profile Cyber HUD menus
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (featuresRef.current && !featuresRef.current.contains(event.target)) {
         setFeaturesOpen(false);
         setResourcesOpen(false);
+        setProfileOpen(false);
       }
     };
-    if (featuresOpen || resourcesOpen) {
+    if (featuresOpen || resourcesOpen || profileOpen) {
       document.addEventListener('mousedown', handleClickOutside);
     }
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [featuresOpen, resourcesOpen]);
+  }, [featuresOpen, resourcesOpen, profileOpen]);
 
   const handleNavLink = (e, target) => {
     e.preventDefault();
@@ -141,10 +164,23 @@ export const Navbar = ({
     }
   };
 
+  const isLanding = currentPage === 'landing';
+  const isAtTopLanding = isLanding && !isScrolled && !isMobileMenuOpen;
+
+  const headerBgClass = isAtTopLanding
+    ? (featuresOpen || resourcesOpen || profileOpen
+        ? 'bg-black/20 backdrop-blur-md border-b border-white/10'
+        : 'bg-transparent border-b border-transparent backdrop-blur-none')
+    : 'bg-[#07090D]/85 backdrop-blur-md border-b border-white/10';
+
+  const dropdownBgClass = isAtTopLanding
+    ? 'bg-black/40 backdrop-blur-xl border-b border-white/10 text-white'
+    : 'bg-[#07090D]/95 backdrop-blur-xl border-b border-white/10 text-white';
+
   return (
     <div 
       ref={featuresRef} 
-      className="w-full border-subtle-b bg-[#0B0B11]/90 backdrop-blur-md !sticky top-0 z-40 flex flex-col transition-all duration-300"
+      className={`relative w-full !sticky top-0 z-40 flex flex-col transition-all duration-300 ${headerBgClass}`}
       style={{ position: 'sticky', top: 0, zIndex: 40 }}
     >
       
@@ -165,13 +201,13 @@ export const Navbar = ({
               alt="Aevum OS Logo" 
               className="w-7 h-7 object-contain" 
             />
-            <span className="font-extrabold text-lg text-white tracking-wider font-display whitespace-nowrap">
+            <span className="font-semibold text-lg text-white tracking-wide font-display whitespace-nowrap">
               AEVUM OS
             </span>
           </a>
 
           {/* Desktop Nav Links */}
-          <nav className="hidden lg:flex items-center gap-4 xl:gap-6 text-xs font-semibold whitespace-nowrap text-nowrap">
+          <nav className="hidden lg:flex items-center gap-4 xl:gap-6 text-xs sm:text-[13px] font-medium whitespace-nowrap text-nowrap">
             
             {/* Desktop Features & Architecture Toggle Button */}
             {(() => {
@@ -179,14 +215,14 @@ export const Navbar = ({
               return (
                 <button 
                   onClick={() => setFeaturesOpen(prev => !prev)}
-                  className={`flex items-center gap-1.5 text-xs font-semibold py-1.5 px-3 rounded-[5px] transition-all duration-200 cursor-pointer ${
+                  className={`flex items-center gap-1.5 text-xs sm:text-[13px] font-medium py-1.5 px-3 rounded-[5px] transition-all duration-200 cursor-pointer ${
                     isButtonActive
                       ? 'border-beam-btn text-white'
                       : 'text-white border border-white/20 bg-white/[0.04] hover:bg-white/[0.08] hover:border-white/40'
                   }`}
                 >
 
-                  <span className="relative z-10 font-bold tracking-wide text-white">{getButtonLabel()}</span>
+                  <span className="relative z-10 font-medium tracking-wide text-white">{getButtonLabel()}</span>
                   <ChevronDown size={13} className={`relative z-10 text-white transition-transform duration-300 ${featuresOpen ? 'rotate-180' : ''}`} />
                 </button>
               );
@@ -195,7 +231,7 @@ export const Navbar = ({
             {/* Pricing Link */}
             <button 
               onClick={() => { onNavigate('pricing'); setFeaturesOpen(false); setResourcesOpen(false); }}
-              className={`transition-colors font-semibold whitespace-nowrap text-nowrap cursor-pointer ${
+              className={`transition-colors font-medium whitespace-nowrap text-nowrap cursor-pointer ${
                 currentPage === 'pricing' ? 'text-cyan-400' : 'text-slate-300 hover:text-cyan-400'
               }`}
             >
@@ -205,7 +241,7 @@ export const Navbar = ({
             {/* About Link */}
             <button 
               onClick={() => { onNavigate('about'); setFeaturesOpen(false); setResourcesOpen(false); }}
-              className={`transition-colors font-semibold whitespace-nowrap text-nowrap cursor-pointer ${
+              className={`transition-colors font-medium whitespace-nowrap text-nowrap cursor-pointer ${
                 currentPage === 'about' ? 'text-cyan-400' : 'text-slate-300 hover:text-cyan-400'
               }`}
             >
@@ -215,7 +251,7 @@ export const Navbar = ({
             {/* Resources & Community Dropdown (Designed as a Clean Text Link) */}
             <button 
               onClick={() => { setResourcesOpen(prev => !prev); setFeaturesOpen(false); }}
-              className={`flex items-center gap-1.5 transition-colors font-semibold whitespace-nowrap text-nowrap cursor-pointer ${
+              className={`flex items-center gap-1.5 transition-colors font-medium whitespace-nowrap text-nowrap cursor-pointer ${
                 resourcesOpen || ['docs', 'changelog', 'discussions', 'explore'].includes(currentPage)
                   ? 'text-cyan-400'
                   : 'text-slate-300 hover:text-cyan-400'
@@ -235,7 +271,7 @@ export const Navbar = ({
           <div className="hidden lg:flex items-center self-center mr-3 xl:mr-4">
             <div 
               onClick={onOpenSearch}
-              className="flex items-center gap-3 bg-white/[0.04] hover:bg-white/[0.08] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] px-3 py-1.5 rounded-lg text-slate-400 cursor-pointer transition-all group"
+              className="flex items-center gap-3 bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 px-3 py-1.5 rounded-lg text-slate-400 cursor-pointer transition-all group"
             >
               <Search size={14} className="group-hover:text-white transition-colors" />
               <span className="text-xs text-slate-400 group-hover:text-white">
@@ -360,10 +396,10 @@ export const Navbar = ({
         </div>
       </div>
 
-      {/* Compact Expandable Sub-Navigation Strip (Pushes Content Down Seamlessly) */}
+      {/* Compact Expandable Sub-Navigation Floating Overlay (Never pushes content down) */}
       <div 
-        className={`w-full overflow-hidden transition-all duration-300 ease-out bg-[#0B0B11]/95 border-t border-white/10 ${
-          featuresOpen ? 'max-h-16 opacity-100 py-3' : 'max-h-0 opacity-0 py-0 border-t-0'
+        className={`absolute top-full left-0 right-0 z-50 overflow-hidden transition-all duration-300 ease-out ${dropdownBgClass} ${
+          featuresOpen ? 'max-h-16 opacity-100 py-3 pointer-events-auto' : 'max-h-0 opacity-0 py-0 border-b-0 pointer-events-none'
         }`}
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-8 flex items-center justify-between text-xs">
@@ -462,10 +498,10 @@ export const Navbar = ({
         </div>
       </div>
 
-      {/* Resources & Community Sub-Navigation Strip (Pushes Content Down Seamlessly) */}
+      {/* Resources & Community Sub-Navigation Floating Overlay (Never pushes content down) */}
       <div 
-        className={`w-full overflow-hidden transition-all duration-300 ease-out bg-[#0B0B11]/95 border-t border-white/10 ${
-          resourcesOpen ? 'max-h-16 opacity-100 py-3' : 'max-h-0 opacity-0 py-0 border-t-0'
+        className={`absolute top-full left-0 right-0 z-50 overflow-hidden transition-all duration-300 ease-out ${dropdownBgClass} ${
+          resourcesOpen ? 'max-h-16 opacity-100 py-3 pointer-events-auto' : 'max-h-0 opacity-0 py-0 border-b-0 pointer-events-none'
         }`}
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-8 flex items-center justify-between text-xs">
@@ -515,11 +551,11 @@ export const Navbar = ({
         </div>
       </div>
 
-      {/* ── Profile Dropdown Strip ── */}
+      {/* ── Profile Dropdown Floating Overlay (Never pushes content down) ── */}
       {user && (
         <div
-          className={`w-full overflow-hidden transition-all duration-300 ease-out bg-[#0B0B11]/98 backdrop-blur-md border-t border-white/10 ${
-            profileOpen ? 'max-h-48 sm:max-h-24 opacity-100 py-3 sm:py-2.5' : 'max-h-0 opacity-0 py-0 border-t-0'
+          className={`absolute top-full left-0 right-0 z-50 overflow-hidden transition-all duration-300 ease-out ${dropdownBgClass} ${
+            profileOpen ? 'max-h-48 sm:max-h-24 opacity-100 py-3 sm:py-2.5 pointer-events-auto' : 'max-h-0 opacity-0 py-0 border-b-0 pointer-events-none'
           }`}
         >
           <div className="max-w-6xl mx-auto px-4 sm:px-8 flex items-center justify-between gap-3">

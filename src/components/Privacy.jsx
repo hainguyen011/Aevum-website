@@ -419,7 +419,7 @@ export const Privacy = ({ activeLang = 'vi' }) => {
   });
 
   return (
-    <div className="w-full min-h-[calc(100vh-73px)] bg-[#0B0B11] border-b border-white/5 block lg:flex lg:flex-row relative justify-between overflow-x-clip">
+    <div className="w-full min-h-[calc(100vh-73px)] bg-[#07090D] border-b border-white/5 block lg:flex lg:flex-row relative justify-between overflow-x-clip">
       {/* Mobile Portal Drawer (Renders outside app-content-wrapper directly on body) */}
       {typeof document !== 'undefined' && createPortal(
         <div className={`docs-mobile-drawer lg:hidden ${sidebarOpen ? 'open' : ''}`}>
@@ -514,7 +514,7 @@ export const Privacy = ({ activeLang = 'vi' }) => {
       {/* Main View Wrapper */}
       <div
         onClick={() => sidebarOpen && setSidebarOpen(false)}
-        className={`flex-1 flex flex-col xl:flex-row justify-between w-full bg-[#0B0B11] ${sidebarOpen ? 'cursor-pointer' : ''
+        className={`flex-1 flex flex-col xl:flex-row justify-between w-full bg-[#07090D] ${sidebarOpen ? 'cursor-pointer' : ''
           }`}
       >
         {/* Mobile Sticky Top-Left Menu Icon Button */}
@@ -524,7 +524,7 @@ export const Privacy = ({ activeLang = 'vi' }) => {
             setSidebarOpen(true);
           }}
           onMouseEnter={() => setIsBtnVisible(true)}
-          className={`lg:hidden sticky top-[76px] ml-4 mt-4 z-30 p-2 rounded-lg bg-[#0B0B11]/90 backdrop-blur-md hover:bg-white/10 text-white border border-white/15 transition-all duration-500 cursor-pointer flex items-center justify-center shadow-lg active:scale-95 self-start ${isBtnVisible ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-30 scale-90 hover:opacity-100'
+          className={`lg:hidden sticky top-[76px] ml-4 mt-4 z-30 p-2 rounded-lg bg-[#07090D]/90 backdrop-blur-md hover:bg-white/10 text-white border border-white/15 transition-all duration-500 cursor-pointer flex items-center justify-center shadow-lg active:scale-95 self-start ${isBtnVisible ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-30 scale-90 hover:opacity-100'
             }`}
           aria-label="Toggle Menu"
         >
@@ -535,7 +535,7 @@ export const Privacy = ({ activeLang = 'vi' }) => {
         <main className="flex-1 px-6 md:px-12 lg:px-16 py-10 max-w-3xl xl:max-w-4xl w-full relative min-h-[500px]">
           {/* Header */}
           <div className="mb-8">
-            <div className="inline-flex items-center gap-1.5 text-xs font-mono text-cyan-400 mb-2 font-bold uppercase tracking-wider">
+            <div className="inline-flex items-center gap-1.5 text-xs font-mono text-white mb-2 font-bold uppercase tracking-wider">
               <span>I2FLABS</span>
               <span className="text-slate-600">/</span>
               <span>AEVUM OS</span>

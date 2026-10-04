@@ -1,4 +1,6 @@
+@import '@fontsource/google-sans-flex';
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import './styles/index.css';
 
 @tailwind base;
 @tailwind components;
@@ -6,8 +8,8 @@
 
 :root,
 html[data-theme="dark"] {
-  --bg-dark: #0B0B11;
-  --bg-frame: #0B0B11;
+  --bg-dark: #07090D;
+  --bg-frame: #07090D;
   --bg-cell: #0e0f17;
   --bg-cell-hover: #131520;
   
@@ -22,8 +24,8 @@ html[data-theme="dark"] {
   --text-secondary: #94a3b8;
   --text-muted: #64748b;
 
-  --font-sans: 'Inter', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-display: 'Inter', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-sans: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
   --transition-smooth: 0.15s ease-out;
@@ -304,7 +306,7 @@ html, body {
 }
 
 body {
-  font-family: var(--font-sans);
+  font-family: 'Google Sans Flex', var(--font-sans);
   background-color: var(--bg-dark);
   color: var(--text-primary);
   line-height: 1.6;
@@ -313,10 +315,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Headings Typography - Matches Vite Display Sans Style */
-h1, h2, h3, .font-display {
-  font-family: var(--font-display);
-  letter-spacing: -0.035em;
+/* Headings Typography - Matches Google DeepMind Google Sans Flex */
+h1, h2, h3, h4, h5, h6, .font-display {
+  font-family: 'Google Sans Flex', var(--font-display);
+  letter-spacing: 0.008em;
 }
 
 /* Reusable Subtle Faint Border System (Without !important to allow responsive overrides) */
@@ -581,7 +583,7 @@ html[data-theme="light"] .gradient-text {
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0B0B11;
+  background: #07090D;
 }
 ::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.15);
@@ -901,7 +903,7 @@ html[data-theme="light"] body {
 }
 
 /* Background Utility Overrides for Light Mode */
-html[data-theme="light"] .bg-\[\#0B0B11\],
+html[data-theme="light"] .bg-\[\#07090D\],
 html[data-theme="light"] .bg-\[\#07080c\],
 html[data-theme="light"] .bg-\[\#07080d\],
 html[data-theme="light"] .bg-\[\#07080D\],
@@ -916,8 +918,8 @@ html[data-theme="light"] .perspective-container {
   background-color: #F8FAFC !important;
 }
 
-html[data-theme="light"] .bg-\[\#0B0B11\]\/90,
-html[data-theme="light"] .bg-\[\#0B0B11\]\/95 {
+html[data-theme="light"] .bg-\[\#07090D\]\/90,
+html[data-theme="light"] .bg-\[\#07090D\]\/95 {
   background-color: rgba(248, 250, 252, 0.92) !important;
 }
 
@@ -1513,11 +1515,11 @@ html[data-theme="light"] .agent-card-gradient {
 
 /* Marquee Left/Right Fade Overlays */
 .marquee-fade-left {
-  background: linear-gradient(to right, #0B0B11 0%, transparent 100%);
+  background: linear-gradient(to right, #07090D 0%, transparent 100%);
 }
 
 .marquee-fade-right {
-  background: linear-gradient(to left, #0B0B11 0%, transparent 100%);
+  background: linear-gradient(to left, #07090D 0%, transparent 100%);
 }
 
 html[data-theme="light"] .marquee-fade-left {
@@ -1840,7 +1842,7 @@ html[data-theme="dark"] .theme-icon-sun {
    ========================================================================== */
 .cta-banner,
 html[data-theme="light"] .cta-banner {
-  background-color: #0B0B11 !important;
+  background-color: #07090D !important;
 }
 
 .cta-banner .cta-overlay,
@@ -2383,8 +2385,8 @@ html[data-theme="light"] .era-exploration-root .bg-\[\#07080C\],
 html[data-theme="light"] .era-exploration-root .bg-\[\#07080c\],
 html[data-theme="light"] .era-exploration-root .bg-\[\#090A0F\],
 html[data-theme="light"] .era-exploration-root .bg-\[\#090a0f\],
-html[data-theme="light"] .era-exploration-root .bg-\[\#0B0B11\],
-html[data-theme="light"] .era-exploration-root .bg-\[\#0b0b11\] {
+html[data-theme="light"] .era-exploration-root .bg-\[\#07090D\],
+html[data-theme="light"] .era-exploration-root .bg-\[\#07090d\] {
   background-color: #F8FAFC !important;
 }
 

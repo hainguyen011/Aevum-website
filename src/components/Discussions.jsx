@@ -317,10 +317,10 @@ export function Discussions({ activeLang, user, userProfile, onOpenAuthModal, in
   };
 
   return (
-    <div id="discussions" className="w-full bg-[#0B0B11] text-slate-100 min-h-[calc(100vh-73px)] font-mono text-left relative flex flex-col">
+    <div id="discussions" className="w-full bg-[#07090D] text-slate-100 min-h-[calc(100vh-73px)] font-mono text-left relative flex flex-col">
       
       {/* Full-width Terminal Header Bar */}
-      <div className="w-full border-b border-white/5 py-5 px-6 lg:px-10 bg-[#0B0B11] relative z-10">
+      <div className="w-full border-b border-white/5 py-5 px-6 lg:px-10 bg-[#07090D] relative z-10">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs font-mono text-slate-400">
           <div className="flex items-center gap-3">
             <span className="text-white font-bold tracking-wider uppercase">AEVUM TTY DISCUSSIONS SHELL v1.0.0</span>
@@ -443,7 +443,7 @@ export function Discussions({ activeLang, user, userProfile, onOpenAuthModal, in
                     </div>
 
                     {/* Skeleton Reply Box */}
-                    <div className="p-3 rounded bg-[#0B0B11] border border-white/5 space-y-2">
+                    <div className="p-3 rounded bg-[#07090D] border border-white/5 space-y-2">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
                           <div className="w-4 h-4 bg-white/10 rounded-full" />
@@ -455,7 +455,7 @@ export function Discussions({ activeLang, user, userProfile, onOpenAuthModal, in
                     </div>
 
                     {/* Skeleton Chat Container */}
-                    <div className="bg-[#0B0B11] border border-white/10 rounded-md p-3 space-y-3">
+                    <div className="bg-[#07090D] border border-white/10 rounded-md p-3 space-y-3">
                       <div className="h-6 w-full bg-white/5 rounded" />
                       <div className="flex items-center justify-between pt-1">
                         <div className="h-4 w-36 bg-white/5 rounded" />
@@ -554,7 +554,7 @@ export function Discussions({ activeLang, user, userProfile, onOpenAuthModal, in
                               {activeMenuId === item.id && (
                                 <div 
                                   onClick={(e) => e.stopPropagation()}
-                                  className="absolute right-0 top-7 w-48 bg-[#0B0B11] border border-white/10 rounded-md p-1.5 shadow-2xl z-30 font-mono text-xs space-y-1 text-left"
+                                  className="absolute right-0 top-7 w-48 bg-[#07090D] border border-white/10 rounded-md p-1.5 shadow-2xl z-30 font-mono text-xs space-y-1 text-left"
                                 >
                                   <div className="px-2 py-1 text-[10px] text-slate-500 font-bold uppercase tracking-wider border-b border-white/5 mb-1">
                                     {isVi ? 'Thao tác Admin' : 'Admin Actions'}
@@ -631,7 +631,7 @@ export function Discussions({ activeLang, user, userProfile, onOpenAuthModal, in
                               className={`p-2.5 rounded text-[11px] font-mono space-y-1 transition-all ${
                                 isAdminRep
                                   ? 'bg-[#0e111a] border border-blue-900/30 text-slate-200'
-                                  : 'bg-[#0B0B11] border border-white/5 text-slate-300'
+                                  : 'bg-[#07090D] border border-white/5 text-slate-300'
                               }`}
                             >
                               <div className="flex items-center justify-between gap-2">
@@ -669,7 +669,7 @@ export function Discussions({ activeLang, user, userProfile, onOpenAuthModal, in
                         })}
 
                       {/* Single Unified Container (Textarea + Upvote + Counter + Send) */}
-                      <div className="bg-[#0B0B11] border border-white/10 focus-within:border-cyan-500/60 rounded-md p-3 space-y-2.5 transition-all">
+                      <div className="bg-[#07090D] border border-white/10 focus-within:border-cyan-500/60 rounded-md p-3 space-y-2.5 transition-all">
                         
                         {/* Multi-line Auto-growing Textarea (No Resize Handle) */}
                         <textarea
@@ -841,7 +841,7 @@ export function Discussions({ activeLang, user, userProfile, onOpenAuthModal, in
                   <label className="block text-xs font-mono text-slate-400 mb-1.5">
                     Category:
                   </label>
-                  <div className="grid grid-cols-3 gap-1 bg-[#0B0B11] border border-white/10 rounded p-0.5 h-8 items-center">
+                  <div className="grid grid-cols-3 gap-1 bg-[#07090D] border border-white/10 rounded p-0.5 h-8 items-center">
                     {[
                       { id: 'bug', label: isVi ? 'Báo Lỗi' : 'Bug' },
                       { id: 'feature', label: isVi ? 'Ý Tưởng' : 'Feature' },
@@ -881,7 +881,7 @@ export function Discussions({ activeLang, user, userProfile, onOpenAuthModal, in
                   value={newTitle}
                   onChange={(e) => setNewTitle(e.target.value)}
                   placeholder={isVi ? 'Tóm tắt nội dung thảo luận hoặc báo lỗi...' : 'Brief summary of discussion or bug...'}
-                  className="w-full bg-[#0B0B11] border border-white/10 focus:border-cyan-500/60 rounded px-3 text-xs text-slate-200 placeholder-slate-600 outline-none font-mono h-8"
+                  className="w-full bg-[#07090D] border border-white/10 focus:border-cyan-500/60 rounded px-3 text-xs text-slate-200 placeholder-slate-600 outline-none font-mono h-8"
                 />
               </div>
 
@@ -902,7 +902,7 @@ export function Discussions({ activeLang, user, userProfile, onOpenAuthModal, in
                   value={newContent}
                   onChange={(e) => setNewContent(e.target.value)}
                   placeholder={isVi ? 'Mô tả chi tiết các bước tái hiện hoặc góp ý...' : 'Describe steps to reproduce or details...'}
-                  className="w-full bg-[#0B0B11] border border-white/10 focus:border-cyan-500/60 rounded p-2.5 text-xs text-slate-200 placeholder-slate-600 outline-none font-mono resize-none h-20 overflow-y-auto leading-relaxed"
+                  className="w-full bg-[#07090D] border border-white/10 focus:border-cyan-500/60 rounded p-2.5 text-xs text-slate-200 placeholder-slate-600 outline-none font-mono resize-none h-20 overflow-y-auto leading-relaxed"
                 />
               </div>
 

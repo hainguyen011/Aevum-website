@@ -97,7 +97,7 @@ export const CustomCursor = () => {
   if (isUnikornZone) {
     cursorStyle = 'w-2 h-2 border-transparent bg-transparent scale-0 flex items-center justify-center shadow-none overflow-visible';
   } else if (isDodgeZone) {
-    cursorStyle = 'w-11 h-11 border-red-500 bg-[#0B0B11]/90 scale-100 flex items-center justify-center shadow-none';
+    cursorStyle = 'w-11 h-11 border-red-500 bg-[#07090D]/90 scale-100 flex items-center justify-center shadow-none';
   } else if (isMouseDown) {
     cursorStyle = 'w-11 h-11 border-white/60 bg-transparent scale-[0.68] flex items-center justify-center';
   } else if (isHovered) {

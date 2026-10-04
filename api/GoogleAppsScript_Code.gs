@@ -38,7 +38,7 @@ function doPost(e) {
         'Ghi chú bổ sung (Custom Notes)'
       ]);
       // Format tiêu đề
-      sheet.getRange(1, 1, 1, 10).setFontWeight('bold').setBackground('#0b0b11').setFontColor('#00f0ff');
+      sheet.getRange(1, 1, 1, 10).setFontWeight('bold').setBackground('#07090D').setFontColor('#00f0ff');
     }
 
     // 2. Ghi dữ liệu vào Google Sheet
@@ -76,7 +76,7 @@ function doPost(e) {
         var logoUrl = 'https://raw.githubusercontent.com/hainguyen011/Aevum-website/main/assets/logos/AevumOS-transparent.png';
         var anStickerUrl = 'https://raw.githubusercontent.com/hainguyen011/Aevum-website/main/assets/stickers/An_Collection/An_Lover.png';
         var htmlBody = `
-          <div style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, Arial, sans-serif; max-width: 580px; margin: 0 auto; background-color: #0b0b11; color: #e2e8f0; padding: 36px 28px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); text-align: center;">
+          <div style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, Arial, sans-serif; max-width: 580px; margin: 0 auto; background-color: #07090D; color: #e2e8f0; padding: 36px 28px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); text-align: center;">
             <div style="margin-bottom: 24px;">
               <img src="${logoUrl}" alt="Aevum OS Logo" height="60" style="height: 60px; display: inline-block; border: 0;" />
             </div>

@@ -218,14 +218,14 @@ export const TrialModal = ({ isOpen, onClose, activeLang, user }) => {
         <button
           onClick={onClose}
           aria-label="Close Modal"
-          className="absolute right-0 top-[81px] sm:left-full sm:right-auto z-50 h-[53px] w-[53px] border-b border-l sm:border-l-0 sm:border-t sm:border-b sm:border-r border-white/10 bg-[#0B0B11] text-slate-400 hover:text-cyan-400 hover:border-cyan-400 hover:bg-cyan-500/10 rounded-none transition-all cursor-pointer flex items-center justify-center font-mono"
+          className="absolute right-0 top-[81px] sm:left-full sm:right-auto z-50 h-[53px] w-[53px] border-b border-l sm:border-l-0 sm:border-t sm:border-b sm:border-r border-white/10 bg-[#07090D] text-slate-400 hover:text-cyan-400 hover:border-cyan-400 hover:bg-cyan-500/10 rounded-none transition-all cursor-pointer flex items-center justify-center font-mono"
         >
           <X className="w-5 h-5" />
         </button>
 
         {/* Outer Modal Container - Centered Box, Sharp Corners, Flat Design */}
         <div
-          className="w-full h-full bg-[#0B0B11] border-x border-white/10 rounded-none flex flex-col justify-between overflow-hidden relative text-slate-100"
+          className="w-full h-full bg-[#07090D] border-x border-white/10 rounded-none flex flex-col justify-between overflow-hidden relative text-slate-100"
           onClick={(e) => e.stopPropagation()}
         >
 
@@ -236,7 +236,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang, user }) => {
 
           {/* Stepper Progress Bar (Flat TUI Style) */}
           {!isSubmitted && (
-            <div className="w-full border-t border-b border-white/10 bg-[#0B0B11] px-6 sm:px-8 h-[53px] flex items-center relative z-10">
+            <div className="w-full border-t border-b border-white/10 bg-[#07090D] px-6 sm:px-8 h-[53px] flex items-center relative z-10">
               <div className="flex items-center justify-between text-[11px] font-mono text-slate-400 w-full pr-12 sm:pr-0">
 
                 {/* Step 1 Indicator */}
@@ -345,7 +345,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang, user }) => {
                         value={formData.name}
                         onChange={handleChange}
                         placeholder={activeLang === 'vi' ? 'Nguyễn Văn A' : 'Alex Mercer'}
-                        className="w-full bg-[#0B0B11] border border-white/15 rounded-md px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-400 transition-colors"
+                        className="w-full bg-[#07090D] border border-white/15 rounded-md px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-400 transition-colors"
                       />
                     </div>
 
@@ -369,7 +369,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang, user }) => {
                         placeholder="dev@company.com"
                         className={`w-full rounded-md px-3.5 py-2.5 text-xs focus:outline-none transition-colors ${user
                             ? 'bg-white/[0.02] border-white/10 text-slate-400 cursor-not-allowed'
-                            : 'bg-[#0B0B11] border-white/15 text-white focus:border-cyan-400'
+                            : 'bg-[#07090D] border-white/15 text-white focus:border-cyan-400'
                           }`}
                       />
                     </div>
@@ -469,7 +469,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang, user }) => {
                         value={formData.agentName}
                         onChange={handleChange}
                         placeholder={activeLang === 'vi' ? 'Ví dụ: Jarvis, Luna, Friday, Gilfoyle, Goliath...' : 'E.g. Jarvis, Luna, Friday, Gilfoyle...'}
-                        className="w-full bg-[#0B0B11] border border-white/15 rounded-md px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-400 transition-colors"
+                        className="w-full bg-[#07090D] border border-white/15 rounded-md px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-400 transition-colors"
                       />
                     </div>
 
@@ -499,7 +499,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang, user }) => {
                         placeholder={activeLang === 'vi'
                           ? 'Ý tưởng của bạn về hệ điều hành AI Agent trong tương lai...'
                           : 'Your thoughts on the future of Agentic Operating Systems...'}
-                        className="w-full bg-[#0B0B11] border border-white/15 rounded-md px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-400 transition-colors resize-none"
+                        className="w-full bg-[#07090D] border border-white/15 rounded-md px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-400 transition-colors resize-none"
                       ></textarea>
                     </div>
                   </div>
@@ -513,7 +513,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang, user }) => {
               </div>
 
               {/* Full Width Bottom Action Bar - FLUSH to edges, NO padding at bottom */}
-              <div className="w-full bg-[#0B0B11] border border-[#0ea5e9] relative z-10 font-mono">
+              <div className="w-full bg-[#07090D] border border-[#0ea5e9] relative z-10 font-mono">
                 <div className="flex items-stretch w-full rounded-none overflow-hidden">
                   <button
                     type="button"

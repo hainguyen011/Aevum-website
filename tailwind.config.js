@@ -8,7 +8,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        dark: '#0B0B11',
+        dark: '#07090D',
         card: 'rgba(255, 255, 255, 0.02)',
         electron: {
           400: '#38bdf8',
@@ -18,9 +18,9 @@ export default {
         }
       },
       fontFamily: {
-        sans: ['Inter', '"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-        display: ['Inter', 'sans-serif'],
-        mono: ['"JetBrains Mono"', '"Fira Code"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+        sans: ['"Google Sans Flex"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        display: ['"Google Sans Flex"', 'sans-serif'],
+        mono: ['"JetBrains Mono"', '"Fira Code"', 'ui-monospace', 'monospace'],
       },
       letterSpacing: {
         tighter: '-0.04em',

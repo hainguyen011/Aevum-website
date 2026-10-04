@@ -62,10 +62,10 @@ export const Testimonials = ({ activeLang }) => {
   let titleNode = titleText;
   if (titleText.includes('Community')) {
     const parts = titleText.split('Community');
-    titleNode = <>{parts[0]}<span className="text-cyan-400">Community</span>{parts[1]}</>;
+    titleNode = <>{parts[0]}<span className="text-white">Community</span>{parts[1]}</>;
   } else if (titleText.includes('Cộng đồng')) {
     const parts = titleText.split('Cộng đồng');
-    titleNode = <>{parts[0]}<span className="text-cyan-400">Cộng đồng</span>{parts[1]}</>;
+    titleNode = <>{parts[0]}<span className="text-white">Cộng đồng</span>{parts[1]}</>;
   }
 
   const ReviewCard = ({ rev, className = '' }) => (
@@ -97,16 +97,16 @@ export const Testimonials = ({ activeLang }) => {
   );
 
   return (
-    <div id="testimonials" className="border-subtle-b bg-[#0B0B11]">
+    <div id="testimonials" className="border-subtle-b bg-[#07090D]">
 
       {/* Header & Metrics */}
       <div data-reveal className="section-header-optical border-subtle-b border-scan">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
           <div className="lg:col-span-6 space-y-2">
-            <div className="text-[11px] font-mono text-cyan-400 font-semibold tracking-widest uppercase">
+            <div className="text-[11px] font-sans text-white/80 font-medium tracking-widest uppercase">
               {t.testimonials.tag}
             </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white font-display">
+            <h2 className="text-3xl sm:text-4xl font-medium sm:font-semibold text-white tracking-[0.01em] font-display">
               {titleNode}
             </h2>
             <p className="text-slate-400 text-xs sm:text-sm">

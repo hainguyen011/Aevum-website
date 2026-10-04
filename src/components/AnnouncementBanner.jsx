@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { ArrowRight } from 'lucide-react';
 import { ReleaseService } from '../services/ReleaseService';
 
 export const AnnouncementBanner = ({ onNavigate, activeLang }) => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [latestVersion, setLatestVersion] = useState('v1.0.0-beta.4');
+  const [latestVersion, setLatestVersion] = useState('v1.0.0-beta.6');
   const isVi = activeLang === 'vi';
 
   useEffect(() => {
@@ -11,7 +12,7 @@ export const AnnouncementBanner = ({ onNavigate, activeLang }) => {
       .then((releases) => {
         if (releases && releases.length > 0) {
           const newest = releases[0];
-          const tag = newest.tag_name || newest.name || 'v1.0.0-beta.4';
+          const tag = newest.tag_name || newest.name || 'v1.0.0-beta.6';
           setLatestVersion(tag);
         }
       })
@@ -20,16 +21,16 @@ export const AnnouncementBanner = ({ onNavigate, activeLang }) => {
       });
   }, []);
 
-  const badgeText = `AEVUM OS ${latestVersion.toUpperCase()}`;
+  const badgeText = latestVersion;
   const mainMessage = isVi
-    ? `Bản cập nhật ${latestVersion} đã chính thức phát hành cho cả macOS & Windows`
-    : `Latest release ${latestVersion} is now available for macOS & Windows`;
+    ? `Bản cập nhật ${latestVersion} đã chính thức phát hành cho macOS & Windows`
+    : `Aevum OS ${latestVersion} is now available for macOS & Windows`;
   const ctaText = isVi ? 'Tải xuống ngay' : 'Download now';
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY || document.documentElement.scrollTop || (window.lenis ? window.lenis.scroll : 0);
-      setIsScrolled(scrollY > 25);
+      setIsScrolled(scrollY > 20);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -47,26 +48,6 @@ export const AnnouncementBanner = ({ onNavigate, activeLang }) => {
     };
   }, []);
 
-  const itemContent = (keyPrefix) => (
-    <div key={keyPrefix} className="flex items-center gap-4 px-8 shrink-0">
-      <span className="announcement-badge text-cyan-400 font-mono text-[11px] font-bold tracking-wider uppercase">
-        {badgeText}
-      </span>
-
-      <span className="announcement-divider text-slate-600 font-mono text-xs select-none">/</span>
-
-      <span className="announcement-text text-xs font-mono text-slate-300">
-        {mainMessage}
-      </span>
-
-      <span className="announcement-cta text-xs font-mono font-medium text-cyan-400 group-hover:text-cyan-300 transition-colors">
-        {ctaText} &rarr;
-      </span>
-
-      <span className="announcement-emdash text-slate-700 font-mono text-xs select-none pl-4">—</span>
-    </div>
-  );
-
   return (
     <div
       role="button"
@@ -78,23 +59,31 @@ export const AnnouncementBanner = ({ onNavigate, activeLang }) => {
           onNavigate && onNavigate('changelog');
         }
       }}
-      className={`announcement-banner group relative w-full overflow-hidden bg-[#060b13] cursor-pointer select-none transition-all duration-300 ease-in-out hover:bg-[#09121f] ${
+      className={`announcement-banner group relative w-full overflow-hidden cursor-pointer select-none transition-all duration-300 ease-in-out border-b border-white/[0.08] ${
         isScrolled
           ? 'max-h-0 opacity-0 py-0 border-b-0 pointer-events-none'
-          : 'max-h-12 opacity-100 py-2 border-b border-cyan-500/25 pointer-events-auto'
+          : 'max-h-12 opacity-100 py-2.5 bg-white/[0.02] hover:bg-white/[0.05] pointer-events-auto'
       }`}
       title={isVi ? "Bấm để xem nhật ký cập nhật & tải về" : "Click to view changelog & download"}
     >
-      {/* Edge Fade Gradients for smooth infinite sliding */}
-      <div className="announcement-fade-left absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-[#060b13] to-transparent z-10 pointer-events-none" />
-      <div className="announcement-fade-right absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-[#060b13] to-transparent z-10 pointer-events-none" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center gap-2 sm:gap-3 text-xs sm:text-[13px] font-sans">
+        {/* Version Badge Pill */}
+        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium bg-cyan-500/10 text-cyan-300 border border-cyan-400/25 tracking-wide shrink-0">
+          {badgeText}
+        </span>
 
-      {/* Infinite Seamless Running Marquee */}
-      <div className="flex w-max animate-marquee group-hover:[animation-play-state:paused]">
-        {itemContent('item-1')}
-        {itemContent('item-2')}
-        {itemContent('item-3')}
-        {itemContent('item-4')}
+        {/* Main Release Message */}
+        <span className="text-slate-200/90 font-normal truncate">
+          {mainMessage}
+        </span>
+
+        <span className="text-slate-500 hidden sm:inline select-none">·</span>
+
+        {/* CTA Link */}
+        <span className="text-cyan-400 font-medium inline-flex items-center gap-1 group-hover:text-cyan-300 transition-colors shrink-0">
+          <span>{ctaText}</span>
+          <ArrowRight size={13} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+        </span>
       </div>
     </div>
   );

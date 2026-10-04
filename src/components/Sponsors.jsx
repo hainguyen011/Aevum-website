@@ -1,13 +1,5 @@
 import React from 'react';
 
-import anHi from '../../assets/stickers/An_Collection/An_Hi.webp';
-import anLover from '../../assets/stickers/An_Collection/An_Lover.webp';
-import anLover2 from '../../assets/stickers/An_Collection/An_Lover2.webp';
-import anHipe from '../../assets/stickers/An_Collection/An_Hipe.webp';
-import anCurios from '../../assets/stickers/An_Collection/An_Curios.webp';
-import anAngry from '../../assets/stickers/An_Collection/An_Angry.webp';
-import anLoading from '../../assets/stickers/An_Collection/An_Loading.webp';
-import anByebye from '../../assets/stickers/An_Collection/An_byebye.webp';
 
 import unikornLogoWhite from '../../assets/unikorn-logo.webp';
 import unikornLogoDark from '../../assets/unikorn-logo-dark.webp';
@@ -231,32 +223,20 @@ export const Sponsors = ({ activeLang = 'vi' }) => {
     },
   ];
 
-  const antonStickers = [
-    { sticker: anHi, name: 'Anton Hi' },
-    { sticker: anLover, name: 'Anton Lover' },
-    { sticker: anLover2, name: 'Anton Heart' },
-    { sticker: anHipe, name: 'Anton Hipe' },
-    { sticker: anCurios, name: 'Anton Curios' },
-    { sticker: anAngry, name: 'Anton Angry' },
-    { sticker: anLoading, name: 'Anton Loading' },
-    { sticker: anByebye, name: 'Anton ByeBye' },
-  ];
-
-  const stickersLoop = [...antonStickers, ...antonStickers];
 
   return (
-    <div id="orchestration" className="border-subtle-b bg-[#0B0B11]">
+    <div id="orchestration" className="border-subtle-b bg-[#07090D]">
       
       {/* 1. Header Row (Optical Golden Ratio Balance) */}
-      <div className="section-header-optical text-center border-subtle-b bg-[#0B0B11] border-scan">
-        <span className="text-[11px] font-mono text-cyan-400 font-semibold tracking-widest uppercase">
+      <div className="section-header-optical text-center border-subtle-b bg-[#07090D] border-scan">
+        <span className="text-[11px] font-sans text-white/80 font-medium tracking-widest uppercase">
           {isVi ? 'ĐỒNG HÀNH & HỆ SINH THÁI' : 'SPONSORS & ECOSYSTEM'}
         </span>
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight mt-2 font-display">
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-medium sm:font-semibold text-white tracking-[0.01em] mt-2 font-display">
           {isVi ? (
-            <>Đồng Hành <span className="text-cyan-400">Phát Triển</span></>
+            <>Đồng Hành <span className="text-white">Phát Triển</span></>
           ) : (
-            <>Ecosystem <span className="text-cyan-400">& Partners</span></>
+            <>Ecosystem <span className="text-white">& Partners</span></>
           )}
         </h2>
         <p className="text-slate-400 text-xs sm:text-sm max-w-xl mx-auto mt-2 leading-relaxed">
@@ -270,7 +250,7 @@ export const Sponsors = ({ activeLang = 'vi' }) => {
       <div>
 
         {/* 5-Column Precision Hairline Grid (Exact 1px Thin Lines, Zero Duplication) */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 border-b border-subtle bg-[#0B0B11]">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 border-b border-subtle bg-[#07090D]">
           {sponsorsList.map((item) => {
             if (item.isCallout) {
               return (
@@ -280,7 +260,7 @@ export const Sponsors = ({ activeLang = 'vi' }) => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={isVi ? "Tài trợ Aevum OS" : "Sponsor Aevum OS"}
-                  className="sponsor-grid-cell h-24 sm:h-28 flex items-center justify-center p-5 bg-[#0B0B11] hover:bg-[#0f1018] text-slate-400/70 [html[data-theme='light']_&]:text-slate-600 hover:text-cyan-400 [html[data-theme='light']_&]:hover:text-cyan-600 transition-colors duration-200 select-none group"
+                  className="sponsor-grid-cell h-24 sm:h-28 flex items-center justify-center p-5 bg-[#07090D] hover:bg-[#0f1018] text-slate-400/70 [html[data-theme='light']_&]:text-slate-600 hover:text-cyan-400 [html[data-theme='light']_&]:hover:text-cyan-600 transition-colors duration-200 select-none group"
                 >
                   <span className="text-xs sm:text-sm font-mono font-bold tracking-widest uppercase transition-transform duration-200 group-hover:scale-[1.03]">
                     {isVi ? 'TÀI TRỢ' : 'SPONSOR'}
@@ -297,7 +277,7 @@ export const Sponsors = ({ activeLang = 'vi' }) => {
                 rel="noopener noreferrer"
                 title={item.id}
                 aria-label={`Đối tác ${item.id}`}
-                className="sponsor-grid-cell h-24 sm:h-28 flex items-center justify-center p-5 bg-[#0B0B11] hover:bg-[#0f1018] text-slate-400/70 [html[data-theme='light']_&]:text-slate-600 hover:text-slate-100 [html[data-theme='light']_&]:hover:text-slate-950 transition-colors duration-200 select-none group"
+                className="sponsor-grid-cell h-24 sm:h-28 flex items-center justify-center p-5 bg-[#07090D] hover:bg-[#0f1018] text-slate-400/70 [html[data-theme='light']_&]:text-slate-600 hover:text-slate-100 [html[data-theme='light']_&]:hover:text-slate-950 transition-colors duration-200 select-none group"
               >
                 <div className="transition-transform duration-200 group-hover:scale-[1.03]">
                   {item.component}
@@ -309,7 +289,7 @@ export const Sponsors = ({ activeLang = 'vi' }) => {
       </div>
 
       {/* 3. Infinite Ticker Bar (Matte, Running Text Quotes) */}
-      <div className="relative overflow-hidden border-subtle-b bg-[#0B0B11] py-3">
+      <div className="relative overflow-hidden border-subtle-b bg-[#07090D] py-3">
         <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-16 marquee-fade-left z-10" />
         <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 marquee-fade-right z-10" />
 
@@ -321,32 +301,6 @@ export const Sponsors = ({ activeLang = 'vi' }) => {
             >
               {q}
             </span>
-          ))}
-        </div>
-      </div>
-
-      {/* 4. Infinite Running Stickers (Matte Flat Stickers of An, Zero Shadow) */}
-      <div className="relative overflow-hidden bg-[#0B0B11] py-8 group">
-        <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-24 marquee-fade-left z-10" />
-        <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-24 marquee-fade-right z-10" />
-
-        <div className="animate-marquee-reverse gap-12 sm:gap-16 px-4 items-center flex">
-          {stickersLoop.map((item, idx) => (
-            <div 
-              key={idx}
-              className="flex-shrink-0 flex items-center justify-center py-2 transition-transform duration-200 hover:scale-110 cursor-pointer"
-            >
-              <img 
-                src={item.sticker} 
-                alt={item.name} 
-                loading="lazy"
-                decoding="async"
-                width="144"
-                height="144"
-                className="w-24 h-24 sm:w-28 sm:h-28 object-contain shadow-none"
-                style={{ boxShadow: 'none', filter: 'none' }}
-              />
-            </div>
           ))}
         </div>
       </div>

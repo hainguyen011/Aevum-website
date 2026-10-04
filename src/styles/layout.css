@@ -1,0 +1,84 @@
+/**
+ * AEVUM OS LAYOUT & GEOMETRY ARCHITECTURE
+ * Monolithic Grid Frame • Golden Ratio Section Rhythm (Phi = 1.618) • Hairline Seams
+ */
+
+/* Monolithic Grid Frame Container */
+.monolithic-frame {
+  width: calc(100% - 5.5rem);
+  max-width: 1640px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: var(--bg-frame);
+}
+
+@media (max-width: 768px) {
+  .monolithic-frame {
+    width: 100%;
+  }
+}
+
+/* Optical Section Header Rhythm (Phi = 1.618 Headroom Balance) */
+.section-header-optical {
+  padding-top: clamp(2.5rem, 5.5vw, 4.5rem);     /* ~55px - 72px */
+  padding-bottom: clamp(1.75rem, 3.5vw, 2.75rem); /* ~34px - 44px (1.618 ratio to top) */
+  padding-left: clamp(1.5rem, 4vw, 3.5rem);
+  padding-right: clamp(1.5rem, 4vw, 3.5rem);
+}
+
+/* Precision Hairline Seam Borders (1px Matte Line Grid) */
+.border-subtle {
+  border: 1px solid var(--border-subtle);
+}
+
+.border-subtle-b {
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.border-subtle-t {
+  border-top: 1px solid var(--border-subtle);
+}
+
+.border-subtle-r {
+  border-right: 1px solid var(--border-subtle);
+}
+
+.border-subtle-l {
+  border-left: 1px solid var(--border-subtle);
+}
+
+.border-cyan-subtle {
+  border: 1px solid var(--border-cyan-faint);
+}
+
+/* Global Faint Border Override for Tailwind utility classes */
+.border-white\/5,
+.border-white\/10,
+.border-white\/12,
+.border-white\/14,
+.border-white\/20 {
+  border-color: var(--border-faint);
+}
+
+/* Scroll Margin Top for Sticky Navbar Clearance */
+#cli,
+#breakthroughs,
+#agents,
+#architecture,
+#orchestration,
+#testimonials,
+#unikorn,
+#i2flabs {
+  scroll-margin-top: 80px;
+}
+
+/* Docked Right Seam for Utility Toolbar */
+.docked-right-seam {
+  right: calc((100vw - min(100vw - 5.5rem, 1640px)) / 2 - 19px);
+}
+
+@media (max-width: 768px) {
+  .docked-right-seam {
+    right: 1rem;
+  }
+}

@@ -159,13 +159,13 @@ export const I2FLabsSection = ({ activeLang }) => {
     const parts = titleText.split('I2FLabs');
     titleNode = (
       <>
-        {parts[0]}<span className="text-cyan-400">I2FLabs</span>{parts[1]}
+        {parts[0]}<span className="text-white">I2FLabs</span>{parts[1]}
       </>
     );
   }
 
   return (
-    <div id="i2flabs" className="bg-[#0B0B11] border-b border-white/10 relative">
+    <div id="i2flabs" className="bg-[#07090D] border-b border-white/10 relative">
 
       {/* === Hero Header: Content Left / Cute Dodging Logo Right === */}
       <div className="grid grid-cols-1 lg:grid-cols-2 items-stretch min-h-[280px]">
@@ -223,12 +223,12 @@ export const I2FLabsSection = ({ activeLang }) => {
         {/* RIGHT: Hero Content */}
         <div className="px-8 sm:px-12 py-10 sm:py-14 space-y-4 flex flex-col justify-center order-2">
           {/* Label */}
-          <div className="text-[10px] font-mono font-bold text-cyan-400 tracking-[0.2em] uppercase select-none">
+          <div className="text-[10px] font-sans font-medium text-white/80 tracking-[0.15em] uppercase select-none">
             ENGINEERED BY I2FLABS VIET NAM
           </div>
 
           {/* Title */}
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white font-display leading-tight">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-medium sm:font-semibold text-white tracking-[0.01em] font-display leading-tight">
             {titleNode}
           </h2>
 

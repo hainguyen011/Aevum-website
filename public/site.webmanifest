@@ -4,8 +4,8 @@
   "description": "Independent workspace Operating System and External Brain housing domain-driven planning, memory graphs, and autonomous multi-agent squad orchestration.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0B0B11",
-  "theme_color": "#0B0B11",
+  "background_color": "#07090D",
+  "theme_color": "#07090D",
   "icons": [
     {
       "src": "/favicon-16x16.png",

@@ -257,11 +257,11 @@ export const About = ({ activeLang }) => {
   }, [folderStack]);
 
   return (
-    <div id="about" className="w-full bg-[#0B0B11] text-slate-100 min-h-[calc(100vh-73px)] font-sans flex flex-col">
+    <div id="about" className="w-full bg-[#07090D] text-slate-100 min-h-[calc(100vh-73px)] font-sans flex flex-col">
       
       {isLoading ? (
         /* 2.5s Retro Loading Screen with Pure Transparent Logo */
-        <div className="border-subtle-b bg-[#0B0B11] py-10 px-6 lg:px-10 h-[520px] max-h-[75vh] flex flex-col items-center justify-center text-center font-mono relative overflow-hidden flex-1">
+        <div className="border-subtle-b bg-[#07090D] py-10 px-6 lg:px-10 h-[520px] max-h-[75vh] flex flex-col items-center justify-center text-center font-mono relative overflow-hidden flex-1">
           
           {/* Rendered Transparent Logo Image */}
           <div className="relative z-10 space-y-4 max-w-xl mx-auto flex flex-col items-center">
@@ -289,10 +289,10 @@ export const About = ({ activeLang }) => {
         </div>
       ) : (
         /* Authentic Transparent Terminal UI (TUI) Screen - Full-width Border Header & Equal Vertical Padding */
-        <div className="border-subtle-b bg-[#0B0B11] text-left font-mono relative overflow-hidden flex-1 flex flex-col w-full">
+        <div className="border-subtle-b bg-[#07090D] text-left font-mono relative overflow-hidden flex-1 flex flex-col w-full">
 
           {/* Full-width Terminal Header Bar (Border-bottom touches both parent edges 100%, Equal Top & Bottom Padding) */}
-          <div className="w-full border-b border-white/10 py-5 px-6 lg:px-10 bg-[#0B0B11] relative z-10">
+          <div className="w-full border-b border-white/10 py-5 px-6 lg:px-10 bg-[#07090D] relative z-10">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs font-mono text-slate-400">
               <div className="flex items-center gap-3">
                 <span className="text-white font-bold tracking-wider">AEVUM TTY INTERACTIVE SHELL v1.0.0</span>

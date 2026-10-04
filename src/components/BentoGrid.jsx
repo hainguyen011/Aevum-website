@@ -37,14 +37,14 @@ export const BentoGrid = ({ activeLang }) => {
     setActiveSlide(idx);
   };
 
-  // Render title with cyan highlight span programmatically
+  // Render title with highlight span programmatically
   const titleText = t.bentoGrid.title;
   let titleNode = titleText;
   if (titleText.includes("Aevum OS")) {
     const parts = titleText.split("Aevum OS");
     titleNode = (
       <>
-        {parts[0]}<span className="text-cyan-400">Aevum OS</span>{parts[1]}
+        {parts[0]}<span className="text-white">Aevum OS</span>{parts[1]}
       </>
     );
   }
@@ -121,11 +121,11 @@ export const BentoGrid = ({ activeLang }) => {
   }, [activeSlide, activeLang]);
 
   return (
-    <div id="breakthroughs" className="border-subtle-b bg-[#0B0B11]">
+    <div id="breakthroughs" className="border-subtle-b bg-[#07090D]">
 
       {/* Section Header Cell */}
-      <div className="section-header-optical text-center border-subtle-b bg-[#0B0B11] border-scan">
-        <span className="text-[11px] font-mono text-cyan-400 font-semibold tracking-widest uppercase">
+      <div className="section-header-optical text-center border-subtle-b bg-[#07090D] border-scan">
+        <span className="text-[11px] font-mono text-white font-semibold tracking-widest uppercase">
           {t.bentoGrid.tag}
         </span>
         <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-2 font-display">

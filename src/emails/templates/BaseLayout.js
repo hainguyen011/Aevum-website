@@ -1,6 +1,6 @@
 /**
  * Aevum OS - Centered Elegant Email Base Layout Template (Prominent Logo Size)
- * 100% aligned with website's Aevum Design System (Centered Text, White CTA Button, #0B0B11 background).
+ * 100% aligned with website's Aevum Design System (Centered Text, White CTA Button, #07090D background).
  * Uses public HTTPS GitHub CDN URL for 100% error-free rendering in Gmail, Outlook, Yahoo, and Webmail.
  */
 export function BaseEmailLayout({ previewText, headerTitle, contentHtml, footerText, logoUrl }) {
@@ -23,7 +23,7 @@ export function BaseEmailLayout({ previewText, headerTitle, contentHtml, footerT
   <style>
     body {
       font-family: 'Inter', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background-color: #0B0B11;
+      background-color: #07090D;
       color: #E2E8F0;
       margin: 0;
       padding: 0;
@@ -33,13 +33,13 @@ export function BaseEmailLayout({ previewText, headerTitle, contentHtml, footerT
     .wrapper {
       width: 100%;
       table-layout: fixed;
-      background-color: #0B0B11;
+      background-color: #07090D;
       padding: 40px 12px;
     }
     .main-container {
       max-width: 580px;
       margin: 0 auto;
-      background-color: #0B0B11;
+      background-color: #07090D;
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 8px;
       overflow: hidden;
@@ -48,7 +48,7 @@ export function BaseEmailLayout({ previewText, headerTitle, contentHtml, footerT
     .header {
       padding: 36px 28px 16px 28px;
       text-align: center;
-      background-color: #0B0B11;
+      background-color: #07090D;
     }
     .logo-img {
       height: 60px;
@@ -103,7 +103,7 @@ export function BaseEmailLayout({ previewText, headerTitle, contentHtml, footerT
     }
     .footer {
       padding: 24px 20px;
-      background-color: #0B0B11;
+      background-color: #07090D;
       border-top: 1px solid rgba(255, 255, 255, 0.06);
       text-align: center;
       font-size: 12px;
@@ -118,7 +118,7 @@ export function BaseEmailLayout({ previewText, headerTitle, contentHtml, footerT
   </style>
 </head>
 <body>
-  ${previewText ? `<div style="display:none;font-size:1px;color:#0b0b11;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;">${previewText}</div>` : ''}
+  ${previewText ? `<div style="display:none;font-size:1px;color:#07090D;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;">${previewText}</div>` : ''}
   <div class="wrapper">
     <div class="main-container">
       <div class="header">

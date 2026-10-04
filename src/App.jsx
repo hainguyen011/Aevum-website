@@ -6,9 +6,7 @@ import { SubNavTabs } from './components/SubNavTabs';
 import { ScrollToTop } from './components/ScrollToTop';
 
 // Code-split below-the-fold landing components for ultra-fast Mobile FCP & LCP (<0.8s)
-const BentoGrid = lazy(() => import('./components/BentoGrid').then(m => ({ default: m.BentoGrid })));
 const AgentsShowcase = lazy(() => import('./components/AgentsShowcase').then(m => ({ default: m.AgentsShowcase })));
-const FoundationGrid = lazy(() => import('./components/FoundationGrid').then(m => ({ default: m.FoundationGrid })));
 const Testimonials = lazy(() => import('./components/Testimonials').then(m => ({ default: m.Testimonials })));
 const UnikornSection = lazy(() => import('./components/UnikornSection').then(m => ({ default: m.UnikornSection })));
 const I2FLabsSection = lazy(() => import('./components/I2FLabsSection').then(m => ({ default: m.I2FLabsSection })));
@@ -797,21 +795,16 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
                     />
 
                     {/* Sub Nav Category Tabs Row */}
-                    <SubNavTabs activeLang={activeLang} />
+                    <SubNavTabs activeLang={activeLang} onNavigate={handleNavigate} />
 
                     {/* Below-the-fold Lazy Loaded Sections with zero main-thread block */}
                     <Suspense fallback={<div className="min-h-[200px]" />}>
-                      {/* Section 1: Bento Grid Feature Showcase Row */}
-                      <BentoGrid activeLang={activeLang} />
 
                       {/* Dedicated Default Aevum AI Agents Squad Showcase Section */}
                       <AgentsShowcase
                         activeLang={activeLang}
                         onOpenTrialModal={handleOpenTrialModal}
                       />
-
-                      {/* Section 2: Architecture & Foundation Grid Row */}
-                      <FoundationGrid activeLang={activeLang} />
 
                       {/* Section 3: Transparent Pricing & Membership Tiers */}
                       <Pricing

@@ -54,7 +54,7 @@ export const CustomSelect = ({ options, value, onChange, placeholder = 'Select o
 
       {/* Custom Dropdown List */}
       {isOpen && (
-        <div className="absolute left-0 right-0 top-full mt-1.5 bg-[#0B0B11] border border-white/20 rounded-md overflow-hidden z-50 max-h-56 overflow-y-auto animate-in fade-in zoom-in-95 duration-100 font-mono text-xs divide-y divide-white/5">
+        <div className="absolute left-0 right-0 top-full mt-1.5 bg-[#07090D] border border-white/20 rounded-md overflow-hidden z-50 max-h-56 overflow-y-auto animate-in fade-in zoom-in-95 duration-100 font-mono text-xs divide-y divide-white/5">
           {options.map((opt, idx) => {
             const optValue = typeof opt === 'object' ? opt.value : opt;
             const optLabel = typeof opt === 'object' ? opt.label : opt;

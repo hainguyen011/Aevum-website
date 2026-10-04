@@ -18,10 +18,10 @@ export const FrameworkFlow = ({ activeLang }) => {
   }
 
   return (
-    <div id="framework-flow" className="border-subtle-b bg-[#0B0B11] relative overflow-hidden">
+    <div id="framework-flow" className="border-subtle-b bg-[#07090D] relative overflow-hidden">
 
       {/* Section Header */}
-      <div className="pt-10 pb-6 sm:pt-14 sm:pb-8 px-6 sm:px-12 text-center border-subtle-b bg-[#0B0B11] relative z-10 border-scan">
+      <div className="pt-10 pb-6 sm:pt-14 sm:pb-8 px-6 sm:px-12 text-center border-subtle-b bg-[#07090D] relative z-10 border-scan">
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight font-display">
           {title1} <span className="text-gradient block sm:inline">{title2}</span>
         </h2>
@@ -45,7 +45,7 @@ export const FrameworkFlow = ({ activeLang }) => {
       {/* 3 Infrastructure Pillars Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 border-subtle-t">
         {/* Pillar 1 */}
-        <div className="p-6 sm:p-8 border-subtle-b md:border-subtle-b-0 md:border-subtle-r space-y-2.5 bg-[#0B0B11] hover:bg-white/[0.02] transition-colors">
+        <div className="p-6 sm:p-8 border-subtle-b md:border-subtle-b-0 md:border-subtle-r space-y-2.5 bg-[#07090D] hover:bg-white/[0.02] transition-colors">
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-mono font-bold text-cyan-400 uppercase tracking-widest">
               {t.frameworkFlow.pillar1Tag || 'CHỦ QUYỀN DỮ LIỆU'}
@@ -63,7 +63,7 @@ export const FrameworkFlow = ({ activeLang }) => {
         </div>
 
         {/* Pillar 2 */}
-        <div className="p-6 sm:p-8 border-subtle-b md:border-subtle-b-0 md:border-subtle-r space-y-2.5 bg-[#0B0B11] hover:bg-white/[0.02] transition-colors">
+        <div className="p-6 sm:p-8 border-subtle-b md:border-subtle-b-0 md:border-subtle-r space-y-2.5 bg-[#07090D] hover:bg-white/[0.02] transition-colors">
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-mono font-bold text-indigo-400 uppercase tracking-widest">
               {t.frameworkFlow.pillar2Tag || 'CHUẨN MỰC QUỐC TẾ'}
@@ -81,7 +81,7 @@ export const FrameworkFlow = ({ activeLang }) => {
         </div>
 
         {/* Pillar 3 */}
-        <div className="p-6 sm:p-8 space-y-2.5 bg-[#0B0B11] hover:bg-white/[0.02] transition-colors">
+        <div className="p-6 sm:p-8 space-y-2.5 bg-[#07090D] hover:bg-white/[0.02] transition-colors">
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-mono font-bold text-emerald-400 uppercase tracking-widest">
               {t.frameworkFlow.pillar3Tag || 'MẠNG LƯỚI TRI THỨC'}

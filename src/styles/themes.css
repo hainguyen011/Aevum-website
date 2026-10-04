@@ -1,0 +1,99 @@
+/**
+ * AEVUM OS THEME SYSTEM ARCHITECTURE
+ * Dark Theme Defaults • Light Theme Overrides • Eye Care Filter • View Transitions API
+ */
+
+/* Light Theme Typography & Surface Overrides */
+html[data-theme="light"] {
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+}
+
+html[data-theme="light"] .text-white {
+  color: #0F172A !important;
+}
+
+html[data-theme="light"] .text-slate-100,
+html[data-theme="light"] .text-slate-200 {
+  color: #1E293B !important;
+}
+
+html[data-theme="light"] .text-slate-300,
+html[data-theme="light"] .text-slate-400 {
+  color: #334155 !important;
+}
+
+html[data-theme="light"] .text-slate-500 {
+  color: #64748B !important;
+}
+
+/* Accent Standard for Light Mode */
+html[data-theme="light"] .section-tag,
+html[data-theme="light"] .kicker-tag,
+html[data-theme="light"] .title-accent,
+html[data-theme="light"] .text-accent {
+  color: #0F172A !important;
+}
+
+/* Cyan & Blue Accent Overrides for Light Mode */
+html[data-theme="light"] .text-cyan-400,
+html[data-theme="light"] .text-cyan-300 {
+  color: #0284c7 !important;
+}
+
+html[data-theme="light"] .text-cyan-500,
+html[data-theme="light"] .text-cyan-600 {
+  color: #0369a1 !important;
+}
+
+/* Light Theme Faint Backgrounds */
+html[data-theme="light"] .bg-white\/5,
+html[data-theme="light"] .bg-white\/\[0\.02\],
+html[data-theme="light"] .bg-white\/\[0\.03\],
+html[data-theme="light"] .bg-white\/\[0\.04\],
+html[data-theme="light"] .bg-white\/\[0\.05\],
+html[data-theme="light"] .bg-white\/\[0\.08\] {
+  background-color: rgba(15, 23, 42, 0.05) !important;
+}
+
+html[data-theme="light"] .hover\:bg-white\/\[0\.02\]:hover,
+html[data-theme="light"] .hover\:bg-white\/\[0\.08\]:hover,
+html[data-theme="light"] .hover\:bg-white\/10:hover {
+  background-color: rgba(15, 23, 42, 0.08) !important;
+}
+
+html[data-theme="light"] .border-white\/5,
+html[data-theme="light"] .border-white\/10,
+html[data-theme="light"] .border-white\/15,
+html[data-theme="light"] .border-white\/20 {
+  border-color: rgba(15, 23, 42, 0.12) !important;
+}
+
+html[data-theme="light"] .glass-panel {
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(15, 23, 42, 0.06);
+}
+
+/* Eye Care Warm Lighting Overlay Filter */
+.eye-care-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-color: rgba(245, 158, 11, 0.08);
+  mix-blend-mode: multiply;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: var(--z-cursor);
+}
+
+.eye-care-overlay.active {
+  opacity: 1;
+}
+
+/* View Transitions API Circular Wave */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}

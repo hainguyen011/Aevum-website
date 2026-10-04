@@ -1,0 +1,92 @@
+/**
+ * AEVUM OS TYPOGRAPHY ARCHITECTURE
+ * Clean Modern Precision Typography • High Contrast Hierarchy • Pure White Text Accents
+ */
+
+/* Global Selection */
+::selection {
+  background-color: var(--electron-blue);
+  color: #000000;
+}
+
+/* Base Body Typography */
+html, body {
+  font-family: 'Google Sans Flex', var(--font-sans);
+  color: var(--text-primary);
+  background-color: var(--bg-dark);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+button, input, select, textarea {
+  font-family: 'Google Sans Flex', inherit;
+}
+
+/* Heading Scale (Google DeepMind Standard Weights 450 - 500) */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Google Sans Flex', var(--font-display);
+  font-weight: 500;
+  letter-spacing: var(--letter-spacing-heading);
+  color: var(--text-primary);
+  line-height: var(--line-height-heading);
+  text-wrap: pretty;
+}
+
+h1 {
+  letter-spacing: var(--letter-spacing-display);
+  line-height: var(--line-height-display);
+}
+
+/* Technical Font Helper */
+.font-display {
+  font-family: 'Google Sans Flex', var(--font-display);
+}
+
+.font-sans {
+  font-family: 'Google Sans Flex', var(--font-sans);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Standardized Section Kicker / Sub-brand Tag (Standard Google DeepMind Typography) */
+.section-tag,
+.kicker-tag {
+  font-family: 'Google Sans Flex', var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-accent);
+  display: inline-block;
+}
+
+/* Standardized Heading Accent Span (Pure White Text Accent) */
+.title-accent,
+.text-accent {
+  color: var(--text-accent) !important;
+}
+
+/* Section Subtitle Rhythm */
+.section-subtitle {
+  font-size: clamp(0.75rem, 1.5vw, 0.875rem);
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 38rem;
+  margin-top: 0.5rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Text Wrapping & Balance */
+.whitespace-nowrap,
+.text-nowrap {
+  white-space: nowrap !important;
+  text-wrap: nowrap !important;
+}
+
+.text-balance {
+  text-wrap: balance;
+}

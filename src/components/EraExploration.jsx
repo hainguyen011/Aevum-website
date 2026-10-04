@@ -580,7 +580,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
   }, [activeContent, fontSize, parseInlineStyles]);
 
   return (
-    <div className="w-full min-h-[calc(100vh-73px)] bg-[#0B0B11] [html[data-theme='light']_&]:bg-[#F8FAFC] text-slate-200 [html[data-theme='light']_&]:text-slate-800 era-exploration-root font-sans">
+    <div className="w-full min-h-[calc(100vh-73px)] bg-[#07090D] [html[data-theme='light']_&]:bg-[#F8FAFC] text-slate-200 [html[data-theme='light']_&]:text-slate-800 era-exploration-root font-sans">
 
       {/* Top Reading Progress Bar (Monochrome Style) */}
       {viewMode === 'reader' && (
@@ -594,7 +594,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
       {/* ========================================================================= */}
       {/* 1. QUIET & REFINED HEADER                                                 */}
       {/* ========================================================================= */}
-      <div className="w-full border-b border-white/10 [html[data-theme='light']_&]:border-slate-200/80 bg-[#0B0B11] [html[data-theme='light']_&]:bg-[#F8FAFC]">
+      <div className="w-full border-b border-white/10 [html[data-theme='light']_&]:border-slate-200/80 bg-[#07090D] [html[data-theme='light']_&]:bg-[#F8FAFC]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-7 sm:py-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div className="space-y-1.5 max-w-2xl">
@@ -654,14 +654,14 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
       {viewMode === 'grid' && (
         <div className="w-full">
           {/* Navigation & Search Strip */}
-          <div className="w-full border-b border-white/10 [html[data-theme='light']_&]:border-slate-200/80 bg-[#0B0B11] [html[data-theme='light']_&]:bg-[#F8FAFC] sticky top-16 z-30">
+          <div className="w-full border-b border-white/10 [html[data-theme='light']_&]:border-slate-200/80 bg-[#07090D] [html[data-theme='light']_&]:bg-[#F8FAFC] sticky top-16 z-30">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
               {/* Category Filter Links — scrollable with arrow nav */}
               <div className="relative flex items-center flex-1 min-w-0">
                 {tabCanScrollLeft && (
                   <button
                     onClick={() => scrollTabs(-1)}
-                    className="shrink-0 flex items-center justify-center w-6 h-6 mr-1 rounded text-slate-400 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors cursor-pointer z-10 bg-[#0B0B11] [html[data-theme='light']_&]:bg-[#F8FAFC]"
+                    className="shrink-0 flex items-center justify-center w-6 h-6 mr-1 rounded text-slate-400 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors cursor-pointer z-10 bg-[#07090D] [html[data-theme='light']_&]:bg-[#F8FAFC]"
                   >
                     <ChevronLeft size={14} />
                   </button>
@@ -699,7 +699,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                 {tabCanScrollRight && (
                   <button
                     onClick={() => scrollTabs(1)}
-                    className="shrink-0 flex items-center justify-center w-6 h-6 ml-1 rounded text-slate-400 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors cursor-pointer z-10 bg-[#0B0B11] [html[data-theme='light']_&]:bg-[#F8FAFC]"
+                    className="shrink-0 flex items-center justify-center w-6 h-6 ml-1 rounded text-slate-400 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors cursor-pointer z-10 bg-[#07090D] [html[data-theme='light']_&]:bg-[#F8FAFC]"
                   >
                     <ChevronRight size={14} />
                   </button>
@@ -824,7 +824,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                 />
 
                 {/* Drawer Container */}
-                <div className={`absolute top-0 bottom-0 left-0 w-80 max-w-[85vw] bg-[#0B0B11] [html[data-theme='light']_&]:bg-[#F8FAFC] border-r border-white/10 [html[data-theme='light']_&]:border-slate-200 shadow-2xl flex flex-col transition-transform duration-300 ${mobileDrawerOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+                <div className={`absolute top-0 bottom-0 left-0 w-80 max-w-[85vw] bg-[#07090D] [html[data-theme='light']_&]:bg-[#F8FAFC] border-r border-white/10 [html[data-theme='light']_&]:border-slate-200 shadow-2xl flex flex-col transition-transform duration-300 ${mobileDrawerOpen ? 'translate-x-0' : '-translate-x-full'}`}>
                   {/* Drawer Header */}
                   <div className="p-4 border-b border-white/10 [html[data-theme='light']_&]:border-slate-200 flex items-center justify-between">
                     <span className="font-mono text-xs font-bold text-white [html[data-theme='light']_&]:text-slate-900 uppercase tracking-wider">
@@ -968,7 +968,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
             {/* Mobile Sticky Menu Trigger */}
             <button
               onClick={() => setMobileDrawerOpen(true)}
-              className={`lg:hidden sticky top-[76px] ml-4 mt-4 z-30 px-3 py-2 rounded-lg bg-[#0B0B11]/90 [html[data-theme='light']_&]:bg-white/95 backdrop-blur-md text-white [html[data-theme='light']_&]:text-slate-900 border border-white/15 [html[data-theme='light']_&]:border-slate-300 shadow-md flex items-center gap-2 cursor-pointer transition-all duration-300 self-start ${
+              className={`lg:hidden sticky top-[76px] ml-4 mt-4 z-30 px-3 py-2 rounded-lg bg-[#07090D]/90 [html[data-theme='light']_&]:bg-white/95 backdrop-blur-md text-white [html[data-theme='light']_&]:text-slate-900 border border-white/15 [html[data-theme='light']_&]:border-slate-300 shadow-md flex items-center gap-2 cursor-pointer transition-all duration-300 self-start ${
                 isMobileBtnVisible ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-30 scale-95 hover:opacity-100'
               }`}
               aria-label="Mở mục lục bài học"

@@ -1,289 +1,305 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
-import { translations } from '../data/translations';
-import { Copy, Check, Terminal, ChevronRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { ChevronRight } from 'lucide-react';
 
-export const SubNavTabs = ({ activeLang }) => {
-  const t = translations[activeLang] || translations.en;
+export const SubNavTabs = ({ activeLang = 'en', onNavigate }) => {
+  const isVi = activeLang === 'vi';
+  const [activeId, setActiveId] = useState('kernel-mcp');
+  const [activeCategory, setActiveCategory] = useState('all');
 
-  const rawTabs = [
-    { key: 'tab1', default: 'Standalone OS Kernel' },
-    { key: 'tab2', default: 'Handshake Ritual' },
-    { key: 'tab3', default: 'Domain DDD Brain' },
-    { key: 'tab4', default: 'Squad Orchestration' },
-    { key: 'tab5', default: 'Plan-First Pipeline' },
-    { key: 'tab6', default: 'PiperNet (IoA)' },
+  // 6 Foundational Architectural Subsystems (Google DeepMind Card Format)
+  const subsystems = [
+    {
+      id: 'kernel-mcp',
+      categoryKey: 'core',
+      title: isVi
+        ? 'Aevum Kernel: Lõi daemon MCP cho mọi AI IDE'
+        : 'Aevum Kernel: Decoupled local MCP daemon for AI IDEs',
+      category: isVi ? 'Kiến Trúc Cốt Lõi' : 'Core Architecture',
+      date: isVi ? 'Tháng 10, 2026' : 'October 2026',
+      target: 'docs',
+      gradient: 'linear-gradient(180deg, #38bdf8 0%, #0284c7 28%, #0c4a6e 62%, #07090D 100%)',
+    },
+    {
+      id: 'handshake-ritual',
+      categoryKey: 'core',
+      title: isVi
+        ? 'Handshake Ritual: Nghi thức 5 bước bảo toàn ngữ cảnh code'
+        : 'Handshake Ritual: 5-step protocol preventing AI context amnesia',
+      category: isVi ? 'Giao Thức Ngữ Cảnh' : 'Context Protocol',
+      date: isVi ? 'Tháng 10, 2026' : 'October 2026',
+      target: 'docs',
+      gradient: 'linear-gradient(180deg, #22d3ee 0%, #0284c7 28%, #0f2b48 62%, #07090D 100%)',
+    },
+    {
+      id: 'living-memory',
+      categoryKey: 'core',
+      title: isVi
+        ? 'Living Memory: Đồ thị tri thức tự chữa lành & lưu trữ vĩnh cửu'
+        : 'Living Memory: Self-healing knowledge graph & permanent memory',
+      category: isVi ? 'Đồ Thị Nhận Thức' : 'Cognitive Graph',
+      date: isVi ? 'Tháng 10, 2026' : 'October 2026',
+      target: 'explore',
+      gradient: 'linear-gradient(180deg, #c084fc 0%, #9333ea 30%, #4c1d95 65%, #07090D 100%)',
+    },
+    {
+      id: 'autonomous-squads',
+      categoryKey: 'mesh',
+      title: isVi
+        ? 'Autonomous Squads: Biệt đội đa tác tử với cơ chế handoff tự trị'
+        : 'Autonomous Squads: Multi-agent coordination with proactive handoffs',
+      category: isVi ? 'Mạng Lưới Đa Tác Tử' : 'Multi-Agent Mesh',
+      date: isVi ? 'Tháng 10, 2026' : 'October 2026',
+      target: 'about',
+      gradient: 'linear-gradient(180deg, #34d399 0%, #059669 30%, #064e3b 65%, #07090D 100%)',
+    },
+    {
+      id: 'plan-first',
+      categoryKey: 'mesh',
+      title: isVi
+        ? 'Plan-First Engineering: Bản vẽ kiến trúc DDD trước khi sinh code'
+        : 'Plan-First Engineering: Domain-driven architectural blueprints',
+      category: isVi ? 'Quy Chuẩn Kiến Trúc' : 'Architecture Specs',
+      date: isVi ? 'Tháng 10, 2026' : 'October 2026',
+      target: 'docs',
+      gradient: 'linear-gradient(180deg, #60a5fa 0%, #2563eb 30%, #1e3a8a 65%, #07090D 100%)',
+    },
+    {
+      id: 'pipernet-mesh',
+      categoryKey: 'mesh',
+      title: isVi
+        ? 'PiperNet Mesh: Mạng lưới P2P chia sẻ tri thức IoA toàn cầu'
+        : 'PiperNet Mesh: Global peer-to-peer decentralized wisdom mesh',
+      category: isVi ? 'Hạ Tầng Phân Tán' : 'Decentralized IoA',
+      date: isVi ? 'Tháng 10, 2026' : 'October 2026',
+      target: 'docs',
+      gradient: 'linear-gradient(180deg, #38bdf8 0%, #1d4ed8 30%, #172554 65%, #07090D 100%)',
+    },
   ];
 
-  const [activeTabKey, setActiveTabKey] = useState('tab1');
-  const [copied, setCopied] = useState(false);
+  // Active Featured Subsystem (Left Column)
+  const activeSubsystem = subsystems.find((s) => s.id === activeId) || subsystems[0];
 
-  // Desktop indicator positions
-  const desktopContainerRef = useRef(null);
-  const desktopTabRefs = useRef({});
-  const [desktopPill, setDesktopPill] = useState({ left: 0, width: 0, opacity: 0 });
-  const [hoverPill, setHoverPill] = useState({ left: 0, width: 0, opacity: 0 });
+  // Filtered Side List
+  const candidateList = subsystems.filter((s) => {
+    if (activeCategory === 'core') return s.categoryKey === 'core';
+    if (activeCategory === 'mesh') return s.categoryKey === 'mesh';
+    return true;
+  });
 
-  // Mobile indicator positions
-  const mobileContainerRef = useRef(null);
-  const mobileTabRefs = useRef({});
-  const [mobilePill, setMobilePill] = useState({ left: 0, width: 0, opacity: 0 });
+  // Ensure side list doesn't include the active featured item
+  const sideSubsystems = candidateList.filter((s) => s.id !== activeSubsystem.id);
 
-  // Measure and update active indicator coordinates
-  const updateIndicators = useCallback(() => {
-    // 1. Desktop indicator update
-    const dContainer = desktopContainerRef.current;
-    const dActiveEl = desktopTabRefs.current[activeTabKey];
-    if (dContainer && dActiveEl) {
-      const cRect = dContainer.getBoundingClientRect();
-      const elRect = dActiveEl.getBoundingClientRect();
-      setDesktopPill({
-        left: elRect.left - cRect.left,
-        width: elRect.width,
-        opacity: 1,
-      });
-    }
-
-    // 2. Mobile indicator update
-    const mContainer = mobileContainerRef.current;
-    const mActiveEl = mobileTabRefs.current[activeTabKey];
-    if (mContainer && mActiveEl) {
-      setMobilePill({
-        left: mActiveEl.offsetLeft,
-        width: mActiveEl.offsetWidth,
-        opacity: 1,
-      });
-    }
-  }, [activeTabKey]);
-
-  useEffect(() => {
-    // Initial and responsive measurements
-    updateIndicators();
-    const handleResize = () => {
-      requestAnimationFrame(updateIndicators);
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [updateIndicators]);
-
-  // Handle Desktop Hover Ghost Pill
-  const handleDesktopTabHover = (key) => {
-    if (key === activeTabKey) {
-      setHoverPill(prev => ({ ...prev, opacity: 0 }));
-      return;
-    }
-    const dContainer = desktopContainerRef.current;
-    const targetEl = desktopTabRefs.current[key];
-    if (dContainer && targetEl) {
-      const cRect = dContainer.getBoundingClientRect();
-      const elRect = targetEl.getBoundingClientRect();
-      setHoverPill({
-        left: elRect.left - cRect.left,
-        width: elRect.width,
-        opacity: 1,
-      });
-    }
-  };
-
-  const handleDesktopTabLeave = () => {
-    setHoverPill(prev => ({ ...prev, opacity: 0 }));
-  };
-
-  const handleTabClick = (key) => {
-    setActiveTabKey(key);
-    setCopied(false);
-    setHoverPill(prev => ({ ...prev, opacity: 0 }));
-
-    // Smooth scroll mobile tab into center view
-    const mActiveEl = mobileTabRefs.current[key];
-    if (mActiveEl && typeof mActiveEl.scrollIntoView === 'function') {
-      mActiveEl.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-    }
-  };
-
-  const activeDetail = t.subNavDetails?.[activeTabKey];
-
-  const handleCopy = (text) => {
-    navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleSelectSubsystem = (id) => {
+    setActiveId(id);
   };
 
   return (
-    <div id="cli" className="border-subtle-b bg-[#0B0B11] relative">
-      
-      {/* Mobile: Sharp Horizontal Scroll Tabs Bar with Fluid Morphing Indicator */}
-      <div className="relative md:hidden border-subtle-b bg-[#0B0B11]">
-        <div 
-          ref={mobileContainerRef}
-          className="relative flex overflow-x-auto no-scrollbar scroll-smooth" 
-          data-lenis-prevent
-        >
-          {/* Mobile Fluid Morphing Indicator Pill */}
-          <div
-            className="absolute top-0 bottom-0 pointer-events-none transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] z-0"
-            style={{
-              transform: `translate3d(${mobilePill.left}px, 0, 0)`,
-              width: `${mobilePill.width}px`,
-              opacity: mobilePill.opacity,
-            }}
-          >
-            <div className="w-full h-full bg-transparent border-b-2 border-cyan-400" />
+    <section className="relative w-full py-16 sm:py-24 lg:py-28 bg-[#07090D] border-subtle-b">
+      <span id="architecture" className="absolute -top-20" />
+
+      {/* ── Section Header ── */}
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 mb-12 sm:mb-16">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div className="space-y-2 max-w-2xl text-left">
+            <span className="text-[11px] font-sans text-white/80 font-medium tracking-widest uppercase block">
+              {isVi ? 'HỆ ĐIỀU HÀNH BỘ NÃO NGOẠI VI' : 'AEVUM OS SUBSYSTEMS'}
+            </span>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-medium sm:font-semibold text-white tracking-[0.01em] font-display">
+              {isVi ? (
+                <>Khám phá các trụ cột kiến trúc của <span className="text-white">Aevum OS</span></>
+              ) : (
+                <>Explore the Frontier <span className="text-white">Subsystems</span></>
+              )}
+            </h2>
+            <p className="text-slate-400 text-xs sm:text-sm leading-relaxed font-sans pt-1">
+              {isVi
+                ? '6 thành phần kiến trúc nền tảng tách biệt bộ não AI khỏi IDE sandbox, duy trì ký ức sống và điều phối biệt đội tự trị.'
+                : '6 foundational architectural subsystems decoupling AI memory from IDE sandboxes into a persistent living brain.'}
+            </p>
           </div>
 
-          {rawTabs.map((tab) => {
-            const isActive = activeTabKey === tab.key;
-            const displayName = t.subNavTabs?.[tab.key] || tab.default;
-            return (
+          {/* Filter Pill Controls */}
+          <div className="flex items-center gap-3 self-start md:self-end">
+            <div className="flex items-center p-1 rounded-full bg-white/[0.04] border border-white/10 text-xs font-sans">
               <button
-                key={tab.key}
-                ref={(el) => (mobileTabRefs.current[tab.key] = el)}
-                onClick={() => handleTabClick(tab.key)}
-                className={`relative z-10 whitespace-nowrap py-3.5 px-4 text-xs font-mono transition-colors shrink-0 cursor-pointer rounded-none border-r border-white/5 ${
-                  isActive
-                    ? 'text-cyan-300 font-bold'
-                    : 'text-slate-400 hover:text-slate-200'
+                onClick={() => setActiveCategory('all')}
+                className={`px-3.5 py-1.5 rounded-full transition-all duration-200 cursor-pointer ${
+                  activeCategory === 'all'
+                    ? 'bg-white text-black font-medium'
+                    : 'text-slate-300 hover:text-white'
                 }`}
               >
-                {displayName}
+                {isVi ? 'Tất cả (6)' : 'All (6)'}
               </button>
-            );
-          })}
-        </div>
-
-        {/* Right Fade + Chevron Swipe Hint Overlay */}
-        <div 
-          className="pointer-events-none absolute right-0 top-0 h-full w-12 flex items-center justify-end pr-1 z-20" 
-          style={{ background: 'linear-gradient(to right, transparent, var(--bg-dark) 80%)' }}
-        >
-          <ChevronRight size={14} className="text-slate-500 animate-bounce-x" />
-        </div>
-      </div>
-
-      {/* Desktop: 6-Grid Tab Buttons Bar with Fluid Morphing Indicator */}
-      <div 
-        ref={desktopContainerRef}
-        onMouseLeave={handleDesktopTabLeave}
-        className="hidden md:grid md:grid-cols-6 border-subtle-b bg-[#0B0B11] relative overflow-hidden"
-      >
-        {/* Hover Ghost Pill (Follows cursor smoothly between inactive tabs) */}
-        <div
-          className="absolute top-0 bottom-0 pointer-events-none transition-all duration-200 ease-out z-0"
-          style={{
-            transform: `translate3d(${hoverPill.left}px, 0, 0)`,
-            width: `${hoverPill.width}px`,
-            opacity: hoverPill.opacity,
-          }}
-        >
-          <div className="w-full h-full bg-white/[0.02]" />
-        </div>
-
-        {/* Active Fluid Indicator (100% Transparent BG, Flat Crisp Bottom Border, Zero Glare) */}
-        <div
-          className="absolute top-0 bottom-0 pointer-events-none transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] z-0"
-          style={{
-            transform: `translate3d(${desktopPill.left}px, 0, 0)`,
-            width: `${desktopPill.width}px`,
-            opacity: desktopPill.opacity,
-          }}
-        >
-          {/* 100% Transparent Background */}
-          <div className="w-full h-full bg-transparent" />
-
-          {/* Flat Crisp Bottom Active Underline (No Glow, No Shadow) */}
-          <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-cyan-400" />
-        </div>
-
-        {/* Tab Buttons */}
-        {rawTabs.map((tab) => {
-          const isActive = activeTabKey === tab.key;
-          const displayName = t.subNavTabs?.[tab.key] || tab.default;
-          return (
-            <button
-              key={tab.key}
-              ref={(el) => (desktopTabRefs.current[tab.key] = el)}
-              onClick={() => handleTabClick(tab.key)}
-              onMouseEnter={() => handleDesktopTabHover(tab.key)}
-              className={`relative z-10 py-4 px-3 flex items-center justify-center text-xs font-mono font-medium transition-colors duration-200 border-r border-white/5 last:border-r-0 cursor-pointer select-none ${
-                isActive
-                  ? 'text-cyan-300 font-bold'
-                  : 'text-slate-400 hover:text-slate-200'
-              }`}
-            >
-              <span className="truncate">{displayName}</span>
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Dynamic Interactive Detail Panel for Selected Tab */}
-      {activeDetail && (
-        <div key={activeTabKey} className="p-6 sm:p-8 bg-[#07080e] transition-all duration-300 animate-fadeIn">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-            
-            {/* Left Column: Subsystem Overview & Feature Pills */}
-            <div className="lg:col-span-7 space-y-3">
-              <h2 className="text-xl sm:text-2xl font-bold text-white font-display">
-                {activeDetail.title}
-              </h2>
-
-              <p className="text-slate-400 text-xs sm:text-sm leading-relaxed max-w-2xl font-sans">
-                {activeDetail.desc}
-              </p>
-
-              {/* Feature Pills */}
-              <div className="flex flex-wrap gap-2 pt-2">
-                {activeDetail.pills.map((pill, idx) => (
-                  <span 
-                    key={idx} 
-                    className="px-2.5 py-1 rounded bg-white/[0.03] border border-white/10 text-[11px] font-mono text-slate-300"
-                  >
-                    <span className="text-cyan-400 font-bold mr-1">✓</span>{pill}
-                  </span>
-                ))}
-              </div>
+              <button
+                onClick={() => {
+                  setActiveCategory('core');
+                  if (activeSubsystem.categoryKey !== 'core') {
+                    setActiveId('kernel-mcp');
+                  }
+                }}
+                className={`px-3.5 py-1.5 rounded-full transition-all duration-200 cursor-pointer ${
+                  activeCategory === 'core'
+                    ? 'bg-white text-black font-medium'
+                    : 'text-slate-300 hover:text-white'
+                }`}
+              >
+                {isVi ? 'Kiến trúc cốt lõi' : 'Core Engine'}
+              </button>
+              <button
+                onClick={() => {
+                  setActiveCategory('mesh');
+                  if (activeSubsystem.categoryKey !== 'mesh') {
+                    setActiveId('autonomous-squads');
+                  }
+                }}
+                className={`px-3.5 py-1.5 rounded-full transition-all duration-200 cursor-pointer ${
+                  activeCategory === 'mesh'
+                    ? 'bg-white text-black font-medium'
+                    : 'text-slate-300 hover:text-white'
+                }`}
+              >
+                {isVi ? 'Mạng lưới phân tán' : 'Distributed Mesh'}
+              </button>
             </div>
-
-            {/* Right Column: Code Sandbox / Command Execution */}
-            <div className="lg:col-span-5">
-              <div className="bg-[#030407] rounded-md border border-white/10 overflow-hidden font-mono shadow-xl">
-                {/* Code Window Header */}
-                <div className="px-3.5 py-2 bg-white/[0.02] border-b border-white/5 flex items-center justify-between text-[11px] text-white">
-                  <div className="flex items-center gap-2">
-                    <Terminal size={13} className="text-white" />
-                    <span className="text-white">Aevum OS Terminal</span>
-                  </div>
-                  <button
-                    onClick={() => handleCopy(activeDetail.cmd)}
-                    className="flex items-center gap-1 text-[10px] text-white hover:text-slate-300 transition-colors cursor-pointer"
-                  >
-                    {copied ? (
-                      <>
-                        <Check size={12} className="text-emerald-400" />
-                        <span className="text-emerald-400 font-bold">Copied!</span>
-                      </>
-                    ) : (
-                      <>
-                        <Copy size={12} className="text-white" />
-                        <span className="text-white">Copy</span>
-                      </>
-                    )}
-                  </button>
-                </div>
-
-                {/* Code Body */}
-                <div className="p-4 text-xs leading-relaxed overflow-x-auto text-white bg-[#030407]">
-                  <div className="text-slate-400 text-[10px] pb-1">// Executing subsystem command</div>
-                  <code className="text-white font-mono font-semibold break-all">
-                    {activeDetail.cmd}
-                  </code>
-                </div>
-              </div>
-            </div>
-
           </div>
         </div>
-      )}
-    </div>
+      </div>
+
+      {/* ── Main Google DeepMind 2-Column Grid Layout with Sticky Left Panel ── */}
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-16 items-start relative">
+          
+          {/* ════════════ LEFT COLUMN: Main Featured Subsystem (Sticky & Vertically Centered) ════════════ */}
+          <div className="lg:col-span-6 xl:col-span-6 lg:sticky lg:top-[max(5.5rem,calc(50vh-280px))] self-start flex flex-col text-left z-10">
+            {/* Main Headline */}
+            <h3 className="text-2xl sm:text-3xl lg:text-[34px] xl:text-[38px] font-medium text-white tracking-[0.01em] leading-[1.2] font-display">
+              {activeSubsystem.title}
+            </h3>
+
+            {/* Meta Row: Date • Category */}
+            <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm text-slate-400 font-sans mt-3 sm:mt-4">
+              <span>{activeSubsystem.date}</span>
+              <span>{activeSubsystem.category}</span>
+            </div>
+
+            {/* Learn More Action Link */}
+            <div className="mt-2.5 sm:mt-3 mb-6 sm:mb-8">
+              <button
+                onClick={() => onNavigate?.(activeSubsystem.target)}
+                className="inline-flex items-center gap-1.5 text-xs sm:text-sm text-slate-300 hover:text-white font-medium transition-colors cursor-pointer group"
+              >
+                <span>{isVi ? 'Tìm hiểu thêm' : 'Learn more'}</span>
+                <ChevronRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+              </button>
+            </div>
+
+            {/* Pure Linear Grainy Gradient Hero Canvas (Centered Vertically in Viewport) */}
+            <div className="relative w-full aspect-square rounded-[24px] sm:rounded-[28px] lg:rounded-[32px] overflow-hidden border border-white/10 select-none">
+              {/* Luminous Smooth Linear Gradient Flow */}
+              <div
+                className="pointer-events-none absolute inset-0 z-0 transition-all duration-700"
+                style={{ background: activeSubsystem.gradient }}
+              />
+
+              {/* Precision Top Hairline Glow Line */}
+              <div className="pointer-events-none absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent z-[1]" />
+
+              {/* Authentic Grainy Noise Texture Layer (Fractal Noise via SVG data-uri) */}
+              <div
+                className="pointer-events-none absolute inset-0 opacity-35 mix-blend-overlay z-[2]"
+                style={{
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseHero'\u003E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseHero)'/%3E%3C/svg%3E")`,
+                  backgroundRepeat: 'repeat',
+                  backgroundSize: '160px 160px',
+                }}
+              />
+
+              {/* Micro-Grain Color Dodge Highlight Layer */}
+              <div
+                className="pointer-events-none absolute inset-0 opacity-20 mix-blend-color-dodge z-[2]"
+                style={{
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseHero2'\u003E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseHero2)'/%3E%3C/svg%3E")`,
+                  backgroundRepeat: 'repeat',
+                  backgroundSize: '200px 200px',
+                }}
+              />
+            </div>
+          </div>
+
+          {/* ════════════ RIGHT COLUMN: Stacked Rounded Cards (Exact Image 1 Archetype) ════════════ */}
+          <div className="lg:col-span-6 xl:col-span-6 flex flex-col gap-4 sm:gap-5 pt-2 lg:pt-0">
+            {sideSubsystems.map((item) => (
+              <div
+                key={item.id}
+                onClick={() => handleSelectSubsystem(item.id)}
+                className="group cursor-pointer rounded-[24px] sm:rounded-[28px] bg-[#14151b] hover:bg-[#1a1c24] border border-white/[0.08] hover:border-white/20 p-6 sm:p-7 md:p-8 flex flex-row items-center justify-between gap-5 sm:gap-7 transition-all duration-300 text-left"
+              >
+                {/* Left Side: Title, Meta & Learn More */}
+                <div className="flex-1 pr-2 sm:pr-4 flex flex-col justify-between">
+                  <h4 className="text-lg sm:text-xl lg:text-[22px] font-medium text-white tracking-[0.01em] leading-snug group-hover:text-cyan-200 transition-colors duration-200 font-display">
+                    {item.title}
+                  </h4>
+
+                  {/* Meta row: Date and Category */}
+                  <div className="mt-4 sm:mt-5 text-xs sm:text-sm text-slate-400 font-sans flex items-center gap-3.5">
+                    <span>{item.date}</span>
+                    <span>{item.category}</span>
+                  </div>
+
+                  {/* Learn More link below */}
+                  <div className="mt-2.5 sm:mt-3">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onNavigate?.(item.target);
+                      }}
+                      className="inline-flex items-center gap-1.5 text-xs sm:text-sm text-slate-300 group-hover:text-white font-medium transition-colors cursor-pointer"
+                    >
+                      <span>{isVi ? 'Tìm hiểu thêm' : 'Learn more'}</span>
+                      <ChevronRight size={14} className="transition-transform group-hover:translate-x-0.5" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Right Side: Rounded Grainy Gradient Thumbnail */}
+                <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-36 lg:h-36 shrink-0 rounded-[18px] sm:rounded-[20px] overflow-hidden relative border border-white/10 select-none group-hover:scale-[1.02] transition-transform duration-300">
+                  {/* Background Linear Gradient */}
+                  <div
+                    className="pointer-events-none absolute inset-0 z-0 transition-opacity duration-300"
+                    style={{ background: item.gradient }}
+                  />
+
+                  {/* Top Hairline */}
+                  <div className="pointer-events-none absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent z-[1]" />
+
+                  {/* Grainy Noise Texture Layer */}
+                  <div
+                    className="pointer-events-none absolute inset-0 opacity-35 mix-blend-overlay z-[2]"
+                    style={{
+                      backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseThumb'\u003E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseThumb)'/%3E%3C/svg%3E")`,
+                      backgroundRepeat: 'repeat',
+                      backgroundSize: '160px 160px',
+                    }}
+                  />
+
+                  {/* Micro-Grain Color Dodge */}
+                  <div
+                    className="pointer-events-none absolute inset-0 opacity-20 mix-blend-color-dodge z-[2]"
+                    style={{
+                      backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseThumb2'\u003E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseThumb2)'/%3E%3C/svg%3E")`,
+                      backgroundRepeat: 'repeat',
+                      backgroundSize: '200px 200px',
+                    }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </div>
+    </section>
   );
 };
 

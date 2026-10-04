@@ -1208,7 +1208,7 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
   };
 
   return (
-    <div className="w-full min-h-[calc(100vh-73px)] bg-[#0B0B11] border-b border-white/5 block lg:flex lg:flex-row relative justify-between overflow-x-clip font-sans">
+    <div className="w-full min-h-[calc(100vh-73px)] bg-[#07090D] border-b border-white/5 block lg:flex lg:flex-row relative justify-between overflow-x-clip font-sans">
       {/* Top Reading Progress Bar (Google Docs/Enterprise Reader Rail) */}
       <div
         className="fixed top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-cyan-500 via-sky-400 to-cyan-300 z-50 transition-all duration-75 pointer-events-none"
@@ -1404,7 +1404,7 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
             setSidebarOpen(true);
           }}
           onMouseEnter={() => setIsBtnVisible(true)}
-          className={`lg:hidden sticky top-[76px] ml-4 mt-4 z-30 px-3 py-2 rounded-lg bg-[#0B0B11]/90 backdrop-blur-md hover:bg-white/10 text-white border border-white/15 transition-all duration-300 cursor-pointer flex items-center gap-2 self-start ${
+          className={`lg:hidden sticky top-[76px] ml-4 mt-4 z-30 px-3 py-2 rounded-lg bg-[#07090D]/90 backdrop-blur-md hover:bg-white/10 text-white border border-white/15 transition-all duration-300 cursor-pointer flex items-center gap-2 self-start ${
             isBtnVisible ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-20 scale-90 hover:opacity-100'
           }`}
           aria-label="Mở danh mục tài liệu"
@@ -1421,7 +1421,7 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
           className="flex-1 px-6 md:px-12 lg:px-16 py-8 max-w-3xl xl:max-w-4xl w-full relative min-h-[500px]"
         >
           {translatingContent && (
-            <div className="absolute inset-0 bg-[#0B0B11]/80 backdrop-blur-sm z-20 flex flex-col items-center justify-center py-20 text-center font-mono text-sm text-cyan-400">
+            <div className="absolute inset-0 bg-[#07090D]/80 backdrop-blur-sm z-20 flex flex-col items-center justify-center py-20 text-center font-mono text-sm text-cyan-400">
               <svg
                 className="animate-spin -ml-1 mr-3 h-8 w-8 text-cyan-500 mb-4"
                 xmlns="http://www.w3.org/2000/svg"

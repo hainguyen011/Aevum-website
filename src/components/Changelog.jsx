@@ -490,12 +490,12 @@ export function Changelog({ activeLang, onNavigate }) {
   };
 
   return (
-    <div id="changelog" className="w-full bg-[#0B0B11] text-slate-100 min-h-[calc(100vh-73px)] font-sans flex flex-col">
+    <div id="changelog" className="w-full bg-[#07090D] text-slate-100 min-h-[calc(100vh-73px)] font-sans flex flex-col">
       {/* Authentic Transparent Terminal UI (TUI) Screen */}
-      <div className="border-subtle-b bg-[#0B0B11] text-left font-mono relative overflow-hidden flex-1 flex flex-col w-full">
+      <div className="border-subtle-b bg-[#07090D] text-left font-mono relative overflow-hidden flex-1 flex flex-col w-full">
 
         {/* Full-width Terminal Header Bar */}
-        <div className="w-full border-b border-white/10 py-5 px-6 lg:px-10 bg-[#0B0B11] relative z-10">
+        <div className="w-full border-b border-white/10 py-5 px-6 lg:px-10 bg-[#07090D] relative z-10">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs font-mono text-slate-400">
             <div className="flex items-center gap-3">
               <span className="text-white font-bold tracking-wider">AEVUM TTY CHANGELOG SHELL v1.0.0</span>

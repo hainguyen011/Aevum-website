@@ -1,3 +1,7 @@
+import '@fontsource/google-sans-flex/400.css';
+import '@fontsource/google-sans-flex/500.css';
+import '@fontsource/google-sans-flex/600.css';
+import '@fontsource/google-sans-flex/700.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';

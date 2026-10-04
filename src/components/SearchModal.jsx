@@ -335,7 +335,7 @@ export const SearchModal = ({ isOpen, onClose, onNavigate, activeLang }) => {
       <div className="fixed inset-0" onClick={onClose} />
 
       {/* Main Command Palette Dialog (Zero box-shadow, pure minimalist transparent) */}
-      <div className="relative w-full max-w-2xl bg-[#0B0B11]/95 border border-white/10 rounded-xl overflow-hidden z-10 font-sans">
+      <div className="relative w-full max-w-2xl bg-[#07090D]/95 border border-white/10 rounded-xl overflow-hidden z-10 font-sans">
         {/* Search Input Bar */}
         <div className="flex items-center px-4 py-3.5 border-b border-white/10 bg-white/[0.02]">
           <Search size={17} className="text-cyan-400 shrink-0 mr-3" />

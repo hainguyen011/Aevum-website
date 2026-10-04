@@ -65,7 +65,7 @@ export default defineConfig(({ mode }) => {
   <meta charset="utf-8">
   <title>Aevum OS - Email Mockup Preview Hub</title>
   <style>
-    body { margin: 0; padding: 0; font-family: -apple-system, sans-serif; background: #0B0B11; color: #fff; height: 100vh; display: flex; flex-direction: column; }
+    body { margin: 0; padding: 0; font-family: -apple-system, sans-serif; background: #07090D; color: #fff; height: 100vh; display: flex; flex-direction: column; }
     .topbar { background: #0E0E16; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; }
     .brand { font-family: monospace; font-weight: bold; color: #00F0FF; letter-spacing: 2px; }
     .nav { display: flex; gap: 12px; }

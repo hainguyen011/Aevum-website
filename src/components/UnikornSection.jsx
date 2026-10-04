@@ -12,23 +12,23 @@ export const UnikornSection = ({ activeLang }) => {
     const parts = titleText.split("Unikorn.vn");
     titleNode = (
       <>
-        {parts[0]}<span className="text-cyan-400">Unikorn.vn</span>{parts[1]}
+        {parts[0]}<span className="text-white">Unikorn.vn</span>{parts[1]}
       </>
     );
   }
 
   return (
-    <div id="unikorn" data-unikorn-zone="true" className="border-subtle-b bg-[#0B0B11]">
+    <div id="unikorn" data-unikorn-zone="true" className="border-subtle-b bg-[#07090D]">
       <div className="p-8 sm:p-12 lg:p-14">
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
           {/* Left Column: Wording & Architectural Deep Dive Callout */}
           <div className="lg:col-span-7 space-y-4 order-2 lg:order-1">
-            <div className="text-[11px] font-mono text-cyan-400 font-semibold tracking-widest uppercase">
+            <div className="text-[11px] font-sans text-white/80 font-medium tracking-widest uppercase">
               {t.unikorn.tag}
             </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white font-display">
+            <h2 className="text-3xl sm:text-4xl font-medium sm:font-semibold text-white tracking-[0.01em] font-display">
               {titleNode}
             </h2>
             <p className="text-slate-300 text-sm leading-relaxed max-w-xl">

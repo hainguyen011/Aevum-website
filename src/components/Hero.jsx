@@ -1,6 +1,6 @@
 import React from 'react';
 import { translations } from '../data/translations';
-import { ArrowRight } from 'lucide-react';
+import { Button } from './ui/Button';
 
 export const Hero = ({ onNavigate, onOpenTrialModal, activeLang }) => {
   const t = translations[activeLang] || translations.en;
@@ -117,22 +117,20 @@ export const Hero = ({ onNavigate, onOpenTrialModal, activeLang }) => {
 
         {/* Google DeepMind Style Pill Action Buttons */}
         <div className="flex flex-wrap items-center justify-center gap-3.5 sm:gap-4 mt-8 sm:mt-10">
-          {/* Primary Crisp Pill Button */}
-          <button
+          <Button
             onClick={() => onNavigate('changelog')}
-            className="inline-flex items-center gap-2 bg-white text-black font-medium text-xs sm:text-sm px-7 py-3 rounded-full hover:bg-slate-100 transition-all duration-200 hover:scale-[1.03] active:scale-[0.98] cursor-pointer"
+            variant="primary"
+            arrow
           >
-            <span>{t.hero.downloadBtn}</span>
-            <ArrowRight size={14} className="stroke-[2]" />
-          </button>
+            {t.hero.downloadBtn}
+          </Button>
 
-          {/* Secondary Ghost Pill Button */}
-          <button
+          <Button
             onClick={() => onNavigate('docs')}
-            className="inline-flex items-center gap-2 text-slate-300 hover:text-white text-xs sm:text-sm px-6 py-3 rounded-full border border-white/10 hover:border-white/25 hover:bg-white/[0.05] backdrop-blur-sm transition-all duration-200 cursor-pointer"
+            variant="secondary"
           >
-            <span>{t.hero.docsBtn}</span>
-          </button>
+            {t.hero.docsBtn}
+          </Button>
         </div>
 
       </div>

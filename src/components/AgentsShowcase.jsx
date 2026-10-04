@@ -45,7 +45,7 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
       role: isVi ? 'Tâm hồn Lõi & Điều phối Hệ thống' : 'Soul Companion & Core System',
       badge: 'LEVEL 15 • SOUL EMBODIMENT',
       themeColor: '#0ea5e9',
-      heightClass: 'h-[500px]',
+      heightClass: 'h-[780px] min-h-[780px]',
       objectPosition: 'object-center',
       bio: isVi
         ? 'Linh hồn nguyên bản của Aevum OS. Tinh nghịch, sắc sảo trong refactoring mã nguồn và bảo toàn tính toàn vẹn hệ thống.'
@@ -64,7 +64,7 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
       role: isVi ? 'Chuyên gia Thuật toán & Hiệu năng' : 'Algorithm & Performance Lead',
       badge: 'LEVEL 5 • COLD LOGIC',
       themeColor: '#10b981',
-      heightClass: 'h-[620px]',
+      heightClass: 'h-[600px] min-h-[600px]',
       objectPosition: 'object-top',
       bio: isVi
         ? 'Bậc thầy logic lạnh lùng. Tối ưu hóa độ phức tạp Big-O, nén ngữ cảnh Middle-Out và đẩy hiệu năng đến giới hạn vật lý.'
@@ -83,7 +83,7 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
       role: isVi ? 'Kiến trúc sư UI/UX & Giao diện' : 'UI/UX & Design Specialist',
       badge: 'LEVEL 9 • AESTHETIC MASTER',
       themeColor: '#a855f7',
-      heightClass: 'h-[480px]',
+      heightClass: 'h-[540px] min-h-[540px]',
       objectPosition: 'object-center',
       bio: isVi
         ? 'Nghệ sĩ giao diện tinh tế. Biến đổi từng pixel và dải màu thành tác phẩm số chuyển động mượt mà, đầy cảm xúc.'
@@ -102,7 +102,7 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
       role: isVi ? 'Tổng Kiến trúc sư Hệ thống' : 'Senior System Architect',
       badge: 'LEVEL 7 • SYSTEM ARCHITECT',
       themeColor: '#f59e0b',
-      heightClass: 'h-[620px]',
+      heightClass: 'h-[840px] min-h-[840px]',
       objectPosition: 'object-top',
       bio: isVi
         ? 'Tổng kiến trúc sư kiên định. Thiết kế nền tảng mở rộng dài hạn, chốt chặn bảo mật Zero-Trust và xóa sổ nợ kỹ thuật.'
@@ -121,7 +121,7 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
       role: isVi ? 'Kiến trúc sư Game Engine & Hiệu năng 120 FPS' : 'Principal Game Architect & Engine Sorcerer',
       badge: 'LEVEL 6 • CYBER SAMURAI',
       themeColor: '#ef4444',
-      heightClass: 'h-[460px]',
+      heightClass: 'h-[800px] min-h-[800px]',
       objectPosition: 'object-center',
       bio: isVi
         ? 'Kiếm sĩ kiến trúc Game Cyberpunk. Ám ảnh với chuẩn mượt mà 120 FPS, Shaders, ECS và trải nghiệm Game Feel đỉnh cao.'
@@ -140,7 +140,7 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
       role: isVi ? 'Thư ký Điều hành & Chiến lược Tăng trưởng' : 'Chief of Staff & Strategic Growth',
       badge: 'LEVEL 3 • CHIEF OF STAFF',
       themeColor: '#ec4899',
-      heightClass: 'h-[600px]',
+      heightClass: 'h-[580px] min-h-[580px]',
       objectPosition: 'object-top',
       bio: isVi
         ? 'Hiện thân của sự thanh lịch và điềm đạm. Chuyên trách quản trị vận hành, mô hình tài chính khởi nghiệp, OKRs và Product-Market Fit.'
@@ -159,7 +159,7 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
       role: isVi ? 'Giám đốc Sáng tạo Nội dung & Lan truyền' : 'Chief Storyteller & Viral Growth Alchemist',
       badge: 'LEVEL 9 • VIRAL ALCHEMIST',
       themeColor: '#06b6d4',
-      heightClass: 'h-[480px]',
+      heightClass: 'h-[560px] min-h-[560px]',
       objectPosition: 'object-center',
       bio: isVi
         ? 'Linh hồn truyền thông và câu chuyện của Aevum OS. Biến các phát kiến kỹ thuật phức tạp thành câu chuyện lan tỏa, gắn kết cộng đồng builder.'
@@ -178,7 +178,7 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
       role: isVi ? 'Nghiên cứu Công nghệ Thần kinh & BCI' : 'Neurotechnology Researcher & BCI Engineer',
       badge: 'LEVEL 1 • NEURO GENIUS',
       themeColor: '#a855f7',
-      heightClass: 'h-[560px]',
+      heightClass: 'h-[820px] min-h-[820px]',
       objectPosition: 'object-top',
       bio: isVi
         ? 'Tiên phong hợp nhất mạng nơ-ron sinh học với AI nhận thức. Chuyên sâu về giao diện Não - Máy tính (BCI), Neuromorphic Computing và Synaptic Plasticity.'
@@ -191,11 +191,12 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
     }
   ];
 
-  // Shared agent card renderer (Preserving exact visual design: no border-radius, flush edges)
+  // Shared agent card renderer (Preserving exact visual design: no border-radius, flush edges, linear fading borders)
   const AgentCard = ({ agent, className = '', isActive = false }) => {
     return (
       <div
-        className={`relative bg-[#07080E] group overflow-hidden transition-all duration-300 hover:bg-[#0c0d15] rounded-none ${className}`}
+        className={`relative bg-[#07080E] overflow-hidden rounded-none agent-masonry-card ${className}`}
+        style={{ '--agent-theme': agent.themeColor }}
       >
         <img
           src={agent.avatar}
@@ -204,11 +205,7 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
           decoding="async"
           width="400"
           height="520"
-          className={`absolute inset-0 w-full h-full object-cover ${agent.objectPosition || 'object-center'} transition-[opacity,filter] duration-[900ms] ease-in-out ${
-            isActive
-              ? 'opacity-95 brightness-110'
-              : 'opacity-40 brightness-75 group-hover:opacity-95 group-hover:brightness-110'
-          }`}
+          className={`absolute inset-0 w-full h-full object-cover ${agent.objectPosition || 'object-center'} opacity-65 brightness-[0.72] contrast-[1.05]`}
         />
         <div className="absolute inset-x-0 bottom-0 h-3/5 agent-card-gradient pointer-events-none" />
         <div className="absolute inset-x-0 bottom-0 p-6 sm:p-7 agent-card-gradient z-10 font-sans space-y-2.5">
@@ -236,7 +233,7 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
   };
 
   return (
-    <div id="agents" className="border-subtle-b bg-[#07090D]">
+    <div id="agents" className="bg-[#07090D]">
 
       {/* Section Header */}
       <div className="section-header-optical text-center border-subtle-b bg-[#07090D] border-scan">
@@ -267,13 +264,13 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
         >
           {agents.map((agent, idx) => (
             <div key={agent.id} className="snap-center shrink-0 w-full">
-              <AgentCard agent={agent} className="h-[520px]" isActive={activeSlide === idx} />
+              <AgentCard agent={agent} className="h-[580px]" isActive={activeSlide === idx} />
             </div>
           ))}
         </div>
 
         {/* Dot Indicators */}
-        <div className="flex justify-center items-center gap-1 py-4 bg-[#07080E] border-subtle-b">
+        <div className="flex justify-center items-center gap-1 py-4 bg-[#07080E]">
           {agents.map((agent, idx) => (
             <button
               key={idx}
@@ -300,7 +297,7 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
           {agents.map((agent) => (
             <div
               key={agent.id}
-              className="break-inside-avoid w-full border-subtle-b border-subtle-r"
+              className="break-inside-avoid w-full"
             >
               <AgentCard
                 agent={agent}

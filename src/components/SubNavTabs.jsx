@@ -123,9 +123,9 @@ export const SubNavTabs = ({ activeLang = 'en', onNavigate }) => {
             <div className="flex items-center p-1 rounded-full bg-white/[0.04] border border-white/10 text-xs font-sans">
               <button
                 onClick={() => setActiveCategory('all')}
-                className={`px-3.5 py-1.5 rounded-full transition-all duration-200 cursor-pointer ${
+                className={`px-3.5 py-1.5 rounded-full transition-colors duration-200 cursor-pointer ${
                   activeCategory === 'all'
-                    ? 'bg-white text-black font-medium'
+                    ? 'bg-white text-black'
                     : 'text-slate-300 hover:text-white'
                 }`}
               >
@@ -138,9 +138,9 @@ export const SubNavTabs = ({ activeLang = 'en', onNavigate }) => {
                     setActiveId('kernel-mcp');
                   }
                 }}
-                className={`px-3.5 py-1.5 rounded-full transition-all duration-200 cursor-pointer ${
+                className={`px-3.5 py-1.5 rounded-full transition-colors duration-200 cursor-pointer ${
                   activeCategory === 'core'
-                    ? 'bg-white text-black font-medium'
+                    ? 'bg-white text-black'
                     : 'text-slate-300 hover:text-white'
                 }`}
               >
@@ -153,9 +153,9 @@ export const SubNavTabs = ({ activeLang = 'en', onNavigate }) => {
                     setActiveId('autonomous-squads');
                   }
                 }}
-                className={`px-3.5 py-1.5 rounded-full transition-all duration-200 cursor-pointer ${
+                className={`px-3.5 py-1.5 rounded-full transition-colors duration-200 cursor-pointer ${
                   activeCategory === 'mesh'
-                    ? 'bg-white text-black font-medium'
+                    ? 'bg-white text-black'
                     : 'text-slate-300 hover:text-white'
                 }`}
               >

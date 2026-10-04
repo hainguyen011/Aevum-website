@@ -20,9 +20,16 @@ export const Navbar = ({
   onOpenAuthModal 
 }) => {
   const [langOpen, setLangOpen] = useState(false);
-  const [featuresOpen, setFeaturesOpen] = useState(false);
-  const [resourcesOpen, setResourcesOpen] = useState(false);
-  const [profileOpen, setProfileOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState(null); // 'features' | 'resources' | 'profile' | null
+  const featuresOpen = activeDropdown === 'features';
+  const resourcesOpen = activeDropdown === 'resources';
+  const profileOpen = activeDropdown === 'profile';
+
+  const toggleDropdown = (name) => {
+    setActiveDropdown(prev => (prev === name ? null : name));
+  };
+  const closeDropdown = () => setActiveDropdown(null);
+
   const [activeSection, setActiveSection] = useState(null);
   const [entitlements, setEntitlements] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -130,18 +137,16 @@ export const Navbar = ({
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (featuresRef.current && !featuresRef.current.contains(event.target)) {
-        setFeaturesOpen(false);
-        setResourcesOpen(false);
-        setProfileOpen(false);
+        closeDropdown();
       }
     };
-    if (featuresOpen || resourcesOpen || profileOpen) {
+    if (activeDropdown) {
       document.addEventListener('mousedown', handleClickOutside);
     }
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [featuresOpen, resourcesOpen, profileOpen]);
+  }, [activeDropdown]);
 
   const handleNavLink = (e, target) => {
     e.preventDefault();
@@ -168,7 +173,7 @@ export const Navbar = ({
   const isAtTopLanding = isLanding && !isScrolled && !isMobileMenuOpen;
 
   const headerBgClass = isAtTopLanding
-    ? (featuresOpen || resourcesOpen || profileOpen
+    ? (Boolean(activeDropdown)
         ? 'bg-black/20 backdrop-blur-md border-b border-white/10'
         : 'bg-transparent border-b border-transparent backdrop-blur-none')
     : 'bg-[#07090D]/85 backdrop-blur-md border-b border-white/10';
@@ -214,7 +219,7 @@ export const Navbar = ({
               const isButtonActive = featuresOpen || Boolean(activeSection) || currentPage === 'home';
               return (
                 <button 
-                  onClick={() => setFeaturesOpen(prev => !prev)}
+                  onClick={() => toggleDropdown('features')}
                   className={`flex items-center gap-1.5 text-xs sm:text-[13px] font-medium py-1.5 px-3 rounded-[5px] transition-all duration-200 cursor-pointer ${
                     isButtonActive
                       ? 'border-beam-btn text-white'
@@ -230,7 +235,7 @@ export const Navbar = ({
 
             {/* Pricing Link */}
             <button 
-              onClick={() => { onNavigate('pricing'); setFeaturesOpen(false); setResourcesOpen(false); }}
+              onClick={() => { onNavigate('pricing'); closeDropdown(); }}
               className={`transition-colors font-medium whitespace-nowrap text-nowrap cursor-pointer ${
                 currentPage === 'pricing' ? 'text-cyan-400' : 'text-slate-300 hover:text-cyan-400'
               }`}
@@ -240,7 +245,7 @@ export const Navbar = ({
 
             {/* About Link */}
             <button 
-              onClick={() => { onNavigate('about'); setFeaturesOpen(false); setResourcesOpen(false); }}
+              onClick={() => { onNavigate('about'); closeDropdown(); }}
               className={`transition-colors font-medium whitespace-nowrap text-nowrap cursor-pointer ${
                 currentPage === 'about' ? 'text-cyan-400' : 'text-slate-300 hover:text-cyan-400'
               }`}
@@ -250,7 +255,7 @@ export const Navbar = ({
 
             {/* Resources & Community Dropdown (Designed as a Clean Text Link) */}
             <button 
-              onClick={() => { setResourcesOpen(prev => !prev); setFeaturesOpen(false); }}
+              onClick={() => toggleDropdown('resources')}
               className={`flex items-center gap-1.5 transition-colors font-medium whitespace-nowrap text-nowrap cursor-pointer ${
                 resourcesOpen || ['docs', 'changelog', 'discussions', 'explore'].includes(currentPage)
                   ? 'text-cyan-400'
@@ -306,7 +311,7 @@ export const Navbar = ({
 
             return (
               <button
-                onClick={() => { setProfileOpen(o => !o); setFeaturesOpen(false); }}
+                onClick={() => toggleDropdown('profile')}
                 className="flex items-center self-stretch gap-2.5 text-xs font-mono text-slate-300 hover:text-white px-3 sm:px-4 border-l border-r border-white/10 bg-transparent hover:bg-white/[0.04] transition-all cursor-pointer group rounded-none"
                 title={isVi ? "Xem tài khoản Aevum" : "View Aevum profile"}
               >
@@ -396,154 +401,140 @@ export const Navbar = ({
         </div>
       </div>
 
-      {/* Compact Expandable Sub-Navigation Floating Overlay (Never pushes content down) */}
+      {/* Unified Compact Expandable Sub-Navigation Floating Overlay (Never pushes content down, never overlaps) */}
       <div 
         className={`absolute top-full left-0 right-0 z-50 overflow-hidden transition-all duration-300 ease-out ${dropdownBgClass} ${
-          featuresOpen ? 'max-h-16 opacity-100 py-3 pointer-events-auto' : 'max-h-0 opacity-0 py-0 border-b-0 pointer-events-none'
+          (featuresOpen || resourcesOpen) ? 'max-h-16 opacity-100 py-3 pointer-events-auto' : 'max-h-0 opacity-0 py-0 border-b-0 pointer-events-none'
         }`}
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-8 flex items-center justify-between text-xs">
-          <div className="flex items-center gap-5 sm:gap-7 font-medium overflow-x-auto no-scrollbar py-1 pr-4">
-            <a 
-              href="#cli" 
-              onClick={(e) => { handleNavLink(e, 'cli'); setFeaturesOpen(false); }}
-              className={`transition-colors whitespace-nowrap shrink-0 ${
-                activeSection === 'cli' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
-              }`}
-            >
-              {t.navbar.kernel}
-            </a>
-            <a 
-              href="#breakthroughs" 
-              onClick={(e) => { handleNavLink(e, 'breakthroughs'); setFeaturesOpen(false); }}
-              className={`transition-colors whitespace-nowrap shrink-0 ${
-                activeSection === 'breakthroughs' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
-              }`}
-            >
-              {t.navbar.breakthroughs}
-            </a>
-            <a 
-              href="#agents" 
-              onClick={(e) => { handleNavLink(e, 'agents'); setFeaturesOpen(false); }}
-              className={`transition-colors whitespace-nowrap shrink-0 ${
-                activeSection === 'agents' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
-              }`}
-            >
-              {t.navbar.agents}
-            </a>
-            <a 
-              href="#architecture" 
-              onClick={(e) => { handleNavLink(e, 'architecture'); setFeaturesOpen(false); }}
-              className={`transition-colors whitespace-nowrap shrink-0 ${
-                activeSection === 'architecture' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
-              }`}
-            >
-              {t.navbar.architecture}
-            </a>
-            <a 
-              href="#orchestration" 
-              onClick={(e) => { handleNavLink(e, 'orchestration'); setFeaturesOpen(false); }}
-              className={`transition-colors whitespace-nowrap shrink-0 ${
-                activeSection === 'orchestration' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
-              }`}
-            >
-              {t.navbar.orchestration}
-            </a>
-            <a 
-              href="#pricing" 
-              onClick={(e) => { handleNavLink(e, 'pricing'); setFeaturesOpen(false); }}
-              className={`transition-colors whitespace-nowrap shrink-0 ${
-                activeSection === 'pricing' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
-              }`}
-            >
-              {t.navbar.pricing}
-            </a>
-            <a 
-              href="#testimonials" 
-              onClick={(e) => { handleNavLink(e, 'testimonials'); setFeaturesOpen(false); }}
-              className={`transition-colors whitespace-nowrap shrink-0 ${
-                activeSection === 'testimonials' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
-              }`}
-            >
-              {t.navbar.testimonials}
-            </a>
-            <a 
-              href="#unikorn" 
-              onClick={(e) => { handleNavLink(e, 'unikorn'); setFeaturesOpen(false); }}
-              className={`transition-colors whitespace-nowrap shrink-0 ${
-                activeSection === 'unikorn' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
-              }`}
-            >
-              {t.navbar.unikorn}
-            </a>
-            <a 
-              href="#i2flabs" 
-              onClick={(e) => { handleNavLink(e, 'i2flabs'); setFeaturesOpen(false); }}
-              className={`transition-colors whitespace-nowrap shrink-0 ${
-                activeSection === 'i2flabs' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
-              }`}
-            >
-              {t.navbar.i2flabs}
-            </a>
-          </div>
+          {featuresOpen && (
+            <div className="flex items-center gap-5 sm:gap-7 font-medium overflow-x-auto no-scrollbar py-1 pr-4 animate-in fade-in duration-150">
+              <a 
+                href="#cli" 
+                onClick={(e) => { handleNavLink(e, 'cli'); closeDropdown(); }}
+                className={`transition-colors whitespace-nowrap shrink-0 ${
+                  activeSection === 'cli' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
+                }`}
+              >
+                {t.navbar.kernel}
+              </a>
+              <a 
+                href="#breakthroughs" 
+                onClick={(e) => { handleNavLink(e, 'breakthroughs'); closeDropdown(); }}
+                className={`transition-colors whitespace-nowrap shrink-0 ${
+                  activeSection === 'breakthroughs' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
+                }`}
+              >
+                {t.navbar.breakthroughs}
+              </a>
+              <a 
+                href="#agents" 
+                onClick={(e) => { handleNavLink(e, 'agents'); closeDropdown(); }}
+                className={`transition-colors whitespace-nowrap shrink-0 ${
+                  activeSection === 'agents' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
+                }`}
+              >
+                {t.navbar.agents}
+              </a>
+              <a 
+                href="#architecture" 
+                onClick={(e) => { handleNavLink(e, 'architecture'); closeDropdown(); }}
+                className={`transition-colors whitespace-nowrap shrink-0 ${
+                  activeSection === 'architecture' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
+                }`}
+              >
+                {t.navbar.architecture}
+              </a>
+              <a 
+                href="#orchestration" 
+                onClick={(e) => { handleNavLink(e, 'orchestration'); closeDropdown(); }}
+                className={`transition-colors whitespace-nowrap shrink-0 ${
+                  activeSection === 'orchestration' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
+                }`}
+              >
+                {t.navbar.orchestration}
+              </a>
+              <a 
+                href="#pricing" 
+                onClick={(e) => { handleNavLink(e, 'pricing'); closeDropdown(); }}
+                className={`transition-colors whitespace-nowrap shrink-0 ${
+                  activeSection === 'pricing' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
+                }`}
+              >
+                {t.navbar.pricing}
+              </a>
+              <a 
+                href="#testimonials" 
+                onClick={(e) => { handleNavLink(e, 'testimonials'); closeDropdown(); }}
+                className={`transition-colors whitespace-nowrap shrink-0 ${
+                  activeSection === 'testimonials' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
+                }`}
+              >
+                {t.navbar.testimonials}
+              </a>
+              <a 
+                href="#unikorn" 
+                onClick={(e) => { handleNavLink(e, 'unikorn'); closeDropdown(); }}
+                className={`transition-colors whitespace-nowrap shrink-0 ${
+                  activeSection === 'unikorn' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
+                }`}
+              >
+                {t.navbar.unikorn}
+              </a>
+              <a 
+                href="#i2flabs" 
+                onClick={(e) => { handleNavLink(e, 'i2flabs'); closeDropdown(); }}
+                className={`transition-colors whitespace-nowrap shrink-0 ${
+                  activeSection === 'i2flabs' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
+                }`}
+              >
+                {t.navbar.i2flabs}
+              </a>
+            </div>
+          )}
+
+          {resourcesOpen && (
+            <div className="flex items-center gap-5 sm:gap-7 font-medium overflow-x-auto no-scrollbar py-1 pr-4 animate-in fade-in duration-150">
+              <button 
+                onClick={() => { onNavigate('docs'); closeDropdown(); }}
+                className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-medium ${
+                  currentPage === 'docs' ? 'text-cyan-400' : 'text-slate-300 hover:text-cyan-400'
+                }`}
+              >
+                {t.navbar.docs}
+              </button>
+              <button 
+                onClick={() => { onNavigate('explore'); closeDropdown(); }}
+                className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-medium ${
+                  currentPage === 'explore' || currentPage === 'kham-pha' || currentPage === 'learn' ? 'text-cyan-400' : 'text-slate-300 hover:text-cyan-400'
+                }`}
+              >
+                {isVi ? 'Khám phá Kỉ nguyên' : 'Era Academy'}
+              </button>
+              <button 
+                onClick={() => { onNavigate('changelog'); closeDropdown(); }}
+                className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-medium ${
+                  currentPage === 'changelog' ? 'text-cyan-400' : 'text-slate-300 hover:text-cyan-400'
+                }`}
+              >
+                {isVi ? 'Nhật ký cập nhật' : 'Changelog'}
+              </button>
+              <button 
+                onClick={() => { onNavigate('discussions'); closeDropdown(); }}
+                className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-medium ${
+                  currentPage === 'discussions' ? 'text-cyan-400' : 'text-slate-300 hover:text-cyan-400'
+                }`}
+              >
+                {isVi ? 'Thảo luận' : 'Discussions'}
+              </button>
+            </div>
+          )}
 
           <button 
-            onClick={() => setFeaturesOpen(false)}
-            aria-label={isVi ? "Đóng danh mục tính năng" : "Close features menu"}
-            className="text-slate-500 hover:text-white transition-colors p-1 cursor-pointer"
-            title={isVi ? "Đóng" : "Close"}
-          >
-            <X size={14} />
-          </button>
-        </div>
-      </div>
-
-      {/* Resources & Community Sub-Navigation Floating Overlay (Never pushes content down) */}
-      <div 
-        className={`absolute top-full left-0 right-0 z-50 overflow-hidden transition-all duration-300 ease-out ${dropdownBgClass} ${
-          resourcesOpen ? 'max-h-16 opacity-100 py-3 pointer-events-auto' : 'max-h-0 opacity-0 py-0 border-b-0 pointer-events-none'
-        }`}
-      >
-        <div className="max-w-6xl mx-auto px-4 sm:px-8 flex items-center justify-between text-xs">
-          <div className="flex items-center gap-5 sm:gap-7 font-medium overflow-x-auto no-scrollbar py-1 pr-4">
-            <button 
-              onClick={() => { onNavigate('docs'); setResourcesOpen(false); }}
-              className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-medium ${
-                currentPage === 'docs' ? 'text-cyan-400' : 'text-slate-300 hover:text-cyan-400'
-              }`}
-            >
-              {t.navbar.docs}
-            </button>
-            <button 
-              onClick={() => { onNavigate('explore'); setResourcesOpen(false); }}
-              className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-medium ${
-                currentPage === 'explore' || currentPage === 'kham-pha' || currentPage === 'learn' ? 'text-cyan-400' : 'text-slate-300 hover:text-cyan-400'
-              }`}
-            >
-              {isVi ? 'Khám phá Kỉ nguyên' : 'Era Academy'}
-            </button>
-            <button 
-              onClick={() => { onNavigate('changelog'); setResourcesOpen(false); }}
-              className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-medium ${
-                currentPage === 'changelog' ? 'text-cyan-400' : 'text-slate-300 hover:text-cyan-400'
-              }`}
-            >
-              {isVi ? 'Nhật ký cập nhật' : 'Changelog'}
-            </button>
-            <button 
-              onClick={() => { onNavigate('discussions'); setResourcesOpen(false); }}
-              className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-medium ${
-                currentPage === 'discussions' ? 'text-cyan-400' : 'text-slate-300 hover:text-cyan-400'
-              }`}
-            >
-              {isVi ? 'Thảo luận' : 'Discussions'}
-            </button>
-          </div>
-
-          <button 
-            onClick={() => setResourcesOpen(false)}
-            aria-label={isVi ? "Đóng danh mục tài liệu & cộng đồng" : "Close resources menu"}
-            className="text-slate-500 hover:text-white transition-colors p-1 cursor-pointer"
+            onClick={closeDropdown}
+            aria-label={isVi ? "Đóng danh mục" : "Close menu"}
+            className="text-slate-500 hover:text-white transition-colors p-1 cursor-pointer shrink-0"
             title={isVi ? "Đóng" : "Close"}
           >
             <X size={14} />
@@ -564,7 +555,7 @@ export const Navbar = ({
               onClick={() => {
                 if (onNavigate) {
                   onNavigate('profile');
-                  setProfileOpen(false);
+                  closeDropdown();
                 }
               }}
               className="flex items-center gap-3 cursor-pointer group/user select-none min-w-0 flex-1"
@@ -622,7 +613,7 @@ export const Navbar = ({
                   e.stopPropagation();
                   const { supabase } = await import('../services/supabaseClient');
                   await supabase.auth.signOut();
-                  setProfileOpen(false);
+                  closeDropdown();
                 }}
                 className="px-2.5 py-1.5 rounded-sm border border-red-500/30 hover:border-red-400/60 bg-red-500/5 hover:bg-red-500/15 text-red-400 hover:text-red-300 text-[10px] font-mono font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center gap-1.5 whitespace-nowrap shrink-0"
                 title={isVi ? 'Đăng xuất tài khoản' : 'Sign out'}
@@ -633,7 +624,7 @@ export const Navbar = ({
               <button
                 onClick={(e) => {
                   e.stopPropagation();
-                  setProfileOpen(false);
+                  closeDropdown();
                 }}
                 className="text-slate-400 hover:text-white transition-colors p-1.5 rounded-md hover:bg-white/5 cursor-pointer shrink-0"
                 aria-label="Close profile modal"

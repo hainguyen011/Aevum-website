@@ -1,3 +1,5 @@
+import '@fontsource/google-sans-flex/index.css';
+import '@fontsource/google-sans-flex/vietnamese.css';
 import '@fontsource/google-sans-flex/400.css';
 import '@fontsource/google-sans-flex/500.css';
 import '@fontsource/google-sans-flex/600.css';

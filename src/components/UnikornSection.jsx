@@ -1,6 +1,7 @@
 import React from 'react';
 import topSimpleBadge from '../../assets/top-simple.svg';
 import { translations } from '../data/translations';
+import { Button } from './ui/Button';
 
 export const UnikornSection = ({ activeLang }) => {
   const t = translations[activeLang] || translations.en;
@@ -35,14 +36,16 @@ export const UnikornSection = ({ activeLang }) => {
               {t.unikorn.desc}
             </p>
             <div className="pt-2">
-              <a 
+              <Button 
                 href="https://unikorn.vn/p/aevum?ref=embed-aevum" 
                 target="_blank" 
                 rel="noreferrer" 
-                className="btn-ghost text-xs font-mono"
+                variant="secondary"
+                size="sm"
+                arrow
               >
                 {t.unikorn.btn}
-              </a>
+              </Button>
             </div>
           </div>
 

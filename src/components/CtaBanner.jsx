@@ -1,6 +1,7 @@
 import React from 'react';
 import nasaHubbleBg from '../../assets/nasa-hubble-space-telescope.webp';
 import { translations } from '../data/translations';
+import { Button } from './ui/Button';
 
 export const CtaBanner = ({ onNavigate, onOpenTrialModal, activeLang }) => {
   const t = translations[activeLang] || translations.en;
@@ -41,18 +42,19 @@ export const CtaBanner = ({ onNavigate, onOpenTrialModal, activeLang }) => {
           </p>
 
           <div className="pt-2 flex flex-wrap items-center justify-center gap-4">
-            <button 
+            <Button 
               onClick={() => onNavigate('changelog')}
-              className="btn-electron"
+              variant="primary"
+              arrow
             >
-              <span>{t.ctaBanner.downloadBtn}</span>
-            </button>
-            <button 
+              {t.ctaBanner.downloadBtn}
+            </Button>
+            <Button 
               onClick={() => onNavigate('docs')} 
-              className="btn-ghost"
+              variant="secondary"
             >
-              <span>{t.ctaBanner.docsBtn}</span>
-            </button>
+              {t.ctaBanner.docsBtn}
+            </Button>
           </div>
 
         </div>

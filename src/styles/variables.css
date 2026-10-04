@@ -32,7 +32,7 @@ html[data-theme="dark"] {
   /* Typography Font Stacks (Google Sans Flex Universal Standard) */
   --font-sans: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-display: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-mono: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
   /* Google DeepMind Standard Typography Scale */
   --font-xs: 0.625rem;       /* 10px */

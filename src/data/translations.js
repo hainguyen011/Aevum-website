@@ -153,7 +153,7 @@ export const translations = {
       docsBtn: "Đọc tài liệu"
     },
     footer: {
-      brandDesc: "Hệ điều hành Agent độc lập & Bộ não Ngoại vi phát triển bởi I2FLabs Việt Nam. Hoàn toàn giải phóng khỏi mọi ranh giới IDE.",
+      brandDesc: "Hệ điều hành Agent độc lập & Bộ não Ngoại vi phát triển bởi I2FLabs Việt Nam. Cung cấp nền tảng và môi trường tự chủ cho Agent.",
       links: {
         docs: "Tài liệu",
         openVsx: "Open VSX (v1.7)",
@@ -172,11 +172,11 @@ export const translations = {
       tag: "UNIKORN VIỆT NAM",
       title: "Sản phẩm của Ngày trên Unikorn.vn",
       desc: "Khám phá bài phân tích chuyên sâu về kiến trúc và câu chuyện sáng tạo Aevum OS trên Unikorn.vn — bệ phóng công nghệ Việt.",
-      btn: "Xem trên Unikorn.vn →"
+      btn: "Xem trên Unikorn.vn"
     },
     i2flabs: {
       tag: "ĐỘI NGŨ PHÁT TRIỂN",
-      title: "Phát triển bởi Đội ngũ I2FLabs",
+      title: "Phát triển bởi Đội ngũ I2FLabs Việt Nam",
       desc: "Tập thể kỹ sư chuyên biệt tiên phong xây dựng Hệ điều hành Agent tự trị, bộ nhớ nhận thức sống và hạ tầng AI thế hệ mới từ Việt Nam.",
       p1Tag: "NHÂN CỐT LÕI",
       p1Title: "Kiến trúc Nhân OS Cốt lõi",
@@ -365,7 +365,7 @@ export const translations = {
       docsBtn: "Read Documentation"
     },
     footer: {
-      brandDesc: "Standalone Agentic Operating System & Workspace External Brain developed by I2FLabs Vietnam. Fully decoupled from traditional IDEs.",
+      brandDesc: "Standalone Agentic Operating System & Workspace External Brain developed by I2FLabs Vietnam. Provide an automated platform for agents.",
       links: {
         docs: "Documentation",
         openVsx: "Open VSX (v1.7)",
@@ -384,11 +384,11 @@ export const translations = {
       tag: "UNIKORN VIETNAM",
       title: "Product of the Day on Unikorn.vn",
       desc: "Explore the architectural deep-dive and story behind Aevum OS on Unikorn.vn — the premier platform celebrating Vietnamese tech innovations.",
-      btn: "Read on Unikorn.vn →"
+      btn: "Read on Unikorn.vn"
     },
     i2flabs: {
       tag: "DEVELOPMENT TEAM",
-      title: "Built by the Creative Team at I2FLabs",
+      title: "Built by the Creative Team at I2FLabs Vietnam",
       desc: "A specialized engineering collective pioneering autonomous Agentic OS, living cognitive memory, and next-generation AI infrastructure from Vietnam.",
       p1Tag: "CORE KERNEL",
       p1Title: "Core OS Kernel Architecture",

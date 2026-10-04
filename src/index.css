@@ -26,7 +26,7 @@ html[data-theme="dark"] {
 
   --font-sans: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-display: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-mono: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
   --transition-smooth: 0.15s ease-out;
 
@@ -572,9 +572,14 @@ html[data-theme="light"] .gradient-text {
   border-bottom: 1px solid var(--border-faint);
 }
 
-/* Authentic Developer Terminal Font Family Override */
+/* Universal Typography: Enforce Google Sans Flex across all text elements */
 .font-mono {
-  font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+  font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+/* Dedicated Syntax/Code Monospace exclusively for real code tags */
+pre code, code.hljs {
+  font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
 }
 
 /* Custom Scrollbars */
@@ -1513,6 +1518,56 @@ html[data-theme="light"] .agent-card-gradient {
   background: linear-gradient(to top, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.65) 45%, rgba(255, 255, 255, 0.15) 75%, transparent 100%) !important;
 }
 
+/* Agent Showcase Masonry Card Fading Borders (Top, Left, Right linear fade out to bottom, No border bottom) */
+.agent-masonry-card {
+  position: relative;
+  box-sizing: border-box;
+}
+
+.agent-masonry-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  border-left: 1px solid rgba(255, 255, 255, 0.14);
+  border-right: 1px solid rgba(255, 255, 255, 0.14);
+  border-bottom: none !important;
+  mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.9) 25%, rgba(0, 0, 0, 0.4) 65%, transparent 98%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.9) 25%, rgba(0, 0, 0, 0.4) 65%, transparent 98%);
+  z-index: 25;
+  transition: border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html[data-theme="light"] .agent-masonry-card::before {
+  border-top: 1px solid rgba(15, 23, 42, 0.12);
+  border-left: 1px solid rgba(15, 23, 42, 0.12);
+  border-right: 1px solid rgba(15, 23, 42, 0.12);
+  border-bottom: none !important;
+}
+
+/* Signature Aevum Pill Button Light Mode Adaptation */
+html[data-theme="light"] .btn-pill-primary {
+  background-color: #07090D !important;
+  color: #FFFFFF !important;
+}
+
+html[data-theme="light"] .btn-pill-primary:hover {
+  background-color: #1E293B !important;
+}
+
+html[data-theme="light"] .btn-pill-secondary {
+  background-color: rgba(15, 23, 42, 0.04) !important;
+  color: #0F172A !important;
+  border-color: rgba(15, 23, 42, 0.12) !important;
+}
+
+html[data-theme="light"] .btn-pill-secondary:hover {
+  background-color: rgba(15, 23, 42, 0.08) !important;
+  color: #000000 !important;
+  border-color: rgba(15, 23, 42, 0.22) !important;
+}
+
 /* Marquee Left/Right Fade Overlays */
 .marquee-fade-left {
   background: linear-gradient(to right, #07090D 0%, transparent 100%);
@@ -1924,134 +1979,127 @@ html[data-theme="light"] .cta-banner .btn-electron:hover {
    ========================================================================== */
 
 .pricing-btn-pro {
-  background-color: #0369a1 !important;
-  color: #ffffff !important;
-  border: 1px solid rgba(56, 189, 248, 0.4) !important;
-  box-shadow: 0 4px 14px rgba(3, 105, 161, 0.3) !important;
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid transparent !important;
+  border-radius: 9999px !important;
+  box-shadow: none !important;
   transition: all 0.2s ease;
 }
 
 .pricing-btn-pro:hover {
-  background-color: #075985 !important;
-  border-color: rgba(56, 189, 248, 0.7) !important;
-  box-shadow: 0 6px 20px rgba(3, 105, 161, 0.45) !important;
+  background-color: #e2e8f0 !important;
+  color: #000000 !important;
+  box-shadow: none !important;
 }
 
 html[data-theme="light"] .pricing-btn-pro {
-  background-color: #0369a1 !important;
+  background-color: #0F172A !important;
   color: #ffffff !important;
-  border: 1px solid rgba(3, 105, 161, 0.3) !important;
-  box-shadow: 0 4px 14px rgba(3, 105, 161, 0.25) !important;
+  border: 1px solid transparent !important;
+  border-radius: 9999px !important;
+  box-shadow: none !important;
 }
 
 html[data-theme="light"] .pricing-btn-pro:hover {
-  background-color: #075985 !important;
-  box-shadow: 0 6px 20px rgba(3, 105, 161, 0.4) !important;
+  background-color: #1E293B !important;
+  box-shadow: none !important;
 }
 
-.pricing-btn-community {
+.pricing-btn-community,
+.pricing-btn-enterprise {
   background-color: rgba(255, 255, 255, 0.04) !important;
   color: #ffffff !important;
   border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-radius: 9999px !important;
+  box-shadow: none !important;
+  transition: all 0.2s ease;
 }
 
-.pricing-btn-community:hover {
+.pricing-btn-community:hover,
+.pricing-btn-enterprise:hover {
   background-color: rgba(255, 255, 255, 0.08) !important;
   border-color: rgba(255, 255, 255, 0.3) !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
 }
 
-html[data-theme="light"] .pricing-btn-community {
+html[data-theme="light"] .pricing-btn-community,
+html[data-theme="light"] .pricing-btn-enterprise {
   background-color: #F1F5F9 !important;
   color: #0F172A !important;
   border: 1px solid rgba(15, 23, 42, 0.15) !important;
+  border-radius: 9999px !important;
+  box-shadow: none !important;
 }
 
-html[data-theme="light"] .pricing-btn-community:hover {
+html[data-theme="light"] .pricing-btn-community:hover,
+html[data-theme="light"] .pricing-btn-enterprise:hover {
   background-color: #E2E8F0 !important;
   border-color: rgba(15, 23, 42, 0.3) !important;
+  box-shadow: none !important;
 }
 
 .pricing-pro-column {
-  background-color: #0c101b !important;
-  border: 1.5px solid rgba(56, 189, 248, 0.5) !important;
-  border-radius: 1.25rem !important;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px !important;
+  background-color: #07090D !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 1.5rem !important;
+  box-shadow: none !important;
   transition: all 0.2s ease;
 }
 
 .pricing-pro-column:hover {
-  border-color: rgba(56, 189, 248, 0.8) !important;
-  box-shadow: rgba(0, 0, 0, 0.45) 0px 8px 20px !important;
+  border-color: rgba(255, 255, 255, 0.35) !important;
+  box-shadow: none !important;
 }
 
 html[data-theme="light"] .pricing-pro-column {
   background-color: #FFFFFF !important;
-  border: 1.5px solid rgba(2, 132, 199, 0.4) !important;
-  border-radius: 1.25rem !important;
-  box-shadow: rgba(15, 23, 42, 0.1) 0px 5px 15px !important;
+  border: 1px solid rgba(15, 23, 42, 0.2) !important;
+  border-radius: 1.5rem !important;
+  box-shadow: none !important;
 }
 
 html[data-theme="light"] .pricing-pro-column:hover {
-  border-color: rgba(2, 132, 199, 0.7) !important;
-  box-shadow: rgba(15, 23, 42, 0.15) 0px 8px 20px !important;
+  border-color: rgba(15, 23, 42, 0.4) !important;
+  box-shadow: none !important;
 }
 
 .pricing-card-subtle {
-  background-color: #07090e;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 1rem;
+  background-color: #07090D !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 1.5rem !important;
+  box-shadow: none !important;
 }
 
 html[data-theme="light"] .pricing-card-subtle {
   background-color: #F8FAFC !important;
   border-color: rgba(15, 23, 42, 0.08) !important;
+  box-shadow: none !important;
 }
 
 .pricing-card-enterprise {
-  background-color: #080812 !important;
-  border: 1px solid rgba(167, 139, 250, 0.25) !important;
-  border-radius: 1rem;
+  background-color: #07090D !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 1.5rem !important;
+  box-shadow: none !important;
   transition: all 0.2s ease;
 }
 
 .pricing-card-enterprise:hover {
-  border-color: rgba(167, 139, 250, 0.5) !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  box-shadow: none !important;
 }
 
 html[data-theme="light"] .pricing-card-enterprise {
   background-color: #FFFFFF !important;
-  border: 1px solid rgba(99, 102, 241, 0.25) !important;
-  box-shadow: 0 6px 24px -2px rgba(99, 102, 241, 0.08) !important;
+  border: 1px solid rgba(15, 23, 42, 0.15) !important;
+  box-shadow: none !important;
 }
 
 html[data-theme="light"] .pricing-card-enterprise:hover {
-  border-color: rgba(99, 102, 241, 0.5) !important;
-}
-
-.pricing-btn-enterprise {
-  background-color: rgba(167, 139, 250, 0.08) !important;
-  color: #e9d5ff !important;
-  border: 1px solid rgba(167, 139, 250, 0.35) !important;
-  transition: all 0.2s ease;
-}
-
-.pricing-btn-enterprise:hover {
-  background-color: rgba(167, 139, 250, 0.18) !important;
-  border-color: rgba(167, 139, 250, 0.6) !important;
-  color: #ffffff !important;
-  box-shadow: 0 0 20px rgba(167, 139, 250, 0.25);
-}
-
-html[data-theme="light"] .pricing-btn-enterprise {
-  background-color: #4f46e5 !important;
-  color: #ffffff !important;
-  border: 1px solid rgba(79, 70, 229, 0.3) !important;
-  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.25) !important;
-}
-
-html[data-theme="light"] .pricing-btn-enterprise:hover {
-  background-color: #4338ca !important;
-  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4) !important;
+  border-color: rgba(15, 23, 42, 0.3) !important;
+  box-shadow: none !important;
 }
 
 html[data-theme="light"] .code-box {
@@ -2104,38 +2152,19 @@ html[data-theme="light"] .pricing-faq-container div {
   color: #475569 !important;
 }
 
-/* Pricing Subtitle Accents with 100% Crisp Contrast in Light & Dark Mode */
-.pricing-sub-community {
-  border-left: 2px solid rgba(16, 185, 129, 0.6);
-  color: #94A3B8;
-}
-
-html[data-theme="light"] .pricing-sub-community {
-  border-left: 2px solid #059669 !important;
-  color: #334155 !important;
-  font-weight: 600 !important;
-}
-
-.pricing-sub-pro {
-  border-left: 2px solid #38bdf8;
-  color: #67e8f9;
-}
-
-html[data-theme="light"] .pricing-sub-pro {
-  border-left: 2px solid #0284c7 !important;
-  color: #0369a1 !important;
-  font-weight: 700 !important;
-}
-
+.pricing-sub-community,
+.pricing-sub-pro,
 .pricing-sub-enterprise {
-  border-left: 2px solid #a855f7;
-  color: #c084fc;
+  border-left: 2px solid rgba(255, 255, 255, 0.2) !important;
+  color: #94A3B8 !important;
 }
 
+html[data-theme="light"] .pricing-sub-community,
+html[data-theme="light"] .pricing-sub-pro,
 html[data-theme="light"] .pricing-sub-enterprise {
-  border-left: 2px solid #4f46e5 !important;
-  color: #4338ca !important;
-  font-weight: 700 !important;
+  border-left: 2px solid rgba(15, 23, 42, 0.2) !important;
+  color: #475569 !important;
+  font-weight: 500 !important;
 }
 
 /* Pricing Switcher Pill & White Text Highlighting */
@@ -2684,4 +2713,34 @@ html[data-theme="light"] .era-exploration-root button.bg-\[\#07080C\]:hover {
   color: #8b949e;
   border-left: 0.25rem solid rgba(255, 255, 255, 0.2);
   margin: 0 0 16px 0;
+}
+
+/* ── Signature Pill Button (Primary & Secondary) Theme Adaptation ── */
+.btn-pill-primary {
+  background-color: #ffffff;
+  color: #000000;
+}
+.btn-pill-primary:hover {
+  background-color: #f1f5f9;
+  color: #000000;
+}
+
+html[data-theme="light"] .btn-pill-primary {
+  background-color: #090d16 !important;
+  color: #ffffff !important;
+}
+html[data-theme="light"] .btn-pill-primary:hover {
+  background-color: #1e293b !important;
+  color: #ffffff !important;
+}
+
+html[data-theme="light"] .btn-pill-secondary {
+  background-color: rgba(15, 23, 42, 0.05) !important;
+  color: #334155 !important;
+  border-color: rgba(15, 23, 42, 0.15) !important;
+}
+html[data-theme="light"] .btn-pill-secondary:hover {
+  background-color: rgba(15, 23, 42, 0.09) !important;
+  color: #0f172a !important;
+  border-color: rgba(15, 23, 42, 0.25) !important;
 }

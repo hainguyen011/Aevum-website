@@ -86,7 +86,9 @@ export const Modal = ({
     lg: 'max-w-xl',
     xl: 'max-w-2xl',
     '2xl': 'max-w-3xl',
-    full: 'max-w-5xl',
+    '3xl': 'max-w-4xl',
+    '4xl': 'max-w-5xl',
+    full: 'max-w-6xl',
   }[maxWidth] || maxWidth;
 
   return (

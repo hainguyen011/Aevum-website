@@ -379,7 +379,6 @@ export const Profile = ({
             </div>
           </div>
 
-
           {/* Right Column: Dynamic Tab Content (8 Cols) */}
           <div className="lg:col-span-8 space-y-6">
 
@@ -408,7 +407,7 @@ export const Profile = ({
                     />
                     {/* Precision Top Hairline Glow Line */}
                     <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/60 to-transparent z-10" />
-                    
+
                     {/* Authentic Grainy Noise Texture Layer */}
                     <div
                       className="absolute inset-0 opacity-30 mix-blend-overlay z-[1]"

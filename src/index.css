@@ -2258,14 +2258,14 @@ html[data-theme="light"] .profile-page .text-slate-500 {
 
 /* Profile Light Mode Sub-nav Tabs */
 html[data-theme="light"] .profile-tab-active {
-  background-color: #E0F2FE !important;
-  color: #0284c7 !important;
-  border-color: #38bdf8 !important;
+  background-color: #0F172A !important;
+  color: #FFFFFF !important;
+  border-color: #0F172A !important;
   font-weight: 700 !important;
 }
 
 html[data-theme="light"] .profile-tab-inactive {
-  color: #334155 !important;
+  color: #475569 !important;
   font-weight: 600 !important;
   background-color: transparent !important;
   border-color: transparent !important;
@@ -2283,30 +2283,30 @@ html[data-theme="light"] .profile-perk-card {
   box-shadow: none !important;
 }
 
-/* Profile Light Mode Action Link (Transparent & Crisp) */
+/* Profile Light Mode Action Link (Monochrome & Crisp) */
 html[data-theme="light"] .profile-action-link {
-  color: #0284c7 !important;
+  color: #0F172A !important;
   font-weight: 700 !important;
   background-color: transparent !important;
   border: none !important;
 }
 
 html[data-theme="light"] .profile-action-link:hover {
-  color: #0369a1 !important;
+  color: #475569 !important;
 }
 
 /* Profile Light Mode Companion Note */
 html[data-theme="light"] .profile-companion-box {
-  background-color: #F0F9FF !important;
-  border-color: rgba(14, 165, 233, 0.3) !important;
+  background-color: #F8FAFC !important;
+  border-color: rgba(15, 23, 42, 0.1) !important;
 }
 
 html[data-theme="light"] .profile-companion-box span {
-  color: #0284c7 !important;
+  color: #0F172A !important;
 }
 
 html[data-theme="light"] .profile-companion-box p {
-  color: #334155 !important;
+  color: #475569 !important;
 }
 
 /* Profile Light Mode Progress Bar */
@@ -2318,7 +2318,7 @@ html[data-theme="light"] .profile-progress-track {
 html[data-theme="light"] .profile-code-box {
   background-color: #F8FAFC !important;
   border-color: #CBD5E1 !important;
-  color: #0284c7 !important;
+  color: #0F172A !important;
 }
 
 html[data-theme="light"] .profile-breadcrumb-btn {

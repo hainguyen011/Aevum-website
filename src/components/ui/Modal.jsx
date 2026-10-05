@@ -91,7 +91,7 @@ export const Modal = ({
 
   return (
     <div 
-      className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4 md:p-6 overflow-y-auto"
       role="dialog"
       aria-modal="true"
     >
@@ -104,7 +104,7 @@ export const Modal = ({
 
       {/* Modal Surface - Deep black #07090D with Grainy Gradient Atmosphere & Hairline Border */}
       <div
-        className={`relative w-full ${maxWidthClasses} bg-[#07090D] border border-white/10 rounded-2xl sm:rounded-3xl overflow-hidden font-sans text-slate-200 z-10 my-8 shadow-none select-text ${className}`.trim()}
+        className={`relative w-full ${maxWidthClasses} max-h-[calc(100vh-2rem)] sm:max-h-[92vh] flex flex-col bg-[#07090D] border border-white/10 rounded-2xl sm:rounded-3xl overflow-hidden font-sans text-slate-200 z-10 m-auto shadow-none select-text ${className}`.trim()}
       >
         {/* ── 1. Grainy Gradient Atmosphere Layer (Matching Image 1 Hero Banner) ── */}
         {grainy && (
@@ -139,35 +139,16 @@ export const Modal = ({
               }}
             />
 
-            {/* Neural Particle / Dot Constellation (Top Right Flowing Particles) */}
-            <div className="absolute top-0 right-0 w-2/3 h-64 overflow-hidden opacity-30 z-[2]">
-              <svg
-                className="w-full h-full object-cover"
-                viewBox="0 0 400 300"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle cx="260" cy="35" r="1.5" fill="#38bdf8" opacity="0.8" />
-                <circle cx="295" cy="55" r="1" fill="#ffffff" opacity="0.6" />
-                <circle cx="325" cy="40" r="2" fill="#38bdf8" opacity="0.9" />
-                <circle cx="360" cy="70" r="1.5" fill="#ffffff" opacity="0.7" />
-                <circle cx="240" cy="70" r="1" fill="#ffffff" opacity="0.5" />
-                <circle cx="280" cy="95" r="2" fill="#38bdf8" opacity="0.8" />
-                <circle cx="315" cy="85" r="1.5" fill="#ffffff" opacity="0.7" />
-                <circle cx="350" cy="115" r="1" fill="#38bdf8" opacity="0.6" />
-                <circle cx="265" cy="120" r="1.5" fill="#38bdf8" opacity="0.6" />
-                <circle cx="300" cy="140" r="1" fill="#ffffff" opacity="0.5" />
-                <circle cx="340" cy="130" r="2" fill="#38bdf8" opacity="0.8" />
-              </svg>
-            </div>
+            {/* Ethereal Glow Horizon Wash (Pure Silk Gradient, Zero Dots) */}
+            <div className="absolute top-0 right-0 w-2/3 h-64 overflow-hidden opacity-25 z-[2] bg-gradient-to-bl from-cyan-500/10 via-transparent to-transparent" />
           </div>
         )}
 
         {/* ── 2. Modal Content (Relative z-10 Above Atmosphere) ── */}
-        <div className="relative z-10">
+        <div className="relative z-10 flex flex-col flex-1 min-h-0 overflow-hidden">
           {/* Header - Minimalist line divider, high-contrast typography, text close button */}
           {(title || showCloseButton) && (
-            <div className="flex items-center justify-between px-6 py-4 sm:py-5 border-b border-white/10 backdrop-blur-[2px]">
+            <div className="flex items-center justify-between px-5 sm:px-6 py-3.5 sm:py-4 border-b border-white/10 backdrop-blur-[2px] shrink-0">
               <div className="space-y-0.5 pr-4">
                 {title && (
                   <h3 className="text-sm sm:text-base font-medium text-white tracking-wide uppercase font-sans">
@@ -194,14 +175,14 @@ export const Modal = ({
             </div>
           )}
 
-          {/* Modal Body */}
-          <div className="p-6">
+          {/* Modal Body - Scrollable if content is tall */}
+          <div className="p-4 sm:p-6 overflow-y-auto flex-1 scrollbar-thin">
             {children}
           </div>
 
           {/* Optional Footer */}
           {footer && (
-            <div className="px-6 py-4 border-t border-white/10 bg-black/20 backdrop-blur-sm">
+            <div className="px-5 sm:px-6 py-3.5 sm:py-4 border-t border-white/10 bg-black/40 backdrop-blur-sm shrink-0">
               {footer}
             </div>
           )}

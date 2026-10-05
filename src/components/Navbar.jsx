@@ -585,19 +585,24 @@ export const Navbar = ({
                     {user.user_metadata?.full_name || user.user_metadata?.name || user.email.split('@')[0]}
                   </span>
                   
-                  {/* Minimalist Premium Membership Tier Badge */}
-                  <MembershipBadge
-                    tier={userProfile?.membership_tier || entitlements?.tier || (entitlements?.isPro ? 'pro' : 'community')}
-                    isTrial={entitlements?.isTrial}
-                    isWaitlist={entitlements?.isWaitlist || entitlements?.status === 'beta_waitlist'}
-                    trialDaysRemaining={entitlements?.trialDaysRemaining}
-                    size="xs"
-                  />
+                  {/* Minimalist Transparent Membership Tier & Admin Badge */}
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-white select-none shrink-0">
+                    {entitlements?.isWaitlist || entitlements?.status === 'beta_waitlist'
+                      ? 'BETA WAITLIST'
+                      : (entitlements?.isTrial
+                        ? 'PRO BETA'
+                        : ((userProfile?.membership_tier || entitlements?.tier || (entitlements?.isPro ? 'pro' : 'community')) === 'pro'
+                          ? 'AEVUM PRO'
+                          : 'COMMUNITY'))}
+                  </span>
 
                   {userProfile?.role === 'admin' && (
-                    <span className="admin-badge inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-mono font-bold uppercase tracking-wider bg-white/[0.06] border border-white/20 text-slate-300 select-none shrink-0">
-                      Admin
-                    </span>
+                    <>
+                      <span className="text-zinc-600 text-xs select-none">•</span>
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-400 select-none shrink-0">
+                        ADMIN
+                      </span>
+                    </>
                   )}
                 </div>
                 <p className="text-[10px] sm:text-[11px] text-slate-400 group-hover/user:text-slate-300 transition-colors font-mono truncate max-w-[180px] sm:max-w-xs md:max-w-md m-0">

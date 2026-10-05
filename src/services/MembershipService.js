@@ -120,6 +120,15 @@ export const MembershipService = {
 
       const activeMachinesCount = workstations?.filter(w => w.is_active)?.length || 0;
 
+      const expiresAt = isTrial ? membership?.trial_ends_at : membership?.current_period_end;
+      let daysRemaining = null;
+      if (expiresAt) {
+        const msRemaining = new Date(expiresAt).getTime() - Date.now();
+        daysRemaining = Math.max(0, Math.ceil(msRemaining / (1000 * 60 * 60 * 24)));
+      } else if (isWaitlist) {
+        daysRemaining = 30;
+      }
+
       return {
         tier,
         status,
@@ -127,10 +136,13 @@ export const MembershipService = {
         isTrial,
         isWaitlist,
         trialDaysRemaining,
+        daysRemaining,
         trialStartedAt: membership?.trial_started_at,
         trialEndsAt: membership?.trial_ends_at,
+        currentPeriodStart: membership?.current_period_start,
         currentPeriodEnd: membership?.current_period_end,
-        expiresAt: isTrial ? membership?.trial_ends_at : membership?.current_period_end,
+        cancelAtPeriodEnd: Boolean(membership?.cancel_at_period_end),
+        expiresAt,
         maxMachines: isPro ? 5 : 1,
         activeMachinesCount: Math.max(1, activeMachinesCount),
         workstations: workstations || [],

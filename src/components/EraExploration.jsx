@@ -216,6 +216,59 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
     return () => { isMounted = false; };
   }, [activeLessonId, activeLang, activeLesson]);
 
+  // Dynamic SEO & Metadata Synchronization for Client-side Navigation
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const setMeta = (selector, attrName, attrVal, content) => {
+      let el = document.querySelector(selector);
+      if (!el) {
+        el = document.createElement('meta');
+        el.setAttribute(attrName, attrVal);
+        document.head.appendChild(el);
+      }
+      el.setAttribute('content', content);
+    };
+
+    if (viewMode === 'reader' && activeLesson) {
+      const pageTitle = `${activeLesson.title} — Khám phá Kỉ nguyên AI | Aevum OS`;
+      const desc = activeLesson.summary || activeLesson.title;
+      const canonical = `https://www.aevum.ai.vn/explore/${activeLesson.id}`;
+
+      document.title = pageTitle;
+      setMeta('meta[name="description"]', 'name', 'description', desc);
+      setMeta('meta[property="og:title"]', 'property', 'og:title', pageTitle);
+      setMeta('meta[property="og:description"]', 'property', 'og:description', desc);
+      setMeta('meta[property="og:url"]', 'property', 'og:url', canonical);
+      setMeta('meta[name="twitter:title"]', 'name', 'twitter:title', pageTitle);
+      setMeta('meta[name="twitter:description"]', 'name', 'twitter:description', desc);
+
+      let canonicalEl = document.querySelector('link[rel="canonical"]');
+      if (canonicalEl) {
+        canonicalEl.setAttribute('href', canonical);
+      }
+    } else if (viewMode === 'grid') {
+      const defaultTitle = isVi
+        ? 'Khám phá Kỉ nguyên AI — Học viện Tri thức & Tác nhân Tự chủ | Aevum OS'
+        : 'Explore AI Era — Autonomous Agent Academy & Knowledge Hub | Aevum OS';
+      const defaultDesc = isVi
+        ? 'Khám phá kỉ nguyên Agentic AI: Giáo trình mở miễn phí về kiến trúc hệ điều hành agent, tối ưu ngữ cảnh MCP, trí nhớ nhận thức kép và đồ thị tri thức sống.'
+        : 'Explore the Agentic AI era: Free open academy on agent operating systems, MCP context engineering, dual-memory architectures, and living memory graphs.';
+      const canonical = 'https://www.aevum.ai.vn/explore';
+
+      document.title = defaultTitle;
+      setMeta('meta[name="description"]', 'name', 'description', defaultDesc);
+      setMeta('meta[property="og:title"]', 'property', 'og:title', defaultTitle);
+      setMeta('meta[property="og:description"]', 'property', 'og:description', defaultDesc);
+      setMeta('meta[property="og:url"]', 'property', 'og:url', canonical);
+
+      let canonicalEl = document.querySelector('link[rel="canonical"]');
+      if (canonicalEl) {
+        canonicalEl.setAttribute('href', canonical);
+      }
+    }
+  }, [viewMode, activeLessonId, activeLesson, isVi]);
+
   // Reading progress tracker (Top progress rail across top of viewport)
   const [readingProgress, setReadingProgress] = useState(0);
   useEffect(() => {

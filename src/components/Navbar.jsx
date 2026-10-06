@@ -313,7 +313,11 @@ export const Navbar = ({
             return (
               <button
                 onClick={() => toggleDropdown('profile')}
-                className="flex items-center self-stretch gap-2.5 text-xs font-mono text-slate-300 hover:text-white [html[data-theme='light']_&]:text-slate-700 [html[data-theme='light']_&]:hover:text-slate-950 px-3 sm:px-4 border-l border-r border-white/10 [html[data-theme='light']_&]:border-slate-200 bg-transparent hover:bg-white/[0.04] [html[data-theme='light']_&]:hover:bg-slate-100/60 transition-all cursor-pointer group rounded-none"
+                className={`flex items-center self-stretch gap-2.5 text-xs font-mono text-slate-300 hover:text-white [html[data-theme='light']_&]:text-slate-700 [html[data-theme='light']_&]:hover:text-slate-950 px-3 sm:px-4 border-l border-r ${
+                  isNavbarScrolled
+                    ? 'border-white/10 [html[data-theme=\'light\']_&]:border-slate-200'
+                    : 'border-transparent'
+                } bg-transparent hover:bg-white/[0.04] [html[data-theme='light']_&]:hover:bg-slate-100/60 transition-all cursor-pointer group rounded-none`}
                 title={isVi ? "Xem tài khoản Aevum" : "View Aevum profile"}
               >
                 {/* Clean Soft Rounded Avatar */}
@@ -344,7 +348,11 @@ export const Navbar = ({
 
             <button
               onClick={onOpenAuthModal}
-              className="flex items-center self-stretch gap-2 text-xs font-mono text-slate-300 hover:text-white [html[data-theme='light']_&]:text-slate-700 [html[data-theme='light']_&]:hover:text-slate-900 px-4 sm:px-5 border-l border-r border-white/10 [html[data-theme='light']_&]:border-slate-200 bg-transparent hover:bg-white/[0.04] [html[data-theme='light']_&]:hover:bg-slate-100/60 transition-all cursor-pointer group rounded-none"
+              className={`flex items-center self-stretch gap-2 text-xs font-mono text-slate-300 hover:text-white [html[data-theme='light']_&]:text-slate-700 [html[data-theme='light']_&]:hover:text-slate-900 px-4 sm:px-5 border-l border-r ${
+                isNavbarScrolled
+                  ? 'border-white/10 [html[data-theme=\'light\']_&]:border-slate-200'
+                  : 'border-transparent'
+              } bg-transparent hover:bg-white/[0.04] [html[data-theme='light']_&]:hover:bg-slate-100/60 transition-all cursor-pointer group rounded-none`}
               title={isVi ? "Đăng nhập tài khoản" : "Sign in to Aevum account"}
             >
               <User size={13} className="text-slate-400 group-hover:text-cyan-400 [html[data-theme='light']_&]:text-slate-500 [html[data-theme='light']_&]:group-hover:text-cyan-600 transition-colors" />

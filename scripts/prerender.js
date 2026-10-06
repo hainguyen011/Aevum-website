@@ -121,6 +121,57 @@ curriculumModules.forEach((mod) => {
   });
 });
 
+function extractFaqFromContent(content, lessonTitle, lessonSummary) {
+  const faqs = [];
+  if (lessonTitle && lessonSummary) {
+    faqs.push({
+      question: `${lessonTitle} là gì và có ý nghĩa như thế nào trong kỷ nguyên AI?`,
+      answer: lessonSummary
+    });
+  }
+
+  if (content) {
+    const lines = content.split('\n');
+    let curQ = null;
+    let curAns = [];
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      const match = line.match(/^#{2,3}\s+(?:[\d.]+\s*)?([^?\n]+\?)/);
+      if (match) {
+        if (curQ && curAns.length > 0) {
+          const ansText = curAns.join(' ').replace(/\[([^\]]+)\]\([^)]+\)/g, '$1').replace(/`{1,3}[^`]*`{1,3}/g, '').replace(/[>*_|-]/g, '').replace(/\s+/g, ' ').trim();
+          if (ansText.length > 25) {
+            faqs.push({ question: curQ, answer: ansText.substring(0, 320) });
+          }
+        }
+        curQ = match[1].trim();
+        curAns = [];
+      } else if (curQ) {
+        if (line.startsWith('#') || line.startsWith('---')) {
+          const ansText = curAns.join(' ').replace(/\[([^\]]+)\]\([^)]+\)/g, '$1').replace(/`{1,3}[^`]*`{1,3}/g, '').replace(/[>*_|-]/g, '').replace(/\s+/g, ' ').trim();
+          if (ansText.length > 25) {
+            faqs.push({ question: curQ, answer: ansText.substring(0, 320) });
+          }
+          curQ = null;
+          curAns = [];
+        } else if (line.trim().length > 0 && curAns.length < 4) {
+          curAns.push(line.trim());
+        }
+      }
+    }
+
+    if (curQ && curAns.length > 0) {
+      const ansText = curAns.join(' ').replace(/\[([^\]]+)\]\([^)]+\)/g, '$1').replace(/`{1,3}[^`]*`{1,3}/g, '').replace(/[>*_|-]/g, '').replace(/\s+/g, ' ').trim();
+      if (ansText.length > 25) {
+        faqs.push({ question: curQ, answer: ansText.substring(0, 320) });
+      }
+    }
+  }
+
+  return faqs;
+}
+
 async function prerender() {
   console.log('[Prerender Snapshot] Starting static HTML generation for SEO & Search Spiders...');
 
@@ -249,65 +300,144 @@ async function prerender() {
         pageHtml = pageHtml.replace('</head>', `  ${schemaTag}\n</head>`);
       }
 
-      // Inject JSON-LD Schema for LearningResource if lesson
-      if (meta.lessonData) {
-        const lessonSchema = {
+      // Inject JSON-LD Schema for Course if on main /explore hub
+      if (meta.pageKey === 'explore' && !meta.lessonData) {
+        const courseSchema = {
           "@context": "https://schema.org",
           "@graph": [
             {
-              "@type": "LearningResource",
-              "@id": `${meta.canonical}#lesson`,
-              "isPartOf": { "@id": "https://www.aevum.ai.vn/#website" },
-              "headline": meta.title,
-              "description": meta.description,
-              "url": meta.canonical,
+              "@type": "Course",
+              "@id": "https://www.aevum.ai.vn/explore#course",
+              "name": "Khám phá Kỉ nguyên AI — Học viện Tri thức & Tác nhân Tự chủ Aevum OS",
+              "description": "Giáo trình mở miễn phí về hệ điều hành agent, tối ưu ngữ cảnh MCP, trí nhớ nhận thức kép và đồ thị tri thức sống cùng Aevum OS.",
+              "url": "https://www.aevum.ai.vn/explore",
               "inLanguage": "vi-VN",
-              "educationalLevel": "Intermediate to Advanced",
-              "learningResourceType": "Lesson",
-              "author": {
+              "provider": {
                 "@type": "Organization",
                 "name": "I2FLabs Vietnam",
                 "url": "https://www.aevum.ai.vn"
               },
-              "publisher": {
-                "@type": "Organization",
-                "name": "I2FLabs Vietnam",
-                "url": "https://www.aevum.ai.vn",
-                "logo": {
-                  "@type": "ImageObject",
-                  "url": "https://www.aevum.ai.vn/icon-512.png"
+              "hasCourseInstance": [
+                {
+                  "@type": "CourseInstance",
+                  "courseMode": "Online",
+                  "courseWorkload": "PT12H"
                 }
-              }
-            },
-            {
-              "@type": "BreadcrumbList",
-              "@id": `${meta.canonical}#breadcrumb`,
-              "itemListElement": [
-                {
-                  "@type": "ListItem",
-                  "position": 1,
-                  "name": "Trang chủ",
-                  "item": "https://www.aevum.ai.vn/"
-                },
-                {
-                  "@type": "ListItem",
-                  "position": 2,
-                  "name": "Khám phá Kỉ nguyên",
-                  "item": "https://www.aevum.ai.vn/explore"
-                },
-                {
-                  "@type": "ListItem",
-                  "position": 3,
-                  "name": meta.lessonData.title,
-                  "item": meta.canonical
-                }
-              ]
+              ],
+              "syllabusSections": curriculumModules.map(mod => ({
+                "@type": "Syllabus",
+                "name": mod.title,
+                "description": mod.description
+              }))
             }
           ]
+        };
+        const courseTag = `<script id="aevum-course-schema" type="application/ld+json">${JSON.stringify(courseSchema, null, 2)}</script>`;
+        pageHtml = pageHtml.replace('</head>', `  ${courseTag}\n</head>`);
+      }
+
+      // Inject JSON-LD Schema for LearningResource & FAQPage if lesson
+      if (meta.lessonData) {
+        const faqs = extractFaqFromContent(meta.lessonData.content, meta.lessonData.title, meta.lessonData.summary);
+
+        const graphItems = [
+          {
+            "@type": "LearningResource",
+            "@id": `${meta.canonical}#lesson`,
+            "isPartOf": { "@id": "https://www.aevum.ai.vn/#website" },
+            "headline": meta.title,
+            "description": meta.description,
+            "url": meta.canonical,
+            "inLanguage": "vi-VN",
+            "educationalLevel": meta.lessonData.level || "Intermediate to Advanced",
+            "learningResourceType": "Lesson",
+            "timeRequired": meta.lessonData.readTime ? `PT${meta.lessonData.readTime.replace(/[^0-9]/g, '') || 10}M` : "PT10M",
+            "author": {
+              "@type": "Person",
+              "name": meta.lessonData.author?.name || "I2FLabs Vietnam",
+              "jobTitle": meta.lessonData.author?.role || "AI Engineer"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "I2FLabs Vietnam",
+              "url": "https://www.aevum.ai.vn",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://www.aevum.ai.vn/icon-512.png"
+              }
+            }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": `${meta.canonical}#breadcrumb`,
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Trang chủ",
+                "item": "https://www.aevum.ai.vn/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Khám phá Kỉ nguyên",
+                "item": "https://www.aevum.ai.vn/explore"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": meta.lessonData.category || "Chuyên đề",
+                "item": "https://www.aevum.ai.vn/explore"
+              },
+              {
+                "@type": "ListItem",
+                "position": 4,
+                "name": meta.lessonData.title,
+                "item": meta.canonical
+              }
+            ]
+          }
+        ];
+
+        if (faqs.length > 0) {
+          graphItems.push({
+            "@type": "FAQPage",
+            "@id": `${meta.canonical}#faq`,
+            "mainEntity": faqs.map(f => ({
+              "@type": "Question",
+              "name": f.question,
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": f.answer
+              }
+            }))
+          });
+        }
+
+        const lessonSchema = {
+          "@context": "https://schema.org",
+          "@graph": graphItems
         };
 
         const schemaTag = `<script id="aevum-lesson-schema" type="application/ld+json">${JSON.stringify(lessonSchema, null, 2)}</script>`;
         pageHtml = pageHtml.replace('</head>', `  ${schemaTag}\n</head>`);
+
+        // Inject keywords tag into <head>
+        const keywordsList = [
+          ...(meta.lessonData.tags || []),
+          meta.lessonData.title,
+          meta.lessonData.category || '',
+          'Aevum OS',
+          'Khám phá Kỉ nguyên AI',
+          'Agentic AI',
+          'Model Context Protocol',
+          'I2FLabs Vietnam'
+        ].filter(Boolean).join(', ');
+
+        pageHtml = pageHtml.replace(
+          /<\/head>/i,
+          `  <meta name="keywords" content="${keywordsList.replace(/"/g, '&quot;')}" />\n</head>`
+        );
       }
 
       // Optimize Critical Rendering Path: Inline entire critical CSS directly into <style> in <head>

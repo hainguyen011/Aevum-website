@@ -420,21 +420,23 @@ export const Privacy = ({ activeLang = 'vi' }) => {
 
   return (
     <div className="w-full min-h-[calc(100vh-73px)] bg-[#07090D] border-b border-white/5 block lg:flex lg:flex-row relative justify-between overflow-x-clip">
-      {/* Mobile Portal Drawer (Renders outside app-content-wrapper directly on body) */}
+      {/* Mobile Portal Drawer */}
       {typeof document !== 'undefined' && createPortal(
-        <div className={`docs-mobile-drawer lg:hidden ${sidebarOpen ? 'open' : ''}`}>
-          {/* Header Bar */}
-          <div className="shrink-0 flex items-center justify-between p-5 border-b border-white/5 bg-transparent">
-            <span className="font-mono text-xs font-bold text-white uppercase tracking-wider">
-              {isVi ? 'Chính sách Bảo mật' : 'Privacy Policy'}
-            </span>
-            <button
-              onClick={() => setSidebarOpen(false)}
-              className="p-1.5 rounded-lg bg-white/5 text-slate-400 hover:text-white transition-colors cursor-pointer"
-            >
-              <X size={18} />
-            </button>
-          </div>
+        <div className={`fixed inset-0 z-[100] lg:hidden transition-opacity duration-300 ${sidebarOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+          <div onClick={() => setSidebarOpen(false)} className="absolute inset-0 bg-black/80 backdrop-blur-sm" aria-hidden="true" />
+          <div className={`absolute top-0 bottom-0 left-0 w-80 max-w-[85vw] bg-[#07090D] [html[data-theme='light']_&]:bg-[#F8FAFC] border-r border-white/10 [html[data-theme='light']_&]:border-slate-200 shadow-none flex flex-col transition-transform duration-300 ease-out ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+            {/* Header Bar */}
+            <div className="shrink-0 flex items-center justify-between p-4 border-b border-white/10 [html[data-theme='light']_&]:border-slate-200">
+              <span className="font-mono text-xs font-bold text-white [html[data-theme='light']_&]:text-slate-900 uppercase tracking-wider">
+                {isVi ? 'Chính sách Bảo mật' : 'Privacy Policy'}
+              </span>
+              <button
+                onClick={() => setSidebarOpen(false)}
+                className="p-1.5 rounded-lg bg-white/5 [html[data-theme='light']_&]:bg-slate-200 text-slate-400 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors cursor-pointer"
+              >
+                <X size={18} />
+              </button>
+            </div>
 
           {/* Scrollable Categories List */}
           <div className="flex-1 overflow-y-auto p-6 space-y-6 no-scrollbar docs-drawer-nav-list" data-lenis-prevent>
@@ -469,9 +471,10 @@ export const Privacy = ({ activeLang = 'vi' }) => {
               </div>
             ))}
           </div>
-        </div>,
-        document.body
-      )}
+        </div>
+      </div>,
+      document.body
+    )}
 
       {/* Desktop Left Sidebar (Docs UI style) */}
       <aside className="hidden lg:block w-64 border-r border-white/5 shrink-0">

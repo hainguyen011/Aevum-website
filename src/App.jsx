@@ -965,7 +965,7 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
           {/* Search Bar */}
           <div
             onClick={() => { setIsMobileMenuOpen(false); setIsSearchOpen(true); }}
-            className="flex items-center bg-white/[0.03] border border-white/10 rounded-md px-3.5 py-2.5 text-xs text-slate-300 font-mono gap-2 hover:border-white/15 transition-all cursor-pointer"
+            className="flex items-center bg-white/[0.04] rounded-md px-3.5 py-2.5 text-xs text-slate-300 font-mono gap-2 hover:bg-white/[0.07] transition-all cursor-pointer"
           >
             <Search size={14} className="text-slate-400 shrink-0" />
             <span className="flex-1 text-left text-slate-400">{t.navbar.searchPlaceholder}</span>
@@ -1050,7 +1050,7 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
                 {activeLang === 'vi' ? 'Thảo luận' : 'Discussions'}
               </button>
 
-              <div className="h-px bg-white/5 my-2"></div>
+              <div className="my-2"></div>
 
               {user ? (
                 <button
@@ -1072,12 +1072,12 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
             </div>
 
             {/* Bottom Controls Row: Close Button, Theme Switcher & Language Switcher */}
-            <div className="flex justify-between items-center text-xs font-mono pt-4 mt-2 border-t border-white/10">
+            <div className="flex justify-between items-center text-xs font-mono pt-4 mt-2">
               {/* Close Button at the end */}
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
                 aria-label={activeLang === 'vi' ? 'Đóng bảng điều hướng' : 'Close navigation menu'}
-                className="flex items-center gap-1.5 text-slate-400 hover:text-white transition-colors font-bold uppercase py-1 px-2.5 rounded-md hover:bg-white/5 border border-white/10 text-xs cursor-pointer"
+                className="flex items-center gap-1.5 text-slate-400 hover:text-white transition-colors font-bold uppercase py-1 px-2.5 rounded-md hover:bg-white/5 text-xs cursor-pointer"
               >
                 <X size={14} className="shrink-0 text-slate-400" />
                 <span>{activeLang === 'vi' ? 'Đóng' : 'Close'}</span>

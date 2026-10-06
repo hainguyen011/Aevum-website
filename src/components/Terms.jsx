@@ -425,18 +425,27 @@ export const Terms = ({ activeLang = 'vi' }) => {
   });
 
   return (
-    <div className="w-full min-h-[calc(100vh-73px)] bg-[#07090D] border-b border-white/5 block lg:flex lg:flex-row relative justify-between overflow-x-clip">
-      {/* Mobile Portal Drawer (Renders outside app-content-wrapper directly on body) */}
+    <div className="w-full min-h-[calc(100vh-73px)] bg-[#07080c] border-b border-white/5 block lg:flex lg:flex-row relative justify-between overflow-x-clip">
+      {/* Click-to-close overlay on pushed content when sidebar is open */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 z-40 lg:hidden cursor-pointer bg-transparent"
+          onClick={() => setSidebarOpen(false)}
+          aria-label="Đóng mục lục điều khoản"
+        />
+      )}
+
+      {/* Mobile Portal Drawer */}
       {typeof document !== 'undefined' && createPortal(
         <div className={`docs-mobile-drawer lg:hidden ${sidebarOpen ? 'open' : ''}`}>
           {/* Header Bar */}
-          <div className="shrink-0 flex items-center justify-between p-5 border-b border-white/5 bg-transparent">
-            <span className="font-mono text-xs font-bold text-white uppercase tracking-wider">
+          <div className="shrink-0 flex items-center justify-between p-5 border-b border-white/5 bg-transparent docs-drawer-header">
+            <span className="font-mono text-xs font-bold uppercase tracking-wider docs-drawer-title">
               {isVi ? 'Điều khoản Dịch vụ' : 'Terms of Service'}
             </span>
             <button
               onClick={() => setSidebarOpen(false)}
-              className="p-1.5 rounded-lg bg-white/5 text-slate-400 hover:text-white transition-colors cursor-pointer"
+              className="p-1.5 rounded-lg transition-colors cursor-pointer docs-drawer-close"
             >
               <X size={18} />
             </button>
@@ -446,7 +455,7 @@ export const Terms = ({ activeLang = 'vi' }) => {
           <div className="flex-1 overflow-y-auto p-6 space-y-6 no-scrollbar docs-drawer-nav-list" data-lenis-prevent>
             {Object.keys(categories).map((catName) => (
               <div key={catName} className="space-y-2">
-                <div className="text-[11px] font-bold text-slate-400 uppercase tracking-widest px-2 mb-3">
+                <div className="text-[11px] font-bold uppercase tracking-widest px-2 mb-3 docs-drawer-cat-name">
                   {catName}
                 </div>
                 <ul className="space-y-1">

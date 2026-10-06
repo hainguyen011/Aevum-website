@@ -729,7 +729,7 @@ export function Changelog({ activeLang, onNavigate }) {
                   </div>
 
                   {/* Body Content */}
-                  <div className="pt-3 border-t border-white/10 text-xs sm:text-sm leading-relaxed text-slate-200">
+                  <div className="pt-3 border-t border-white/10 [html[data-theme='light']_&]:border-slate-200 text-xs sm:text-sm leading-relaxed text-slate-200 [html[data-theme='light']_&]:text-slate-800">
                     {isTranslating ? (
                       <div className="flex items-center gap-2 py-2 text-slate-400 font-mono text-xs">
                         <RefreshCw size={12} className="animate-spin text-cyan-400" />
@@ -738,7 +738,7 @@ export function Changelog({ activeLang, onNavigate }) {
                     ) : (
                       formatReleaseNotes(translatedNotes || selectedRelease.body)
                     )}
-                    <span className="inline-block w-2 h-4 bg-white ml-1 animate-pulse align-middle" />
+                    <span className="inline-block w-2 h-4 bg-white [html[data-theme='light']_&]:bg-slate-900 ml-1 animate-pulse align-middle" />
                   </div>
 
                 </div>

@@ -134,13 +134,93 @@ html[data-theme="light"] .subnav-arch-card:hover h4 {
 /* MOBILE DRAWER LIGHT MODE SYNCHRONIZATION                                  */
 /* ───────────────────────────────────────────────────────────────────────── */
 html[data-theme="light"] .mobile-drawer {
-  background-color: #F8FAFC !important;
-  border-left: 1px solid rgba(15, 23, 42, 0.08) !important;
-  box-shadow: -10px 0 30px rgba(15, 23, 42, 0.08) !important;
+  background-color: #FFFFFF !important;
+  border: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  box-shadow: none !important;
 }
 
 html[data-theme="light"] .mobile-drawer > div:first-child {
-  background-color: #F8FAFC !important;
+  background-color: #FFFFFF !important;
+}
+
+/* ───────────────────────────────────────────────────────────────────────── */
+/* DOCS MOBILE DRAWER LIGHT MODE SYNCHRONIZATION                             */
+/* ───────────────────────────────────────────────────────────────────────── */
+html[data-theme="light"] .docs-mobile-drawer {
+  background-color: #FFFFFF !important;
+  border: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="light"] .docs-mobile-drawer .docs-drawer-header {
+  background-color: #FFFFFF !important;
+  border-bottom: none !important;
+}
+
+html[data-theme="light"] .docs-mobile-drawer .docs-drawer-title {
+  color: #0F172A !important;
+}
+
+html[data-theme="light"] .docs-mobile-drawer .docs-drawer-close {
+  background-color: rgba(15, 23, 42, 0.06) !important;
+  color: #475569 !important;
+}
+
+html[data-theme="light"] .docs-mobile-drawer .docs-drawer-close:hover {
+  background-color: rgba(15, 23, 42, 0.12) !important;
+  color: #0F172A !important;
+}
+
+html[data-theme="light"] .docs-mobile-drawer .docs-drawer-search {
+  border-bottom: none !important;
+}
+
+html[data-theme="light"] .docs-mobile-drawer .docs-drawer-search-input {
+  background-color: #FFFFFF !important;
+  border: none !important;
+  color: #0F172A !important;
+}
+
+html[data-theme="light"] .docs-mobile-drawer .docs-drawer-search-input::placeholder {
+  color: #94A3B8 !important;
+}
+
+html[data-theme="light"] .docs-mobile-drawer .docs-drawer-cat-name {
+  color: #475569 !important;
+  font-weight: 700 !important;
+}
+
+html[data-theme="light"] .docs-mobile-drawer .docs-drawer-cat-count {
+  color: #94A3B8 !important;
+}
+
+html[data-theme="light"] .docs-mobile-drawer .docs-drawer-item {
+  color: #334155 !important;
+}
+
+html[data-theme="light"] .docs-mobile-drawer .docs-drawer-item:hover {
+  color: #0F172A !important;
+  background-color: rgba(15, 23, 42, 0.05) !important;
+}
+
+html[data-theme="light"] .docs-mobile-drawer .docs-drawer-item.active {
+  color: #0F172A !important;
+  background-color: #E2E8F0 !important;
+  border-left: none !important;
+  font-weight: 600 !important;
+}
+
+html[data-theme="light"] .docs-mobile-drawer .docs-drawer-footer {
+  border-top: none !important;
+  color: #64748B !important;
+}
+
+html[data-theme="light"] .docs-mobile-drawer .docs-drawer-footer a:hover {
+  color: #0F172A !important;
 }
 
 /* ───────────────────────────────────────────────────────────────────────── */
@@ -383,10 +463,38 @@ html[data-theme="light"] .payment-plan-card.inactive .payment-plan-discount {
 html[data-theme="light"] .payment-plan-card.inactive .payment-plan-desc {
   color: #64748B !important;
 }
-html[data-theme="light"] .payment-plan-card.inactive .payment-plan-oldprice {
-  color: #94A3B8 !important;
+/* ───────────────────────────────────────────────────────────────────────── */
+/* CHANGELOG LIGHT MODE SYNCHRONIZATION                                      */
+/* ───────────────────────────────────────────────────────────────────────── */
+html[data-theme="light"] #changelog {
+  background-color: #F8FAFC !important;
+  color: #0F172A !important;
 }
 
+html[data-theme="light"] #changelog > div {
+  background-color: #F8FAFC !important;
+}
+
+html[data-theme="light"] #changelog .border-white\/10 {
+  border-color: rgba(15, 23, 42, 0.1) !important;
+}
+
+html[data-theme="light"] #changelog .border-white\/5 {
+  border-color: rgba(15, 23, 42, 0.06) !important;
+}
+
+html[data-theme="light"] #changelog .bg-white\/\[0\.015\] {
+  background-color: #FFFFFF !important;
+  border-color: rgba(15, 23, 42, 0.1) !important;
+}
+
+html[data-theme="light"] #changelog .bg-white\/\[0\.04\] {
+  background-color: rgba(15, 23, 42, 0.05) !important;
+}
+
+html[data-theme="light"] #changelog .cursor-pointer:hover {
+  background-color: rgba(15, 23, 42, 0.04);
+}
 
 /* Eye Care Warm Lighting Overlay Filter */
 .eye-care-overlay {

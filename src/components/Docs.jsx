@@ -748,6 +748,30 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
   const [helpfulFeedback, setHelpfulFeedback] = useState(null); // 'yes' | 'no' | null
   const searchInputRef = useRef(null);
 
+  // Push main container to the right in 3D when Docs mobile sidebar is active
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      const container = document.querySelector('.perspective-container');
+      if (sidebarOpen) {
+        container?.classList.add('docs-menu-active');
+        document.body.classList.add('docs-menu-active');
+        document.body.style.overflow = 'hidden';
+      } else {
+        container?.classList.remove('docs-menu-active');
+        document.body.classList.remove('docs-menu-active');
+        document.body.style.overflow = '';
+      }
+    }
+    return () => {
+      if (typeof document !== 'undefined') {
+        const container = document.querySelector('.perspective-container');
+        container?.classList.remove('docs-menu-active');
+        document.body.classList.remove('docs-menu-active');
+        document.body.style.overflow = '';
+      }
+    };
+  }, [sidebarOpen]);
+
   // Font size adjuster state for global accessibility
   const [fontSize, setFontSize] = useState(() => {
     if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
@@ -1283,40 +1307,78 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
         {activeLang === 'vi' ? 'Bỏ qua chuyển đến nội dung' : 'Skip to main content'}
       </a>
 
-      {/* Mobile Portal Drawer */}
+      {/* Click-to-close overlay on pushed content when Docs sidebar is open */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 z-40 lg:hidden cursor-pointer bg-transparent"
+          onClick={() => setSidebarOpen(false)}
+          aria-label="Đóng mục lục tài liệu"
+        />
+      )}
+
+      {/* 3D Slide-in Mobile Docs Drawer (Symmetrical to Right Menu) */}
       {typeof document !== 'undefined' &&
         createPortal(
-          <div className={`docs-mobile-drawer lg:hidden ${sidebarOpen ? 'open' : ''}`}>
+          <div
+            className={`docs-mobile-drawer lg:hidden ${
+              sidebarOpen ? 'open' : ''
+            }`}
+          >
             {/* Header Bar */}
-            <div className="shrink-0 flex items-center justify-between p-5 bg-transparent">
-              <span className="font-mono text-xs font-bold text-white uppercase tracking-wider">
+            <div className="shrink-0 pt-4 pb-3 px-4 flex items-center justify-between docs-drawer-header">
+              <span className="font-mono text-xs font-bold uppercase tracking-wider docs-drawer-title">
                 {activeLang === 'vi' ? 'Tài liệu Aevum OS' : 'Documentation'}
               </span>
               <button
                 onClick={() => setSidebarOpen(false)}
-                className="p-1.5 rounded-lg bg-white/5 text-slate-400 hover:text-white transition-colors cursor-pointer"
+                className="p-1.5 rounded-lg transition-colors cursor-pointer docs-drawer-close"
                 aria-label="Đóng bảng điều hướng"
               >
                 <X size={18} />
               </button>
             </div>
 
+            {/* Quick Filter Search Bar */}
+            <div className="p-3 shrink-0 docs-drawer-search">
+              <div className="relative">
+                <Search
+                  size={13}
+                  className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none"
+                />
+                <input
+                  type="text"
+                  value={filterQuery}
+                  onChange={(e) => setFilterQuery(e.target.value)}
+                  placeholder={activeLang === 'vi' ? 'Lọc tài liệu...' : 'Filter docs...'}
+                  className="w-full rounded-md pl-8 pr-7 py-1.5 text-xs transition-colors font-mono docs-drawer-search-input"
+                />
+                {filterQuery && (
+                  <button
+                    onClick={() => setFilterQuery('')}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white"
+                  >
+                    <X size={12} />
+                  </button>
+                )}
+              </div>
+            </div>
+
             {/* Scrollable Categories List */}
             <div
-              className="flex-1 overflow-y-auto p-6 space-y-6 no-scrollbar docs-drawer-nav-list"
+              className="flex-1 overflow-y-auto p-4 space-y-5 scrollbar-thin docs-drawer-nav-list"
               data-lenis-prevent
             >
               {Object.keys(categories).map((catName) => (
-                <div key={catName} className="space-y-2">
-                  <div className="flex items-center justify-between px-2 mb-2">
-                    <span className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest">
+                <div key={catName} className="space-y-1.5">
+                  <div className="flex items-center justify-between px-2 mb-1.5">
+                    <span className="text-[10px] font-mono uppercase tracking-widest docs-drawer-cat-name">
                       {catName}
                     </span>
-                    <span className="text-[9px] font-mono text-slate-600">
+                    <span className="text-[9px] font-mono docs-drawer-cat-count">
                       {categories[catName].length}
                     </span>
                   </div>
-                  <ul className="space-y-1">
+                  <ul className="space-y-0.5">
                     {categories[catName].map((doc) => {
                       const isActive = doc.id === activeId;
                       return (
@@ -1326,19 +1388,18 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
                             onClick={(e) => {
                               e.preventDefault();
                               selectDoc(doc.id);
+                              setSidebarOpen(false);
                             }}
-                            className={`w-full flex items-center justify-between text-left py-2 px-3 rounded text-xs font-medium transition-colors duration-150 ease-out group ${
-                              isActive
-                                ? 'text-white font-medium bg-white/10'
-                                : 'text-slate-400 hover:text-white hover:bg-white/[0.02]'
+                            className={`docs-drawer-item w-full flex items-center justify-between text-left py-2 px-2.5 rounded text-xs font-medium transition-colors duration-150 ease-out group cursor-pointer ${
+                              isActive ? 'active' : ''
                             }`}
                           >
                             <span className="truncate">{doc.title}</span>
                             <ChevronRight
                               size={12}
-                              className={`transition-transform duration-150 ${
+                              className={`transition-transform duration-150 shrink-0 ${
                                 isActive
-                                  ? 'translate-x-0.5 text-white'
+                                  ? 'translate-x-0.5 opacity-100'
                                   : 'opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 text-slate-500'
                               }`}
                             />
@@ -1349,6 +1410,23 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
                   </ul>
                 </div>
               ))}
+            </div>
+
+            {/* Sidebar Footer Hint */}
+            <div className="p-4 flex items-center justify-between text-[10px] font-mono shrink-0 docs-drawer-footer">
+              <a
+                href="/changelog"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setSidebarOpen(false);
+                  onNavigate?.('changelog');
+                }}
+                className="transition-colors cursor-pointer flex items-center gap-1.5 group"
+                title="Xem Nhật ký Cập nhật"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="group-hover:underline">Aevum OS v1.0.0-beta.6</span>
+              </a>
             </div>
           </div>,
           document.body

@@ -94,24 +94,24 @@ export const SubNavTabs = ({ activeLang = 'en', onNavigate }) => {
   };
 
   return (
-    <section className="relative w-full py-16 sm:py-24 lg:py-28 bg-[#07090D] border-subtle-b">
+    <section className="subnav-section relative w-full py-16 sm:py-24 lg:py-28 bg-[#07090D] [html[data-theme='light']_&]:bg-[#F8FAFC] border-subtle-b [html[data-theme='light']_&]:border-slate-200/80">
       <span id="architecture" className="absolute -top-20" />
 
       {/* ── Section Header ── */}
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 mb-12 sm:mb-16">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="space-y-2 max-w-2xl text-left">
-            <span className="text-[11px] font-sans text-white/80 font-medium tracking-widest uppercase block">
+            <span className="text-[11px] font-sans text-cyan-400 [html[data-theme='light']_&]:text-cyan-700 font-semibold tracking-widest uppercase block">
               {isVi ? 'HỆ ĐIỀU HÀNH BỘ NÃO NGOẠI VI' : 'AEVUM OS SUBSYSTEMS'}
             </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-medium sm:font-semibold text-white tracking-[0.01em] font-display">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-medium sm:font-semibold text-white [html[data-theme='light']_&]:text-slate-900 tracking-[0.01em] font-display">
               {isVi ? (
-                <>Khám phá các trụ cột kiến trúc của <span className="text-white">Aevum OS</span></>
+                <>Khám phá các trụ cột kiến trúc của <span className="text-white [html[data-theme='light']_&]:text-slate-900">Aevum OS</span></>
               ) : (
-                <>Explore the Frontier <span className="text-white">Subsystems</span></>
+                <>Explore the Frontier <span className="text-white [html[data-theme='light']_&]:text-slate-900">Subsystems</span></>
               )}
             </h2>
-            <p className="text-slate-400 text-xs sm:text-sm leading-relaxed font-sans pt-1">
+            <p className="text-slate-400 [html[data-theme='light']_&]:text-slate-600 text-xs sm:text-sm leading-relaxed font-sans pt-1">
               {isVi
                 ? '6 thành phần kiến trúc nền tảng tách biệt bộ não AI khỏi IDE sandbox, duy trì ký ức sống và điều phối biệt đội tự trị.'
                 : '6 foundational architectural subsystems decoupling AI memory from IDE sandboxes into a persistent living brain.'}
@@ -120,13 +120,13 @@ export const SubNavTabs = ({ activeLang = 'en', onNavigate }) => {
 
           {/* Filter Pill Controls */}
           <div className="flex items-center gap-3 self-start md:self-end">
-            <div className="flex items-center p-1 rounded-full bg-white/[0.04] border border-white/10 text-xs font-sans">
+            <div className="flex items-center p-1 rounded-full bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-200/70 border border-white/10 [html[data-theme='light']_&]:border-slate-300/80 text-xs font-sans">
               <button
                 onClick={() => setActiveCategory('all')}
-                className={`px-3.5 py-1.5 rounded-full transition-colors duration-200 cursor-pointer ${
+                className={`px-3.5 py-1.5 rounded-full transition-colors duration-200 cursor-pointer font-medium ${
                   activeCategory === 'all'
-                    ? 'bg-white text-black'
-                    : 'text-slate-300 hover:text-white'
+                    ? 'bg-white text-black [html[data-theme="light"]_&]:bg-white [html[data-theme="light"]_&]:text-slate-900 [html[data-theme="light"]_&]:shadow-sm'
+                    : 'text-slate-300 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
                 }`}
               >
                 {isVi ? 'Tất cả (6)' : 'All (6)'}
@@ -138,10 +138,10 @@ export const SubNavTabs = ({ activeLang = 'en', onNavigate }) => {
                     setActiveId('kernel-mcp');
                   }
                 }}
-                className={`px-3.5 py-1.5 rounded-full transition-colors duration-200 cursor-pointer ${
+                className={`px-3.5 py-1.5 rounded-full transition-colors duration-200 cursor-pointer font-medium ${
                   activeCategory === 'core'
-                    ? 'bg-white text-black'
-                    : 'text-slate-300 hover:text-white'
+                    ? 'bg-white text-black [html[data-theme="light"]_&]:bg-white [html[data-theme="light"]_&]:text-slate-900 [html[data-theme="light"]_&]:shadow-sm'
+                    : 'text-slate-300 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
                 }`}
               >
                 {isVi ? 'Kiến trúc cốt lõi' : 'Core Engine'}
@@ -153,10 +153,10 @@ export const SubNavTabs = ({ activeLang = 'en', onNavigate }) => {
                     setActiveId('autonomous-squads');
                   }
                 }}
-                className={`px-3.5 py-1.5 rounded-full transition-colors duration-200 cursor-pointer ${
+                className={`px-3.5 py-1.5 rounded-full transition-colors duration-200 cursor-pointer font-medium ${
                   activeCategory === 'mesh'
-                    ? 'bg-white text-black'
-                    : 'text-slate-300 hover:text-white'
+                    ? 'bg-white text-black [html[data-theme="light"]_&]:bg-white [html[data-theme="light"]_&]:text-slate-900 [html[data-theme="light"]_&]:shadow-sm'
+                    : 'text-slate-300 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
                 }`}
               >
                 {isVi ? 'Mạng lưới phân tán' : 'Distributed Mesh'}
@@ -173,12 +173,12 @@ export const SubNavTabs = ({ activeLang = 'en', onNavigate }) => {
           {/* ════════════ LEFT COLUMN: Main Featured Subsystem (Sticky & Vertically Centered) ════════════ */}
           <div className="lg:col-span-6 xl:col-span-6 lg:sticky lg:top-[max(5.5rem,calc(50vh-280px))] self-start flex flex-col text-left z-10">
             {/* Main Headline */}
-            <h3 className="text-2xl sm:text-3xl lg:text-[34px] xl:text-[38px] font-medium text-white tracking-[0.01em] leading-[1.2] font-display">
+            <h3 className="text-2xl sm:text-3xl lg:text-[34px] xl:text-[38px] font-medium text-white [html[data-theme='light']_&]:text-slate-900 tracking-[0.01em] leading-[1.2] font-display">
               {activeSubsystem.title}
             </h3>
 
             {/* Meta Row: Date • Category */}
-            <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm text-slate-400 font-sans mt-3 sm:mt-4">
+            <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm text-slate-400 [html[data-theme='light']_&]:text-slate-600 font-sans mt-3 sm:mt-4">
               <span>{activeSubsystem.date}</span>
               <span>{activeSubsystem.category}</span>
             </div>
@@ -187,7 +187,7 @@ export const SubNavTabs = ({ activeLang = 'en', onNavigate }) => {
             <div className="mt-2.5 sm:mt-3 mb-6 sm:mb-8">
               <button
                 onClick={() => onNavigate?.(activeSubsystem.target)}
-                className="inline-flex items-center gap-1.5 text-xs sm:text-sm text-slate-300 hover:text-white font-medium transition-colors cursor-pointer group"
+                className="inline-flex items-center gap-1.5 text-xs sm:text-sm text-slate-300 hover:text-white [html[data-theme='light']_&]:text-cyan-700 [html[data-theme='light']_&]:hover:text-cyan-800 font-medium transition-colors cursor-pointer group"
               >
                 <span>{isVi ? 'Tìm hiểu thêm' : 'Learn more'}</span>
                 <ChevronRight size={15} className="transition-transform group-hover:translate-x-0.5" />
@@ -195,7 +195,7 @@ export const SubNavTabs = ({ activeLang = 'en', onNavigate }) => {
             </div>
 
             {/* Pure Linear Grainy Gradient Hero Canvas (Centered Vertically in Viewport) */}
-            <div className="relative w-full aspect-square rounded-[24px] sm:rounded-[28px] lg:rounded-[32px] overflow-hidden border border-white/10 select-none">
+            <div className="relative w-full aspect-square rounded-[24px] sm:rounded-[28px] lg:rounded-[32px] overflow-hidden border border-white/10 [html[data-theme='light']_&]:border-slate-200/90 [html[data-theme='light']_&]:shadow-md select-none">
               {/* Luminous Smooth Linear Gradient Flow */}
               <div
                 className="pointer-events-none absolute inset-0 z-0 transition-all duration-700"
@@ -233,16 +233,16 @@ export const SubNavTabs = ({ activeLang = 'en', onNavigate }) => {
               <div
                 key={item.id}
                 onClick={() => handleSelectSubsystem(item.id)}
-                className="group cursor-pointer rounded-[24px] sm:rounded-[28px] bg-[#14151b] hover:bg-[#1a1c24] border border-white/[0.08] hover:border-white/20 p-6 sm:p-7 md:p-8 flex flex-row items-center justify-between gap-5 sm:gap-7 transition-all duration-300 text-left"
+                className="subnav-arch-card group cursor-pointer rounded-[24px] sm:rounded-[28px] bg-[#14151b] [html[data-theme='light']_&]:bg-white hover:bg-[#1a1c24] [html[data-theme='light']_&]:hover:bg-slate-50/80 border border-white/[0.08] [html[data-theme='light']_&]:border-slate-200/90 hover:border-white/20 [html[data-theme='light']_&]:hover:border-slate-300 p-6 sm:p-7 md:p-8 flex flex-row items-center justify-between gap-5 sm:gap-7 transition-all duration-300 text-left [html[data-theme='light']_&]:shadow-[0_2px_12px_rgba(15,23,42,0.06)] [html[data-theme='light']_&]:hover:shadow-[0_8px_24px_rgba(15,23,42,0.09)]"
               >
                 {/* Left Side: Title, Meta & Learn More */}
                 <div className="flex-1 pr-2 sm:pr-4 flex flex-col justify-between">
-                  <h4 className="text-lg sm:text-xl lg:text-[22px] font-medium text-white tracking-[0.01em] leading-snug group-hover:text-cyan-200 transition-colors duration-200 font-display">
+                  <h4 className="text-lg sm:text-xl lg:text-[22px] font-medium text-white [html[data-theme='light']_&]:text-slate-900 tracking-[0.01em] leading-snug group-hover:text-cyan-200 [html[data-theme='light']_&]:group-hover:text-cyan-600 transition-colors duration-200 font-display">
                     {item.title}
                   </h4>
 
                   {/* Meta row: Date and Category */}
-                  <div className="mt-4 sm:mt-5 text-xs sm:text-sm text-slate-400 font-sans flex items-center gap-3.5">
+                  <div className="mt-4 sm:mt-5 text-xs sm:text-sm text-slate-400 [html[data-theme='light']_&]:text-slate-500 font-sans flex items-center gap-3.5">
                     <span>{item.date}</span>
                     <span>{item.category}</span>
                   </div>
@@ -254,7 +254,7 @@ export const SubNavTabs = ({ activeLang = 'en', onNavigate }) => {
                         e.stopPropagation();
                         onNavigate?.(item.target);
                       }}
-                      className="inline-flex items-center gap-1.5 text-xs sm:text-sm text-slate-300 group-hover:text-white font-medium transition-colors cursor-pointer"
+                      className="inline-flex items-center gap-1.5 text-xs sm:text-sm text-slate-300 group-hover:text-white [html[data-theme='light']_&]:text-cyan-700 [html[data-theme='light']_&]:group-hover:text-cyan-800 font-medium transition-colors cursor-pointer"
                     >
                       <span>{isVi ? 'Tìm hiểu thêm' : 'Learn more'}</span>
                       <ChevronRight size={14} className="transition-transform group-hover:translate-x-0.5" />
@@ -263,7 +263,7 @@ export const SubNavTabs = ({ activeLang = 'en', onNavigate }) => {
                 </div>
 
                 {/* Right Side: Rounded Grainy Gradient Thumbnail */}
-                <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-36 lg:h-36 shrink-0 rounded-[18px] sm:rounded-[20px] overflow-hidden relative border border-white/10 select-none group-hover:scale-[1.02] transition-transform duration-300">
+                <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-36 lg:h-36 shrink-0 rounded-[18px] sm:rounded-[20px] overflow-hidden relative border border-white/10 [html[data-theme='light']_&]:border-slate-200/80 [html[data-theme='light']_&]:shadow-sm select-none group-hover:scale-[1.02] transition-transform duration-300">
                   {/* Background Linear Gradient */}
                   <div
                     className="pointer-events-none absolute inset-0 z-0 transition-opacity duration-300"

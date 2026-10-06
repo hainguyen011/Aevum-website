@@ -23,21 +23,21 @@ export const CtaBanner = ({ onNavigate, onOpenTrialModal, activeLang }) => {
         style={{ backgroundImage: `url(${nasaHubbleBg})` }}
       >
         
-        {/* Dark Overlay for Cosmic Glow & Ultra Readability */}
+        {/* Dark/Light Atmospheric Overlay for Cosmic Glow & Ultra Readability */}
         <div className="absolute inset-0 bg-[#07090D]/65 backdrop-blur-[0.5px] cta-overlay" />
 
         <div className="relative z-10 max-w-2xl mx-auto space-y-6">
           
-          <div className="text-[11px] font-sans text-white/80 uppercase font-medium tracking-widest">
+          <div className="text-[11px] font-sans text-white/80 uppercase font-medium tracking-widest cta-tag">
             {t.ctaBanner.tag}
           </div>
 
-          <h2 className="text-4xl sm:text-5xl font-medium sm:font-semibold text-white tracking-[0.01em] leading-tight font-display">
+          <h2 className="text-4xl sm:text-5xl font-medium sm:font-semibold text-white tracking-[0.01em] leading-tight font-display cta-title">
             {title1} <br />
-            <span className="text-white">{title2}</span>
+            <span className="cta-title-accent">{title2}</span>
           </h2>
 
-          <p className="text-slate-200 text-sm sm:text-base max-w-md mx-auto">
+          <p className="text-slate-200 text-sm sm:text-base max-w-md mx-auto cta-desc">
             {t.ctaBanner.desc}
           </p>
 

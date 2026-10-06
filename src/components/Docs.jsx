@@ -37,7 +37,7 @@ const renderHighlightedLine = (line, lang = 'bash') => {
 
   // 1. Box drawing and ASCII art protection (e.g. ┌──┐, │, └──┘)
   if (/^[┌│└├─┬┴┼┐┘]/.test(line.trim()) || lang === 'text' || lang === 'ascii') {
-    return <span className="text-cyan-300/90 font-mono">{line}</span>;
+    return <span className="text-white/90 font-mono">{line}</span>;
   }
 
   // 2. Full line comments
@@ -151,25 +151,25 @@ const CodeBlock = ({ block, onCopy, copiedId }) => {
   const lines = displayContent.trimEnd().split('\n');
 
   return (
-    <div className="rounded-lg border border-white/10 bg-transparent overflow-hidden my-6 shadow-lg shadow-black/20">
+    <div className="rounded-lg bg-white/[0.02] overflow-hidden my-6 shadow-lg shadow-black/20">
       {/* Code Header Bar */}
-      <div className="bg-white/[0.03] border-b border-white/5 px-4 py-2 flex items-center justify-between gap-2 flex-wrap">
+      <div className="bg-white/[0.03] px-4 py-2 flex items-center justify-between gap-2 flex-wrap">
         <div className="flex items-center gap-2">
           {/* Language badge */}
-          <span className="text-[10px] font-mono font-semibold text-cyan-400 uppercase tracking-widest bg-cyan-500/10 px-1.5 py-0.5 rounded border border-cyan-500/20">
+          <span className="text-[10px] font-mono font-semibold text-white uppercase tracking-widest bg-white/10 px-1.5 py-0.5 rounded">
             {block.lang || 'code'}
           </span>
 
           {/* Optional Package Manager Switcher Tabs */}
           {isPkgBlock && (
-            <div className="flex items-center bg-white/[0.04] p-0.5 rounded border border-white/10 text-[10px] font-mono ml-1">
+            <div className="flex items-center bg-white/[0.04] p-0.5 rounded text-[10px] font-mono ml-1">
               {['npm', 'pnpm', 'yarn', 'bun'].map((pkg) => (
                 <button
                   key={pkg}
                   onClick={() => setPkgManager(pkg)}
                   className={`px-2 py-0.5 rounded transition-all cursor-pointer ${
                     pkgManager === pkg
-                      ? 'bg-cyan-500/20 text-cyan-300 font-bold border border-cyan-500/30'
+                      ? 'bg-white/15 text-white font-bold'
                       : 'text-slate-400 hover:text-white'
                   }`}
                 >
@@ -191,7 +191,7 @@ const CodeBlock = ({ block, onCopy, copiedId }) => {
             onClick={() => setIsWrapped(!isWrapped)}
             className={`p-1.5 rounded transition-all cursor-pointer text-xs font-mono flex items-center gap-1 ${
               isWrapped
-                ? 'text-cyan-400 bg-white/5'
+                ? 'text-white bg-white/10'
                 : 'text-slate-400 hover:text-white hover:bg-white/5'
             }`}
             title={isWrapped ? 'Tắt cuộn dòng (Unwrap)' : 'Bật cuộn dòng (Wrap lines)'}
@@ -230,7 +230,7 @@ const CodeBlock = ({ block, onCopy, copiedId }) => {
           <div className="table w-full">
             {lines.map((line, idx) => (
               <div key={idx} className="table-row">
-                <span className="table-cell select-none text-slate-600 text-right pr-4 pl-1 text-[11px] opacity-60 w-8 border-r border-white/5">
+                <span className="table-cell select-none text-slate-600 text-right pr-4 pl-1 text-[11px] opacity-60 w-8">
                   {idx + 1}
                 </span>
                 <span className="table-cell pl-4 text-slate-200">
@@ -269,16 +269,24 @@ const MarkdownRenderer = ({ content, activeId, onHeadingClick, fontSize = 'norma
     // Handle bold: **text**
     escaped = escaped.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-white">$1</strong>');
 
-    // Handle inline code: `code`
-    escaped = escaped.replace(
-      /`([^`]+)`/g,
-      '<code class="bg-white/[0.04] text-cyan-300 font-mono text-[11.5px] px-1.5 py-0.5 rounded border border-white/10">$1</code>'
-    );
-
     // Handle markdown links: [text](url)
     escaped = escaped.replace(
       /\[([^\]]+)\]\(([^)]+)\)/g,
-      '<a href="$2" class="text-cyan-400 hover:text-cyan-300 underline underline-offset-2 transition-colors inline-flex items-center gap-0.5">$1</a>'
+      (match, linkText, url) => {
+        // Strip backticks inside linkText if any (e.g. [`file.exe`](/changelog))
+        const cleanText = linkText.replace(/`([^`]+)`/g, '$1');
+        const isFileOrVersion = /\.(exe|dmg|zip|yml|blockmap)$/i.test(cleanText) || /^v?\d+\.\d+/i.test(cleanText);
+        const extraClass = isFileOrVersion
+          ? 'font-mono text-[12px] bg-white/[0.06] hover:bg-white/[0.12] px-2 py-0.5 rounded no-underline text-white font-medium border border-white/10 hover:border-white/25 cursor-pointer'
+          : 'underline underline-offset-2 font-medium cursor-pointer';
+        return `<a href="${url}" class="text-white hover:text-slate-200 transition-colors inline-flex items-center gap-1 ${extraClass}">${cleanText}</a>`;
+      }
+    );
+
+    // Handle inline code: `code`
+    escaped = escaped.replace(
+      /`([^`]+)`/g,
+      '<code class="bg-white/[0.06] text-white font-mono text-[11.5px] px-1.5 py-0.5 rounded">$1</code>'
     );
 
     return escaped;
@@ -349,7 +357,7 @@ const MarkdownRenderer = ({ content, activeId, onHeadingClick, fontSize = 'norma
       // Handle horizontal rule
       if (line.trim() === '---') {
         flushList(`list-${blockIdx}-${i}`);
-        elements.push(<hr key={`hr-${blockIdx}-${i}`} className="border-t border-white/5 my-8" />);
+        elements.push(<hr key={`hr-${blockIdx}-${i}`} className="border-0 my-8" />);
         continue;
       }
 
@@ -390,7 +398,7 @@ const MarkdownRenderer = ({ content, activeId, onHeadingClick, fontSize = 'norma
                 e.preventDefault();
                 onHeadingClick?.(headingId);
               }}
-              className="opacity-0 group-hover:opacity-100 text-slate-500 hover:text-cyan-400 text-sm transition-opacity font-mono ml-1 select-none"
+              className="opacity-0 group-hover:opacity-100 text-slate-500 hover:text-white text-sm transition-opacity font-mono ml-1 select-none"
               title="Sao chép liên kết mục này"
               aria-label={`Liên kết tới phần ${titleText}`}
             >
@@ -423,7 +431,7 @@ const MarkdownRenderer = ({ content, activeId, onHeadingClick, fontSize = 'norma
                 e.preventDefault();
                 onHeadingClick?.(headingId);
               }}
-              className="opacity-0 group-hover:opacity-100 text-slate-500 hover:text-cyan-400 text-xs transition-opacity font-mono ml-1 select-none"
+              className="opacity-0 group-hover:opacity-100 text-slate-500 hover:text-white text-xs transition-opacity font-mono ml-1 select-none"
               title="Sao chép liên kết mục này"
               aria-label={`Liên kết tới phần ${titleText}`}
             >
@@ -531,11 +539,11 @@ const MarkdownRenderer = ({ content, activeId, onHeadingClick, fontSize = 'norma
         elements.push(
           <div
             key={`table-${blockIdx}-${i}`}
-            className="my-6 overflow-x-auto rounded-lg border border-white/10 bg-transparent scrollbar-thin"
+            className="my-6 overflow-x-auto rounded-lg bg-white/[0.015] scrollbar-thin"
           >
             <table className="w-full text-xs font-mono text-left border-collapse">
               <thead>
-                <tr className="border-b border-white/10 bg-white/[0.03]">
+                <tr className="bg-white/[0.04]">
                   {headers.map((h, hi) => (
                     <th
                       key={hi}
@@ -549,7 +557,7 @@ const MarkdownRenderer = ({ content, activeId, onHeadingClick, fontSize = 'norma
                 {bodyRows.map((row, ri) => (
                   <tr
                     key={ri}
-                    className="border-b border-white/5 hover:bg-white/[0.02] transition-colors"
+                    className="hover:bg-white/[0.02] transition-colors"
                   >
                     {parseCells(row).map((cell, ci) => (
                       <td
@@ -597,34 +605,26 @@ const MarkdownRenderer = ({ content, activeId, onHeadingClick, fontSize = 'norma
             ? 'Cảnh báo quan trọng'
             : 'Quan trọng';
 
-          const borderColor = isNote
-            ? 'border-blue-500/25'
-            : isTip
-            ? 'border-emerald-500/25'
-            : isWarning
-            ? 'border-amber-500/25'
-            : 'border-cyan-500/25';
-
           const textColor = isNote
             ? 'text-blue-300'
             : isTip
             ? 'text-emerald-300'
             : isWarning
             ? 'text-amber-300'
-            : 'text-cyan-300';
+            : 'text-white';
 
-          const borderAccent = isNote
-            ? 'border-l-blue-400 border-white/10 bg-blue-500/[0.04]'
+          const bgAccent = isNote
+            ? 'bg-blue-500/[0.05]'
             : isTip
-            ? 'border-l-emerald-400 border-white/10 bg-emerald-500/[0.04]'
+            ? 'bg-emerald-500/[0.05]'
             : isWarning
-            ? 'border-l-amber-400 border-white/10 bg-amber-500/[0.04]'
-            : 'border-l-cyan-400 border-white/10 bg-cyan-500/[0.04]';
+            ? 'bg-amber-500/[0.05]'
+            : 'bg-white/[0.04]';
 
           elements.push(
             <div
               key={`callout-${blockIdx}-${i}`}
-              className={`p-4 rounded-lg border border-l-4 my-6 flex gap-3 backdrop-blur-sm ${borderAccent}`}
+              className={`p-4 rounded-lg my-6 flex gap-3 backdrop-blur-sm ${bgAccent}`}
             >
               <div className="pt-0.5 shrink-0">
                 {isNote ? (
@@ -634,7 +634,7 @@ const MarkdownRenderer = ({ content, activeId, onHeadingClick, fontSize = 'norma
                 ) : isWarning ? (
                   <AlertTriangle size={16} className="text-amber-400" />
                 ) : (
-                  <Terminal size={16} className="text-cyan-400" />
+                  <Terminal size={16} className="text-white" />
                 )}
               </div>
               <div className="min-w-0 flex-1">
@@ -652,7 +652,7 @@ const MarkdownRenderer = ({ content, activeId, onHeadingClick, fontSize = 'norma
           elements.push(
             <blockquote
               key={`quote-${blockIdx}-${i}`}
-              className="border-l-2 border-cyan-500/30 pl-4 py-1 italic my-4 text-slate-400 text-xs"
+              className="bg-white/[0.03] px-4 py-2.5 rounded-md italic my-4 text-slate-300 text-xs"
             >
               {quoteContent}
             </blockquote>
@@ -1207,11 +1207,70 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
     }
   };
 
+  // Intercept clicks on links inside article markdown for smooth SPA transitions
+  const handleArticleClick = (e) => {
+    const link = e.target.closest('a');
+    if (!link) return;
+
+    const href = link.getAttribute('href');
+    if (!href) return;
+
+    // External links -> open new tab
+    if (href.startsWith('http://') || href.startsWith('https://')) {
+      link.setAttribute('target', '_blank');
+      link.setAttribute('rel', 'noopener noreferrer');
+      return;
+    }
+
+    // Local anchor hash -> scroll to heading
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      const headingId = href.replace(/^#/, '');
+      scrollToHeading(headingId);
+      if (typeof window !== 'undefined') {
+        window.history.pushState(null, '', `/docs?doc=${activeId}#${headingId}`);
+      }
+      return;
+    }
+
+    // Changelog link -> onNavigate('changelog')
+    if (href === '/changelog' || href.startsWith('/changelog')) {
+      e.preventDefault();
+      onNavigate?.('changelog');
+      return;
+    }
+
+    // Docs links -> selectDoc or onNavigate('docs')
+    if (href.startsWith('/docs')) {
+      e.preventDefault();
+      try {
+        const url = new URL(href, window.location.origin);
+        const docId = url.searchParams.get('doc') || url.pathname.replace(/^\/docs\/?/, '').split('/')[0];
+        const headingId = url.hash.replace(/^#/, '');
+        if (docId) {
+          selectDoc(docId, headingId || null);
+          return;
+        }
+      } catch (err) {
+        // Fallback
+      }
+      selectDoc('gioi-thieu');
+      return;
+    }
+
+    // Other SPA routes (/landing, /pricing, /about, /explore, etc.)
+    if (href.startsWith('/')) {
+      e.preventDefault();
+      const page = href.replace(/^\/+/, '') || 'landing';
+      onNavigate?.(page);
+    }
+  };
+
   return (
-    <div className="w-full min-h-[calc(100vh-73px)] bg-[#07090D] border-b border-white/5 block lg:flex lg:flex-row relative justify-between overflow-x-clip font-sans">
-      {/* Top Reading Progress Bar (Google Docs/Enterprise Reader Rail) */}
+    <div className="w-full min-h-[calc(100vh-73px)] bg-[#07090D] block lg:flex lg:flex-row relative justify-between overflow-x-clip font-sans">
+      {/* Top Reading Progress Bar */}
       <div
-        className="fixed top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-cyan-500 via-sky-400 to-cyan-300 z-50 transition-all duration-75 pointer-events-none"
+        className="fixed top-0 left-0 right-0 h-[2px] bg-white/80 z-50 transition-all duration-75 pointer-events-none"
         style={{ width: `${readingProgress}%` }}
         aria-hidden="true"
       />
@@ -1219,7 +1278,7 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
       {/* Skip to Content for Screen Readers & Keyboard Access (WCAG 2.1) */}
       <a
         href="#doc-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2 focus:bg-cyan-500 focus:text-black focus:font-bold focus:rounded-md"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-black focus:font-bold focus:rounded-md"
       >
         {activeLang === 'vi' ? 'Bỏ qua chuyển đến nội dung' : 'Skip to main content'}
       </a>
@@ -1229,7 +1288,7 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
         createPortal(
           <div className={`docs-mobile-drawer lg:hidden ${sidebarOpen ? 'open' : ''}`}>
             {/* Header Bar */}
-            <div className="shrink-0 flex items-center justify-between p-5 border-b border-white/5 bg-transparent">
+            <div className="shrink-0 flex items-center justify-between p-5 bg-transparent">
               <span className="font-mono text-xs font-bold text-white uppercase tracking-wider">
                 {activeLang === 'vi' ? 'Tài liệu Aevum OS' : 'Documentation'}
               </span>
@@ -1268,10 +1327,10 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
                               e.preventDefault();
                               selectDoc(doc.id);
                             }}
-                            className={`w-full flex items-center justify-between text-left py-2 px-3 rounded text-xs font-medium border transition-colors duration-150 ease-out group ${
+                            className={`w-full flex items-center justify-between text-left py-2 px-3 rounded text-xs font-medium transition-colors duration-150 ease-out group ${
                               isActive
-                                ? 'text-cyan-400 bg-cyan-500/10 border-cyan-500/30 border-l-2 border-l-cyan-400'
-                                : 'text-slate-400 border-transparent hover:text-white hover:bg-white/[0.02]'
+                                ? 'text-white font-medium bg-white/10'
+                                : 'text-slate-400 hover:text-white hover:bg-white/[0.02]'
                             }`}
                           >
                             <span className="truncate">{doc.title}</span>
@@ -1279,7 +1338,7 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
                               size={12}
                               className={`transition-transform duration-150 ${
                                 isActive
-                                    ? 'translate-x-0.5 text-cyan-400'
+                                  ? 'translate-x-0.5 text-white'
                                   : 'opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 text-slate-500'
                               }`}
                             />
@@ -1297,13 +1356,13 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
 
       {/* Desktop Sidebar (Clean Minimalist Transparent) */}
       <aside
-        className={`hidden lg:block w-64 border-r border-white/5 shrink-0 bg-transparent ${
+        className={`hidden lg:block w-64 shrink-0 bg-transparent ${
           translatingSidebar ? 'opacity-50 pointer-events-none' : ''
         }`}
       >
         <div className="sticky top-[73px] flex flex-col justify-between h-[calc(100vh-73px)]">
-          {/* Quick Filter Search Bar with Keyboard / Hint - Connected edge-to-edge with border-b */}
-          <div className="p-4 border-b border-white/5 shrink-0">
+          {/* Quick Filter Search Bar with Keyboard / Hint */}
+          <div className="p-4 shrink-0">
             <div className="relative">
               <Search
                 size={13}
@@ -1315,7 +1374,7 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
                 value={filterQuery}
                 onChange={(e) => setFilterQuery(e.target.value)}
                 placeholder={activeLang === 'vi' ? 'Lọc tài liệu...' : 'Filter docs...'}
-                className="w-full bg-white/[0.02] border border-white/10 rounded-md pl-8 pr-10 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500/40 focus:ring-1 focus:ring-cyan-500/30 transition-colors font-mono"
+                className="w-full bg-white/[0.04] rounded-md pl-8 pr-10 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:bg-white/[0.07] transition-colors font-mono"
               />
               <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center">
                 {filterQuery ? (
@@ -1327,7 +1386,7 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
                     <X size={12} />
                   </button>
                 ) : (
-                  <kbd className="hidden sm:inline-block text-[9px] font-mono bg-white/5 px-1 py-0.5 rounded text-slate-500 border border-white/10 select-none">
+                  <kbd className="hidden sm:inline-block text-[9px] font-mono bg-white/5 px-1.5 py-0.5 rounded text-slate-400 select-none">
                     /
                   </kbd>
                 )}
@@ -1358,10 +1417,10 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
                             e.preventDefault();
                             selectDoc(doc.id);
                           }}
-                          className={`w-full flex items-center justify-between text-left py-1.5 px-2.5 rounded text-xs font-medium border transition-colors duration-150 ease-out group ${
+                          className={`w-full flex items-center justify-between text-left py-1.5 px-2.5 rounded text-xs font-medium transition-colors duration-150 ease-out group ${
                             isActive
-                              ? 'text-cyan-400 bg-cyan-500/10 border-cyan-500/30 border-l-2 border-l-cyan-400'
-                              : 'text-slate-400 border-transparent hover:text-slate-200 hover:bg-white/[0.015]'
+                              ? 'text-white font-medium bg-white/10'
+                              : 'text-slate-400 hover:text-white hover:bg-white/[0.02]'
                           }`}
                         >
                           <span className="truncate">{doc.title}</span>
@@ -1369,7 +1428,7 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
                             size={12}
                             className={`transition-transform duration-150 ${
                               isActive
-                                ? 'translate-x-0.5 text-cyan-400'
+                                ? 'translate-x-0.5 text-white'
                                 : 'opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 text-slate-500'
                             }`}
                           />
@@ -1382,10 +1441,21 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
             ))}
           </div>
 
-          {/* Sidebar Footer Hint - Connected edge-to-edge with border-t */}
-          <div className="p-4 border-t border-white/5 flex items-center justify-between text-[10px] font-mono text-slate-400 shrink-0">
-            <span>Aevum OS v1.0</span>
-            <span className="px-1.5 py-0.5 rounded bg-white/[0.03] border border-white/5">Ctrl K</span>
+          {/* Sidebar Footer Hint */}
+          <div className="p-4 flex items-center justify-between text-[10px] font-mono text-slate-400 shrink-0">
+            <a
+              href="/changelog"
+              onClick={(e) => {
+                e.preventDefault();
+                onNavigate?.('changelog');
+              }}
+              className="hover:text-white transition-colors cursor-pointer flex items-center gap-1.5 group"
+              title="Xem Nhật ký Cập nhật"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="group-hover:underline">Aevum OS v1.0.0-beta.6</span>
+            </a>
+            <span className="px-1.5 py-0.5 rounded bg-white/[0.04]">Ctrl K</span>
           </div>
         </div>
       </aside>
@@ -1404,12 +1474,12 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
             setSidebarOpen(true);
           }}
           onMouseEnter={() => setIsBtnVisible(true)}
-          className={`lg:hidden sticky top-[76px] ml-4 mt-4 z-30 px-3 py-2 rounded-lg bg-[#07090D]/90 backdrop-blur-md hover:bg-white/10 text-white border border-white/15 transition-all duration-300 cursor-pointer flex items-center gap-2 self-start ${
+          className={`lg:hidden sticky top-[76px] ml-4 mt-4 z-30 px-3 py-2 rounded-lg bg-[#07090D]/90 backdrop-blur-md hover:bg-white/10 text-white transition-all duration-300 cursor-pointer flex items-center gap-2 self-start ${
             isBtnVisible ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-20 scale-90 hover:opacity-100'
           }`}
           aria-label="Mở danh mục tài liệu"
         >
-          <Menu size={16} className="text-cyan-400" />
+          <Menu size={16} className="text-white" />
           <span className="text-xs font-mono font-medium">{activeLang === 'vi' ? 'Mục lục' : 'Menu'}</span>
         </button>
 
@@ -1421,9 +1491,9 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
           className="flex-1 px-6 md:px-12 lg:px-16 py-8 max-w-3xl xl:max-w-4xl w-full relative min-h-[500px]"
         >
           {translatingContent && (
-            <div className="absolute inset-0 bg-[#07090D]/80 backdrop-blur-sm z-20 flex flex-col items-center justify-center py-20 text-center font-mono text-sm text-cyan-400">
+            <div className="absolute inset-0 bg-[#07090D]/80 backdrop-blur-sm z-20 flex flex-col items-center justify-center py-20 text-center font-mono text-sm text-white">
               <svg
-                className="animate-spin -ml-1 mr-3 h-8 w-8 text-cyan-500 mb-4"
+                className="animate-spin -ml-1 mr-3 h-8 w-8 text-white mb-4"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -1467,7 +1537,7 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
                     e.preventDefault();
                     onNavigate?.('landing');
                   }}
-                  className="hover:text-cyan-400 transition-colors"
+                  className="hover:text-white transition-colors"
                 >
                   {activeLang === 'vi' ? 'Trang chủ' : 'Home'}
                 </a>
@@ -1478,7 +1548,7 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
                     e.preventDefault();
                     selectDoc('gioi-thieu');
                   }}
-                  className="hover:text-cyan-400 transition-colors"
+                  className="hover:text-white transition-colors"
                 >
                   {activeLang === 'vi' ? 'Tài liệu' : 'Docs'}
                 </a>
@@ -1487,13 +1557,13 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
                   {activeRawDoc.category}
                 </span>
                 <ChevronRight size={12} className="text-slate-600 shrink-0" />
-                <span className="text-cyan-400 font-semibold truncate">{activeRawDoc.title}</span>
+                <span className="text-white font-semibold truncate">{activeRawDoc.title}</span>
               </nav>
 
               {/* Minimalist Article Metadata Bar & Reader Controls */}
-              <header className="flex flex-wrap items-center justify-between gap-3 pb-5 mb-8 border-b border-white/5 text-xs font-mono text-slate-400">
+              <header className="flex flex-wrap items-center justify-between gap-3 pb-5 mb-8 text-xs font-mono text-slate-400">
                 <div className="flex items-center flex-wrap gap-4">
-                  <span className="px-2 py-0.5 rounded bg-white/[0.03] text-cyan-400 border border-white/10 uppercase tracking-wider text-[10px] font-semibold">
+                  <span className="px-2 py-0.5 rounded bg-white/[0.06] text-white uppercase tracking-wider text-[10px] font-semibold">
                     {activeRawDoc.category}
                   </span>
                   <span className="flex items-center gap-1.5 text-slate-400">
@@ -1513,11 +1583,11 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
                   {/* Font size toggle for comfortable reading & accessibility */}
                   <button
                     onClick={toggleFontSize}
-                    className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-white/[0.02] hover:bg-white/[0.05] border border-white/10 hover:border-cyan-500/30 text-slate-400 hover:text-white transition-all text-xs cursor-pointer select-none"
+                    className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-white/[0.03] hover:bg-white/[0.08] text-slate-300 hover:text-white transition-all text-xs cursor-pointer select-none"
                     title={fontSize === 'normal' ? 'Tăng kích thước chữ (115%)' : 'Đặt lại cỡ chữ chuẩn'}
                     aria-label="Điều chỉnh kích thước chữ"
                   >
-                    <Type size={13} className="text-cyan-400" />
+                    <Type size={13} className="text-white" />
                     <span className="text-[11px] font-mono">
                       {fontSize === 'normal' ? 'A' : 'A+'}
                     </span>
@@ -1526,7 +1596,7 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
                   {/* Share / Copy Document Link Button */}
                   <button
                     onClick={handleCopyDocLink}
-                    className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-white/[0.02] hover:bg-white/[0.05] border border-white/10 hover:border-cyan-500/30 text-slate-400 hover:text-white transition-all text-xs cursor-pointer select-none"
+                    className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-white/[0.03] hover:bg-white/[0.08] text-slate-300 hover:text-white transition-all text-xs cursor-pointer select-none"
                     title="Sao chép liên kết tài liệu"
                     aria-label="Sao chép liên kết tài liệu"
                   >
@@ -1548,7 +1618,7 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
               </header>
 
               {/* Article Content Rendered via MarkdownRenderer */}
-              <div itemProp="articleBody">
+              <div itemProp="articleBody" onClick={handleArticleClick}>
                 <MarkdownRenderer
                   content={activeContent}
                   activeId={activeId}
@@ -1563,10 +1633,10 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
               </div>
 
               {/* Enterprise Helpful Feedback Widget */}
-              <div className="mt-12 p-5 rounded-lg border border-white/10 bg-white/[0.015] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div className="mt-12 p-5 rounded-lg bg-white/[0.02] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div className="space-y-1">
                   <div className="text-xs font-semibold text-white flex items-center gap-2">
-                    <MessageSquare size={14} className="text-cyan-400" />
+                    <MessageSquare size={14} className="text-white" />
                     <span>
                       {activeLang === 'vi'
                         ? 'Tài liệu này có giải đáp được thắc mắc của bạn không?'
@@ -1581,7 +1651,7 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
                 </div>
 
                 {helpfulFeedback ? (
-                  <div className="flex items-center gap-2 px-3 py-1.5 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono animate-fadeIn">
+                  <div className="flex items-center gap-2 px-3 py-1.5 rounded bg-emerald-500/10 text-emerald-400 text-xs font-mono animate-fadeIn">
                     <Check size={14} />
                     <span>
                       {activeLang === 'vi'
@@ -1593,7 +1663,7 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
                   <div className="flex items-center gap-2 shrink-0">
                     <button
                       onClick={() => setHelpfulFeedback('yes')}
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white/[0.03] hover:bg-white/[0.08] hover:border-cyan-500/40 border border-white/10 text-xs text-slate-300 hover:text-white transition-all cursor-pointer font-mono"
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white/[0.04] hover:bg-white/[0.08] text-xs text-slate-300 hover:text-white transition-all cursor-pointer font-mono"
                       aria-label="Đánh giá tài liệu hữu ích"
                     >
                       <ThumbsUp size={13} className="text-emerald-400" />
@@ -1601,7 +1671,7 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
                     </button>
                     <button
                       onClick={() => setHelpfulFeedback('no')}
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white/[0.03] hover:bg-white/[0.08] hover:border-white/20 border border-white/10 text-xs text-slate-300 hover:text-white transition-all cursor-pointer font-mono"
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white/[0.04] hover:bg-white/[0.08] text-xs text-slate-300 hover:text-white transition-all cursor-pointer font-mono"
                       aria-label="Đánh giá tài liệu cần cải thiện"
                     >
                       <ThumbsDown size={13} className="text-slate-400" />
@@ -1612,7 +1682,7 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
               </div>
 
               {/* Relational Pagination: Previous & Next Article Cards */}
-              <footer className="mt-8 pt-8 border-t border-white/5 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <footer className="mt-8 pt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {prevDoc ? (
                   <a
                     href={`/docs/${prevDoc.id}`}
@@ -1620,13 +1690,13 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
                       e.preventDefault();
                       selectDoc(prevDoc.id);
                     }}
-                    className="p-4 rounded-lg border border-white/10 bg-transparent hover:bg-white/[0.02] hover:border-cyan-500/30 transition-all flex flex-col items-start gap-1 group text-left"
+                    className="p-4 rounded-lg bg-white/[0.02] hover:bg-white/[0.05] transition-all flex flex-col items-start gap-1 group text-left"
                     rel="prev"
                   >
-                    <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 flex items-center gap-1 group-hover:text-cyan-400 transition-colors">
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 flex items-center gap-1 group-hover:text-white transition-colors">
                       <ChevronLeft size={12} /> {activeLang === 'vi' ? 'Bài trước' : 'Previous'}
                     </span>
-                    <span className="text-sm font-semibold text-white group-hover:text-cyan-300 transition-colors line-clamp-1">
+                    <span className="text-sm font-semibold text-white group-hover:text-slate-200 transition-colors line-clamp-1">
                       {prevDoc.title}
                     </span>
                   </a>
@@ -1641,13 +1711,13 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
                       e.preventDefault();
                       selectDoc(nextDoc.id);
                     }}
-                    className="p-4 rounded-lg border border-white/10 bg-transparent hover:bg-white/[0.02] hover:border-cyan-500/30 transition-all flex flex-col items-end gap-1 group text-right sm:col-start-2"
+                    className="p-4 rounded-lg bg-white/[0.02] hover:bg-white/[0.05] transition-all flex flex-col items-end gap-1 group text-right sm:col-start-2"
                     rel="next"
                   >
-                    <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 flex items-center gap-1 group-hover:text-cyan-400 transition-colors">
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 flex items-center gap-1 group-hover:text-white transition-colors">
                       {activeLang === 'vi' ? 'Bài tiếp theo' : 'Next'} <ChevronRight size={12} />
                     </span>
-                    <span className="text-sm font-semibold text-white group-hover:text-cyan-300 transition-colors line-clamp-1">
+                    <span className="text-sm font-semibold text-white group-hover:text-slate-200 transition-colors line-clamp-1">
                       {nextDoc.title}
                     </span>
                   </a>
@@ -1664,12 +1734,12 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
       </div>
 
       {/* Right Sidebar: Table of Contents (TOC) with Enterprise Navigation Rail */}
-      <aside className="hidden xl:block w-64 relative border-l border-white/5 bg-transparent shrink-0">
+      <aside className="hidden xl:block w-64 relative bg-transparent shrink-0">
         <div className="sticky top-[73px] flex flex-col justify-between h-[calc(100vh-73px)]">
-          {/* Header Bar - Connected edge-to-edge from border-l to right edge with zero gap */}
-          <div className="w-full px-4 py-3.5 border-b border-white/5 flex items-center justify-between shrink-0 bg-transparent">
+          {/* Header Bar */}
+          <div className="w-full px-4 py-3.5 flex items-center justify-between shrink-0 bg-transparent">
             <span className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
-              <AlignLeft size={12} className="text-cyan-400" />
+              <AlignLeft size={12} className="text-white" />
               {activeLang === 'vi' ? 'TRONG TRANG NÀY' : 'ON THIS PAGE'}
             </span>
           </div>
@@ -1677,7 +1747,7 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
           {/* Scrollable Headings List */}
           <div className="flex-1 overflow-y-auto px-4 py-4 scrollbar-thin">
             {headings.length > 0 ? (
-              <ul className="space-y-0.5 border-l border-white/5 ml-1 text-xs">
+              <ul className="space-y-0.5 text-xs">
                 {headings.map((h) => {
                   const isActive = h.id === activeHeadingId;
                   const isH3 = h.level === 3;
@@ -1692,14 +1762,14 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
                             window.history.pushState(null, '', `/docs/${activeId}#${h.id}`);
                           }
                         }}
-                        className={`block py-1.5 pr-2 transition-colors duration-150 text-left relative rounded-r text-[12px] font-normal leading-snug ${
-                          isH3 ? 'pl-6' : 'pl-3'
+                        className={`block py-1.5 px-3 transition-colors duration-150 text-left relative rounded text-[12px] leading-snug ${
+                          isH3 ? 'ml-3' : ''
                         } ${
                           isActive
-                            ? 'border-l-2 -ml-[1px] border-cyan-400 text-cyan-400 bg-cyan-500/[0.08]'
+                            ? 'text-white font-medium bg-white/[0.08]'
                             : isH3
-                            ? 'border-l-2 -ml-[1px] border-transparent text-slate-500 hover:text-slate-300 hover:bg-white/[0.02]'
-                            : 'border-l-2 -ml-[1px] border-transparent text-slate-400 hover:text-slate-200 hover:bg-white/[0.02]'
+                            ? 'text-slate-500 hover:text-slate-200 hover:bg-white/[0.03]'
+                            : 'text-slate-400 hover:text-white hover:bg-white/[0.03]'
                         }`}
                       >
                         <span className="line-clamp-2">{h.title}</span>
@@ -1715,8 +1785,8 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
             )}
           </div>
 
-          {/* TOC Footer Actions - Connected edge-to-edge from border-l with border-t */}
-          <div className="w-full p-4 border-t border-white/5 space-y-2 shrink-0 bg-transparent">
+          {/* TOC Footer Actions */}
+          <div className="w-full p-4 space-y-2 shrink-0 bg-transparent">
             <button
               onClick={() => {
                 if (window.lenis) {
@@ -1725,10 +1795,10 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
               }}
-              className="w-full flex items-center justify-between py-1.5 px-2.5 rounded bg-white/[0.02] hover:bg-white/[0.05] border border-white/10 hover:border-cyan-500/30 text-slate-400 hover:text-white text-[11px] font-mono transition-all cursor-pointer"
+              className="w-full flex items-center justify-between py-1.5 px-2.5 rounded bg-white/[0.03] hover:bg-white/[0.06] text-slate-400 hover:text-white text-[11px] font-mono transition-all cursor-pointer"
             >
               <span>{activeLang === 'vi' ? 'Lên đầu trang' : 'Back to top'}</span>
-              <ArrowUp size={12} className="text-cyan-400" />
+              <ArrowUp size={12} className="text-white" />
             </button>
           </div>
         </div>

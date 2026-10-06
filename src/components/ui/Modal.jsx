@@ -99,25 +99,20 @@ export const Modal = ({
     >
       {/* Dark backdrop blur */}
       <div
-        className="fixed inset-0 bg-black/80 backdrop-blur-md transition-opacity"
+        className="fixed inset-0 bg-black/80 [html[data-theme='light']_&]:bg-slate-900/40 backdrop-blur-md transition-opacity"
         onClick={() => closeOnBackdrop && onClose && onClose()}
         aria-hidden="true"
       />
 
-      {/* Modal Surface - Deep black #07090D with Grainy Gradient Atmosphere & Hairline Border */}
+      {/* Modal Surface - Deep black #07090D in Dark Mode / Crisp White in Light Mode */}
       <div
-        className={`relative w-full ${maxWidthClasses} max-h-[calc(100vh-2rem)] sm:max-h-[92vh] flex flex-col bg-[#07090D] border border-white/10 rounded-2xl sm:rounded-3xl overflow-hidden font-sans text-slate-200 z-10 m-auto shadow-none select-text ${className}`.trim()}
+        className={`modal-surface relative w-full ${maxWidthClasses} max-h-[calc(100vh-2rem)] sm:max-h-[92vh] flex flex-col bg-[#07090D] [html[data-theme='light']_&]:bg-[#FFFFFF] border border-white/10 [html[data-theme='light']_&]:border-slate-200/90 rounded-2xl sm:rounded-3xl overflow-hidden font-sans text-slate-200 [html[data-theme='light']_&]:text-slate-800 z-10 m-auto shadow-none [html[data-theme='light']_&]:shadow-2xl select-text transition-colors ${className}`.trim()}
       >
-        {/* ── 1. Grainy Gradient Atmosphere Layer (Matching Image 1 Hero Banner) ── */}
+        {/* ── 1. Grainy Gradient Atmosphere Layer ── */}
         {grainy && (
           <div className="pointer-events-none absolute inset-0 overflow-hidden select-none z-0">
-            {/* Primary Linear Gradient Flow (Soft ambient cyan fading quickly into deep black) */}
-            <div
-              className="absolute inset-0"
-              style={{
-                background: 'linear-gradient(180deg, rgba(14, 165, 233, 0.16) 0%, rgba(2, 132, 199, 0.06) 16%, rgba(7, 9, 13, 0.75) 36%, #07090D 70%)',
-              }}
-            />
+            {/* Primary Linear Gradient Flow */}
+            <div className="modal-atmosphere-gradient absolute inset-0" />
 
             {/* Ethereal Top Horizon Wash (Curved ambient light crest) */}
             <div
@@ -129,11 +124,11 @@ export const Modal = ({
             />
 
             {/* Precision Top Hairline Glow Line */}
-            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent z-10" />
+            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/40 [html[data-theme='light']_&]:via-cyan-400/60 to-transparent z-10" />
 
-            {/* Authentic Fine Film Grain Noise (Silky matte texture, zero harsh pixel blowout) */}
+            {/* Authentic Fine Film Grain Noise */}
             <div
-              className="absolute inset-0 opacity-[0.08] mix-blend-overlay z-[1]"
+              className="absolute inset-0 opacity-[0.08] [html[data-theme='light']_&]:opacity-[0.03] mix-blend-overlay z-[1]"
               style={{
                 backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilterModal'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilterModal)'/%3E%3C/svg%3E")`,
                 backgroundRepeat: 'repeat',
@@ -141,8 +136,8 @@ export const Modal = ({
               }}
             />
 
-            {/* Ethereal Glow Horizon Wash (Pure Silk Gradient, Zero Dots) */}
-            <div className="absolute top-0 right-0 w-2/3 h-64 overflow-hidden opacity-25 z-[2] bg-gradient-to-bl from-cyan-500/10 via-transparent to-transparent" />
+            {/* Ethereal Glow Horizon Wash */}
+            <div className="absolute top-0 right-0 w-2/3 h-64 overflow-hidden opacity-25 [html[data-theme='light']_&]:opacity-40 z-[2] bg-gradient-to-bl from-cyan-500/10 via-transparent to-transparent" />
           </div>
         )}
 
@@ -150,15 +145,15 @@ export const Modal = ({
         <div className="relative z-10 flex flex-col flex-1 min-h-0 overflow-hidden">
           {/* Header - Minimalist line divider, high-contrast typography, text close button */}
           {(title || showCloseButton) && (
-            <div className="flex items-center justify-between px-5 sm:px-6 py-3.5 sm:py-4 border-b border-white/10 backdrop-blur-[2px] shrink-0">
+            <div className="flex items-center justify-between px-5 sm:px-6 py-3.5 sm:py-4 border-b border-white/10 [html[data-theme='light']_&]:border-slate-200/80 backdrop-blur-[2px] shrink-0">
               <div className="space-y-0.5 pr-4">
                 {title && (
-                  <h3 className="text-sm sm:text-base font-medium text-white tracking-wide uppercase font-sans">
+                  <h3 className="text-sm sm:text-base font-semibold text-white [html[data-theme='light']_&]:text-slate-900 tracking-wide uppercase font-sans">
                     {title}
                   </h3>
                 )}
                 {subtitle && (
-                  <p className="text-xs text-slate-300/90 font-normal">
+                  <p className="text-xs text-slate-300/90 [html[data-theme='light']_&]:text-slate-500 font-normal">
                     {subtitle}
                   </p>
                 )}
@@ -169,7 +164,7 @@ export const Modal = ({
                   type="button"
                   onClick={onClose}
                   aria-label="Đóng"
-                  className="w-8 h-8 rounded-full border border-white/15 hover:border-white/30 bg-white/[0.04] hover:bg-white/[0.12] text-slate-300 hover:text-white transition-all cursor-pointer flex items-center justify-center shrink-0 backdrop-blur-sm group"
+                  className="w-8 h-8 rounded-full border border-white/15 [html[data-theme='light']_&]:border-slate-300/80 hover:border-white/30 [html[data-theme='light']_&]:hover:border-slate-400 bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-100 hover:bg-white/[0.12] [html[data-theme='light']_&]:hover:bg-slate-200 text-slate-300 [html[data-theme='light']_&]:text-slate-600 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-all cursor-pointer flex items-center justify-center shrink-0 backdrop-blur-sm group"
                 >
                   <X className="w-4 h-4 stroke-[1.75] transition-transform duration-200 group-hover:scale-110" />
                 </button>
@@ -184,7 +179,7 @@ export const Modal = ({
 
           {/* Optional Footer */}
           {footer && (
-            <div className="px-5 sm:px-6 py-3.5 sm:py-4 border-t border-white/10 bg-black/40 backdrop-blur-sm shrink-0">
+            <div className="px-5 sm:px-6 py-3.5 sm:py-4 border-t border-white/10 [html[data-theme='light']_&]:border-slate-200/80 bg-black/40 [html[data-theme='light']_&]:bg-slate-50 backdrop-blur-sm shrink-0">
               {footer}
             </div>
           )}

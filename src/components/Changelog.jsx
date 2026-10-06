@@ -24,6 +24,7 @@ marked.setOptions({
 
 // Verified status mappings for established releases
 const KNOWN_RELEASE_STATUS = {
+  'v1.0.0-beta.6': 'upgrade',     // Fastify v5 Core, OpenAPI 3.1 & Zero-Copy WebSocket (Nâng cấp)
   'v1.0.0-beta.5': 'upgrade',     // Masonry Grid & Inset Box-Shadow Cyberpunk UI (Nâng cấp)
   'v1.0.0-beta.4': 'upgrade',     // Major Hub & Squad Presence additions (Nâng cấp)
   'v1.0.0-beta.3': 'improvement', // Tiered Plan & Canvas refactoring / optimization (Chỉnh sửa)

@@ -1893,71 +1893,83 @@ html[data-theme="dark"] .theme-icon-sun {
 }
 
 /* ==========================================================================
-   CTA Banner High-Contrast Cosmic Preservation (Light & Dark Mode)
+   CTA Banner Theme Synchronization (Dark Cosmic & Light Celestial)
    ========================================================================== */
-.cta-banner,
+.cta-banner {
+  background-color: #07090D;
+}
+.cta-banner .cta-overlay {
+  background-color: rgba(7, 9, 13, 0.68);
+}
+.cta-banner .cta-title,
+.cta-banner h2 {
+  color: #FFFFFF;
+}
+.cta-banner .cta-title-accent,
+.cta-banner h2 span {
+  color: #FFFFFF;
+}
+.cta-banner .cta-desc,
+.cta-banner p {
+  color: #E2E8F0;
+}
+.cta-banner .cta-tag {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Light Mode Synchronization for CTA Banner */
 html[data-theme="light"] .cta-banner {
-  background-color: #07090D !important;
+  background-color: #FFFFFF !important;
+  border-top-color: rgba(15, 23, 42, 0.08) !important;
+  border-bottom-color: rgba(15, 23, 42, 0.08) !important;
 }
 
-.cta-banner .cta-overlay,
 html[data-theme="light"] .cta-banner .cta-overlay {
-  background-color: rgba(11, 11, 17, 0.68) !important;
+  background: linear-gradient(180deg, rgba(240, 249, 255, 0.88) 0%, rgba(255, 255, 255, 0.94) 55%, #FFFFFF 100%) !important;
+  backdrop-filter: blur(8px) !important;
 }
 
-.cta-banner h2,
+html[data-theme="light"] .cta-banner .cta-tag {
+  color: #0284C7 !important;
+  font-weight: 600 !important;
+}
+
+html[data-theme="light"] .cta-banner .cta-title,
 html[data-theme="light"] .cta-banner h2 {
-  color: #FFFFFF !important;
+  color: #0F172A !important;
 }
 
-.cta-banner p,
+html[data-theme="light"] .cta-banner .cta-title-accent,
+html[data-theme="light"] .cta-banner h2 span {
+  color: #0284C7 !important;
+}
+
+html[data-theme="light"] .cta-banner .cta-desc,
 html[data-theme="light"] .cta-banner p {
-  color: #E2E8F0 !important;
+  color: #475569 !important;
 }
 
-.cta-banner .text-cyan-400,
-html[data-theme="light"] .cta-banner .text-cyan-400 {
-  color: #38bdf8 !important;
-}
-
-.cta-banner .btn-ghost,
-html[data-theme="light"] .cta-banner .btn-ghost {
+/* CTA Banner Light Mode Button Precision Tuning */
+html[data-theme="light"] .cta-banner .btn-pill-primary {
+  background-color: #0F172A !important;
   color: #FFFFFF !important;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.2) !important;
+}
+html[data-theme="light"] .cta-banner .btn-pill-primary:hover {
+  background-color: #1E293B !important;
+  color: #FFFFFF !important;
 }
 
-.cta-banner .btn-ghost:hover,
-html[data-theme="light"] .cta-banner .btn-ghost:hover {
-  background: rgba(255, 255, 255, 0.12) !important;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.45) !important;
+html[data-theme="light"] .cta-banner .btn-pill-secondary {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+  border: 1px solid #CBD5E1 !important;
+  box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.05) !important;
 }
-
-.cta-banner .btn-electron {
-  background: #38bdf8 !important;
-  color: #000000 !important;
-  box-shadow: none !important;
-  border: none !important;
-}
-
-.cta-banner .btn-electron:hover {
-  background: #38bdf8 !important;
-  opacity: 0.9 !important;
-  color: #000000 !important;
-  box-shadow: 0 0 16px rgba(56, 189, 248, 0.4) !important;
-}
-
-html[data-theme="light"] .cta-banner .btn-electron {
-  background: #0284c7 !important;
-  color: #ffffff !important;
-  box-shadow: none !important;
-  border: none !important;
-}
-
-html[data-theme="light"] .cta-banner .btn-electron:hover {
-  background: #0284c7 !important;
-  opacity: 0.9 !important;
-  color: #ffffff !important;
-  box-shadow: 0 0 16px rgba(2, 132, 199, 0.4) !important;
+html[data-theme="light"] .cta-banner .btn-pill-secondary:hover {
+  background-color: #F8FAFC !important;
+  border-color: #94A3B8 !important;
+  color: #0F172A !important;
 }
 
 /* ==========================================================================

@@ -82,26 +82,26 @@ export const Pricing = ({
   ];
 
   return (
-    <div id="pricing" className="border-subtle-b bg-[#07090D] text-slate-100 transition-colors">
+    <div id="pricing" className="pricing-section border-subtle-b bg-[#07090D] [html[data-theme='light']_&]:bg-[#F8FAFC] text-slate-100 [html[data-theme='light']_&]:text-slate-900 transition-colors">
       
       {/* ── 1. SECTION HEADER (ALIGN LEFT & SINGLE-LINE TITLE) ── */}
-      <div className="p-6 sm:p-10 lg:p-14 border-subtle-b bg-[#07090D] relative flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <div className="p-6 sm:p-10 lg:p-14 border-subtle-b bg-[#07090D] [html[data-theme='light']_&]:bg-[#F8FAFC] [html[data-theme='light']_&]:border-slate-200/80 relative flex flex-col md:flex-row md:items-end justify-between gap-6">
         
         {/* Left Side: Tag + Title + Subtitle */}
         <div className="text-left space-y-1.5 max-w-2xl">
-          <span className="text-[11px] font-sans text-white/80 font-medium tracking-widest uppercase block">
+          <span className="text-[11px] font-sans text-cyan-400 [html[data-theme='light']_&]:text-cyan-700 font-semibold tracking-widest uppercase block">
             {isVi ? 'ĐỒNG HÀNH CÙNG BUILDER' : 'EMPOWERING BUILDERS'}
           </span>
 
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-medium sm:font-semibold text-white tracking-[0.01em] font-display leading-tight">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-medium sm:font-semibold text-white [html[data-theme='light']_&]:text-slate-900 tracking-[0.01em] font-display leading-tight">
             {isVi ? (
-              <>Làm chủ công cụ. <span className="text-white">Hiện thực hóa ý tưởng.</span></>
+              <>Làm chủ công cụ. <span className="text-white [html[data-theme='light']_&]:text-slate-900">Hiện thực hóa ý tưởng.</span></>
             ) : (
-              <>Master your craft. <span className="text-white">Bring ideas to life.</span></>
+              <>Master your craft. <span className="text-white [html[data-theme='light']_&]:text-slate-900">Bring ideas to life.</span></>
             )}
           </h2>
           
-          <p className="text-slate-400 text-xs sm:text-sm font-normal leading-relaxed pt-1">
+          <p className="text-slate-400 [html[data-theme='light']_&]:text-slate-600 text-xs sm:text-sm font-normal leading-relaxed pt-1">
             {isVi 
               ? 'Khởi đầu hoàn toàn miễn phí trên máy của bạn. Khi ý tưởng lớn dần, hãy để các Persona AI đồng hành cùng bạn bứt phá mọi giới hạn sáng tạo.' 
               : 'Start 100% free on your local machine. As your vision grows, let autonomous AI Personas accelerate your creative journey.'}
@@ -116,7 +116,7 @@ export const Pricing = ({
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   }
                 }}
-                className="pricing-details-btn inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-cyan-500/30 bg-cyan-500/5 text-cyan-400 font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider cursor-pointer shadow-sm hover:shadow-cyan-500/10"
+                className="pricing-details-btn inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-cyan-500/30 bg-cyan-500/5 [html[data-theme='light']_&]:bg-cyan-50 [html[data-theme='light']_&]:border-cyan-200 text-cyan-400 [html[data-theme='light']_&]:text-cyan-700 font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider cursor-pointer shadow-sm hover:shadow-cyan-500/10"
               >
                 <span>{isVi ? 'Xem so sánh tính năng chi tiết & FAQ' : 'Compare Detailed Features & FAQ'}</span>
                 <ArrowRight size={13} className="stroke-[2.5]" />
@@ -126,7 +126,7 @@ export const Pricing = ({
         </div>
 
         {/* Right Side: Fixed-Width Zero-Jitter Segmented Switcher */}
-        <div className="relative inline-grid grid-cols-2 w-[248px] p-1 rounded-lg border border-white/10 bg-white/[0.03] shrink-0 self-start md:self-end select-none">
+        <div className="relative inline-grid grid-cols-2 w-[248px] p-1 rounded-lg border border-white/10 [html[data-theme='light']_&]:border-slate-300/80 bg-white/[0.03] [html[data-theme='light']_&]:bg-slate-200/70 shrink-0 self-start md:self-end select-none">
           {/* Sliding Pill Indicator */}
           <div 
             className={`pricing-switch-pill absolute top-1 bottom-1 rounded-md transition-all duration-200 ease-out shadow-sm ${
@@ -171,16 +171,11 @@ export const Pricing = ({
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-0 max-w-6xl mx-auto items-stretch py-10 px-4 sm:px-6">
         
         {/* COLUMN 1: COMMUNITY TIER (TUCKED UNDER PRO ON RIGHT) */}
-        <div className="pricing-card-subtle relative z-10 p-8 sm:p-10 space-y-6 flex flex-col justify-between overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 lg:mr-[-16px] lg:my-3 lg:pr-10 bg-[#07090D]">
+        <div className="pricing-card-subtle relative z-10 p-8 sm:p-10 space-y-6 flex flex-col justify-between overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 [html[data-theme='light']_&]:border-slate-200/90 [html[data-theme='light']_&]:bg-white [html[data-theme='light']_&]:shadow-lg lg:mr-[-16px] lg:my-3 lg:pr-10 bg-[#07090D]">
           {/* Subtle Grainy Gradient Atmosphere Layer */}
           <div className="pointer-events-none absolute inset-0 overflow-hidden select-none z-0">
-            <div
-              className="absolute inset-0"
-              style={{
-                background: 'linear-gradient(180deg, rgba(14, 165, 233, 0.08) 0%, rgba(7, 9, 13, 0.6) 25%, #07090D 100%)',
-              }}
-            />
-            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent z-10" />
+            <div className="pricing-card-gradient pricing-gradient-layer absolute inset-0" />
+            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/15 [html[data-theme='light']_&]:via-slate-200 to-transparent z-10" />
             <div
               className="absolute inset-0 opacity-[0.06] mix-blend-overlay z-[1]"
               style={{
@@ -193,19 +188,19 @@ export const Pricing = ({
 
           <div className="relative z-10">
             <div className="flex justify-between items-center mb-2">
-              <span className="text-[11px] font-mono font-bold text-slate-400 uppercase tracking-widest">
+              <span className="text-[11px] font-mono font-bold text-slate-400 [html[data-theme='light']_&]:text-slate-500 uppercase tracking-widest">
                 {isVi ? 'BUILDER KHÁM PHÁ' : 'EXPLORER BUILDER'}
               </span>
-              <span className="px-2.5 py-0.5 rounded-full border border-white/10 bg-white/[0.04] text-[10px] font-mono text-slate-400 shrink-0 font-medium">
+              <span className="px-2.5 py-0.5 rounded-full border border-white/10 [html[data-theme='light']_&]:border-slate-300/80 bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-100 text-[10px] font-mono text-slate-400 [html[data-theme='light']_&]:text-slate-600 shrink-0 font-medium">
                 LOCAL FIRST
               </span>
             </div>
 
-            <h3 className="text-xl sm:text-2xl font-bold text-white font-display mb-1">
+            <h3 className="text-xl sm:text-2xl font-bold text-white [html[data-theme='light']_&]:text-slate-900 font-display mb-1">
               Aevum Community
             </h3>
 
-            <p className="text-xs text-slate-400 min-h-[36px] leading-relaxed">
+            <p className="text-xs text-slate-400 [html[data-theme='light']_&]:text-slate-600 min-h-[36px] leading-relaxed">
               {isVi 
                 ? 'Miễn phí trọn đời cho cá nhân. Chạy 100% cục bộ với API Key riêng của bạn.' 
                 : 'Free forever for individual builders. 100% Local-First with your own API Keys.'}
@@ -214,15 +209,15 @@ export const Pricing = ({
             {/* Price (100% Single-Line & Uniform Baseline Alignment) */}
             <div className="my-5 min-h-[56px] flex flex-col justify-start">
               <div className="flex items-baseline gap-1.5 flex-nowrap">
-                <span className="text-2xl sm:text-3xl font-black text-white font-mono tracking-tight whitespace-nowrap">
+                <span className="text-2xl sm:text-3xl font-black text-white [html[data-theme='light']_&]:text-slate-900 font-mono tracking-tight whitespace-nowrap">
                   0 VNĐ
                 </span>
-                <span className="text-xs text-slate-300 font-mono whitespace-nowrap">
+                <span className="text-xs text-slate-300 [html[data-theme='light']_&]:text-slate-500 font-mono whitespace-nowrap">
                   {isVi ? '/ Trọn đời' : '/ Forever'}
                 </span>
               </div>
               <div className="pricing-sub-community pl-2 mt-1.5 py-0.5">
-                <span className="text-[11px] font-mono block whitespace-nowrap leading-none font-normal text-slate-400">
+                <span className="text-[11px] font-mono block whitespace-nowrap leading-none font-normal text-slate-400 [html[data-theme='light']_&]:text-slate-500">
                   {isVi ? 'Tự do dùng API Key riêng (BYOK)' : 'Bring your own API keys (BYOK)'}
                 </span>
               </div>
@@ -230,37 +225,37 @@ export const Pricing = ({
 
             {/* Clean Open Feature List */}
             <div className="space-y-3 mb-6">
-              <div className="text-[11px] font-mono font-medium tracking-wider text-slate-400 uppercase">
+              <div className="text-[11px] font-mono font-medium tracking-wider text-slate-400 [html[data-theme='light']_&]:text-slate-500 uppercase">
                 {isVi ? 'ĐẶC QUYỀN CỐT LÕI' : 'CORE PRIVILEGES'}
               </div>
-              <div className="space-y-2.5 text-xs font-mono text-slate-300">
+              <div className="space-y-2.5 text-xs font-mono text-slate-300 [html[data-theme='light']_&]:text-slate-700">
                 <p className="flex items-center gap-2.5">
-                  <Check size={14} className="text-white/80 shrink-0 stroke-[2]" />
+                  <Check size={14} className="text-white/80 [html[data-theme='light']_&]:text-slate-700 shrink-0 stroke-[2]" />
                   <span>{isVi ? '100% Tính năng cốt lõi Local-First' : 'Full Local-First Core OS features'}</span>
                 </p>
                 <p className="flex items-center gap-2.5">
-                  <Check size={14} className="text-white/80 shrink-0 stroke-[2]" />
+                  <Check size={14} className="text-white/80 [html[data-theme='light']_&]:text-slate-700 shrink-0 stroke-[2]" />
                   <span>{isVi ? 'BYOK: Dùng API Key (Gemini, Claude, GPT, Ollama)' : 'BYOK API Keys (Gemini, Claude, GPT, Ollama)'}</span>
                 </p>
                 <p className="flex items-center gap-2.5">
-                  <Check size={14} className="text-white/80 shrink-0 stroke-[2]" />
+                  <Check size={14} className="text-white/80 [html[data-theme='light']_&]:text-slate-700 shrink-0 stroke-[2]" />
                   <span>{isVi ? 'Chat tương tác 1-1 với Persona độc lập' : '1-on-1 Persona Interactive Chat'}</span>
                 </p>
                 <p className="flex items-center gap-2.5">
-                  <Check size={14} className="text-white/80 shrink-0 stroke-[2]" />
+                  <Check size={14} className="text-white/80 [html[data-theme='light']_&]:text-slate-700 shrink-0 stroke-[2]" />
                   <span>{isVi ? 'Lưu trữ Ký ức & Phản xạ DDD trong .aevum/' : 'Local Memory & Reflex Storage (.aevum/)'}</span>
                 </p>
                 <p className="flex items-center gap-2.5">
-                  <Check size={14} className="text-white/80 shrink-0 stroke-[2]" />
+                  <Check size={14} className="text-white/80 [html[data-theme='light']_&]:text-slate-700 shrink-0 stroke-[2]" />
                   <span>{isVi ? 'Tối đa 1 máy trạm liên kết' : 'Max 1 linked Workstation'}</span>
                 </p>
-                <p className="flex items-center gap-2.5 text-slate-400">
-                  <X size={14} className="text-slate-500 shrink-0" />
-                  <span>{isVi ? 'Multi-Agent Squad Mode (Khóa)' : 'Multi-Agent Squad Mode (Locked)'}</span>
+                <p className="flex items-center gap-2.5 text-slate-400 [html[data-theme='light']_&]:text-slate-400 opacity-60">
+                  <X size={14} className="text-slate-500 [html[data-theme='light']_&]:text-slate-400 shrink-0" />
+                  <span className="line-through [html[data-theme='light']_&]:text-slate-400">{isVi ? 'Multi-Agent Squad Mode (Khóa)' : 'Multi-Agent Squad Mode (Locked)'}</span>
                 </p>
-                <p className="flex items-center gap-2.5 text-slate-400">
-                  <X size={14} className="text-slate-500 shrink-0" />
-                  <span>{isVi ? 'Living Memory Cloud Sync (Khóa)' : 'Living Memory Cloud Sync (Locked)'}</span>
+                <p className="flex items-center gap-2.5 text-slate-400 [html[data-theme='light']_&]:text-slate-400 opacity-60">
+                  <X size={14} className="text-slate-500 [html[data-theme='light']_&]:text-slate-400 shrink-0" />
+                  <span className="line-through [html[data-theme='light']_&]:text-slate-400">{isVi ? 'Living Memory Cloud Sync (Khóa)' : 'Living Memory Cloud Sync (Locked)'}</span>
                 </p>
               </div>
             </div>
@@ -272,22 +267,17 @@ export const Pricing = ({
               className="pricing-btn-community w-full py-3.5 px-4 rounded-full font-mono text-xs font-medium uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap"
             >
               <span className="whitespace-nowrap">{isVi ? 'Tải Về & Dùng Ngay' : 'Download & Get Started'}</span>
-              <ArrowRight size={14} className="text-slate-300 shrink-0" />
+              <ArrowRight size={14} className="text-slate-300 [html[data-theme='light']_&]:text-slate-800 shrink-0" />
             </button>
           </div>
         </div>
 
         {/* COLUMN 2: PRO TIER (PROMINENT CENTER LAYER OVERLAPPING SIDE CARDS) */}
-        <div className="pricing-pro-column relative z-20 p-8 sm:p-10 space-y-6 flex flex-col justify-between overflow-hidden lg:-my-1 rounded-2xl sm:rounded-3xl border border-white/20 bg-[#07090D]">
+        <div className="pricing-pro-column relative z-20 p-8 sm:p-10 space-y-6 flex flex-col justify-between overflow-hidden lg:-my-1 rounded-2xl sm:rounded-3xl border border-white/20 [html[data-theme='light']_&]:border-cyan-300/80 [html[data-theme='light']_&]:bg-white [html[data-theme='light']_&]:shadow-2xl [html[data-theme='light']_&]:shadow-cyan-500/10 bg-[#07090D]">
           {/* Refined High-Contrast Grainy Gradient Atmosphere */}
           <div className="pointer-events-none absolute inset-0 overflow-hidden select-none z-0">
             {/* Primary Gradient Flow - Soft ambient cyan fading quickly into deep black */}
-            <div
-              className="absolute inset-0"
-              style={{
-                background: 'linear-gradient(180deg, rgba(14, 165, 233, 0.16) 0%, rgba(2, 132, 199, 0.06) 16%, rgba(7, 9, 13, 0.75) 36%, #07090D 70%)',
-              }}
-            />
+            <div className="pricing-card-gradient pricing-gradient-layer absolute inset-0" />
 
             {/* Ethereal Top Horizon Crest (Gentle ambient glow focused at very top edge) */}
             <div
@@ -299,7 +289,7 @@ export const Pricing = ({
             />
 
             {/* Precision Top Hairline Glow Line */}
-            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent z-10" />
+            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/40 [html[data-theme='light']_&]:via-cyan-400/60 to-transparent z-10" />
 
             {/* Ultra-Fine Luxury Film Grain (Low opacity, fine pitch - NO harsh pixel noise) */}
             <div
@@ -312,14 +302,14 @@ export const Pricing = ({
             />
 
             {/* Subtle DeepMind Particle Dots in Top Right */}
-            <div className="absolute top-0 right-0 w-2/3 h-48 overflow-hidden opacity-20 z-[2]">
+            <div className="absolute top-0 right-0 w-2/3 h-48 overflow-hidden opacity-20 [html[data-theme='light']_&]:opacity-35 z-[2]">
               <svg className="w-full h-full object-cover" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="260" cy="30" r="1.5" fill="#38bdf8" opacity="0.7" />
-                <circle cx="295" cy="50" r="1" fill="#ffffff" opacity="0.5" />
+                <circle cx="295" cy="50" r="1" fill="#0284c7" opacity="0.5" />
                 <circle cx="330" cy="35" r="1.5" fill="#38bdf8" opacity="0.8" />
-                <circle cx="365" cy="65" r="1.2" fill="#ffffff" opacity="0.6" />
+                <circle cx="365" cy="65" r="1.2" fill="#0284c7" opacity="0.6" />
                 <circle cx="280" cy="85" r="1.5" fill="#38bdf8" opacity="0.6" />
-                <circle cx="320" cy="75" r="1" fill="#ffffff" opacity="0.5" />
+                <circle cx="320" cy="75" r="1" fill="#0284c7" opacity="0.5" />
               </svg>
             </div>
           </div>
@@ -327,20 +317,20 @@ export const Pricing = ({
           <div className="relative z-10">
             {/* Top Monochrome Ribbon */}
             <div className="flex justify-between items-center mb-2">
-              <span className="text-[11px] font-mono font-bold text-slate-300 uppercase tracking-widest">
+              <span className="text-[11px] font-mono font-bold text-slate-300 [html[data-theme='light']_&]:text-cyan-800 uppercase tracking-widest">
                 {isVi ? 'BUILDER CHUYÊN NGHIỆP' : 'PRO BUILDER'}
               </span>
-              <span className="px-2.5 py-0.5 rounded-full border border-white/20 bg-white/10 text-[10px] font-mono text-white font-bold shrink-0">
+              <span className="px-2.5 py-0.5 rounded-full border border-white/20 [html[data-theme='light']_&]:border-cyan-300 bg-white/10 [html[data-theme='light']_&]:bg-cyan-50 text-[10px] font-mono text-white [html[data-theme='light']_&]:text-cyan-800 font-bold shrink-0">
                 {isVi ? 'PHỔ BIẾN' : 'POPULAR'}
               </span>
             </div>
 
-            <h3 className="text-xl sm:text-2xl font-bold text-white font-display flex items-center gap-2 mb-1">
+            <h3 className="text-xl sm:text-2xl font-bold text-white [html[data-theme='light']_&]:text-slate-900 font-display flex items-center gap-2 mb-1">
               <span>Aevum Pro</span>
-              <Zap size={18} className="text-white fill-white/20 shrink-0" />
+              <Zap size={18} className="text-white [html[data-theme='light']_&]:text-cyan-600 fill-white/20 [html[data-theme='light']_&]:fill-cyan-100 shrink-0" />
             </h3>
 
-            <p className="text-xs text-slate-300 min-h-[36px] leading-relaxed">
+            <p className="text-xs text-slate-300 [html[data-theme='light']_&]:text-slate-600 min-h-[36px] leading-relaxed">
               {isVi 
                 ? 'Mở khóa Biệt đội Đa Agent (Squad Mode), Đồng bộ Ký ức đám mây và Nghiên cứu sâu đa bước.' 
                 : 'Autonomous Squad Orchestration, Cloud Living Memory Sync, and Deep Research.'}
@@ -351,26 +341,26 @@ export const Pricing = ({
               <div className="flex items-baseline gap-1.5 flex-nowrap">
                 {billingCycle === 'monthly' ? (
                   <>
-                    <span className="text-2xl sm:text-3xl font-black text-white font-mono tracking-tight whitespace-nowrap">
+                    <span className="text-2xl sm:text-3xl font-black text-white [html[data-theme='light']_&]:text-slate-900 font-mono tracking-tight whitespace-nowrap">
                       249.000 VNĐ
                     </span>
-                    <span className="text-xs text-slate-300 font-mono whitespace-nowrap">
+                    <span className="text-xs text-slate-300 [html[data-theme='light']_&]:text-slate-500 font-mono whitespace-nowrap">
                       {isVi ? '/ Tháng' : '/ Month'}
                     </span>
                   </>
                 ) : (
                   <>
-                    <span className="text-2xl sm:text-3xl font-black text-white font-mono tracking-tight whitespace-nowrap">
+                    <span className="text-2xl sm:text-3xl font-black text-white [html[data-theme='light']_&]:text-slate-900 font-mono tracking-tight whitespace-nowrap">
                       1.990.000 VNĐ
                     </span>
-                    <span className="text-xs text-slate-300 font-mono whitespace-nowrap">
+                    <span className="text-xs text-slate-300 [html[data-theme='light']_&]:text-slate-500 font-mono whitespace-nowrap">
                       {isVi ? '/ Năm' : '/ Year'}
                     </span>
                   </>
                 )}
               </div>
               <div className="pricing-sub-pro pl-2 mt-1.5 py-0.5">
-                <span className="text-[11px] font-mono font-medium text-slate-200 block whitespace-nowrap leading-none">
+                <span className="text-[11px] font-mono font-medium text-slate-200 [html[data-theme='light']_&]:text-cyan-700 block whitespace-nowrap leading-none">
                   {billingCycle === 'monthly' 
                     ? (isVi ? 'Tặng 1 tháng (30 ngày) dùng thử PRO' : '1-month (30-day) free trial included')
                     : (isVi ? 'Tiết kiệm 20% (~165k/tháng)' : 'Save 20% (~$7/mo)')}
@@ -380,37 +370,37 @@ export const Pricing = ({
 
             {/* Clean Open Feature List */}
             <div className="space-y-3 mb-6">
-              <div className="text-[11px] font-mono font-medium tracking-wider text-slate-300 uppercase">
+              <div className="text-[11px] font-mono font-medium tracking-wider text-slate-300 [html[data-theme='light']_&]:text-cyan-800 uppercase">
                 {isVi ? 'ĐẶC QUYỀN CHUYÊN NGHIỆP' : 'PRO PRIVILEGES'}
               </div>
-              <div className="space-y-2.5 text-xs font-mono text-slate-200">
+              <div className="space-y-2.5 text-xs font-mono text-slate-200 [html[data-theme='light']_&]:text-slate-700">
                 <p className="flex items-center gap-2.5">
-                  <Check size={14} className="text-white shrink-0 stroke-[2.5]" />
-                  <span className="text-white font-medium">{isVi ? 'Bao gồm toàn bộ tính năng Community' : 'Includes everything in Community'}</span>
+                  <Check size={14} className="text-white [html[data-theme='light']_&]:text-cyan-600 shrink-0 stroke-[2.5]" />
+                  <span className="text-white [html[data-theme='light']_&]:text-slate-900 font-medium">{isVi ? 'Bao gồm toàn bộ tính năng Community' : 'Includes everything in Community'}</span>
                 </p>
                 <p className="flex items-center gap-2.5">
-                  <Check size={14} className="text-white shrink-0 stroke-[2.5]" />
-                  <span className="text-white font-medium">{isVi ? 'Multi-Agent Squad Mode: Điều phối đa Persona' : 'Multi-Agent Squad Mode (Multi-Personas)'}</span>
+                  <Check size={14} className="text-white [html[data-theme='light']_&]:text-cyan-600 shrink-0 stroke-[2.5]" />
+                  <span className="text-white [html[data-theme='light']_&]:text-slate-900 font-medium">{isVi ? 'Multi-Agent Squad Mode: Điều phối đa Persona' : 'Multi-Agent Squad Mode (Multi-Personas)'}</span>
                 </p>
                 <p className="flex items-center gap-2.5">
-                  <Check size={14} className="text-white shrink-0 stroke-[2.5]" />
-                  <span>{isVi ? 'Living Memory Cloud Sync: Đồng bộ Ký ức đa máy' : 'Living Memory Cloud Sync & Roaming'}</span>
+                  <Check size={14} className="text-white [html[data-theme='light']_&]:text-cyan-600 shrink-0 stroke-[2.5]" />
+                  <span className="[html[data-theme='light']_&]:text-slate-700">{isVi ? 'Living Memory Cloud Sync: Đồng bộ Ký ức đa máy' : 'Living Memory Cloud Sync & Roaming'}</span>
                 </p>
                 <p className="flex items-center gap-2.5">
-                  <Check size={14} className="text-white shrink-0 stroke-[2.5]" />
-                  <span>{isVi ? 'Ed25519 Machine ID: Tối đa 5 máy trạm liên kết' : 'Ed25519 Machine ID (Up to 5 Devices)'}</span>
+                  <Check size={14} className="text-white [html[data-theme='light']_&]:text-cyan-600 shrink-0 stroke-[2.5]" />
+                  <span className="[html[data-theme='light']_&]:text-slate-700">{isVi ? 'Ed25519 Machine ID: Tối đa 5 máy trạm liên kết' : 'Ed25519 Machine ID (Up to 5 Devices)'}</span>
                 </p>
                 <p className="flex items-center gap-2.5">
-                  <Check size={14} className="text-white shrink-0 stroke-[2.5]" />
-                  <span>{isVi ? 'Deep Research Engine: Nghiên cứu sâu đa bước' : 'Deep Research Engine & Whitepapers'}</span>
+                  <Check size={14} className="text-white [html[data-theme='light']_&]:text-cyan-600 shrink-0 stroke-[2.5]" />
+                  <span className="[html[data-theme='light']_&]:text-slate-700">{isVi ? 'Deep Research Engine: Nghiên cứu sâu đa bước' : 'Deep Research Engine & Whitepapers'}</span>
                 </p>
                 <p className="flex items-center gap-2.5">
-                  <Check size={14} className="text-white shrink-0 stroke-[2.5]" />
-                  <span>{isVi ? 'Technical Debt Radar & Báo cáo Tiến hóa Persona' : 'Technical Debt Radar & Evolution'}</span>
+                  <Check size={14} className="text-white [html[data-theme='light']_&]:text-cyan-600 shrink-0 stroke-[2.5]" />
+                  <span className="[html[data-theme='light']_&]:text-slate-700">{isVi ? 'Technical Debt Radar & Báo cáo Tiến hóa Persona' : 'Technical Debt Radar & Evolution'}</span>
                 </p>
                 <p className="flex items-center gap-2.5">
-                  <Check size={14} className="text-white shrink-0 stroke-[2.5]" />
-                  <span>{isVi ? 'Ưu tiên kết nối PiperNet Mesh & Hỗ trợ VIP' : 'Priority PiperNet Mesh & VIP Support'}</span>
+                  <Check size={14} className="text-white [html[data-theme='light']_&]:text-cyan-600 shrink-0 stroke-[2.5]" />
+                  <span className="[html[data-theme='light']_&]:text-slate-700">{isVi ? 'Ưu tiên kết nối PiperNet Mesh & Hỗ trợ VIP' : 'Priority PiperNet Mesh & VIP Support'}</span>
                 </p>
               </div>
             </div>
@@ -419,7 +409,7 @@ export const Pricing = ({
           <div className="relative w-full pt-4 z-10">
             {/* Tag tab peeking clearly from behind the button on the right side */}
             <div className="absolute -top-3.5 right-3 z-0 pointer-events-none">
-              <span className="pricing-pro-tag inline-flex items-center px-2.5 pt-1 pb-4 rounded-t-[5px] text-[9px] font-mono font-medium uppercase tracking-wider bg-white/10 border border-white/20 text-white whitespace-nowrap select-none">
+              <span className="pricing-pro-tag inline-flex items-center px-2.5 pt-1 pb-4 rounded-t-[5px] text-[9px] font-mono font-medium uppercase tracking-wider bg-white/10 [html[data-theme='light']_&]:bg-cyan-50 border border-white/20 [html[data-theme='light']_&]:border-cyan-300 text-white [html[data-theme='light']_&]:text-cyan-800 whitespace-nowrap select-none">
                 {isVi ? 'Dành cho Beta Tester' : 'For Beta Testers'}
               </span>
             </div>
@@ -431,22 +421,17 @@ export const Pricing = ({
               <span className="whitespace-nowrap">
                 {isVi ? 'Nâng Cấp Pro (VietQR 24/7)' : 'Upgrade to Pro (VietQR)'}
               </span>
-              <ArrowRight size={14} className="stroke-[2.5] shrink-0 text-black" />
+              <ArrowRight size={14} className="stroke-[2.5] shrink-0 text-black [html[data-theme='light']_&]:text-white" />
             </button>
           </div>
         </div>
 
         {/* COLUMN 3: ENTERPRISE TIER (PREMIUM BESPOKE CTA) */}
-        <div className="pricing-card-enterprise relative z-10 p-8 sm:p-10 space-y-6 flex flex-col justify-between overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 lg:ml-[-16px] lg:my-3 lg:pl-10 bg-[#07090D]">
+        <div className="pricing-card-enterprise relative z-10 p-8 sm:p-10 space-y-6 flex flex-col justify-between overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 [html[data-theme='light']_&]:border-slate-200/90 [html[data-theme='light']_&]:bg-white [html[data-theme='light']_&]:shadow-lg lg:ml-[-16px] lg:my-3 lg:pl-10 bg-[#07090D]">
           {/* Subtle Grainy Gradient Atmosphere Layer */}
           <div className="pointer-events-none absolute inset-0 overflow-hidden select-none z-0">
-            <div
-              className="absolute inset-0"
-              style={{
-                background: 'linear-gradient(180deg, rgba(14, 165, 233, 0.08) 0%, rgba(7, 9, 13, 0.6) 25%, #07090D 100%)',
-              }}
-            />
-            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent z-10" />
+            <div className="pricing-card-gradient pricing-gradient-layer absolute inset-0" />
+            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/15 [html[data-theme='light']_&]:via-slate-200 to-transparent z-10" />
             <div
               className="absolute inset-0 opacity-[0.06] mix-blend-overlay z-[1]"
               style={{
@@ -459,19 +444,19 @@ export const Pricing = ({
 
           <div className="relative z-10">
             <div className="flex justify-between items-center mb-2">
-              <span className="text-[11px] font-mono font-bold text-slate-400 uppercase tracking-widest">
+              <span className="text-[11px] font-mono font-bold text-slate-400 [html[data-theme='light']_&]:text-slate-500 uppercase tracking-widest">
                 {isVi ? 'DOANH NGHIỆP & TỔ CHỨC' : 'ENTERPRISE & TEAMS'}
               </span>
-              <span className="px-2.5 py-0.5 rounded-full border border-white/10 bg-white/[0.04] text-[10px] font-mono text-slate-400 font-medium tracking-wider shrink-0 uppercase">
+              <span className="px-2.5 py-0.5 rounded-full border border-white/10 [html[data-theme='light']_&]:border-slate-300/80 bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-100 text-[10px] font-mono text-slate-400 [html[data-theme='light']_&]:text-slate-600 font-medium tracking-wider shrink-0 uppercase">
                 ON-PREM / CLOUD
               </span>
             </div>
 
-            <h3 className="text-xl sm:text-2xl font-bold text-white font-display mb-1">
+            <h3 className="text-xl sm:text-2xl font-bold text-white [html[data-theme='light']_&]:text-slate-900 font-display mb-1">
               Aevum Enterprise
             </h3>
 
-            <p className="text-xs text-slate-400 min-h-[36px]">
+            <p className="text-xs text-slate-400 [html[data-theme='light']_&]:text-slate-600 min-h-[36px]">
               {isVi 
                 ? 'Triển khai On-Premise hoặc Private Cloud hoàn toàn cô lập, bảo mật tối đa cho doanh nghiệp.' 
                 : 'Isolated On-Premise or Private Cloud deployment with customized governance & security.'}
@@ -480,15 +465,15 @@ export const Pricing = ({
             {/* Price (100% Single-Line & Uniform Baseline Alignment) */}
             <div className="my-5 min-h-[56px] flex flex-col justify-start">
               <div className="flex items-baseline gap-1.5 flex-nowrap">
-                <span className="text-2xl sm:text-3xl font-black text-white font-mono tracking-tight whitespace-nowrap">
+                <span className="text-2xl sm:text-3xl font-black text-white [html[data-theme='light']_&]:text-slate-900 font-mono tracking-tight whitespace-nowrap">
                   {isVi ? 'Tùy Chỉnh' : 'Custom'}
                 </span>
-                <span className="text-xs text-slate-300 font-mono whitespace-nowrap">
+                <span className="text-xs text-slate-300 [html[data-theme='light']_&]:text-slate-500 font-mono whitespace-nowrap">
                   {isVi ? '/ Đội ngũ' : '/ Tailored'}
                 </span>
               </div>
               <div className="pricing-sub-enterprise pl-2 mt-1.5 py-0.5">
-                <span className="text-[11px] font-mono font-normal text-slate-400 block whitespace-nowrap leading-none">
+                <span className="text-[11px] font-mono font-normal text-slate-400 [html[data-theme='light']_&]:text-slate-500 block whitespace-nowrap leading-none">
                   {isVi ? 'Triển khai On-Premise / Private VPC' : 'Isolated On-Premise / Private VPC'}
                 </span>
               </div>
@@ -496,37 +481,37 @@ export const Pricing = ({
 
             {/* Clean Open Feature List */}
             <div className="space-y-3 mb-6">
-              <div className="text-[11px] font-mono font-medium tracking-wider text-slate-400 uppercase">
+              <div className="text-[11px] font-mono font-medium tracking-wider text-slate-400 [html[data-theme='light']_&]:text-slate-500 uppercase">
                 {isVi ? 'ĐẶC QUYỀN DOANH NGHIỆP' : 'ENTERPRISE CAPABILITIES'}
               </div>
-              <div className="space-y-2.5 text-xs font-mono text-slate-300">
+              <div className="space-y-2.5 text-xs font-mono text-slate-300 [html[data-theme='light']_&]:text-slate-700">
                 <p className="flex items-center gap-2.5">
-                  <Check size={14} className="text-white/80 shrink-0 stroke-[2]" />
-                  <span className="text-white font-medium">{isVi ? 'Toàn bộ quyền lợi của Hạng Pro' : 'Includes everything in Pro'}</span>
+                  <Check size={14} className="text-white/80 [html[data-theme='light']_&]:text-slate-700 shrink-0 stroke-[2]" />
+                  <span className="text-white [html[data-theme='light']_&]:text-slate-900 font-medium">{isVi ? 'Toàn bộ quyền lợi của Hạng Pro' : 'Includes everything in Pro'}</span>
                 </p>
                 <p className="flex items-center gap-2.5">
-                  <Check size={14} className="text-white/80 shrink-0 stroke-[2]" />
-                  <span>{isVi ? 'Triển khai On-Premise / Private Cloud cô lập 100%' : '100% Air-gapped On-Premise or Private VPC'}</span>
+                  <Check size={14} className="text-white/80 [html[data-theme='light']_&]:text-slate-700 shrink-0 stroke-[2]" />
+                  <span className="[html[data-theme='light']_&]:text-slate-700">{isVi ? 'Triển khai On-Premise / Private Cloud cô lập 100%' : '100% Air-gapped On-Premise or Private VPC'}</span>
                 </p>
                 <p className="flex items-center gap-2.5">
-                  <Check size={14} className="text-white/80 shrink-0 stroke-[2]" />
-                  <span>{isVi ? 'Số lượng máy trạm & Seats theo thỏa thuận' : 'Custom Workstation Bindings & Seats (Customizable)'}</span>
+                  <Check size={14} className="text-white/80 [html[data-theme='light']_&]:text-slate-700 shrink-0 stroke-[2]" />
+                  <span className="[html[data-theme='light']_&]:text-slate-700">{isVi ? 'Số lượng máy trạm & Seats theo thỏa thuận' : 'Custom Workstation Bindings & Seats (Customizable)'}</span>
                 </p>
                 <p className="flex items-center gap-2.5">
-                  <Check size={14} className="text-white/80 shrink-0 stroke-[2]" />
-                  <span>{isVi ? 'Tùy biến Custom Personas & Fine-tuned LLM riêng' : 'Custom Personas & Fine-Tuned Model Adapters'}</span>
+                  <Check size={14} className="text-white/80 [html[data-theme='light']_&]:text-slate-700 shrink-0 stroke-[2]" />
+                  <span className="[html[data-theme='light']_&]:text-slate-700">{isVi ? 'Tùy biến Custom Personas & Fine-tuned LLM riêng' : 'Custom Personas & Fine-Tuned Model Adapters'}</span>
                 </p>
                 <p className="flex items-center gap-2.5">
-                  <Check size={14} className="text-white/80 shrink-0 stroke-[2]" />
-                  <span>{isVi ? 'Quản trị phân quyền tổ chức (RBAC) & Audit Logs' : 'Enterprise RBAC, SSO & Security Audit Logs'}</span>
+                  <Check size={14} className="text-white/80 [html[data-theme='light']_&]:text-slate-700 shrink-0 stroke-[2]" />
+                  <span className="[html[data-theme='light']_&]:text-slate-700">{isVi ? 'Quản trị phân quyền tổ chức (RBAC) & Audit Logs' : 'Enterprise RBAC, SSO & Security Audit Logs'}</span>
                 </p>
                 <p className="flex items-center gap-2.5">
-                  <Check size={14} className="text-white/80 shrink-0 stroke-[2]" />
-                  <span>{isVi ? 'Cam kết SLA 99.99% & Hỗ trợ kỹ thuật 24/7' : '99.99% SLA Guarantee & 24/7 Tech Support'}</span>
+                  <Check size={14} className="text-white/80 [html[data-theme='light']_&]:text-slate-700 shrink-0 stroke-[2]" />
+                  <span className="[html[data-theme='light']_&]:text-slate-700">{isVi ? 'Cam kết SLA 99.99% & Hỗ trợ kỹ thuật 24/7' : '99.99% SLA Guarantee & 24/7 Tech Support'}</span>
                 </p>
                 <p className="flex items-center gap-2.5">
-                  <Check size={14} className="text-white/80 shrink-0 stroke-[2]" />
-                  <span>{isVi ? 'Đội ngũ kỹ sư I2FLabs đồng hành triển khai' : 'Dedicated I2FLabs Solutions Engineering Team'}</span>
+                  <Check size={14} className="text-white/80 [html[data-theme='light']_&]:text-slate-700 shrink-0 stroke-[2]" />
+                  <span className="[html[data-theme='light']_&]:text-slate-700">{isVi ? 'Đội ngũ kỹ sư I2FLabs đồng hành triển khai' : 'Dedicated I2FLabs Solutions Engineering Team'}</span>
                 </p>
               </div>
             </div>
@@ -538,7 +523,7 @@ export const Pricing = ({
               className="pricing-btn-enterprise w-full py-3.5 px-4 rounded-full font-mono text-xs font-medium uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap"
             >
               <span className="whitespace-nowrap">{isVi ? 'Liên Hệ Đội Ngũ Phát Triển' : 'Contact Development Team'}</span>
-              <ArrowRight size={14} className="shrink-0 text-slate-300" />
+              <ArrowRight size={14} className="shrink-0 text-slate-300 [html[data-theme='light']_&]:text-slate-800" />
             </a>
           </div>
         </div>

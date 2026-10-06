@@ -174,18 +174,20 @@ export const Navbar = ({
 
   const headerBgClass = isAtTopLanding
     ? (Boolean(activeDropdown)
-        ? 'bg-black/20 backdrop-blur-md border-b border-white/10'
+        ? 'bg-black/20 [html[data-theme="light"]_&]:bg-white/80 backdrop-blur-md border-b border-white/10 [html[data-theme="light"]_&]:border-slate-200/80'
         : 'bg-transparent border-b border-transparent backdrop-blur-none')
-    : 'bg-[#07090D]/85 backdrop-blur-md border-b border-white/10';
+    : 'bg-[#07090D]/85 [html[data-theme="light"]_&]:bg-white/90 backdrop-blur-md border-b border-white/10 [html[data-theme="light"]_&]:border-slate-200/80 [html[data-theme="light"]_&]:shadow-[0_1px_3px_rgba(0,0,0,0.05)]';
 
   const dropdownBgClass = isAtTopLanding
-    ? 'bg-black/40 backdrop-blur-xl border-b border-white/10 text-white'
-    : 'bg-[#07090D]/95 backdrop-blur-xl border-b border-white/10 text-white';
+    ? 'bg-black/40 [html[data-theme="light"]_&]:bg-white/95 backdrop-blur-xl border-b border-white/10 [html[data-theme="light"]_&]:border-slate-200 text-white [html[data-theme="light"]_&]:text-slate-800 [html[data-theme="light"]_&]:shadow-lg'
+    : 'bg-[#07090D]/95 [html[data-theme="light"]_&]:bg-white/95 backdrop-blur-xl border-b border-white/10 [html[data-theme="light"]_&]:border-slate-200 text-white [html[data-theme="light"]_&]:text-slate-800 [html[data-theme="light"]_&]:shadow-lg';
+
+  const isNavbarScrolled = !isAtTopLanding || Boolean(activeDropdown);
 
   return (
     <div 
       ref={featuresRef} 
-      className={`relative w-full !sticky top-0 z-40 flex flex-col transition-all duration-300 ${headerBgClass}`}
+      className={`navbar-root ${isNavbarScrolled ? 'navbar-scrolled' : 'navbar-transparent'} relative w-full !sticky top-0 z-40 flex flex-col transition-all duration-300 ${headerBgClass}`}
       style={{ position: 'sticky', top: 0, zIndex: 40 }}
     >
       
@@ -206,7 +208,7 @@ export const Navbar = ({
               alt="Aevum OS Logo" 
               className="w-7 h-7 object-contain" 
             />
-            <span className="font-semibold text-lg text-white tracking-wide font-display whitespace-nowrap">
+            <span className="font-semibold text-lg text-white [html[data-theme='light']_&]:text-slate-900 tracking-wide font-display whitespace-nowrap">
               AEVUM OS
             </span>
           </a>
@@ -222,13 +224,13 @@ export const Navbar = ({
                   onClick={() => toggleDropdown('features')}
                   className={`flex items-center gap-1.5 text-xs sm:text-[13px] font-medium py-1.5 px-3 rounded-[5px] transition-all duration-200 cursor-pointer ${
                     isButtonActive
-                      ? 'border-beam-btn text-white'
-                      : 'text-white border border-white/20 bg-white/[0.04] hover:bg-white/[0.08] hover:border-white/40'
+                      ? 'border-beam-btn text-white [html[data-theme="light"]_&]:text-slate-900 [html[data-theme="light"]_&]:bg-slate-100'
+                      : 'text-white [html[data-theme="light"]_&]:text-slate-700 border border-white/20 [html[data-theme="light"]_&]:border-slate-300/80 bg-white/[0.04] [html[data-theme="light"]_&]:bg-slate-100/70 hover:bg-white/[0.08] [html[data-theme="light"]_&]:hover:bg-slate-200/70 hover:border-white/40'
                   }`}
                 >
 
-                  <span className="relative z-10 font-medium tracking-wide text-white">{getButtonLabel()}</span>
-                  <ChevronDown size={13} className={`relative z-10 text-white transition-transform duration-300 ${featuresOpen ? 'rotate-180' : ''}`} />
+                  <span className="relative z-10 font-medium tracking-wide text-white [html[data-theme='light']_&]:text-slate-800">{getButtonLabel()}</span>
+                  <ChevronDown size={13} className={`relative z-10 text-white [html[data-theme='light']_&]:text-slate-600 transition-transform duration-300 ${featuresOpen ? 'rotate-180' : ''}`} />
                 </button>
               );
             })()}
@@ -237,7 +239,7 @@ export const Navbar = ({
             <button 
               onClick={() => { onNavigate('pricing'); closeDropdown(); }}
               className={`transition-colors font-medium whitespace-nowrap text-nowrap cursor-pointer ${
-                currentPage === 'pricing' ? 'text-cyan-400' : 'text-slate-300 hover:text-cyan-400'
+                currentPage === 'pricing' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
               }`}
             >
               {t.navbar.pricing}
@@ -247,7 +249,7 @@ export const Navbar = ({
             <button 
               onClick={() => { onNavigate('about'); closeDropdown(); }}
               className={`transition-colors font-medium whitespace-nowrap text-nowrap cursor-pointer ${
-                currentPage === 'about' ? 'text-cyan-400' : 'text-slate-300 hover:text-cyan-400'
+                currentPage === 'about' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
               }`}
             >
               {t.navbar.about}
@@ -258,8 +260,8 @@ export const Navbar = ({
               onClick={() => toggleDropdown('resources')}
               className={`flex items-center gap-1.5 transition-colors font-medium whitespace-nowrap text-nowrap cursor-pointer ${
                 resourcesOpen || ['docs', 'changelog', 'discussions', 'explore'].includes(currentPage)
-                  ? 'text-cyan-400'
-                  : 'text-slate-300 hover:text-cyan-400'
+                  ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600'
+                  : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
               }`}
             >
               <span>{isVi ? 'Tài liệu & Cộng đồng' : 'Docs & Community'}</span>
@@ -269,20 +271,19 @@ export const Navbar = ({
           </nav>
         </div>
 
-        {/* Right Cell: Search + Social Links */}
         {/* Right Cell: Search + Full-Height Sign In + Social Icons */}
         <div className="flex items-stretch gap-0 shrink-0">
           {/* Search Input — desktop only, centered vertically */}
           <div className="hidden lg:flex items-center self-center mr-3 xl:mr-4">
             <div 
               onClick={onOpenSearch}
-              className="flex items-center gap-3 bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 px-3 py-1.5 rounded-lg text-slate-400 cursor-pointer transition-all group"
+              className="flex items-center gap-3 bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-100 hover:bg-white/[0.08] [html[data-theme='light']_&]:hover:bg-slate-200/70 border border-white/10 [html[data-theme='light']_&]:border-slate-300/80 px-3 py-1.5 rounded-lg text-slate-400 [html[data-theme='light']_&]:text-slate-500 cursor-pointer transition-all group"
             >
-              <Search size={14} className="group-hover:text-white transition-colors" />
-              <span className="text-xs text-slate-400 group-hover:text-white">
+              <Search size={14} className="group-hover:text-white [html[data-theme='light']_&]:group-hover:text-slate-900 transition-colors" />
+              <span className="text-xs text-slate-400 [html[data-theme='light']_&]:text-slate-600 group-hover:text-white [html[data-theme='light']_&]:group-hover:text-slate-900">
                 {isVi ? 'Tìm kiếm OS...' : 'Search OS...'}
               </span>
-              <kbd className="hidden sm:inline-block text-[10px] font-mono bg-white/10 px-1.5 py-0.5 rounded text-slate-400 border border-white/10 ml-2">
+              <kbd className="hidden sm:inline-block text-[10px] font-mono bg-white/10 [html[data-theme='light']_&]:bg-slate-200/80 px-1.5 py-0.5 rounded text-slate-400 [html[data-theme='light']_&]:text-slate-600 border border-white/10 [html[data-theme='light']_&]:border-slate-300 ml-2">
                 Ctrl K
               </kbd>
             </div>
@@ -312,11 +313,11 @@ export const Navbar = ({
             return (
               <button
                 onClick={() => toggleDropdown('profile')}
-                className="flex items-center self-stretch gap-2.5 text-xs font-mono text-slate-300 hover:text-white px-3 sm:px-4 border-l border-r border-white/10 bg-transparent hover:bg-white/[0.04] transition-all cursor-pointer group rounded-none"
+                className="flex items-center self-stretch gap-2.5 text-xs font-mono text-slate-300 hover:text-white [html[data-theme='light']_&]:text-slate-700 [html[data-theme='light']_&]:hover:text-slate-950 px-3 sm:px-4 border-l border-r border-white/10 [html[data-theme='light']_&]:border-slate-200 bg-transparent hover:bg-white/[0.04] [html[data-theme='light']_&]:hover:bg-slate-100/60 transition-all cursor-pointer group rounded-none"
                 title={isVi ? "Xem tài khoản Aevum" : "View Aevum profile"}
               >
                 {/* Clean Soft Rounded Avatar */}
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-[6px] overflow-hidden flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-[6px] overflow-hidden flex items-center justify-center shrink-0 border border-white/10 [html[data-theme='light']_&]:border-slate-200 shadow-sm">
                   {avatarUrl ? (
                     <img src={avatarUrl} alt="avatar" className="w-full h-full object-cover" />
                   ) : (
@@ -328,7 +329,7 @@ export const Navbar = ({
 
                 {/* Name & Transparent Member Tier Beneath */}
                 <div className="flex flex-col items-start justify-center leading-none text-left max-w-[110px]">
-                  <span className="font-bold uppercase tracking-wider truncate text-white text-xs">
+                  <span className="font-bold uppercase tracking-wider truncate text-white [html[data-theme='light']_&]:text-slate-900 text-xs">
                     {displayName.split(' ')[0]}
                   </span>
                   <span className={`text-[8.5px] font-mono font-semibold uppercase tracking-wider pt-0.5 ${tierTextGradient}`}>
@@ -336,19 +337,18 @@ export const Navbar = ({
                   </span>
                 </div>
 
-
-                <ChevronDown size={11} className={`text-white transition-transform duration-200 ${profileOpen ? 'rotate-180' : ''}`} />
+                <ChevronDown size={11} className={`text-white [html[data-theme='light']_&]:text-slate-600 transition-transform duration-200 ${profileOpen ? 'rotate-180' : ''}`} />
               </button>
             );
           })() : (
 
             <button
               onClick={onOpenAuthModal}
-              className="flex items-center self-stretch gap-2 text-xs font-mono text-slate-300 hover:text-white px-4 sm:px-5 border-l border-r border-white/10 bg-transparent hover:bg-white/[0.04] transition-all cursor-pointer group rounded-none"
+              className="flex items-center self-stretch gap-2 text-xs font-mono text-slate-300 hover:text-white [html[data-theme='light']_&]:text-slate-700 [html[data-theme='light']_&]:hover:text-slate-900 px-4 sm:px-5 border-l border-r border-white/10 [html[data-theme='light']_&]:border-slate-200 bg-transparent hover:bg-white/[0.04] [html[data-theme='light']_&]:hover:bg-slate-100/60 transition-all cursor-pointer group rounded-none"
               title={isVi ? "Đăng nhập tài khoản" : "Sign in to Aevum account"}
             >
-              <User size={13} className="text-slate-400 group-hover:text-cyan-400 transition-colors" />
-              <span className="font-bold uppercase tracking-wider text-slate-300 group-hover:text-cyan-400 transition-colors">
+              <User size={13} className="text-slate-400 group-hover:text-cyan-400 [html[data-theme='light']_&]:text-slate-500 [html[data-theme='light']_&]:group-hover:text-cyan-600 transition-colors" />
+              <span className="font-bold uppercase tracking-wider text-slate-300 group-hover:text-cyan-400 [html[data-theme='light']_&]:text-slate-700 [html[data-theme='light']_&]:group-hover:text-cyan-600 transition-colors">
                 {isVi ? 'ĐĂNG NHẬP' : 'SIGN IN'}
               </span>
             </button>
@@ -359,16 +359,16 @@ export const Navbar = ({
             <a 
               href="https://facebook.com" 
               target="_blank" 
-              rel="noreferrer"
+              rel="noreferrer" 
               aria-label="Facebook I2FLabs"
-              className="text-slate-400 hover:text-white transition-colors p-1"
+              className="text-slate-400 hover:text-white [html[data-theme='light']_&]:text-slate-500 [html[data-theme='light']_&]:hover:text-slate-900 transition-colors p-1"
             >
               <Facebook size={14} />
             </a>
             <a 
               href="https://unikorn.vn" 
               target="_blank" 
-              rel="noreferrer"
+              rel="noreferrer" 
               aria-label="Unikorn Vietnam Creative Tech Agency"
               className="opacity-70 hover:opacity-100 transition-opacity p-1 flex items-center justify-center"
               title="Unikorn - Creative Tech Agency"
@@ -380,7 +380,7 @@ export const Navbar = ({
             <a
               href="mailto:hainguyen011238@gmail.com"
               aria-label="Email Aevum OS Support"
-              className="text-slate-400 hover:text-white transition-colors p-1"
+              className="text-slate-400 hover:text-white [html[data-theme='light']_&]:text-slate-500 [html[data-theme='light']_&]:hover:text-slate-900 transition-colors p-1"
               title="hainguyen011238@gmail.com"
             >
               <Mail size={14} />
@@ -391,7 +391,7 @@ export const Navbar = ({
           <div className="lg:hidden flex items-center justify-center px-3 sm:px-4">
             <button
               onClick={onToggleMobileMenu}
-              className="flex items-center justify-center w-9 h-9 text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 active:scale-95 border border-white/10 rounded-lg transition-all cursor-pointer"
+              className="flex items-center justify-center w-9 h-9 text-slate-300 hover:text-white [html[data-theme='light']_&]:text-slate-700 [html[data-theme='light']_&]:hover:text-slate-950 bg-white/5 hover:bg-white/10 [html[data-theme='light']_&]:bg-slate-100 [html[data-theme='light']_&]:hover:bg-slate-200/80 active:scale-95 border border-white/10 [html[data-theme='light']_&]:border-slate-200 rounded-lg transition-all cursor-pointer"
               aria-label="Toggle Mobile Navigation"
             >
               {isMobileMenuOpen ? <X size={18} className="shrink-0" /> : <Menu size={18} className="shrink-0" />}
@@ -403,7 +403,7 @@ export const Navbar = ({
 
       {/* Unified Compact Expandable Sub-Navigation Floating Overlay (Never pushes content down, never overlaps) */}
       <div 
-        className={`absolute top-full left-0 right-0 z-50 overflow-hidden transition-all duration-300 ease-out ${dropdownBgClass} ${
+        className={`navbar-dropdown-panel absolute top-full left-0 right-0 z-50 overflow-hidden transition-all duration-300 ease-out ${dropdownBgClass} ${
           (featuresOpen || resourcesOpen) ? 'max-h-16 opacity-100 py-3 pointer-events-auto' : 'max-h-0 opacity-0 py-0 border-b-0 pointer-events-none'
         }`}
       >
@@ -414,7 +414,7 @@ export const Navbar = ({
                 href="#cli" 
                 onClick={(e) => { handleNavLink(e, 'cli'); closeDropdown(); }}
                 className={`transition-colors whitespace-nowrap shrink-0 ${
-                  activeSection === 'cli' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
+                  activeSection === 'cli' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600 font-bold' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
                 }`}
               >
                 {t.navbar.kernel}
@@ -423,7 +423,7 @@ export const Navbar = ({
                 href="#breakthroughs" 
                 onClick={(e) => { handleNavLink(e, 'breakthroughs'); closeDropdown(); }}
                 className={`transition-colors whitespace-nowrap shrink-0 ${
-                  activeSection === 'breakthroughs' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
+                  activeSection === 'breakthroughs' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600 font-bold' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
                 }`}
               >
                 {t.navbar.breakthroughs}
@@ -432,7 +432,7 @@ export const Navbar = ({
                 href="#agents" 
                 onClick={(e) => { handleNavLink(e, 'agents'); closeDropdown(); }}
                 className={`transition-colors whitespace-nowrap shrink-0 ${
-                  activeSection === 'agents' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
+                  activeSection === 'agents' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600 font-bold' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
                 }`}
               >
                 {t.navbar.agents}
@@ -441,7 +441,7 @@ export const Navbar = ({
                 href="#architecture" 
                 onClick={(e) => { handleNavLink(e, 'architecture'); closeDropdown(); }}
                 className={`transition-colors whitespace-nowrap shrink-0 ${
-                  activeSection === 'architecture' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
+                  activeSection === 'architecture' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600 font-bold' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
                 }`}
               >
                 {t.navbar.architecture}
@@ -450,7 +450,7 @@ export const Navbar = ({
                 href="#orchestration" 
                 onClick={(e) => { handleNavLink(e, 'orchestration'); closeDropdown(); }}
                 className={`transition-colors whitespace-nowrap shrink-0 ${
-                  activeSection === 'orchestration' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
+                  activeSection === 'orchestration' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600 font-bold' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
                 }`}
               >
                 {t.navbar.orchestration}
@@ -459,7 +459,7 @@ export const Navbar = ({
                 href="#pricing" 
                 onClick={(e) => { handleNavLink(e, 'pricing'); closeDropdown(); }}
                 className={`transition-colors whitespace-nowrap shrink-0 ${
-                  activeSection === 'pricing' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
+                  activeSection === 'pricing' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600 font-bold' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
                 }`}
               >
                 {t.navbar.pricing}
@@ -468,7 +468,7 @@ export const Navbar = ({
                 href="#testimonials" 
                 onClick={(e) => { handleNavLink(e, 'testimonials'); closeDropdown(); }}
                 className={`transition-colors whitespace-nowrap shrink-0 ${
-                  activeSection === 'testimonials' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
+                  activeSection === 'testimonials' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600 font-bold' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
                 }`}
               >
                 {t.navbar.testimonials}
@@ -477,7 +477,7 @@ export const Navbar = ({
                 href="#unikorn" 
                 onClick={(e) => { handleNavLink(e, 'unikorn'); closeDropdown(); }}
                 className={`transition-colors whitespace-nowrap shrink-0 ${
-                  activeSection === 'unikorn' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
+                  activeSection === 'unikorn' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600 font-bold' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
                 }`}
               >
                 {t.navbar.unikorn}
@@ -486,7 +486,7 @@ export const Navbar = ({
                 href="#i2flabs" 
                 onClick={(e) => { handleNavLink(e, 'i2flabs'); closeDropdown(); }}
                 className={`transition-colors whitespace-nowrap shrink-0 ${
-                  activeSection === 'i2flabs' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-cyan-400'
+                  activeSection === 'i2flabs' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600 font-bold' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
                 }`}
               >
                 {t.navbar.i2flabs}
@@ -499,7 +499,7 @@ export const Navbar = ({
               <button 
                 onClick={() => { onNavigate('docs'); closeDropdown(); }}
                 className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-medium ${
-                  currentPage === 'docs' ? 'text-cyan-400' : 'text-slate-300 hover:text-cyan-400'
+                  currentPage === 'docs' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
                 }`}
               >
                 {t.navbar.docs}
@@ -507,7 +507,7 @@ export const Navbar = ({
               <button 
                 onClick={() => { onNavigate('explore'); closeDropdown(); }}
                 className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-medium ${
-                  currentPage === 'explore' || currentPage === 'kham-pha' || currentPage === 'learn' ? 'text-cyan-400' : 'text-slate-300 hover:text-cyan-400'
+                  currentPage === 'explore' || currentPage === 'kham-pha' || currentPage === 'learn' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
                 }`}
               >
                 {isVi ? 'Khám phá Kỉ nguyên' : 'Era Academy'}
@@ -515,7 +515,7 @@ export const Navbar = ({
               <button 
                 onClick={() => { onNavigate('changelog'); closeDropdown(); }}
                 className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-medium ${
-                  currentPage === 'changelog' ? 'text-cyan-400' : 'text-slate-300 hover:text-cyan-400'
+                  currentPage === 'changelog' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
                 }`}
               >
                 {isVi ? 'Nhật ký cập nhật' : 'Changelog'}
@@ -523,7 +523,7 @@ export const Navbar = ({
               <button 
                 onClick={() => { onNavigate('discussions'); closeDropdown(); }}
                 className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-medium ${
-                  currentPage === 'discussions' ? 'text-cyan-400' : 'text-slate-300 hover:text-cyan-400'
+                  currentPage === 'discussions' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
                 }`}
               >
                 {isVi ? 'Thảo luận' : 'Discussions'}
@@ -534,7 +534,7 @@ export const Navbar = ({
           <button 
             onClick={closeDropdown}
             aria-label={isVi ? "Đóng danh mục" : "Close menu"}
-            className="text-slate-500 hover:text-white transition-colors p-1 cursor-pointer shrink-0"
+            className="text-slate-500 hover:text-white [html[data-theme='light']_&]:text-slate-400 [html[data-theme='light']_&]:hover:text-slate-800 transition-colors p-1 cursor-pointer shrink-0"
             title={isVi ? "Đóng" : "Close"}
           >
             <X size={14} />
@@ -545,7 +545,7 @@ export const Navbar = ({
       {/* ── Profile Dropdown Floating Overlay (Never pushes content down) ── */}
       {user && (
         <div
-          className={`absolute top-full left-0 right-0 z-50 overflow-hidden transition-all duration-300 ease-out ${dropdownBgClass} ${
+          className={`navbar-dropdown-panel absolute top-full left-0 right-0 z-50 overflow-hidden transition-all duration-300 ease-out ${dropdownBgClass} ${
             profileOpen ? 'max-h-48 sm:max-h-24 opacity-100 py-3 sm:py-2.5 pointer-events-auto' : 'max-h-0 opacity-0 py-0 border-b-0 pointer-events-none'
           }`}
         >
@@ -567,7 +567,7 @@ export const Navbar = ({
                 const initials = displayName.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
 
                 return (
-                  <div className="w-10 h-10 rounded-md bg-white/[0.04] border border-white/10 overflow-hidden flex items-center justify-center shrink-0 group-hover/user:border-cyan-400/40 transition-all">
+                  <div className="w-10 h-10 rounded-md bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-100 border border-white/10 [html[data-theme='light']_&]:border-slate-300 overflow-hidden flex items-center justify-center shrink-0 group-hover/user:border-cyan-400/40 transition-all">
                     {avatarUrl ? (
                       <img src={avatarUrl} alt={displayName} className="w-full h-full object-cover" />
                     ) : (
@@ -581,12 +581,12 @@ export const Navbar = ({
 
               <div className="min-w-0 flex-1 space-y-1">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-xs font-bold text-white group-hover/user:text-cyan-400 transition-colors tracking-tight truncate">
+                  <span className="text-xs font-bold text-white [html[data-theme='light']_&]:text-slate-900 group-hover/user:text-cyan-400 [html[data-theme='light']_&]:group-hover/user:text-cyan-600 transition-colors tracking-tight truncate">
                     {user.user_metadata?.full_name || user.user_metadata?.name || user.email.split('@')[0]}
                   </span>
                   
                   {/* Minimalist Transparent Membership Tier & Admin Badge */}
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-white select-none shrink-0">
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-white [html[data-theme='light']_&]:text-slate-700 select-none shrink-0">
                     {entitlements?.isWaitlist || entitlements?.status === 'beta_waitlist'
                       ? 'BETA WAITLIST'
                       : (entitlements?.isTrial
@@ -598,14 +598,14 @@ export const Navbar = ({
 
                   {userProfile?.role === 'admin' && (
                     <>
-                      <span className="text-zinc-600 text-xs select-none">•</span>
-                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-400 select-none shrink-0">
+                      <span className="text-zinc-600 [html[data-theme='light']_&]:text-zinc-400 text-xs select-none">•</span>
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-400 [html[data-theme='light']_&]:text-zinc-600 select-none shrink-0">
                         ADMIN
                       </span>
                     </>
                   )}
                 </div>
-                <p className="text-[10px] sm:text-[11px] text-slate-400 group-hover/user:text-slate-300 transition-colors font-mono truncate max-w-[180px] sm:max-w-xs md:max-w-md m-0">
+                <p className="text-[10px] sm:text-[11px] text-slate-400 [html[data-theme='light']_&]:text-slate-600 group-hover/user:text-slate-300 [html[data-theme='light']_&]:group-hover/user:text-slate-800 transition-colors font-mono truncate max-w-[180px] sm:max-w-xs md:max-w-md m-0">
                   {user.email}
                 </p>
               </div>
@@ -631,7 +631,7 @@ export const Navbar = ({
                   e.stopPropagation();
                   closeDropdown();
                 }}
-                className="text-slate-400 hover:text-white transition-colors p-1.5 rounded-md hover:bg-white/5 cursor-pointer shrink-0"
+                className="text-slate-400 hover:text-white [html[data-theme='light']_&]:text-slate-500 [html[data-theme='light']_&]:hover:text-slate-900 transition-colors p-1.5 rounded-md hover:bg-white/5 [html[data-theme='light']_&]:hover:bg-slate-100 cursor-pointer shrink-0"
                 aria-label="Close profile modal"
               >
                 <X size={15} />

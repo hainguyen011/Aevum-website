@@ -16,6 +16,32 @@ const docsData = [
 
 Bằng cách tách biệt công cụ quản lý ngữ cảnh cốt lõi, quy trình lập kế hoạch, không gian nghiên cứu chuyên sâu và đồ thị kiến thức tự phục hồi ra khỏi môi trường biên dịch (editor runtime) của VS Code, Aevum OS hoạt động như một máy chủ **Model Context Protocol (MCP)** độc lập toàn diện với **98 công cụ chuyên dụng**.
 
+> [!NOTE]
+> **Phiên bản mới nhất**: [Aevum OS v1.0.0-beta.6](/changelog) — Bản nâng cấp Fastify v5 Core, OpenAPI 3.1 Tool Discovery, WebSocket nhị phân Zero-Copy và W3C Distributed Tracing. Xem chi tiết tại [Nhật ký Cập nhật](/changelog).
+
+---
+
+## Mô hình Kiến trúc Tổng quan (System Topology)
+
+\`\`\`text
+┌──────────────────────────────────────────────────────────────────┐
+│         IDE & Chat Clients (Cursor, Antigravity, Claude)         │
+└────────────────────────────────┬─────────────────────────────────┘
+                                 │ JSON-RPC / MCP Protocol (Stdio & SSE)
+┌────────────────────────────────▼─────────────────────────────────┐
+│         Aevum OS Fastify Core Daemon (Port 3344)                 │
+│  ├── 98 MCP Specialized Tools & Dynamic Resources                │
+│  ├── Cognitive Dual-Memory (STM & Vector/SQLite LTM)             │
+│  ├── Multi-Tier Workspace Reflex Engine (2-Hop BFS)              │
+│  ├── PiperNet Mesh (IoA P2P Encrypted Telepathy)                 │
+│  └── Living Blackboard Hub (OCC Version Lock)                    │
+└────────────────────────────────┬─────────────────────────────────┘
+                                 │ WebSockets / IPC
+┌────────────────────────────────▼─────────────────────────────────┐
+│       Electron Desktop Control Center (Control, Graph & Logs)    │
+└──────────────────────────────────────────────────────────────────┘
+\`\`\`
+
 ---
 
 ## Các Điểm Đột Phá Cốt Lõi
@@ -23,8 +49,8 @@ Bằng cách tách biệt công cụ quản lý ngữ cảnh cốt lõi, quy tr�
 ### 1. Giao thức Chuẩn hóa Đỉnh cao (MCP-First Architecture)
 Aevum OS triển khai hoàn chỉnh đặc tả Model Context Protocol chính thức với 98 công cụ, tài nguyên và prompts được tổ chức theo module. Bất kỳ mô hình LLM nào (Gemini, Claude, GPT, v.v.) kết nối vào hệ thống đều có thể đọc hiểu cấu trúc dự án, quản lý bộ nhớ dài hạn, tương tác terminal và phối hợp cùng các Agent khác.
 
-### 2. Môi trường Chạy Độc lập Siêu tốc (Decoupled Fastify Runtime)
-Bằng cách đánh chặn và giả lập động các dependency của editor host (như namespace \`vscode\`) trong quá trình phân giải module, công cụ ngữ cảnh lõi có thể chạy tự nhiên trên Node.js với nền tảng **Fastify v4** hiệu năng cao. Điều này đảm bảo khả năng tách biệt hoàn toàn khỏi GUI của IDE và cho phép triển khai máy chủ từ xa (Remote Server).
+### 2. Môi trường Chạy Độc lập Siêu tốc (Decoupled Fastify v5 Core)
+Bằng cách đánh chặn và giả lập động các dependency của editor host (như namespace \`vscode\`) trong quá trình phân giải module, công cụ ngữ cảnh lõi có thể chạy tự nhiên trên Node.js với nền tảng **Fastify v5** hiệu năng cao kết hợp TypeBox JIT. Điều này đảm bảo khả năng tách biệt hoàn toàn khỏi GUI của IDE và cho phép triển khai máy chủ từ xa (Remote Server).
 
 ### 3. Điều phối Đa Client Đồng thời (Multi-Client Orchestration)
 Công cụ tự động cấu hình và đàm phán của Aevum OS cho phép kết nối đồng thời và an toàn giữa nhiều IDE khách nhau bao gồm Cursor, Claude Desktop, và Antigravity IDE thông qua một daemon duy nhất với cơ chế auto-registration thông minh.
@@ -46,15 +72,21 @@ Giao diện máy tính để bàn (Desktop Dashboard) tối giản chạy bằng
 
 Aevum OS cung cấp các gói cài đặt máy tính để bàn chính thức (Desktop Installers) kèm theo công cụ dòng lệnh toàn cục (Global CLI) để bạn dễ dàng tích hợp vào bất kỳ môi trường làm việc nào.
 
+> [!NOTE]
+> **Phiên bản mới nhất**: [Aevum OS v1.0.0-beta.6](/changelog) — Truy cập trang [Nhật ký Cập nhật](/changelog) để theo dõi toàn bộ ghi chú phát hành và các cải tiến mới nhất.
+
 ---
 
 ## Các bước Cài đặt
 
-### Bước 1: Tải về Bản cài đặt Mới nhất (Desktop Package)
-Tải bản cài đặt chính thức của Aevum OS phù hợp với hệ điều hành của bạn trực tiếp tại [Trang Nhật ký Cập nhật (~/RELEASES)](/changelog) hoặc [GitHub Releases](https://github.com/hainguyen011/aevum-os-releases/releases/latest):
-- **Windows (x64 / ARM64)**: Tải tệp \`Aevum-OS-Setup-1.0.0-beta.4.exe\`
-- **macOS (Apple Silicon M-Series)**: Tải tệp \`Aevum-OS-1.0.0-beta.4-mac-arm64.dmg\` hoặc \`.zip\`
-- **macOS (Intel x64)**: Tải tệp \`Aevum-OS-1.0.0-beta.4-mac-x64.dmg\` hoặc \`.zip\`
+### Bước 1: Tải về Bản cài đặt Mới nhất ([v1.0.0-beta.6](/changelog))
+Tải bản cài đặt chính thức của Aevum OS phù hợp với hệ điều hành của bạn trực tiếp tại [Trang Nhật ký Cập nhật](/changelog) hoặc [GitHub Releases](https://github.com/hainguyen011/aevum-os-releases/releases/latest):
+- **Windows (x64 / ARM64)**: Tải tệp [Aevum-OS-Setup-1.0.0-beta.6.exe](/changelog)
+- **macOS (Apple Silicon M-Series)**: Tải tệp [Aevum-OS-1.0.0-beta.6-mac-arm64.dmg](/changelog) hoặc [.zip](/changelog)
+- **macOS (Intel x64)**: Tải tệp [Aevum-OS-1.0.0-beta.6-mac-x64.dmg](/changelog) hoặc [.zip](/changelog)
+
+> [!TIP]
+> Bạn có thể xem toàn bộ lịch sử thay đổi, ghi chú phát hành chi tiết và so sánh các gói cài đặt tại [Nhật ký Cập nhật](/changelog).
 
 Bộ cài đặt chính thức tự động thiết lập:
 - Tạo shortcut ứng dụng trên Desktop và Start Menu / Launchpad.
@@ -64,7 +96,7 @@ Bộ cài đặt chính thức tự động thiết lập:
 
 ---
 
-## ⚠️ Lưu ý Quan trọng Trong Giai đoạn Thử nghiệm (Beta Preview)
+## Lưu ý Quan trọng Trong Giai đoạn Thử nghiệm (Beta Preview)
 
 Hiện tại, Aevum OS đang trong giai đoạn phát hành thử nghiệm cộng đồng (**Public Beta**). Do phần mềm chưa tích hợp chứng chỉ ký số doanh nghiệp trả phí (EV Code Signing / Apple Notarization), hệ điều hành có thể hiển thị cảnh báo bảo vệ mặc định khi mở file cài đặt lần đầu. Ứng dụng an toàn 100% và không chứa mã độc.
 
@@ -79,7 +111,7 @@ Khi chạy file cài đặt \`.exe\`, nếu xuất hiện bảng cảnh báo mà
 │                                                        │
 │ [Bước 1] 👉 Bấm vào: "More info"                      │
 │                                                        │
-│ App: Aevum-OS-Setup-1.0.0-beta.4.exe                  │
+│ App: Aevum-OS-Setup-1.0.0-beta.6.exe                  │
 │ Publisher: Unknown publisher                           │
 │                                                        │
 │          [Bước 2] 👉 [ Run anyway ]   [ Don't run ]    │
@@ -133,8 +165,9 @@ Xác nhận lệnh \`aevum\` đã hoạt động và kiểm tra các tính năng
 # Kiểm tra trợ giúp và danh mục lệnh
 aevum --help
 
-# Kiểm tra phiên bản hệ thống
+# Kiểm tra phiên bản hệ thống hiện tại
 aevum --version
+# Kết quả: Aevum OS v1.0.0-beta.6 (Fastify v5 Daemon, Protocol: MCP 2024-11-05)
 
 # Khởi tạo không gian làm việc Aevum cho dự án hiện tại
 aevum init
@@ -144,7 +177,7 @@ aevum status
 \`\`\`
 
 > [!NOTE]
-> Nếu Terminal của bạn chưa nhận dạng được lệnh \`aevum\`, hãy khởi động lại Terminal hoặc kiểm tra biến môi trường \`PATH\` của hệ thống để đảm bảo đường dẫn đã được cập nhật.`
+> Nếu Terminal của bạn chưa nhận dạng được lệnh \`aevum\`, hãy khởi động lại Terminal hoặc kiểm tra biến môi trường \`PATH\` của hệ thống để đảm bảo đường dẫn đã được cập nhật. Tra cứu thêm tại [Nhật ký Cập nhật](/changelog).`
   },
   {
     id: "cli-terminal",
@@ -200,7 +233,7 @@ aevum help
 ---
 
 ### 2. \`aevum --version\` / \`aevum -v\` — Kiểm tra Phiên bản
-Kiểm tra phiên bản hiện tại của Aevum OS, môi trường Node.js và kiến trúc hệ thống.
+Kiểm tra phiên bản hiện tại của Aevum OS (phiên bản mới nhất: [v1.0.0-beta.6](/changelog)), môi trường Node.js và kiến trúc hệ thống.
 
 \`\`\`bash
 aevum --version
@@ -208,6 +241,9 @@ aevum --version
 aevum -v
 aevum version
 \`\`\`
+
+> [!NOTE]
+> Mọi thay đổi về tính năng và sửa lỗi của các phiên bản được cập nhật liên tục tại [Nhật ký Cập nhật](/changelog).
 
 ---
 
@@ -288,7 +324,7 @@ aevum -w ./ -t stdio
 | \`-t\` | \`--transport <sse / stdio>\` | \`sse\` | Giao thức giao vận MCP (\`sse\` cho HTTP Server hoặc \`stdio\` cho dòng lệnh trực tiếp). |
 | \`-p\` | \`--port <number>\` | \`3344\` | Cổng mạng lắng nghe kết nối của Fastify HTTP/SSE server. |
 | \`-h\` | \`--help\` | — | Hiển thị bảng trợ giúp và hướng dẫn chi tiết. |
-| \`-v\` | \`--version\` | — | Hiển thị phiên bản ứng dụng và thông số runtime. |
+| \`-v\` | \`--version\` | — | Hiển thị phiên bản ứng dụng ([v1.0.0-beta.6](/changelog)) và thông số runtime. |
 
 ---
 
@@ -1308,7 +1344,7 @@ aevum_promote_research_to_plan(
 const targetPath = path.join(__dirname, '..', 'src', 'data', 'docsData.js');
 
 const fileHeader = `// Auto-generated comprehensive Aevum OS documentation dataset
-// Synced with Aevum OS v1.0.0-beta.1 (98 MCP Tools & Cognitive Architecture)
+// Synced with Aevum OS v1.0.0-beta.6 (98 MCP Tools & Cognitive Architecture)
 
 export const docsData = `;
 

@@ -75,6 +75,319 @@ html[data-theme="light"] .glass-panel {
   box-shadow: 0 8px 32px 0 rgba(15, 23, 42, 0.06);
 }
 
+/* ───────────────────────────────────────────────────────────────────────── */
+/* NAVBAR & HEADER LIGHT MODE SYNCHRONIZATION                                */
+/* ───────────────────────────────────────────────────────────────────────── */
+html[data-theme="light"] .navbar-root.navbar-scrolled {
+  background-color: rgba(255, 255, 255, 0.92) !important;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.1) !important;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05) !important;
+}
+
+html[data-theme="light"] .navbar-dropdown-panel {
+  background-color: rgba(255, 255, 255, 0.96) !important;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.1) !important;
+  color: #1E293B !important;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08) !important;
+}
+
+html[data-theme="light"] .announcement-banner {
+  background-color: #F1F5F9 !important;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08) !important;
+}
+
+html[data-theme="light"] .announcement-banner:hover {
+  background-color: #E2E8F0 !important;
+}
+
+/* ───────────────────────────────────────────────────────────────────────── */
+/* SUB-NAV ARCHITECTURAL PILLARS (DEEPMIND CARDS) LIGHT MODE SYNCHRONIZATION */
+/* ───────────────────────────────────────────────────────────────────────── */
+html[data-theme="light"] .subnav-section {
+  background-color: #F8FAFC !important;
+}
+
+html[data-theme="light"] .subnav-arch-card,
+html[data-theme="light"] .bg-\[\#14151b\] {
+  background-color: #FFFFFF !important;
+  border-color: rgba(15, 23, 42, 0.08) !important;
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.06) !important;
+}
+
+html[data-theme="light"] .subnav-arch-card:hover,
+html[data-theme="light"] .bg-\[\#1a1c24\],
+html[data-theme="light"] .hover\:bg-\[\#1a1c24\]:hover {
+  background-color: #F8FAFC !important;
+  border-color: rgba(15, 23, 42, 0.16) !important;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.09) !important;
+}
+
+html[data-theme="light"] .subnav-arch-card h4 {
+  color: #0F172A !important;
+}
+
+html[data-theme="light"] .subnav-arch-card:hover h4 {
+  color: #0284c7 !important;
+}
+
+/* ───────────────────────────────────────────────────────────────────────── */
+/* MOBILE DRAWER LIGHT MODE SYNCHRONIZATION                                  */
+/* ───────────────────────────────────────────────────────────────────────── */
+html[data-theme="light"] .mobile-drawer {
+  background-color: #F8FAFC !important;
+  border-left: 1px solid rgba(15, 23, 42, 0.08) !important;
+  box-shadow: -10px 0 30px rgba(15, 23, 42, 0.08) !important;
+}
+
+html[data-theme="light"] .mobile-drawer > div:first-child {
+  background-color: #F8FAFC !important;
+}
+
+/* ───────────────────────────────────────────────────────────────────────── */
+/* PRICING SECTION LIGHT MODE SYNCHRONIZATION                                */
+/* ───────────────────────────────────────────────────────────────────────── */
+html[data-theme="light"] .pricing-section {
+  background-color: #F8FAFC !important;
+  color: #0F172A !important;
+}
+
+html[data-theme="light"] .pricing-card-subtle {
+  background-color: #FFFFFF !important;
+  border-color: rgba(15, 23, 42, 0.08) !important;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05) !important;
+}
+
+html[data-theme="light"] .pricing-pro-column {
+  background-color: #FFFFFF !important;
+  border-color: rgba(2, 132, 199, 0.35) !important;
+  box-shadow: 0 12px 32px -4px rgba(2, 132, 199, 0.12), 0 4px 16px -2px rgba(15, 23, 42, 0.06) !important;
+}
+
+html[data-theme="light"] .pricing-card-enterprise {
+  background-color: #FFFFFF !important;
+  border-color: rgba(15, 23, 42, 0.08) !important;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05) !important;
+}
+
+/* Default Dark Gradients for Pricing & Modal Atmospheres */
+.pricing-card-gradient {
+  background: linear-gradient(180deg, rgba(14, 165, 233, 0.08) 0%, rgba(7, 9, 13, 0.6) 25%, #07090D 100%);
+}
+
+.pricing-pro-column .pricing-card-gradient {
+  background: linear-gradient(180deg, rgba(14, 165, 233, 0.16) 0%, rgba(2, 132, 199, 0.06) 16%, rgba(7, 9, 13, 0.75) 36%, #07090D 70%);
+}
+
+.modal-atmosphere-gradient {
+  background: linear-gradient(180deg, rgba(14, 165, 233, 0.16) 0%, rgba(2, 132, 199, 0.06) 16%, rgba(7, 9, 13, 0.75) 36%, #07090D 70%);
+}
+
+.payment-ticket-gradient {
+  background: linear-gradient(180deg, rgba(14, 165, 233, 0.16) 0%, rgba(2, 132, 199, 0.06) 16%, rgba(7, 9, 13, 0.75) 36%, #07090D 70%);
+}
+
+/* Eliminate dark background gradients inside pricing cards in Light Mode */
+html[data-theme="light"] .pricing-card-gradient,
+html[data-theme="light"] .pricing-gradient-layer {
+  background: linear-gradient(180deg, rgba(14, 165, 233, 0.06) 0%, rgba(248, 250, 252, 0.4) 25%, #FFFFFF 65%) !important;
+}
+
+html[data-theme="light"] .pricing-pro-column .pricing-card-gradient,
+html[data-theme="light"] .pricing-pro-column .pricing-gradient-layer {
+  background: linear-gradient(180deg, rgba(14, 165, 233, 0.12) 0%, rgba(2, 132, 199, 0.03) 18%, #FFFFFF 60%) !important;
+}
+
+html[data-theme="light"] .pricing-pro-tag {
+  background: #E0F2FE !important;
+  color: #0369A1 !important;
+  border-color: #7DD3FC !important;
+}
+
+html[data-theme="light"] .pricing-btn-community,
+html[data-theme="light"] .pricing-btn-enterprise {
+  background-color: #F1F5F9 !important;
+  color: #0F172A !important;
+  border: 1px solid rgba(15, 23, 42, 0.15) !important;
+}
+
+html[data-theme="light"] .pricing-btn-community:hover,
+html[data-theme="light"] .pricing-btn-enterprise:hover {
+  background-color: #E2E8F0 !important;
+  color: #0F172A !important;
+}
+
+html[data-theme="light"] .pricing-btn-pro {
+  background-color: #0F172A !important;
+  color: #FFFFFF !important;
+  border: 1px solid transparent !important;
+}
+
+html[data-theme="light"] .pricing-btn-pro:hover {
+  background-color: #1E293B !important;
+  color: #FFFFFF !important;
+}
+
+/* ───────────────────────────────────────────────────────────────────────── */
+/* MODAL & PAYMENT MODAL LIGHT MODE SYNCHRONIZATION                          */
+/* ───────────────────────────────────────────────────────────────────────── */
+html[data-theme="light"] .modal-surface {
+  background-color: #FFFFFF !important;
+  border-color: rgba(15, 23, 42, 0.1) !important;
+  color: #0F172A !important;
+  box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.18), 0 0 0 1px rgba(15, 23, 42, 0.05) !important;
+}
+
+html[data-theme="light"] .modal-atmosphere-gradient {
+  background: linear-gradient(180deg, rgba(14, 165, 233, 0.1) 0%, rgba(240, 249, 255, 0.6) 20%, #FFFFFF 65%) !important;
+}
+
+html[data-theme="light"] .payment-ticket-container {
+  background-color: #F8FAFC !important;
+  border-top-color: rgba(15, 23, 42, 0.1) !important;
+  box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.06) !important;
+}
+
+html[data-theme="light"] .payment-ticket-gradient {
+  background: linear-gradient(180deg, rgba(14, 165, 233, 0.1) 0%, rgba(240, 249, 255, 0.5) 25%, #F8FAFC 70%) !important;
+}
+
+html[data-theme="light"] .payment-btn-apply,
+html[data-theme="light"] .payment-btn-primary {
+  background-color: #0F172A !important;
+  color: #FFFFFF !important;
+  border: 1px solid transparent !important;
+}
+
+html[data-theme="light"] .payment-btn-apply:hover,
+html[data-theme="light"] .payment-btn-primary:hover {
+  background-color: #1E293B !important;
+  color: #FFFFFF !important;
+}
+
+/* ───────────────────────────────────────────────────────────────────────── */
+/* PAYMENT MODAL BILLING CYCLE PLAN CARDS                                    */
+/* ───────────────────────────────────────────────────────────────────────── */
+.payment-plan-card {
+  position: relative;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Dark Mode Defaults */
+.payment-plan-card.active {
+  border-color: rgba(56, 189, 248, 0.6) !important;
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.22) 0%, rgba(2, 132, 199, 0.12) 100%), rgba(255, 255, 255, 0.05) !important;
+  box-shadow: 0 4px 20px -2px rgba(14, 165, 233, 0.25), inset 0 0 0 1px rgba(56, 189, 248, 0.2) !important;
+}
+.payment-plan-card.active .payment-plan-title,
+.payment-plan-card.active .payment-plan-price {
+  color: #FFFFFF !important;
+}
+.payment-plan-card.active .payment-plan-badge {
+  color: #38BDF8 !important;
+}
+.payment-plan-card.active .payment-plan-discount {
+  background-color: rgba(56, 189, 248, 0.2) !important;
+  color: #38BDF8 !important;
+  border: 1px solid rgba(56, 189, 248, 0.3) !important;
+}
+.payment-plan-card.active .payment-plan-desc {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.payment-plan-card.inactive {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  background-color: rgba(0, 0, 0, 0.4) !important;
+  color: #94A3B8 !important;
+}
+.payment-plan-card.inactive:hover {
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  background-color: rgba(0, 0, 0, 0.55) !important;
+}
+.payment-plan-card.inactive .payment-plan-title {
+  color: #E2E8F0 !important;
+}
+.payment-plan-card.inactive .payment-plan-price {
+  color: #F8FAFC !important;
+}
+.payment-plan-card.inactive .payment-plan-discount {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  color: #CBD5E1 !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+.payment-plan-card.inactive .payment-plan-desc {
+  color: #94A3B8 !important;
+}
+.payment-plan-card .payment-plan-oldprice {
+  color: #94A3B8 !important;
+}
+
+/* ───────────────────────────────────────────────────────────────────────── */
+/* Light Mode: "Chọn thì màu xanh gradient chữ trắng còn ko chọn thì màu     */
+/* trắng với viền"                                                           */
+/* ───────────────────────────────────────────────────────────────────────── */
+html[data-theme="light"] .payment-plan-card.active {
+  background: linear-gradient(135deg, #0284C7 0%, #0EA5E9 50%, #38BDF8 100%) !important;
+  border: 1px solid #0284C7 !important;
+  box-shadow: 0 10px 25px -4px rgba(2, 132, 199, 0.38), 0 4px 10px -2px rgba(2, 132, 199, 0.2) !important;
+}
+html[data-theme="light"] .payment-plan-card.active .payment-plan-title,
+html[data-theme="light"] .payment-plan-card.active .payment-plan-price {
+  color: #FFFFFF !important;
+}
+html[data-theme="light"] .payment-plan-card.active .payment-plan-badge {
+  background-color: rgba(255, 255, 255, 0.25) !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.45) !important;
+  backdrop-filter: blur(4px) !important;
+  padding: 2px 7px !important;
+  border-radius: 9999px !important;
+  font-weight: 700 !important;
+}
+html[data-theme="light"] .payment-plan-card.active .payment-plan-discount {
+  background-color: rgba(255, 255, 255, 0.25) !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.45) !important;
+  backdrop-filter: blur(4px) !important;
+  font-weight: 700 !important;
+}
+html[data-theme="light"] .payment-plan-card.active .payment-plan-desc {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+html[data-theme="light"] .payment-plan-card.active .payment-plan-oldprice {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+/* Light Mode: Không chọn -> Màu trắng với viền */
+html[data-theme="light"] .payment-plan-card.inactive {
+  background-color: #FFFFFF !important;
+  border: 1px solid #E2E8F0 !important;
+  box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.04) !important;
+}
+html[data-theme="light"] .payment-plan-card.inactive:hover {
+  background-color: #F8FAFC !important;
+  border-color: #CBD5E1 !important;
+  box-shadow: 0 4px 10px -2px rgba(15, 23, 42, 0.08) !important;
+}
+html[data-theme="light"] .payment-plan-card.inactive .payment-plan-title {
+  color: #0F172A !important;
+}
+html[data-theme="light"] .payment-plan-card.inactive .payment-plan-price {
+  color: #0F172A !important;
+}
+html[data-theme="light"] .payment-plan-card.inactive .payment-plan-discount {
+  background-color: #E0F2FE !important;
+  color: #0369A1 !important;
+  border: 1px solid #BAE6FD !important;
+  font-weight: 700 !important;
+}
+html[data-theme="light"] .payment-plan-card.inactive .payment-plan-desc {
+  color: #64748B !important;
+}
+html[data-theme="light"] .payment-plan-card.inactive .payment-plan-oldprice {
+  color: #94A3B8 !important;
+}
+
+
 /* Eye Care Warm Lighting Overlay Filter */
 .eye-care-overlay {
   position: fixed;

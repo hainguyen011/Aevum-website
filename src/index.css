@@ -1,4 +1,6 @@
-@import '@fontsource/google-sans-flex';
+@import '@fontsource/google-sans-flex/latin.css';
+@import '@fontsource/google-sans-flex/vietnamese.css';
+@import '@fontsource/google-sans-flex/latin-ext.css';
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 @import './styles/index.css';
 
@@ -1072,6 +1074,11 @@ html[data-theme="light"] .bg-slate-950 {
 
 html[data-theme="light"] .perspective-container {
   background-color: #FFFFFF !important;
+}
+
+html[data-theme="light"] .bg-\[\#0e111a\] {
+  background-color: #EFF6FF !important;
+  border-color: rgba(59, 130, 246, 0.3) !important;
 }
 
 html[data-theme="light"] .bg-\[\#07090D\]\/90,

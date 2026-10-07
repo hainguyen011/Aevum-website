@@ -115,3 +115,85 @@
     animation: none !important;
   }
 }
+
+/* ───────────────────────────────────────────────────────────────────────── */
+/* DISCUSSION CARD AURORA & STARFIELD FLOATING PARTICLES                     */
+/* ───────────────────────────────────────────────────────────────────────── */
+@keyframes discussionAuroraDrift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.82;
+  }
+  50% {
+    transform: translate3d(-3%, -4%, 0) scale(1.08);
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(3%, 3%, 0) scale(0.95);
+    opacity: 0.85;
+  }
+}
+
+@keyframes discussionParticleFloat {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(var(--drift-x, 4px), var(--drift-y, -10px), 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes discussionStarTwinkle {
+  0%, 100% {
+    opacity: var(--min-opacity, 0.2);
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: var(--max-opacity, 0.85);
+    transform: scale(1.2);
+  }
+}
+
+@keyframes discussionSparklePulse {
+  0%, 100% {
+    opacity: 0.15;
+    transform: scale(0.7) rotate(0deg);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.25) rotate(90deg);
+  }
+}
+
+.animate-aurora-drift {
+  animation: discussionAuroraDrift 14s ease-in-out infinite alternate;
+  will-change: transform, opacity;
+}
+
+.animate-particle-float {
+  animation: discussionParticleFloat var(--duration, 6s) ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.animate-star-twinkle {
+  animation: discussionStarTwinkle var(--twinkle-duration, 3.5s) ease-in-out infinite;
+  will-change: opacity, transform;
+}
+
+.animate-sparkle-pulse {
+  animation: discussionSparklePulse var(--sparkle-duration, 4s) ease-in-out infinite;
+  will-change: opacity, transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-aurora-drift,
+  .animate-particle-float,
+  .animate-star-twinkle,
+  .animate-sparkle-pulse {
+    animation: none !important;
+  }
+}
+

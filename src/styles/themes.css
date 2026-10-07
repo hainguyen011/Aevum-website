@@ -615,6 +615,43 @@ html[data-theme="light"] #changelog .cursor-pointer:hover {
   background-color: rgba(15, 23, 42, 0.04);
 }
 
+/* ───────────────────────────────────────────────────────────────────────── */
+/* DISCUSSIONS LIGHT MODE SYNCHRONIZATION                                     */
+/* ───────────────────────────────────────────────────────────────────────── */
+html[data-theme="light"] #discussions {
+  background-color: #F8FAFC !important;
+  color: #0F172A !important;
+}
+
+html[data-theme="light"] #discussions > div:first-child {
+  background-color: #FFFFFF !important;
+  border-color: rgba(15, 23, 42, 0.08) !important;
+}
+
+html[data-theme="light"] .bg-\[\#0e111a\] {
+  background-color: #EFF6FF !important;
+  border-color: rgba(59, 130, 246, 0.3) !important;
+  color: #1E293B !important;
+}
+
+html[data-theme="light"] .bg-\[\#0e111a\] .text-white {
+  color: #1E3A8A !important;
+}
+
+html[data-theme="light"] .bg-\[\#0e111a\] p {
+  color: #334155 !important;
+}
+
+/* Discussion Comments Transparent & Borderless */
+.discussion-comment-item,
+.discussion-comment-admin,
+.discussion-comment-user {
+  background-color: transparent !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
 /* Eye Care Warm Lighting Overlay Filter */
 .eye-care-overlay {
   position: fixed;

@@ -41,7 +41,7 @@ export const Button = forwardRef(({
   // Visual Theme Variants matching user reference image
   const variantClasses = {
     // Primary: Crisp pure white pill with black text and subtle hover lift
-    primary: "btn-pill-primary bg-white text-black hover:bg-slate-100 hover:scale-[1.02] shadow-sm border border-transparent",
+    primary: "btn-pill-primary bg-white text-black hover:bg-slate-100 shadow-sm border border-transparent",
     
     // Secondary: Elegant dark translucent pill with faint border & subtle hover highlight
     secondary: "btn-pill-secondary text-slate-200 hover:text-white bg-white/[0.05] hover:bg-white/[0.09] border border-white/10 hover:border-white/20 backdrop-blur-sm",
@@ -54,7 +54,7 @@ export const Button = forwardRef(({
 
     // Dark: Solid dark background with subtle border
     dark: "btn-pill-dark bg-[#0d0e15] hover:bg-[#151722] text-white border border-white/10 hover:border-white/20",
-  }[variant] || "btn-pill-primary bg-white text-black hover:bg-slate-100 hover:scale-[1.02] shadow-sm border border-transparent";
+  }[variant] || "btn-pill-primary bg-white text-black hover:bg-slate-100 shadow-sm border border-transparent";
 
   const stateClasses = disabled 
     ? "opacity-50 pointer-events-none cursor-not-allowed" 

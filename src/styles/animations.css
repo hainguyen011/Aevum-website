@@ -71,3 +71,47 @@
 .animate-giggle {
   animation: cuteGiggle 0.55s ease-in-out 2 forwards;
 }
+
+/* ───────────────────────────────────────────────────────────────────────── */
+/* AUTONOMOUS SQUAD MULTI-AGENT INFINITE VERTICAL SLIDING MARQUEE            */
+/* ───────────────────────────────────────────────────────────────────────── */
+@keyframes squadSlideUp {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes squadSlideDown {
+  0% {
+    transform: translateY(-50%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.squad-col-slide-up {
+  will-change: transform;
+  animation: squadSlideUp var(--squad-duration, 34s) linear infinite;
+}
+
+.squad-col-slide-down {
+  will-change: transform;
+  animation: squadSlideDown var(--squad-duration, 34s) linear infinite;
+}
+
+/* Smooth Pause on Slider Hover for Reading Cards */
+.squad-slider-container:hover .squad-col-slide-up,
+.squad-slider-container:hover .squad-col-slide-down {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .squad-col-slide-up,
+  .squad-col-slide-down {
+    animation: none !important;
+  }
+}

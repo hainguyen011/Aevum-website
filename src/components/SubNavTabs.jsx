@@ -101,7 +101,7 @@ export const SubNavTabs = ({ activeLang = 'en', onNavigate }) => {
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 mb-12 sm:mb-16">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="space-y-2 max-w-2xl text-left">
-            <span className="text-[11px] font-sans text-cyan-400 [html[data-theme='light']_&]:text-cyan-700 font-semibold tracking-widest uppercase block">
+            <span className="subnav-kicker text-[11px] font-sans text-cyan-400 [html[data-theme='light']_&]:text-slate-900 font-semibold tracking-widest uppercase block">
               {isVi ? 'HỆ ĐIỀU HÀNH BỘ NÃO NGOẠI VI' : 'AEVUM OS SUBSYSTEMS'}
             </span>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-medium sm:font-semibold text-white [html[data-theme='light']_&]:text-slate-900 tracking-[0.01em] font-display">

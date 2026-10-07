@@ -1662,7 +1662,7 @@ html[data-theme="light"] .pipernet-auth-btn-action svg {
 
 /* Agent Showcase Card Gradient Overlay */
 .agent-card-gradient {
-  background: linear-gradient(to top, #07080E 0%, rgba(7, 8, 14, 0.9) 65%, transparent 100%);
+  background: linear-gradient(to top, #07090D 0%, rgba(7, 9, 13, 0.9) 65%, transparent 100%);
 }
 
 html[data-theme="light"] .agent-card-gradient {
@@ -1695,6 +1695,11 @@ html[data-theme="light"] .agent-masonry-card::before {
   border-left: 1px solid rgba(15, 23, 42, 0.12);
   border-right: 1px solid rgba(15, 23, 42, 0.12);
   border-bottom: none !important;
+}
+
+/* Seamless Atmosphere: Hide all card borders inside infinite slider */
+.squad-slider-container .agent-masonry-card::before {
+  display: none !important;
 }
 
 /* Signature Aevum Pill Button Light Mode Adaptation */

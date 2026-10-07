@@ -101,10 +101,129 @@ html[data-theme="light"] .announcement-banner:hover {
 }
 
 /* ───────────────────────────────────────────────────────────────────────── */
+/* HERO BANNER LIGHT MODE SYNCHRONIZATION (ETHEREAL PEARL AURA CONCEPT)     */
+/* ───────────────────────────────────────────────────────────────────────── */
+html[data-theme="light"] .hero-banner-root {
+  background-color: #FFFFFF !important;
+  border-bottom-color: rgba(15, 23, 42, 0.08) !important;
+}
+
+/* Atmospheric Ambient Sky-to-Pearl Gradient Flow */
+html[data-theme="light"] .hero-atmosphere-gradient {
+  background: linear-gradient(180deg, 
+    rgba(224, 242, 254, 0.75) 0%, 
+    rgba(240, 249, 255, 0.55) 25%, 
+    rgba(248, 250, 252, 0.85) 65%, 
+    #F8FAFC 100%) !important;
+}
+
+/* Ethereal Top Horizon Ambient Crest (Soft Sky Cyan Glow) */
+html[data-theme="light"] .hero-horizon-wash {
+  background: radial-gradient(ellipse 80% 65% at 50% 0%, 
+    rgba(56, 189, 248, 0.28) 0%, 
+    rgba(186, 230, 253, 0.18) 45%, 
+    transparent 100%) !important;
+  filter: blur(40px) !important;
+}
+
+/* Hairline Top Glow Line in Light Mode */
+html[data-theme="light"] .hero-hairline-glow {
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(2, 132, 199, 0.28) 50%, 
+    transparent 100%) !important;
+}
+
+/* Delicate Ultra-Fine Paper Texture on Light Surface */
+html[data-theme="light"] .hero-noise-layer {
+  opacity: 0.035 !important;
+  mix-blend-mode: multiply !important;
+}
+
+html[data-theme="light"] .hero-noise-layer-2 {
+  display: none !important;
+}
+
+/* Constellation Particles: Electric Sky Cyan & Deep Sapphire Nodes */
+html[data-theme="light"] .hero-particles-constellation {
+  opacity: 0.55 !important;
+}
+
+html[data-theme="light"] .hero-particles-constellation circle[fill="#ffffff"] {
+  fill: #0284c7 !important;
+  opacity: 0.5 !important;
+}
+
+html[data-theme="light"] .hero-particles-constellation circle[fill="#38bdf8"] {
+  fill: #0369a1 !important;
+  opacity: 0.7 !important;
+}
+
+/* Bottom Vignette: Seamless Transition into #F8FAFC SubNav Section */
+html[data-theme="light"] .hero-bottom-vignette {
+  background: linear-gradient(0deg, 
+    #F8FAFC 0%, 
+    rgba(248, 250, 252, 0.8) 55%, 
+    transparent 100%) !important;
+}
+
+/* Kicker / Eyebrow Text */
+html[data-theme="light"] .hero-kicker {
+  color: #475569 !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.01em !important;
+}
+
+/* Master Headline: Sculpted Deep Slate Metallic Display */
+html[data-theme="light"] .hero-title {
+  color: transparent !important;
+  background: linear-gradient(180deg, #020617 0%, #0F172A 60%, #334155 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  text-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+/* Primary Pill Button ("Download Now") */
+html[data-theme="light"] .hero-btn-primary {
+  background-color: #0F172A !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(15, 23, 42, 0.2) !important;
+  box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.18), 0 2px 6px -1px rgba(15, 23, 42, 0.08) !important;
+}
+
+html[data-theme="light"] .hero-btn-primary:hover {
+  background-color: #1E293B !important;
+  box-shadow: 0 6px 20px -2px rgba(15, 23, 42, 0.22) !important;
+  transform: none !important;
+}
+
+/* Secondary Pill Button ("Read Documentation"): Frosted Pearl Glass */
+html[data-theme="light"] .hero-btn-secondary {
+  background-color: rgba(255, 255, 255, 0.85) !important;
+  color: #0F172A !important;
+  border: 1px solid rgba(15, 23, 42, 0.15) !important;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.05) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+}
+
+html[data-theme="light"] .hero-btn-secondary:hover {
+  background-color: #FFFFFF !important;
+  color: #0284C7 !important;
+  border-color: rgba(2, 132, 199, 0.35) !important;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06) !important;
+  transform: none !important;
+}
+
+/* ───────────────────────────────────────────────────────────────────────── */
 /* SUB-NAV ARCHITECTURAL PILLARS (DEEPMIND CARDS) LIGHT MODE SYNCHRONIZATION */
 /* ───────────────────────────────────────────────────────────────────────── */
 html[data-theme="light"] .subnav-section {
   background-color: #F8FAFC !important;
+}
+
+html[data-theme="light"] .subnav-kicker {
+  color: #0F172A !important;
 }
 
 html[data-theme="light"] .subnav-arch-card,

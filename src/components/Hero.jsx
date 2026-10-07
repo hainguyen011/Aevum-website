@@ -11,12 +11,12 @@ export const Hero = ({ onNavigate, onOpenTrialModal, activeLang }) => {
     : "Our next era of frontier agentic intelligence";
 
   return (
-    <div className="relative w-full overflow-hidden border-subtle-b bg-[#07090D] -mt-[104px] pt-16 sm:pt-20 min-h-[560px] sm:min-h-[620px] lg:min-h-[680px] flex items-center justify-center">
+    <div className="hero-banner-root relative w-full overflow-hidden border-subtle-b bg-[#07090D] [html[data-theme='light']_&]:bg-[#FFFFFF] [html[data-theme='light']_&]:border-slate-200/80 -mt-[104px] pt-16 sm:pt-20 min-h-[560px] sm:min-h-[620px] lg:min-h-[680px] flex items-center justify-center">
 
       {/* ── 1. Top-to-Bottom Grainy Linear Gradient Atmosphere ── */}
       {/* Primary Linear Gradient Flow (Top luminous cyan-blue fading down to #07090D) */}
       <div
-        className="pointer-events-none absolute inset-0 select-none"
+        className="hero-atmosphere-gradient pointer-events-none absolute inset-0 select-none"
         style={{
           background: 'linear-gradient(180deg, rgba(14, 165, 233, 0.42) 0%, rgba(2, 132, 199, 0.25) 22%, rgba(15, 23, 42, 0.55) 52%, rgba(7, 9, 13, 0.88) 78%, #07090D 100%)',
         }}
@@ -24,7 +24,7 @@ export const Hero = ({ onNavigate, onOpenTrialModal, activeLang }) => {
 
       {/* Ethereal Top Horizon Wash (Curved ambient light crest) */}
       <div
-        className="pointer-events-none absolute -top-20 left-1/2 -translate-x-1/2 w-[92%] max-w-5xl h-[320px] select-none"
+        className="hero-horizon-wash pointer-events-none absolute -top-20 left-1/2 -translate-x-1/2 w-[92%] max-w-5xl h-[320px] select-none"
         style={{
           background: 'radial-gradient(ellipse 75% 65% at 50% 0%, rgba(56, 189, 248, 0.38) 0%, rgba(14, 165, 233, 0.16) 45%, transparent 100%)',
           filter: 'blur(35px)',
@@ -32,11 +32,11 @@ export const Hero = ({ onNavigate, onOpenTrialModal, activeLang }) => {
       />
 
       {/* Precision Top Hairline Glow Line */}
-      <div className="pointer-events-none absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/60 to-transparent select-none z-10" />
+      <div className="hero-hairline-glow pointer-events-none absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/60 to-transparent select-none z-10" />
 
       {/* Authentic Grainy Noise Texture Layer (Fractal Noise via SVG data-uri) */}
       <div
-        className="pointer-events-none absolute inset-0 select-none opacity-30 mix-blend-overlay z-[1]"
+        className="hero-noise-layer pointer-events-none absolute inset-0 select-none opacity-30 mix-blend-overlay z-[1]"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
           backgroundRepeat: 'repeat',
@@ -46,7 +46,7 @@ export const Hero = ({ onNavigate, onOpenTrialModal, activeLang }) => {
 
       {/* Micro-Grain Color Dodge Highlight Layer */}
       <div
-        className="pointer-events-none absolute inset-0 select-none opacity-15 mix-blend-color-dodge z-[1]"
+        className="hero-noise-layer-2 pointer-events-none absolute inset-0 select-none opacity-15 mix-blend-color-dodge z-[1]"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter2'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter2)'/%3E%3C/svg%3E")`,
           backgroundRepeat: 'repeat',
@@ -55,7 +55,7 @@ export const Hero = ({ onNavigate, onOpenTrialModal, activeLang }) => {
       />
 
       {/* DeepMind Neural Particle / Dot Constellation (Top Right Flowing Particles) */}
-      <div className="pointer-events-none absolute top-0 right-0 w-full sm:w-2/3 h-full overflow-hidden opacity-35 select-none z-[2]">
+      <div className="hero-particles-constellation pointer-events-none absolute top-0 right-0 w-full sm:w-2/3 h-full overflow-hidden opacity-35 select-none z-[2]">
         <svg
           className="w-full h-full object-cover"
           viewBox="0 0 800 600"
@@ -100,18 +100,18 @@ export const Hero = ({ onNavigate, onOpenTrialModal, activeLang }) => {
       </div>
 
       {/* Subtle Bottom Horizon Vignette */}
-      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-[#07090D] via-[#07090D]/80 to-transparent select-none z-[2]" />
+      <div className="hero-bottom-vignette pointer-events-none absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-[#07090D] via-[#07090D]/80 to-transparent select-none z-[2]" />
 
       {/* ── 2. Minimalist Center Spotlight Hero Content ── */}
       <div className="relative z-10 max-w-4xl mx-auto px-6 py-20 sm:py-24 lg:py-32 flex flex-col items-center text-center">
 
         {/* Eyebrow / Kicker */}
-        <p className="text-slate-300 font-sans text-sm sm:text-base md:text-lg font-normal tracking-tight mb-3 sm:mb-4 select-none opacity-90">
+        <p className="hero-kicker text-slate-300 font-sans text-sm sm:text-base md:text-lg font-normal tracking-tight mb-3 sm:mb-4 select-none opacity-90">
           {kickerText}
         </p>
 
         {/* Master Headline: Huge, Cinematic, Pure White Display */}
-        <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-medium text-white tracking-[0.01em] leading-[1.05] font-display select-none">
+        <h1 className="hero-title text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-medium text-white tracking-[0.01em] leading-[1.05] font-display select-none">
           Aevum OS
         </h1>
 
@@ -121,6 +121,7 @@ export const Hero = ({ onNavigate, onOpenTrialModal, activeLang }) => {
             onClick={() => onNavigate('changelog')}
             variant="primary"
             arrow
+            className="hero-btn-primary"
           >
             {t.hero.downloadBtn}
           </Button>
@@ -128,6 +129,7 @@ export const Hero = ({ onNavigate, onOpenTrialModal, activeLang }) => {
           <Button
             onClick={() => onNavigate('docs')}
             variant="secondary"
+            className="hero-btn-secondary"
           >
             {t.hero.docsBtn}
           </Button>

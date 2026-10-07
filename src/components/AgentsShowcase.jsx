@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Sparkles, Activity, UserCheck } from 'lucide-react';
 import { translations } from '../data/translations';
 
-// Avatar Images from assets/agent-avatar (latest sync from AevumOS)
+// Avatar Images from assets/agent-avatar (synchronized from AevumOS personas)
 import anAvatar from '../../assets/agent-avatar/an_avatar.webp';
 import zenithAvatar from '../../assets/agent-avatar/zenith_avatar.webp';
 import lunaAvatar from '../../assets/agent-avatar/luna_avatar.webp';
@@ -191,11 +191,39 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
     }
   ];
 
+  // 4 Alternating Vertical Sliding Columns (Infinite Animation Loop with 1380px Mathematical Parity)
+  const columnsData = [
+    {
+      id: 'col-0',
+      direction: 'up',
+      duration: '34s',
+      agents: [agents[0], agents[1]], // An (780px) + Zenith (600px) = 1380px
+    },
+    {
+      id: 'col-1',
+      direction: 'down',
+      duration: '32s',
+      agents: [agents[2], agents[3]], // Luna (540px) + Vidus (840px) = 1380px
+    },
+    {
+      id: 'col-2',
+      direction: 'up',
+      duration: '36s',
+      agents: [agents[4], agents[5]], // Ryo (800px) + Mira (580px) = 1380px
+    },
+    {
+      id: 'col-3',
+      direction: 'down',
+      duration: '30s',
+      agents: [agents[6], agents[7]], // Maya (560px) + Nia (820px) = 1380px
+    },
+  ];
+
   // Shared agent card renderer (Preserving exact visual design: no border-radius, flush edges, linear fading borders)
   const AgentCard = ({ agent, className = '', isActive = false }) => {
     return (
       <div
-        className={`relative bg-[#07080E] overflow-hidden rounded-none agent-masonry-card ${className}`}
+        className={`relative bg-[#07090D] [html[data-theme='light']_&]:bg-[#0F172A] overflow-hidden rounded-none agent-masonry-card ${className}`}
         style={{ '--agent-theme': agent.themeColor }}
       >
         <img
@@ -233,11 +261,11 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
   };
 
   return (
-    <div id="agents" className="bg-[#07090D]">
+    <div id="agents" className="bg-[#07090D] [html[data-theme='light']_&]:bg-[#F8FAFC]">
 
       {/* Section Header */}
-      <div className="section-header-optical text-center border-subtle-b bg-[#07090D] border-scan">
-        <span className="text-[11px] font-sans text-white/80 font-medium tracking-widest uppercase">
+      <div className="section-header-optical text-center border-subtle-b bg-[#07090D] [html[data-theme='light']_&]:bg-[#F8FAFC] [html[data-theme='light']_&]:border-slate-200/80 border-scan">
+        <span className="text-[11px] font-sans text-white/80 [html[data-theme='light']_&]:text-slate-900 font-medium tracking-widest uppercase">
           {isVi ? 'BIỆT ĐỘI AGENT MẶC ĐỊNH' : 'DEFAULT SQUAD PERSONAS'}
         </span>
         <h2 className="text-2xl sm:text-3xl lg:text-4xl font-medium sm:font-semibold text-white mt-2 font-display">
@@ -270,7 +298,7 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
         </div>
 
         {/* Dot Indicators */}
-        <div className="flex justify-center items-center gap-1 py-4 bg-[#07080E]">
+        <div className="flex justify-center items-center gap-1 py-4 bg-[#07090D] [html[data-theme='light']_&]:bg-[#F8FAFC]">
           {agents.map((agent, idx) => (
             <button
               key={idx}
@@ -291,20 +319,52 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
         </div>
       </div>
 
-      {/* Desktop & Tablet: Masonry Grid Layout (Zero Gap, Zero Border-Radius, High-End Staggered Edge-to-Edge) */}
-      <div className="hidden md:block">
-        <div className="columns-2 lg:columns-3 xl:columns-4 gap-0 [column-fill:_balance]">
-          {agents.map((agent) => (
-            <div
-              key={agent.id}
-              className="break-inside-avoid w-full"
-            >
-              <AgentCard
-                agent={agent}
-                className={`${agent.heightClass} w-full`}
-              />
-            </div>
-          ))}
+      {/* Desktop & Tablet: Multi-Agent Infinite Sliding Columns with Atmospheric Top/Bottom Blur (Seamless Blending) */}
+      <div className="hidden md:block w-full max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-0 pt-6 sm:pt-8 pb-16 sm:pb-24">
+        <div className="squad-slider-container overflow-hidden relative bg-[#07090D] [html[data-theme='light']_&]:bg-[#F8FAFC] h-[640px] sm:h-[700px] lg:h-[760px]">
+
+          {/* Top Atmospheric Gradient & Backdrop Blur Mask */}
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-32 sm:h-44 bg-gradient-to-b from-[#07090D] via-[#07090D]/85 to-transparent z-20 [html[data-theme='light']_&]:from-[#F8FAFC] [html[data-theme='light']_&]:via-[#F8FAFC]/90" />
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-24 sm:h-36 z-20 backdrop-blur-[8px] [mask-image:linear-gradient(to_bottom,black_0%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,black_0%,transparent_100%)]" />
+
+          {/* Bottom Atmospheric Gradient & Backdrop Blur Mask */}
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 sm:h-44 bg-gradient-to-t from-[#07090D] via-[#07090D]/85 to-transparent z-20 [html[data-theme='light']_&]:from-[#F8FAFC] [html[data-theme='light']_&]:via-[#F8FAFC]/90" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 sm:h-36 z-20 backdrop-blur-[8px] [mask-image:linear-gradient(to_top,black_0%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_top,black_0%,transparent_100%)]" />
+
+          {/* 4 Alternating Infinite Sliding Columns (Borderless, Seamlessly Blended) */}
+          <div className="grid grid-cols-4 h-full">
+            {columnsData.map((col) => (
+              <div
+                key={col.id}
+                className="relative overflow-hidden"
+              >
+                <div
+                  className={`flex flex-col ${
+                    col.direction === 'up' ? 'squad-col-slide-up' : 'squad-col-slide-down'
+                  }`}
+                  style={{ '--squad-duration': col.duration }}
+                >
+                  {/* First iteration */}
+                  {col.agents.map((agent) => (
+                    <AgentCard
+                      key={`${col.id}-${agent.id}-1`}
+                      agent={agent}
+                      className={`${agent.heightClass} w-full shrink-0`}
+                    />
+                  ))}
+                  {/* Duplicate iteration for seamless loop */}
+                  {col.agents.map((agent) => (
+                    <AgentCard
+                      key={`${col.id}-${agent.id}-2`}
+                      agent={agent}
+                      className={`${agent.heightClass} w-full shrink-0`}
+                    />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+
         </div>
       </div>
 

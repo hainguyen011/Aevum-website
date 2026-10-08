@@ -221,6 +221,7 @@ export function TesterLeaderboard({
       points: 50,
       bugs: 0,
       role: isVi ? 'Thử Nghiệm Viên Beta' : 'Beta Tester'
+    };
   }, [user, leaderboardData, isVi]);
 
   // Total system stats summary
@@ -437,7 +438,7 @@ export function TesterLeaderboard({
                 </div>
               </div>
             );
-          })}
+          }))}
         </div>
 
         {/* ── CURRENT USER RANK FOOTER / BANNER (No border, no bg) ── */}

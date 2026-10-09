@@ -6,7 +6,13 @@ import {
   Info,
   Sparkles,
   AlertTriangle,
-  WrapText
+  WrapText,
+  Play,
+  Maximize2,
+  ExternalLink,
+  Image as ImageIcon,
+  Film,
+  X
 } from 'lucide-react';
 
 /**
@@ -234,6 +240,127 @@ export const CodeBlock = ({ block, onCopy, copiedId, isVi = true }) => {
 };
 
 /**
+ * YouTube Video Embed Helper: Extract 11-char Video ID from various URL patterns
+ */
+export const extractYouTubeId = (input) => {
+  if (!input) return null;
+  const str = input.trim();
+  if (/^[a-zA-Z0-9_-]{11}$/.test(str)) {
+    return str;
+  }
+  const shortMatch = str.match(/youtu\.be\/([a-zA-Z0-9_-]{11})/);
+  if (shortMatch) return shortMatch[1];
+  const standardMatch = str.match(/(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|v\/|shorts\/))([a-zA-Z0-9_-]{11})/);
+  if (standardMatch) return standardMatch[1];
+  return null;
+};
+
+/**
+ * YouTube Responsive Embed Component with Dark/Light styling and external link
+ */
+export const YouTubeEmbed = ({ videoId, title, isVi = true }) => {
+  return (
+    <div className="my-7 max-w-prose rounded-xl overflow-hidden border border-white/10 [html[data-theme='light']_&]:border-slate-200 bg-black/60 shadow-xl group">
+      <div className="flex items-center justify-between px-3.5 py-2 bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-100/90 border-b border-white/5 [html[data-theme='light']_&]:border-slate-200 text-xs text-slate-300 [html[data-theme='light']_&]:text-slate-700">
+        <div className="flex items-center gap-2 font-mono">
+          <span className="w-2.5 h-2.5 rounded-full bg-red-500 inline-block animate-pulse" />
+          <span className="font-semibold text-slate-200 [html[data-theme='light']_&]:text-slate-800">YouTube</span>
+          {title && <span className="truncate max-w-[220px] text-slate-400 [html[data-theme='light']_&]:text-slate-500">— {title}</span>}
+        </div>
+        <a
+          href={`https://www.youtube.com/watch?v=${videoId}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 text-[11px] text-slate-400 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors"
+          title={isVi ? 'Mở trên YouTube' : 'Open on YouTube'}
+        >
+          <span>{isVi ? 'Xem trên YouTube' : 'Watch on YouTube'}</span>
+          <ExternalLink size={12} />
+        </a>
+      </div>
+      <div className="relative w-full aspect-video bg-black">
+        <iframe
+          src={`https://www.youtube-nocookie.com/embed/${videoId}?rel=0&modestbranding=1`}
+          title={title || 'YouTube video player'}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+          loading="lazy"
+          className="absolute inset-0 w-full h-full border-0"
+        />
+      </div>
+    </div>
+  );
+};
+
+/**
+ * Native HTML5 Video Player for .mp4, .webm files
+ */
+export const NativeVideoPlayer = ({ src, caption, isVi = true }) => {
+  return (
+    <figure className="my-7 max-w-prose rounded-xl overflow-hidden border border-white/10 [html[data-theme='light']_&]:border-slate-200 bg-black/40 shadow-xl">
+      <div className="flex items-center justify-between px-3.5 py-2 bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-100/90 border-b border-white/5 [html[data-theme='light']_&]:border-slate-200 text-xs text-slate-300 [html[data-theme='light']_&]:text-slate-700">
+        <div className="flex items-center gap-2 font-mono">
+          <Film size={13} className="text-cyan-400" />
+          <span className="font-semibold text-slate-200 [html[data-theme='light']_&]:text-slate-800">
+            {isVi ? 'Video Minh Họa' : 'Video Player'}
+          </span>
+          {caption && <span className="truncate max-w-[220px] text-slate-400 [html[data-theme='light']_&]:text-slate-500">— {caption}</span>}
+        </div>
+      </div>
+      <div className="relative w-full bg-black/80 flex items-center justify-center">
+        <video
+          controls
+          playsInline
+          preload="metadata"
+          className="w-full h-auto max-h-[520px] object-contain rounded-b-lg"
+        >
+          <source src={src} />
+          {isVi
+            ? 'Trình duyệt của bạn không hỗ trợ thẻ video HTML5.'
+            : 'Your browser does not support HTML5 video.'}
+        </video>
+      </div>
+      {caption && (
+        <figcaption className="px-4 py-2 text-center text-xs text-slate-400 [html[data-theme='light']_&]:text-slate-500 font-mono border-t border-white/5 [html[data-theme='light']_&]:border-slate-200">
+          {caption}
+        </figcaption>
+      )}
+    </figure>
+  );
+};
+
+/**
+ * Enhanced Markdown Image Component with Caption and Click-to-Zoom
+ */
+export const MarkdownImage = ({ src, alt, caption, onImageClick }) => {
+  return (
+    <figure className="my-6 max-w-prose rounded-xl overflow-hidden border border-white/10 [html[data-theme='light']_&]:border-slate-200 bg-white/[0.02] [html[data-theme='light']_&]:bg-slate-50/50 shadow-md group">
+      <div
+        className="relative overflow-hidden cursor-zoom-in flex items-center justify-center bg-black/10 [html[data-theme='light']_&]:bg-slate-100/60 p-1 sm:p-2"
+        onClick={() => onImageClick?.({ src, alt, caption })}
+      >
+        <img
+          src={src}
+          alt={alt || caption || 'Documentation visual'}
+          loading="lazy"
+          className="w-full max-h-[520px] object-contain rounded-lg transition-transform duration-300 group-hover:scale-[1.01]"
+        />
+        <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-black/60 backdrop-blur-md px-2 py-1 rounded text-[11px] text-white flex items-center gap-1 font-mono pointer-events-none">
+          <Maximize2 size={11} />
+          <span>Phóng to</span>
+        </div>
+      </div>
+      {(caption || alt) && (
+        <figcaption className="px-4 py-2.5 text-center text-xs text-slate-400 [html[data-theme='light']_&]:text-slate-500 font-mono border-t border-white/5 [html[data-theme='light']_&]:border-slate-200 flex items-center justify-center gap-1.5">
+          <ImageIcon size={13} className="text-slate-500 shrink-0" />
+          <span>{caption || alt}</span>
+        </figcaption>
+      )}
+    </figure>
+  );
+};
+
+/**
  * Standardized Article & Markdown Renderer
  * Standardized typography, measure (max-w-prose 65-75ch), line height & universal accessibility.
  * Reusable across Docs and Explore.
@@ -248,6 +375,7 @@ export const ArticleRenderer = ({
   renderTitle = true
 }) => {
   const [copiedId, setCopiedId] = useState(null);
+  const [previewImage, setPreviewImage] = useState(null);
 
   const handleCopy = (text, blockId) => {
     if (typeof navigator !== 'undefined' && navigator.clipboard) {
@@ -269,6 +397,12 @@ export const ArticleRenderer = ({
 
     // Handle italic: *text* (avoid matching list markers)
     escaped = escaped.replace(/(^|[^\*])\*([^\*]+)\*([^\*]|$)/g, '$1<em class="italic text-slate-300 [html[data-theme=\'light\']_&]:text-slate-700">$2</em>$3');
+
+    // Handle inline markdown images: ![alt](url)
+    escaped = escaped.replace(
+      /!\[([^\]]*)\]\(([^)]+)\)/g,
+      '<img src="$2" alt="$1" class="inline-block max-h-12 align-middle rounded mx-1 border border-white/10 [html[data-theme=\'light\']_&]:border-slate-200" loading="lazy" />'
+    );
 
     // Handle markdown links: [text](url)
     escaped = escaped.replace(
@@ -362,6 +496,101 @@ export const ArticleRenderer = ({
             key={`hr-${blockIdx}-${i}`}
             className="my-8 max-w-prose"
             aria-hidden="true"
+          />
+        );
+        continue;
+      }
+
+      // Handle YouTube directive: ::youtube[id_or_url] or ::yt[id_or_url] "Optional Title"
+      const ytDirectiveMatch = line.trim().match(/^::(?:youtube|yt)\[([^\]]+)\](?:\s+"([^"]+)")?$/i);
+      if (ytDirectiveMatch) {
+        flushList(`list-${blockIdx}-${i}`);
+        const ytid = extractYouTubeId(ytDirectiveMatch[1]);
+        if (ytid) {
+          elements.push(
+            <YouTubeEmbed
+              key={`yt-${blockIdx}-${i}`}
+              videoId={ytid}
+              title={ytDirectiveMatch[2] || ''}
+              isVi={isVi}
+            />
+          );
+          continue;
+        }
+      }
+
+      // Handle standalone YouTube URL on its own line
+      const ytUrlMatch = line.trim().match(/^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})(?:[^\s]*)?$/i);
+      if (ytUrlMatch) {
+        flushList(`list-${blockIdx}-${i}`);
+        elements.push(
+          <YouTubeEmbed
+            key={`yt-url-${blockIdx}-${i}`}
+            videoId={ytUrlMatch[1]}
+            isVi={isVi}
+          />
+        );
+        continue;
+      }
+
+      // Handle video directive: ::video[url] "Optional Caption"
+      const videoDirectiveMatch = line.trim().match(/^::video\[([^\]]+)\](?:\s+"([^"]+)")?$/i);
+      if (videoDirectiveMatch) {
+        flushList(`list-${blockIdx}-${i}`);
+        elements.push(
+          <NativeVideoPlayer
+            key={`video-${blockIdx}-${i}`}
+            src={videoDirectiveMatch[1]}
+            caption={videoDirectiveMatch[2] || ''}
+            isVi={isVi}
+          />
+        );
+        continue;
+      }
+
+      // Handle standalone Markdown Image / Video / YouTube: ![alt](url "title")
+      const mediaMatch = line.trim().match(/^!\[([^\]]*)\]\(([^)\s]+)(?:\s+"([^"]+)")?\)$/);
+      if (mediaMatch) {
+        flushList(`list-${blockIdx}-${i}`);
+        const altText = mediaMatch[1];
+        const mediaUrl = mediaMatch[2];
+        const caption = mediaMatch[3] || altText;
+
+        // Check if media is a YouTube video URL
+        const possibleYtId = extractYouTubeId(mediaUrl);
+        if (possibleYtId && (altText.toLowerCase().includes('youtube') || mediaUrl.includes('youtu'))) {
+          elements.push(
+            <YouTubeEmbed
+              key={`img-yt-${blockIdx}-${i}`}
+              videoId={possibleYtId}
+              title={caption !== possibleYtId ? caption : ''}
+              isVi={isVi}
+            />
+          );
+          continue;
+        }
+
+        // Check if media is an HTML5 video (.mp4, .webm, .mov, .ogg)
+        if (/\.(mp4|webm|mov|ogg)(\?.*)?$/i.test(mediaUrl) || altText.toLowerCase().startsWith('video:')) {
+          elements.push(
+            <NativeVideoPlayer
+              key={`img-video-${blockIdx}-${i}`}
+              src={mediaUrl}
+              caption={caption.replace(/^video:\s*/i, '')}
+              isVi={isVi}
+            />
+          );
+          continue;
+        }
+
+        // Standard Image with Caption and Lightbox
+        elements.push(
+          <MarkdownImage
+            key={`img-${blockIdx}-${i}`}
+            src={mediaUrl}
+            alt={altText}
+            caption={caption}
+            onImageClick={setPreviewImage}
           />
         );
         continue;
@@ -720,6 +949,36 @@ export const ArticleRenderer = ({
           );
         }
       })}
+
+      {/* Lightbox Modal for Image Zoom */}
+      {previewImage && (
+        <div
+          className="fixed inset-0 z-[9999] bg-black/85 backdrop-blur-md flex items-center justify-center p-4 sm:p-8 animate-in fade-in duration-200"
+          onClick={() => setPreviewImage(null)}
+          role="dialog"
+          aria-modal="true"
+        >
+          <button
+            className="absolute top-5 right-5 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
+            onClick={() => setPreviewImage(null)}
+            aria-label="Đóng ảnh phóng to"
+          >
+            <X size={20} />
+          </button>
+          <div className="max-w-5xl max-h-[90vh] flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
+            <img
+              src={previewImage.src}
+              alt={previewImage.alt || 'Zoomed view'}
+              className="max-w-full max-h-[80vh] object-contain rounded-xl shadow-2xl border border-white/10"
+            />
+            {(previewImage.caption || previewImage.alt) && (
+              <p className="mt-3 text-sm text-slate-300 font-mono text-center">
+                {previewImage.caption || previewImage.alt}
+              </p>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

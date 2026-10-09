@@ -5,6 +5,7 @@ import { ArticleRenderer } from './ArticleRenderer';
 import { TranslationService } from '../services/TranslationService';
 import { ReaderSidebarLeft } from './ReaderSidebarLeft';
 import { ReaderSidebarRight } from './ReaderSidebarRight';
+import { ExploreCardAtmosphere, getExploreCategoryTheme, ExploreCardSkeleton } from './ExploreCardAtmosphere';
 import {
   Menu,
   X,
@@ -21,7 +22,8 @@ import {
   AlignLeft,
   Type,
   Clock,
-  BookOpen
+  BookOpen,
+  Loader2
 } from 'lucide-react';
 
 export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId = null }) => {
@@ -140,6 +142,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
   const [searchQuery, setSearchQuery] = useState('');
   const [sidebarFilterQuery, setSidebarFilterQuery] = useState('');
   const [copiedLink, setCopiedLink] = useState(false);
+  const [previewCoverImage, setPreviewCoverImage] = useState(null);
 
   // Category tab scroll (Grid mode)
   const tabScrollRef = useRef(null);
@@ -310,6 +313,58 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
     });
   }, [allLessons, selectedCategory, searchQuery]);
 
+  // Scroll-to-loading (Progressive Infinite Scroll)
+  const INITIAL_BATCH = 9;
+  const BATCH_INCREMENT = 6;
+  const [visibleCount, setVisibleCount] = useState(INITIAL_BATCH);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const loadMoreSentinelRef = useRef(null);
+
+  // Reset pagination when category or search query changes
+  useEffect(() => {
+    setVisibleCount(INITIAL_BATCH);
+    setIsLoadingMore(false);
+  }, [selectedCategory, searchQuery]);
+
+  // Progressive sliced lessons for performance and infinite scroll
+  const visibleLessons = useMemo(() => {
+    return filteredLessons.slice(0, visibleCount);
+  }, [filteredLessons, visibleCount]);
+
+  const hasMoreLessons = visibleCount < filteredLessons.length;
+
+  // Trigger load more when sentinel is scrolled into view
+  useEffect(() => {
+    if (viewMode !== 'grid') return;
+    if (!hasMoreLessons || isLoadingMore) return;
+
+    const sentinel = loadMoreSentinelRef.current;
+    if (!sentinel) return;
+
+    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (entry && entry.isIntersecting && hasMoreLessons && !isLoadingMore) {
+          setIsLoadingMore(true);
+          setTimeout(() => {
+            setVisibleCount((prev) => Math.min(prev + BATCH_INCREMENT, filteredLessons.length));
+            setIsLoadingMore(false);
+          }, 420);
+        }
+      },
+      {
+        root: null,
+        rootMargin: '250px',
+        threshold: 0.05,
+      }
+    );
+
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, [viewMode, hasMoreLessons, isLoadingMore, filteredLessons.length]);
+
   // Filtered syllabus lessons in reader sidebar
   const filteredSidebarModules = useMemo(() => {
     const q = sidebarFilterQuery.trim().toLowerCase();
@@ -473,7 +528,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                 <button
                   onClick={() => backToGrid()}
                   className={`flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-mono transition-colors cursor-pointer ${viewMode === 'grid'
-                    ? 'bg-white/10 [html[data-theme="light"]_&]:bg-white text-white [html[data-theme="light"]_&]:text-slate-900 font-medium [html[data-theme="light"]_&]:shadow-sm'
+                    ? 'bg-white/10 [html[data-theme="light"]_&]:bg-white text-white [html[data-theme="light"]_&]:text-slate-900 [html[data-theme="light"]_&]:shadow-sm'
                     : 'text-slate-400 [html[data-theme="light"]_&]:text-slate-600 hover:text-white [html[data-theme="light"]_&]:hover:text-slate-900'
                     }`}
                   title={isVi ? 'Xem dạng thẻ' : 'Card Grid view'}
@@ -484,7 +539,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                 <button
                   onClick={() => openLessonReader(activeLessonId)}
                   className={`flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-mono transition-colors cursor-pointer ${viewMode === 'reader'
-                    ? 'bg-white/10 [html[data-theme="light"]_&]:bg-white text-white [html[data-theme="light"]_&]:text-slate-900 font-medium [html[data-theme="light"]_&]:shadow-sm'
+                    ? 'bg-white/10 [html[data-theme="light"]_&]:bg-white text-white [html[data-theme="light"]_&]:text-slate-900 [html[data-theme="light"]_&]:shadow-sm'
                     : 'text-slate-400 [html[data-theme="light"]_&]:text-slate-600 hover:text-white [html[data-theme="light"]_&]:hover:text-slate-900'
                     }`}
                   title={isVi ? 'Xem dạng đọc chi tiết' : 'Reader view'}
@@ -524,7 +579,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                   <button
                     onClick={() => setSelectedCategory('all')}
                     className={`px-2.5 py-1 rounded text-xs transition-colors whitespace-nowrap cursor-pointer ${selectedCategory === 'all'
-                      ? 'text-white [html[data-theme="light"]_&]:text-slate-900 bg-white/10 [html[data-theme="light"]_&]:bg-slate-200/70 font-medium'
+                      ? 'text-white [html[data-theme="light"]_&]:text-slate-900 bg-white/10 [html[data-theme="light"]_&]:bg-slate-200/70'
                       : 'text-slate-400 [html[data-theme="light"]_&]:text-slate-600 hover:text-white [html[data-theme="light"]_&]:hover:text-slate-900'
                       }`}
                   >
@@ -535,7 +590,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                       key={mod.id}
                       onClick={() => setSelectedCategory(mod.id)}
                       className={`px-2.5 py-1 rounded text-xs transition-colors whitespace-nowrap cursor-pointer ${selectedCategory === mod.id
-                        ? 'text-white [html[data-theme="light"]_&]:text-slate-900 bg-white/10 [html[data-theme="light"]_&]:bg-slate-200/70 font-medium'
+                        ? 'text-white [html[data-theme="light"]_&]:text-slate-900 bg-white/10 [html[data-theme="light"]_&]:bg-slate-200/70'
                         : 'text-slate-400 [html[data-theme="light"]_&]:text-slate-600 hover:text-white [html[data-theme="light"]_&]:hover:text-slate-900'
                         }`}
                     >
@@ -589,67 +644,103 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                 </button>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                {filteredLessons.map((lesson) => {
-                  const isDone = completedLessons.includes(lesson.id);
+              <>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4">
+                  {visibleLessons.map((lesson) => {
+                    const isDone = completedLessons.includes(lesson.id);
+                    const theme = getExploreCategoryTheme(lesson.category);
 
-                  return (
-                    <div
-                      key={lesson.id}
-                      onClick={() => openLessonReader(lesson.id)}
-                      className="group flex flex-col justify-between p-5 rounded-xl border border-white/[0.08] [html[data-theme='light']_&]:border-slate-200 hover:border-white/20 [html[data-theme='light']_&]:hover:border-slate-300 bg-white/[0.015] [html[data-theme='light']_&]:bg-white [html[data-theme='light']_&]:shadow-sm hover:bg-white/[0.03] transition-all cursor-pointer"
-                    >
-                      <div>
-                        {/* Muted Category & Read Time */}
-                        <div className="flex items-center justify-between text-[11px] font-mono text-slate-400 [html[data-theme='light']_&]:text-slate-500 mb-1.5">
-                          <span className="uppercase tracking-wider truncate">{lesson.category}</span>
-                          <span className="shrink-0">{lesson.readTime}</span>
-                        </div>
+                    return (
+                      <div
+                        key={lesson.id}
+                        onClick={() => openLessonReader(lesson.id)}
+                        className="group relative flex flex-col justify-between rounded-2xl bg-[#090d14]/75 [html[data-theme='light']_&]:bg-white/85 backdrop-blur-xl shadow-[0_4px_24px_-4px_rgba(0,0,0,0.3)] hover:shadow-[0_12px_32px_-4px_rgba(0,0,0,0.45)] transition-shadow duration-300 cursor-pointer overflow-hidden"
+                      >
+                        {/* ── 1. Grainy Gradient Atmosphere Layer ── */}
+                        <ExploreCardAtmosphere category={lesson.category} />
 
-                        {/* Author Agent Tag */}
-                        {lesson.author && (
-                          <div className="flex items-center gap-1.5 text-[11px] font-mono mb-2">
-                            <span className="font-medium text-slate-300 [html[data-theme='light']_&]:text-slate-800">{lesson.author.name}</span>
-                            <span className="text-slate-600 [html[data-theme='light']_&]:text-slate-400">•</span>
-                            <span className="text-slate-400 [html[data-theme='light']_&]:text-slate-500 text-[10px] truncate">{lesson.author.role}</span>
+                        {/* ── 2. Top Specular Hairline Rim Light (Hero Banner Cyan Aura) ── */}
+                        <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/50 [html[data-theme='light']_&]:via-cyan-500/40 to-transparent pointer-events-none z-10" />
+
+                        {/* ── 3. Main Body Section with Rounded Bottom Border & Overflow Control ── */}
+                        <div className="relative z-10 flex-1 p-6 pb-5 flex flex-col justify-between rounded-b-2xl border-b border-white/[0.08] [html[data-theme='light']_&]:border-slate-900/[0.08] bg-white/[0.015] [html[data-theme='light']_&]:bg-white/60 shadow-[0_2px_8px_rgba(0,0,0,0.02)] overflow-hidden">
+                          <div>
+                            {/* Category & Read Time — Google Sans Flex */}
+                            <div className="flex items-center justify-between text-[12px] font-sans font-medium text-slate-400 [html[data-theme='light']_&]:text-slate-500 mb-3">
+                              <span className="truncate">{lesson.category}</span>
+                              <span className="shrink-0 text-slate-400/80 [html[data-theme='light']_&]:text-slate-400 text-[11.5px] ml-2">
+                                {lesson.readTime}
+                              </span>
+                            </div>
+
+                            {/* Title — Google Sans Flex, Optical Sizing, Elegant 450-500 Weight */}
+                            <h3 className="text-[16.5px] sm:text-[17.5px] font-medium text-white [html[data-theme='light']_&]:text-slate-900 group-hover:text-cyan-200 [html[data-theme='light']_&]:group-hover:text-cyan-800 transition-colors leading-[1.38] line-clamp-2 font-display mb-2.5 tracking-[-0.01em]">
+                              {lesson.title}
+                            </h3>
+
+                            {/* Summary — Airy & Concise 2-Line Rhythm */}
+                            <p className="text-[13px] text-slate-400/90 [html[data-theme='light']_&]:text-slate-600 leading-relaxed line-clamp-2 font-sans font-normal">
+                              {lesson.summary}
+                            </p>
                           </div>
-                        )}
+                        </div>
 
-                        {/* Title */}
-                        <h3 className="text-sm sm:text-base font-semibold text-white [html[data-theme='light']_&]:text-slate-900 group-hover:text-white [html[data-theme='light']_&]:group-hover:text-black transition-colors leading-snug line-clamp-2">
-                          {lesson.title}
-                        </h3>
-
-                        {/* Summary */}
-                        <p className="text-xs text-slate-400 [html[data-theme='light']_&]:text-slate-600 leading-relaxed line-clamp-3 mt-2 font-normal">
-                          {lesson.summary}
-                        </p>
-                      </div>
-
-                      {/* Footer: Target Audience & Status */}
-                      <div className="pt-4 mt-4 flex items-center justify-between text-xs border-t border-white/5 [html[data-theme='light']_&]:border-slate-100">
-                        <span className="text-[11px] text-slate-400 [html[data-theme='light']_&]:text-slate-500 truncate max-w-[170px]">
-                          {lesson.targetAudience}
-                        </span>
-
-                        <div className="flex items-center gap-2 shrink-0">
-                          {isDone ? (
-                            <span className="inline-flex items-center gap-1 text-[11px] text-emerald-400 font-mono">
-                              <CheckCircle2 size={11} />
-                              <span>{isVi ? 'Đã học' : 'Done'}</span>
+                        {/* ── 4. Footer Dock Layer (Distinct Sub-Layer Surface with Overflow Control) ── */}
+                        <div className="relative z-10 px-6 py-3.5 bg-black/20 [html[data-theme='light']_&]:bg-slate-900/[0.025] flex items-center justify-between text-xs transition-colors rounded-b-2xl overflow-hidden">
+                          {/* Author Name */}
+                          <div className="flex items-center gap-2">
+                            <span className="text-[12px] font-sans font-medium text-slate-400 [html[data-theme='light']_&]:text-slate-600">
+                              {lesson.author?.name || 'Aevum'}
                             </span>
-                          ) : (
-                            <span className="inline-flex items-center gap-1 text-[11px] text-slate-400 [html[data-theme='light']_&]:text-slate-600 group-hover:text-slate-200 [html[data-theme='light']_&]:group-hover:text-slate-900 font-mono transition-colors">
-                              <span>{isVi ? 'Khám phá' : 'Read'}</span>
-                              <ChevronRight size={12} className="group-hover:translate-x-0.5 transition-transform" />
-                            </span>
-                          )}
+                          </div>
+
+                          {/* Status & CTA Action */}
+                          <div className="flex items-center gap-1.5 shrink-0">
+                            {isDone ? (
+                              <span className="inline-flex items-center gap-1.5 text-[12px] text-emerald-400 [html[data-theme='light']_&]:text-emerald-600 font-sans font-medium">
+                                <CheckCircle2 size={13} />
+                                <span>{isVi ? 'Đã học' : 'Done'}</span>
+                              </span>
+                            ) : (
+                              <span className="inline-flex items-center gap-1 text-[12px] text-slate-400 [html[data-theme='light']_&]:text-slate-600 group-hover:text-white [html[data-theme='light']_&]:group-hover:text-slate-900 font-sans font-medium transition-colors">
+                                <span>{isVi ? 'Khám phá' : 'Read'}</span>
+                                <ChevronRight size={13} className="group-hover:translate-x-0.5 transition-transform text-slate-400 group-hover:text-white [html[data-theme='light']_&]:group-hover:text-slate-900" />
+                              </span>
+                            )}
+                          </div>
                         </div>
                       </div>
+                    );
+                  })}
+
+                  {/* ── Skeleton Loading Cards for Seamless UX (Batch of 3) ── */}
+                  {isLoadingMore && (
+                    <>
+                      <ExploreCardSkeleton key="skel-1" />
+                      <ExploreCardSkeleton key="skel-2" />
+                      <ExploreCardSkeleton key="skel-3" />
+                    </>
+                  )}
+                </div>
+
+                {/* ── Scroll-to-Load Sentinel & Progressive Loading Indicator ── */}
+                <div ref={loadMoreSentinelRef} className="pt-8 pb-3 flex flex-col items-center justify-center min-h-[56px]">
+                  {isLoadingMore && (
+                    <div className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/[0.03] [html[data-theme='light']_&]:bg-slate-900/[0.04] border border-white/10 [html[data-theme='light']_&]:border-slate-200/80 backdrop-blur-md shadow-sm animate-in fade-in duration-200">
+                      <Loader2 size={13} className="text-cyan-400 animate-spin" />
+                      <span className="text-xs font-sans font-medium text-slate-300 [html[data-theme='light']_&]:text-slate-700">
+                        {isVi ? 'Đang tải thêm bài học...' : 'Loading more lessons...'}
+                      </span>
                     </div>
-                  );
-                })}
-              </div>
+                  )}
+
+                  {!hasMoreLessons && filteredLessons.length > INITIAL_BATCH && (
+                    <div className="flex items-center text-xs font-sans text-slate-400 [html[data-theme='light']_&]:text-slate-500 py-2">
+                      <span>{isVi ? `Đã hiển thị toàn bộ ${filteredLessons.length} bài học` : `All ${filteredLessons.length} lessons loaded`}</span>
+                    </div>
+                  )}
+                </div>
+              </>
             )}
           </div>
         </div>
@@ -829,6 +920,20 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                 </div>
               </header>
 
+              {/* Featured Hero Cover Image */}
+              <div
+                className="w-full h-44 sm:h-56 md:h-64 mb-6 sm:mb-8 overflow-hidden rounded-2xl border border-white/10 [html[data-theme='light']_&]:border-slate-200 shadow-2xl bg-black/40 group relative cursor-zoom-in"
+                onClick={() => setPreviewCoverImage(activeLesson.coverImage || '/media/7c9853f453cc1123e6b41db03292d945.jpg')}
+                title={isVi ? 'Nhấp để phóng to ảnh bìa' : 'Click to zoom cover image'}
+              >
+                <img
+                  src={activeLesson.coverImage || '/media/7c9853f453cc1123e6b41db03292d945.jpg'}
+                  alt={activeLesson.title}
+                  className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.01]"
+                  loading="eager"
+                />
+              </div>
+
               {/* Article Main Title */}
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-white [html[data-theme='light']_&]:text-slate-900 tracking-tight font-display leading-[1.22] mb-5 max-w-prose text-pretty">
                 {activeLesson.title}
@@ -905,14 +1010,18 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                   {prevLesson ? (
                     <button
                       onClick={() => openLessonReader(prevLesson.id)}
-                      className="p-4 rounded-lg border border-white/10 [html[data-theme='light']_&]:border-slate-200 hover:border-white/20 [html[data-theme='light']_&]:hover:border-slate-300 bg-white/[0.015] [html[data-theme='light']_&]:bg-white hover:bg-white/[0.03] text-left transition-all cursor-pointer group"
+                      className="group relative p-5 rounded-2xl bg-[#090d14]/70 [html[data-theme='light']_&]:bg-white/85 backdrop-blur-xl shadow-md hover:shadow-xl text-left transition-shadow duration-300 cursor-pointer overflow-hidden"
                     >
-                      <div className="flex items-center gap-1 text-[11px] font-sans font-medium text-slate-400 [html[data-theme='light']_&]:text-slate-500 mb-1">
-                        <ChevronLeft size={11} />
-                        <span>{isVi ? 'Bài trước' : 'Previous'}</span>
-                      </div>
-                      <div className="text-xs sm:text-sm font-medium text-white [html[data-theme='light']_&]:text-slate-900 group-hover:text-white [html[data-theme='light']_&]:group-hover:text-slate-950 transition-colors line-clamp-2 leading-snug">
-                        {prevLesson.title}
+                      <ExploreCardAtmosphere category={prevLesson.category} />
+                      <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/15 [html[data-theme='light']_&]:via-slate-400/20 to-transparent pointer-events-none z-10" />
+                      <div className="relative z-10">
+                        <div className="flex items-center gap-1.5 text-[11.5px] font-sans font-medium text-slate-400 [html[data-theme='light']_&]:text-slate-500 mb-1.5">
+                          <ChevronLeft size={12} className="group-hover:-translate-x-0.5 transition-transform" />
+                          <span>{isVi ? 'Bài trước' : 'Previous'}</span>
+                        </div>
+                        <div className="text-[14px] sm:text-[14.5px] font-medium text-white [html[data-theme='light']_&]:text-slate-900 group-hover:text-white [html[data-theme='light']_&]:group-hover:text-black font-display transition-colors line-clamp-2 leading-snug">
+                          {prevLesson.title}
+                        </div>
                       </div>
                     </button>
                   ) : <div />}
@@ -920,14 +1029,18 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                   {nextLesson ? (
                     <button
                       onClick={() => openLessonReader(nextLesson.id)}
-                      className="p-4 rounded-lg border border-white/10 [html[data-theme='light']_&]:border-slate-200 hover:border-white/20 [html[data-theme='light']_&]:hover:border-slate-300 bg-white/[0.015] [html[data-theme='light']_&]:bg-white hover:bg-white/[0.03] text-right transition-all cursor-pointer group"
+                      className="group relative p-5 rounded-2xl bg-[#090d14]/70 [html[data-theme='light']_&]:bg-white/85 backdrop-blur-xl shadow-md hover:shadow-xl text-right transition-shadow duration-300 cursor-pointer overflow-hidden"
                     >
-                      <div className="flex items-center justify-end gap-1 text-[11px] font-sans font-medium text-slate-400 [html[data-theme='light']_&]:text-slate-500 mb-1">
-                        <span>{isVi ? 'Bài tiếp' : 'Next'}</span>
-                        <ChevronRight size={11} />
-                      </div>
-                      <div className="text-xs sm:text-sm font-medium text-white [html[data-theme='light']_&]:text-slate-900 group-hover:text-white [html[data-theme='light']_&]:group-hover:text-slate-950 transition-colors line-clamp-2 leading-snug">
-                        {nextLesson.title}
+                      <ExploreCardAtmosphere category={nextLesson.category} />
+                      <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/15 [html[data-theme='light']_&]:via-slate-400/20 to-transparent pointer-events-none z-10" />
+                      <div className="relative z-10">
+                        <div className="flex items-center justify-end gap-1.5 text-[11.5px] font-sans font-medium text-slate-400 [html[data-theme='light']_&]:text-slate-500 mb-1.5">
+                          <span>{isVi ? 'Bài tiếp' : 'Next'}</span>
+                          <ChevronRight size={12} className="group-hover:translate-x-0.5 transition-transform" />
+                        </div>
+                        <div className="text-[14px] sm:text-[14.5px] font-medium text-white [html[data-theme='light']_&]:text-slate-900 group-hover:text-white [html[data-theme='light']_&]:group-hover:text-black font-display transition-colors line-clamp-2 leading-snug">
+                          {nextLesson.title}
+                        </div>
                       </div>
                     </button>
                   ) : <div />}
@@ -950,6 +1063,31 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
               activeHeadingId={activeHeadingId}
               onHeadingClick={(headingId) => scrollToHeading(headingId)}
               isVi={isVi}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Lightbox Modal for Cover Image Zoom */}
+      {previewCoverImage && (
+        <div
+          className="fixed inset-0 z-[9999] bg-black/85 backdrop-blur-md flex items-center justify-center p-4 sm:p-8 animate-in fade-in duration-200"
+          onClick={() => setPreviewCoverImage(null)}
+          role="dialog"
+          aria-modal="true"
+        >
+          <button
+            className="absolute top-5 right-5 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
+            onClick={() => setPreviewCoverImage(null)}
+            aria-label="Đóng ảnh phóng to"
+          >
+            <X size={20} />
+          </button>
+          <div className="max-w-5xl max-h-[90vh] flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
+            <img
+              src={previewCoverImage}
+              alt={activeLesson.title}
+              className="max-w-full max-h-[82vh] object-contain rounded-xl shadow-2xl border border-white/10"
             />
           </div>
         </div>

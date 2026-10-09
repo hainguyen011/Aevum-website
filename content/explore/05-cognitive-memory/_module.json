@@ -1,0 +1,8 @@
+{
+  "id": "cognitive-memory",
+  "title": "Kiến trúc Nhận thức & Trí nhớ AI",
+  "categoryName": "Trí nhớ & Não bộ",
+  "badgeColor": "border-amber-400/40 text-amber-300 bg-amber-500/10",
+  "description": "Xây dựng hệ thống lưu trữ nhận thức hai tầng mô phỏng não bộ sinh học: Bộ nhớ làm việc ngắn hạn, thuật toán truy hồi nơ-ron sinh học và đồ thị ký ức dài hạn vĩnh cửu.",
+  "order": 5
+}

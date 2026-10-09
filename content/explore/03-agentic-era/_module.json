@@ -1,0 +1,8 @@
+{
+  "id": "agentic-era",
+  "title": "Bình minh Kỷ nguyên Agentic AI",
+  "categoryName": "Kỷ nguyên Agentic",
+  "badgeColor": "border-blue-400/40 text-blue-300 bg-blue-500/10",
+  "description": "Chuyển dịch nền tảng từ mô hình sinh ngôn ngữ thụ động sang các tác nhân AI tự chủ có khả năng hoạch định, tương tác công cụ và hành động trong thế giới thực.",
+  "order": 3
+}

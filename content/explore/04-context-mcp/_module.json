@@ -1,0 +1,8 @@
+{
+  "id": "context-mcp",
+  "title": "Kỹ thuật Ngữ cảnh & Giao thức MCP",
+  "categoryName": "Ngữ cảnh & MCP",
+  "badgeColor": "border-purple-400/40 text-purple-300 bg-purple-500/10",
+  "description": "Chinh phục hiện tượng mất ngữ cảnh trong LLM, giải mã không gian vector embeddings và thiết lập chuẩn mực kết nối công cụ qua Model Context Protocol.",
+  "order": 4
+}

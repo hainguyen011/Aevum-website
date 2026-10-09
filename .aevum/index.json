@@ -9,6 +9,19 @@
       "plans": [],
       "features": [
         {
+          "id": "git_headless_content",
+          "name": "Git-based Headless Content & Rich Media System",
+          "path": "features/git_headless_content",
+          "plans": [
+            {
+              "name": "Implement Git-based Headless Content and Rich Media Pipeline",
+              "path": "domains/ui_views/features/git_headless_content/plans/implement_git_headless_content_and_rich_media_plan.md",
+              "status": "todo",
+              "updatedAt": "2026-10-09T14:45:05.818Z"
+            }
+          ]
+        },
+        {
           "id": "interactive-dashboard",
           "name": "Interactive Dashboard",
           "path": ".aevum/domains/ui_views/features/interactive-dashboard",

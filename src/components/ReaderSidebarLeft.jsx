@@ -207,7 +207,7 @@ export const ReaderSidebarLeft = ({
                   }}
                   className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-xs transition-colors cursor-pointer text-left ${
                     selectedCategory === 'all'
-                      ? 'bg-white/10 [html[data-theme="light"]_&]:bg-slate-200 text-white [html[data-theme="light"]_&]:text-slate-900 font-medium'
+                      ? 'bg-white/10 [html[data-theme="light"]_&]:bg-slate-200 text-white [html[data-theme="light"]_&]:text-slate-900'
                       : 'text-slate-400 [html[data-theme="light"]_&]:text-slate-600 hover:text-white [html[data-theme="light"]_&]:hover:text-slate-900 hover:bg-white/[0.04] [html[data-theme="light"]_&]:hover:bg-slate-100'
                   }`}
                 >
@@ -233,7 +233,7 @@ export const ReaderSidebarLeft = ({
                       }}
                       className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-xs transition-colors cursor-pointer text-left ${
                         isSelected
-                          ? 'bg-white/10 [html[data-theme="light"]_&]:bg-slate-200 text-white [html[data-theme="light"]_&]:text-slate-900 font-medium'
+                          ? 'bg-white/10 [html[data-theme="light"]_&]:bg-slate-200 text-white [html[data-theme="light"]_&]:text-slate-900'
                           : 'text-slate-400 [html[data-theme="light"]_&]:text-slate-600 hover:text-white [html[data-theme="light"]_&]:hover:text-slate-900 hover:bg-white/[0.04] [html[data-theme="light"]_&]:hover:bg-slate-100'
                       }`}
                     >

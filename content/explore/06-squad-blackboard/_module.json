@@ -1,0 +1,8 @@
+{
+  "id": "squad-blackboard",
+  "title": "Điều phối Đa Tác nhân & Nghiên cứu Tự trị",
+  "categoryName": "Đa Agent & Tự trị",
+  "badgeColor": "border-rose-400/40 text-rose-300 bg-rose-500/10",
+  "description": "Nghệ thuật tổ chức biệt đội AI chuyên trách, đồng bộ tri thức qua mô hình Bảng đen, giao thức Internet of Agents và tự động hóa nghiên cứu chuyên sâu.",
+  "order": 6
+}

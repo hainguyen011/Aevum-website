@@ -32,30 +32,30 @@ html[data-theme="dark"] {
   /* Typography Font Stacks (Google Sans Flex Universal Standard) */
   --font-sans: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-display: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
-  /* Google DeepMind Standard Typography Scale */
-  --font-xs: 0.625rem;       /* 10px */
-  --font-sm: 0.90625rem;     /* 14.5px */
-  --font-base: 1.09375rem;   /* 17.5px */
-  --font-md: 1.125rem;       /* 18px */
-  --font-lg: 1.25rem;        /* 20px */
-  --font-xl: 1.375rem;       /* 22px */
-  --font-2xl: 1.5rem;        /* 24px */
-  --font-3xl: 1.625rem;      /* 26px */
-  --font-4xl: 1.75rem;       /* 28px */
-  --font-5xl: 1.875rem;      /* 30px */
-  --font-6xl: 2rem;          /* 32px */
-  --font-7xl: 2.125rem;      /* 34px */
-  --font-8xl: 2.25rem;       /* 36px */
-  --font-9xl: 2.375rem;      /* 38px */
+  /* Standard Unified Typography Scale (Harmonized with Google Sans Flex Specimen) */
+  --font-xxs: 0.6875rem;     /* 11px - Kickers, small badges, mono tags */
+  --font-xs: 0.75rem;        /* 12px - Captions, TOC links, breadcrumbs */
+  --font-sm: 0.875rem;       /* 14px - Sidebar navigation items, inputs */
+  --font-base: 1rem;         /* 16px - Universal baseline body (Elder-accessible) */
+  --font-reading: 1.03125rem;/* 16.5px - Editorial long-form reading body */
+  --font-md: 1.125rem;       /* 18px - Heading 3 (H3) */
+  --font-lg: 1.25rem;        /* 20px - Subtitle, lead heading */
+  --font-xl: 1.375rem;       /* 22px - Heading 2 (H2 Standard Specimen) */
+  --font-2xl: 1.625rem;      /* 26px - Large H2 / Section headline */
+  --font-3xl: 1.875rem;      /* 30px - Heading 1 (H1 Standard) */
+  --font-4xl: 2.25rem;       /* 36px - Large H1 / Article hero */
+  --font-5xl: 2.75rem;       /* 44px - Display headline */
+  --font-6xl: 3.5rem;        /* 56px - Hero display */
 
-  /* Google DeepMind Standard Line Heights & Tracking */
-  --line-height-display: 1.05;
-  --line-height-heading: 1.08;
-  --letter-spacing-display: 0.005em;
-  --letter-spacing-heading: 0.01em;
-  --letter-spacing-base: 0.01em;
+  /* Google DeepMind & Material Standard Line Heights & Tracking */
+  --line-height-display: 1.12;
+  --line-height-heading: 1.25;
+  --line-height-body: 1.80;
+  --letter-spacing-display: -0.025em;
+  --letter-spacing-heading: -0.015em;
+  --letter-spacing-base: 0.005em;
 
   /* Timing & Motion Curves */
   --transition-instant: 0.1s ease-out;

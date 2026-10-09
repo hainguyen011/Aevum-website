@@ -82,19 +82,6 @@ export const DiscussionCardAtmosphere = memo(function DiscussionCardAtmosphere({
           maskImage: 'linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.55) 30%, rgba(0,0,0,0.12) 62%, transparent 85%)',
         }}
       />
-      {/* ── 4. Precision Top Hairline Glow Accent (Cyber Rim Light) ── */}
-      <div
-        className="absolute top-0 left-0 right-0 h-[1px] pointer-events-none opacity-50 group-hover:opacity-90 transition-opacity duration-300 z-[2]"
-        style={{
-          background: theme.type === 'bug'
-            ? 'linear-gradient(90deg, rgba(244, 63, 94, 0.7) 0%, rgba(244, 63, 94, 0.2) 50%, transparent 85%)'
-            : theme.type === 'feature'
-            ? 'linear-gradient(90deg, rgba(249, 115, 22, 0.7) 0%, rgba(249, 115, 22, 0.2) 50%, transparent 85%)'
-            : theme.type === 'feedback'
-            ? 'linear-gradient(90deg, rgba(16, 185, 129, 0.7) 0%, rgba(16, 185, 129, 0.2) 50%, transparent 85%)'
-            : 'linear-gradient(90deg, rgba(14, 165, 233, 0.7) 0%, rgba(14, 165, 233, 0.2) 50%, transparent 85%)',
-        }}
-      />
     </div>
   );
 });

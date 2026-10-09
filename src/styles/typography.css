@@ -1,6 +1,7 @@
 /**
  * AEVUM OS TYPOGRAPHY ARCHITECTURE
- * Clean Modern Precision Typography • High Contrast Hierarchy • Pure White Text Accents
+ * Standard Google Sans Flex Typography System • Human-Centric Reading Rhythm
+ * Full Vietnamese Diacritics Support • Optical Sizing Hierarchy • Regular Weight Standard (400)
  */
 
 /* Global Selection */
@@ -9,52 +10,154 @@
   color: #000000;
 }
 
-/* Base Body Typography */
+/* Base Body Typography - Strict Regular Weight (400) for Eye Comfort & Accessibility */
 html, body {
   font-family: 'Google Sans Flex', var(--font-sans);
+  font-weight: 400;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings:
+    "slnt" 0,
+    "wdth" 100,
+    "GRAD" 0,
+    "ROND" 0;
   color: var(--text-primary);
   background-color: var(--bg-dark);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  letter-spacing: 0.005em;
+}
+
+.google-sans-flex {
+  font-family: "Google Sans Flex", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings:
+    "slnt" 0,
+    "wdth" 100,
+    "GRAD" 0,
+    "ROND" 0;
 }
 
 button, input, select, textarea {
-  font-family: 'Google Sans Flex', inherit;
+  font-family: 'Google Sans Flex', var(--font-sans);
+  font-optical-sizing: auto;
+  font-variation-settings:
+    "slnt" 0,
+    "wdth" 100,
+    "GRAD" 0,
+    "ROND" 0;
 }
 
-/* Heading Scale (Google DeepMind Standard Weights 450 - 500) */
+/* Universal Heading Scale with Optical Sizing (Google Sans Flex Specification) */
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Google Sans Flex', var(--font-display);
-  font-weight: 500;
-  letter-spacing: var(--letter-spacing-heading);
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings:
+    "slnt" 0,
+    "wdth" 100,
+    "GRAD" 0,
+    "ROND" 0;
   color: var(--text-primary);
-  line-height: var(--line-height-heading);
   text-wrap: pretty;
 }
 
 h1 {
-  letter-spacing: var(--letter-spacing-display);
-  line-height: var(--line-height-display);
+  font-weight: 500;
+  font-size: clamp(1.75rem, 3.2vw, 2.25rem); /* 28px - 36px */
+  letter-spacing: -0.02em;
+  line-height: 1.2;
 }
 
-/* Technical Font Helper */
+/* Heading 2: Google Sans Flex Specimen Standard — Size: 22px (1.375rem), Weight: 400 (Regular) */
+h2 {
+  font-weight: 400;
+  font-size: 1.375rem; /* 22px */
+  letter-spacing: -0.012em;
+  line-height: 1.3;
+}
+
+h3 {
+  font-weight: 400;
+  font-size: 1.125rem; /* 18px */
+  letter-spacing: -0.008em;
+  line-height: 1.38;
+}
+
+h4 {
+  font-weight: 500;
+  font-size: 1rem; /* 16px */
+  letter-spacing: -0.005em;
+  line-height: 1.45;
+}
+
+h5, h6 {
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.5;
+}
+
+/* Standard Regular Paragraph Reading Rhythm (Optimized for Universal Accessibility & Elder Eye Comfort) */
+p {
+  font-family: 'Google Sans Flex', var(--font-sans);
+  font-weight: 400;
+  font-optical-sizing: auto;
+  font-size: 1rem; /* 16px universal baseline */
+  line-height: 1.8;
+  letter-spacing: 0.005em;
+}
+
+/* Editorial Long-form Reading Rhythm for Articles, Docs and Learning Lessons */
+article p,
+.docs-article p,
+.prose-reading p {
+  font-family: 'Google Sans Flex', var(--font-sans);
+  font-weight: 400;
+  font-optical-sizing: auto;
+  font-size: 1.03125rem; /* ~16.5px high-legibility baseline */
+  line-height: 1.8;
+  letter-spacing: 0.005em;
+}
+
+/* Technical & Font Stack Helpers */
 .font-display {
   font-family: 'Google Sans Flex', var(--font-display);
+  font-optical-sizing: auto;
 }
 
 .font-sans {
   font-family: 'Google Sans Flex', var(--font-sans);
+  font-optical-sizing: auto;
 }
 
 .font-mono {
-  font-family: var(--font-mono);
+  font-family: var(--font-mono) !important;
 }
 
-/* Standardized Section Kicker / Sub-brand Tag (Standard Google DeepMind Typography) */
+code, pre, kbd, samp {
+  font-family: var(--font-mono) !important;
+}
+
+/* Quote Typography - Encode Sans Condensed */
+.font-quote,
+.encode-sans-condensed {
+  font-family: "Encode Sans Condensed", sans-serif;
+}
+
+.encode-sans-condensed-extralight {
+  font-family: "Encode Sans Condensed", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+/* Standardized Section Kicker / Sub-brand Tag */
 .section-tag,
 .kicker-tag {
   font-family: 'Google Sans Flex', var(--font-sans);
+  font-optical-sizing: auto;
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.12em;
@@ -71,9 +174,12 @@ h1 {
 
 /* Section Subtitle Rhythm */
 .section-subtitle {
-  font-size: clamp(0.75rem, 1.5vw, 0.875rem);
+  font-family: 'Google Sans Flex', var(--font-sans);
+  font-weight: 400;
+  font-optical-sizing: auto;
+  font-size: clamp(0.8125rem, 1.5vw, 0.9375rem);
   color: var(--text-muted);
-  line-height: 1.6;
+  line-height: 1.65;
   max-width: 38rem;
   margin-top: 0.5rem;
   margin-left: auto;

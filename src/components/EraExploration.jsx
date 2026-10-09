@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { curriculumModules, findLessonById } from '../data/learningCurriculum';
+import { ArticleRenderer } from './ArticleRenderer';
 import { TranslationService } from '../services/TranslationService';
+import { ReaderSidebarLeft } from './ReaderSidebarLeft';
+import { ReaderSidebarRight } from './ReaderSidebarRight';
 import {
   Menu,
   X,
@@ -85,10 +88,15 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
     });
   };
 
-  // Font size state for comfortable, accessible reading (normal: standard, large: 115%)
+  // Font size state for comfortable, accessible reading (synchronized across Docs & Explore)
   const [fontSize, setFontSize] = useState(() => {
     if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
-      return localStorage.getItem('aevum_reader_fontsize') || 'normal';
+      return (
+        localStorage.getItem('aevum_reading_font_size') ||
+        localStorage.getItem('aevum-docs-font-size') ||
+        localStorage.getItem('aevum_reader_fontsize') ||
+        'normal'
+      );
     }
     return 'normal';
   });
@@ -97,6 +105,8 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
     const next = fontSize === 'normal' ? 'large' : 'normal';
     setFontSize(next);
     if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+      localStorage.setItem('aevum_reading_font_size', next);
+      localStorage.setItem('aevum-docs-font-size', next);
       localStorage.setItem('aevum_reader_fontsize', next);
     }
   };
@@ -420,217 +430,6 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
     }
   };
 
-  // High-legibility Markdown Parser with responsive font sizing
-  const parseInlineStyles = useCallback((text) => {
-    const parts = text.split(/(\*\*.*?\*\*|\*.*?\*|`.*?`)/g);
-    return parts.map((part, index) => {
-      if (part.startsWith('**') && part.endsWith('**')) {
-        return (
-          <strong key={index} className="font-semibold text-white [html[data-theme='light']_&]:text-slate-900">
-            {part.slice(2, -2)}
-          </strong>
-        );
-      }
-      if (part.startsWith('*') && part.endsWith('*')) {
-        return (
-          <em key={index} className="italic text-slate-300 [html[data-theme='light']_&]:text-slate-700">
-            {part.slice(1, -1)}
-          </em>
-        );
-      }
-      if (part.startsWith('`') && part.endsWith('`')) {
-        return (
-          <code key={index} className="px-1.5 py-0.5 rounded bg-white/[0.05] [html[data-theme='light']_&]:bg-slate-200/70 text-slate-200 [html[data-theme='light']_&]:text-slate-800 font-mono text-[11px] border border-white/5 [html[data-theme='light']_&]:border-slate-300">
-            {part.slice(1, -1)}
-          </code>
-        );
-      }
-      return part;
-    });
-  }, []);
-
-  const renderedContentElements = useMemo(() => {
-    if (!activeContent) return null;
-    const lines = activeContent.split('\n');
-    const elements = [];
-    let inCodeBlock = false;
-    let codeLanguage = '';
-    let codeLines = [];
-    let inTable = false;
-    let tableRows = [];
-
-    const flushTable = (key) => {
-      if (tableRows.length === 0) return null;
-      const headers = tableRows[0];
-      const dataRows = tableRows.slice(2);
-      const tableElem = (
-        <div key={`table-${key}`} className="my-6 w-full overflow-x-auto border border-white/10 [html[data-theme='light']_&]:border-slate-200 rounded">
-          <table className="w-full text-left text-xs sm:text-[13px] border-collapse">
-            <thead>
-              <tr className="border-b border-white/10 [html[data-theme='light']_&]:border-slate-200 bg-white/[0.03] [html[data-theme='light']_&]:bg-slate-100">
-                {headers.map((h, i) => (
-                  <th key={i} className="py-3 px-4 font-mono font-medium text-slate-200 [html[data-theme='light']_&]:text-slate-900">
-                    {h.trim()}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {dataRows.map((row, rIdx) => (
-                <tr key={rIdx} className="border-b border-white/5 [html[data-theme='light']_&]:border-slate-100 hover:bg-white/[0.02] [html[data-theme='light']_&]:hover:bg-slate-50 transition-colors">
-                  {row.map((cell, cIdx) => (
-                    <td key={cIdx} className="py-2.5 px-4 text-slate-300 [html[data-theme='light']_&]:text-slate-700">
-                      {cell.trim()}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      );
-      tableRows = [];
-      return tableElem;
-    };
-
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i];
-
-      // Code blocks
-      if (line.startsWith('```')) {
-        if (!inCodeBlock) {
-          if (inTable) {
-            elements.push(flushTable(i));
-            inTable = false;
-          }
-          inCodeBlock = true;
-          codeLanguage = line.slice(3).trim();
-          codeLines = [];
-        } else {
-          elements.push(
-            <div key={`code-${i}`} className="my-6 rounded border border-white/10 [html[data-theme='light']_&]:border-slate-200 bg-[#030407] [html[data-theme='light']_&]:bg-[#F1F5F9] overflow-hidden">
-              {codeLanguage && (
-                <div className="flex items-center justify-between px-3.5 py-1.5 bg-white/[0.02] [html[data-theme='light']_&]:bg-slate-200/60 border-b border-white/5 [html[data-theme='light']_&]:border-slate-200 text-[11px] font-mono text-slate-400 [html[data-theme='light']_&]:text-slate-600">
-                  <span>{codeLanguage}</span>
-                </div>
-              )}
-              <pre className="p-4 text-xs sm:text-[13px] font-mono text-slate-200 [html[data-theme='light']_&]:text-slate-800 overflow-x-auto leading-relaxed">
-                <code>{codeLines.join('\n')}</code>
-              </pre>
-            </div>
-          );
-          inCodeBlock = false;
-          codeLines = [];
-        }
-        continue;
-      }
-
-      if (inCodeBlock) {
-        codeLines.push(line);
-        continue;
-      }
-
-      // Tables
-      if (line.trim().startsWith('|') && line.trim().endsWith('|')) {
-        inTable = true;
-        const cells = line.trim().split('|').slice(1, -1);
-        tableRows.push(cells);
-        continue;
-      } else if (inTable) {
-        elements.push(flushTable(i));
-        inTable = false;
-      }
-
-      // Main Document Title (skipped, handled by header)
-      if (line.startsWith('# ')) {
-        continue;
-      }
-
-      // H2 Headings
-      if (line.startsWith('## ')) {
-        const titleText = line.replace('## ', '').trim();
-        const id = titleText.toLowerCase().replace(/[^\w\u00C0-\u1EF9\s-]/g, '').replace(/\s+/g, '-');
-        elements.push(
-          <div key={`h2-${i}`} id={id} className="pt-8 pb-3 scroll-mt-24">
-            <h2 className="text-lg sm:text-xl font-bold text-white [html[data-theme='light']_&]:text-slate-900 tracking-tight font-display">
-              {titleText}
-            </h2>
-          </div>
-        );
-        continue;
-      }
-
-      // H3 Headings
-      if (line.startsWith('### ')) {
-        const titleText = line.replace('### ', '').trim();
-        const id = titleText.toLowerCase().replace(/[^\w\u00C0-\u1EF9\s-]/g, '').replace(/\s+/g, '-');
-        elements.push(
-          <div key={`h3-${i}`} id={id} className="pt-5 pb-2 scroll-mt-24">
-            <h3 className="text-sm sm:text-base font-semibold text-white [html[data-theme='light']_&]:text-slate-900 font-display">
-              {titleText}
-            </h3>
-          </div>
-        );
-        continue;
-      }
-
-      // Blockquotes - Calm editorial styling
-      if (line.startsWith('> ')) {
-        elements.push(
-          <div key={`quote-${i}`} className="my-5 pl-4 border-l-2 border-white/40 [html[data-theme='light']_&]:border-slate-400 text-slate-300 [html[data-theme='light']_&]:text-slate-700 italic text-xs sm:text-[13px] py-1 leading-relaxed">
-            {line.replace('> ', '')}
-          </div>
-        );
-        continue;
-      }
-
-      // Bullet lists
-      if (line.match(/^(\*|-)\s+/)) {
-        const itemText = line.replace(/^(\*|-)\s+/, '');
-        elements.push(
-          <li key={`li-${i}`} className={`ml-5 list-disc text-slate-300 [html[data-theme='light']_&]:text-slate-700 py-1 leading-relaxed ${fontSize === 'large' ? 'text-sm sm:text-base' : 'text-xs sm:text-sm'}`}>
-            {parseInlineStyles(itemText)}
-          </li>
-        );
-        continue;
-      }
-
-      // Numbered lists
-      if (line.match(/^\d+\.\s+/)) {
-        const itemText = line.replace(/^\d+\.\s+/, '');
-        const numMatch = line.match(/^(\d+)\./);
-        const num = numMatch ? numMatch[1] : '1';
-        elements.push(
-          <div key={`num-${i}`} className={`flex items-start gap-2.5 py-1 text-slate-300 [html[data-theme='light']_&]:text-slate-700 leading-relaxed ${fontSize === 'large' ? 'text-sm sm:text-base' : 'text-xs sm:text-sm'}`}>
-            <span className="font-mono text-white [html[data-theme='light']_&]:text-slate-900 font-semibold shrink-0">{num}.</span>
-            <div className="flex-1">{parseInlineStyles(itemText)}</div>
-          </div>
-        );
-        continue;
-      }
-
-      // Horizontal dividers
-      if (line.trim() === '---') {
-        elements.push(<hr key={`hr-${i}`} className="my-8 border-t border-white/10 [html[data-theme='light']_&]:border-slate-200" />);
-        continue;
-      }
-
-      // Standard paragraphs - Comfortable line height and soft contrast
-      if (line.trim().length > 0) {
-        elements.push(
-          <p key={`p-${i}`} className={`my-3 text-slate-300 [html[data-theme='light']_&]:text-slate-700 font-normal ${fontSize === 'large' ? 'text-sm sm:text-[15.5px] leading-[1.85]' : 'text-xs sm:text-[14px] leading-[1.75]'}`}>
-            {parseInlineStyles(line)}
-          </p>
-        );
-      }
-    }
-
-    if (inTable) {
-      elements.push(flushTable('end'));
-    }
-
-    return elements;
-  }, [activeContent, fontSize, parseInlineStyles]);
 
   return (
     <div className="w-full min-h-[calc(100vh-73px)] bg-[#07090D] [html[data-theme='light']_&]:bg-[#F8FAFC] text-slate-200 [html[data-theme='light']_&]:text-slate-800 era-exploration-root font-sans">
@@ -673,11 +472,10 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
               <div className="inline-flex rounded border border-white/10 [html[data-theme='light']_&]:border-slate-200 p-0.5 bg-white/[0.02] [html[data-theme='light']_&]:bg-slate-200/60">
                 <button
                   onClick={() => backToGrid()}
-                  className={`flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-mono transition-colors cursor-pointer ${
-                    viewMode === 'grid'
-                      ? 'bg-white/10 [html[data-theme="light"]_&]:bg-white text-white [html[data-theme="light"]_&]:text-slate-900 font-medium [html[data-theme="light"]_&]:shadow-sm'
-                      : 'text-slate-400 [html[data-theme="light"]_&]:text-slate-600 hover:text-white [html[data-theme="light"]_&]:hover:text-slate-900'
-                  }`}
+                  className={`flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-mono transition-colors cursor-pointer ${viewMode === 'grid'
+                    ? 'bg-white/10 [html[data-theme="light"]_&]:bg-white text-white [html[data-theme="light"]_&]:text-slate-900 font-medium [html[data-theme="light"]_&]:shadow-sm'
+                    : 'text-slate-400 [html[data-theme="light"]_&]:text-slate-600 hover:text-white [html[data-theme="light"]_&]:hover:text-slate-900'
+                    }`}
                   title={isVi ? 'Xem dạng thẻ' : 'Card Grid view'}
                 >
                   <LayoutGrid size={12} />
@@ -685,11 +483,10 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                 </button>
                 <button
                   onClick={() => openLessonReader(activeLessonId)}
-                  className={`flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-mono transition-colors cursor-pointer ${
-                    viewMode === 'reader'
-                      ? 'bg-white/10 [html[data-theme="light"]_&]:bg-white text-white [html[data-theme="light"]_&]:text-slate-900 font-medium [html[data-theme="light"]_&]:shadow-sm'
-                      : 'text-slate-400 [html[data-theme="light"]_&]:text-slate-600 hover:text-white [html[data-theme="light"]_&]:hover:text-slate-900'
-                  }`}
+                  className={`flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-mono transition-colors cursor-pointer ${viewMode === 'reader'
+                    ? 'bg-white/10 [html[data-theme="light"]_&]:bg-white text-white [html[data-theme="light"]_&]:text-slate-900 font-medium [html[data-theme="light"]_&]:shadow-sm'
+                    : 'text-slate-400 [html[data-theme="light"]_&]:text-slate-600 hover:text-white [html[data-theme="light"]_&]:hover:text-slate-900'
+                    }`}
                   title={isVi ? 'Xem dạng đọc chi tiết' : 'Reader view'}
                 >
                   <AlignLeft size={12} />
@@ -726,11 +523,10 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                 >
                   <button
                     onClick={() => setSelectedCategory('all')}
-                    className={`px-2.5 py-1 rounded text-xs transition-colors whitespace-nowrap cursor-pointer ${
-                      selectedCategory === 'all'
-                        ? 'text-white [html[data-theme="light"]_&]:text-slate-900 bg-white/10 [html[data-theme="light"]_&]:bg-slate-200/70 font-medium'
-                        : 'text-slate-400 [html[data-theme="light"]_&]:text-slate-600 hover:text-white [html[data-theme="light"]_&]:hover:text-slate-900'
-                    }`}
+                    className={`px-2.5 py-1 rounded text-xs transition-colors whitespace-nowrap cursor-pointer ${selectedCategory === 'all'
+                      ? 'text-white [html[data-theme="light"]_&]:text-slate-900 bg-white/10 [html[data-theme="light"]_&]:bg-slate-200/70 font-medium'
+                      : 'text-slate-400 [html[data-theme="light"]_&]:text-slate-600 hover:text-white [html[data-theme="light"]_&]:hover:text-slate-900'
+                      }`}
                   >
                     {isVi ? 'Tất cả' : 'All'} ({allLessons.length})
                   </button>
@@ -738,11 +534,10 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                     <button
                       key={mod.id}
                       onClick={() => setSelectedCategory(mod.id)}
-                      className={`px-2.5 py-1 rounded text-xs transition-colors whitespace-nowrap cursor-pointer ${
-                        selectedCategory === mod.id
-                          ? 'text-white [html[data-theme="light"]_&]:text-slate-900 bg-white/10 [html[data-theme="light"]_&]:bg-slate-200/70 font-medium'
-                          : 'text-slate-400 [html[data-theme="light"]_&]:text-slate-600 hover:text-white [html[data-theme="light"]_&]:hover:text-slate-900'
-                      }`}
+                      className={`px-2.5 py-1 rounded text-xs transition-colors whitespace-nowrap cursor-pointer ${selectedCategory === mod.id
+                        ? 'text-white [html[data-theme="light"]_&]:text-slate-900 bg-white/10 [html[data-theme="light"]_&]:bg-slate-200/70 font-medium'
+                        : 'text-slate-400 [html[data-theme="light"]_&]:text-slate-600 hover:text-white [html[data-theme="light"]_&]:hover:text-slate-900'
+                        }`}
                     >
                       {mod.categoryName || mod.title}
                     </button>
@@ -767,7 +562,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder={isVi ? 'Tìm bài học...' : 'Search lessons...'}
-                  className="w-full pl-8 pr-7 py-1.5 rounded bg-white/[0.03] [html[data-theme='light']_&]:bg-white border border-white/10 [html[data-theme='light']_&]:border-slate-200 focus:border-white/30 [html[data-theme='light']_&]:focus:border-slate-400 text-xs text-white [html[data-theme='light']_&]:text-slate-900 placeholder-slate-400 font-mono outline-none transition-colors"
+                  className="w-full pl-8 pr-7 py-1.5 rounded bg-white/[0.03] [html[data-theme='light']_&]:bg-white border border-white/10 [html[data-theme='light']_&]:border-slate-200 focus:border-white/30 [html[data-theme='light']_&]:focus:border-slate-400 text-xs text-white [html[data-theme='light']_&]:text-slate-900 placeholder-slate-400 font-sans outline-none transition-colors"
                 />
                 {searchQuery && (
                   <button
@@ -784,7 +579,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
           {/* Cards Grid */}
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
             {filteredLessons.length === 0 ? (
-              <div className="text-center py-16 text-slate-400 text-xs font-mono">
+              <div className="text-center py-16 text-slate-400 text-xs font-sans">
                 <p>{isVi ? 'Không tìm thấy bài học phù hợp.' : 'No lessons found.'}</p>
                 <button
                   onClick={() => { setSelectedCategory('all'); setSearchQuery(''); }}
@@ -892,147 +687,63 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                   </div>
 
                   {/* Drawer Lessons List */}
-                  <div className="flex-1 overflow-y-auto p-4 space-y-4">
-                    {curriculumModules.map((mod) => (
-                      <div key={mod.id} className="space-y-1">
-                        <div className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest px-2 py-0.5">
-                          {mod.categoryName || mod.title}
-                        </div>
-                        <div className="space-y-0.5">
-                          {mod.lessons.map((lesson) => {
-                            const isActive = lesson.id === activeLessonId;
-                            const isDone = completedLessons.includes(lesson.id);
-                            return (
-                              <button
-                                key={lesson.id}
-                                onClick={() => openLessonReader(lesson.id)}
-                                className={`w-full flex items-center justify-between text-left py-2 px-2.5 rounded text-xs transition-colors cursor-pointer ${
-                                  isActive
-                                    ? 'text-white [html[data-theme="light"]_&]:text-slate-900 bg-white/10 [html[data-theme="light"]_&]:bg-slate-200 font-medium'
-                                    : 'text-slate-400 [html[data-theme="light"]_&]:text-slate-600 hover:text-white [html[data-theme="light"]_&]:hover:text-slate-900'
-                                }`}
-                              >
-                                <div className="flex items-center gap-2 truncate">
-                                  {isDone ? (
-                                    <CheckCircle2 size={12} className="text-emerald-400 shrink-0" />
-                                  ) : (
-                                    <Circle size={10} className="text-slate-500 shrink-0" />
-                                  )}
-                                  <span className="truncate">{lesson.title}</span>
-                                </div>
-                                <ChevronRight size={12} className="shrink-0 text-slate-500" />
-                              </button>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    ))}
+                  <div className="flex-1 overflow-hidden">
+                    <ReaderSidebarLeft
+                      asMobileDrawer={true}
+                      searchQuery={sidebarFilterQuery}
+                      onSearchChange={setSidebarFilterQuery}
+                      searchPlaceholder={isVi ? 'Lọc bài học...' : 'Filter lessons...'}
+                      categories={filteredSidebarModules}
+                      activeId={activeLessonId}
+                      onSelectItem={(lesson) => openLessonReader(lesson.id)}
+                      getItemHref={(lesson) => `/explore/${lesson.id}`}
+                      onCloseDrawer={() => setMobileDrawerOpen(false)}
+                      isVi={isVi}
+                    />
                   </div>
                 </div>
               </div>,
               document.body
             )}
 
-          {/* ── LEFT RAIL: Clean Syllabus Outline (Exact Docs Style & Unified Color) ── */}
-          <aside className="hidden lg:block w-64 border-r border-white/5 [html[data-theme='light']_&]:border-slate-200/80 shrink-0 bg-transparent">
-            <div className="sticky top-[73px] flex flex-col justify-between h-[calc(100vh-73px)]">
-              {/* Quick Filter Search Bar */}
-              <div className="p-4 border-b border-white/5 [html[data-theme='light']_&]:border-slate-200/80 shrink-0">
-                <div className="relative">
-                  <Search size={13} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
-                  <input
-                    type="text"
-                    value={sidebarFilterQuery}
-                    onChange={(e) => setSidebarFilterQuery(e.target.value)}
-                    placeholder={isVi ? 'Lọc bài học...' : 'Filter lessons...'}
-                    className="w-full bg-white/[0.02] [html[data-theme='light']_&]:bg-white border border-white/10 [html[data-theme='light']_&]:border-slate-200 rounded-md pl-8 pr-7 py-1.5 text-xs text-white [html[data-theme='light']_&]:text-slate-900 placeholder-slate-500 focus:outline-none focus:border-white/30 [html[data-theme='light']_&]:focus:border-slate-400 transition-colors font-mono"
-                  />
-                  {sidebarFilterQuery && (
-                    <button
-                      onClick={() => setSidebarFilterQuery('')}
-                      className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900"
-                    >
-                      <X size={12} />
-                    </button>
-                  )}
-                </div>
-              </div>
-
-              {/* Scrollable Categories List */}
-              <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin">
-                {filteredSidebarModules.map((mod) => (
-                  <div key={mod.id}>
-                    <div className="text-[10px] font-mono font-bold text-slate-500 [html[data-theme='light']_&]:text-slate-600 uppercase tracking-wider mb-1.5 px-1">
-                      {mod.categoryName || mod.title}
-                    </div>
-
-                    <ul className="space-y-0.5">
-                      {mod.lessons.map((lesson) => {
-                        const isActive = lesson.id === activeLessonId;
-                        const isDone = completedLessons.includes(lesson.id);
-
-                        return (
-                          <li key={lesson.id}>
-                            <button
-                              onClick={() => openLessonReader(lesson.id)}
-                              className={`w-full flex items-center justify-between text-left py-1.5 px-2.5 rounded text-xs font-medium border transition-colors duration-150 ease-out group cursor-pointer ${
-                                isActive
-                                  ? 'text-white [html[data-theme="light"]_&]:text-slate-900 bg-white/10 [html[data-theme="light"]_&]:bg-slate-200 border-white/20 border-l-2 border-l-white [html[data-theme="light"]_&]:border-l-slate-900'
-                                  : 'text-slate-400 [html[data-theme="light"]_&]:text-slate-600 border-transparent hover:text-slate-200 [html[data-theme="light"]_&]:hover:text-slate-900 hover:bg-white/[0.015] [html[data-theme="light"]_&]:hover:bg-slate-200/50'
-                              }`}
-                            >
-                              <div className="flex items-center gap-2 truncate">
-                                {isDone ? (
-                                  <CheckCircle2 size={12} className="text-emerald-400 shrink-0" />
-                                ) : (
-                                  <Circle size={10} className="text-slate-500 shrink-0" />
-                                )}
-                                <span className="truncate">{lesson.title}</span>
-                              </div>
-                              <ChevronRight
-                                size={12}
-                                className={`shrink-0 transition-transform duration-150 ${
-                                  isActive
-                                    ? 'translate-x-0.5 text-white [html[data-theme="light"]_&]:text-slate-900'
-                                    : 'opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 text-slate-500'
-                                }`}
-                              />
-                            </button>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-
-              {/* Sidebar Footer Hint */}
-              <div className="p-4 border-t border-white/5 [html[data-theme='light']_&]:border-slate-200/80 flex items-center justify-between text-[10px] font-mono text-slate-400 [html[data-theme='light']_&]:text-slate-500 shrink-0">
-                <span>Aevum OS • {isVi ? 'Tri thức mở' : 'Open Academy'}</span>
-                <span className="px-1.5 py-0.5 rounded bg-white/[0.03] [html[data-theme='light']_&]:bg-slate-200/70 border border-white/5">
-                  {allLessons.length} {isVi ? 'bài' : 'lessons'}
-                </span>
-              </div>
-            </div>
-          </aside>
+          {/* ── LEFT RAIL: Clean Syllabus Outline (Exact Docs Style & Unified Component) ── */}
+          <ReaderSidebarLeft
+            searchQuery={sidebarFilterQuery}
+            onSearchChange={setSidebarFilterQuery}
+            searchPlaceholder={isVi ? 'Lọc bài học...' : 'Filter lessons...'}
+            categories={filteredSidebarModules}
+            activeId={activeLessonId}
+            onSelectItem={(lesson) => openLessonReader(lesson.id)}
+            getItemHref={(lesson) => `/explore/${lesson.id}`}
+            isVi={isVi}
+            footerLeft={
+              <span className="flex items-center gap-1.5">
+                <span>{isVi ? 'Tri thức mở' : 'Open Academy'}</span>
+              </span>
+            }
+            footerRight={
+              <span className="px-1.5 py-0.5 rounded bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-200">
+                {allLessons.length} {isVi ? 'bài' : 'lessons'}
+              </span>
+            }
+          />
 
           {/* ── CENTER AREA: Main Focus Reading Article ── */}
           <div className="flex-1 flex flex-col xl:flex-row justify-between w-full bg-transparent">
             {/* Mobile Sticky Menu Trigger */}
             <button
               onClick={() => setMobileDrawerOpen(true)}
-              className={`lg:hidden sticky top-[76px] ml-4 mt-4 z-30 px-3 py-2 rounded-lg bg-[#07090D]/90 [html[data-theme='light']_&]:bg-white/95 backdrop-blur-md text-white [html[data-theme='light']_&]:text-slate-900 border border-white/15 [html[data-theme='light']_&]:border-slate-300 shadow-md flex items-center gap-2 cursor-pointer transition-all duration-300 self-start ${
-                isMobileBtnVisible ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-30 scale-95 hover:opacity-100'
-              }`}
+              className={`lg:hidden sticky top-[76px] ml-4 mt-4 z-30 px-3 py-2 rounded-lg bg-[#07090D]/90 [html[data-theme='light']_&]:bg-white/95 backdrop-blur-md text-white [html[data-theme='light']_&]:text-slate-900 border border-white/15 [html[data-theme='light']_&]:border-slate-300 shadow-md flex items-center gap-2 cursor-pointer transition-all duration-300 self-start ${isMobileBtnVisible ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-30 scale-95 hover:opacity-100'
+                }`}
               aria-label="Mở mục lục bài học"
             >
               <Menu size={16} className="text-white [html[data-theme='light']_&]:text-slate-900" />
-              <span className="text-xs font-mono font-medium">{isVi ? 'Mục lục' : 'Menu'}</span>
+              <span className="text-xs font-sans font-medium">{isVi ? 'Mục lục' : 'Menu'}</span>
             </button>
 
             <article className="w-full max-w-4xl mx-auto px-6 sm:px-10 lg:px-12 py-8 lg:py-10 bg-transparent">
               {/* Semantic Breadcrumbs (Monochrome Style) */}
-              <nav aria-label="Breadcrumb" className="mb-5 flex items-center flex-wrap gap-2 text-xs font-mono text-slate-400 [html[data-theme='light']_&]:text-slate-500">
+              <nav aria-label="Breadcrumb" className="mb-5 flex items-center flex-wrap gap-2 text-xs font-sans text-slate-400 [html[data-theme='light']_&]:text-slate-500">
                 <a
                   href="/"
                   onClick={(e) => { e.preventDefault(); onNavigate?.('landing'); }}
@@ -1048,19 +759,19 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                   {isVi ? 'Khám phá' : 'Explore'}
                 </button>
                 <ChevronRight size={12} className="text-slate-600 shrink-0" />
-                <span className="text-slate-400 [html[data-theme='light']_&]:text-slate-500 uppercase tracking-wider text-[11px] truncate max-w-[200px]">
+                <span className="text-slate-400 [html[data-theme='light']_&]:text-slate-500 uppercase tracking-wider text-[11px] font-medium truncate max-w-[200px]">
                   {activeLesson.category}
                 </span>
                 <ChevronRight size={12} className="text-slate-600 shrink-0" />
-                <span className="text-white [html[data-theme='light']_&]:text-slate-900 font-semibold truncate max-w-[240px]">
+                <span className="text-white [html[data-theme='light']_&]:text-slate-900 font-medium truncate max-w-[240px]">
                   {activeLesson.title}
                 </span>
               </nav>
 
               {/* Minimalist Article Metadata Bar & Reader Controls */}
-              <header className="flex flex-wrap items-center justify-between gap-3 pb-5 mb-8 border-b border-white/10 [html[data-theme='light']_&]:border-slate-200/80 text-xs font-mono text-slate-400 [html[data-theme='light']_&]:text-slate-500">
+              <header className="flex flex-wrap items-center justify-between gap-3 pb-4 mb-8 text-xs font-sans text-slate-400 [html[data-theme='light']_&]:text-slate-500">
                 <div className="flex items-center flex-wrap gap-3">
-                  <span className="px-2 py-0.5 rounded bg-white/[0.06] [html[data-theme='light']_&]:bg-slate-200/80 text-white [html[data-theme='light']_&]:text-slate-900 border border-white/15 [html[data-theme='light']_&]:border-slate-300 uppercase tracking-wider text-[10px] font-semibold">
+                  <span className="px-2 py-0.5 rounded bg-white/[0.06] [html[data-theme='light']_&]:bg-slate-200/80 text-white [html[data-theme='light']_&]:text-slate-900 border border-white/15 [html[data-theme='light']_&]:border-slate-300 uppercase tracking-wider text-[10px] font-medium">
                     {activeLesson.category}
                   </span>
                   <span className="flex items-center gap-1.5 text-slate-400 [html[data-theme='light']_&]:text-slate-500">
@@ -1080,7 +791,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                     title={fontSize === 'normal' ? (isVi ? 'Tăng kích thước chữ (115%)' : 'Increase font size') : (isVi ? 'Đặt lại cỡ chữ chuẩn' : 'Reset font size')}
                   >
                     <Type size={13} className="text-white [html[data-theme='light']_&]:text-slate-900" />
-                    <span className="text-[11px] font-mono">
+                    <span className="text-[11px] font-sans font-medium">
                       {fontSize === 'normal' ? 'A' : 'A+'}
                     </span>
                   </button>
@@ -1088,11 +799,10 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                   {/* Mark Completed Toggle */}
                   <button
                     onClick={() => toggleLessonCompleted(activeLessonId)}
-                    className={`flex items-center gap-1.5 px-2.5 py-1 rounded text-[11px] font-mono border transition-colors cursor-pointer ${
-                      completedLessons.includes(activeLessonId)
-                        ? 'border-emerald-500/30 text-emerald-400 bg-emerald-500/5'
-                        : 'border-white/10 [html[data-theme="light"]_&]:border-slate-200 text-slate-400 [html[data-theme="light"]_&]:text-slate-600 hover:text-white [html[data-theme="light"]_&]:hover:text-slate-900'
-                    }`}
+                    className={`flex items-center gap-1.5 px-2.5 py-1 rounded text-[11px] font-sans font-medium border transition-colors cursor-pointer ${completedLessons.includes(activeLessonId)
+                      ? 'border-emerald-500/30 text-emerald-400 bg-emerald-500/5'
+                      : 'border-white/10 [html[data-theme="light"]_&]:border-slate-200 text-slate-400 [html[data-theme="light"]_&]:text-slate-600 hover:text-white [html[data-theme="light"]_&]:hover:text-slate-900'
+                      }`}
                   >
                     {completedLessons.includes(activeLessonId) ? (
                       <>
@@ -1114,46 +824,46 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                     title={isVi ? 'Sao chép liên kết bài học' : 'Copy lesson link'}
                   >
                     {copiedLink ? <Check size={12} className="text-emerald-400" /> : <Share2 size={12} />}
-                    <span className="text-[11px] font-mono">{copiedLink ? (isVi ? 'Đã chép' : 'Copied') : (isVi ? 'Chia sẻ' : 'Share')}</span>
+                    <span className="text-[11px] font-sans font-medium">{copiedLink ? (isVi ? 'Đã chép' : 'Copied') : (isVi ? 'Chia sẻ' : 'Share')}</span>
                   </button>
                 </div>
               </header>
 
               {/* Article Main Title */}
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white [html[data-theme='light']_&]:text-slate-900 tracking-tight font-display leading-tight mb-4">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-white [html[data-theme='light']_&]:text-slate-900 tracking-tight font-display leading-[1.22] mb-5 max-w-prose text-pretty">
                 {activeLesson.title}
               </h1>
 
               {/* Article Summary */}
-              <p className="text-sm sm:text-base text-slate-400 [html[data-theme='light']_&]:text-slate-600 leading-relaxed font-normal mb-6">
+              <p className="text-[16px] sm:text-[17.5px] text-slate-300 [html[data-theme='light']_&]:text-slate-700 leading-relaxed font-normal mb-7 max-w-prose">
                 {activeLesson.summary}
               </p>
 
               {/* Transparent Agent Author Quote (Refined Editorial Style, Zero Box, Zero Highlight Accent) */}
               {activeLesson.author && (
-                <div className="pt-2 pb-6 border-b border-white/5 [html[data-theme='light']_&]:border-slate-200/80 mb-8">
+                <div className="pt-3 pb-8 mb-10 sm:mb-12 max-w-prose text-center">
                   {activeLesson.author.motto ? (
-                    <div className="border-l-2 border-white/20 [html[data-theme='light']_&]:border-slate-300 pl-4 py-1 space-y-1.5">
-                      <blockquote className="text-xs sm:text-[13px] italic text-slate-300 [html[data-theme='light']_&]:text-slate-700 leading-relaxed font-normal">
+                    <div className="py-1 space-y-2.5">
+                      <blockquote className="encode-sans-condensed-extralight text-[18px] sm:text-[20px] md:text-[22px] italic text-slate-100 [html[data-theme='light']_&]:text-slate-900 leading-snug tracking-wide text-center">
                         "{activeLesson.author.motto}"
                       </blockquote>
-                      <div className="flex flex-wrap items-center gap-x-2 text-[11px] font-mono text-slate-400 [html[data-theme='light']_&]:text-slate-500">
-                        <span className="text-slate-200 [html[data-theme='light']_&]:text-slate-800 font-medium">{activeLesson.author.name}</span>
-                        <span className="text-slate-600 [html[data-theme='light']_&]:text-slate-400">/</span>
-                        <span>{activeLesson.author.role}</span>
+                      <div className="flex flex-wrap items-center justify-center gap-x-2.5 text-[14px] sm:text-[15.5px] font-quote text-slate-400 [html[data-theme='light']_&]:text-slate-500">
+                        <span className="text-white [html[data-theme='light']_&]:text-slate-900 font-normal">{activeLesson.author.name}</span>
+                        <span className="text-slate-600 [html[data-theme='light']_&]:text-slate-400 font-light">/</span>
+                        <span className="text-slate-300 [html[data-theme='light']_&]:text-slate-600 font-light">{activeLesson.author.role}</span>
                         {activeLesson.author.aid && (
                           <>
-                            <span className="text-slate-600 [html[data-theme='light']_&]:text-slate-400">/</span>
-                            <span>{activeLesson.author.aid}</span>
+                            <span className="text-slate-600 [html[data-theme='light']_&]:text-slate-400 font-light">/</span>
+                            <span className="text-slate-400 [html[data-theme='light']_&]:text-slate-500 font-light tracking-wider">{activeLesson.author.aid}</span>
                           </>
                         )}
                       </div>
                     </div>
                   ) : (
-                    <div className="text-[11px] font-mono text-slate-400 [html[data-theme='light']_&]:text-slate-500 flex items-center gap-2">
-                      <span className="text-slate-200 [html[data-theme='light']_&]:text-slate-800 font-medium">{activeLesson.author.name}</span>
-                      <span className="text-slate-600 [html[data-theme='light']_&]:text-slate-400">/</span>
-                      <span>{activeLesson.author.role}</span>
+                    <div className="text-[14px] sm:text-[15.5px] font-quote text-slate-400 [html[data-theme='light']_&]:text-slate-500 flex items-center justify-center gap-2.5 text-center">
+                      <span className="text-white [html[data-theme='light']_&]:text-slate-900 font-normal">{activeLesson.author.name}</span>
+                      <span className="text-slate-600 [html[data-theme='light']_&]:text-slate-400 font-light">/</span>
+                      <span className="text-slate-300 [html[data-theme='light']_&]:text-slate-600 font-light">{activeLesson.author.role}</span>
                     </div>
                   )}
                 </div>
@@ -1161,7 +871,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
 
               {/* Dynamic Real-time Translation Spinner Indicator */}
               {translatingContent && (
-                <div className="mb-6 p-3 rounded-lg bg-white/[0.04] border border-white/10 text-white [html[data-theme='light']_&]:bg-slate-100 [html[data-theme='light']_&]:border-slate-300 [html[data-theme='light']_&]:text-slate-900 text-xs font-mono flex items-center gap-3">
+                <div className="mb-6 p-3 rounded-lg bg-white/[0.04] border border-white/10 text-white [html[data-theme='light']_&]:bg-slate-100 [html[data-theme='light']_&]:border-slate-300 [html[data-theme='light']_&]:text-slate-900 text-xs font-sans flex items-center gap-3">
                   <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -1172,9 +882,21 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                 </div>
               )}
 
-              {/* Rendered Markdown Body */}
-              <div className="py-2">
-                {renderedContentElements}
+              {/* Rendered Markdown Body via Unified ArticleRenderer */}
+              <div className="py-2" itemProp="articleBody">
+                <ArticleRenderer
+                  content={activeContent}
+                  activeId={activeLessonId}
+                  fontSize={fontSize}
+                  isVi={isVi}
+                  renderTitle={false}
+                  onHeadingClick={(headingId) => {
+                    scrollToHeading(headingId);
+                    if (typeof window !== 'undefined') {
+                      window.history.pushState(null, '', `/explore/${activeLessonId}#${headingId}`);
+                    }
+                  }}
+                />
               </div>
 
               {/* Bottom Prev / Next Navigation */}
@@ -1185,11 +907,11 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                       onClick={() => openLessonReader(prevLesson.id)}
                       className="p-4 rounded-lg border border-white/10 [html[data-theme='light']_&]:border-slate-200 hover:border-white/20 [html[data-theme='light']_&]:hover:border-slate-300 bg-white/[0.015] [html[data-theme='light']_&]:bg-white hover:bg-white/[0.03] text-left transition-all cursor-pointer group"
                     >
-                      <div className="flex items-center gap-1 text-[11px] font-mono text-slate-400 [html[data-theme='light']_&]:text-slate-500 mb-1">
+                      <div className="flex items-center gap-1 text-[11px] font-sans font-medium text-slate-400 [html[data-theme='light']_&]:text-slate-500 mb-1">
                         <ChevronLeft size={11} />
                         <span>{isVi ? 'Bài trước' : 'Previous'}</span>
                       </div>
-                      <div className="text-xs sm:text-sm font-medium text-white [html[data-theme='light']_&]:text-slate-900 group-hover:text-white [html[data-theme='light']_&]:group-hover:text-slate-950 transition-colors truncate">
+                      <div className="text-xs sm:text-sm font-medium text-white [html[data-theme='light']_&]:text-slate-900 group-hover:text-white [html[data-theme='light']_&]:group-hover:text-slate-950 transition-colors line-clamp-2 leading-snug">
                         {prevLesson.title}
                       </div>
                     </button>
@@ -1200,11 +922,11 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                       onClick={() => openLessonReader(nextLesson.id)}
                       className="p-4 rounded-lg border border-white/10 [html[data-theme='light']_&]:border-slate-200 hover:border-white/20 [html[data-theme='light']_&]:hover:border-slate-300 bg-white/[0.015] [html[data-theme='light']_&]:bg-white hover:bg-white/[0.03] text-right transition-all cursor-pointer group"
                     >
-                      <div className="flex items-center justify-end gap-1 text-[11px] font-mono text-slate-400 [html[data-theme='light']_&]:text-slate-500 mb-1">
+                      <div className="flex items-center justify-end gap-1 text-[11px] font-sans font-medium text-slate-400 [html[data-theme='light']_&]:text-slate-500 mb-1">
                         <span>{isVi ? 'Bài tiếp' : 'Next'}</span>
                         <ChevronRight size={11} />
                       </div>
-                      <div className="text-xs sm:text-sm font-medium text-white [html[data-theme='light']_&]:text-slate-900 group-hover:text-white [html[data-theme='light']_&]:group-hover:text-slate-950 transition-colors truncate">
+                      <div className="text-xs sm:text-sm font-medium text-white [html[data-theme='light']_&]:text-slate-900 group-hover:text-white [html[data-theme='light']_&]:group-hover:text-slate-950 transition-colors line-clamp-2 leading-snug">
                         {nextLesson.title}
                       </div>
                     </button>
@@ -1214,7 +936,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                 <div className="text-center pt-2">
                   <button
                     onClick={() => backToGrid()}
-                    className="text-xs font-mono text-slate-400 [html[data-theme='light']_&]:text-slate-600 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors cursor-pointer"
+                    className="text-xs font-sans font-medium text-slate-400 [html[data-theme='light']_&]:text-slate-600 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors cursor-pointer"
                   >
                     {isVi ? '← Trở về danh mục tất cả bài học' : '← Return to all lessons'}
                   </button>
@@ -1222,69 +944,13 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
               </div>
             </article>
 
-            {/* ── RIGHT RAIL: On This Page Outline (Exact Docs Style & Unified Color) ── */}
-            <aside className="hidden xl:block w-64 relative border-l border-white/5 [html[data-theme='light']_&]:border-slate-200/80 bg-transparent shrink-0">
-              <div className="sticky top-[73px] flex flex-col justify-between h-[calc(100vh-73px)]">
-                {/* Header Bar */}
-                <div className="w-full px-4 py-3.5 border-b border-white/5 [html[data-theme='light']_&]:border-slate-200/80 flex items-center justify-between shrink-0 bg-transparent">
-                  <span className="text-[10px] font-mono font-bold text-slate-400 [html[data-theme='light']_&]:text-slate-500 uppercase tracking-widest flex items-center gap-1.5">
-                    <AlignLeft size={12} className="text-white [html[data-theme='light']_&]:text-slate-900" />
-                    {isVi ? 'TRONG TRANG NÀY' : 'ON THIS PAGE'}
-                  </span>
-                </div>
-
-                {/* Scrollable Headings List */}
-                <div className="flex-1 overflow-y-auto px-4 py-4 scrollbar-thin">
-                  {headings.length > 0 ? (
-                    <ul className="space-y-0.5 border-l border-white/5 [html[data-theme='light']_&]:border-slate-200/80 ml-1 text-xs">
-                      {headings.map((h) => {
-                        const isActive = activeHeadingId === h.id;
-                        const isH3 = h.level === 3;
-                        return (
-                          <li key={h.id}>
-                            <button
-                              onClick={() => scrollToHeading(h.id)}
-                              className={`w-full block py-1.5 pr-2 transition-colors duration-150 text-left relative rounded-r text-[12px] font-normal leading-snug cursor-pointer ${
-                                isH3 ? 'pl-6' : 'pl-3'
-                              } ${
-                                isActive
-                                  ? 'border-l-2 -ml-[1px] border-white [html[data-theme="light"]_&]:border-slate-900 text-white [html[data-theme="light"]_&]:text-slate-900 bg-white/[0.06] [html[data-theme="light"]_&]:bg-slate-200/60 font-medium'
-                                  : isH3
-                                  ? 'border-l-2 -ml-[1px] border-transparent text-slate-500 [html[data-theme="light"]_&]:text-slate-500 hover:text-slate-300 [html[data-theme="light"]_&]:hover:text-slate-900 hover:bg-white/[0.02]'
-                                  : 'border-l-2 -ml-[1px] border-transparent text-slate-400 [html[data-theme="light"]_&]:text-slate-600 hover:text-slate-200 [html[data-theme="light"]_&]:hover:text-slate-900 hover:bg-white/[0.02]'
-                              }`}
-                            >
-                              <span className="line-clamp-2">{h.title}</span>
-                            </button>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  ) : (
-                    <div className="text-[11px] text-slate-500 italic py-2">
-                      {isVi ? 'Không có mục phụ' : 'No subheadings'}
-                    </div>
-                  )}
-                </div>
-
-                {/* TOC Footer Actions - Back to Top */}
-                <div className="w-full p-4 border-t border-white/5 [html[data-theme='light']_&]:border-slate-200/80 space-y-2 shrink-0 bg-transparent">
-                  <button
-                    onClick={() => {
-                      if (window.lenis) {
-                        window.lenis.scrollTo(0, { duration: 1.0 });
-                      } else {
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                      }
-                    }}
-                    className="w-full flex items-center justify-between py-1.5 px-2.5 rounded bg-white/[0.02] [html[data-theme='light']_&]:bg-white hover:bg-white/[0.05] border border-white/10 [html[data-theme='light']_&]:border-slate-200 hover:border-white/30 [html[data-theme='light']_&]:hover:border-slate-300 text-slate-400 [html[data-theme='light']_&]:text-slate-600 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 text-[11px] font-mono transition-all cursor-pointer"
-                  >
-                    <span>{isVi ? 'Lên đầu trang' : 'Back to top'}</span>
-                    <ArrowUp size={12} className="text-white [html[data-theme='light']_&]:text-slate-900" />
-                  </button>
-                </div>
-              </div>
-            </aside>
+            {/* ── RIGHT RAIL: On This Page Outline (Exact Docs Style & Unified Component) ── */}
+            <ReaderSidebarRight
+              headings={headings}
+              activeHeadingId={activeHeadingId}
+              onHeadingClick={(headingId) => scrollToHeading(headingId)}
+              isVi={isVi}
+            />
           </div>
         </div>
       )}

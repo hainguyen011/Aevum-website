@@ -18,9 +18,10 @@ export default {
         }
       },
       fontFamily: {
-        sans: ['"Google Sans Flex"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-        display: ['"Google Sans Flex"', 'sans-serif'],
-        mono: ['"Google Sans Flex"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        sans: ['"Google Sans Flex"', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
+        display: ['"Google Sans Flex"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+        quote: ['"Encode Sans Condensed"', 'sans-serif'],
       },
       letterSpacing: {
         tighter: '-0.04em',

@@ -247,19 +247,65 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
       const pageTitle = `${activeLesson.title} — Khám phá Kỉ nguyên AI | Aevum OS`;
       const desc = activeLesson.summary || activeLesson.title;
       const canonical = `https://www.aevum.ai.vn/explore/${activeLesson.id}`;
+      const coverImg = activeLesson.coverImage?.startsWith('http')
+        ? activeLesson.coverImage
+        : `https://www.aevum.ai.vn${activeLesson.coverImage || '/media/7c9853f453cc1123e6b41db03292d945.jpg'}`;
+      const keywords = `${(activeLesson.tags || []).join(', ')}, ${activeLesson.title}, ${activeLesson.category || ''}, Aevum OS, Trí tuệ nhân tạo, AI`;
 
       document.title = pageTitle;
       setMeta('meta[name="description"]', 'name', 'description', desc);
+      setMeta('meta[name="keywords"]', 'name', 'keywords', keywords);
+      setMeta('meta[property="og:type"]', 'property', 'og:type', 'article');
       setMeta('meta[property="og:title"]', 'property', 'og:title', pageTitle);
       setMeta('meta[property="og:description"]', 'property', 'og:description', desc);
+      setMeta('meta[property="og:image"]', 'property', 'og:image', coverImg);
       setMeta('meta[property="og:url"]', 'property', 'og:url', canonical);
+      setMeta('meta[name="twitter:card"]', 'name', 'twitter:card', 'summary_large_image');
       setMeta('meta[name="twitter:title"]', 'name', 'twitter:title', pageTitle);
       setMeta('meta[name="twitter:description"]', 'name', 'twitter:description', desc);
+      setMeta('meta[name="twitter:image"]', 'name', 'twitter:image', coverImg);
 
       let canonicalEl = document.querySelector('link[rel="canonical"]');
       if (canonicalEl) {
         canonicalEl.setAttribute('href', canonical);
       }
+
+      // Dynamic JSON-LD Structured Data for Client-side Navigation
+      let scriptLd = document.getElementById('aevum-lesson-ld');
+      if (!scriptLd) {
+        scriptLd = document.createElement('script');
+        scriptLd.id = 'aevum-lesson-ld';
+        scriptLd.type = 'application/ld+json';
+        document.head.appendChild(scriptLd);
+      }
+      scriptLd.textContent = JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": ["Article", "LearningResource", "TechArticle"],
+        "headline": activeLesson.title,
+        "description": desc,
+        "url": canonical,
+        "image": coverImg,
+        "inLanguage": "vi-VN",
+        "keywords": (activeLesson.tags || []).join(', '),
+        "articleSection": activeLesson.category,
+        "datePublished": "2026-10-09T08:00:00+07:00",
+        "dateModified": "2026-10-09T23:30:00+07:00",
+        "author": {
+          "@type": "Person",
+          "name": activeLesson.author?.name || "An",
+          "jobTitle": activeLesson.author?.role || "AI Companion",
+          "identifier": activeLesson.author?.aid || "ENG-AN-7B9F1D"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "I2FLabs Vietnam",
+          "url": "https://www.aevum.ai.vn",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://www.aevum.ai.vn/icon-512.png"
+          }
+        }
+      });
     } else if (viewMode === 'grid') {
       const defaultTitle = isVi
         ? 'Khám phá Kỉ nguyên AI — Học viện Tri thức & Tác nhân Tự chủ | Aevum OS'

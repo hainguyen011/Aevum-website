@@ -1,0 +1,213 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 460" width="100%" height="100%" fill="none">
+  <defs>
+    <!-- Glowing filters -->
+    <filter id="glow-cyan" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glow-emerald" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="card-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#000000" flood-opacity="0.45" />
+    </filter>
+
+    <!-- Gradients -->
+    <linearGradient id="bg-card-left" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0ea5e9" stop-opacity="0.12" />
+      <stop offset="100%" stop-color="#0284c7" stop-opacity="0.04" />
+    </linearGradient>
+
+    <linearGradient id="bg-card-right" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.12" />
+      <stop offset="100%" stop-color="#06b6d4" stop-opacity="0.04" />
+    </linearGradient>
+
+    <linearGradient id="stroke-cyan" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#22d3ee" stop-opacity="0.3" />
+    </linearGradient>
+
+    <linearGradient id="arrow-gradient" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="50%" stop-color="#22d3ee" />
+      <stop offset="100%" stop-color="#34d399" />
+    </linearGradient>
+
+    <!-- Arrow Markers -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#34d399" />
+    </marker>
+  </defs>
+
+  <style>
+    .font-sans { font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+    .font-mono { font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .step-text { font-size: 13px; font-weight: 500; fill: #e2e8f0; }
+    .badge-text { font-size: 11px; font-weight: 600; fill: #38bdf8; letter-spacing: 0.5px; }
+    .tool-text { font-size: 12.5px; font-weight: 600; fill: #67e8f9; }
+    .param-text { font-size: 11.5px; font-weight: 400; fill: #94a3b8; }
+    .card-title { font-size: 16px; font-weight: 700; fill: #ffffff; letter-spacing: 0.5px; }
+    .card-subtitle { font-size: 12px; font-weight: 500; fill: #94a3b8; }
+    .pill-text { font-size: 10px; font-weight: 600; fill: #38bdf8; }
+  </style>
+
+  <!-- Ambient Backdrop Aura (Subtle Cyber Grid & Glow) -->
+  <g opacity="0.4">
+    <circle cx="150" cy="230" r="160" fill="#0284c7" opacity="0.08" filter="url(#glow-cyan)" />
+    <circle cx="770" cy="230" r="160" fill="#10b981" opacity="0.08" filter="url(#glow-emerald)" />
+  </g>
+
+  <!-- ==================== LEFT CARD: IDE CLIENT ==================== -->
+  <g filter="url(#card-shadow)">
+    <!-- Card Frame -->
+    <rect x="30" y="50" width="220" height="360" rx="16" fill="url(#bg-card-left)" stroke="rgba(56, 189, 248, 0.3)" stroke-width="1.5" />
+    <rect x="30" y="50" width="220" height="360" rx="16" fill="rgba(7, 9, 13, 0.65)" />
+
+    <!-- Terminal Header Bar -->
+    <rect x="30" y="50" width="220" height="42" rx="16" fill="rgba(255, 255, 255, 0.03)" />
+    <circle cx="52" cy="71" r="4.5" fill="#ef4444" opacity="0.8" />
+    <circle cx="68" cy="71" r="4.5" fill="#f59e0b" opacity="0.8" />
+    <circle cx="84" cy="71" r="4.5" fill="#10b981" opacity="0.8" />
+    <text x="140" y="75" text-anchor="middle" class="font-mono" font-size="11" font-weight="600" fill="#94a3b8" letter-spacing="1">CLIENT HOST</text>
+
+    <!-- Client Icon & Titles -->
+    <g transform="translate(140, 140)">
+      <!-- Cyber Hexagon Node -->
+      <polygon points="0,-28 24,-14 24,14 0,28 -24,14 -24,-14" fill="rgba(14, 165, 233, 0.15)" stroke="#38bdf8" stroke-width="1.5" />
+      <path d="M-10,-10 L10,10 M10,-10 L-10,10" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" />
+    </g>
+
+    <text x="140" y="200" text-anchor="middle" class="font-sans card-title">IDE CLIENT</text>
+    <text x="140" y="222" text-anchor="middle" class="font-mono card-subtitle">Cursor / Antigravity / Claude</text>
+
+    <!-- Supported Client Pills -->
+    <g transform="translate(48, 255)">
+      <rect x="0" y="0" width="85" height="24" rx="12" fill="rgba(56, 189, 248, 0.1)" stroke="rgba(56, 189, 248, 0.25)" stroke-width="1" />
+      <text x="42.5" y="16" text-anchor="middle" class="font-mono pill-text">Cursor IDE</text>
+
+      <rect x="95" y="0" width="85" height="24" rx="12" fill="rgba(56, 189, 248, 0.1)" stroke="rgba(56, 189, 248, 0.25)" stroke-width="1" />
+      <text x="137.5" y="16" text-anchor="middle" class="font-mono pill-text">Claude Desk</text>
+    </g>
+
+    <g transform="translate(48, 290)">
+      <rect x="0" y="0" width="85" height="24" rx="12" fill="rgba(56, 189, 248, 0.1)" stroke="rgba(56, 189, 248, 0.25)" stroke-width="1" />
+      <text x="42.5" y="16" text-anchor="middle" class="font-mono pill-text">Antigravity</text>
+
+      <rect x="95" y="0" width="85" height="24" rx="12" fill="rgba(56, 189, 248, 0.1)" stroke="rgba(56, 189, 248, 0.25)" stroke-width="1" />
+      <text x="137.5" y="16" text-anchor="middle" class="font-mono pill-text">VSCode Cline</text>
+    </g>
+
+    <!-- Status Indicator -->
+    <g transform="translate(140, 360)">
+      <circle cx="-50" cy="0" r="4" fill="#38bdf8" />
+      <circle cx="-50" cy="0" r="8" fill="#38bdf8" opacity="0.3" filter="url(#glow-cyan)" />
+      <text x="-36" y="4" class="font-mono" font-size="11" fill="#7dd3fc">Ready to Handshake</text>
+    </g>
+  </g>
+
+  <!-- ==================== RIGHT CARD: AEVUM CORE DAEMON ==================== -->
+  <g filter="url(#card-shadow)">
+    <!-- Card Frame -->
+    <rect x="670" y="50" width="220" height="360" rx="16" fill="url(#bg-card-right)" stroke="rgba(52, 211, 153, 0.3)" stroke-width="1.5" />
+    <rect x="670" y="50" width="220" height="360" rx="16" fill="rgba(7, 9, 13, 0.65)" />
+
+    <!-- Terminal Header Bar -->
+    <rect x="670" y="50" width="220" height="42" rx="16" fill="rgba(255, 255, 255, 0.03)" />
+    <circle cx="692" cy="71" r="4.5" fill="#10b981" />
+    <text x="780" y="75" text-anchor="middle" class="font-mono" font-size="11" font-weight="600" fill="#34d399" letter-spacing="1">FASTIFY DAEMON</text>
+
+    <!-- Core Engine Icon -->
+    <g transform="translate(780, 140)">
+      <circle cx="0" cy="0" r="26" fill="rgba(16, 185, 129, 0.15)" stroke="#34d399" stroke-width="1.5" />
+      <circle cx="0" cy="0" r="14" fill="rgba(6, 182, 212, 0.25)" stroke="#22d3ee" stroke-width="1.5" />
+      <circle cx="0" cy="0" r="5" fill="#34d399" filter="url(#glow-emerald)" />
+    </g>
+
+    <text x="780" y="200" text-anchor="middle" class="font-sans card-title">AEVUM OS CORE</text>
+    <text x="780" y="222" text-anchor="middle" class="font-mono card-subtitle">Port 3344 · MCP Server</text>
+
+    <!-- Daemon Badges -->
+    <g transform="translate(688, 255)">
+      <rect x="0" y="0" width="85" height="24" rx="12" fill="rgba(52, 211, 153, 0.1)" stroke="rgba(52, 211, 153, 0.25)" stroke-width="1" />
+      <text x="42.5" y="16" text-anchor="middle" class="font-mono" font-size="10" font-weight="600" fill="#34d399">101 Tools</text>
+
+      <rect x="95" y="0" width="85" height="24" rx="12" fill="rgba(52, 211, 153, 0.1)" stroke="rgba(52, 211, 153, 0.25)" stroke-width="1" />
+      <text x="137.5" y="16" text-anchor="middle" class="font-mono" font-size="10" font-weight="600" fill="#34d399">Fastify v5</text>
+    </g>
+
+    <g transform="translate(688, 290)">
+      <rect x="0" y="0" width="85" height="24" rx="12" fill="rgba(52, 211, 153, 0.1)" stroke="rgba(52, 211, 153, 0.25)" stroke-width="1" />
+      <text x="42.5" y="16" text-anchor="middle" class="font-mono" font-size="10" font-weight="600" fill="#34d399">Dual Memory</text>
+
+      <rect x="95" y="0" width="85" height="24" rx="12" fill="rgba(52, 211, 153, 0.1)" stroke="rgba(52, 211, 153, 0.25)" stroke-width="1" />
+      <text x="137.5" y="16" text-anchor="middle" class="font-mono" font-size="10" font-weight="600" fill="#34d399">12 Personas</text>
+    </g>
+
+    <!-- Status Indicator -->
+    <g transform="translate(780, 360)">
+      <circle cx="-50" cy="0" r="4" fill="#34d399" />
+      <circle cx="-50" cy="0" r="8" fill="#34d399" opacity="0.3" filter="url(#glow-emerald)" />
+      <text x="-36" y="4" class="font-mono" font-size="11" fill="#6ee7b7">Listening on :3344</text>
+    </g>
+  </g>
+
+  <!-- ==================== 5 SEQUENCE ARROWS (IN-BETWEEN) ==================== -->
+
+  <!-- STEP 1: aevum_request_connection -->
+  <g transform="translate(250, 95)">
+    <!-- Rail Line & Arrow -->
+    <line x1="10" y1="0" x2="400" y2="0" stroke="url(#arrow-gradient)" stroke-width="1.75" stroke-dasharray="6 3" opacity="0.6" />
+    <line x1="10" y1="0" x2="400" y2="0" stroke="url(#arrow-gradient)" stroke-width="1.75" marker-end="url(#arrow)" />
+    <!-- Step Badge -->
+    <rect x="25" y="-14" width="22" height="22" rx="11" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5" />
+    <text x="36" y="2" text-anchor="middle" class="font-mono badge-text">1</text>
+    <!-- Tool Label -->
+    <text x="56" y="2" class="font-mono tool-text">aevum_request_connection</text>
+    <text x="280" y="2" class="font-sans param-text">(Bật kênh liên lạc Bridge)</text>
+  </g>
+
+  <!-- STEP 2: aevum_get_bootstrap_context -->
+  <g transform="translate(250, 160)">
+    <line x1="10" y1="0" x2="400" y2="0" stroke="url(#arrow-gradient)" stroke-width="1.75" marker-end="url(#arrow)" />
+    <rect x="25" y="-14" width="22" height="22" rx="11" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5" />
+    <text x="36" y="2" text-anchor="middle" class="font-mono badge-text">2</text>
+    <text x="56" y="2" class="font-mono tool-text">aevum_get_bootstrap_context</text>
+    <text x="300" y="2" class="font-sans param-text">➔ Lấy signalId</text>
+  </g>
+
+  <!-- STEP 3: aevum_submit_ack -->
+  <g transform="translate(250, 225)">
+    <line x1="10" y1="0" x2="400" y2="0" stroke="url(#arrow-gradient)" stroke-width="1.75" marker-end="url(#arrow)" />
+    <rect x="25" y="-14" width="22" height="22" rx="11" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5" />
+    <text x="36" y="2" text-anchor="middle" class="font-mono badge-text">3</text>
+    <text x="56" y="2" class="font-mono tool-text">aevum_submit_ack</text>
+    <text x="210" y="2" class="font-mono param-text">(signalId="sig_...")</text>
+  </g>
+
+  <!-- STEP 4: aevum_init_persona -->
+  <g transform="translate(250, 290)">
+    <line x1="10" y1="0" x2="400" y2="0" stroke="url(#arrow-gradient)" stroke-width="1.75" marker-end="url(#arrow)" />
+    <rect x="25" y="-14" width="22" height="22" rx="11" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5" />
+    <text x="36" y="2" text-anchor="middle" class="font-mono badge-text">4</text>
+    <text x="56" y="2" class="font-mono tool-text">aevum_init_persona</text>
+    <text x="225" y="2" class="font-mono param-text">(personaId="an", client="ide")</text>
+  </g>
+
+  <!-- STEP 5: aevum_get_compressed -->
+  <g transform="translate(250, 355)">
+    <line x1="10" y1="0" x2="400" y2="0" stroke="url(#arrow-gradient)" stroke-width="1.75" marker-end="url(#arrow)" />
+    <rect x="25" y="-14" width="22" height="22" rx="11" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5" />
+    <text x="36" y="2" text-anchor="middle" class="font-mono badge-text">5</text>
+    <text x="56" y="2" class="font-mono tool-text">aevum_get_compressed</text>
+    <text x="245" y="2" class="font-mono param-text">(target="agent_rules.md")</text>
+  </g>
+
+  <!-- Bottom Protocol State Badge -->
+  <g transform="translate(460, 420)">
+    <rect x="-140" y="-14" width="280" height="28" rx="14" fill="rgba(15, 23, 42, 0.85)" stroke="rgba(52, 211, 153, 0.4)" stroke-width="1" />
+    <circle cx="-120" cy="0" r="3.5" fill="#34d399" filter="url(#glow-emerald)" />
+    <text x="-105" y="4" class="font-mono" font-size="11" font-weight="600" fill="#a7f3d0">SESSION ESTABLISHED &amp; VERIFIED</text>
+  </g>
+</svg>

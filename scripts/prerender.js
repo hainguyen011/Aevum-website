@@ -231,6 +231,36 @@ async function prerender() {
         `<meta name="twitter:description" content="${meta.description.replace(/"/g, '&quot;')}" />`
       );
 
+      // Lesson-specific OpenGraph & Article Meta
+      if (meta.lessonData) {
+        const coverImgUrl = meta.lessonData.coverImage?.startsWith('http')
+          ? meta.lessonData.coverImage
+          : `https://www.aevum.ai.vn${meta.lessonData.coverImage || '/media/7c9853f453cc1123e6b41db03292d945.jpg'}`;
+
+        pageHtml = pageHtml.replace(
+          /<meta\s+property=["']og:type["'][^>]*>/i,
+          `<meta property="og:type" content="article" />`
+        );
+        pageHtml = pageHtml.replace(
+          /<meta\s+property=["']og:image["'][^>]*>/i,
+          `<meta property="og:image" content="${coverImgUrl}" />`
+        );
+        pageHtml = pageHtml.replace(
+          /<meta\s+name=["']twitter:image["'][^>]*>/i,
+          `<meta name="twitter:image" content="${coverImgUrl}" />`
+        );
+
+        const articleMetaTags = [
+          `<meta property="article:published_time" content="2026-10-09T08:00:00+07:00" />`,
+          `<meta property="article:modified_time" content="2026-10-09T23:30:00+07:00" />`,
+          `<meta property="article:author" content="${meta.lessonData.author?.name || 'Aevum OS'}" />`,
+          `<meta property="article:section" content="${meta.lessonData.category || 'Khám phá Kỉ nguyên AI'}" />`,
+          ...(meta.lessonData.tags || []).map(t => `<meta property="article:tag" content="${t.replace(/"/g, '&quot;')}" />`)
+        ].join('\n  ');
+
+        pageHtml = pageHtml.replace('</head>', `  ${articleMetaTags}\n</head>`);
+      }
+
       // Inject JSON-LD Schema for TechArticle & BreadcrumbList if document
       if (meta.docData) {
         const schema = {
@@ -340,22 +370,33 @@ async function prerender() {
       if (meta.lessonData) {
         const faqs = extractFaqFromContent(meta.lessonData.content, meta.lessonData.title, meta.lessonData.summary);
 
+        const coverImgUrl = meta.lessonData.coverImage?.startsWith('http')
+          ? meta.lessonData.coverImage
+          : `https://www.aevum.ai.vn${meta.lessonData.coverImage || '/media/7c9853f453cc1123e6b41db03292d945.jpg'}`;
+
         const graphItems = [
           {
-            "@type": "LearningResource",
-            "@id": `${meta.canonical}#lesson`,
+            "@type": ["Article", "LearningResource", "TechArticle"],
+            "@id": `${meta.canonical}#article`,
             "isPartOf": { "@id": "https://www.aevum.ai.vn/#website" },
-            "headline": meta.title,
-            "description": meta.description,
+            "headline": meta.lessonData.title,
+            "description": meta.lessonData.summary || meta.description,
             "url": meta.canonical,
+            "image": coverImgUrl,
             "inLanguage": "vi-VN",
-            "educationalLevel": meta.lessonData.level || "Intermediate to Advanced",
+            "educationalLevel": meta.lessonData.level || "Tất cả mọi người",
             "learningResourceType": "Lesson",
-            "timeRequired": meta.lessonData.readTime ? `PT${meta.lessonData.readTime.replace(/[^0-9]/g, '') || 10}M` : "PT10M",
+            "timeRequired": meta.lessonData.readTime ? `PT${meta.lessonData.readTime.replace(/[^0-9]/g, '') || 6}M` : "PT6M",
+            "keywords": (meta.lessonData.tags || []).join(', '),
+            "articleSection": meta.lessonData.category || "Khám phá Kỉ nguyên AI",
+            "datePublished": "2026-10-09T08:00:00+07:00",
+            "dateModified": "2026-10-09T23:30:00+07:00",
+            "wordCount": meta.lessonData.content ? meta.lessonData.content.split(/\s+/).length : 850,
             "author": {
               "@type": "Person",
-              "name": meta.lessonData.author?.name || "I2FLabs Vietnam",
-              "jobTitle": meta.lessonData.author?.role || "AI Engineer"
+              "name": meta.lessonData.author?.name || "An",
+              "jobTitle": meta.lessonData.author?.role || "AI Companion",
+              "identifier": meta.lessonData.author?.aid || "ENG-AN-7B9F1D"
             },
             "publisher": {
               "@type": "Organization",
@@ -365,6 +406,10 @@ async function prerender() {
                 "@type": "ImageObject",
                 "url": "https://www.aevum.ai.vn/icon-512.png"
               }
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": meta.canonical
             }
           },
           {
@@ -478,7 +523,72 @@ async function prerender() {
     }
   } catch (_) {}
 
+  // Automatically generate updated sitemap.xml with all routes & lessons
+  try {
+    generateFullSitemap(rootDir, docsData, curriculumModules);
+  } catch (sitemapErr) {
+    console.error('  ✗ Failed to generate sitemap.xml:', sitemapErr);
+  }
+
   console.log('✨ [Prerender Snapshot] Successfully generated all static HTML snapshots!\n');
+}
+
+function generateFullSitemap(rootDir, docsData, curriculumModules) {
+  const today = '2026-10-09';
+  const urls = [];
+
+  // 1. Static Pages
+  const staticPages = [
+    { loc: 'https://www.aevum.ai.vn/', priority: '1.0', changefreq: 'daily', lastmod: today, hasImages: true },
+    { loc: 'https://www.aevum.ai.vn/pricing', priority: '0.95', changefreq: 'weekly', lastmod: today },
+    { loc: 'https://www.aevum.ai.vn/docs', priority: '0.95', changefreq: 'weekly', lastmod: today },
+    { loc: 'https://www.aevum.ai.vn/explore', priority: '0.95', changefreq: 'daily', lastmod: today },
+    { loc: 'https://www.aevum.ai.vn/about', priority: '0.85', changefreq: 'monthly', lastmod: today },
+    { loc: 'https://www.aevum.ai.vn/changelog', priority: '0.85', changefreq: 'weekly', lastmod: today },
+    { loc: 'https://www.aevum.ai.vn/discussions', priority: '0.80', changefreq: 'weekly', lastmod: today },
+    { loc: 'https://www.aevum.ai.vn/privacy', priority: '0.70', changefreq: 'monthly', lastmod: today },
+    { loc: 'https://www.aevum.ai.vn/terms', priority: '0.70', changefreq: 'monthly', lastmod: today },
+  ];
+
+  staticPages.forEach((p) => {
+    let urlBlock = `  <url>\n    <loc>${p.loc}</loc>\n    <xhtml:link rel="alternate" hreflang="vi" href="${p.loc}"/>\n    <xhtml:link rel="alternate" hreflang="en" href="${p.loc}"/>\n    <xhtml:link rel="alternate" hreflang="x-default" href="${p.loc}"/>\n    <lastmod>${p.lastmod}</lastmod>\n    <changefreq>${p.changefreq}</changefreq>\n    <priority>${p.priority}</priority>`;
+    if (p.hasImages) {
+      urlBlock += `\n    <image:image>\n      <image:loc>https://www.aevum.ai.vn/og-image.png</image:loc>\n      <image:title>Aevum OS — Standalone MCP Server &amp; Workspace External Brain</image:title>\n      <image:caption>Hệ điều hành Agent độc lập và Bộ não Ngoại vi</image:caption>\n    </image:image>`;
+    }
+    urlBlock += `\n  </url>`;
+    urls.push(urlBlock);
+  });
+
+  // 2. Docs Subtopics
+  docsData.forEach((doc) => {
+    const loc = `https://www.aevum.ai.vn/docs/${doc.id}`;
+    urls.push(`  <url>\n    <loc>${loc}</loc>\n    <xhtml:link rel="alternate" hreflang="vi" href="${loc}"/>\n    <xhtml:link rel="alternate" hreflang="en" href="${loc}"/>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.90</priority>\n  </url>`);
+  });
+
+  // 3. All Explore Lessons (All 50 lessons with image tags!)
+  curriculumModules.forEach((mod) => {
+    mod.lessons.forEach((lesson) => {
+      const loc = `https://www.aevum.ai.vn/explore/${lesson.id}`;
+      const imgUrl = lesson.coverImage?.startsWith('http')
+        ? lesson.coverImage
+        : `https://www.aevum.ai.vn${lesson.coverImage || '/media/7c9853f453cc1123e6b41db03292d945.jpg'}`;
+      const safeTitle = (lesson.title || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      const safeSummary = (lesson.summary || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+      urls.push(`  <url>\n    <loc>${loc}</loc>\n    <xhtml:link rel="alternate" hreflang="vi" href="${loc}"/>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.90</priority>\n    <image:image>\n      <image:loc>${imgUrl}</image:loc>\n      <image:title>${safeTitle}</image:title>\n      <image:caption>${safeSummary}</image:caption>\n    </image:image>\n  </url>`);
+    });
+  });
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n        xmlns:xhtml="http://www.w3.org/1999/xhtml"\n        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n\n${urls.join('\n\n')}\n\n</urlset>\n`;
+
+  // Write to public/sitemap.xml and dist/sitemap.xml
+  const publicSitemapPath = path.resolve(rootDir, 'public/sitemap.xml');
+  const distSitemapPath = path.resolve(rootDir, 'dist/sitemap.xml');
+  fs.writeFileSync(publicSitemapPath, xml, 'utf-8');
+  if (fs.existsSync(path.resolve(rootDir, 'dist'))) {
+    fs.writeFileSync(distSitemapPath, xml, 'utf-8');
+  }
+  console.log(`  🗺️  [Sitemap Generator] Đã cập nhật sitemap.xml với ${urls.length} URLs (bao gồm ${curriculumModules.reduce((acc, m) => acc + m.lessons.length, 0)} bài học Explore)!`);
 }
 
 prerender().catch((err) => {

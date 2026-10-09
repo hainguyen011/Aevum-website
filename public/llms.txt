@@ -28,6 +28,34 @@ Aevum OS is an independent workspace Operating System and External Brain develop
 - [Blackboard Collaboration Hub](https://www.aevum.ai.vn/docs/blackboard-hub): Real-time multi-agent concurrent coordination with version-locked predicted state and peer review sessions.
 - [Deep Research & Chòm sao Kỹ năng (Deep Research)](https://www.aevum.ai.vn/docs/deep-research-engine): Autonomous research engine (depth 1-5), IEEE credibility tiering, Dagre/React Flow skill tree, and 1-click Promote to Plan.
 
+## Era Academy & Open Knowledge Hub (Explore AI Curriculum — 50 Lessons)
+
+- [Explore Academy Home](https://www.aevum.ai.vn/explore): Complete 6-module open curriculum covering foundation AI concepts, real-world business applications, agentic autonomous architectures, context engineering, memory graphs, and multi-agent coordination.
+- [01. Phổ thông & Khái niệm (Universal Foundations — 15 Lessons)](https://www.aevum.ai.vn/explore): From core neural networks, prompting, transformers, second-brain methodology, to deepfake security defenses.
+  - [AI là gì & Cơ chế hoạt động](https://www.aevum.ai.vn/explore/ai-la-gi-co-che-hoat-dong): Bản chất mạng nơ-ron và cách máy tính học từ dữ liệu.
+  - [Nghệ thuật giao tiếp Prompting](https://www.aevum.ai.vn/explore/nghe-thuat-giao-tiep-ai-prompting): Khung sườn CREO đối thoại chuyên sâu cùng AI.
+  - [Trái tim Transformer](https://www.aevum.ai.vn/explore/ben-trong-trai-tim-transformer): Cơ chế Self-Attention và kiến trúc Q-K-V.
+  - [Không gian Vector](https://www.aevum.ai.vn/explore/khong-gian-vector-la-gi-cach-ai-hieu-y-nghia): Vector Embeddings và khoảng cách ngữ nghĩa Cosine.
+  - [Bảo vệ gia đình trước Deepfake](https://www.aevum.ai.vn/explore/an-toan-thong-tin-va-lua-dao-deepfake): Quy tắc 3 giây và mật mã gia đình phòng chống lừa đảo AI.
+  - [Xây dựng Second Brain](https://www.aevum.ai.vn/explore/kho-tang-tri-thuc-ca-nhan-second-brain-cung-ai): Quản trị tri thức cá nhân theo phương pháp CODE cùng AI.
+- [02. Ứng dụng Đa ngành (Real-World Industry Applications — 12 Lessons)](https://www.aevum.ai.vn/explore): Concrete practical applications across healthcare, fintech, logistics, law, and green energy.
+  - [Y tế & Chăm sóc sức khỏe](https://www.aevum.ai.vn/explore/y-te-va-cham-soc-suc-khoe-chu-dong): AI trong chẩn đoán X-quang, AlphaFold và tầm soát sớm.
+  - [Tài chính & Chống gian lận](https://www.aevum.ai.vn/explore/tai-chinh-ngan-hang-va-phong-chong-gian-lan): Phát hiện gian lận thẻ dưới 50ms và chấm điểm tín dụng số.
+  - [Logistics & Chuỗi cung ứng](https://www.aevum.ai.vn/explore/chuoi-cung-ung-va-logistics-thong-minh): Tối ưu lộ trình vận chuyển VRP và kho vận tự động AGV.
+  - [Pháp lý số & LegalTech](https://www.aevum.ai.vn/explore/luat-phap-va-tu-van-phap-ly-thoi-ai): Rà soát hợp đồng kinh tế và tra cứu án lệ thông minh.
+  - [Công nghệ xanh & Lưới điện](https://www.aevum.ai.vn/explore/nang-luong-tai-tao-va-moi-truong-xanh): Dự báo thời tiết vi khí hậu và cân bằng lưới điện tái tạo.
+- [03. Kỷ nguyên Agentic (The Agentic Era — 8 Lessons)](https://www.aevum.ai.vn/explore): Autonomous agency architectures, cognitive loops, and system self-healing.
+  - [Từ Chatbot đến AI Agent](https://www.aevum.ai.vn/explore/tu-chatbot-den-agent): Bước nhảy vọt từ phản hồi thụ động sang tự chủ nhiều bước.
+  - [Vòng lặp ReAct & OODA](https://www.aevum.ai.vn/explore/vong-lap-nhan-thuc-ooda-react): Khung nhận thức suy luận đan xen hành động thực tế.
+  - [Tự chữa lành Self-Healing Code](https://www.aevum.ai.vn/explore/tu-chua-lanh-self-healing-code): Vòng lặp AST verification và tự vá lỗi biên dịch.
+  - [Hoạch định phân cấp HTN](https://www.aevum.ai.vn/explore/lap-ke-hoach-dong-hierarchical-planning): Chia nhỏ mục tiêu ngàn bước và JIT execution.
+  - [Giao thức mở MCP](https://www.aevum.ai.vn/explore/giao-thuc-mcp-cau-noi-the-gioi-thuc): Cổng USB-C của AI kết nối vạn vật an toàn qua Sandbox.
+  - [Cây suy tưởng Tree of Thoughts](https://www.aevum.ai.vn/explore/tu-suy-nghi-chuyen-sau-tree-of-thoughts): Tư duy đa chiều và kỹ thuật quay lui backtracking.
+  - [Human-in-the-Loop](https://www.aevum.ai.vn/explore/con-nguoi-trong-vong-lap-human-in-the-loop): Nguyên tắc cộng sinh, phân quyền 3 cấp và đạo đức AI.
+- [04. Ngữ cảnh & Giao thức MCP (Context Engineering & MCP Protocols — 5 Lessons)](https://www.aevum.ai.vn/explore)
+- [05. Trí nhớ Nhận thức Kép (Cognitive Dual-Memory Architecture — 5 Lessons)](https://www.aevum.ai.vn/explore)
+- [06. Đa Agent Tự trị & Bảng Đen (Squad Orchestration & Blackboard Pattern — 5 Lessons)](https://www.aevum.ai.vn/explore)
+
 ## Product & Community
 
 - [Transparent Pricing](https://www.aevum.ai.vn/pricing): Official pricing details for Community (Free Local-First) and Pro (Cloud Sync and Squads) tiers.

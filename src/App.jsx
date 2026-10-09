@@ -22,8 +22,9 @@ import logoImg from '../assets/logos/AevumOS-transparent.webp';
 import { translations } from './data/translations';
 import { Search, X, Eye, ScanEye, Sun, Atom, User, Globe, Sparkles } from 'lucide-react';
 
-// Direct import for Docs ensures synchronous SSR snapshots for maximum Google SEO indexing
+// Direct import for Docs & EraExploration ensures synchronous SSR snapshots for maximum Google SEO indexing
 import { Docs } from './components/Docs';
+import { EraExploration } from './components/EraExploration';
 
 // Code-split heavy standalone pages & interactive modals
 const About = lazy(() => import('./components/About').then(m => ({ default: m.About })));
@@ -32,7 +33,6 @@ const Discussions = lazy(() => import('./components/Discussions').then(m => ({ d
 const Profile = lazy(() => import('./components/Profile').then(m => ({ default: m.Profile })));
 const Privacy = lazy(() => import('./components/Privacy').then(m => ({ default: m.Privacy })));
 const Terms = lazy(() => import('./components/Terms').then(m => ({ default: m.Terms })));
-const EraExploration = lazy(() => import('./components/EraExploration').then(m => ({ default: m.EraExploration })));
 const SearchModal = lazy(() => import('./components/SearchModal').then(m => ({ default: m.SearchModal })));
 const AuthModal = lazy(() => import('./components/AuthModal').then(m => ({ default: m.AuthModal })));
 const TrialModal = lazy(() => import('./components/TrialModal').then(m => ({ default: m.TrialModal })));

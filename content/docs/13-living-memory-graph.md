@@ -1,67 +1,63 @@
 ---
 id: "living-memory-graph"
-title: "Living Memory Graph Engine"
+title: "Đồ thị Tri thức Sống"
 category: "Phát triển"
-order: 13
+order: 14
 ---
 
-# Living Memory Graph Engine
+# Đồ thị Tri thức Sống (Living Memory Graph)
 
-**Living Memory Graph** là trái tim của Aevum OS — một đồ thị tri thức tự phục hồi (self-healing knowledge graph) lưu trữ vĩnh viễn các bài học kinh nghiệm, quyết định kiến trúc và ngữ cảnh kỹ thuật dưới dạng các node có quan hệ ngữ nghĩa với nhau.
+**Living Memory Graph** là kho lưu trữ kiến thức dạng đồ thị tích hợp sẵn trong Aevum OS. 
 
----
+Điểm đặc biệt nhất: Các bài học, quyết định kiến trúc và quy chuẩn coding không nằm im trong các file tài liệu phủ bụi, mà được **neo chặt trực tiếp vào từng hàm, class và file code cụ thể** trong dự án của bạn.
 
-## 1. Kiến trúc Đồ thị (Graph Architecture)
-
-### Các loại Node Tri thức
-Mỗi node trong đồ thị có một `type` xác định loại tri thức:
-
-| Type | Mô tả |
-|---|---|
-| `LESSON` | Bài học kinh nghiệm từ việc giải quyết bug, tối ưu hiệu năng hoặc refactor. |
-| `PATTERN` | Mẫu thiết kế (Design Pattern) đã được kiểm chứng hiệu quả trong dự án. |
-| `DECISION` | Quyết định kiến trúc quan trọng (Architecture Decision Record - ADR). |
-| `CONVENTION` | Quy chuẩn coding và quy tắc đội ngũ đã được thống nhất. |
-
-### Cấu trúc Node mẫu
-```json
-{
-  "id": "node_auth_jwt_001",
-  "type": "LESSON",
-  "properties": {
-    "title": "JWT Refresh Token Race Condition Fix",
-    "description": "Sử dụng Redis distributed lock để ngăn race condition khi nhiều request đồng thời refresh token.",
-    "author": "AN",
-    "date": "2026-07-15",
-    "status": "ACTIVE",
-    "relatedFiles": ["src/auth/TokenService.ts", "src/auth/RefreshMiddleware.ts"]
-  }
-}
+```mermaid
+flowchart LR
+    F1["<b>Mã Nguồn AST</b><br/>src/auth/token_service.ts"]
+    N1["<b>Bài Học (Lesson)</b><br/>Race condition lock"]
+    N2["<b>Quyết Định (ADR)</b><br/>Fastify TypeBox JIT"]
+    F1 <===>|Neo [file:line]| N1
+    N1 --- N2
 ```
 
 ---
 
-## 2. Thu hoạch Tri thức Tự động (Automatic Harvesting)
-Khi Agent hoàn thành một kế hoạch và gọi `aevum_finalize_session`, hệ thống tự động:
-1. Phân tích diff các tệp đã sửa đổi.
-2. Trích xuất skeleton của các hàm và class mới tạo.
-3. Tạo node tri thức mới từ mục `lessons` trong báo cáo.
-4. Tự động liên kết ngữ nghĩa node mới với các node hiện có dựa trên quan hệ AST.
+## 1. Bốn Loại Tri Thức Được Lưu Trữ
+
+Mỗi nút trên đồ thị đại diện cho một loại kinh nghiệm quý giá của dự án:
+
+| Loại Tri Thức | Ý Nghĩa Thực Tế | Ví Dụ Cụ Thể |
+|---|---|---|
+| **`LESSON`** | Bài học rút ra sau khi fix bug hoặc xử lý sự cố. | *"Cách sửa lỗi Race Condition khi nhiều request cùng gọi refresh token."* |
+| **`PATTERN`** | Mẫu thiết kế kiến trúc chuẩn đã chứng minh hiệu quả. | *"Mẫu Distributed Mutex bọc quanh các thao tác ghi dữ liệu nhạy cảm."* |
+| **`DECISION`** | Quyết định kiến trúc quan trọng (ADR). | *"Tại sao dự án chọn Fastify v5 thay vì Express? Để đạt throughput cao hơn."* |
+| **`CONVENTION`** | Quy ước chung của đội ngũ lập trình. | *"Mọi tệp component đều phải đi kèm ít nhất 1 bài unit test."* |
 
 ---
 
-## 3. Phát hiện Trôi lệch Mã nguồn (Drift Detection)
-Hệ thống chạy định kỳ `aevum_audit_memory_graph` để phát hiện các node tri thức bị trôi lệch (code drift):
-- Khi một file hoặc hàm được node tham chiếu đã bị xóa hoặc đổi tên trong mã nguồn.
-- Node sẽ tự động bị đánh dấu `STALE` để cảnh báo Agent không sử dụng thông tin cũ.
+## 2. Khả Năng Tự Phục Hồi (Self-Healing & Drift Detection)
 
-```bash
-aevum_audit_memory_graph()
-```
+Trong các dự án phần mềm, tài liệu thường nhanh chóng bị "lạc hậu" vì code thay đổi liên tục: các hàm bị đổi tên, tách file hoặc xóa bỏ.
+
+Living Memory Graph giải quyết vấn đề này bằng tính năng **Tự phục hồi**:
+* Đồ thị tự động neo vào tên hàm và cấu trúc cú pháp của mã nguồn.
+* Khi bạn đổi tên hàm (ví dụ từ `refreshToken()` sang `rotateToken()`), hệ thống tự động nhận biết và cập nhật lại mối liên kết.
+* Nếu một hàm bị xóa bỏ hoàn toàn, hệ thống tự động đánh dấu bài học liên quan là `STALE` để cảnh báo AI không dùng kiến thức cũ đã lỗi thời.
 
 ---
 
-## 4. Kiểm toán Vi phạm Ranh giới (Boundary Violations)
-Sử dụng công cụ `aevum_audit_boundary_violations` để phát hiện các vi phạm quy chuẩn kiến trúc:
-- Gọi hàm cross-domain không thông qua public interface.
-- Sửa đổi trực tiếp dữ liệu thuộc quyền quản lý của domain khác.
+## 3. Bảo Vệ Ranh Giới Kiến Trúc (Clean Architecture Guardrails)
+
+Đồ thị tự động theo dõi các mối quan hệ giữa các Domain trong dự án để cảnh báo bạn và AI:
+* Cảnh báo nếu tầng Giao diện (UI) cố tình gọi trực tiếp vào Cơ sở dữ liệu (Database) mà không thông qua Service Interface.
+* Ngăn chặn Domain này "chọc trộm" vào dữ liệu nội bộ của Domain khác, giúp codebase luôn sạch sẽ và dễ bảo trì.
+
+---
+
+## 4. Cách Tra Cứu Tri Thức Bằng Khung Chat
+
+Bạn có thể tìm kiếm lại bất kỳ kinh nghiệm nào trong quá khứ chỉ bằng câu hỏi tự nhiên:
+
+> *"An ơi, tìm lại bài học trước đây về cách xử lý CORS trên Fastify giúp anh với."*
+
+AI sẽ tự động quét đồ thị tri thức sống và trích xuất lại giải pháp kèm theo file code mẫu chính xác cho bạn trong tích tắc!

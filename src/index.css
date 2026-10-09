@@ -1124,12 +1124,17 @@ html[data-theme="light"] .text-white {
 }
 
 html[data-theme="light"] .text-slate-100,
-html[data-theme="light"] .text-slate-200 {
+html[data-theme="light"] .text-slate-200,
+html[data-theme="light"] .text-zinc-100,
+html[data-theme="light"] .text-zinc-200 {
   color: #1E293B !important;
 }
 
 html[data-theme="light"] .text-slate-300,
-html[data-theme="light"] .text-slate-400 {
+html[data-theme="light"] .text-slate-400,
+html[data-theme="light"] .text-zinc-300,
+html[data-theme="light"] .text-zinc-400,
+html[data-theme="light"] .text-neutral-400 {
   color: #334155 !important;
 }
 

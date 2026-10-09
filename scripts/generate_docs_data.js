@@ -420,7 +420,7 @@ Hoặc mở trực tiếp ứng dụng **Aevum OS** từ biểu tượng trên m
     id: "handshake-ritual",
     title: "Nghi thức Bắt tay (Handshake)",
     category: "Bắt đầu",
-    content: `# Nghi thức Bắt tay (Handshake Ritual) & Triệu hồi Agent
+    content: `# Nghi thức Bắt tay & Triệu hồi Agent
 
 Khi khởi chạy Aevum OS, hệ thống thực hiện một quy trình đồng bộ hóa phiên làm việc khép kín gọi là **Nghi thức Bắt tay (Handshake Ritual)**. Quy trình này đảm bảo các AI Agent và môi trường phát triển của bạn (Cursor, Antigravity, VS Code, Claude Desktop) thiết lập kết nối an toàn, tin cậy tuyệt đối và nạp đầy đủ linh hồn danh tính.
 

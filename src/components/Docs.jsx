@@ -32,6 +32,7 @@ import {
 import { TranslationService } from '../services/TranslationService';
 
 import { ArticleRenderer, MarkdownRenderer } from './ArticleRenderer';
+import { DocPagination } from './DocPagination';
 import { ReaderSidebarLeft } from './ReaderSidebarLeft';
 import { ReaderSidebarRight } from './ReaderSidebarRight';
 
@@ -960,48 +961,13 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
                 )}
               </div>
 
-              {/* Relational Pagination: Previous & Next Article Cards */}
-              <footer className="mt-8 pt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {prevDoc ? (
-                  <a
-                    href={`/docs/${prevDoc.id}`}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      selectDoc(prevDoc.id);
-                    }}
-                    className="p-4 rounded-lg bg-white/[0.02] hover:bg-white/[0.05] transition-all flex flex-col items-start gap-1 group text-left"
-                    rel="prev"
-                  >
-                    <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 flex items-center gap-1 group-hover:text-white transition-colors">
-                      <ChevronLeft size={12} /> {activeLang === 'vi' ? 'Bài trước' : 'Previous'}
-                    </span>
-                    <span className="text-sm font-semibold text-white group-hover:text-slate-200 transition-colors line-clamp-2 leading-snug">
-                      {prevDoc.title}
-                    </span>
-                  </a>
-                ) : (
-                  <div />
-                )}
-
-                {nextDoc && (
-                  <a
-                    href={`/docs/${nextDoc.id}`}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      selectDoc(nextDoc.id);
-                    }}
-                    className="p-4 rounded-lg bg-white/[0.02] hover:bg-white/[0.05] transition-all flex flex-col items-end gap-1 group text-right sm:col-start-2"
-                    rel="next"
-                  >
-                    <span className="text-[11px] font-sans font-medium uppercase tracking-wider text-slate-500 flex items-center gap-1 group-hover:text-white transition-colors">
-                      {activeLang === 'vi' ? 'Bài tiếp theo' : 'Next'} <ChevronRight size={12} />
-                    </span>
-                    <span className="text-sm font-semibold text-white group-hover:text-slate-200 transition-colors line-clamp-2 leading-snug">
-                      {nextDoc.title}
-                    </span>
-                  </a>
-                )}
-              </footer>
+              {/* Unified Relational Pagination: Minimalist Floating Dock matching Image 1 */}
+              <DocPagination
+                prevDoc={prevDoc}
+                nextDoc={nextDoc}
+                onSelectDoc={selectDoc}
+                isVi={activeLang === 'vi'}
+              />
             </article>
           ) : (
             <div className="flex flex-col items-center justify-center py-20 text-center text-slate-500 font-mono text-sm">

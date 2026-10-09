@@ -5,113 +5,87 @@ category: "Bắt đầu"
 order: 2
 ---
 
-# Cài đặt & Thiết lập Hệ thống
+# Cài đặt & Thiết lập Nhanh (3 Phút Quickstart)
 
-Aevum OS cung cấp các gói cài đặt máy tính để bàn chính thức (Desktop Installers) kèm theo công cụ dòng lệnh toàn cục (Global CLI) để bạn dễ dàng tích hợp vào bất kỳ môi trường làm việc nào.
+Aevum OS cung cấp bộ cài đặt máy tính để bàn (Desktop App) hoàn chỉnh. Khi bạn cài đặt Desktop App, hệ sinh thái Aevum OS sẽ **tự động thiết lập sẵn toàn bộ Core Daemon và tích hợp bộ công cụ dòng lệnh (Aevum CLI) toàn cục vào biến môi trường hệ thống**. 
+
+Bạn không cần phải cài đặt môi trường rời rạc hay thao tác phức tạp!
 
 > [!NOTE]
-> **Phiên bản mới nhất**: [Aevum OS v1.0.0-beta.6](/changelog) — Truy cập trang [Nhật ký Cập nhật](/changelog) để theo dõi toàn bộ ghi chú phát hành và các cải tiến mới nhất.
+> **Phiên bản mới nhất**: [Aevum OS v1.0.0-beta.6](/changelog) — Tải trực tiếp tại [Nhật ký Cập nhật](/changelog) hoặc [GitHub Releases](https://github.com/hainguyen011/aevum-os-releases/releases/latest).
 
 ---
 
-## Các bước Cài đặt
+## Bước 1: Tải & Cài Đặt Gói Ứng Dụng
 
-### Bước 1: Tải về Bản cài đặt Mới nhất ([v1.0.0-beta.6](/changelog))
-Tải bản cài đặt chính thức của Aevum OS phù hợp với hệ điều hành của bạn trực tiếp tại [Trang Nhật ký Cập nhật](/changelog) hoặc [GitHub Releases](https://github.com/hainguyen011/aevum-os-releases/releases/latest):
-- **Windows (x64 / ARM64)**: Tải tệp [Aevum-OS-Setup-1.0.0-beta.6.exe](/changelog)
-- **macOS (Apple Silicon M-Series)**: Tải tệp [Aevum-OS-1.0.0-beta.6-mac-arm64.dmg](/changelog) hoặc [.zip](/changelog)
-- **macOS (Intel x64)**: Tải tệp [Aevum-OS-1.0.0-beta.6-mac-x64.dmg](/changelog) hoặc [.zip](/changelog)
+Chọn gói cài đặt phù hợp với hệ điều hành của bạn:
+
+* **Windows 10 / 11**: Tải [Aevum-OS-Setup-1.0.0-beta.6.exe](/changelog)
+* **macOS (Apple Silicon M1-M4)**: Tải [Aevum-OS-1.0.0-beta.6-mac-arm64.dmg](/changelog)
+* **macOS (Intel)**: Tải [Aevum-OS-1.0.0-beta.6-mac-x64.dmg](/changelog)
 
 > [!TIP]
-> Bạn có thể xem toàn bộ lịch sử thay đổi, ghi chú phát hành chi tiết và so sánh các gói cài đặt tại [Nhật ký Cập nhật](/changelog).
+> **Lưu ý bảo mật khi cài đặt lần đầu:**
+> * Trên **Windows**: Nếu hiện màn hình thông báo SmartScreen, bạn bấm **More info** ➔ **Run anyway**.
+> * Trên **macOS**: Nhấn giữ phím **Control** + click chuột phải vào app ➔ Chọn **Open** để vượt qua Gatekeeper.
 
-Bộ cài đặt chính thức tự động thiết lập:
-- Tạo shortcut ứng dụng trên Desktop và Start Menu / Launchpad.
-- Đăng ký giao thức liên kết hệ thống `aevum://`.
-- Đăng ký định dạng tệp lưu trữ bộ nhớ ngữ cảnh `.aevum`.
-- Tích hợp tính năng tự động kiểm tra và cập nhật phiên bản mới (Auto-Updater).
+Quá trình cài đặt hoàn tất sẽ tự động tạo lối tắt trên màn hình và gắn lệnh `aevum` vào Terminal/PowerShell của bạn.
 
 ---
 
-## Lưu ý Quan trọng Trong Giai đoạn Thử nghiệm (Beta Preview)
+## Bước 2: Lựa Chọn 1 Trong 2 Hướng Sử Dụng
 
-Hiện tại, Aevum OS đang trong giai đoạn phát hành thử nghiệm cộng đồng (**Public Beta**). Do phần mềm chưa tích hợp chứng chỉ ký số doanh nghiệp trả phí (EV Code Signing / Apple Notarization), hệ điều hành có thể hiển thị cảnh báo bảo vệ mặc định khi mở file cài đặt lần đầu. Ứng dụng an toàn 100% và không chứa mã độc.
+Sau khi cài đặt xong, bạn có thể lựa chọn 1 trong 2 hướng sử dụng độc lập dưới đây tùy theo thói quen làm việc:
 
-### 1. Trên Windows — Xử lý Màn hình Xanh SmartScreen (2 giây)
-
-Khi chạy file cài đặt `.exe`, nếu xuất hiện bảng cảnh báo màu xanh *"Windows protected your PC"* (`Publisher: Unknown publisher`):
-
-```text
-┌────────────────────────────────────────────────────────┐
-│ Windows protected your PC                              │
-│ Microsoft Defender SmartScreen prevented an...         │
-│                                                        │
-│ [Bước 1] 👉 Bấm vào: "More info"                      │
-│                                                        │
-│ App: Aevum-OS-Setup-1.0.0-beta.6.exe                  │
-│ Publisher: Unknown publisher                           │
-│                                                        │
-│          [Bước 2] 👉 [ Run anyway ]   [ Don't run ]    │
-└────────────────────────────────────────────────────────┘
-```
-
-1. **Bước 1**: Nhấp chuột vào dòng chữ gạch chân **"More info"** (hoặc *Thông tin khác*).
-2. **Bước 2**: Nút **"Run anyway"** (hoặc *Vẫn chạy*) sẽ xuất hiện ở góc dưới bên phải -> Bấm vào **"Run anyway"** để tiến hành cài đặt.
-
----
-
-### 2. Trên macOS — Xử lý Cảnh báo Apple Gatekeeper
-
-Trên macOS, nếu hệ thống hiển thị thông báo *"App cannot be opened because Apple cannot check it for malicious software"*:
-
-- **Cách 1 (Nhanh nhất)**: Nhấn giữ phím **Control** (hoặc nhấp chuột phải) vào tệp ứng dụng `Aevum OS` -> Chọn **Open** trong menu -> Chọn tiếp **Open** ở hộp thoại xác nhận.
-- **Cách 2 (Qua Cài đặt Hệ thống)**:
-  1. Mở **System Settings** (Cài đặt hệ thống) -> chọn mục **Privacy & Security** (Quyền riêng tư & Bảo mật).
-  2. Cuộn xuống phần **Security**, bạn sẽ thấy thông báo về việc `Aevum OS` bị chặn.
-  3. Bấm vào nút **"Open Anyway"** (Vẫn mở) và nhập mật khẩu máy để xác nhận.
-
----
-
-### Bước 2: Cài đặt và Đăng ký Lệnh CLI Toàn cầu
-
-Aevum OS cung cấp công cụ dòng lệnh toàn cục hỗ trợ cả hai phương thức thiết lập:
-
-#### Cách A: Đăng ký qua npm link
-```bash
-# Di chuyển vào thư mục Aevum-os
-npm install
-npm run build
-npm link
-```
-
-#### Cách B: Thêm thư mục bin vào PATH (Hỗ trợ Dynamic Path)
-Thêm đường dẫn thư mục `bin` của Aevum OS vào biến môi trường `PATH` của hệ điều hành. Thư mục này chứa sẵn các wrapper thông minh (`aevum.cmd`, `aevum.ps1`, `aevum`) tự động tìm vị trí cài đặt mà không phụ thuộc vào thư mục hiện tại.
-
-```powershell
-# Trên PowerShell:
-$env:Path += ";D:\I2FLabs\Projects\Aevum-os\bin"
+```mermaid
+flowchart LR
+    Setup["<b>Bộ Cài Đặt Aevum OS</b><br/>(Tích hợp sẵn GUI & CLI)"]
+    Setup --> H1["<b>Hướng 1: Chạy Desktop App</b><br/>Giao diện đồ họa trực quan • Auto Daemon"]
+    Setup --> H2["<b>Hướng 2: Chạy qua CLI</b><br/>Terminal độc lập • Lệnh POSIX toàn cục"]
 ```
 
 ---
 
-### Bước 3: Kiểm tra & Khởi tạo
+### Hướng 1: Chạy Ứng dụng Desktop (Desktop Control Center GUI)
 
-Xác nhận lệnh `aevum` đã hoạt động và kiểm tra các tính năng chính:
+Dành cho lập trình viên và vibe coder muốn theo dõi hệ thống qua giao diện đồ họa trực quan:
+
+1. **Khởi động**: Mở ứng dụng **Aevum OS** từ màn hình Desktop (Windows) hoặc thư mục Applications / Launchpad (macOS).
+2. **Cơ chế tự động**: Ngay khi ứng dụng mở ra, **Fastify v5 Core Daemon** tự động kích hoạt ngầm tại cổng `3344` mà bạn không cần phải giữ bất kỳ cửa sổ dòng lệnh nào.
+3. **Các tính năng trên giao diện đồ họa**:
+   * **Workspace Overview**: Theo dõi chỉ số sức khỏe codebase và nhật ký hoạt động thời gian thực.
+   * **Agent Chat View**: Trò chuyện trực tiếp với Persona cùng bộ chọn mô hình linh hoạt (Gemini 3.7 Flash, Claude 3.5 Sonnet, GPT-4o).
+   * **Skill Tree Canvas**: Khám phá cây kỹ năng và lộ trình nghiên cứu trực quan.
+   * **Living Memory Graph**: Quan sát đồ thị tri thức sống động neo theo từng file mã nguồn.
+
+---
+
+### Hướng 2: Chạy thông qua Dòng lệnh (CLI Terminal Engine)
+
+Dành cho kỹ sư yêu thích terminal, script tự động hóa hoặc muốn chạy headless:
+
+Vì bộ cài đặt đã cấu hình sẵn lệnh `aevum` toàn cục, bạn chỉ cần mở bất kỳ cửa sổ Terminal, PowerShell hoặc Bash nào và thực thi:
 
 ```bash
-# Kiểm tra trợ giúp và danh mục lệnh
-aevum --help
+# 1. Khởi chạy máy chủ MCP Fastify Daemon tại cổng mặc định 3344
+aevum
 
-# Kiểm tra phiên bản hệ thống hiện tại
-aevum --version
-# Kết quả: Aevum OS v1.0.0-beta.6 (Fastify v5 Daemon, Protocol: MCP 2024-11-05)
-
-# Khởi tạo không gian làm việc Aevum cho dự án hiện tại
-aevum init
-
-# Kiểm tra trạng thái Daemon đang chạy
+# 2. Kiểm tra trạng thái sức khỏe và các công cụ sẵn sàng
 aevum status
+# Output: ONLINE (Port 3344, Fastify v5 Core, 101 Tools Sẵn sàng)
+
+# 3. Kiểm tra nhịp tim lắng nghe phản hồi siêu tốc (< 1ms)
+aevum ping
+# Output: pong (Aevum Fastify Daemon is healthy)
+
+# 4. Khởi động giao diện Desktop từ Terminal bất kỳ lúc nào
+aevum gui
 ```
 
-> [!NOTE]
-> Nếu Terminal của bạn chưa nhận dạng được lệnh `aevum`, hãy khởi động lại Terminal hoặc kiểm tra biến môi trường `PATH` của hệ thống để đảm bảo đường dẫn đã được cập nhật. Tra cứu thêm tại [Nhật ký Cập nhật](/changelog).
+---
+
+## Bước Kế Tiếp
+
+Sau khi Aevum OS đã chạy (qua Desktop App hoặc lệnh CLI), bước tiếp theo là kết nối Aevum OS vào IDE lập trình của bạn (Cursor, Claude Desktop, Antigravity, VS Code).
+
+Hãy chuyển sang mục tiếp theo: **[Tích hợp (Integration)](/docs/integration)**.

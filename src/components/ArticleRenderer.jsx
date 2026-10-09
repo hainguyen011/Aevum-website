@@ -12,8 +12,8 @@ import {
   ExternalLink,
   Image as ImageIcon,
   Film,
-  X
 } from 'lucide-react';
+import { MermaidDiagram } from './MermaidDiagram';
 
 /**
  * Intelligent Tokenizer for Terminal, Bash, JSON, JS/TS, Python, PowerShell
@@ -396,7 +396,7 @@ export const ArticleRenderer = ({
     escaped = escaped.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-white [html[data-theme=\'light\']_&]:text-slate-950">$1</strong>');
 
     // Handle italic: *text* (avoid matching list markers)
-    escaped = escaped.replace(/(^|[^\*])\*([^\*]+)\*([^\*]|$)/g, '$1<em class="italic text-slate-300 [html[data-theme=\'light\']_&]:text-slate-700">$2</em>$3');
+    escaped = escaped.replace(/(^|[^\*])\*([^\*]+)\*([^\*]|$)/g, '$1<em class="italic text-zinc-300 [html[data-theme=\'light\']_&]:text-slate-700">$2</em>$3');
 
     // Handle inline markdown images: ![alt](url)
     escaped = escaped.replace(
@@ -411,16 +411,16 @@ export const ArticleRenderer = ({
         const cleanText = linkText.replace(/`([^`]+)`/g, '$1');
         const isFileOrVersion = /\.(exe|dmg|zip|yml|blockmap)$/i.test(cleanText) || /^v?\d+\.\d+/i.test(cleanText);
         const extraClass = isFileOrVersion
-          ? 'font-mono text-[12px] bg-white/[0.06] hover:bg-white/[0.12] [html[data-theme=\'light\']_&]:bg-slate-200/80 px-2 py-0.5 rounded no-underline text-white [html[data-theme=\'light\']_&]:text-slate-900 font-medium border border-white/10 hover:border-white/25 cursor-pointer'
+          ? 'font-mono text-[12px] bg-white/[0.06] hover:bg-white/[0.12] [html[data-theme=\'light\']_&]:bg-slate-200/80 px-2 py-0.5 rounded no-underline text-zinc-200 [html[data-theme=\'light\']_&]:text-slate-900 font-medium border border-white/10 hover:border-white/25 cursor-pointer'
           : 'underline underline-offset-2 font-medium cursor-pointer';
-        return `<a href="${url}" class="text-white [html[data-theme=\'light\']_&]:text-blue-600 hover:text-slate-200 [html[data-theme=\'light\']_&]:hover:text-blue-700 transition-colors inline-flex items-center gap-1 ${extraClass}">${cleanText}</a>`;
+        return `<a href="${url}" class="text-white [html[data-theme=\'light\']_&]:text-blue-600 hover:text-zinc-200 [html[data-theme=\'light\']_&]:hover:text-blue-700 transition-colors inline-flex items-center gap-1 ${extraClass}">${cleanText}</a>`;
       }
     );
 
     // Handle inline code: `code`
     escaped = escaped.replace(
       /`([^`]+)`/g,
-      '<code class="bg-white/[0.06] [html[data-theme=\'light\']_&]:bg-slate-200/80 text-white [html[data-theme=\'light\']_&]:text-slate-800 font-mono text-[11.5px] sm:text-[12px] px-1.5 py-0.5 rounded border border-white/5 [html[data-theme=\'light\']_&]:border-slate-300/80">$1</code>'
+      '<code class="bg-white/[0.08] [html[data-theme=\'light\']_&]:bg-slate-200/90 text-zinc-200 [html[data-theme=\'light\']_&]:text-slate-900 font-mono text-[11.5px] sm:text-[12px] font-medium px-2 py-0.5 rounded-md border border-white/10 [html[data-theme=\'light\']_&]:border-slate-300 inline-block my-0.5">$1</code>'
     );
 
     return escaped;
@@ -469,10 +469,10 @@ export const ArticleRenderer = ({
             key={key}
             className={`${
               listType === 'ol' ? 'list-decimal' : 'list-disc'
-            } pl-6 my-5 space-y-2.5 max-w-prose ${
+            } pl-6 my-5 space-y-2.5 max-w-prose marker:text-zinc-500 ${
               fontSize === 'large'
-                ? 'text-[18px] sm:text-[19px] leading-[1.85] text-slate-100 [html[data-theme="light"]_&]:text-slate-900'
-                : 'text-[16px] sm:text-[16.5px] leading-[1.8] text-slate-200 [html[data-theme="light"]_&]:text-slate-800'
+                ? 'text-[17.5px] sm:text-[18.5px] leading-[1.8] text-zinc-300 [html[data-theme="light"]_&]:text-slate-800'
+                : 'text-[15.5px] sm:text-[16px] leading-[1.75] text-zinc-400 [html[data-theme="light"]_&]:text-slate-700'
             }`}
           >
             {listItems.map((item, idx) => (
@@ -603,7 +603,7 @@ export const ArticleRenderer = ({
           elements.push(
             <h1
               key={`h1-${blockIdx}-${i}`}
-              className="text-2xl sm:text-3xl font-medium text-white [html[data-theme='light']_&]:text-slate-900 tracking-tight mb-4 font-display leading-tight max-w-prose text-balance"
+              className="text-2xl sm:text-3xl font-bold text-white [html[data-theme='light']_&]:text-slate-900 tracking-tight mb-4 font-display leading-tight max-w-prose text-balance"
               itemProp="headline"
             >
               {line.substring(2)}
@@ -613,7 +613,7 @@ export const ArticleRenderer = ({
         continue;
       }
 
-      // Handle H2 with Google Sans Flex standard (Size: 22px, Weight: 400 Regular, Optical Size: Auto)
+      // Handle H2 with Google Sans Flex standard (Size: 22px, Weight: 600 Semibold)
       if (line.startsWith('## ')) {
         flushList(`list-${blockIdx}-${i}`);
         const titleText = line.substring(3).trim();
@@ -626,7 +626,7 @@ export const ArticleRenderer = ({
           <h2
             id={headingId}
             key={`h2-${blockIdx}-${i}`}
-            className={`font-normal text-white [html[data-theme='light']_&]:text-slate-900 tracking-tight mt-11 mb-4 font-display scroll-mt-24 group relative max-w-prose text-balance leading-snug ${
+            className={`font-semibold text-white [html[data-theme='light']_&]:text-slate-900 tracking-tight mt-11 mb-4 font-display scroll-mt-24 group relative max-w-prose text-balance leading-snug ${
               fontSize === 'large' ? 'text-2xl sm:text-[26px]' : 'text-xl sm:text-[22px]'
             }`}
           >
@@ -661,7 +661,7 @@ export const ArticleRenderer = ({
           <h3
             id={headingId}
             key={`h3-${blockIdx}-${i}`}
-            className={`font-normal text-slate-200 [html[data-theme='light']_&]:text-slate-900 tracking-tight mt-8 mb-3 font-display scroll-mt-24 group relative max-w-prose text-balance leading-snug ${
+            className={`font-semibold text-slate-100 [html[data-theme='light']_&]:text-slate-900 tracking-tight mt-8 mb-3 font-display scroll-mt-24 group relative max-w-prose text-balance leading-snug ${
               fontSize === 'large' ? 'text-lg sm:text-[20px]' : 'text-base sm:text-[18px]'
             }`}
           >
@@ -690,7 +690,7 @@ export const ArticleRenderer = ({
         elements.push(
           <h4
             key={`h4-${blockIdx}-${i}`}
-            className={`font-medium tracking-tight text-slate-300 [html[data-theme='light']_&]:text-slate-800 mt-5 mb-2.5 font-display max-w-prose text-balance leading-normal ${
+            className={`font-semibold tracking-tight text-zinc-200 [html[data-theme='light']_&]:text-slate-800 mt-5 mb-2.5 font-display max-w-prose text-balance leading-normal ${
               fontSize === 'large' ? 'text-base sm:text-[17px]' : 'text-sm sm:text-base'
             }`}
           >
@@ -781,30 +781,30 @@ export const ArticleRenderer = ({
         elements.push(
           <div
             key={`table-${blockIdx}-${i}`}
-            className="my-6 overflow-x-auto rounded-lg border border-white/10 [html[data-theme='light']_&]:border-slate-200 bg-white/[0.015] [html[data-theme='light']_&]:bg-white scrollbar-thin"
+            className="my-6 overflow-x-auto w-full bg-transparent scrollbar-thin"
           >
-            <table className="w-full text-xs font-mono text-left border-collapse">
+            <table className="w-full text-left border-collapse bg-transparent">
               <thead>
-                <tr className="bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-100/80 border-b border-white/10 [html[data-theme='light']_&]:border-slate-200">
+                <tr className="border-b border-white/15 [html[data-theme='light']_&]:border-slate-300 bg-transparent">
                   {headers.map((h, hi) => (
                     <th
                       key={hi}
-                      className="px-4 py-3 text-slate-300 [html[data-theme='light']_&]:text-slate-700 font-semibold uppercase tracking-wider text-[10px] whitespace-nowrap"
+                      className="pb-3.5 pt-1 px-4 first:pl-0 last:pr-0 font-sans text-[13.5px] sm:text-[14px] font-bold text-white [html[data-theme='light']_&]:text-slate-950 whitespace-nowrap"
                       dangerouslySetInnerHTML={{ __html: parseInline(h) }}
                     />
                   ))}
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="divide-y divide-white/[0.06] [html[data-theme='light']_&]:divide-slate-200">
                 {bodyRows.map((row, ri) => (
                   <tr
                     key={ri}
-                    className="border-b border-white/5 [html[data-theme='light']_&]:border-slate-100 hover:bg-white/[0.02] [html[data-theme='light']_&]:hover:bg-slate-50 transition-colors"
+                    className="border-b border-white/[0.06] [html[data-theme='light']_&]:border-slate-200 hover:bg-white/[0.015] [html[data-theme='light']_&]:hover:bg-slate-50/50 transition-colors bg-transparent"
                   >
                     {parseCells(row).map((cell, ci) => (
                       <td
                         key={ci}
-                        className="px-4 py-3 text-slate-200 [html[data-theme='light']_&]:text-slate-700 align-top leading-relaxed"
+                        className="py-3.5 sm:py-4 px-4 first:pl-0 last:pr-0 font-sans text-[13px] sm:text-[13.5px] text-zinc-400 [html[data-theme='light']_&]:text-slate-700 align-top leading-relaxed"
                         dangerouslySetInnerHTML={{ __html: parseInline(cell) }}
                       />
                     ))}
@@ -884,8 +884,8 @@ export const ArticleRenderer = ({
                   {badgeTitle}
                 </div>
                 <div
-                  className={`leading-relaxed text-slate-200 [html[data-theme='light']_&]:text-slate-800 ${
-                    fontSize === 'large' ? 'text-[16.5px]' : 'text-[15px]'
+                  className={`leading-relaxed text-zinc-300 [html[data-theme='light']_&]:text-slate-700 ${
+                    fontSize === 'large' ? 'text-[16px]' : 'text-[14.5px]'
                   }`}
                   dangerouslySetInnerHTML={{ __html: parseInline(cleanText) }}
                 />
@@ -896,8 +896,8 @@ export const ArticleRenderer = ({
           elements.push(
             <blockquote
               key={`quote-${blockIdx}-${i}`}
-              className={`bg-white/[0.03] [html[data-theme='light']_&]:bg-slate-100/60 px-5 py-3.5 rounded-md italic my-5 text-slate-100 [html[data-theme='light']_&]:text-slate-900 border-l-2 border-white/25 [html[data-theme='light']_&]:border-slate-300 max-w-prose encode-sans-condensed-extralight ${
-                fontSize === 'large' ? 'text-[19px] sm:text-[21px] leading-[1.65] tracking-wide' : 'text-[17.5px] sm:text-[19.5px] leading-[1.6] tracking-wide'
+              className={`bg-white/[0.02] [html[data-theme='light']_&]:bg-slate-100/60 px-5 py-3.5 rounded-md italic my-5 text-zinc-300 [html[data-theme='light']_&]:text-slate-700 border-l-2 border-white/20 [html[data-theme='light']_&]:border-slate-300 max-w-prose encode-sans-condensed-extralight ${
+                fontSize === 'large' ? 'text-[18px] sm:text-[20px] leading-[1.65] tracking-wide' : 'text-[16.5px] sm:text-[18.5px] leading-[1.6] tracking-wide'
               }`}
             >
               {quoteContent}
@@ -915,8 +915,8 @@ export const ArticleRenderer = ({
             key={`p-${blockIdx}-${i}`}
             className={`${
               fontSize === 'large'
-                ? 'text-[18px] sm:text-[19px] leading-[1.85] text-slate-100 [html[data-theme="light"]_&]:text-slate-900'
-                : 'text-[16px] sm:text-[16.5px] leading-[1.8] text-slate-200 [html[data-theme="light"]_&]:text-slate-800'
+                ? 'text-[17.5px] sm:text-[18.5px] leading-[1.8] text-zinc-300 [html[data-theme="light"]_&]:text-slate-800'
+                : 'text-[15.5px] sm:text-[16px] leading-[1.75] text-zinc-400 [html[data-theme="light"]_&]:text-slate-700'
             } mb-5 max-w-prose font-normal`}
             dangerouslySetInnerHTML={{ __html: parseInline(line) }}
           />
@@ -932,6 +932,15 @@ export const ArticleRenderer = ({
     <div className={className}>
       {blocks.map((block, idx) => {
         if (block.type === 'code') {
+          if (block.lang === 'mermaid') {
+            return (
+              <MermaidDiagram
+                key={block.id}
+                content={block.content}
+                isVi={isVi}
+              />
+            );
+          }
           return (
             <CodeBlock
               key={block.id}

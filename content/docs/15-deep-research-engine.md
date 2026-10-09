@@ -1,95 +1,55 @@
 ---
 id: "deep-research-engine"
-title: "Deep Research & Chòm sao Kỹ năng"
+title: "Nghiên cứu Tự trị & Chòm sao Kỹ năng"
 category: "Phát triển"
-order: 15
+order: 16
 ---
 
-# Deep Research Engine & Chòm sao Kỹ năng
+# Không gian Nghiên cứu Tự trị (Deep Research Engine)
 
-**Deep Research Engine** là hệ thống nghiên cứu chuyên sâu tự trị tích hợp trong Aevum OS. Hệ thống cho phép Agent thực hiện các nhiệm vụ nghiên cứu có cấu trúc, tự động tổng hợp insights theo chuẩn học thuật và trực quan hóa thành **Chòm sao Kỹ năng (Skill Tree Constellations)**.
+Khi bắt đầu một bài toán công nghệ mới (ví dụ: *Nên chọn giải pháp xác thực nào cho Microservices? Cách thiết lập Distributed Cache chịu tải 100k CCU?*), lập trình viên thường mất hàng giờ đọc tài liệu và so sánh các bài viết trên mạng.
 
----
+**Deep Research Engine** trong Aevum OS là trợ lý nghiên cứu tự trị: cho phép AI tự động thu thập tài liệu, phân tích ưu nhược điểm đa chiều và biến kết quả nghiên cứu thành **Kế hoạch Kỹ thuật thực thi chỉ với 1 thao tác**.
 
-## 1. Cấu trúc Nhiệm vụ Nghiên cứu (Research Mission)
-Mỗi Research Mission bao gồm:
-- **Topic**: Đề tài nghiên cứu kỹ thuật cụ thể.
-- **Depth (1-5)**: Độ sâu nghiên cứu (từ 1: tổng quan sơ bộ đến 5: phân tích đa chiều toàn diện).
-- **Insights & Credibility Tiering**: Phát hiện phân tầng độ tin cậy kèm trích dẫn IEEE tự động.
-- **IEEE/ACM Technical Paper Standard v2.1**: Bài báo nghiên cứu hoàn chỉnh được tự động sinh ra.
-
----
-
-## 2. Khởi chạy Nghiên cứu Tự trị
-
-```bash
-aevum_deep_research(
-  topic="Best practices for distributed JWT authentication in microservices",
-  depth=3,
-  id="research_auth_2026"
-)
+```mermaid
+flowchart LR
+    S1["<b>1. Đề Tài</b><br/>Độ sâu Depth 1-5"] --> S2["<b>2. Research Engine</b><br/>Thu thập RFC & Benchmarks"]
+    S2 --> S3["<b>3. Cây Tri Thức</b><br/>Phân nhánh rủi ro"]
+    S3 -->|1-Click| S4["<b>4. Kế Hoạch (Plan)</b><br/>Implementation Plan"]
 ```
 
 ---
 
-## 3. Thu thập Insights có Phân tầng Độ tin cậy (Credibility Tiers)
+## 1. Khởi Chạy Nhiệm Vụ Nghiên Cứu Bằng Chat Tự Nhiên
 
-```bash
-# Thu thập từ nguồn tiêu chuẩn chính thức (Tier 1)
-aevum_capture_research_insight(
-  researchId="research_auth_2026",
-  source="RFC 7519 - JSON Web Token",
-  category="official_specification",
-  credibility="Tier-1 (Peer-Reviewed / Formal Spec)",
-  url="https://tools.ietf.org/html/rfc7519",
-  insight="JWT claims nên được validate đầy đủ: iss, sub, aud, exp, nbf, iat, jti. Bắt buộc kiểm tra 'exp' để ngăn chặn triệt để replay attack."
-)
+Bạn chỉ cần giao đề tài cho AI kèm độ sâu nghiên cứu mong muốn (từ mức 1: tóm tắt nhanh đến mức 5: phân tích kiến trúc chuyên sâu):
 
-# Thu thập từ nguồn phân tích thực nghiệm công nghiệp (Tier 2)
-aevum_capture_research_insight(
-  researchId="research_auth_2026",
-  source="OWASP JWT Security Cheat Sheet",
-  category="industry_benchmark",
-  credibility="Tier-2 (Verified Industry Benchmark)",
-  url="https://cheatsheetseries.owasp.org",
-  insight="Tuyệt đối không cho phép 'alg: none'. Luôn whitelist thuật toán được phép; ưu tiên RS256 hơn HS256 cho kiến trúc phân tán."
-)
-```
+> *"An ơi, hãy nghiên cứu chuyên sâu về các phương án chống tấn công Replay Attack cho JWT với độ sâu mức 3 nhé."*
+
+AI sẽ tự động:
+1. Đọc tài liệu đặc tả kỹ thuật chính thức (RFC specs, OWASP benchmarks).
+2. Phân tầng nguồn tin cậy (nguồn chuẩn quốc tế vs bài blog tham khảo).
+3. Đúc kết các ưu điểm, nhược điểm và rủi ro tiềm ẩn thành một bản báo cáo kỹ thuật rõ ràng.
 
 ---
 
-## 4. Chòm sao Cây Kỹ năng (Interactive Skill Tree Constellations)
-Trên giao diện Desktop Control Center, Aevum OS hiển thị chòm sao kỹ năng được vẽ bằng **React Flow** và thuật toán dàn đồ thị **Dagre**:
-- **Trạng thái Node**: *Locked* (Chưa mở khóa), *Researching* (Đang nghiên cứu), *Mastered* (Đã tinh thông).
-- **Tỉ lệ Tinh thông Domain**: Thước đo phần trăm hoàn thành năng lực của dự án.
-- **Huy hiệu Persona**: Hiển thị avatar của Agent đang phụ trách node nghiên cứu đó.
+## 2. Trực Quan Hóa Chòm Sao Cây Kỹ Năng (Skill Tree Canvas)
 
-### Phân nhánh Nghiên cứu Đệ quy (Branching Nodes)
-Khi phát hiện một nhánh chủ đề con thú vị trong quá trình nghiên cứu, Agent có thể rẽ nhánh:
-```bash
-aevum_branch_research_node(
-  parentId="research_auth_2026",
-  subTopic="Redis Distributed Mutex for Token Invalidation"
-)
-```
+Trên ứng dụng **Desktop Control Center**:
+* Toàn bộ tiến trình nghiên cứu được hiển thị thành một **Chòm sao Kỹ năng tương tác**.
+* Các chủ đề nhánh (Sub-topics) tự động rẽ nhánh đệ quy như một sơ đồ tư duy (Mindmap).
+* Nút nào đang nghiên cứu sẽ phát sáng, nút nào đã làm chủ sẽ chuyển sang trạng thái tinh thông (*Mastered*).
 
 ---
 
-## 5. Tổng hợp Bài báo Kỹ thuật & Thăng cấp thành Kế hoạch (Promote to Plan)
+## 3. Tính Năng Đột Phá: Thăng Cấp Thành Kế Hoạch (1-Click Promote to Plan)
 
-Khi nghiên cứu đạt độ bao phủ cần thiết (`aevum_analyze_research_progress`):
+Điểm khác biệt lớn nhất giữa Aevum OS và việc tra cứu thông thường: **Tri thức nghiên cứu kết nối trực tiếp với luồng viết code**.
 
-```bash
-# 1. Tổng hợp bài báo nghiên cứu chuẩn IEEE/ACM
-aevum_synthesize_report(researchId="research_auth_2026")
+Sau khi bản báo cáo nghiên cứu hoàn tất, bạn chỉ cần nhắn:
 
-# 2. Thăng cấp 1-click thành Kế hoạch Kỹ thuật thực thi (Promote to Plan)
-aevum_promote_research_to_plan(
-  missionId="research_auth_2026",
-  domainId="core_architecture",
-  planName="Deploy Distributed JWT Mutex"
-)
-```
+> *"Báo cáo rất chi tiết! Hãy biến đề xuất này thành Kế hoạch thực thi trong dự án nhé."*
 
-> [!TIP]
-> Quy trình **Promote to Plan** kết nối liền mạch giữa giai đoạn nghiên cứu lý thuyết và thực thi mã nguồn. Toàn bộ kiến trúc và danh mục kiểm thử từ bài báo sẽ được tự động chuyển thành các task có thể thực thi ngay lập tức!
+Hệ thống sẽ tự động kích hoạt tính năng **Promote to Plan**:
+* Chuyển hóa toàn bộ khuyến nghị kiến trúc thành danh sách đầu việc cụ thể trong file `implementation_plan.md`.
+* Gán kế hoạch cho Persona phù hợp trong Biệt đội để bắt tay vào viết code và test ngay lập tức!

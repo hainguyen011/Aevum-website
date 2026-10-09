@@ -2,327 +2,894 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  
-  <!-- Homepage -->
+
   <url>
     <loc>https://www.aevum.ai.vn/</loc>
     <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.aevum.ai.vn/"/>
-    <lastmod>2026-08-31</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://www.aevum.ai.vn/og-image.png</image:loc>
-      <image:title>Aevum OS — Standalone MCP Server and Workspace External Brain</image:title>
-      <image:caption>Decoupled AI Workspace Operating System for Cursor and Claude Desktop</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://www.aevum.ai.vn/aevum-logo-512.png</image:loc>
-      <image:title>Aevum OS Brand Logo</image:title>
+      <image:title>Aevum OS — Standalone MCP Server &amp; Workspace External Brain</image:title>
+      <image:caption>Hệ điều hành Agent độc lập và Bộ não Ngoại vi</image:caption>
     </image:image>
   </url>
 
-  <!-- Pricing & Membership Tiers -->
   <url>
     <loc>https://www.aevum.ai.vn/pricing</loc>
     <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/pricing"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/pricing"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.aevum.ai.vn/pricing"/>
-    <lastmod>2026-08-31</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
 
-  <!-- Technical Documentation -->
   <url>
     <loc>https://www.aevum.ai.vn/docs</loc>
     <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.aevum.ai.vn/docs"/>
-    <lastmod>2026-08-31</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
 
-  <!-- Era Academy & Open Knowledge Hub -->
   <url>
     <loc>https://www.aevum.ai.vn/explore</loc>
     <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/explore"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.aevum.ai.vn/explore"/>
-    <lastmod>2026-10-01</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
   </url>
-  <url>
-    <loc>https://www.aevum.ai.vn/explore/ai-la-gi-co-che-hoat-dong</loc>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/ai-la-gi-co-che-hoat-dong"/>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://www.aevum.ai.vn/explore/nghe-thuat-giao-tiep-ai-prompting</loc>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/nghe-thuat-giao-tiep-ai-prompting"/>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://www.aevum.ai.vn/explore/ai-trong-cac-nganh-nghe</loc>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/ai-trong-cac-nganh-nghe"/>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://www.aevum.ai.vn/explore/bao-mat-quyen-rieng-tu-dao-duc-ai</loc>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/bao-mat-quyen-rieng-tu-dao-duc-ai"/>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://www.aevum.ai.vn/explore/tu-chatbot-den-agent</loc>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/tu-chatbot-den-agent"/>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://www.aevum.ai.vn/explore/vong-lap-nhan-thuc-ooda-react</loc>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/vong-lap-nhan-thuc-ooda-react"/>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://www.aevum.ai.vn/explore/hien-tuong-context-amnesia</loc>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/hien-tuong-context-amnesia"/>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://www.aevum.ai.vn/explore/kien-truc-giao-thuc-mcp</loc>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/kien-truc-giao-thuc-mcp"/>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://www.aevum.ai.vn/explore/mo-hinh-tri-nho-kep-stm-ltm</loc>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/mo-hinh-tri-nho-kep-stm-ltm"/>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://www.aevum.ai.vn/explore/thuat-toan-truy-hoi-spiking-lif</loc>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/thuat-toan-truy-hoi-spiking-lif"/>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://www.aevum.ai.vn/explore/mo-hinh-bang-den-blackboard-pattern</loc>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/mo-hinh-bang-den-blackboard-pattern"/>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://www.aevum.ai.vn/explore/autonomous-deep-research</loc>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/autonomous-deep-research"/>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
 
-  <!-- Technical Documentation Subtopics & Guides -->
-  <url>
-    <loc>https://www.aevum.ai.vn/docs/gioi-thieu</loc>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/gioi-thieu"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/gioi-thieu"/>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://www.aevum.ai.vn/docs/cai-dat</loc>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/cai-dat"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/cai-dat"/>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-  </url>
-  <url>
-    <loc>https://www.aevum.ai.vn/docs/cli-terminal</loc>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/cli-terminal"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/cli-terminal"/>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-  </url>
-  <url>
-    <loc>https://www.aevum.ai.vn/docs/che-do-chay</loc>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/che-do-chay"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/che-do-chay"/>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://www.aevum.ai.vn/docs/handshake-ritual</loc>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/handshake-ritual"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/handshake-ritual"/>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://www.aevum.ai.vn/docs/persona-system</loc>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/persona-system"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/persona-system"/>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://www.aevum.ai.vn/docs/cognitive-dual-memory</loc>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/cognitive-dual-memory"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/cognitive-dual-memory"/>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-  </url>
-  <url>
-    <loc>https://www.aevum.ai.vn/docs/skill-system</loc>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/skill-system"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/skill-system"/>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://www.aevum.ai.vn/docs/plan-lifecycle</loc>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/plan-lifecycle"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/plan-lifecycle"/>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://www.aevum.ai.vn/docs/tips-tricks</loc>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/tips-tricks"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/tips-tricks"/>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://www.aevum.ai.vn/docs/pipernet-mesh</loc>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/pipernet-mesh"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/pipernet-mesh"/>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://www.aevum.ai.vn/docs/mcp-tools-reference</loc>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/mcp-tools-reference"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/mcp-tools-reference"/>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-  </url>
-  <url>
-    <loc>https://www.aevum.ai.vn/docs/living-memory-graph</loc>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/living-memory-graph"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/living-memory-graph"/>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://www.aevum.ai.vn/docs/blackboard-hub</loc>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/blackboard-hub"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/blackboard-hub"/>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://www.aevum.ai.vn/docs/deep-research-engine</loc>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/deep-research-engine"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/deep-research-engine"/>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-
-  <!-- Community Discussions -->
-  <url>
-    <loc>https://www.aevum.ai.vn/discussions</loc>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/discussions"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/discussions"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.aevum.ai.vn/discussions"/>
-    <lastmod>2026-08-31</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.85</priority>
-  </url>
-
-  <!-- Product Changelog -->
-  <url>
-    <loc>https://www.aevum.ai.vn/changelog</loc>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/changelog"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/changelog"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.aevum.ai.vn/changelog"/>
-    <lastmod>2026-08-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
-  </url>
-
-  <!-- About & Product Story -->
   <url>
     <loc>https://www.aevum.ai.vn/about</loc>
     <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/about"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/about"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.aevum.ai.vn/about"/>
-    <lastmod>2026-08-31</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
 
-  <!-- Unikorn Product Showcase -->
   <url>
-    <loc>https://www.aevum.ai.vn/#unikorn</loc>
-    <lastmod>2026-08-31</lastmod>
+    <loc>https://www.aevum.ai.vn/changelog</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/changelog"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/changelog"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.aevum.ai.vn/changelog"/>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
 
-  <!-- Privacy Policy -->
+  <url>
+    <loc>https://www.aevum.ai.vn/discussions</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/discussions"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/discussions"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.aevum.ai.vn/discussions"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
   <url>
     <loc>https://www.aevum.ai.vn/privacy</loc>
     <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/privacy"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/privacy"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.aevum.ai.vn/privacy"/>
-    <lastmod>2026-08-31</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
 
-  <!-- Terms of Service -->
   <url>
     <loc>https://www.aevum.ai.vn/terms</loc>
     <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/terms"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/terms"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.aevum.ai.vn/terms"/>
-    <lastmod>2026-08-31</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/docs/gioi-thieu</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/gioi-thieu"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/gioi-thieu"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/docs/cai-dat</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/cai-dat"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/cai-dat"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/docs/integration</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/integration"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/integration"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/docs/handshake-ritual</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/handshake-ritual"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/handshake-ritual"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/docs/cli-terminal</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/cli-terminal"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/cli-terminal"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/docs/che-do-chay</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/che-do-chay"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/che-do-chay"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/docs/persona-system</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/persona-system"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/persona-system"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/docs/tips-tricks</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/tips-tricks"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/tips-tricks"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/docs/cognitive-dual-memory</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/cognitive-dual-memory"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/cognitive-dual-memory"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/docs/skill-system</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/skill-system"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/skill-system"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/docs/plan-lifecycle</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/plan-lifecycle"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/plan-lifecycle"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/docs/pipernet-mesh</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/pipernet-mesh"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/pipernet-mesh"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/docs/mcp-tools-reference</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/mcp-tools-reference"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/mcp-tools-reference"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/docs/living-memory-graph</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/living-memory-graph"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/living-memory-graph"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/docs/blackboard-hub</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/blackboard-hub"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/blackboard-hub"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/docs/deep-research-engine</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/docs/deep-research-engine"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aevum.ai.vn/docs/deep-research-engine"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/ai-la-gi-co-che-hoat-dong</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/ai-la-gi-co-che-hoat-dong"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Trí Tuệ Nhân Tạo (AI) Là Gì? Bản Chất &amp; Cơ Chế Hoạt Động Căn Bản</image:title>
+      <image:caption>Giải thích bản chất AI theo cách gần gũi nhất: từ cách máy tính nhận diện thế giới qua dữ liệu, mạng nơ-ron nhân tạo, đến lý do vì sao AI ngày nay có thể trò chuyện và hỗ trợ công việc con người.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/nghe-thuat-giao-tiep-ai-prompting</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/nghe-thuat-giao-tiep-ai-prompting"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Nghệ Thuật Giao Tiếp Với AI: Từ Câu Hỏi Ngô Nghê Đến Đồng Nghiệp Trí Tuệ</image:title>
+      <image:caption>Hướng dẫn phương pháp đặt câu hỏi và thiết lập ngữ cảnh (Prompting) chuẩn mực, giúp bất kỳ ai cũng có thể khai thác tối đa sức mạnh của AI trong công việc và cuộc sống mà không cần kiến thức lập trình.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/ben-trong-trai-tim-transformer</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/ben-trong-trai-tim-transformer"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Bên Trong Trái Tim AI: Mô Hình Transformer &amp; Attention Hoạt Động Như Thế Nào?</image:title>
+      <image:caption>Khám phá bí mật đằng sau bước nhảy vọt của AI hiện đại: Cơ chế Chú ý Tự thân (Self-Attention) giúp cỗ máy hiểu sâu sắc ngữ cảnh câu chữ giống như trực giác con người.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/vuot-qua-noi-so-bi-thay-the-tu-duy-cong-sinh</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/vuot-qua-noi-so-bi-thay-the-tu-duy-cong-sinh"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Vượt Qua Nỗi Sợ Thay Thế: Định Hình Tư Duy Cộng Sinh (Symbiosis) Giữa Con Người &amp; AI</image:title>
+      <image:caption>Khảo sát tâm lý học thời đại số: Giải mã nỗi sợ mất việc làm, tái định hình mối quan hệ giữa con người và máy móc từ cạnh tranh đối đầu sang cộng sinh thăng hoa.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/hoc-sinh-sinh-vien-hoc-tap-thong-minh-cung-ai</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/hoc-sinh-sinh-vien-hoc-tap-thong-minh-cung-ai"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Phương Pháp Tự Học &amp; Khai Phóng Tri Thức Dành Cho Học Sinh, Sinh Viên Việt Nam</image:title>
+      <image:caption>Hướng dẫn phương pháp biến AI thành gia sư 1-1 kiên nhẫn: từ kỹ thuật Feynman giải thích bài tập khó, luyện thi đại học, đến phương pháp phản biện và tự nghiên cứu độc lập.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/nguoi-lon-tuoi-va-gia-dinh-lam-quen-cong-nghe-so</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/nguoi-lon-tuoi-va-gia-dinh-lam-quen-cong-nghe-so"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Cẩm Nang Gia Đình Số: Giúp Bố Mẹ và Người Lớn Tuổi Tiếp Cận AI Dễ Dàng &amp; An Toàn</image:title>
+      <image:caption>Những hướng dẫn thực tế, ấm áp giúp các bậc cha mẹ và người cao tuổi làm quen với trợ lý ảo: từ tra cứu thông tin sức khỏe, tìm lại bài hát xưa, đến nhận diện các thủ đoạn lừa đảo qua mạng.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/tu-duy-phan-bien-trong-thoi-dai-ai</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/tu-duy-phan-bien-trong-thoi-dai-ai"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Giữ Vững Tư Duy Phản Biện: Cách Đọc, Hiểu và Đánh Giá Thông Tin Khi AI Tràn Ngập</image:title>
+      <image:caption>Làm thế nào để không bị dắt mũi bởi thông tin do AI tạo ra? Rèn luyện thói quen kiểm chứng nguồn tin, phân biệt giữa sự thật và ý kiến chủ quan, duy trì sự độc lập trong tư duy.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/tu-dien-thuat-ngu-ai-dan-da</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/tu-dien-thuat-ngu-ai-dan-da"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Từ Điển Thuật Ngữ AI Dân Dã: Giải Mã Machine Learning, LLM &amp; Prompting Qua Ví Dụ Đời Sống</image:title>
+      <image:caption>Không cần kiến thức toán học hay lập trình phức tạp: Giải nghĩa các từ ngữ công nghệ thông dụng như Trí tuệ nhân tạo, Machine Learning, Deep Learning, LLM, Prompting, Hallucination bằng hình ảnh thực tế.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/cam-nang-cong-so-thoi-dai-so</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/cam-nang-cong-so-thoi-dai-so"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Cẩm Nang Dân Công Sở: Soạn Thảo Văn Bản, Tóm Tắt Cuộc Họp &amp; Báo Cáo Số Liệu Trong 5 Phút</image:title>
+      <image:caption>Hướng dẫn cụ thể 3 tình huống làm việc văn phòng kinh điển: chuyển đổi ghi chú lộn xộn thành biên bản họp chuyên nghiệp, soạn thảo công văn chuẩn mực và phân tích bảng số liệu Excel trong chớp mắt.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/thoi-quen-so-hang-ngay-voi-ai</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/thoi-quen-so-hang-ngay-voi-ai"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Xây Dựng Thói Quen Số Hàng Ngày: 5 Bước Tích Hợp AI Vào Đời Sống Mà Không Bị Quá Tải</image:title>
+      <image:caption>5 bước đơn giản giúp bạn đưa AI vào nhịp sinh hoạt thường nhật một cách tự nhiên: từ lập kế hoạch buổi sáng, giải quyết tắc nghẽn công việc, đến tổng kết học hỏi trước khi ngủ.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/khat-vong-tri-tue-viet-nam</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/khat-vong-tri-tue-viet-nam"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Tinh Thần Tự Lực Số &amp; Khát Vọng Trí Tuệ Việt Nam Trong Kỷ Nguyên Trí Tuệ Nhân Tạo</image:title>
+      <image:caption>Tại sao Việt Nam không thể chỉ dừng lại ở vị thế người tiêu dùng công nghệ ngoại bang? Bàn về tinh thần tự lực số, bảo vệ chủ quyền dữ liệu và cơ hội ngàn năm có một để trí tuệ Việt Nam vươn tầm thế giới.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/suc-khoe-tinh-than-thoi-dai-ai</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/suc-khoe-tinh-than-thoi-dai-ai"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Chăm Sóc Sức Khỏe Tinh Thần Thời Đại Số: Dùng AI Để Lắng Nghe, Giảm Áp Lực &amp; Nuôi Dưỡng Tâm An</image:title>
+      <image:caption>Cách tận dụng AI như một người lắng nghe kiên nhẫn không phán xét: giải tỏa lo âu, tháo gỡ bế tắc cảm xúc, thực hành chánh niệm và tìm lại sự cân bằng trong nhịp sống hiện đại.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/khong-gian-vector-la-gi-cach-ai-hieu-y-nghia</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/khong-gian-vector-la-gi-cach-ai-hieu-y-nghia"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Không Gian Vector Là Gì? Cách Máy Tính Đo Khoảng Cách Ý Nghĩa Và Cảm Xúc</image:title>
+      <image:caption>Giải thích khái niệm Vector Embedding bằng hình ảnh trực quan: cách máy tính biến từ ngữ, tranh ảnh, cảm xúc thành các tọa độ không gian nhiều chiều để hiểu sự tương đồng ngữ nghĩa.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/an-toan-thong-tin-va-lua-dao-deepfake</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/an-toan-thong-tin-va-lua-dao-deepfake"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Bảo Vệ Bản Thân &amp; Gia Đình Trước Làn Sóng Lừa Đảo Deepfake &amp; Giả Giọng Nói AI</image:title>
+      <image:caption>Cẩm nang thực tế nhận diện video giả mạo khuôn mặt, cuộc gọi mạo danh giọng người thân; thiết lập mật khẩu gia đình và quy tắc vàng 3 giây kiểm chứng để bảo vệ tài sản và người thân.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/kho-tang-tri-thuc-ca-nhan-second-brain-cung-ai</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/kho-tang-tri-thuc-ca-nhan-second-brain-cung-ai"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Kho Tàng Tri Thức Cá Nhân: Cách Xây Dựng 'Bộ Não Thứ Hai' (Second Brain) Cùng AI</image:title>
+      <image:caption>Phương pháp ghi chép hiện đại kết hợp AI: Biến những điều bạn đọc và trải nghiệm hàng ngày thành một hệ thống tri thức sống động, tự động kết nối và luôn sẵn sàng hỗ trợ khi bạn cần.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/ai-trong-cac-nganh-nghe</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/ai-trong-cac-nganh-nghe"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Toàn Cảnh AI Trong Các Ngành Trụ Cột: Giáo Dục, Y Tế, Sản Xuất &amp; Dịch Vụ</image:title>
+      <image:caption>Toàn cảnh chuyển đổi số dưới tác động của AI trong các lĩnh vực trụ cột: học tập cá nhân hóa, hỗ trợ chẩn đoán y khoa, tự động hóa quy trình kinh doanh và mở rộng năng lực sáng tạo.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/chuyen-doi-so-doanh-nghiep-nho-va-ho-kinh-doanh</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/chuyen-doi-so-doanh-nghiep-nho-va-ho-kinh-doanh"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>AI Cho Tiểu Thương &amp; Doanh Nghiệp Vừa và Nhỏ (SME) Việt Nam: Tối Ưu Chi Phí, Tăng Trưởng Thực Chiến</image:title>
+      <image:caption>Lộ trình từng bước giúp các hộ kinh doanh và doanh nghiệp SME Việt Nam ứng dụng AI ngay lập tức: từ viết bài bán hàng Facebook/TikTok, thiết kế ảnh sản phẩm, chăm sóc khách hàng tự động, đến phân tích tồn kho và dòng tiền.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/giao-duc-va-nha-giao-viet-nam-thoi-ai</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/giao-duc-va-nha-giao-viet-nam-thoi-ai"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Thầy Cô Giáo Thời Đại Số: Đổi Mới Phương Pháp Sư Phạm và Soạn Bài Cùng Trợ Lý AI</image:title>
+      <image:caption>Khảo sát cách các nhà giáo Việt Nam làm chủ AI để giảm bớt gánh nặng sổ sách bàn giấy, tự động soạn giáo án đa phương tiện, thiết kế trò chơi học tập tương tác và nâng cao hứng thú cho học sinh.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/nong-nghiep-thong-minh-va-nong-dan-so</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/nong-nghiep-thong-minh-va-nong-dan-so"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Nông Nghiệp Thông Minh 4.0: Ứng Dụng AI Dự Báo Thời Tiết, Dịch Bệnh và Nâng Cao Năng Suất Nông Sản</image:title>
+      <image:caption>Khám phá bức tranh nông nghiệp công nghệ cao tại Việt Nam: Bà con nông dân dùng điện thoại chụp ảnh lá cây để nhận diện sâu bệnh tức thì, tối ưu phân bón, tưới tiêu và truy xuất nguồn gốc xuất khẩu.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/bao-mat-quyen-rieng-tu-dao-duc-ai</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/bao-mat-quyen-rieng-tu-dao-duc-ai"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Bảo Vệ Bản Thân &amp; Gia Đình: Phòng Chống Lừa Đảo Trực Tuyến, Deepfake và Bảo Vệ Tài Khoản Ngân Hàng</image:title>
+      <image:caption>Những nguyên tắc cốt tử để bảo vệ thông tin cá nhân, bí mật kinh doanh, nhận biết video/giọng nói giả mạo tinh vi (Deepfake) và sử dụng AI một cách an toàn trong môi trường mạng.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/ai-trong-sang-tao-nghe-thuat-noi-dung</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/ai-trong-sang-tao-nghe-thuat-noi-dung"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Đánh Thức Cảm Hứng: AI Cho Người Làm Sáng Tạo Nội Dung, Viết Lách và Nghệ Thuật</image:title>
+      <image:caption>Khám phá sự giao thoa kỳ diệu giữa công nghệ và mỹ cảm: Làm thế nào các nhà sáng tạo nội dung và nghệ sĩ hiện đại sử dụng AI để vượt qua khủng hoảng ý tưởng (Creative Block) và hiện thực hóa những tác phẩm chạm đến trái tim.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/giao-dien-nguoi-dung-thoi-ai-agentic-ux</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/giao-dien-nguoi-dung-thoi-ai-agentic-ux"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Thiết Kế Trải Nghiệm Thời Kỳ AI: Từ Nút Bấm Tĩnh Đến Giao Diện Tác Nhân Động</image:title>
+      <image:caption>Khám phá cuộc cách mạng trong thiết kế giao diện số: Làm thế nào AI Agent đang biến các biểu mẫu và nút bấm tĩnh thành các luồng tương tác thích ứng động theo ngữ cảnh người dùng.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/y-te-va-cham-soc-suc-khoe-chu-dong</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/y-te-va-cham-soc-suc-khoe-chu-dong"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Cách Mạng Y Tế: AI Trong Chẩn Đoán Hình Ảnh, Tầm Soát Sớm &amp; Chăm Sóc Sức Khỏe Cá Nhân Hóa</image:title>
+      <image:caption>Phân tích cách AI hỗ trợ bác sĩ phát hiện mầm bệnh từ ảnh X-quang, MRI với độ chính xác cao; trợ lý ảo theo dõi chỉ số sức khỏe liên tục và cá nhân hóa lộ trình điều trị y khoa.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/tai-chinh-ngan-hang-va-phong-chong-gian-lan</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/tai-chinh-ngan-hang-va-phong-chong-gian-lan"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Tài Chính Số &amp; Fintech: AI Phát Hiện Gian Lận Thời Gian Thực &amp; Tự Động Hóa Quản Trị Rủi Ro</image:title>
+      <image:caption>Tìm hiểu cách các thuật toán Machine Learning phát hiện giao dịch thẻ bất thường trong chớp mắt; tự động chấm điểm tín dụng công bằng và tư vấn đầu tư thuật toán thông minh.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/chuoi-cung-ung-va-logistics-thong-minh</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/chuoi-cung-ung-va-logistics-thong-minh"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Logistics &amp; Chuỗi Cung Ứng Thông Minh: Tối Ưu Hóa Tuyến Đường, Dự Báo Nhu Cầu &amp; Kho Vận Tự Động</image:title>
+      <image:caption>Ứng dụng AI giải bài toán tối ưu hóa vận chuyển hàng triệu đơn hàng mỗi ngày, giảm khí thải carbon, tự động điều phối hàng tồn kho và ngăn chặn nguy cơ đứt gãy cung ứng.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/luat-phap-va-tu-van-phap-ly-thoi-ai</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/luat-phap-va-tu-van-phap-ly-thoi-ai"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Pháp Lý Số &amp; LegalTech: Tự Động Rà Soát Hợp Đồng, Tra Cứu Án Lệ &amp; Trợ Lý Luật Sư Ảo</image:title>
+      <image:caption>Khảo sát cách AI đọc và phát hiện lỗ hổng rủi ro trong hàng trăm trang hợp đồng trong vài giây; hỗ trợ tra cứu văn bản quy phạm pháp luật và án lệ giúp doanh nghiệp luôn tuân thủ chuẩn mực.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/nang-luong-tai-tao-va-moi-truong-xanh</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/nang-luong-tai-tao-va-moi-truong-xanh"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Công Nghệ Xanh: AI Trong Quản Lý Lưới Điện Thông Minh &amp; Dự Báo Thời Tiết Năng Lượng Tái Tạo</image:title>
+      <image:caption>Phân tích vai trò của AI trong dự báo sản lượng điện gió, điện mặt trời; tự động cân bằng phụ tải lưới điện quốc gia và giám sát môi trường rừng, nguồn nước thông minh.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/tu-chatbot-den-agent</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/tu-chatbot-den-agent"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Từ Chatbot Thụ Động Đến AI Tác Nhân Tự Chủ (Autonomous Agency)</image:title>
+      <image:caption>Phân tích bước nhảy vọt từ các chatbot hỏi đáp đơn thuần (reactive) sang các AI Agent có khả năng lập kế hoạch nhiều bước, sử dụng công cụ hệ thống và chủ động gỡ lỗi.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/vong-lap-nhan-thuc-ooda-react</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/vong-lap-nhan-thuc-ooda-react"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Vòng Lặp Nhận Thức ReAct và OODA Loop Trong Kỹ Thuật Tác Nhân Tự Trị</image:title>
+      <image:caption>Khám phá kiến trúc nhận thức ReAct (Reason + Act) và mô hình OODA kinh điển, chìa khóa giúp AI tư duy mạch lạc, tránh lặp vô tận và hành động chuẩn xác.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/tu-chua-lanh-self-healing-code</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/tu-chua-lanh-self-healing-code"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Kỹ Thuật Tự Chữa Lành (Self-Healing Code) &amp; Phân Rã Kế Hoạch Kỹ Thuật Đa Bước</image:title>
+      <image:caption>Khám phá cơ chế tự chữa lành mã nguồn của Aevum OS: Cách Agent tự phân tích cây cú pháp trừu tượng (AST), chạy vòng lặp kiểm thử tự động và khôi phục trạng thái an toàn khi xảy ra sự cố.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/mo-phong-the-gioi-va-moi-truong-ao-cho-agent</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/mo-phong-the-gioi-va-moi-truong-ao-cho-agent"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Đấu Trường Mô Phỏng: Sandbox &amp; Thế Giới Ảo Nơi AI Tác Nhân Rèn Luyện Kỹ Năng</image:title>
+      <image:caption>Tại sao các AI Agent hàng đầu cần một thế giới mô phỏng ảo để rèn luyện? Tìm hiểu cách kiến trúc thực thể thành phần (ECS) và sandbox cách ly tạo ra môi trường thử nghiệm an toàn tuyệt đối.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/lap-ke-hoach-dong-hierarchical-planning</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/lap-ke-hoach-dong-hierarchical-planning"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Hoạch Định Phân Cấp (Hierarchical Task Planning): Bí Quyết Giúp Agent Xử Lý Dự Án Ngàn Bước</image:title>
+      <image:caption>Phân tích cơ chế hoạch định phân cấp (HTN): Cách Agent chia nhỏ mục tiêu phức tạp thành cây nhiệm vụ, phân tách chiến lược vĩ mô và hành động nguyên tử, tự phục hồi khi kế hoạch nhánh bị đổ vỡ.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/giao-thuc-mcp-cau-noi-the-gioi-thuc</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/giao-thuc-mcp-cau-noi-the-gioi-thuc"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Giao Thức MCP (Model Context Protocol): Chuẩn Mực Mở Cho Phép Agent Kết Nối Vạn Vật</image:title>
+      <image:caption>Phân tích kiến trúc Client - Host - Server của chuẩn giao thức MCP (Model Context Protocol): Cổng kết nối USB-C của kỷ nguyên AI cho phép Agent truy cập dữ liệu, cơ sở dữ liệu và công cụ an toàn.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/tu-suy-nghi-chuyen-sau-tree-of-thoughts</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/tu-suy-nghi-chuyen-sau-tree-of-thoughts"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Nghệ Thuật 'Uốn Lưỡi Bảy Lần': Cách AI Học Thói Quen Cân Nhắc Kỹ Trước Khi Hành Động</image:title>
+      <image:caption>Tìm hiểu cách AI học tập thói quen suy nghĩ chín chắn của con người: Thay vì buột miệng nói ngay điều đầu tiên nghĩ tới, cỗ máy biết dừng lại, thử nhẩm trong đầu nhiều phương án và chọn lối đi sáng suốt nhất.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/con-nguoi-trong-vong-lap-human-in-the-loop</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/con-nguoi-trong-vong-lap-human-in-the-loop"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Bác Tài &amp; Chiếc Phanh Gấp: Vì Sao Con Người Luôn Là Người Cầm Lái Tối Thượng Của AI?</image:title>
+      <image:caption>Hình tượng chiếc xe tự lái và người bác tài: Giải thích dễ hiểu nguyên lý 'Con người trong vòng lặp' (Human-in-the-Loop) — tại sao AI dù tài giỏi đến đâu cũng luôn cần trái tim, đạo đức và bàn tay con người dẫn lối.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/hien-tuong-context-amnesia</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/hien-tuong-context-amnesia"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Bí Mật Hiện Tượng Mất Ngữ Cảnh (Context Amnesia) &amp; Lost in the Middle</image:title>
+      <image:caption>Đi sâu vào cơ chế hoạt động của Attention Mechanism trong Transformer, giải thích nguyên nhân AI bị quên thông tin ở giữa tài liệu dài và các kỹ thuật khắc phục.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/kien-truc-giao-thuc-mcp</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/kien-truc-giao-thuc-mcp"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Kiến Trúc Chuẩn Hóa Model Context Protocol (MCP): Cầu Nối Chuẩn Cho AI</image:title>
+      <image:caption>Phân tích toàn diện giao thức MCP do Anthropic khởi xướng: mô hình Client-Host-Server, cơ chế vận chuyển SSE/Stdio và cách xây dựng một MCP Server hoàn chỉnh.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/khong-gian-vector-va-embeddings</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/khong-gian-vector-va-embeddings"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Không Gian Vector &amp; Embeddings: Cách Máy Tính Cảm Nhận Ngữ Nghĩa Của Thế Giới</image:title>
+      <image:caption>Khám phá bí mật đằng sau cách AI hiểu ý nghĩa câu từ: Biến đổi văn bản thành tọa độ không gian đa chiều (Embeddings) và đo lường sự tương đồng ngữ nghĩa bằng khoảng cách hình học.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/an-toan-bao-mat-trong-mcp-sandboxing</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/an-toan-bao-mat-trong-mcp-sandboxing"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Phòng Thủ Tác Nhân AI: Quản Trị Quyền Hạn, Sandboxing &amp; Chống Prompt Injection Qua MCP</image:title>
+      <image:caption>Phân tích các lỗ hổng bảo mật chết người trong kỷ nguyên Agent: Gián tiếp tiêm nhiễm lệnh (Indirect Prompt Injection), độc hại hóa công cụ (Tool Poisoning) và kiến trúc phòng thủ đa tầng.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/hermes-dynamic-context-budgeting</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/hermes-dynamic-context-budgeting"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Hermes Context Budgeting: Nghệ Thuật Cân Đối Chi Phí và Cửa Sổ Ngữ Cảnh Động</image:title>
+      <image:caption>Khám phá kiến trúc Hermes Dynamic Context Budgeting: Cách giám sát token thời gian thực, tỉa ngữ cảnh phân tầng và duy trì hiệu năng đỉnh cao mà không làm nổ ngân sách API.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/mo-hinh-tri-nho-kep-stm-ltm</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/mo-hinh-tri-nho-kep-stm-ltm"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Mô Hình Trí Nhớ Kép (Dual-Memory Architecture) Cho Hệ Thống Trí Tuệ Nhân Tạo</image:title>
+      <image:caption>Khám phá kiến trúc phân tầng bộ nhớ ngắn hạn (Short-term Working Memory) và bộ nhớ dài hạn (Long-term Episodic &amp; Semantic Memory) giúp AI không bao giờ quên kiến trúc dự án.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/thuat-toan-truy-hoi-spiking-lif</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/thuat-toan-truy-hoi-spiking-lif"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Thuật Toán Truy Hồi Sinh Học Spiking LIF (Leaky Integrate-and-Fire) Neural Recall</image:title>
+      <image:caption>Tìm hiểu thuật toán Leaky Integrate-and-Fire ứng dụng trong việc kích hoạt nơ-ron tri thức và truy hồi ký ức theo điện thế kích thích, loại bỏ hoàn toàn hiện tượng ô nhiễm ngữ cảnh.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/do-thi-tri-thuc-ket-hop-vector-graphrag</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/do-thi-tri-thuc-ket-hop-vector-graphrag"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Đồ Thị Tri Thức Động và GraphRAG: Xây Dựng Mạng Lưới Khớp Nối Thần Kinh Vĩnh Cửu Cho AI</image:title>
+      <image:caption>Khám phá sự kết hợp đột phá giữa Đồ thị Tri thức (Knowledge Graph) và Vector Embeddings: Cách GraphRAG giúp AI nắm bắt mối quan hệ nhân quả và suy luận đa bước vượt trội.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/neuromorphic-ai-hoc-tap-lien-tuc-synaptic</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/neuromorphic-ai-hoc-tap-lien-tuc-synaptic"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Độ Mềm Dẻo Khớp Thần Kinh (Synaptic Plasticity) &amp; Khắc Phục Nạn Quên Lãng Thảm Khốc (Catastrophic Forgetting)</image:title>
+      <image:caption>Giải mã hiện tượng Quên lãng Thảm khốc (Catastrophic Forgetting) trong mạng nơ-ron nhân tạo và cách nguyên lý sinh học Hebbian kết hợp STDP giúp AI học tập liên tục suốt đời.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/crdt-dong-bo-trang-thai-thoi-gian-thuc</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/crdt-dong-bo-trang-thai-thoi-gian-thuc"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Cơ Chế Đồng Bộ Trạng Thái CRDT (Conflict-free Replicated Data Types) Trong Trí Nhớ Phân Tán</image:title>
+      <image:caption>Làm thế nào để nhiều AI Agent cùng đọc, ghi và hợp nhất ký ức trong thời gian thực mà không bao giờ bị xung đột dữ liệu? Khám phá cấu trúc dữ liệu không xung đột CRDT.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/mo-hinh-bang-den-blackboard-pattern</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/mo-hinh-bang-den-blackboard-pattern"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Mô Hình Bảng Đen (Blackboard Pattern) Trong Phối Hợp Biệt Đội Đa Tác Nhân (Multi-Agent Squad)</image:title>
+      <image:caption>Giải pháp loại bỏ xung đột ngữ cảnh khi nhiều AI Agent cùng làm việc trên một dự án thông qua không gian trạng thái chia sẻ có khóa phiên bản.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/autonomous-deep-research</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/autonomous-deep-research"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Quy Trình Nghiên Cứu Chuyên Sâu Tự Trị (Autonomous Deep Research) Chuẩn Mực Học Thuật</image:title>
+      <image:caption>Phương pháp tự động hóa khảo sát công nghệ, phân nhánh cây tri thức và đúc kết thành báo cáo chuẩn IEEE/ACM trong vòng vài phút, sẵn sàng chuyển giao thành kế hoạch hành động.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/giao-thuc-iacp-va-internet-of-agents</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/giao-thuc-iacp-va-internet-of-agents"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Giao Thức IACP &amp; Internet of Agents (IoA): Tương Lai Của Nền Kinh Tế Tác Nhân Toàn Cầu</image:title>
+      <image:caption>Khám phá giao thức IACP (Inter-Agent Communication Protocol) trên nền tảng PiperNet: Thuyết hành vi ngôn ngữ (Speech-Act), thương lượng hợp đồng giữa các AI độc lập và kiến trúc Internet of Agents.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/kiem-thu-chat-che-va-danh-gia-chuan-muc-agent-evals</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/kiem-thu-chat-che-va-danh-gia-chuan-muc-agent-evals"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Hệ Thống Đánh Giá Chuẩn Mực AI (Agent Evals) &amp; Chiến Lược Đập Tan Hội Chứng Ảo Tưởng Năng Lực</image:title>
+      <image:caption>Làm thế nào để biết chắc một AI Agent thực sự có năng lực giải quyết vấn đề chứ không chỉ may mắn? Tìm hiểu phương pháp đánh giá thực nghiệm (Agent Evals), độ lệch chuẩn và kiểm định hình thức.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.aevum.ai.vn/explore/tu-tri-bac-cao-va-su-tien-hoa-he-thong</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.aevum.ai.vn/explore/tu-tri-bac-cao-va-su-tien-hoa-he-thong"/>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.aevum.ai.vn/media/7c9853f453cc1123e6b41db03292d945.jpg</image:loc>
+      <image:title>Cân Bằng Tối Thượng: Khi Hệ Thống AI Tự Tiến Hóa &amp; Hiệp Ước Cộng Sinh Với Con Người</image:title>
+      <image:caption>Cái nhìn toàn cảnh về nấc thang tiến hóa cao nhất của trí tuệ nhân tạo: Từ các công cụ cơ học đến hệ thống tự thích ứng, nguyên tắc cân bằng nội môi (Homeostasis) và sứ mệnh phụng sự con người.</image:caption>
+    </image:image>
   </url>
 
 </urlset>

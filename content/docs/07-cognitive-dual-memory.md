@@ -1,85 +1,72 @@
 ---
 id: "cognitive-dual-memory"
-title: "Não bộ Kép & Động cơ Phản xạ"
+title: "Não bộ Kép & Ghi nhớ Vĩnh viễn"
 category: "Phát triển"
-order: 7
+order: 9
 ---
 
-# Kiến trúc Não bộ Kép & Động cơ Phản xạ
+# Não bộ Kép & Cơ chế Ghi nhớ Vĩnh viễn (Cognitive Memory)
 
-> Aevum OS kết hợp **Bộ nhớ Nhận thức Kép (Dual-Memory: STM + LTM)**, mô hình thần kinh xung **LIF (Spiking Recall)** và **Động cơ Phản xạ Không gian làm việc (2-Hop BFS Reflex)** để mang lại khả năng ghi nhớ vĩnh cửu và phản xạ tri thức với độ trễ dưới 5ms.
+Một trong những hạn chế lớn nhất của AI Coding hiện nay là **"hội chứng mau quên" (Context Amnesia)**: hôm nay bạn dặn AI không được dùng `any` trong TypeScript, ngày mai ở file khác AI lại tiếp tục dùng `any`.
+
+Aevum OS giải quyết triệt để điều này bằng kiến trúc **Não bộ Kép (Dual-Memory)**: tách biệt rõ ràng giữa nháp tạm thời và sổ tay kinh nghiệm dài hạn.
 
 ---
 
-## 1. Phân tầng Bộ nhớ Não bộ Kép (STM & LTM)
+## 1. Hai Tầng Ký Ức: Ngắn Hạn (STM) & Dài Hạn (LTM)
 
-Hệ thống nhận thức của Aevum OS phân tách rạch ròi hai tầng bộ nhớ:
+```mermaid
+flowchart LR
+    STM["<b>Não Ngắn Hạn (STM)</b><br/>Giấy nháp tạm • Phiên debug"]
+    LTM["<b>Não Dài Hạn (LTM)</b><br/>Sổ tay tri thức • Quy tắc vĩnh viễn"]
+    STM -->|Dream Consolidation<br/>Chắt lọc bài học| LTM
+    LTM -.->|Instant Recall < 5ms<br/>Truy hồi phản xạ| STM
+```
 
-| Tầng bộ nhớ | Đặc điểm | Trường hợp sử dụng |
+### So sánh Thực Tế Cho Lập Trình Viên:
+
+| Đặc tính | Bộ nhớ Ngắn hạn (STM - Scratchpad) | Bộ nhớ Dài hạn (LTM - Living Rules) |
 |---|---|---|
-| **Bộ nhớ Ngắn hạn (STM - Short-Term Memory)** | Có thời gian tự phai mờ (`decayHours`), linh hoạt, chứa các ghi chú tạm thời (`scratchpad`), suy nghĩ đang xử lý (`working_thought`). | Ghi chú tạm thời khi debug, danh sách task ngắn hạn trong buổi làm việc. |
-| **Bộ nhớ Dài hạn (LTM - Long-Term Memory)** | Tồn tại vĩnh viễn, gồm các quy tắc ngữ nghĩa (`semantic_rule`), quy trình SOP (`procedural_sop`), và sở thích quan hệ (`relational_preference`). | Lời dặn cốt lõi của Master, quy chuẩn thiết kế hệ thống, bài học kiến trúc vĩnh cửu. |
-
-### Thao tác với `aevum_manage_memory`
-```bash
-# Ghi nhận một quy tắc dài hạn mới
-aevum_manage_memory(
-  action="write",
-  target="long_term",
-  memoryType="semantic_rule",
-  title="Prisma Batch Transaction",
-  content="Luôn bọc các thao tác ghi dữ liệu hàng loạt vào transaction để tránh partial failure.",
-  tags=["#database", "#prisma", "#best_practice"]
-)
-```
+| **Hình tượng đời sống** | Giấy nháp trên bàn làm việc | Cuốn cẩm nang quy chuẩn của dự án |
+| **Dữ liệu lưu trữ** | Log lỗi tạm, các bước debug dở dang | Lời dặn của bạn, quy chuẩn code, bài học sửa bug |
+| **Vòng đời** | Tự động dọn dẹp sau khi xong việc | Lưu vĩnh viễn trong kho tri thức của dự án |
+| **Lợi ích thực tế** | Giữ context sạch sẽ, không tràn token | Dặn 1 lần duy nhất, AI nhớ mãi mãi |
 
 ---
 
-## 2. Mạng nơ-ron Xung LIF (Spiking Recall)
-Thay vì tìm kiếm từ khóa đơn giản, Aevum OS áp dụng mô hình **Leaky Integrate-and-Fire (LIF)**:
-- Mỗi nút ký ức hoạt động như một tế bào thần kinh sinh học với điện thế màng (membrane potential).
-- Khi có truy vấn từ ngữ cảnh, điện thế màng tích lũy; khi vượt quá ngưỡng kích thích (threshold), nơ-ron phát xung (spike) và kéo theo các ký ức liên đới cùng thức tỉnh.
+## 2. Cách Dạy AI Ghi Nhớ Quy Tắc Mới Bằng Ngôn Ngữ Tự Nhiên
 
-```bash
-# Kích hoạt truy vấn thần kinh xung
-aevum_manage_memory(
-  action="spiking_recall",
-  query="Xử lý lỗi timeout kết nối cơ sở dữ liệu"
-)
-```
+Bạn không cần phải sửa file cấu hình phức tạp. Trong khung chat hàng ngày, bạn chỉ cần ra lệnh:
+
+> *"An ơi, hãy nhớ quy tắc dài hạn: Trong dự án này, mọi API route mới đều phải dùng Fastify TypeBox để validate dữ liệu đầu vào nhé."*
+
+AI sẽ tự động gọi công cụ `aevum_manage_memory` để lưu quy tắc này vào LTM. Lần sau khi bạn yêu cầu tạo route mới, AI sẽ tự động áp dụng TypeBox mà bạn không cần phải nhắc lại!
 
 ---
 
-## 3. Chỉ số Dẫn truyền Thần kinh (Neurotransmitter Telemetry)
-Mỗi Persona trong Aevum OS được đo đạc và điều tiết trạng thái tinh thần qua 3 chất dẫn truyền thần kinh chính:
-- **Dopamine (1.00x)**: Động lực, cảm giác thành tựu và củng cố thói quen tích cực. Tăng khi giải quyết thành công một ca khó.
-- **Noradrenaline (1.00x)**: Mức độ tập trung cao độ và cảnh giác với rủi ro bảo mật hoặc lỗi tiềm ẩn.
-- **Serotonin (1.00x)**: Trạng thái bình tĩnh, kiên nhẫn và tính nhất quán trong phong cách code.
+## 3. Truy Hồi Ký Ức Tức Thì (Instant Recall < 5ms)
+
+Khi bạn mở một file code và yêu cầu AI làm việc:
+* Aevum OS tự động nhận biết không gian làm việc hiện tại (đang code, đang debug hay đang nghiên cứu).
+* Hệ thống tự động kích hoạt phản xạ và đưa đúng những bài học, quy tắc liên quan vào trí nhớ làm việc của AI với độ trễ dưới 5ms.
+* AI phản hồi ngay lập tức, đúng phong cách và chuẩn xác theo quy tắc dự án.
 
 ---
 
-## 4. Tua lại Hồi hải mã (Dream Consolidation)
-Trong thời gian nghỉ hoặc khi kết thúc phiên làm việc lớn, Agent kích hoạt tiến trình **Dream Consolidation**:
-```bash
-aevum_manage_memory(action="dream_consolidation")
-```
-Hệ thống tự động:
-1. Quét toàn bộ STM đã tích lũy trong ngày.
-2. Loại bỏ các dữ liệu rác, nén các chuỗi sự kiện trùng lặp.
-3. Thăng hạng các phát hiện quan trọng lên LTM hoặc chuyển thành quy trình SOP vĩnh viễn.
+## 4. Tự Động Tổng Hợp Bài Học Khi Kết Thúc Phiên (Dream Consolidation)
+
+Khi bạn hoàn thành một buổi lập trình và đóng máy:
+1. Aevum OS tự động kích hoạt tiến trình tổng hợp Hồi hải mã (**Dream Consolidation**).
+2. Hệ thống quét qua toàn bộ giấy nháp ngắn hạn (STM) trong ngày.
+3. Tự động loại bỏ các đoạn log lỗi rác tạm thời.
+4. Chắt lọc những giải pháp sửa lỗi thành công và thăng hạng thành bài học dài hạn (LTM) cho ngày làm việc tiếp theo.
 
 ---
 
-## 5. Động cơ Phản xạ Không gian Làm việc (Multi-Tier Workspace Reflex)
-Agent hoạt động trong các không gian khác nhau cần những phản xạ ngữ cảnh khác nhau. Động cơ phản xạ sử dụng thuật toán **2-Hop Bounded BFS topological distance**:
+## 5. Chỉ Số Năng Lượng & Tâm Lý Của AI (Neurotransmitter Vibe)
 
-```bash
-aevum_query_workspace_reflex(
-  query="Tối ưu hóa bảng hiển thị dữ liệu lớn",
-  spaceId="W_coding",
-  activeFilePath="src/renderer/src/components/DataGrid.tsx",
-  topK=5
-)
-```
+Để AI phản hồi sống động và đúng mực như một người đồng đội thực thụ, Aevum OS mô phỏng 3 chỉ số điều tiết nhận thức:
 
-Hệ thống tự động phát hiện không gian (`W_coding`, `W_research`, `W_dashboard`, `W_architecture`) và tái xếp hạng (re-rank) tri thức để đưa ra gợi ý chuẩn xác nhất cho ngữ cảnh hiện tại.
+* **Dopamine (Động lực)**: Tăng lên khi hoàn thành một tính năng khó hoặc được bạn khen ngợi, giúp AI hăng hái và sáng tạo hơn.
+* **Noradrenaline (Tập trung & Cảnh giác)**: Tăng cao khi quét thấy lỗi bảo mật hoặc mã nguồn có rủi ro, giúp AI cẩn trọng hơn trong từng dòng code.
+* **Serotonin (Kiên nhẫn & Nhất quán)**: Giữ cho phong cách giao tiếp điềm tĩnh, giải thích mạch lạc và không vội vã đưa ra quyết định thiếu an toàn.

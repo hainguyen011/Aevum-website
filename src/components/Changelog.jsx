@@ -1,16 +1,16 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { 
-  Calendar, 
-  Download, 
-  RefreshCw, 
-  AlertCircle, 
-  MessageSquare, 
-  Folder, 
-  FolderOpen, 
-  ChevronDown, 
-  ChevronRight, 
-  Layers, 
-  List 
+import {
+  Calendar,
+  Download,
+  RefreshCw,
+  AlertCircle,
+  MessageSquare,
+  Folder,
+  FolderOpen,
+  ChevronDown,
+  ChevronRight,
+  Layers,
+  List
 } from 'lucide-react';
 import { TranslationService } from '../services/TranslationService';
 import { ReleaseService } from '../services/ReleaseService';
@@ -121,7 +121,7 @@ export const getDisplayTitle = (release) => {
   return `AevumOS ${formattedTag}`;
 };
 
-export function Changelog({ activeLang, onNavigate }) {
+export function Changelog({ activeLang, onNavigate, userProfile, user }) {
   const [releases, setReleases] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -130,9 +130,26 @@ export function Changelog({ activeLang, onNavigate }) {
   const [isTranslating, setIsTranslating] = useState(false);
   const [collapsedGroups, setCollapsedGroups] = useState({});
   const [viewMode, setViewMode] = useState('grouped'); // 'grouped' | 'flat'
+  const [approvedTags, setApprovedTags] = useState(new Set());
+  const [isApproving, setIsApproving] = useState(false);
   const isVi = activeLang === 'vi';
 
-  // Categorize a release into a semantic group (e.g. Aevum-Beta-Test)
+  // Role Checks
+  const isAdmin = Boolean(
+    userProfile?.role === 'admin' ||
+    user?.email === 'hainguyen011@gmail.com' ||
+    userProfile?.email === 'hainguyen011@gmail.com' ||
+    user?.email?.includes('admin') ||
+    userProfile?.preferences?.is_admin === true
+  );
+
+  const isDevUser = Boolean(
+    isAdmin ||
+    userProfile?.role === 'developer' ||
+    userProfile?.role === 'beta_tester'
+  );
+
+  // Categorize a release into a semantic group (e.g. Aevum-Beta-Test, Aevum-Dev-Test)
   const categorizeRelease = (release) => {
     if (!release) {
       return {
@@ -144,7 +161,21 @@ export function Changelog({ activeLang, onNavigate }) {
     }
 
     const tag = (release.tag_name || release.name || '').toLowerCase();
+    const rawTag = release.tag_name || release.name || '';
     const name = (release.name || '').toLowerCase();
+
+    // 0. Dev test channel (e.g. v2.2.0-dev.1)
+    if (tag.includes('-dev') || tag.includes('.dev') || name.includes('dev test') || tag.includes('dev.')) {
+      const isApproved = approvedTags.has(rawTag);
+      return {
+        groupId: 'aevum-dev-test',
+        groupName: isVi ? 'AevumOS Bản Test Nội Bộ (Dev Channel)' : 'AevumOS Dev Test Builds',
+        groupBadge: isApproved ? (isVi ? 'Đã duyệt' : 'Approved') : (isVi ? 'Chờ duyệt' : 'Pending'),
+        channel: 'dev',
+        isDevBuild: true,
+        isApproved
+      };
+    }
 
     // 1. Beta test channel (e.g. v1.0.0-beta.4, beta.3, etc.)
     if (tag.includes('beta') || name.includes('beta')) {
@@ -191,17 +222,47 @@ export function Changelog({ activeLang, onNavigate }) {
     setIsLoading(true);
     setError(null);
 
-    ReleaseService.getReleases()
-      .then((data) => {
-        const sorted = Array.isArray(data)
+    Promise.all([
+      ReleaseService.getReleases(),
+      ReleaseService.getApprovedTags()
+    ])
+      .then(([data, approvedSet]) => {
+        setApprovedTags(approvedSet);
+
+        const allReleases = Array.isArray(data)
           ? [...data].sort((a, b) => {
-              const timeA = new Date(a.published_at || a.created_at || 0).getTime();
-              const timeB = new Date(b.published_at || b.created_at || 0).getTime();
-              if (timeB !== timeA) return timeB - timeA;
-              return (b.tag_name || b.name || '').localeCompare(a.tag_name || a.name || '', undefined, { numeric: true });
-            })
+            const timeA = new Date(a.published_at || a.created_at || 0).getTime();
+            const timeB = new Date(b.published_at || b.created_at || 0).getTime();
+            if (timeB !== timeA) return timeB - timeA;
+            return (b.tag_name || b.name || '').localeCompare(a.tag_name || a.name || '', undefined, { numeric: true });
+          })
           : [];
-        setReleases(sorted);
+
+        // Role-based filtering:
+        // - Admin: see all
+        // - Dev: see official + approved dev releases
+        // - Guest / Normal: only see official (non-dev)
+        const visible = allReleases.filter((release) => {
+          const tag = (release.tag_name || release.name || '').toLowerCase();
+          const rawTag = release.tag_name || release.name || '';
+          const isDev = tag.includes('-dev') || tag.includes('.dev') || (release.prerelease && tag.includes('dev'));
+
+          if (!isDev) {
+            return true;
+          }
+
+          if (isAdmin) {
+            return true;
+          }
+
+          if (isDevUser) {
+            return approvedSet.has(rawTag);
+          }
+
+          return false;
+        });
+
+        setReleases(visible);
         setIsLoading(false);
       })
       .catch((err) => {
@@ -209,7 +270,7 @@ export function Changelog({ activeLang, onNavigate }) {
         setError(err.message);
         setIsLoading(false);
       });
-  }, [activeLang]);
+  }, [activeLang, isAdmin, isDevUser]);
 
   // Compute grouped releases with update numbering (e.g. Bản update 4, 3, 2, 1)
   const groupedReleases = useMemo(() => {
@@ -317,6 +378,28 @@ export function Changelog({ activeLang, onNavigate }) {
     return releases[selectedIndex] || releases[0] || null;
   }, [releases, selectedIndex]);
 
+  // Admin approval toggle handler
+  const handleToggleApproval = async (release) => {
+    if (!isAdmin || !release) return;
+    const tagName = release.tag_name || release.name;
+    const currentlyApproved = approvedTags.has(tagName);
+    setIsApproving(true);
+    try {
+      await ReleaseService.setReleaseApproved(tagName, !currentlyApproved, userProfile || user);
+      const updated = new Set(approvedTags);
+      if (!currentlyApproved) {
+        updated.add(tagName);
+      } else {
+        updated.delete(tagName);
+      }
+      setApprovedTags(updated);
+    } catch (err) {
+      console.error('Failed to toggle approval:', err);
+    } finally {
+      setIsApproving(false);
+    }
+  };
+
   // Selected release group & update metadata
   const selectedMeta = useMemo(() => {
     if (!selectedRelease) return null;
@@ -327,15 +410,19 @@ export function Changelog({ activeLang, onNavigate }) {
       if (match) {
         return {
           groupName: g.name,
-          status: match.status
+          status: match.status,
+          isDevBuild: Boolean(cat.isDevBuild),
+          isApproved: Boolean(cat.isApproved)
         };
       }
     }
     return {
       groupName: cat.groupName,
-      status
+      status,
+      isDevBuild: Boolean(cat.isDevBuild),
+      isApproved: Boolean(cat.isApproved)
     };
-  }, [selectedRelease, groupedReleases, selectedIndex, isVi]);
+  }, [selectedRelease, groupedReleases, selectedIndex, isVi, approvedTags]);
 
   // Auto-translate release notes dynamically using TranslationService
   useEffect(() => {
@@ -509,10 +596,10 @@ export function Changelog({ activeLang, onNavigate }) {
 
         {/* Main Terminal Shell Body Container - 2-Column Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch relative z-10 w-full text-left font-mono flex-1 min-h-[500px]">
-          
+
           {/* Column 1: Interactive Drill-down Menu / Version Selector (5 Cols) */}
           <div className="order-2 lg:order-1 lg:col-span-5 space-y-4 font-mono lg:border-r border-b lg:border-b-0 border-white/10 px-6 lg:px-10 py-8 h-full">
-            
+
             {/* Current Directory Breadcrumb */}
             <div className="flex items-center justify-between text-[11px] text-white font-mono font-bold tracking-wide uppercase pb-2 border-b border-white/10">
               <div className="flex items-center gap-2">
@@ -628,11 +715,10 @@ export function Changelog({ activeLang, onNavigate }) {
                         key={release.id}
                         onClick={() => setSelectedIndex(idx)}
                         onMouseEnter={() => setSelectedIndex(idx)}
-                        className={`group flex items-center justify-between py-2 px-2.5 rounded cursor-pointer transition-colors font-mono text-xs ${
-                          isFocused
-                            ? 'text-white font-medium bg-white/[0.04]'
-                            : 'text-slate-400 hover:text-slate-200 hover:bg-white/[0.02]'
-                        }`}
+                        className={`group flex items-center justify-between py-2 px-2.5 rounded cursor-pointer transition-colors font-mono text-xs ${isFocused
+                          ? 'text-white font-medium bg-white/[0.04]'
+                          : 'text-slate-400 hover:text-slate-200 hover:bg-white/[0.02]'
+                          }`}
                       >
                         <div className="flex items-center gap-2 min-w-0">
                           <span className="text-cyan-400 font-bold w-3 text-center shrink-0">
@@ -660,7 +746,7 @@ export function Changelog({ activeLang, onNavigate }) {
 
           {/* Column 2: Terminal Output Render (7 Cols) */}
           <div className="order-1 lg:order-2 lg:col-span-7 space-y-4 font-mono px-6 lg:px-10 py-8">
-            
+
             {selectedRelease ? (
               <>
                 {/* Command Line */}
@@ -689,6 +775,58 @@ export function Changelog({ activeLang, onNavigate }) {
                     <div>► PUBLISHED: {formatDate(selectedRelease.published_at)}</div>
                     <div>► REPO: hainguyen011/aevum-os-releases</div>
                   </div>
+
+                  {/* Dev Test Admin Approval & Gating Banner */}
+                  {selectedMeta?.isDevBuild && (
+                    <div className="pt-2">
+                      {isAdmin ? (
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-lg border border-purple-500/30 bg-purple-950/20 [html[data-theme='light']_&]:bg-purple-50 [html[data-theme='light']_&]:border-purple-200">
+                          <div className="space-y-1">
+                            <div className="flex items-center gap-2">
+                              <span className="text-xs font-bold text-purple-300 [html[data-theme='light']_&]:text-purple-700 font-mono">
+                                {isVi ? 'BẢN DEV TEST NỘI BỘ' : 'INTERNAL DEV TEST BUILD'}
+                              </span>
+                              <span
+                                className={`text-[10px] font-bold px-2 py-0.5 rounded font-mono ${selectedMeta.isApproved
+                                  ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                                  : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                                  }`}
+                              >
+                                {selectedMeta.isApproved
+                                  ? (isVi ? 'ĐÃ DUYỆT CHO DEV' : 'APPROVED FOR DEV')
+                                  : (isVi ? 'CHỜ ADMIN DUYỆT' : 'PENDING APPROVAL')}
+                              </span>
+                            </div>
+                            <p className="text-[11px] text-purple-200/80 [html[data-theme='light']_&]:text-purple-900/80 leading-normal">
+                              {selectedMeta.isApproved
+                                ? (isVi ? 'Các thành viên Role Developer đã có thể thấy và tải bản test này.' : 'Developers can now download and test this build.')
+                                : (isVi ? 'Bản build này chưa duyệt. Chỉ Admin mới nhìn thấy và tải được.' : 'Pending review. Only Admins can see this build.')}
+                            </p>
+                          </div>
+                          <div className="flex items-center gap-2 shrink-0">
+                            <button
+                              onClick={() => handleToggleApproval(selectedRelease)}
+                              disabled={isApproving}
+                              className={`px-3 py-1.5 rounded text-xs font-mono font-bold transition-all cursor-pointer ${selectedMeta.isApproved
+                                ? 'bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/40'
+                                : 'bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40'
+                                }`}
+                            >
+                              {isApproving
+                                ? (isVi ? 'Đang cập nhật...' : 'Updating...')
+                                : selectedMeta.isApproved
+                                  ? (isVi ? 'Hủy duyệt cho Dev' : 'Revoke Dev Approval')
+                                  : (isVi ? 'Duyệt bản test này' : 'Approve for Devs')}
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="flex items-center gap-2.5 p-3 rounded-lg border border-cyan-500/30 bg-cyan-950/20 [html[data-theme='light']_&]:bg-cyan-50 [html[data-theme='light']_&]:border-cyan-200 text-xs font-mono text-cyan-300 [html[data-theme='light']_&]:text-cyan-800">
+                          <span>{isVi ? 'Bản Dev Test này đã được Admin phê duyệt để đội ngũ Developer kiểm thử nội bộ.' : 'This Dev Test build has been approved by Admin for internal testing.'}</span>
+                        </div>
+                      )}
+                    </div>
+                  )}
 
                   {/* Download Action */}
                   <div className="pt-2">

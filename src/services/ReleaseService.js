@@ -107,5 +107,80 @@ export const ReleaseService = {
     })();
 
     return inFlightPromise;
+  },
+
+  /**
+   * Get set of approved release tags (Dev Test releases approved by Admin).
+   * Supports Supabase sync with LocalStorage fallback.
+   */
+  async getApprovedTags() {
+    const local = new Set();
+    try {
+      const stored = localStorage.getItem('aevum_approved_releases');
+      if (stored) {
+        JSON.parse(stored).forEach((t) => local.add(t));
+      }
+    } catch (e) {}
+
+    try {
+      const { supabase } = await import('./supabaseClient.js');
+      const { data, error } = await supabase
+        .from('release_approvals')
+        .select('tag_name, is_approved');
+
+      if (!error && Array.isArray(data)) {
+        data.forEach((row) => {
+          if (row.is_approved) {
+            local.add(row.tag_name);
+          } else {
+            local.delete(row.tag_name);
+          }
+        });
+      }
+    } catch (err) {
+      // Table may not exist yet or offline, local fallback is used
+    }
+
+    return local;
+  },
+
+  /**
+   * Approve or revoke approval for a dev release (Admin only).
+   */
+  async setReleaseApproved(tagName, isApproved, userProfile) {
+    if (!tagName) return false;
+
+    // 1. Update localStorage
+    try {
+      const stored = localStorage.getItem('aevum_approved_releases');
+      const tags = stored ? JSON.parse(stored) : [];
+      const set = new Set(tags);
+      if (isApproved) {
+        set.add(tagName);
+      } else {
+        set.delete(tagName);
+      }
+      localStorage.setItem('aevum_approved_releases', JSON.stringify(Array.from(set)));
+    } catch (e) {}
+
+    // 2. Sync to Supabase
+    try {
+      const { supabase } = await import('./supabaseClient.js');
+      await supabase
+        .from('release_approvals')
+        .upsert({
+          tag_name: tagName,
+          is_approved: isApproved,
+          approved_by: userProfile?.id || null,
+          approved_by_email: userProfile?.email || null,
+          approved_at: new Date().toISOString()
+        }, { onConflict: 'tag_name' });
+    } catch (err) {
+      console.warn('[ReleaseService] Supabase sync release_approvals fallback:', err?.message || err);
+    }
+
+    // Invalidate cache
+    cachedReleases = null;
+    return true;
   }
 };

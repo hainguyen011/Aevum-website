@@ -872,7 +872,7 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
 
                   {currentPage === 'changelog' && (
                     user ? (
-                      <Changelog activeLang={activeLang} onNavigate={handleNavigate} />
+                      <Changelog activeLang={activeLang} onNavigate={handleNavigate} userProfile={userProfile} user={user} />
                     ) : (
                       <AuthLockGate
                         activeLang={activeLang}

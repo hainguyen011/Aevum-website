@@ -10,7 +10,16 @@ import {
   ChevronDown,
   ChevronRight,
   Layers,
-  List
+  List,
+  Lock,
+  Users,
+  Terminal,
+  Tag,
+  CheckCircle2,
+  FileText,
+  ExternalLink,
+  ShieldCheck,
+  Sparkles
 } from 'lucide-react';
 import { TranslationService } from '../services/TranslationService';
 import { ReleaseService } from '../services/ReleaseService';
@@ -83,25 +92,25 @@ export const resolveReleaseStatus = (release, isVi = true) => {
     upgrade: {
       type: 'upgrade',
       label: isVi ? 'Nâng cấp' : 'Upgrade',
-      formattedText: isVi ? '[Nâng cấp]' : '[Upgrade]',
+      formattedText: isVi ? 'Nâng cấp' : 'Upgrade',
       className: 'text-slate-400 font-mono text-xs'
     },
     improvement: {
       type: 'improvement',
       label: isVi ? 'Chỉnh sửa' : 'Improvement',
-      formattedText: isVi ? '[Chỉnh sửa]' : '[Improvement]',
+      formattedText: isVi ? 'Chỉnh sửa' : 'Improvement',
       className: 'text-slate-400 font-mono text-xs'
     },
     fix: {
       type: 'fix',
       label: isVi ? 'Sửa lỗi' : 'Bugfix',
-      formattedText: isVi ? '[Sửa lỗi]' : '[Bugfix]',
+      formattedText: isVi ? 'Sửa lỗi' : 'Bugfix',
       className: 'text-slate-400 font-mono text-xs'
     },
     release: {
       type: 'release',
       label: isVi ? 'Phát hành' : 'Release',
-      formattedText: isVi ? '[Phát hành]' : '[Release]',
+      formattedText: isVi ? 'Phát hành' : 'Release',
       className: 'text-slate-400 font-mono text-xs'
     }
   };
@@ -122,7 +131,8 @@ export const getDisplayTitle = (release) => {
 };
 
 export function Changelog({ activeLang, onNavigate, userProfile, user }) {
-  const [releases, setReleases] = useState([]);
+  const [rawReleases, setRawReleases] = useState([]);
+  const [activeTab, setActiveTab] = useState('all'); // 'all' | 'community' | 'developer'
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -238,11 +248,11 @@ export function Changelog({ activeLang, onNavigate, userProfile, user }) {
           })
           : [];
 
-        // Role-based filtering:
-        // - Admin: see all
-        // - Dev: see official + approved dev releases
-        // - Guest / Normal: only see official (non-dev)
-        const visible = allReleases.filter((release) => {
+        // Strict Role-based filtering at source:
+        // - Admin: see all public + all dev releases
+        // - Dev: see all public + approved dev releases
+        // - Guest / Normal user: only see public releases (Dev releases are NEVER loaded into memory!)
+        const authorized = allReleases.filter((release) => {
           const tag = (release.tag_name || release.name || '').toLowerCase();
           const rawTag = release.tag_name || release.name || '';
           const isDev = tag.includes('-dev') || tag.includes('.dev') || (release.prerelease && tag.includes('dev'));
@@ -262,7 +272,7 @@ export function Changelog({ activeLang, onNavigate, userProfile, user }) {
           return false;
         });
 
-        setReleases(visible);
+        setRawReleases(authorized);
         setIsLoading(false);
       })
       .catch((err) => {
@@ -271,6 +281,63 @@ export function Changelog({ activeLang, onNavigate, userProfile, user }) {
         setIsLoading(false);
       });
   }, [activeLang, isAdmin, isDevUser]);
+
+  // Security Guard: Fallback to 'all' if non-dev user somehow tries to access 'developer' tab
+  useEffect(() => {
+    if (activeTab === 'developer' && !isDevUser) {
+      setActiveTab('all');
+      setSelectedIndex(0);
+    }
+  }, [activeTab, isDevUser]);
+
+  // Helper check for dev build
+  const isDevBuildRelease = (release) => {
+    if (!release) return false;
+    const tag = (release.tag_name || release.name || '').toLowerCase();
+    const name = (release.name || '').toLowerCase();
+    return Boolean(
+      tag.includes('-dev') ||
+      tag.includes('.dev') ||
+      tag.includes('dev.') ||
+      name.includes('dev test') ||
+      name.includes('bản test nội bộ') ||
+      (release.prerelease && tag.includes('dev'))
+    );
+  };
+
+  // Tab Item Counts
+  const tabCounts = useMemo(() => {
+    const commCount = rawReleases.filter(r => !isDevBuildRelease(r)).length;
+    const devCount = isDevUser ? rawReleases.filter(r => isDevBuildRelease(r)).length : 0;
+    const allCount = isDevUser ? rawReleases.length : commCount;
+    return {
+      all: allCount,
+      community: commCount,
+      developer: devCount
+    };
+  }, [rawReleases, isDevUser]);
+
+  // Filter releases dynamically based on active channel tab
+  const releases = useMemo(() => {
+    if (activeTab === 'community') {
+      return rawReleases.filter(r => !isDevBuildRelease(r));
+    }
+    if (activeTab === 'developer') {
+      return isDevUser ? rawReleases.filter(r => isDevBuildRelease(r)) : [];
+    }
+    // 'all' tab
+    if (!isDevUser) {
+      return rawReleases.filter(r => !isDevBuildRelease(r));
+    }
+    return rawReleases;
+  }, [rawReleases, activeTab, isDevUser]);
+
+  // Ensure selectedIndex is within valid range after switching tabs
+  useEffect(() => {
+    if (selectedIndex >= releases.length && releases.length > 0) {
+      setSelectedIndex(0);
+    }
+  }, [releases.length, selectedIndex]);
 
   // Compute grouped releases with update numbering (e.g. Bản update 4, 3, 2, 1)
   const groupedReleases = useMemo(() => {
@@ -578,318 +645,450 @@ export function Changelog({ activeLang, onNavigate, userProfile, user }) {
   };
 
   return (
-    <div id="changelog" className="w-full bg-[#07090D] text-slate-100 min-h-[calc(100vh-73px)] font-sans flex flex-col">
+    <div id="changelog" className="w-full bg-[#07090D] text-slate-100 min-h-[calc(100vh-73px)] font-sans flex flex-col relative overflow-hidden">
+      {/* Top Ambient Grain Glow */}
+      <div
+        className="absolute top-0 left-0 right-0 h-[450px] pointer-events-none z-0 opacity-25 blur-3xl"
+        style={{
+          background: 'radial-gradient(ellipse 90% 60% at 50% -20%, rgba(56, 189, 248, 0.16), rgba(168, 85, 247, 0.1), transparent 75%)'
+        }}
+      />
       {/* Authentic Transparent Terminal UI (TUI) Screen */}
-      <div className="border-subtle-b bg-[#07090D] text-left font-mono relative overflow-hidden flex-1 flex flex-col w-full">
+      <div className="bg-[#07090D]/80 text-left font-mono relative overflow-hidden flex-1 flex flex-col w-full z-10 backdrop-blur-sm">
 
-        {/* Full-width Terminal Header Bar */}
-        <div className="w-full border-b border-white/10 py-5 px-6 lg:px-10 bg-[#07090D] relative z-10">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs font-mono text-slate-400">
-            <div className="flex items-center gap-3">
-              <span className="text-white font-bold tracking-wider">AEVUM TTY CHANGELOG SHELL v1.0.0</span>
-            </div>
-            <div className="flex items-center text-[11px] text-slate-500 font-mono">
-              <span>Use [↑/↓] arrows or click options</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Main Terminal Shell Body Container - 2-Column Grid */}
+        {/* Main Terminal Shell Body Container - 3-Column Grid (Transparent, Minimalist, No Inner Lines) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch relative z-10 w-full text-left font-mono flex-1 min-h-[500px]">
 
-          {/* Column 1: Interactive Drill-down Menu / Version Selector (5 Cols) */}
-          <div className="order-2 lg:order-1 lg:col-span-5 space-y-4 font-mono lg:border-r border-b lg:border-b-0 border-white/10 px-6 lg:px-10 py-8 h-full">
+          {/* ══════════════════════════════════════════════════════════════════
+              CỘT 1 (lg:col-span-4): DANH SÁCH BẢN UPDATE & SWITCH CHUYỂN ĐỔI
+              Mở rộng width, Minimalist, Transparent, Text màu trắng, Hỗ trợ Light Mode
+              ══════════════════════════════════════════════════════════════════ */}
+          <div className="lg:col-span-4 space-y-3 font-mono p-4 lg:p-5 pt-3.5 lg:pt-4 h-full flex flex-col justify-start bg-transparent group/col1">
 
-            {/* Current Directory Breadcrumb */}
-            <div className="flex items-center justify-between text-[11px] text-white font-mono font-bold tracking-wide uppercase pb-2 border-b border-white/10">
-              <div className="flex items-center gap-2">
-                <span className="text-slate-400">LOCATION:</span>
-                <span className="text-white">~/RELEASES</span>
+            {/* Header Cột 1: Switch chuyển đổi 3-tab bên trái & Tổng số bản bên phải */}
+            <div className="flex items-center justify-between gap-2 px-0.5">
+              <div
+                role="tablist"
+                aria-label={isVi ? "Kênh phát hành" : "Release Channels"}
+                className="inline-flex items-center p-1 rounded-full bg-white/[0.02] border border-white/10 gap-1 backdrop-blur-sm changelog-tab-pill-container w-fit max-w-full"
+              >
+                {/* Tab 1: Tất cả */}
+                <button
+                  type="button"
+                  role="tab"
+                  id="tab-channel-all"
+                  aria-selected={activeTab === 'all'}
+                  onClick={() => {
+                    setActiveTab('all');
+                    setSelectedIndex(0);
+                  }}
+                  className={`py-1.5 px-3.5 rounded-full text-xs text-center flex items-center justify-center transition-colors duration-150 cursor-pointer whitespace-nowrap ${
+                    activeTab === 'all'
+                      ? 'bg-white text-slate-950 font-medium shadow-sm changelog-tab-active'
+                      : 'text-white/70 hover:text-white hover:bg-white/[0.04] changelog-tab-inactive'
+                  }`}
+                >
+                  {isVi ? 'Tất cả' : 'All'}
+                </button>
+
+                {/* Tab 2: Cộng đồng */}
+                <button
+                  type="button"
+                  role="tab"
+                  id="tab-channel-community"
+                  aria-selected={activeTab === 'community'}
+                  onClick={() => {
+                    setActiveTab('community');
+                    setSelectedIndex(0);
+                  }}
+                  className={`py-1.5 px-3.5 rounded-full text-xs text-center flex items-center justify-center transition-colors duration-150 cursor-pointer whitespace-nowrap ${
+                    activeTab === 'community'
+                      ? 'bg-white text-slate-950 font-medium shadow-sm changelog-tab-active'
+                      : 'text-white/70 hover:text-white hover:bg-white/[0.04] changelog-tab-inactive'
+                  }`}
+                >
+                  {isVi ? 'Cộng đồng' : 'Community'}
+                </button>
+
+                {/* Tab 3: Developer (Chỉ Admin & Dev, user thường bị disable) */}
+                <button
+                  type="button"
+                  role="tab"
+                  id="tab-channel-developer"
+                  aria-selected={activeTab === 'developer'}
+                  disabled={!isDevUser}
+                  onClick={() => {
+                    if (!isDevUser) return;
+                    setActiveTab('developer');
+                    setSelectedIndex(0);
+                  }}
+                  title={
+                    !isDevUser
+                      ? (isVi ? '🔒 Chỉ dành cho Admin & Developer (Bạn không có quyền truy cập)' : '🔒 Restricted to Admin & Developers (Access Denied)')
+                      : (isVi ? 'Kênh thử nghiệm nội bộ Developer' : 'Developer Internal Test Channel')
+                  }
+                  className={`py-1.5 px-3.5 rounded-full text-xs transition-colors duration-150 flex items-center justify-center gap-1.5 whitespace-nowrap ${
+                    !isDevUser
+                      ? 'opacity-40 cursor-not-allowed text-white/40 select-none'
+                      : activeTab === 'developer'
+                      ? 'bg-white text-slate-950 font-medium shadow-sm cursor-pointer changelog-tab-active'
+                      : 'text-white/70 hover:text-white hover:bg-white/[0.04] cursor-pointer changelog-tab-inactive'
+                  }`}
+                >
+                  {!isDevUser && <Lock size={11} className="text-white/50 shrink-0" />}
+                  <span>Dev</span>
+                </button>
               </div>
-              <span className="text-[10px] text-slate-500 font-mono">
-                {releases.length} {isVi ? 'phiên bản' : 'releases'}
+
+              {/* Tổng số bản bên phải switch */}
+              <span className="text-[11px] text-white/70 font-mono uppercase tracking-wider shrink-0 pr-1">
+                {releases.length} {isVi ? 'bản' : 'tags'}
               </span>
             </div>
 
-            {/* Version Selector (Dạng Select - Default là bản mới nhất) */}
+            {/* Loading / Error / Empty States */}
             {isLoading ? (
-              <div className="flex items-center gap-2 text-xs text-slate-400 py-4 font-mono">
-                <RefreshCw size={14} className="animate-spin text-cyan-400" />
+              <div className="flex items-center gap-2 text-xs text-white/80 py-4 font-mono">
+                <RefreshCw size={14} className="animate-spin text-white" />
                 <span>{isVi ? 'Đang tải danh sách...' : 'Fetching release list...'}</span>
               </div>
             ) : error ? (
-              <div className="text-xs text-red-400 py-4 font-mono">
-                [ERROR] {error}
+              <div className="text-xs text-rose-400 py-4 font-mono">
+                Lỗi: {error}
               </div>
             ) : releases.length === 0 ? (
-              <div className="text-xs text-slate-500 py-4 font-mono">
-                [EMPTY] No releases available.
+              <div className="text-xs text-white/60 py-8 font-mono text-center">
+                {activeTab === 'developer'
+                  ? (isVi ? 'Chưa có bản test nội bộ nào.' : 'No internal test builds available.')
+                  : (isVi ? 'Chưa có phiên bản nào trong kênh này.' : 'No releases available in this channel.')}
               </div>
             ) : (
-              <div className="space-y-4 pt-1">
-                {/* Select Dropdown Control */}
-                <div className="space-y-1.5">
-                  <div className="flex items-center justify-between text-[11px] font-mono text-slate-400 uppercase tracking-wide">
-                    <span>{isVi ? 'Chọn phiên bản:' : 'Select Version:'}</span>
-                    <span className="text-[10px] text-slate-500 font-normal">
-                      {isVi ? 'Mặc định: mới nhất' : 'Default: latest'}
-                    </span>
-                  </div>
+              /* Minimalist Interactive Version List theo từng Kênh (Hover Scrollbar, Hỗ trợ Light Mode) */
+              <div className="space-y-4 flex-1 flex flex-col min-h-0 pt-1">
+                <div className="space-y-4 overflow-y-auto max-h-[calc(100vh-250px)] pr-1 scrollbar-hover-only">
+                  {groupedReleases.map((group) => (
+                    <div key={group.id} className="space-y-1">
+                      {/* Tiêu đề của Kênh phía trên các Version */}
+                      <div className="flex items-center justify-between px-2 pt-1 pb-1">
+                        <span className="text-[11px] font-mono text-white font-semibold tracking-wider uppercase">
+                          {group.name}
+                        </span>
+                        <span className="text-[10px] text-white/50 font-mono">
+                          {group.items.length} {isVi ? 'bản' : 'builds'}
+                        </span>
+                      </div>
 
-                  <CustomSelect
-                    options={selectOptions}
-                    value={selectedIndex}
-                    onChange={(val) => setSelectedIndex(Number(val))}
-                    className="w-full"
-                    buttonClassName="bg-white/[0.02] border-white/15 hover:border-white/30 text-white py-2.5 px-3.5 rounded-lg backdrop-blur-sm"
-                  />
+                      {/* Danh sách các version thuộc Kênh */}
+                      <div className="space-y-1">
+                        {group.items.map((item) => {
+                          const isFocused = selectedIndex === item.flatIdx;
+                          const displayTitle = getDisplayTitle(item.release);
+                          const status = item.status;
+
+                          return (
+                            <div
+                              key={item.release.id}
+                              onClick={() => setSelectedIndex(item.flatIdx)}
+                              className={`group flex items-center justify-between py-2 px-2.5 rounded-xl cursor-pointer transition-all font-mono text-xs ${
+                                isFocused
+                                  ? 'text-white font-medium bg-white/[0.08] changelog-row-active'
+                                  : 'text-white/80 hover:text-white hover:bg-white/[0.03] changelog-row-inactive'
+                              }`}
+                            >
+                              <div className="flex items-center gap-2 min-w-0">
+                                <span className="text-white font-bold w-3 text-center shrink-0">
+                                  {isFocused ? '>' : ' '}
+                                </span>
+                                <span className="text-white/70 font-mono text-[10px] shrink-0">
+                                  {status.label}
+                                </span>
+                                <span className="truncate text-xs text-white">
+                                  {displayTitle}
+                                </span>
+                              </div>
+                              <span className="text-[10px] text-white/60 shrink-0 pl-1 font-mono">
+                                {formatDate(item.release.published_at)}
+                              </span>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ))}
                 </div>
-
-                {/* Selected Version Overview Card */}
-                {selectedRelease && (
-                  <div className="rounded-lg border border-white/10 bg-white/[0.015] backdrop-blur-sm p-4 space-y-3 font-mono text-xs">
-                    <div className="flex items-center justify-between border-b border-white/10 pb-2.5">
-                      <div className="flex items-center gap-2 min-w-0">
-                        <Folder size={14} className="text-white shrink-0" />
-                        <span className="font-bold text-white truncate text-xs sm:text-sm">
-                          {getDisplayTitle(selectedRelease)}
-                        </span>
-                      </div>
-                      {selectedMeta?.status && (
-                        <span className="text-slate-400 text-xs font-mono shrink-0">
-                          {selectedMeta.status.formattedText}
-                        </span>
-                      )}
-                    </div>
-
-                    <div className="space-y-1.5 text-[11px] text-slate-400">
-                      <div className="flex items-center justify-between">
-                        <span className="text-slate-500">PHÁT HÀNH:</span>
-                        <span className="text-slate-300">{formatDate(selectedRelease.published_at)}</span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-slate-500">KÊNH:</span>
-                        <span className="text-slate-300">{selectedMeta?.groupName || 'Aevum-Beta-Test'}</span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-slate-500">TAG:</span>
-                        <span className="text-white font-bold">{selectedRelease.tag_name || selectedRelease.name}</span>
-                      </div>
-                    </div>
-
-                    {/* Quick Stepper Navigation between releases */}
-                    <div className="flex items-center justify-between pt-2 border-t border-white/5 text-[11px]">
-                      <button
-                        type="button"
-                        disabled={selectedIndex >= releases.length - 1}
-                        onClick={() => setSelectedIndex(prev => Math.min(releases.length - 1, prev + 1))}
-                        className="text-slate-400 hover:text-white disabled:opacity-30 disabled:hover:text-slate-400 cursor-pointer flex items-center gap-1 transition-colors"
-                      >
-                        <span>&larr; {isVi ? 'Bản cũ hơn' : 'Older'}</span>
-                      </button>
-                      <span className="text-slate-600">|</span>
-                      <button
-                        type="button"
-                        disabled={selectedIndex <= 0}
-                        onClick={() => setSelectedIndex(prev => Math.max(0, prev - 1))}
-                        className="text-slate-400 hover:text-white disabled:opacity-30 disabled:hover:text-slate-400 cursor-pointer flex items-center gap-1 transition-colors"
-                      >
-                        <span>{isVi ? 'Bản mới hơn' : 'Newer'} &rarr;</span>
-                      </button>
-                    </div>
-                  </div>
-                )}
-
-                {/* Quick Version List (Pure text badges, transparent, zero box-shadow) */}
-                <div className="pt-2 space-y-1">
-                  <div className="text-[10px] text-slate-500 uppercase tracking-wider pb-1">
-                    {isVi ? 'Tất cả các bản cập nhật:' : 'All releases:'}
-                  </div>
-                  {releases.map((release, idx) => {
-                    const isFocused = selectedIndex === idx;
-                    const displayTitle = getDisplayTitle(release);
-                    const status = resolveReleaseStatus(release, isVi);
-
-                    return (
-                      <div
-                        key={release.id}
-                        onClick={() => setSelectedIndex(idx)}
-                        onMouseEnter={() => setSelectedIndex(idx)}
-                        className={`group flex items-center justify-between py-2 px-2.5 rounded cursor-pointer transition-colors font-mono text-xs ${isFocused
-                          ? 'text-white font-medium bg-white/[0.04]'
-                          : 'text-slate-400 hover:text-slate-200 hover:bg-white/[0.02]'
-                          }`}
-                      >
-                        <div className="flex items-center gap-2 min-w-0">
-                          <span className="text-cyan-400 font-bold w-3 text-center shrink-0">
-                            {isFocused ? '>' : ' '}
-                          </span>
-                          <span className="text-slate-500 font-mono text-[11px] shrink-0">
-                            {status.formattedText}
-                          </span>
-                          <span className={`truncate ${isFocused ? 'text-white' : 'text-slate-300'}`}>
-                            {displayTitle}
-                          </span>
-                        </div>
-                        <span className="text-[11px] text-slate-500 shrink-0 pl-2">
-                          {formatDate(release.published_at)}
-                        </span>
-                      </div>
-                    );
-                  })}
-                </div>
-
               </div>
             )}
 
           </div>
 
-          {/* Column 2: Terminal Output Render (7 Cols) */}
-          <div className="order-1 lg:order-2 lg:col-span-7 space-y-4 font-mono px-6 lg:px-10 py-8">
+          {/* ══════════════════════════════════════════════════════════════════
+              CỘT 2 (lg:col-span-4): BẢNG THÔNG TIN UPDATE & CÁC LINK TẢI XUỐNG
+              Style Grainy Gradient bg từ trên xuống, Text màu trắng toàn bộ
+              ══════════════════════════════════════════════════════════════════ */}
+          <div className="lg:col-span-4 space-y-3 font-mono p-4 lg:p-5 pt-3.5 lg:pt-4 relative overflow-hidden flex flex-col justify-start min-h-[500px] bg-transparent">
 
-            {selectedRelease ? (
-              <>
-                {/* Command Line */}
-                <div className="flex items-center gap-2 text-sm sm:text-base font-mono text-white pb-1">
-                  <span className="text-slate-400 font-bold">$</span>
-                  <span className="font-bold text-white">aevum-os help --release={selectedRelease.tag_name}</span>
-                </div>
+            {/* ── GRAINY GRADIENT ATMOSPHERE (Top to bottom Cyan-Blue like TesterLeaderboard.jsx) ── */}
+            <div
+              className="pointer-events-none absolute inset-0 w-full h-full overflow-hidden z-0 select-none"
+              aria-hidden="true"
+            >
+              {/* 1. Soft Vertical Linear Flow */}
+              <div
+                className="absolute inset-0 w-full h-full pointer-events-none"
+                style={{
+                  background: 'linear-gradient(180deg, rgba(14, 165, 233, 0.25) 0%, rgba(14, 165, 233, 0.10) 22%, rgba(14, 165, 233, 0.02) 48%, transparent 74%)',
+                }}
+              />
 
-                {/* Output Display */}
-                <div className="pt-1 space-y-4 min-h-[300px]">
-                  <div className="text-xs sm:text-sm font-bold text-cyan-300 font-mono">
-                    [{getDisplayTitle(selectedRelease).toUpperCase()}]
-                  </div>
+              {/* 2. Top Aura Glow Wash */}
+              <div
+                className="absolute -top-14 left-1/2 -translate-x-1/2 w-[120%] h-48 pointer-events-none"
+                style={{
+                  background: 'radial-gradient(ellipse 75% 65% at 50% 0%, rgba(56, 189, 248, 0.32) 0%, rgba(14, 165, 233, 0.08) 55%, transparent 100%)',
+                  filter: 'blur(36px)',
+                }}
+              />
 
-                  <div className="text-xs text-slate-400 font-mono space-y-1">
-                    {selectedMeta && (
-                      <div className="text-slate-300 font-semibold flex items-center gap-2">
-                        <span>► SERIES: {selectedMeta.groupName}</span>
-                        {selectedMeta.status && (
-                          <span className="text-slate-400 text-xs font-mono">
-                            {selectedMeta.status.formattedText}
-                          </span>
-                        )}
+              {/* 3. Authentic Grainy Noise Texture Layer */}
+              <div
+                className="absolute inset-0 select-none opacity-[0.14] mix-blend-overlay pointer-events-none z-[1]"
+                style={{
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilterLeaderboard'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilterLeaderboard)'/%3E%3C/svg%3E")`,
+                  backgroundRepeat: 'repeat',
+                  backgroundSize: '140px 140px',
+                  WebkitMaskImage: 'linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 24%, rgba(0,0,0,0.12) 50%, transparent 78%)',
+                  maskImage: 'linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 24%, rgba(0,0,0,0.12) 50%, transparent 78%)',
+                }}
+              />
+            </div>
+
+            {/* Content Container (Column 2) */}
+            <div className="relative z-10 space-y-4">
+              {selectedRelease ? (
+                <>
+                  {/* Bảng Thông Tin Update (Transparent, Không viền hộp, Hỗ trợ Light Mode) */}
+                  <div className="p-1 space-y-3 bg-transparent">
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="text-sm sm:text-base font-bold text-white tracking-wide font-mono truncate">
+                        {getDisplayTitle(selectedRelease).toUpperCase()}
                       </div>
-                    )}
-                    <div>► PUBLISHED: {formatDate(selectedRelease.published_at)}</div>
-                    <div>► REPO: hainguyen011/aevum-os-releases</div>
+                      {selectedMeta?.status && (
+                        <span className="px-2.5 py-0.5 rounded-full bg-white/10 text-white text-[10px] font-mono shrink-0">
+                          {selectedMeta.status.label}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Quick Stats Grid 3 ô (Transparent, Không viền, Không nền, Hỗ trợ Light Mode) */}
+                    <div className="grid grid-cols-3 gap-2 text-center text-xs font-mono">
+                      <div className="p-1.5 bg-transparent">
+                        <div className="text-[10px] text-white/60 uppercase">KÊNH</div>
+                        <div className="text-white font-bold truncate text-[11px] mt-0.5">
+                          {selectedMeta?.groupName ? selectedMeta.groupName.split(' ')[0] : 'Beta'}
+                        </div>
+                      </div>
+                      <div className="p-1.5 bg-transparent">
+                        <div className="text-[10px] text-white/60 uppercase">PHÁT HÀNH</div>
+                        <div className="text-white font-bold truncate text-[11px] mt-0.5">
+                          {formatDate(selectedRelease.published_at)}
+                        </div>
+                      </div>
+                      <div className="p-1.5 bg-transparent">
+                        <div className="text-[10px] text-white/60 uppercase">TỆP TẢI</div>
+                        <div className="text-white font-bold text-[11px] mt-0.5">
+                          {getDownloadItems(selectedRelease).length} {isVi ? 'tệp' : 'files'}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="space-y-1 text-[11px] text-white pt-0.5 font-mono">
+                      <div className="flex items-center justify-between">
+                        <span className="text-white/60">TAG:</span>
+                        <span className="text-white font-bold">{selectedRelease.tag_name || selectedRelease.name}</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-white/60">REPO:</span>
+                        <span className="text-white/80 font-mono">hainguyen011/aevum-os-releases</span>
+                      </div>
+                    </div>
                   </div>
 
                   {/* Dev Test Admin Approval & Gating Banner */}
                   {selectedMeta?.isDevBuild && (
-                    <div className="pt-2">
+                    <div className="rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-md p-3.5 space-y-2">
                       {isAdmin ? (
-                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-lg border border-purple-500/30 bg-purple-950/20 [html[data-theme='light']_&]:bg-purple-50 [html[data-theme='light']_&]:border-purple-200">
-                          <div className="space-y-1">
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between gap-2">
                             <div className="flex items-center gap-2">
-                              <span className="text-xs font-bold text-purple-300 [html[data-theme='light']_&]:text-purple-700 font-mono">
-                                {isVi ? 'BẢN DEV TEST NỘI BỘ' : 'INTERNAL DEV TEST BUILD'}
+                              <span className="text-xs font-bold text-white font-mono">
+                                {isVi ? 'BẢN DEV TEST' : 'DEV TEST BUILD'}
                               </span>
                               <span
-                                className={`text-[10px] font-bold px-2 py-0.5 rounded font-mono ${selectedMeta.isApproved
-                                  ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                                  : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
-                                  }`}
+                                className="text-[9px] font-bold px-2 py-0.5 rounded-full font-mono bg-white/10 text-white"
                               >
                                 {selectedMeta.isApproved
-                                  ? (isVi ? 'ĐÃ DUYỆT CHO DEV' : 'APPROVED FOR DEV')
-                                  : (isVi ? 'CHỜ ADMIN DUYỆT' : 'PENDING APPROVAL')}
+                                  ? (isVi ? 'ĐÃ DUYỆT' : 'APPROVED')
+                                  : (isVi ? 'CHỜ DUYỆT' : 'PENDING')}
                               </span>
                             </div>
-                            <p className="text-[11px] text-purple-200/80 [html[data-theme='light']_&]:text-purple-900/80 leading-normal">
-                              {selectedMeta.isApproved
-                                ? (isVi ? 'Các thành viên Role Developer đã có thể thấy và tải bản test này.' : 'Developers can now download and test this build.')
-                                : (isVi ? 'Bản build này chưa duyệt. Chỉ Admin mới nhìn thấy và tải được.' : 'Pending review. Only Admins can see this build.')}
-                            </p>
-                          </div>
-                          <div className="flex items-center gap-2 shrink-0">
                             <button
                               onClick={() => handleToggleApproval(selectedRelease)}
                               disabled={isApproving}
-                              className={`px-3 py-1.5 rounded text-xs font-mono font-bold transition-all cursor-pointer ${selectedMeta.isApproved
-                                ? 'bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/40'
-                                : 'bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40'
-                                }`}
+                              className="px-3 py-1 rounded-full text-[10px] font-mono font-bold transition-all cursor-pointer bg-white/10 hover:bg-white/20 text-white border border-white/10"
                             >
                               {isApproving
-                                ? (isVi ? 'Đang cập nhật...' : 'Updating...')
+                                ? (isVi ? 'Đang lưu...' : 'Saving...')
                                 : selectedMeta.isApproved
-                                  ? (isVi ? 'Hủy duyệt cho Dev' : 'Revoke Dev Approval')
-                                  : (isVi ? 'Duyệt bản test này' : 'Approve for Devs')}
+                                  ? (isVi ? 'Hủy duyệt' : 'Revoke')
+                                  : (isVi ? 'Duyệt bản test' : 'Approve')}
                             </button>
                           </div>
+                          <p className="text-[10px] text-white/70 leading-normal font-sans">
+                            {selectedMeta.isApproved
+                              ? (isVi ? 'Developer đã có quyền thấy và tải bản test này.' : 'Developers can now see and download this build.')
+                              : (isVi ? 'Chỉ Admin mới có thể thấy bản build này.' : 'Only Admin can currently see this build.')}
+                          </p>
                         </div>
                       ) : (
-                        <div className="flex items-center gap-2.5 p-3 rounded-lg border border-cyan-500/30 bg-cyan-950/20 [html[data-theme='light']_&]:bg-cyan-50 [html[data-theme='light']_&]:border-cyan-200 text-xs font-mono text-cyan-300 [html[data-theme='light']_&]:text-cyan-800">
-                          <span>{isVi ? 'Bản Dev Test này đã được Admin phê duyệt để đội ngũ Developer kiểm thử nội bộ.' : 'This Dev Test build has been approved by Admin for internal testing.'}</span>
+                        <div className="flex items-center gap-2 text-xs font-mono text-white">
+                          <CheckCircle2 size={14} className="text-white shrink-0" />
+                          <span className="text-[11px] text-white/80">{isVi ? 'Đã được Admin duyệt cho Developer.' : 'Approved by Admin for internal testing.'}</span>
                         </div>
                       )}
                     </div>
                   )}
 
-                  {/* Download Action */}
-                  <div className="pt-2">
+                  {/* Bảng Các Link Tải Xuống (Transparent, No Border, No Bg, Hỗ trợ Light Mode) */}
+                  <div className="space-y-2 pt-1">
+                    <div className="text-[11px] font-mono text-white uppercase tracking-wider flex items-center justify-between px-1">
+                      <span>{isVi ? 'Link tải xuống:' : 'Download Links:'}</span>
+                      <span className="text-[10px] text-white/60 font-normal">
+                        {isVi ? 'Mọi nền tảng' : 'All platforms'}
+                      </span>
+                    </div>
+
                     {(() => {
                       const downloadItems = getDownloadItems(selectedRelease);
                       return downloadItems.length > 0 ? (
-                        <div className="flex flex-col gap-2.5">
+                        <div className="space-y-1.5 pt-0.5">
                           {downloadItems.map((item) => (
                             <a
                               key={item.id}
                               href={item.url}
-                              className="inline-flex items-center gap-2.5 text-xs sm:text-sm font-bold text-cyan-400 hover:text-cyan-300 transition-colors font-mono cursor-pointer w-fit"
+                              className="group flex items-center justify-between py-2 px-1.5 rounded-lg bg-transparent hover:bg-transparent transition-colors duration-150 cursor-pointer download-item"
                               title={item.name}
                             >
-                              <Download size={14} />
-                              <span>{item.label}</span>
+                              <div className="truncate text-left min-w-0 flex-1">
+                                <div className="text-xs font-semibold text-white/70 group-hover:text-white truncate transition-colors duration-150 download-title">
+                                  {item.label}
+                                </div>
+                                <div className="text-[10px] text-white/40 group-hover:text-white/80 truncate font-mono transition-colors duration-150 download-filename">
+                                  {item.name}
+                                </div>
+                              </div>
+                              <Download size={13} className="text-white/40 group-hover:text-white transition-colors duration-150 shrink-0 ml-2 download-icon" />
                             </a>
                           ))}
                         </div>
                       ) : (
-                        <div className="inline-flex items-center gap-2 text-xs text-slate-500 font-mono">
-                          <RefreshCw size={12} className="animate-spin text-slate-500" />
-                          <span>{isVi ? 'Đang đóng gói bản Windows (.exe)...' : 'Packaging Windows build (.exe)...'}</span>
+                        <div className="inline-flex items-center gap-2 text-xs text-white/60 font-mono py-2">
+                          <RefreshCw size={12} className="animate-spin text-white/60" />
+                          <span>{isVi ? 'Đang chuẩn bị gói cài đặt...' : 'Preparing installers...'}</span>
                         </div>
                       );
                     })()}
                   </div>
 
-                  {/* Discussion & Bug Hunter Link Button */}
-                  <div className="pt-1">
+                  {/* Nút Báo lỗi & Gửi phản hồi (Transparent, Pill, Hỗ trợ Light Mode) */}
+                  <div className="pt-2">
                     <button
                       onClick={() => onNavigate && onNavigate('discussions')}
-                      className="inline-flex items-center gap-2 text-xs font-bold text-cyan-300 hover:text-cyan-200 transition-colors font-mono cursor-pointer border border-cyan-500/30 hover:border-cyan-500/60 bg-cyan-500/10 hover:bg-cyan-500/20 px-3.5 py-2 rounded-md"
+                      className="w-full inline-flex items-center justify-center gap-2 text-xs font-semibold text-white hover:text-white transition-colors font-mono cursor-pointer border border-white/10 hover:border-white/20 bg-transparent hover:bg-white/[0.03] px-4 py-2 rounded-full"
                     >
-                      <MessageSquare size={13} />
-                      <span>{isVi ? `Báo lỗi / Gửi phản hồi cho ${selectedRelease.tag_name}` : `Report Bug / Discuss ${selectedRelease.tag_name}`}</span>
+                      <MessageSquare size={13} className="text-white" />
+                      <span className="truncate">{isVi ? `Báo lỗi cho ${selectedRelease.tag_name || selectedRelease.name}` : `Report Bug for ${selectedRelease.tag_name || selectedRelease.name}`}</span>
                     </button>
                   </div>
-
-                  {/* Body Content */}
-                  <div className="pt-3 border-t border-white/10 [html[data-theme='light']_&]:border-slate-200 text-xs sm:text-sm leading-relaxed text-slate-200 [html[data-theme='light']_&]:text-slate-800">
-                    {isTranslating ? (
-                      <div className="flex items-center gap-2 py-2 text-slate-400 font-mono text-xs">
-                        <RefreshCw size={12} className="animate-spin text-cyan-400" />
-                        <span>{isVi ? 'Đang tự động dịch nội dung cập nhật...' : 'Translating release notes...'}</span>
-                      </div>
-                    ) : (
-                      formatReleaseNotes(translatedNotes || selectedRelease.body)
-                    )}
-                    <span className="inline-block w-2 h-4 bg-white [html[data-theme='light']_&]:bg-slate-900 ml-1 animate-pulse align-middle" />
-                  </div>
-
+                </>
+              ) : (
+                <div className="flex flex-col items-center justify-center py-20 text-white/60 font-mono text-xs text-center space-y-3">
+                  {isLoading ? (
+                    <RefreshCw className="w-6 h-6 animate-spin text-white mb-2" />
+                  ) : (
+                    <span>Chưa chọn phiên bản</span>
+                  )}
                 </div>
-              </>
-            ) : (
-              <div className="flex flex-col items-center justify-center py-20 text-slate-500 font-mono text-xs">
-                {isLoading ? (
-                  <RefreshCw className="w-6 h-6 animate-spin text-cyan-400 mb-2" />
-                ) : (
-                  <span>[ NO RELEASE SELECTED ]</span>
+              )}
+            </div>
+
+          </div>
+
+          {/* ══════════════════════════════════════════════════════════════════
+              CỘT 3 (lg:col-span-4): THÔNG TIN BẢN CẬP NHẬT (RELEASE NOTES)
+              Render markdown chi tiết, Transparent, Bỏ các line bên trong, Hỗ trợ Light Mode
+              ══════════════════════════════════════════════════════════════════ */}
+          <div className="lg:col-span-4 space-y-2.5 font-mono p-4 lg:p-5 pt-3.5 lg:pt-4 pr-8 lg:pr-14 xl:pr-16 relative flex flex-col justify-start min-h-[500px] bg-transparent group/col3">
+
+            {/* Header Cột 3 (Không line gạch chân, Không icon thừa, Tinh gọn chiều cao, Hỗ trợ Light Mode) */}
+            <div className="flex items-center justify-between py-0.5 mb-1">
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-bold text-white tracking-wider uppercase">
+                  {isVi ? 'Thông tin bản cập nhật' : 'Release Notes'}
+                </span>
+                {selectedRelease && (
+                  <span className="text-[11px] text-white/80 font-mono">
+                    {selectedRelease.tag_name || selectedRelease.name}
+                  </span>
                 )}
               </div>
-            )}
+
+              {/* Status Translation Badge */}
+              {isTranslating ? (
+                <div className="flex items-center gap-1.5 text-[10px] text-white font-mono">
+                  <RefreshCw size={11} className="animate-spin text-white" />
+                  <span>{isVi ? 'Đang dịch...' : 'Translating...'}</span>
+                </div>
+              ) : (
+                <span className="text-[10px] text-white/70 font-mono">
+                  {isVi ? 'Tiếng Việt (Auto)' : 'English'}
+                </span>
+              )}
+            </div>
+
+            {/* Markdown Body Content Container (Scrollable, Hover-only Scrollbar) */}
+            <div className="flex-1 overflow-y-auto max-h-[calc(100vh-230px)] pr-2 scrollbar-hover-only">
+              {selectedRelease ? (
+                <div className="text-xs leading-relaxed text-white font-sans">
+                  {isTranslating ? (
+                    <div className="flex items-center gap-2 py-8 text-white/70 font-mono text-xs justify-center">
+                      <RefreshCw size={14} className="animate-spin text-white" />
+                      <span>{isVi ? 'Đang tự động dịch nội dung cập nhật...' : 'Translating release notes...'}</span>
+                    </div>
+                  ) : (
+                    formatReleaseNotes(translatedNotes || selectedRelease.body)
+                  )}
+                  <span className="inline-block w-2 h-4 bg-white/70 ml-1 animate-pulse align-middle" />
+                </div>
+              ) : (
+                <div className="flex flex-col items-center justify-center py-24 text-white/60 font-mono text-xs text-center space-y-3">
+                  {isLoading ? (
+                    <RefreshCw className="w-6 h-6 animate-spin text-white mb-2" />
+                  ) : activeTab === 'developer' ? (
+                    <div className="space-y-2 p-5 rounded-2xl bg-white/[0.02] border border-white/10 max-w-sm backdrop-blur-md">
+                      <Terminal className="w-7 h-7 text-white mx-auto opacity-75" />
+                      <div className="text-white font-bold">{isVi ? 'KÊNH DEVELOPER NỘI BỘ' : 'DEVELOPER CHANNEL'}</div>
+                      <p className="text-white/70 text-[11px] leading-relaxed">
+                        {isVi
+                          ? 'Hiện chưa có bản build test dev nào hoặc bạn chưa được cấp phép truy cập.'
+                          : 'No developer test builds are currently active or authorized.'}
+                      </p>
+                    </div>
+                  ) : (
+                    <span>Chưa có thông tin cập nhật</span>
+                  )}
+                </div>
+              )}
+            </div>
 
           </div>
 

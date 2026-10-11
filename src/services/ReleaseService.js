@@ -33,6 +33,24 @@ Nâng tầm trải nghiệm phát triển với kiến trúc kế hoạch phân 
 - Tải file cài đặt Aevum-OS-Setup-1.0.0-beta.3.exe hoặc bản macOS bên dưới để trải nghiệm.
 
 ---
+*Phát hành tự động bởi Aevum CI/CD Engine*`,
+
+  'v1.0.0-dev.0': `# Aevum-OS v1.0.0-dev.0
+Nâng tầm trải nghiệm Aevum-OS với các cải tiến AI và quy trình phát hành linh hoạt hơn.
+
+### Tính năng mới (New Features)
+- **Hệ thống Phát hành Dev Build & Promote Build**: Giới thiệu quy trình phát hành mới, cho phép tạo các bản dựng phát triển nội bộ (\`-dev.X\`) và thăng hạng trực tiếp lên bản phát hành chính thức mà không cần build lại.
+- **Kênh Cập nhật Thử nghiệm Nội bộ (Dev Channel Toggle)**: Tích hợp công tắc chuyển đổi kênh cập nhật trong cài đặt ứng dụng, cho phép Developer và Beta Tester đăng ký nhận các bản thử nghiệm sớm ngầm qua Auto-Updater.
+- **Điều phối Đa Tác tử & Tối ưu hóa Persona**: Tinh chỉnh cấu trúc hoạt động của Nia và các Living Personas, nâng cao khả năng tự chủ và tương tác thời gian thực.
+
+### Cải tiến & Tối ưu (Improvements)
+- **Cải tiến Auto-Updater Core**: Bổ sung cờ \`allowPrerelease\` linh hoạt trong \`UpdaterService\`, đồng bộ trạng thái qua IPC handler an toàn giữa Main Process và Renderer.
+- **Tự động hóa CI/CD & Webhook Thông báo**: Mở rộng pipeline GitHub Actions tự động kích hoạt cập nhật dữ liệu changelog tức thì trên website khi có bản release mới.
+
+### Tệp cài đặt / Installation
+- Tải file cài đặt \`Aevum-OS-Setup-1.0.0-dev.0.exe\` hoặc bản macOS bên dưới để trải nghiệm.
+
+---
 *Phát hành tự động bởi Aevum CI/CD Engine*`
 };
 let cachedReleases = null;
@@ -83,7 +101,7 @@ export const ReleaseService = {
         const enriched = data.map((item) => {
           const tag = item.tag_name || item.name || '';
           const override = RELEASE_BODY_OVERRIDES[tag];
-          if (override && (!item.body || item.body.trim().endsWith(': Aev') || item.body.trim().endsWith('Giới thiệu') || item.body.length < 350)) {
+          if (override && (!item.body || item.body.trim().endsWith(': Aev') || item.body.trim().endsWith('Giới thiệu') || item.body.trim().endsWith('(') || item.body.length < 400)) {
             return {
               ...item,
               body: override

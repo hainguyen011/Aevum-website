@@ -51,7 +51,9 @@ Nâng tầm trải nghiệm Aevum-OS với các cải tiến AI và quy trình p
 - Tải file cài đặt \`Aevum-OS-Setup-1.0.0-dev.0.exe\` hoặc bản macOS bên dưới để trải nghiệm.
 
 ---
-  'v1.0.0-dev.1': `# Aevum-OS v1.0.0-dev.1
+*Phát hành tự động bởi Aevum CI/CD Engine*\`,
+
+  'v1.0.0-dev.1': \`# Aevum-OS v1.0.0-dev.1
 Bản thử nghiệm Dev-Test thứ 2 mang đến Persona Hawl chuyên trách bảo mật, nâng cấp Hermes Engine và hoàn thiện phòng thí nghiệm nghiên cứu sóng não EEG.
 
 ### Tính năng mới (New Features)

@@ -51,6 +51,23 @@ Nâng tầm trải nghiệm Aevum-OS với các cải tiến AI và quy trình p
 - Tải file cài đặt \`Aevum-OS-Setup-1.0.0-dev.0.exe\` hoặc bản macOS bên dưới để trải nghiệm.
 
 ---
+  'v1.0.0-dev.1': `# Aevum-OS v1.0.0-dev.1
+Bản thử nghiệm Dev-Test thứ 2 mang đến Persona Hawl chuyên trách bảo mật, nâng cấp Hermes Engine và hoàn thiện phòng thí nghiệm nghiên cứu sóng não EEG.
+
+### Tính năng mới (New Features)
+- **Tác tử An ninh Hawl (Hawl AI Companion & Security Specialist)**: Bổ sung Persona Hawl - chuyên gia bảo mật và thẩm định phòng thủ mạng, hỗ trợ rà soát lỗ hổng, tư vấn phòng chống DDoS và tối ưu hóa hệ thống lá chắn đa tầng.
+- **Tích hợp Hermes Broker & Signal Diagnostic UI**: Nâng cấp cơ chế điều phối phiên làm việc với Hermes Session Broker, bổ sung SignalDiagnosticHandlers và giao diện chẩn đoán sức khỏe hệ thống thời gian thực.
+- **Không gian Nghiên cứu Thần kinh Nhận thức (Neuro-Cognitive Lab & Flow-State)**: Công bố các bài báo khoa học tiền in ấn Zenodo, bộ chuẩn đo lường trạng thái dòng chảy HAI EEG và hiệu chỉnh Kuramoto coupling cho các mô hình tự chữa lành.
+
+### Cải tiến & Tối ưu (Improvements)
+- **Hoàn thiện Giao diện Workspace & Agent Chat View**: Tinh chỉnh các thành phần giao diện không gian làm việc lõi, tối ưu hoá khung trò chuyện tác tử và tích hợp điều phối tác tử tự trị.
+- **Chuẩn hóa Giao thức Fastify SSE Daemon**: Đồng bộ cổng proxy kết nối SSE (Port 3344) giữa Aevum Desktop và các công cụ MCP, đảm bảo độ trễ phản hồi dưới 2ms.
+- **Tối ưu hóa Vector Zoom & Mermaid Diagram**: Nâng cấp khả năng thu phóng vector mượt mà và tương tác đồ thị cấu trúc kiến trúc trực quan.
+
+### Tệp cài đặt / Installation
+- Tải file cài đặt \`Aevum-OS-Setup-1.0.0-dev.1.exe\` hoặc bản macOS bên dưới để trải nghiệm.
+
+---
 *Phát hành tự động bởi Aevum CI/CD Engine*`
 };
 let cachedReleases = null;

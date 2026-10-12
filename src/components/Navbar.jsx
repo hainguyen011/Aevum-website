@@ -39,23 +39,31 @@ export const Navbar = ({
   const t = translations[activeLang] || translations.en;
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY || document.documentElement.scrollTop || (window.lenis ? window.lenis.scroll : 0);
+    let ticking = false;
+    const updateScroll = () => {
+      const scrollY = Math.max(0, window.pageYOffset ?? window.scrollY ?? document.documentElement.scrollTop ?? 0);
       setIsScrolled(scrollY > 20);
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(updateScroll);
+        ticking = true;
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    if (window.lenis && typeof window.lenis.on === 'function') {
-      window.lenis.on('scroll', handleScroll);
-    }
-
-    handleScroll();
+    window.addEventListener('resize', handleScroll, { passive: true });
+    window.addEventListener('wheel', handleScroll, { passive: true });
+    window.addEventListener('touchmove', handleScroll, { passive: true });
+    updateScroll();
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      if (window.lenis && typeof window.lenis.off === 'function') {
-        window.lenis.off('scroll', handleScroll);
-      }
+      window.removeEventListener('resize', handleScroll);
+      window.removeEventListener('wheel', handleScroll);
+      window.removeEventListener('touchmove', handleScroll);
     };
   }, []);
 
@@ -193,7 +201,7 @@ export const Navbar = ({
     >
       
       {/* Top Accent Marquee Announcement Banner */}
-      <AnnouncementBanner onNavigate={onNavigate} activeLang={activeLang} />
+      <AnnouncementBanner onNavigate={onNavigate} activeLang={activeLang} isScrolled={isScrolled} />
 
       {/* Main Navbar Top Row */}
       <div className="w-full flex items-stretch justify-between pl-4 sm:pl-6 lg:pl-8 xl:pl-10 pr-0 h-16">
@@ -238,6 +246,7 @@ export const Navbar = ({
 
             {/* Pricing Link */}
             <button 
+              data-nav="pricing"
               onClick={() => { onNavigate('pricing'); closeDropdown(); }}
               onMouseEnter={() => prefetchPage('pricing')}
               className={`transition-colors font-medium whitespace-nowrap text-nowrap cursor-pointer ${
@@ -249,6 +258,7 @@ export const Navbar = ({
 
             {/* About Link */}
             <button 
+              data-nav="about"
               onClick={() => { onNavigate('about'); closeDropdown(); }}
               onMouseEnter={() => prefetchPage('about')}
               className={`transition-colors font-medium whitespace-nowrap text-nowrap cursor-pointer ${
@@ -508,6 +518,7 @@ export const Navbar = ({
           {resourcesOpen && (
             <div className="flex items-center gap-5 sm:gap-7 font-medium overflow-x-auto no-scrollbar py-1 pr-4 animate-in fade-in duration-150">
               <button 
+                data-nav="docs"
                 onClick={() => { onNavigate('docs'); closeDropdown(); }}
                 onMouseEnter={() => prefetchPage('docs')}
                 className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-medium ${
@@ -517,6 +528,7 @@ export const Navbar = ({
                 {t.navbar.docs}
               </button>
               <button 
+                data-nav="explore"
                 onClick={() => { onNavigate('explore'); closeDropdown(); }}
                 onMouseEnter={() => prefetchPage('explore')}
                 className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-medium ${
@@ -526,6 +538,7 @@ export const Navbar = ({
                 {isVi ? 'Khám phá Kỉ nguyên' : 'Era Academy'}
               </button>
               <button 
+                data-nav="changelog"
                 onClick={() => { onNavigate('changelog'); closeDropdown(); }}
                 onMouseEnter={() => prefetchPage('changelog')}
                 className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-medium ${
@@ -535,6 +548,7 @@ export const Navbar = ({
                 {isVi ? 'Nhật ký cập nhật' : 'Changelog'}
               </button>
               <button 
+                data-nav="discussions"
                 onClick={() => { onNavigate('discussions'); closeDropdown(); }}
                 onMouseEnter={() => prefetchPage('discussions')}
                 className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-medium ${

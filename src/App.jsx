@@ -417,48 +417,6 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
     });
   };
 
-  // Initialize Lenis smooth scroll engine (Desktop only to prevent mobile reflows)
-  useEffect(() => {
-    if (typeof window === 'undefined' || window.matchMedia('(pointer: coarse)').matches) {
-      return;
-    }
-
-    let isMounted = true;
-    let rafId = null;
-
-    import('lenis').then(({ default: Lenis }) => {
-      if (!isMounted) return;
-
-      const lenis = new Lenis({
-        duration: 1.2,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        orientation: 'vertical',
-        gestureOrientation: 'vertical',
-        smoothWheel: true,
-        wheelMultiplier: 1.0,
-        touchMultiplier: 1.5,
-        infinite: false,
-      });
-
-      window.lenis = lenis;
-
-      function raf(time) {
-        lenis.raf(time);
-        rafId = requestAnimationFrame(raf);
-      }
-
-      rafId = requestAnimationFrame(raf);
-    }).catch(() => {});
-
-    return () => {
-      isMounted = false;
-      if (rafId) cancelAnimationFrame(rafId);
-      if (window.lenis) {
-        window.lenis.destroy();
-        delete window.lenis;
-      }
-    };
-  }, []);
 
   // Initialize Scroll Reveal Animations Hook
   useScrollReveal([currentPage]);

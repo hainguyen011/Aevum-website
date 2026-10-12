@@ -30,7 +30,7 @@
         },
         {
           "key": "Link",
-          "value": "</.well-known/ai-catalog.json>; rel=\"ai-catalog\", </.well-known/ard.json>; rel=\"service-doc\""
+          "value": "</.well-known/ai-catalog.json>; rel=\"ai-catalog\"; type=\"application/ai-catalog+json\", </.well-known/ard.json>; rel=\"service-doc\"; type=\"application/ai-catalog+json\""
         }
       ]
     },
@@ -70,6 +70,24 @@
         {
           "key": "Content-Type",
           "value": "application/json; charset=utf-8"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)\\.html",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, s-maxage=31536000, stale-while-revalidate=86400"
+        }
+      ]
+    },
+    {
+      "source": "/",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, s-maxage=31536000, stale-while-revalidate=86400"
         }
       ]
     }

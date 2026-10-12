@@ -234,6 +234,7 @@ export const SubNavTabs = ({ activeLang = 'en', onNavigate }) => {
             {sideSubsystems.map((item) => (
               <div
                 key={item.id}
+                data-nav={item.target}
                 onClick={() => handleSelectSubsystem(item.id)}
                 onMouseEnter={() => prefetchPage(item.target)}
                 className="subnav-arch-card group cursor-pointer rounded-[24px] sm:rounded-[28px] bg-[#14151b] [html[data-theme='light']_&]:bg-white hover:bg-[#1a1c24] [html[data-theme='light']_&]:hover:bg-slate-50/80 border border-white/[0.08] [html[data-theme='light']_&]:border-slate-200/90 hover:border-white/20 [html[data-theme='light']_&]:hover:border-slate-300 p-6 sm:p-7 md:p-8 flex flex-row items-center justify-between gap-5 sm:gap-7 transition-all duration-300 text-left [html[data-theme='light']_&]:shadow-[0_2px_12px_rgba(15,23,42,0.06)] [html[data-theme='light']_&]:hover:shadow-[0_8px_24px_rgba(15,23,42,0.09)]"

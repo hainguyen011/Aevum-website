@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { ReleaseService } from '../services/ReleaseService';
 
-export const AnnouncementBanner = ({ onNavigate, activeLang }) => {
-  const [isScrolled, setIsScrolled] = useState(false);
+export const AnnouncementBanner = ({ onNavigate, activeLang, isScrolled: propIsScrolled }) => {
+  const [internalScrolled, setInternalScrolled] = useState(false);
+  const isScrolled = propIsScrolled !== undefined ? propIsScrolled : internalScrolled;
   const [latestVersion, setLatestVersion] = useState('v1.0.0-beta.6');
   const isVi = activeLang === 'vi';
 
@@ -28,25 +29,31 @@ export const AnnouncementBanner = ({ onNavigate, activeLang }) => {
   const ctaText = isVi ? 'Tải xuống ngay' : 'Download now';
 
   useEffect(() => {
+    if (propIsScrolled !== undefined) return;
+
+    let ticking = false;
+    const updateScroll = () => {
+      const scrollY = Math.max(0, window.pageYOffset ?? window.scrollY ?? document.documentElement.scrollTop ?? 0);
+      setInternalScrolled(scrollY > 20);
+      ticking = false;
+    };
+
     const handleScroll = () => {
-      const scrollY = window.scrollY || document.documentElement.scrollTop || (window.lenis ? window.lenis.scroll : 0);
-      setIsScrolled(scrollY > 20);
+      if (!ticking) {
+        requestAnimationFrame(updateScroll);
+        ticking = true;
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    if (window.lenis && typeof window.lenis.on === 'function') {
-      window.lenis.on('scroll', handleScroll);
-    }
-
-    handleScroll();
+    window.addEventListener('resize', handleScroll, { passive: true });
+    updateScroll();
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      if (window.lenis && typeof window.lenis.off === 'function') {
-        window.lenis.off('scroll', handleScroll);
-      }
+      window.removeEventListener('resize', handleScroll);
     };
-  }, []);
+  }, [propIsScrolled]);
 
   return (
     <div

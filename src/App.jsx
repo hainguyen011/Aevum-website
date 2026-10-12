@@ -39,6 +39,7 @@ const TrialModal = lazy(() => import('./components/TrialModal').then(m => ({ def
 const PaymentModal = lazy(() => import('./components/PaymentModal').then(m => ({ default: m.PaymentModal })));
 const DesktopAuthSuccessModal = lazy(() => import('./components/DesktopAuthSuccessModal').then(m => ({ default: m.DesktopAuthSuccessModal })));
 const PiperNetAuthSuccessModal = lazy(() => import('./components/PiperNetAuthSuccessModal').then(m => ({ default: m.PiperNetAuthSuccessModal })));
+const SquarePopupBanner = lazy(() => import('./components/SquarePopupBanner').then(m => ({ default: m.SquarePopupBanner })));
 
 export function App({ initialPage = null, initialLang = 'vi', initialDocId = null, initialLessonId = null }) {
   const [currentPage, setCurrentPage] = useState(() => {
@@ -1180,6 +1181,13 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
           <SearchModal
             isOpen={isSearchOpen}
             onClose={() => setIsSearchOpen(false)}
+            onNavigate={handleNavigate}
+            activeLang={activeLang}
+          />
+        )}
+
+        {currentPage === 'landing' && (
+          <SquarePopupBanner
             onNavigate={handleNavigate}
             activeLang={activeLang}
           />

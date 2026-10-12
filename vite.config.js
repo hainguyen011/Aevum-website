@@ -150,6 +150,12 @@ export default defineConfig(({ mode }) => {
     server: {
       port: 5177,
       open: true,
+      proxy: {
+        '/banners': {
+          target: 'http://localhost:4000',
+          changeOrigin: true
+        }
+      }
     },
     build: {
       target: 'esnext',

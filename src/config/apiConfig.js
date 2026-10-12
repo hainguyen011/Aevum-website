@@ -5,16 +5,32 @@
 
 export const API_CONFIG = {
   // Aevum Cloud Backend API Base URL
-  AEVUM_CLOUD_URL: (
-    import.meta.env.VITE_AEVUM_CLOUD_URL ||
-    (import.meta.env.PROD ? 'https://api.aevum.ai.vn' : 'http://localhost:4000')
-  ).replace(/\/+$/, ''),
+  get AEVUM_CLOUD_URL() {
+    if (typeof window !== 'undefined') {
+      const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+      if (isLocal) {
+        return 'http://localhost:4000';
+      }
+    }
+    return (
+      import.meta.env.VITE_AEVUM_CLOUD_URL ||
+      (import.meta.env.PROD ? 'https://api.aevum.ai.vn' : 'http://localhost:4000')
+    ).replace(/\/+$/, '');
+  },
 
   // Website Public URL
-  WEBSITE_URL: (
-    import.meta.env.VITE_WEBSITE_URL ||
-    (import.meta.env.PROD ? 'https://aevum.ai.vn' : 'http://localhost:5177')
-  ).replace(/\/+$/, ''),
+  get WEBSITE_URL() {
+    if (typeof window !== 'undefined') {
+      const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+      if (isLocal) {
+        return window.location.origin;
+      }
+    }
+    return (
+      import.meta.env.VITE_WEBSITE_URL ||
+      (import.meta.env.PROD ? 'https://aevum.ai.vn' : 'http://localhost:5177')
+    ).replace(/\/+$/, '');
+  },
 
   // Supabase Configuration
   SUPABASE_URL: import.meta.env.VITE_SUPABASE_URL || '',

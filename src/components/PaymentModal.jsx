@@ -33,6 +33,20 @@ export const PaymentModal = ({
   const [savedCouponCode, setSavedCouponCode] = useState('');
   const [activeRetention, setActiveRetention] = useState(null);
   const [translatedCache, setTranslatedCache] = useState({});
+  const [renderedCoupon, setRenderedCoupon] = useState(appliedCoupon);
+
+  useEffect(() => {
+    if (appliedCoupon) {
+      setRenderedCoupon(appliedCoupon);
+    } else {
+      const timer = setTimeout(() => {
+        setRenderedCoupon(null);
+      }, 420);
+      return () => clearTimeout(timer);
+    }
+  }, [appliedCoupon]);
+
+  const activeTicketCoupon = appliedCoupon || renderedCoupon;
 
   useEffect(() => {
     setCycle(initialCycle);
@@ -86,9 +100,9 @@ export const PaymentModal = ({
     }
   }, [appliedCoupon, activeLang]);
 
-  // Dynamic names with automatic translation fallback
-  const dynamicCouponName = (appliedCoupon && translatedCache[`${appliedCoupon.id || appliedCoupon.code}_name_${activeLang}`]) || appliedCoupon?.name;
-  const dynamicPartnerBadge = (appliedCoupon?.partnerBadge && translatedCache[`${appliedCoupon.id || appliedCoupon.code}_badge_${activeLang}`]) || appliedCoupon?.partnerBadge;
+  // Dynamic names with automatic translation fallback (hỗ trợ cả trong quá trình đóng animation)
+  const dynamicCouponName = (activeTicketCoupon && translatedCache[`${activeTicketCoupon.id || activeTicketCoupon.code}_name_${activeLang}`]) || activeTicketCoupon?.name;
+  const dynamicPartnerBadge = (activeTicketCoupon?.partnerBadge && translatedCache[`${activeTicketCoupon.id || activeTicketCoupon.code}_badge_${activeLang}`]) || activeTicketCoupon?.partnerBadge;
 
   const handleApplyCouponDirect = async (codeToApply, targetCycle) => {
     const cleanCode = (codeToApply || '').trim().toUpperCase();
@@ -446,11 +460,11 @@ export const PaymentModal = ({
             </button>
           </div>
         ) : !orderData ? (
-          /* STEP 1: CHOOSE PLAN & INITIATE (2-Column Grid when coupon is applied, Side Panel pops out to the right) */
-          <div className={appliedCoupon ? "grid grid-cols-1 md:grid-cols-12 gap-5 items-stretch" : "space-y-5"}>
+          /* STEP 1: CHOOSE PLAN & INITIATE (Flexbox layout chống co ép nội dung khi áp dụng/gỡ bỏ voucher) */
+          <div className="flex flex-col md:flex-row items-stretch justify-start gap-0 transition-all">
             
-            {/* CỘT CHÍNH (LEFT COLUMN: md:col-span-7 khi có mã ưu đãi, ngược lại full width) */}
-            <div className={appliedCoupon ? "md:col-span-7 space-y-4 flex flex-col justify-between" : "space-y-5"}>
+            {/* CỘT CHÍNH (LEFT COLUMN): Luôn duy trì bề rộng chuẩn ổn định, tuyệt đối không bị co ép hay nhảy dòng */}
+            <div className="w-full md:w-[460px] md:min-w-[460px] md:max-w-[460px] shrink-0 space-y-4 flex flex-col justify-between">
               
               <div className="space-y-4">
                 {/* 1. Plan selection */}
@@ -553,7 +567,7 @@ export const PaymentModal = ({
                   </div>
 
                   {couponError && (
-                    <div className="p-3 rounded-xl bg-black/60 [html[data-theme='light']_&]:bg-rose-50 backdrop-blur-md border border-white/20 [html[data-theme='light']_&]:border-rose-200 text-slate-200 [html[data-theme='light']_&]:text-rose-700 text-xs font-medium">
+                    <div className="p-3 rounded-xl bg-black/60 [html[data-theme='light']_&]:bg-rose-50 backdrop-blur-md border border-white/20 [html[data-theme='light']_&]:border-rose-200 text-slate-200 [html[data-theme='light']_&]:text-rose-700 text-xs font-medium animate-in fade-in duration-200">
                       {couponError}
                     </div>
                   )}
@@ -667,186 +681,194 @@ export const PaymentModal = ({
               </button>
             </div>
 
-            {/* CỘT PHẢI (RIGHT COLUMN: DIGITAL VOUCHER TICKET CAO CẤP BẬT RA BÊN PHẢI POPUP) */}
-            {appliedCoupon && (
-              <div className="md:col-span-5 flex flex-col justify-between animate-in fade-in slide-in-from-left-4 duration-300">
-                {/* Digital Ticket Container - Chỉ giữ viền top, bỏ hoàn toàn border left, right và bottom */}
-                <div className="payment-ticket-container p-6 sm:p-7 rounded-3xl border-t border-x-0 border-b-0 border-white/10 [html[data-theme='light']_&]:border-slate-200/90 shadow-2xl relative flex-1 flex flex-col justify-between overflow-hidden bg-[#07090D] [html[data-theme='light']_&]:bg-[#F8FAFC]">
-                  
-                  {/* 1. Primary Linear Gradient Flow */}
-                  <div className="payment-ticket-gradient absolute inset-0 pointer-events-none z-0" />
+            {/* CỘT PHẢI (RIGHT COLUMN: DIGITAL VOUCHER TICKET CAO CẤP MỞ RA MƯỢT MÀ VỚI HIỆU ỨNG DRAWER KHÔNG ÉP NỘI DUNG) */}
+            <div
+              className={`transition-[width,min-width,max-width,margin,opacity,transform,max-height] duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden ${
+                appliedCoupon
+                  ? 'w-full md:w-[350px] md:min-w-[350px] md:max-w-[350px] md:ml-5 opacity-100 scale-100 translate-x-0 mt-5 md:mt-0 max-h-[1200px]'
+                  : 'w-0 md:w-0 min-w-0 max-w-0 md:ml-0 opacity-0 scale-95 md:-translate-x-3 pointer-events-none max-h-0 md:max-h-none mt-0'
+              }`}
+            >
+              {activeTicketCoupon && (
+                <div className="w-full md:w-[350px] shrink-0 h-full flex flex-col justify-between">
+                  {/* Digital Ticket Container - Chỉ giữ viền top, bỏ hoàn toàn border left, right và bottom */}
+                  <div className="payment-ticket-container p-6 sm:p-7 rounded-3xl border-t border-x-0 border-b-0 border-white/10 [html[data-theme='light']_&]:border-slate-200/90 shadow-2xl relative flex-1 flex flex-col justify-between overflow-hidden bg-[#07090D] [html[data-theme='light']_&]:bg-[#F8FAFC]">
+                    
+                    {/* 1. Primary Linear Gradient Flow */}
+                    <div className="payment-ticket-gradient absolute inset-0 pointer-events-none z-0" />
 
-                  {/* 2. Ethereal Top Horizon Wash */}
-                  <div
-                    className="absolute -top-16 left-1/2 -translate-x-1/2 w-[120%] h-[150px] pointer-events-none z-0"
-                    style={{
-                      background: 'radial-gradient(ellipse 70% 50% at 50% 0%, rgba(56, 189, 248, 0.18) 0%, transparent 100%)',
-                      filter: 'blur(24px)',
-                    }}
-                  />
+                    {/* 2. Ethereal Top Horizon Wash */}
+                    <div
+                      className="absolute -top-16 left-1/2 -translate-x-1/2 w-[120%] h-[150px] pointer-events-none z-0"
+                      style={{
+                        background: 'radial-gradient(ellipse 70% 50% at 50% 0%, rgba(56, 189, 248, 0.18) 0%, transparent 100%)',
+                        filter: 'blur(24px)',
+                      }}
+                    />
 
-                  {/* 3. Authentic Fine Film Grain Noise Texture */}
-                  <div
-                    className="absolute inset-0 opacity-[0.08] [html[data-theme='light']_&]:opacity-[0.03] mix-blend-overlay pointer-events-none z-[1]"
-                    style={{
-                      backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='ticketNoiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23ticketNoiseFilter)'/%3E%3C/svg%3E")`,
-                      backgroundRepeat: 'repeat',
-                      backgroundSize: '120px 120px',
-                    }}
-                  />
+                    {/* 3. Authentic Fine Film Grain Noise Texture */}
+                    <div
+                      className="absolute inset-0 opacity-[0.08] [html[data-theme='light']_&]:opacity-[0.03] mix-blend-overlay pointer-events-none z-[1]"
+                      style={{
+                        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='ticketNoiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23ticketNoiseFilter)'/%3E%3C/svg%3E")`,
+                        backgroundRepeat: 'repeat',
+                        backgroundSize: '120px 120px',
+                      }}
+                    />
 
-                  {/* 4. Precision Top Luminous Crest Hairline Highlight */}
-                  <div className="absolute top-0 left-6 right-6 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/40 [html[data-theme='light']_&]:via-cyan-400/60 to-transparent pointer-events-none z-10" />
+                    {/* 4. Precision Top Luminous Crest Hairline Highlight */}
+                    <div className="absolute top-0 left-6 right-6 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/40 [html[data-theme='light']_&]:via-cyan-400/60 to-transparent pointer-events-none z-10" />
 
-                  {/* Ticket Upper Section: Header, Code Pill & Perks */}
-                  <div className="relative z-10 space-y-4">
-                    {/* Header Row: Clean & Line-free */}
-                    <div className="flex items-center justify-between">
-                      <span className="text-[11px] font-semibold text-slate-400 [html[data-theme='light']_&]:text-slate-500 uppercase tracking-widest">
-                        {isVi ? 'Chi Tiết Ưu Đãi' : 'Coupon Details'}
-                      </span>
-                      <button
-                        type="button"
-                        onClick={handleRemoveCoupon}
-                        className="text-xs text-slate-400 [html[data-theme='light']_&]:text-slate-500 hover:text-white [html[data-theme='light']_&]:hover:text-rose-600 transition-colors cursor-pointer font-medium"
-                      >
-                        {isVi ? 'Gỡ bỏ' : 'Remove'}
-                      </button>
-                    </div>
-
-                    {/* Voucher Pill Badge & Title */}
-                    <div className="space-y-2 pt-1">
-                      <div>
-                        <span className="inline-block text-xs font-mono font-bold px-3.5 py-1 rounded-full border border-white/20 [html[data-theme='light']_&]:border-cyan-300 bg-white/[0.08] [html[data-theme='light']_&]:bg-cyan-50 text-white [html[data-theme='light']_&]:text-cyan-800 tracking-wider shadow-sm">
-                          {appliedCoupon.code}
+                    {/* Ticket Upper Section: Header, Code Pill & Perks */}
+                    <div className="relative z-10 space-y-4">
+                      {/* Header Row: Clean & Line-free */}
+                      <div className="flex items-center justify-between">
+                        <span className="text-[11px] font-semibold text-slate-400 [html[data-theme='light']_&]:text-slate-500 uppercase tracking-widest">
+                          {isVi ? 'Chi Tiết Ưu Đãi' : 'Coupon Details'}
                         </span>
+                        <button
+                          type="button"
+                          onClick={handleRemoveCoupon}
+                          className="text-xs text-slate-400 [html[data-theme='light']_&]:text-slate-500 hover:text-white [html[data-theme='light']_&]:hover:text-rose-600 transition-colors cursor-pointer font-medium"
+                        >
+                          {isVi ? 'Gỡ bỏ' : 'Remove'}
+                        </button>
                       </div>
-                      <h4 className="text-sm font-semibold text-white [html[data-theme='light']_&]:text-slate-900 leading-snug">
-                        {dynamicCouponName}
-                      </h4>
-                      {appliedCoupon.partnerBadge && (
-                        <div className="text-xs text-slate-300 [html[data-theme='light']_&]:text-slate-600 flex items-center gap-1.5 pt-0.5">
-                          <span className="text-slate-400 [html[data-theme='light']_&]:text-slate-500">{isVi ? 'Đặc quyền:' : 'Perk:'}</span>
-                          <span className="font-semibold text-white [html[data-theme='light']_&]:text-cyan-800 uppercase tracking-wider">
-                            {dynamicPartnerBadge}
+
+                      {/* Voucher Pill Badge & Title */}
+                      <div className="space-y-2 pt-1">
+                        <div>
+                          <span className="inline-block text-xs font-mono font-bold px-3.5 py-1 rounded-full border border-white/20 [html[data-theme='light']_&]:border-cyan-300 bg-white/[0.08] [html[data-theme='light']_&]:bg-cyan-50 text-white [html[data-theme='light']_&]:text-cyan-800 tracking-wider shadow-sm">
+                            {activeTicketCoupon.code}
                           </span>
                         </div>
-                      )}
-                    </div>
-
-                    {/* Perks List: Spacing & Typography instead of dividers */}
-                    <div className="space-y-2 pt-1 text-xs">
-                      {/* Ưu đãi kỳ đầu hoặc Mức giảm giá */}
-                      <div className="flex justify-between items-center text-slate-300 [html[data-theme='light']_&]:text-slate-600 gap-2">
-                        <span className="text-slate-400 [html[data-theme='light']_&]:text-slate-500 shrink-0">
-                          {appliedCoupon.isFree 
-                            ? (isVi ? 'Kỳ đầu tiên:' : 'First cycle:') 
-                            : (isVi ? 'Mức giảm giá:' : 'Discount:')}
-                        </span>
-                        <span className="font-mono text-white [html[data-theme='light']_&]:text-slate-900 font-semibold text-right">
-                          {appliedCoupon.isFree 
-                            ? (isVi ? 'Miễn phí 100% (0 VNĐ)' : '100% Free (0 VND)') 
-                            : `-${discountAmount.toLocaleString('vi-VN')} đ ${appliedCoupon.discountType === 'percentage' ? `(-${appliedCoupon.discountValue}%)` : ''}`}
-                        </span>
+                        <h4 className="text-sm font-semibold text-white [html[data-theme='light']_&]:text-slate-900 leading-snug">
+                          {dynamicCouponName}
+                        </h4>
+                        {activeTicketCoupon.partnerBadge && (
+                          <div className="text-xs text-slate-300 [html[data-theme='light']_&]:text-slate-600 flex items-center gap-1.5 pt-0.5">
+                            <span className="text-slate-400 [html[data-theme='light']_&]:text-slate-500">{isVi ? 'Đặc quyền:' : 'Perk:'}</span>
+                            <span className="font-semibold text-white [html[data-theme='light']_&]:text-cyan-800 uppercase tracking-wider">
+                              {dynamicPartnerBadge}
+                            </span>
+                          </div>
+                        )}
                       </div>
 
-                      {/* Ưu đãi gia hạn các tháng tiếp theo (DB metadata) */}
-                      {appliedCoupon.subsequentDiscountMonths > 0 && (
+                      {/* Perks List: Spacing & Typography instead of dividers */}
+                      <div className="space-y-2 pt-1 text-xs">
+                        {/* Ưu đãi kỳ đầu hoặc Mức giảm giá */}
                         <div className="flex justify-between items-center text-slate-300 [html[data-theme='light']_&]:text-slate-600 gap-2">
                           <span className="text-slate-400 [html[data-theme='light']_&]:text-slate-500 shrink-0">
-                            {appliedCoupon.subsequentDiscountMonths} {isVi ? 'tháng tiếp theo:' : 'months renewal:'}
+                            {activeTicketCoupon.isFree 
+                              ? (isVi ? 'Kỳ đầu tiên:' : 'First cycle:') 
+                              : (isVi ? 'Mức giảm giá:' : 'Discount:')}
                           </span>
                           <span className="font-mono text-white [html[data-theme='light']_&]:text-slate-900 font-semibold text-right">
-                            {isVi ? `Giảm ${appliedCoupon.subsequentDiscountPercent}%` : `${appliedCoupon.subsequentDiscountPercent}% off`}
+                            {activeTicketCoupon.isFree 
+                              ? (isVi ? 'Miễn phí 100% (0 VNĐ)' : '100% Free (0 VND)') 
+                              : `-${discountAmount.toLocaleString('vi-VN')} đ ${activeTicketCoupon.discountType === 'percentage' ? `(-${activeTicketCoupon.discountValue}%)` : ''}`}
                           </span>
                         </div>
-                      )}
 
-                      {/* Thời gian tặng thêm (DB bonus_days) */}
-                      {appliedCoupon.bonusDays > 0 && (
-                        <div className="flex justify-between items-center text-slate-300 [html[data-theme='light']_&]:text-slate-600 gap-2">
-                          <span className="text-slate-400 [html[data-theme='light']_&]:text-slate-500 shrink-0">{isVi ? 'Tặng thêm:' : 'Bonus:'}</span>
-                          <span className="font-mono text-white [html[data-theme='light']_&]:text-slate-900 font-semibold text-right">
-                            +{appliedCoupon.bonusDays} {isVi ? 'ngày Pro' : 'days Pro'}
-                          </span>
-                        </div>
-                      )}
+                        {/* Ưu đãi gia hạn các tháng tiếp theo (DB metadata) */}
+                        {activeTicketCoupon.subsequentDiscountMonths > 0 && (
+                          <div className="flex justify-between items-center text-slate-300 [html[data-theme='light']_&]:text-slate-600 gap-2">
+                            <span className="text-slate-400 [html[data-theme='light']_&]:text-slate-500 shrink-0">
+                              {activeTicketCoupon.subsequentDiscountMonths} {isVi ? 'tháng tiếp theo:' : 'months renewal:'}
+                            </span>
+                            <span className="font-mono text-white [html[data-theme='light']_&]:text-slate-900 font-semibold text-right">
+                              {isVi ? `Giảm ${activeTicketCoupon.subsequentDiscountPercent}%` : `${activeTicketCoupon.subsequentDiscountPercent}% off`}
+                            </span>
+                          </div>
+                        )}
 
-                      {/* Mở rộng máy trạm (DB bonus_workstations - chỉ hiện khi > 0) */}
-                      {appliedCoupon.bonusWorkstations > 0 && (
-                        <div className="flex justify-between items-center text-slate-300 [html[data-theme='light']_&]:text-slate-600 gap-2">
-                          <span className="text-slate-400 [html[data-theme='light']_&]:text-slate-500 shrink-0">{isVi ? 'Máy trạm:' : 'Workstations:'}</span>
-                          <span className="font-mono text-white [html[data-theme='light']_&]:text-slate-900 font-semibold text-right">
-                            +{appliedCoupon.bonusWorkstations} {isVi ? 'thiết bị' : 'devices'}
-                          </span>
-                        </div>
-                      )}
+                        {/* Thời gian tặng thêm (DB bonus_days) */}
+                        {activeTicketCoupon.bonusDays > 0 && (
+                          <div className="flex justify-between items-center text-slate-300 [html[data-theme='light']_&]:text-slate-600 gap-2">
+                            <span className="text-slate-400 [html[data-theme='light']_&]:text-slate-500 shrink-0">{isVi ? 'Tặng thêm:' : 'Bonus:'}</span>
+                            <span className="font-mono text-white [html[data-theme='light']_&]:text-slate-900 font-semibold text-right">
+                              +{activeTicketCoupon.bonusDays} {isVi ? 'ngày Pro' : 'days Pro'}
+                            </span>
+                          </div>
+                        )}
 
-                      {/* Giới hạn kích hoạt trên mỗi tài khoản (DB max_uses_per_user) */}
-                      {appliedCoupon.maxUsesPerUser && (
-                        <div className="flex justify-between items-center text-slate-300 [html[data-theme='light']_&]:text-slate-600 gap-2">
-                          <span className="text-slate-400 [html[data-theme='light']_&]:text-slate-500 shrink-0">{isVi ? 'Giới hạn:' : 'Limit:'}</span>
-                          <span className="font-mono text-white [html[data-theme='light']_&]:text-slate-900 font-semibold text-right whitespace-nowrap">
-                            {appliedCoupon.maxUsesPerUser === 1 
-                              ? (isVi ? '1 lần / tài khoản' : '1 time / account') 
-                              : `${appliedCoupon.maxUsesPerUser} ${isVi ? 'lần / tài khoản' : 'times / account'}`}
-                          </span>
-                        </div>
-                      )}
+                        {/* Mở rộng máy trạm (DB bonus_workstations - chỉ hiện khi > 0) */}
+                        {activeTicketCoupon.bonusWorkstations > 0 && (
+                          <div className="flex justify-between items-center text-slate-300 [html[data-theme='light']_&]:text-slate-600 gap-2">
+                            <span className="text-slate-400 [html[data-theme='light']_&]:text-slate-500 shrink-0">{isVi ? 'Máy trạm:' : 'Workstations:'}</span>
+                            <span className="font-mono text-white [html[data-theme='light']_&]:text-slate-900 font-semibold text-right">
+                              +{activeTicketCoupon.bonusWorkstations} {isVi ? 'thiết bị' : 'devices'}
+                            </span>
+                          </div>
+                        )}
 
-                      {/* Gói áp dụng (DB applicable_cycles) */}
-                      {appliedCoupon.applicableCycles && appliedCoupon.applicableCycles.length > 0 && (
-                        <div className="flex justify-between items-center text-slate-300 [html[data-theme='light']_&]:text-slate-600 gap-2">
-                          <span className="text-slate-400 [html[data-theme='light']_&]:text-slate-500 shrink-0">{isVi ? 'Gói áp dụng:' : 'Applicable plan:'}</span>
-                          <span className="font-mono text-white [html[data-theme='light']_&]:text-slate-900 font-semibold text-right">
-                            {appliedCoupon.applicableCycles.map(c => 
-                              c === 'monthly' ? (isVi ? 'Gói Tháng' : 'Monthly') :
-                              c === 'yearly' ? (isVi ? 'Gói Năm' : 'Yearly') : c
-                            ).join(', ')}
-                          </span>
-                        </div>
-                      )}
+                        {/* Giới hạn kích hoạt trên mỗi tài khoản (DB max_uses_per_user) */}
+                        {activeTicketCoupon.maxUsesPerUser && (
+                          <div className="flex justify-between items-center text-slate-300 [html[data-theme='light']_&]:text-slate-600 gap-2">
+                            <span className="text-slate-400 [html[data-theme='light']_&]:text-slate-500 shrink-0">{isVi ? 'Giới hạn:' : 'Limit:'}</span>
+                            <span className="font-mono text-white [html[data-theme='light']_&]:text-slate-900 font-semibold text-right whitespace-nowrap">
+                              {activeTicketCoupon.maxUsesPerUser === 1 
+                                ? (isVi ? '1 lần / tài khoản' : '1 time / account') 
+                                : `${activeTicketCoupon.maxUsesPerUser} ${isVi ? 'lần / tài khoản' : 'times / account'}`}
+                            </span>
+                          </div>
+                        )}
+
+                        {/* Gói áp dụng (DB applicable_cycles) */}
+                        {activeTicketCoupon.applicableCycles && activeTicketCoupon.applicableCycles.length > 0 && (
+                          <div className="flex justify-between items-center text-slate-300 [html[data-theme='light']_&]:text-slate-600 gap-2">
+                            <span className="text-slate-400 [html[data-theme='light']_&]:text-slate-500 shrink-0">{isVi ? 'Gói áp dụng:' : 'Applicable plan:'}</span>
+                            <span className="font-mono text-white [html[data-theme='light']_&]:text-slate-900 font-semibold text-right">
+                              {activeTicketCoupon.applicableCycles.map(c => 
+                                c === 'monthly' ? (isVi ? 'Gói Tháng' : 'Monthly') :
+                                c === 'yearly' ? (isVi ? 'Gói Năm' : 'Yearly') : c
+                              ).join(', ')}
+                            </span>
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Ticket Tear-off Perforation Divider (Thanh thoát, không còn viền sườn) */}
-                  <div className="relative my-3 flex items-center">
-                    <div className="w-full border-t border-dashed border-white/15 [html[data-theme='light']_&]:border-slate-300" />
-                  </div>
+                    {/* Ticket Tear-off Perforation Divider (Thanh thoát, không còn viền sườn) */}
+                    <div className="relative my-3 flex items-center">
+                      <div className="w-full border-t border-dashed border-white/15 [html[data-theme='light']_&]:border-slate-300" />
+                    </div>
 
-                  {/* Ticket Lower Section: Price Summary & Activation Stamp */}
-                  <div className="relative z-10 space-y-4 pt-1">
-                    {/* Price Breakdown: Seamless, no heavy inner boxes or dividers */}
-                    <div className="space-y-2 text-xs font-mono">
-                      <div className="flex justify-between text-slate-400 [html[data-theme='light']_&]:text-slate-500">
-                        <span>{isVi ? 'Giá niêm yết:' : 'Regular price:'}</span>
-                        <span className="text-slate-200 [html[data-theme='light']_&]:text-slate-700">{baseAmount.toLocaleString('vi-VN')} đ</span>
+                    {/* Ticket Lower Section: Price Summary & Activation Stamp */}
+                    <div className="relative z-10 space-y-4 pt-1">
+                      {/* Price Breakdown: Seamless, no heavy inner boxes or dividers */}
+                      <div className="space-y-2 text-xs font-mono">
+                        <div className="flex justify-between text-slate-400 [html[data-theme='light']_&]:text-slate-500">
+                          <span>{isVi ? 'Giá niêm yết:' : 'Regular price:'}</span>
+                          <span className="text-slate-200 [html[data-theme='light']_&]:text-slate-700">{baseAmount.toLocaleString('vi-VN')} đ</span>
+                        </div>
+                        <div className="flex justify-between text-slate-400 [html[data-theme='light']_&]:text-slate-500">
+                          <span>{isVi ? 'Ưu đãi áp dụng:' : 'Discount applied:'}</span>
+                          <span className="text-white [html[data-theme='light']_&]:text-cyan-700 font-semibold">-{discountAmount.toLocaleString('vi-VN')} đ</span>
+                        </div>
+                        <div className="flex justify-between items-baseline pt-2">
+                          <span className="text-xs sm:text-sm font-semibold text-white [html[data-theme='light']_&]:text-slate-900 font-sans">
+                            {isVi ? 'Tổng thanh toán:' : 'Total due:'}
+                          </span>
+                          <span className="text-base sm:text-lg font-mono font-black text-white [html[data-theme='light']_&]:text-slate-900 tracking-tight">
+                            {finalAmount === 0 ? (isVi ? '0 VNĐ (FREE)' : '0 VND (FREE)') : `${finalAmount.toLocaleString('vi-VN')} đ`}
+                          </span>
+                        </div>
                       </div>
-                      <div className="flex justify-between text-slate-400 [html[data-theme='light']_&]:text-slate-500">
-                        <span>{isVi ? 'Ưu đãi áp dụng:' : 'Discount applied:'}</span>
-                        <span className="text-white [html[data-theme='light']_&]:text-cyan-700 font-semibold">-{discountAmount.toLocaleString('vi-VN')} đ</span>
-                      </div>
-                      <div className="flex justify-between items-baseline pt-2">
-                        <span className="text-xs sm:text-sm font-semibold text-white [html[data-theme='light']_&]:text-slate-900 font-sans">
-                          {isVi ? 'Tổng thanh toán:' : 'Total due:'}
+
+                      {/* Activation Guarantee Pill */}
+                      <div className="text-center pt-1">
+                        <span className="inline-block text-[10px] text-slate-300 [html[data-theme='light']_&]:text-slate-600 uppercase tracking-widest font-mono bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-200/70 border border-white/10 [html[data-theme='light']_&]:border-slate-300 px-4 py-1.5 rounded-full font-medium">
+                          {isVi ? 'HỢP LỆ • KÍCH HOẠT TỨC THÌ' : 'VALID • INSTANT ACTIVATION'}
                         </span>
-                        <span className="text-base sm:text-lg font-mono font-black text-white [html[data-theme='light']_&]:text-slate-900 tracking-tight">
-                          {finalAmount === 0 ? (isVi ? '0 VNĐ (FREE)' : '0 VND (FREE)') : `${finalAmount.toLocaleString('vi-VN')} đ`}
-                        </span>
                       </div>
                     </div>
 
-                    {/* Activation Guarantee Pill */}
-                    <div className="text-center pt-1">
-                      <span className="inline-block text-[10px] text-slate-300 [html[data-theme='light']_&]:text-slate-600 uppercase tracking-widest font-mono bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-200/70 border border-white/10 [html[data-theme='light']_&]:border-slate-300 px-4 py-1.5 rounded-full font-medium">
-                        {isVi ? 'HỢP LỆ • KÍCH HOẠT TỨC THÌ' : 'VALID • INSTANT ACTIVATION'}
-                      </span>
-                    </div>
                   </div>
-
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         ) : (
           /* STEP 2: VIETQR DETAILS & LIVE RADAR (Balanced 2-Column Desktop Grid) */

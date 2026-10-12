@@ -138,7 +138,7 @@ export const Modal = ({
 
       {/* Modal Surface - Perfectly Centered in Viewport, Fit Single Screen */}
       <div
-        className={`modal-surface relative w-full ${maxWidthClasses} max-h-[85vh] sm:max-h-[86vh] flex flex-col bg-[#07090D] [html[data-theme='light']_&]:bg-[#FFFFFF] border border-white/10 [html[data-theme='light']_&]:border-slate-200/90 rounded-2xl sm:rounded-3xl overflow-hidden font-sans text-slate-200 [html[data-theme='light']_&]:text-slate-800 z-10 shadow-2xl select-text transition-all duration-200 pointer-events-auto ${className}`.trim()}
+        className={`modal-surface relative w-full ${maxWidthClasses} max-h-[85vh] sm:max-h-[86vh] flex flex-col bg-[#07090D] [html[data-theme='light']_&]:bg-[#FFFFFF] border border-white/10 [html[data-theme='light']_&]:border-slate-200/90 rounded-2xl sm:rounded-3xl overflow-hidden font-sans text-slate-200 [html[data-theme='light']_&]:text-slate-800 z-10 shadow-2xl select-text transition-[max-width,width,transform] duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-auto ${className}`.trim()}
         onClick={(e) => e.stopPropagation()}
         data-lenis-prevent
       >
@@ -195,7 +195,7 @@ export const Modal = ({
 
           {/* Modal Body - Scrollable Area (Contained within single screen) */}
           <div 
-            className="modal-scroll-area p-4 sm:p-6 overflow-y-auto flex-1 scrollbar-thin overscroll-contain select-text" 
+            className="modal-scroll-area p-4 sm:p-6 overflow-y-auto overflow-x-hidden flex-1 scrollbar-thin overscroll-contain select-text" 
             data-lenis-prevent
           >
             {children}

@@ -117,6 +117,45 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
   const [isMobileBtnVisible, setIsMobileBtnVisible] = useState(true);
 
+  // Push main container to the right in 3D when Academy mobile sidebar is active (Identical to Docs)
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      const container = document.querySelector('.perspective-container');
+      if (mobileDrawerOpen) {
+        container?.classList.add('docs-menu-active');
+        document.body.classList.add('docs-menu-active');
+        document.body.style.overflow = 'hidden';
+      } else {
+        container?.classList.remove('docs-menu-active');
+        document.body.classList.remove('docs-menu-active');
+        document.body.style.overflow = '';
+      }
+    }
+    return () => {
+      if (typeof document !== 'undefined') {
+        const container = document.querySelector('.perspective-container');
+        container?.classList.remove('docs-menu-active');
+        document.body.classList.remove('docs-menu-active');
+        document.body.style.overflow = '';
+      }
+    };
+  }, [mobileDrawerOpen]);
+
+  // Global keyboard shortcuts (Escape to close mobile drawer or clear filter)
+  useEffect(() => {
+    const handleGlobalKey = (e) => {
+      if (e.key === 'Escape') {
+        if (sidebarFilterQuery) {
+          setSidebarFilterQuery('');
+        } else if (mobileDrawerOpen) {
+          setMobileDrawerOpen(false);
+        }
+      }
+    };
+    window.addEventListener('keydown', handleGlobalKey);
+    return () => window.removeEventListener('keydown', handleGlobalKey);
+  }, [sidebarFilterQuery, mobileDrawerOpen]);
+
   // Auto-hide mobile button on scroll down, show on activity
   useEffect(() => {
     let timeoutId;
@@ -798,46 +837,66 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
       {viewMode === 'reader' && (
         <div className="w-full flex-1 block lg:flex lg:flex-row relative justify-between overflow-x-clip bg-transparent">
 
-          {/* Mobile Drawer Portal (like Docs) */}
+          {/* Click-to-close overlay on pushed content when Academy sidebar is open */}
+          {mobileDrawerOpen && (
+            <div
+              className="fixed inset-0 z-40 lg:hidden cursor-pointer bg-transparent"
+              onClick={() => setMobileDrawerOpen(false)}
+              aria-label={isVi ? "Đóng mục lục bài học" : "Close syllabus"}
+            />
+          )}
+
+          {/* 3D Slide-in Mobile Academy Drawer (Identical to Docs System) */}
           {typeof document !== 'undefined' &&
             createPortal(
-              <div className={`fixed inset-0 z-50 lg:hidden transition-opacity duration-300 ${mobileDrawerOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
-                {/* Backdrop */}
-                <div
-                  onClick={() => setMobileDrawerOpen(false)}
-                  className="absolute inset-0 bg-black/70 backdrop-blur-sm"
-                />
+              <div
+                className={`docs-mobile-drawer lg:hidden ${
+                  mobileDrawerOpen ? 'open' : ''
+                }`}
+              >
+                {/* Header Bar */}
+                <div className="shrink-0 pt-4 pb-3 px-4 flex items-center justify-between docs-drawer-header">
+                  <span className="font-sans text-xs font-medium uppercase tracking-wider docs-drawer-title">
+                    {isVi ? 'Học viện Tri thức' : 'Academy Syllabus'}
+                  </span>
+                  <button
+                    onClick={() => setMobileDrawerOpen(false)}
+                    className="p-1.5 rounded-lg transition-colors cursor-pointer docs-drawer-close"
+                    aria-label={isVi ? "Đóng bảng điều hướng" : "Close navigation"}
+                  >
+                    <X size={18} />
+                  </button>
+                </div>
 
-                {/* Drawer Container */}
-                <div className={`absolute top-0 bottom-0 left-0 w-80 max-w-[85vw] bg-[#07090D] [html[data-theme='light']_&]:bg-[#F8FAFC] border-r border-white/10 [html[data-theme='light']_&]:border-slate-200 shadow-2xl flex flex-col transition-transform duration-300 ${mobileDrawerOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-                  {/* Drawer Header */}
-                  <div className="p-4 border-b border-white/10 [html[data-theme='light']_&]:border-slate-200 flex items-center justify-between">
-                    <span className="font-mono text-xs font-bold text-white [html[data-theme='light']_&]:text-slate-900 uppercase tracking-wider">
-                      {isVi ? 'HỌC VIỆN TRI THỨC' : 'SYLLABUS'}
-                    </span>
-                    <button
-                      onClick={() => setMobileDrawerOpen(false)}
-                      className="p-1 rounded text-slate-400 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 cursor-pointer"
-                    >
-                      <X size={16} />
-                    </button>
-                  </div>
-
-                  {/* Drawer Lessons List */}
-                  <div className="flex-1 overflow-hidden">
-                    <ReaderSidebarLeft
-                      asMobileDrawer={true}
-                      searchQuery={sidebarFilterQuery}
-                      onSearchChange={setSidebarFilterQuery}
-                      searchPlaceholder={isVi ? 'Lọc bài học...' : 'Filter lessons...'}
-                      categories={filteredSidebarModules}
-                      activeId={activeLessonId}
-                      onSelectItem={(lesson) => openLessonReader(lesson.id)}
-                      getItemHref={(lesson) => `/explore/${lesson.id}`}
-                      onCloseDrawer={() => setMobileDrawerOpen(false)}
-                      isVi={isVi}
-                    />
-                  </div>
+                {/* Mobile Drawer Navigation (Standard Unified Reader Component) */}
+                <div className="flex-1 overflow-hidden">
+                  <ReaderSidebarLeft
+                    asMobileDrawer={true}
+                    searchQuery={sidebarFilterQuery}
+                    onSearchChange={setSidebarFilterQuery}
+                    searchPlaceholder={isVi ? 'Lọc bài học...' : 'Filter lessons...'}
+                    categories={filteredSidebarModules}
+                    activeId={activeLessonId}
+                    onSelectItem={(lesson) => openLessonReader(lesson.id)}
+                    getItemHref={(lesson) => `/explore/${lesson.id}`}
+                    onCloseDrawer={() => setMobileDrawerOpen(false)}
+                    isVi={isVi}
+                    footerLeft={
+                      <a
+                        href="/changelog"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setMobileDrawerOpen(false);
+                          onNavigate?.('changelog');
+                        }}
+                        className="hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors cursor-pointer flex items-center gap-1.5 group"
+                        title="Xem Nhật ký Cập nhật"
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                        <span className="group-hover:underline">Aevum OS v1.0.0-beta.6</span>
+                      </a>
+                    }
+                  />
                 </div>
               </div>,
               document.body
@@ -854,9 +913,18 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
             getItemHref={(lesson) => `/explore/${lesson.id}`}
             isVi={isVi}
             footerLeft={
-              <span className="flex items-center gap-1.5">
-                <span>{isVi ? 'Tri thức mở' : 'Open Academy'}</span>
-              </span>
+              <a
+                href="/changelog"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNavigate?.('changelog');
+                }}
+                className="hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors cursor-pointer flex items-center gap-1.5 group"
+                title="Xem Nhật ký Cập nhật"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="group-hover:underline">Aevum OS v1.0.0-beta.6</span>
+              </a>
             }
             footerRight={
               <span className="px-1.5 py-0.5 rounded bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-200">
@@ -866,10 +934,18 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
           />
 
           {/* ── CENTER AREA: Main Focus Reading Article ── */}
-          <div className="flex-1 flex flex-col xl:flex-row justify-between w-full bg-transparent">
+          <div
+            onClick={() => mobileDrawerOpen && setMobileDrawerOpen(false)}
+            className={`flex-1 flex flex-col xl:flex-row justify-between w-full bg-transparent ${
+              mobileDrawerOpen ? 'cursor-pointer' : ''
+            }`}
+          >
             {/* Mobile Sticky Menu Trigger */}
             <button
-              onClick={() => setMobileDrawerOpen(true)}
+              onClick={(e) => {
+                e.stopPropagation();
+                setMobileDrawerOpen(true);
+              }}
               className={`lg:hidden sticky top-[76px] ml-4 mt-4 z-30 px-3 py-2 rounded-lg bg-[#07090D]/90 [html[data-theme='light']_&]:bg-white/95 backdrop-blur-md text-white [html[data-theme='light']_&]:text-slate-900 border border-white/15 [html[data-theme='light']_&]:border-slate-300 shadow-md flex items-center gap-2 cursor-pointer transition-all duration-300 self-start ${isMobileBtnVisible ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-30 scale-95 hover:opacity-100'
                 }`}
               aria-label="Mở mục lục bài học"

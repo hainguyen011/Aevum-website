@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronRight } from 'lucide-react';
+import { prefetchPage } from '../utils/prefetch';
 
 export const SubNavTabs = ({ activeLang = 'en', onNavigate }) => {
   const isVi = activeLang === 'vi';
@@ -187,6 +188,7 @@ export const SubNavTabs = ({ activeLang = 'en', onNavigate }) => {
             <div className="mt-2.5 sm:mt-3 mb-6 sm:mb-8">
               <button
                 onClick={() => onNavigate?.(activeSubsystem.target)}
+                onMouseEnter={() => prefetchPage(activeSubsystem.target)}
                 className="inline-flex items-center gap-1.5 text-xs sm:text-sm text-slate-300 hover:text-white [html[data-theme='light']_&]:text-cyan-700 [html[data-theme='light']_&]:hover:text-cyan-800 font-medium transition-colors cursor-pointer group"
               >
                 <span>{isVi ? 'Tìm hiểu thêm' : 'Learn more'}</span>
@@ -233,6 +235,7 @@ export const SubNavTabs = ({ activeLang = 'en', onNavigate }) => {
               <div
                 key={item.id}
                 onClick={() => handleSelectSubsystem(item.id)}
+                onMouseEnter={() => prefetchPage(item.target)}
                 className="subnav-arch-card group cursor-pointer rounded-[24px] sm:rounded-[28px] bg-[#14151b] [html[data-theme='light']_&]:bg-white hover:bg-[#1a1c24] [html[data-theme='light']_&]:hover:bg-slate-50/80 border border-white/[0.08] [html[data-theme='light']_&]:border-slate-200/90 hover:border-white/20 [html[data-theme='light']_&]:hover:border-slate-300 p-6 sm:p-7 md:p-8 flex flex-row items-center justify-between gap-5 sm:gap-7 transition-all duration-300 text-left [html[data-theme='light']_&]:shadow-[0_2px_12px_rgba(15,23,42,0.06)] [html[data-theme='light']_&]:hover:shadow-[0_8px_24px_rgba(15,23,42,0.09)]"
               >
                 {/* Left Side: Title, Meta & Learn More */}
@@ -254,6 +257,7 @@ export const SubNavTabs = ({ activeLang = 'en', onNavigate }) => {
                         e.stopPropagation();
                         onNavigate?.(item.target);
                       }}
+                      onMouseEnter={() => prefetchPage(item.target)}
                       className="inline-flex items-center gap-1.5 text-xs sm:text-sm text-slate-300 group-hover:text-white [html[data-theme='light']_&]:text-cyan-700 [html[data-theme='light']_&]:group-hover:text-cyan-800 font-medium transition-colors cursor-pointer"
                     >
                       <span>{isVi ? 'Tìm hiểu thêm' : 'Learn more'}</span>

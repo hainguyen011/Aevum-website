@@ -1,28 +1,35 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import unikornLogo from '../../assets/unikorn-logo.webp';
 import unikornLogoDark from '../../assets/unikorn-logo-dark.webp';
 
+/**
+ * High-Performance Hardware-Accelerated Custom Cursor
+ * - Zero React re-renders during mouse movement (direct GPU transform3d updates via rAF).
+ * - Only state updates when zone thresholds change (Unikorn, Dodge, Hover, MouseDown).
+ * - Disables completely on touch/mobile devices with zero overhead.
+ */
 export const CustomCursor = () => {
-  const [pos, setPos] = useState({ x: -100, y: -100 });
-  const [ringPos, setRingPos] = useState({ x: -100, y: -100 });
   const [isHovered, setIsHovered] = useState(false);
   const [isDodgeZone, setIsDodgeZone] = useState(false);
   const [isUnikornZone, setIsUnikornZone] = useState(false);
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-
-  // Progressive Anger Level Emojis mapped to number of failed chase attempts
-  const angerEmojis = ['😒', '😠', '😑', '😡', '🤬'];
   const [emojiIndex, setEmojiIndex] = useState(0);
 
+  const angerEmojis = ['😒', '😠', '😑', '😡', '🤬'];
+
+  const ringRef = useRef(null);
+  const unikornRef = useRef(null);
+  const mousePos = useRef({ x: -100, y: -100 });
+  const ringPos = useRef({ x: -100, y: -100 });
+  const isCoarse = useRef(typeof window !== 'undefined' ? window.matchMedia('(pointer: coarse)').matches : true);
+
   useEffect(() => {
-    // Only enable on desktop fine pointer devices
-    if (window.matchMedia('(pointer: coarse)').matches) return;
+    if (isCoarse.current) return;
 
     let animFrameId;
 
     const handleMouseMove = (e) => {
-      // Auto-hide custom cursor when mouse is over or near browser scrollbar area
       const isOverRightScrollbar = e.clientX >= (document.documentElement.clientWidth - 8);
       const isOverBottomScrollbar = e.clientY >= (document.documentElement.clientHeight - 8);
 
@@ -31,51 +38,53 @@ export const CustomCursor = () => {
         return;
       }
 
-      setPos({ x: e.clientX, y: e.clientY });
-      if (!isVisible) setIsVisible(true);
+      mousePos.current.x = e.clientX;
+      mousePos.current.y = e.clientY;
+      setIsVisible(true);
 
       const target = e.target;
       if (target) {
-        // Check if cursor is in Unikorn section
         const inUnikorn = !!target.closest('#unikorn, [data-unikorn-zone]');
-        setIsUnikornZone(inUnikorn);
+        setIsUnikornZone(prev => (prev !== inUnikorn ? inUnikorn : prev));
 
-        // Check if cursor is near I2FLabs section while logo is actively taunting
         const tauntElement = document.querySelector('[data-is-taunting="true"]');
         const inSection = !!target.closest('#i2flabs');
         const isTaunted = !!tauntElement && inSection;
-        setIsDodgeZone(isTaunted && !inUnikorn);
+        setIsDodgeZone(prev => (prev !== (isTaunted && !inUnikorn) ? (isTaunted && !inUnikorn) : prev));
 
         if (tauntElement) {
           const rawCount = parseInt(tauntElement.getAttribute('data-dodge-count') || '1', 10);
           const level = Math.min(4, Math.floor(Math.max(0, rawCount - 1) / 2));
-          setEmojiIndex(level);
+          setEmojiIndex(prev => (prev !== level ? level : prev));
         }
 
-        // Check if mouse is hovering over interactive element
         const isInteractive = target.closest('a, button, input, [role="button"], .cursor-pointer, kbd');
-        setIsHovered(!!isInteractive && !isTaunted && !inUnikorn);
+        const newHover = !!isInteractive && !isTaunted && !inUnikorn;
+        setIsHovered(prev => (prev !== newHover ? newHover : prev));
       }
     };
 
     const handleMouseDown = () => setIsMouseDown(true);
     const handleMouseUp = () => setIsMouseDown(false);
+    const handleMouseLeave = () => setIsVisible(false);
 
-    const handleMouseLeave = () => {
-      setIsVisible(false);
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mousedown', handleMouseDown);
-    window.addEventListener('mouseup', handleMouseUp);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    window.addEventListener('mousedown', handleMouseDown, { passive: true });
+    window.addEventListener('mouseup', handleMouseUp, { passive: true });
     document.addEventListener('mouseleave', handleMouseLeave);
 
-    // Smooth inertia interpolation (lerp) for the outer glowing ring
     const render = () => {
-      setRingPos((prev) => ({
-        x: prev.x + (pos.x - prev.x) * 0.18,
-        y: prev.y + (pos.y - prev.y) * 0.18,
-      }));
+      ringPos.current.x += (mousePos.current.x - ringPos.current.x) * 0.18;
+      ringPos.current.y += (mousePos.current.y - ringPos.current.y) * 0.18;
+
+      const transformStr = `translate3d(${ringPos.current.x}px, ${ringPos.current.y}px, 0) translate(-50%, -50%)`;
+      if (ringRef.current) {
+        ringRef.current.style.transform = transformStr;
+      }
+      if (unikornRef.current) {
+        unikornRef.current.style.transform = `${transformStr} scale(${unikornRef.current.dataset.scale || '0'})`;
+      }
+
       animFrameId = requestAnimationFrame(render);
     };
 
@@ -88,9 +97,9 @@ export const CustomCursor = () => {
       document.removeEventListener('mouseleave', handleMouseLeave);
       cancelAnimationFrame(animFrameId);
     };
-  }, [pos.x, pos.y, isVisible]);
+  }, []);
 
-  if (pos.x === -100) return null;
+  if (isCoarse.current) return null;
 
   // Determine dynamic scale, styling and special cursor zone state
   let cursorStyle = 'w-11 h-11 border-white/45 scale-100 flex items-center justify-center';
@@ -106,11 +115,12 @@ export const CustomCursor = () => {
 
   return (
     <div className="pointer-events-none fixed inset-0 z-[9999] overflow-hidden">
-      {/* Outer Elastic Spring Bounce Ring — fades out in Unikorn zone or near scrollbars */}
+      {/* Outer Elastic Spring Bounce Ring */}
       <div
+        ref={ringRef}
         className={`custom-cursor-ring fixed top-0 left-0 rounded-full border transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${cursorStyle}`}
         style={{
-          transform: `translate3d(${ringPos.x}px, ${ringPos.y}px, 0) translate(-50%, -50%)`,
+          transform: `translate3d(${ringPos.current.x}px, ${ringPos.current.y}px, 0) translate(-50%, -50%)`,
           opacity: (isUnikornZone || !isVisible) ? 0 : 1,
         }}
       >
@@ -123,9 +133,11 @@ export const CustomCursor = () => {
 
       {/* Unikorn Logo — blooms independently when entering Unikorn zone */}
       <div
+        ref={unikornRef}
+        data-scale={isUnikornZone ? '1' : '0'}
         className="fixed top-0 left-0 pointer-events-none transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]"
         style={{
-          transform: `translate3d(${ringPos.x}px, ${ringPos.y}px, 0) translate(-50%, -50%) scale(${isUnikornZone ? 1 : 0})`,
+          transform: `translate3d(${ringPos.current.x}px, ${ringPos.current.y}px, 0) translate(-50%, -50%) scale(${isUnikornZone ? 1 : 0})`,
           opacity: isUnikornZone ? 1 : 0,
         }}
       >
@@ -136,6 +148,8 @@ export const CustomCursor = () => {
           className="dark-logo w-28 h-28 object-contain pointer-events-none animate-spin"
           style={{ animationDuration: '3s', animationTimingFunction: 'linear' }}
           draggable={false}
+          loading="lazy"
+          decoding="async"
         />
         {/* Light Mode Black Unikorn Logo */}
         <img
@@ -144,6 +158,8 @@ export const CustomCursor = () => {
           className="light-logo w-28 h-28 object-contain pointer-events-none animate-spin"
           style={{ animationDuration: '3s', animationTimingFunction: 'linear' }}
           draggable={false}
+          loading="lazy"
+          decoding="async"
         />
       </div>
     </div>

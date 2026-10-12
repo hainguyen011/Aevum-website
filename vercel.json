@@ -17,6 +17,10 @@
           "value": "1; mode=block"
         },
         {
+          "key": "X-DNS-Prefetch-Control",
+          "value": "on"
+        },
+        {
           "key": "Referrer-Policy",
           "value": "strict-origin-when-cross-origin"
         },
@@ -31,7 +35,7 @@
       ]
     },
     {
-      "source": "/assets/(.*)",
+      "source": "/(assets/.*|.*\\.(?:webp|png|jpg|jpeg|svg|ico|woff2|woff|mp4|webm|avif))",
       "headers": [
         {
           "key": "Cache-Control",

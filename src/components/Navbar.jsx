@@ -6,6 +6,7 @@ import unikornLogoDark from '../../assets/unikorn-logo-dark.webp';
 import { translations } from '../data/translations';
 import { MembershipBadge } from './ui/MembershipBadge';
 import { AnnouncementBanner } from './AnnouncementBanner';
+import { prefetchPage } from '../utils/prefetch';
 
 export const Navbar = ({ 
   currentPage, 
@@ -238,6 +239,7 @@ export const Navbar = ({
             {/* Pricing Link */}
             <button 
               onClick={() => { onNavigate('pricing'); closeDropdown(); }}
+              onMouseEnter={() => prefetchPage('pricing')}
               className={`transition-colors font-medium whitespace-nowrap text-nowrap cursor-pointer ${
                 currentPage === 'pricing' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
               }`}
@@ -248,6 +250,7 @@ export const Navbar = ({
             {/* About Link */}
             <button 
               onClick={() => { onNavigate('about'); closeDropdown(); }}
+              onMouseEnter={() => prefetchPage('about')}
               className={`transition-colors font-medium whitespace-nowrap text-nowrap cursor-pointer ${
                 currentPage === 'about' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
               }`}
@@ -506,6 +509,7 @@ export const Navbar = ({
             <div className="flex items-center gap-5 sm:gap-7 font-medium overflow-x-auto no-scrollbar py-1 pr-4 animate-in fade-in duration-150">
               <button 
                 onClick={() => { onNavigate('docs'); closeDropdown(); }}
+                onMouseEnter={() => prefetchPage('docs')}
                 className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-medium ${
                   currentPage === 'docs' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
                 }`}
@@ -514,6 +518,7 @@ export const Navbar = ({
               </button>
               <button 
                 onClick={() => { onNavigate('explore'); closeDropdown(); }}
+                onMouseEnter={() => prefetchPage('explore')}
                 className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-medium ${
                   currentPage === 'explore' || currentPage === 'kham-pha' || currentPage === 'learn' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
                 }`}
@@ -522,6 +527,7 @@ export const Navbar = ({
               </button>
               <button 
                 onClick={() => { onNavigate('changelog'); closeDropdown(); }}
+                onMouseEnter={() => prefetchPage('changelog')}
                 className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-medium ${
                   currentPage === 'changelog' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
                 }`}
@@ -530,6 +536,7 @@ export const Navbar = ({
               </button>
               <button 
                 onClick={() => { onNavigate('discussions'); closeDropdown(); }}
+                onMouseEnter={() => prefetchPage('discussions')}
                 className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-medium ${
                   currentPage === 'discussions' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
                 }`}

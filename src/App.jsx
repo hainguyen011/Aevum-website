@@ -15,6 +15,8 @@ const CtaBanner = lazy(() => import('./components/CtaBanner').then(m => ({ defau
 const Pricing = lazy(() => import('./components/Pricing').then(m => ({ default: m.Pricing })));
 const Footer = lazy(() => import('./components/Footer').then(m => ({ default: m.Footer })));
 import { AuthLockGate } from './components/ui/AuthLockGate';
+import { LazySection } from './components/ui/LazySection';
+import { prefetchPage } from './utils/prefetch';
 import { CustomCursor } from './components/CustomCursor';
 import { useScrollReveal } from './hooks/useScrollReveal';
 import { useSEO } from './hooks/useSEO';
@@ -417,37 +419,44 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
 
   // Initialize Lenis smooth scroll engine (Desktop only to prevent mobile reflows)
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) {
+    if (typeof window === 'undefined' || window.matchMedia('(pointer: coarse)').matches) {
       return;
     }
 
-    const LenisClass = window.Lenis;
-    if (!LenisClass) return;
+    let isMounted = true;
+    let rafId = null;
 
-    const lenis = new LenisClass({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: true,
-      wheelMultiplier: 1.0,
-      touchMultiplier: 1.5,
-      infinite: false,
-    });
+    import('lenis').then(({ default: Lenis }) => {
+      if (!isMounted) return;
 
-    window.lenis = lenis;
+      const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        smoothWheel: true,
+        wheelMultiplier: 1.0,
+        touchMultiplier: 1.5,
+        infinite: false,
+      });
 
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
+      window.lenis = lenis;
 
-    const rafId = requestAnimationFrame(raf);
+      function raf(time) {
+        lenis.raf(time);
+        rafId = requestAnimationFrame(raf);
+      }
+
+      rafId = requestAnimationFrame(raf);
+    }).catch(() => {});
 
     return () => {
-      cancelAnimationFrame(rafId);
-      lenis.destroy();
-      delete window.lenis;
+      isMounted = false;
+      if (rafId) cancelAnimationFrame(rafId);
+      if (window.lenis) {
+        window.lenis.destroy();
+        delete window.lenis;
+      }
     };
   }, []);
 
@@ -613,7 +622,7 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
     };
   }, []);
 
-  // Handle routing navigation and scroll to top with Clean URL paths
+  // Handle routing navigation and scroll to top with Clean URL paths & Native View Transitions
   const handleNavigate = (page, docId = null, headingId = null) => {
     const protectedPages = ['changelog', 'discussions', 'profile'];
     if (protectedPages.includes(page) && !user) {
@@ -622,23 +631,33 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
       return;
     }
 
-    setCurrentPage(page);
-    if (page === 'landing') {
-      window.history.pushState(null, '', '/');
-      scrollToTarget(0);
-    } else if (page === 'docs') {
-      const url = docId ? `/docs?doc=${docId}${headingId ? `#${headingId}` : ''}` : '/docs';
-      window.history.pushState(null, '', url);
-      window.dispatchEvent(new Event('popstate'));
-      if (!headingId) scrollToTarget(0);
-    } else if (page === 'explore' || page === 'kham-pha' || page === 'learn') {
-      const url = docId ? `/explore/${docId}` : '/explore';
-      window.history.pushState(null, '', url);
-      window.dispatchEvent(new Event('popstate'));
-      scrollToTarget(0);
+    const performNavigation = () => {
+      setCurrentPage(page);
+      if (page === 'landing') {
+        window.history.pushState(null, '', '/');
+        scrollToTarget(0);
+      } else if (page === 'docs') {
+        const url = docId ? `/docs?doc=${docId}${headingId ? `#${headingId}` : ''}` : '/docs';
+        window.history.pushState(null, '', url);
+        window.dispatchEvent(new Event('popstate'));
+        if (!headingId) scrollToTarget(0);
+      } else if (page === 'explore' || page === 'kham-pha' || page === 'learn') {
+        const url = docId ? `/explore/${docId}` : '/explore';
+        window.history.pushState(null, '', url);
+        window.dispatchEvent(new Event('popstate'));
+        scrollToTarget(0);
+      } else {
+        window.history.pushState(null, '', `/${page}`);
+        scrollToTarget(0);
+      }
+    };
+
+    if (typeof document !== 'undefined' && document.startViewTransition) {
+      document.startViewTransition(() => {
+        flushSync(performNavigation);
+      });
     } else {
-      window.history.pushState(null, '', `/${page}`);
-      scrollToTarget(0);
+      performNavigation();
     }
   };
 
@@ -798,44 +817,62 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
                     {/* Sub Nav Category Tabs Row */}
                     <SubNavTabs activeLang={activeLang} onNavigate={handleNavigate} />
 
-                    {/* Below-the-fold Lazy Loaded Sections with zero main-thread block */}
-                    <Suspense fallback={<div className="min-h-[200px]" />}>
+                    {/* Below-the-fold Progressive Lazy Loaded Sections via Intersection Observer (Zero Main-Thread Block) */}
+                    <LazySection id="agents" minHeight="720px">
+                      <Suspense fallback={<div className="min-h-[720px]" />}>
+                        <AgentsShowcase
+                          activeLang={activeLang}
+                          onOpenTrialModal={handleOpenTrialModal}
+                        />
+                      </Suspense>
+                    </LazySection>
 
-                      {/* Dedicated Default Aevum AI Agents Squad Showcase Section */}
-                      <AgentsShowcase
-                        activeLang={activeLang}
-                        onOpenTrialModal={handleOpenTrialModal}
-                      />
+                    <LazySection id="pricing" minHeight="780px">
+                      <Suspense fallback={<div className="min-h-[780px]" />}>
+                        <Pricing
+                          activeLang={activeLang}
+                          onOpenTrialModal={handleOpenTrialModal}
+                          onOpenPaymentModal={handleOpenPaymentModal}
+                          onOpenAuthModal={() => setIsAuthModalOpen(true)}
+                          showDetails={false}
+                          onNavigate={handleNavigate}
+                        />
+                      </Suspense>
+                    </LazySection>
 
-                      {/* Section 3: Transparent Pricing & Membership Tiers */}
-                      <Pricing
-                        activeLang={activeLang}
-                        onOpenTrialModal={handleOpenTrialModal}
-                        onOpenPaymentModal={handleOpenPaymentModal}
-                        onOpenAuthModal={() => setIsAuthModalOpen(true)}
-                        showDetails={false}
-                        onNavigate={handleNavigate}
-                      />
+                    <LazySection id="testimonials" minHeight="520px">
+                      <Suspense fallback={<div className="min-h-[520px]" />}>
+                        <Testimonials activeLang={activeLang} />
+                      </Suspense>
+                    </LazySection>
 
-                      {/* Section 5: Testimonials & Community Stats */}
-                      <Testimonials activeLang={activeLang} />
+                    <LazySection id="unikorn" minHeight="420px">
+                      <Suspense fallback={<div className="min-h-[420px]" />}>
+                        <UnikornSection activeLang={activeLang} />
+                      </Suspense>
+                    </LazySection>
 
-                      {/* Section 6: Dedicated Unikorn Vietnam Feature Section */}
-                      <UnikornSection activeLang={activeLang} />
+                    <LazySection id="i2flabs" minHeight="450px">
+                      <Suspense fallback={<div className="min-h-[450px]" />}>
+                        <I2FLabsSection activeLang={activeLang} />
+                      </Suspense>
+                    </LazySection>
 
-                      {/* Section 7: Dedicated I2FLabs Development Team Section */}
-                      <I2FLabsSection activeLang={activeLang} />
+                    <LazySection id="sponsors" minHeight="320px">
+                      <Suspense fallback={<div className="min-h-[320px]" />}>
+                        <Sponsors activeLang={activeLang} />
+                      </Suspense>
+                    </LazySection>
 
-                      {/* Section 8: Open Source Sponsors */}
-                      <Sponsors activeLang={activeLang} />
-
-                      {/* Section 9: CTA Banner */}
-                      <CtaBanner
-                        onNavigate={handleNavigate}
-                        onOpenTrialModal={handleOpenTrialModal}
-                        activeLang={activeLang}
-                      />
-                    </Suspense>
+                    <LazySection id="cta" minHeight="350px">
+                      <Suspense fallback={<div className="min-h-[350px]" />}>
+                        <CtaBanner
+                          onNavigate={handleNavigate}
+                          onOpenTrialModal={handleOpenTrialModal}
+                          activeLang={activeLang}
+                        />
+                      </Suspense>
+                    </LazySection>
                   </>
                 )}
 

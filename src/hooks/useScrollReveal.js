@@ -49,10 +49,17 @@ export const useScrollReveal = (dependency = []) => {
     // Initial scan
     scanAndObserve();
 
-    // Re-scan dynamically when lazy-loaded chunks mount into DOM
-    const mutationObserver = new MutationObserver(() => {
-      scanAndObserve();
-    });
+    // Re-scan dynamically when lazy-loaded chunks mount into DOM with rAF debouncing
+    let rafScanId = null;
+    const debouncedScan = () => {
+      if (rafScanId) return;
+      rafScanId = requestAnimationFrame(() => {
+        rafScanId = null;
+        scanAndObserve();
+      });
+    };
+
+    const mutationObserver = new MutationObserver(debouncedScan);
 
     if (document.body) {
       mutationObserver.observe(document.body, {
@@ -69,6 +76,7 @@ export const useScrollReveal = (dependency = []) => {
     }, 1200);
 
     return () => {
+      if (rafScanId) cancelAnimationFrame(rafScanId);
       clearTimeout(fallbackTimer);
       mutationObserver.disconnect();
       observer.disconnect();

@@ -157,11 +157,15 @@ export default defineConfig(({ mode }) => {
         }
       }
     },
+    esbuild: {
+      drop: mode === 'production' ? ['console', 'debugger'] : [],
+      legalComments: 'none'
+    },
     build: {
-      target: 'esnext',
+      target: 'es2022',
       minify: 'esbuild',
       cssMinify: true,
-      chunkSizeWarningLimit: 600,
+      chunkSizeWarningLimit: 800,
       rollupOptions: {
         output: {
           manualChunks(id) {
@@ -172,7 +176,19 @@ export default defineConfig(({ mode }) => {
               if (id.includes('@supabase')) {
                 return 'vendor-supabase';
               }
-              if (id.includes('lucide-react')) {
+              if (id.includes('cytoscape') || id.includes('layout-base') || id.includes('cose-bilkent')) {
+                return 'vendor-cytoscape';
+              }
+              if (id.includes('katex')) {
+                return 'vendor-katex';
+              }
+              if (id.includes('marked')) {
+                return 'vendor-markdown';
+              }
+              if (id.includes('lenis')) {
+                return 'vendor-lenis';
+              }
+              if (id.includes('lucide-react') || id.includes('simple-icons')) {
                 return 'vendor-icons';
               }
             }

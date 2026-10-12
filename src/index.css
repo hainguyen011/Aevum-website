@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Encode+Sans+Condensed:wght@100;200;300;400;500;600;700&family=Google+Sans+Flex:opsz,wght@6..144,100..1000&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 @import './styles/index.css';
 
 @tailwind base;
@@ -3047,4 +3046,16 @@ html[data-theme="light"] .btn-pill-secondary:hover {
   background-color: rgba(15, 23, 42, 0.09) !important;
   color: #0f172a !important;
   border-color: rgba(15, 23, 42, 0.25) !important;
+}
+
+/* High-End Native View Transitions Animation */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.2s;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Progressive Scroll-to-Load Optimized Offscreen Containment */
+.lazy-section-wrapper {
+  contain: layout style;
 }

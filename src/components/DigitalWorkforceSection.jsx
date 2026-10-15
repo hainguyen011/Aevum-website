@@ -218,20 +218,20 @@ export const DigitalWorkforceSection = ({ activeLang = 'vi' }) => {
       title: isVi ? "Muốn Khám Phá Thế Giới Nhưng Bị Động Trong Sách Vở" : "Curious to Explore the World, Yet Trapped in Rote Textbooks",
       problem: isVi ? (
         <>
-          Khi việc học chỉ quanh quẩn thụ động trong sách giáo khoa, ngọn lửa tò mò khám phá dần nguội lạnh. Bạn <HighlightPain>chưa có tư duy nghiên cứu khoa học</HighlightPain>, lúng túng khi tiếp cận các nguồn tài liệu quốc tế và <HighlightPain>bị động tiếp nhận kiến thức một chiều</HighlightPain>.
+          Quanh quẩn trong sách giáo khoa khiến ngọn lửa tò mò nguội lạnh; bạn <HighlightPain>chưa có tư duy nghiên cứu khoa học</HighlightPain>, lúng túng trước tài liệu quốc tế và <HighlightPain>bị động tiếp nhận kiến thức một chiều</HighlightPain>.
         </>
       ) : (
         <>
-          Confined to rote textbooks, natural curiosity fades. Learners often <HighlightPain>lack autonomous research methodology</HighlightPain>, feeling overwhelmed by global academic literature and <HighlightPain>trapped in passive one-way consumption</HighlightPain>.
+          Confined to rote textbooks, curiosity fades. Learners <HighlightPain>lack autonomous research methodology</HighlightPain> and <HighlightPain>passively consume knowledge</HighlightPain> without independent inquiry.
         </>
       ),
       solution: isVi ? (
         <>
-          Cộng sự số thắp lên tư duy nghiên cứu độc lập: cùng bạn đào sâu bản chất, tra cứu đa nguồn và bóc tách tài liệu học thuật phức tạp, giúp bạn <Highlight>chủ động khám phá cả thế giới tri thức bao la</Highlight> ngay <Highlight>trên chính chiếc màn hình nhỏ</Highlight> của mình.
+          Cộng sự số thắp lên tư duy nghiên cứu độc lập: <Highlight>cùng bạn đào sâu bản chất đa nguồn</Highlight>, giúp bạn <Highlight>chủ động khám phá cả thế giới ngay trên chiếc màn hình nhỏ</Highlight>.
         </>
       ) : (
         <>
-          Your digital research companion nurtures autonomous scientific inquiry: synthesizing multi-source literature and digesting complex papers, empowering you to <Highlight>actively explore the vast world of knowledge</Highlight> right <Highlight>from your own small screen</Highlight>.
+          Nurtures autonomous scientific inquiry: <Highlight>digesting multi-source research</Highlight> to help you <Highlight>actively explore the world right from your own screen</Highlight>.
         </>
       )
     },

@@ -8,8 +8,13 @@ const resolveImageUrl = (url) => {
   if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) {
     return url;
   }
+  // Nếu là file tĩnh cục bộ của website (/media/, /assets/, /images/...)
+  if (url.startsWith('/media/') || url.startsWith('/assets/') || url.startsWith('/images/')) {
+    return url;
+  }
+  // Nếu là tài nguyên động từ Aevum Cloud Backend (/banners/, /uploads/, /api/...)
   const baseUrl = (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'))
-    ? 'http://localhost:4000'
+    ? (API_CONFIG.AEVUM_CLOUD_URL || 'http://localhost:4000')
     : (API_CONFIG.AEVUM_CLOUD_URL || 'https://api.aevum.ai.vn');
 
   return `${baseUrl.replace(/\/+$/, '')}${url.startsWith('/') ? '' : '/'}${url}`;
@@ -36,7 +41,7 @@ export const SquarePopupBanner = ({ onNavigate, activeLang = 'vi' }) => {
     } catch (_) {}
   }, []);
 
-  // 1. Tải cấu hình từ Aevum Cloud Server
+  // 1. Tải cấu hình và preload hình ảnh từ Server trước khi hiển thị
   useEffect(() => {
     // Kiểm tra xem lần tải này có phải là thao tác Reload (F5 / Refresh) tại trang chủ không
     const isAtHome = typeof window !== 'undefined' && 
@@ -70,34 +75,78 @@ export const SquarePopupBanner = ({ onNavigate, activeLang = 'vi' }) => {
       (/Lighthouse|HeadlessChrome|Google-InspectionTool|PTST|Chrome-Lighthouse|PageSpeed/i.test(navigator.userAgent) || navigator.webdriver);
     if (isAuditBot) return;
 
+    let isCancelled = false;
+    let timerOrScrollTriggered = false;
+    let imagePreloaded = false;
+    let hasDisplayed = false;
+
+    // Helper kiểm tra và preload ảnh từ server/local hoàn tất
+    const preloadImage = (url) => {
+      return new Promise((resolve) => {
+        if (!url) return resolve(false);
+        const img = new Image();
+        img.src = url;
+        if (img.complete && img.naturalWidth > 0) {
+          return resolve(true);
+        }
+        img.onload = () => resolve(true);
+        img.onerror = () => resolve(false);
+      });
+    };
+
     PopupBannerService.getPopupBanner()
       .then((config) => {
+        if (isCancelled) return;
         if (config && config.enabled && Array.isArray(config.slides) && config.slides.length > 0) {
-          hasShownBannerInSession = true;
-          try {
-            if (typeof sessionStorage !== 'undefined') {
-              sessionStorage.setItem('aevum_popup_banner_shown_session', 'true');
-            }
-          } catch (_) {}
           setBannerConfig(config);
 
-          // Hiển thị popup lịch sự sau khi người dùng đọc xong Hero (3.5s) hoặc khi bắt đầu cuộn
-          let triggered = false;
-          const triggerPopup = () => {
-            if (triggered) return;
-            triggered = true;
+          const firstSlideUrl = resolveImageUrl(config.slides[0]?.imageUrl);
+
+          const tryShowPopup = () => {
+            if (hasDisplayed || isCancelled || !timerOrScrollTriggered || !imagePreloaded) return;
+            hasDisplayed = true;
+            hasShownBannerInSession = true;
+            try {
+              if (typeof sessionStorage !== 'undefined') {
+                sessionStorage.setItem('aevum_popup_banner_shown_session', 'true');
+              }
+            } catch (_) {}
             setIsVisible(true);
             window.removeEventListener('scroll', onUserScroll);
           };
 
+          const onUserIntent = () => {
+            timerOrScrollTriggered = true;
+            tryShowPopup();
+          };
+
           const onUserScroll = () => {
             if (window.scrollY > 150) {
-              triggerPopup();
+              onUserIntent();
             }
           };
 
           window.addEventListener('scroll', onUserScroll, { passive: true });
-          const showTimer = setTimeout(triggerPopup, 3500);
+          const showTimer = setTimeout(onUserIntent, 3500);
+
+          // Bắt đầu preload ảnh từ server/CDN ngay lập tức
+          preloadImage(firstSlideUrl).then((success) => {
+            if (!isCancelled) {
+              imagePreloaded = true;
+              tryShowPopup();
+            }
+          });
+
+          // Tải trước các slide tiếp theo ngầm trong cache trình duyệt
+          if (config.slides.length > 1) {
+            config.slides.slice(1).forEach((slide) => {
+              const nextUrl = resolveImageUrl(slide.imageUrl);
+              if (nextUrl) {
+                const bgImg = new Image();
+                bgImg.src = nextUrl;
+              }
+            });
+          }
 
           return () => {
             clearTimeout(showTimer);
@@ -108,6 +157,10 @@ export const SquarePopupBanner = ({ onNavigate, activeLang = 'vi' }) => {
       .catch((err) => {
         console.warn('[SquarePopupBanner] Lỗi tải cấu hình banner:', err);
       });
+
+    return () => {
+      isCancelled = true;
+    };
   }, []);
 
   const slides = bannerConfig?.slides || [];
@@ -241,9 +294,9 @@ export const SquarePopupBanner = ({ onNavigate, activeLang = 'vi' }) => {
                 <img
                   src={resolveImageUrl(slide.imageUrl)}
                   alt={slide.title || 'Banner'}
-                  loading="lazy"
+                  loading="eager"
                   decoding="async"
-                  fetchpriority="low"
+                  fetchPriority="high"
                   className="w-full h-full object-cover object-center block"
                   onError={(e) => {
                     const target = e.currentTarget;
@@ -253,6 +306,8 @@ export const SquarePopupBanner = ({ onNavigate, activeLang = 'vi' }) => {
                         target.src = slide.imageUrl.startsWith('/') ? slide.imageUrl : `/${slide.imageUrl}`;
                       } else if (slide.imageUrl.startsWith('/banners/')) {
                         target.src = `http://localhost:4000${slide.imageUrl}`;
+                      } else if (slide.imageUrl.includes('think_in_vietnam_event')) {
+                        target.src = '/media/843103687_122153394435028070_7649109327320201271_n.jpg';
                       }
                     }
                   }}

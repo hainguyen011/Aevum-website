@@ -2,82 +2,10 @@ import { API_CONFIG } from '../config/apiConfig.js';
 
 const DISMISS_KEY = 'aevum_dismissed_popup_banner_time';
 
-const DEFAULT_BANNER_CONFIG = {
-  enabled: true,
-  autoPlayIntervalMs: 4500,
-  pauseOnHover: true,
-  showIndicators: true,
-  showNavigation: true,
-  aspectRatio: 'square',
-  maxDismissHours: 24,
-  slides: [
-    {
-      id: 'aevum-os-v1-dev',
-      title: 'Aevum OS v1.0.0 Dev',
-      subtitle: 'Kỷ nguyên mới của Hệ điều hành AI Agent',
-      description: 'Nền tảng hệ điều hành trí tuệ nhân tạo chuyên biệt cho Nhà phát triển, tối ưu hóa toàn diện dòng chảy tư duy lập trình.',
-      imageUrl: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1000&q=80',
-      actionUrl: '/changelog',
-      ctaText: 'Khám phá ngay',
-      target: '_self',
-      badge: 'PHIÊN BẢN MỚI',
-      badgeColor: 'cyan',
-      accentColor: '#0ea5e9',
-      displayOrder: 1,
-      isActive: true
-    },
-    {
-      id: 'living-memory-vault',
-      title: 'Living Memory Vault',
-      subtitle: 'Ký ức Sống & Trực giác Tác tử Thông minh',
-      description: 'Kho lưu trữ trí nhớ dài hạn phân tán kết hợp chữ ký Ed25519, giúp các AI Agent không bao giờ mất ngữ cảnh làm việc.',
-      imageUrl: 'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=1000&q=80',
-      actionUrl: '/docs',
-      ctaText: 'Đọc tài liệu',
-      target: '_self',
-      badge: 'LÕI BỘ NHỚ',
-      badgeColor: 'purple',
-      accentColor: '#a855f7',
-      displayOrder: 2,
-      isActive: true
-    },
-    {
-      id: 'pipernet-autonomous-swarm',
-      title: 'PiperNet Swarm P2P',
-      subtitle: 'Mạng lưới Bầy đàn Tác tử Độc lập',
-      description: 'Giao thức truyền thông phân tán siêu tốc cho phép các Agent tự phối hợp, phản biện và hoàn thành dự án phức tạp.',
-      imageUrl: 'https://images.unsplash.com/photo-1507499739999-097706ad8914?auto=format&fit=crop&w=1000&q=80',
-      actionUrl: '/explore',
-      ctaText: 'Khám phá mạng lưới',
-      target: '_self',
-      badge: 'SWARM NETWORK',
-      badgeColor: 'emerald',
-      accentColor: '#10b981',
-      displayOrder: 3,
-      isActive: true
-    },
-    {
-      id: 'pro-trial-entitlement',
-      title: 'Trải Nghiệm Aevum Pro',
-      subtitle: 'Nâng cấp Sức mạnh AI Tối đa',
-      description: 'Kích hoạt 14 ngày dùng thử Aevum Pro hoàn toàn miễn phí, tận hưởng đầy đủ năng lực điện toán và mô hình thông minh nhất.',
-      imageUrl: 'https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=1000&q=80',
-      actionUrl: '/pricing',
-      ctaText: 'Đăng ký dùng thử',
-      target: '_self',
-      badge: 'ƯU ĐÃI ĐẶC BIỆT',
-      badgeColor: 'amber',
-      accentColor: '#f59e0b',
-      displayOrder: 4,
-      isActive: true
-    }
-  ]
-};
-
 export const PopupBannerService = {
   /**
-   * Lấy cấu hình popup banner từ Aevum Cloud Backend
-   * Nếu có lỗi hoặc mạng chậm, fallback an toàn về DEFAULT_BANNER_CONFIG
+   * Lấy cấu hình popup banner trực tiếp từ Aevum Cloud Backend
+   * Không sử dụng banner mặc định - chỉ hiển thị khi Cloud có dữ liệu hợp lệ
    */
   async getPopupBanner() {
     try {
@@ -94,17 +22,26 @@ export const PopupBannerService = {
       clearTimeout(timeoutId);
 
       if (!response.ok) {
-        throw new Error(`HTTP error ${response.status}`);
+        return null;
       }
 
       const json = await response.json();
-      if (json && json.success && json.data) {
-        return json.data;
+      if (json && json.success && json.data && json.data.enabled && Array.isArray(json.data.slides)) {
+        const activeSlides = json.data.slides
+          .filter((s) => s.isActive !== false)
+          .sort((a, b) => (a.displayOrder || 0) - (b.displayOrder || 0));
+
+        if (activeSlides.length > 0) {
+          return {
+            ...json.data,
+            slides: activeSlides
+          };
+        }
       }
-      return DEFAULT_BANNER_CONFIG;
+      return null;
     } catch (error) {
-      console.warn('[PopupBannerService] Không thể kết nối tới Aevum Cloud, sử dụng banner mặc định:', error.message || error);
-      return DEFAULT_BANNER_CONFIG;
+      console.warn('[PopupBannerService] Không thể kết nối tới Aevum Cloud:', error.message || error);
+      return null;
     }
   },
 

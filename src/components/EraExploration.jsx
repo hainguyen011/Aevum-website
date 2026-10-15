@@ -117,6 +117,13 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
   const [isMobileBtnVisible, setIsMobileBtnVisible] = useState(true);
 
+  // Filter & Search states
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [sidebarFilterQuery, setSidebarFilterQuery] = useState('');
+  const [copiedLink, setCopiedLink] = useState(false);
+  const [previewCoverImage, setPreviewCoverImage] = useState(null);
+
   // Push main container to the right in 3D when Academy mobile sidebar is active (Identical to Docs)
   useEffect(() => {
     if (typeof document !== 'undefined') {
@@ -175,13 +182,6 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
       if (timeoutId) clearTimeout(timeoutId);
     };
   }, []);
-
-  // Filter & Search states
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [sidebarFilterQuery, setSidebarFilterQuery] = useState('');
-  const [copiedLink, setCopiedLink] = useState(false);
-  const [previewCoverImage, setPreviewCoverImage] = useState(null);
 
   // Category tab scroll (Grid mode)
   const tabScrollRef = useRef(null);

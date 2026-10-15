@@ -265,20 +265,20 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
 
       {/* Section Header */}
       <div className="section-header-optical text-center border-subtle-b bg-[#07090D] [html[data-theme='light']_&]:bg-[#F8FAFC] [html[data-theme='light']_&]:border-slate-200/80 border-scan">
-        <span className="text-[11px] font-sans text-white/80 [html[data-theme='light']_&]:text-slate-900 font-medium tracking-widest uppercase">
-          {isVi ? 'BIỆT ĐỘI AGENT MẶC ĐỊNH' : 'DEFAULT SQUAD PERSONAS'}
+        <span className="text-[11px] font-sans text-cyan-400 font-mono tracking-widest uppercase">
+          {isVi ? 'NHÂN LỰC SỐ CHUYÊN MÔN HÓA' : 'SPECIALIZED DIGITAL WORKFORCE'}
         </span>
         <h2 className="text-2xl sm:text-3xl lg:text-4xl font-medium sm:font-semibold text-white mt-2 font-display">
           {isVi ? (
-            <>Nhân Cách AI <span className="text-white">Tự Trị & Chuyên Biệt</span></>
+            <>Biệt Đội Nhân Sự Số <span className="text-white">Đồng Hành Cùng Bạn 24/7</span></>
           ) : (
-            <>Autonomous <span className="text-white">Multi-Agent Squad</span></>
+            <>Digital Teammates <span className="text-white">Shipping With You 24/7</span></>
           )}
         </h2>
         <p className="text-slate-400 text-xs sm:text-sm max-w-xl mx-auto mt-2 leading-relaxed font-sans">
           {isVi
-            ? '8 thực thể AI với nhân cách, ma trận kỹ năng và sứ mệnh chuyên biệt — phối hợp nhịp nhàng trong mọi không gian làm việc.'
-            : '8 specialized AI personas with distinct identities and skill matrices — collaborating seamlessly across your workspace.'}
+            ? 'Không còn phải làm việc một mình. Bạn bắt đầu với một nhân sự số đồng hành, và có thể nhờ tuyển dụng thêm đồng nghiệp mới hoặc tự do tạo các nhân sự riêng theo đúng lĩnh vực chuyên môn (Lập trình, Kiến trúc, Kiểm thử, Tiếp thị...).'
+            : 'Never build alone again. Start with a dedicated digital companion, recruit new teammates on demand, or create custom personas tailored for any domain.'}
         </p>
       </div>
 

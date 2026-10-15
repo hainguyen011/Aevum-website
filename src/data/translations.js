@@ -16,9 +16,9 @@ export const translations = {
       searchShortcut: "Ctrl K"
     },
     hero: {
-      badge: "I2FLABS VIỆT NAM • HỆ ĐIỀU HÀNH AGENT ĐỘC LẬP",
-      title: "Hệ điều hành Agent & Bộ não ngoại vi",
-      desc: "Hạ tầng nhận thức ngoại vi giải phóng AI Agent khỏi ranh giới IDE. Duy trì ký ức sống vĩnh cửu, điều phối biệt đội tự trị và bảo toàn tuyệt đối ngữ cảnh kiến trúc.",
+      badge: "I2FLABS VIỆT NAM • HỆ ĐIỀU HÀNH NHÂN LỰC SỐ THÔNG MINH",
+      title: "Hệ Điều Hành Nhân Lực Số Thông Minh",
+      desc: "Giải phóng bạn khỏi sự cô độc và kiệt sức khi xây dựng sản phẩm. Aevum OS mang đến Biệt đội AI Agent chuyên môn hóa (Dev, Architect, QA, Growth) có Ký ức Sống, tự phối hợp giải quyết dự án trọn vẹn 24/7.",
       downloadBtn: "Tải xuống ngay",
       docsBtn: "Đọc tài liệu",
       startKernel: "KHỞI CHẠY NHÂN OS:",
@@ -228,9 +228,9 @@ export const translations = {
       searchShortcut: "Ctrl K"
     },
     hero: {
-      badge: "BY I2FLABS VIETNAM • STANDALONE AGENTIC OS",
-      title: "Agentic Operating System & External Brain",
-      desc: "Decoupled cognitive infrastructure liberating AI agents from editor boundaries. Persistent living memory, autonomous squad orchestration, and zero context drift.",
+      badge: "BY I2FLABS VIETNAM • AUTONOMOUS DIGITAL WORKFORCE OS",
+      title: "The Autonomous Digital Workforce OS",
+      desc: "Never build alone or struggle with forgetful chatbots again. Aevum OS equips you with a specialized AI squad (Dev, Architect, QA, Growth) with Living Memory that collaborates to ship complex projects 24/7.",
       downloadBtn: "Download Now",
       docsBtn: "Read Documentation",
       startKernel: "START KERNEL:",

@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, lazy, Suspense } from 'react';
 import { flushSync } from 'react-dom';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
+import { DigitalWorkforceSection } from './components/DigitalWorkforceSection';
 import { SubNavTabs } from './components/SubNavTabs';
 import { ScrollToTop } from './components/ScrollToTop';
 
@@ -770,6 +771,13 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
                       onNavigate={handleNavigate}
                       onOpenTrialModal={handleOpenTrialModal}
                       activeLang={activeLang}
+                    />
+
+                    {/* Section: Nhân Lực Số Thông Minh & Giải Quyết Điểm Đau */}
+                    <DigitalWorkforceSection
+                      activeLang={activeLang}
+                      onNavigate={handleNavigate}
+                      onOpenTrialModal={handleOpenTrialModal}
                     />
 
                     {/* Sub Nav Category Tabs Row */}

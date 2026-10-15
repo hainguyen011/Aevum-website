@@ -79,6 +79,36 @@ html[data-theme="light"] {
   border-color: rgba(14, 165, 233, 0.45) !important;
 }
 
+/* Thin Hairline Gradient Underline (White-to-cyan glow) */
+.highlight-hairline-cyan {
+  background-image: linear-gradient(90deg, #ffffff 0%, #38bdf8 55%, #0284c7 100%);
+  background-size: 100% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  padding-bottom: 3px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+html[data-theme='light'] .highlight-hairline-cyan {
+  background-image: linear-gradient(90deg, #0284c7 0%, #0369a1 70%, #0f172a 100%);
+}
+
+/* Thin Hairline Gradient Underline (White-to-rose/red glow for pain points) */
+.highlight-hairline-red {
+  background-image: linear-gradient(90deg, #ffffff 0%, #fb7185 55%, #e11d48 100%);
+  background-size: 100% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  padding-bottom: 3px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+html[data-theme='light'] .highlight-hairline-red {
+  background-image: linear-gradient(90deg, #e11d48 0%, #be123c 70%, #881337 100%);
+}
+
 /* Ensure no-wrap globally for navbar & text-nowrap */
 .whitespace-nowrap, .text-nowrap {
   white-space: nowrap !important;

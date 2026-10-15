@@ -265,7 +265,7 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
 
       {/* Section Header */}
       <div className="section-header-optical text-center border-subtle-b bg-[#07090D] [html[data-theme='light']_&]:bg-[#F8FAFC] [html[data-theme='light']_&]:border-slate-200/80 border-scan">
-        <span className="text-[11px] font-sans text-cyan-400 font-mono tracking-widest uppercase">
+        <span className="text-xs sm:text-[13px] font-sans text-white [html[data-theme='light']_&]:text-slate-900 font-semibold tracking-widest uppercase block">
           {isVi ? 'NHÂN LỰC SỐ CHUYÊN MÔN HÓA' : 'SPECIALIZED DIGITAL WORKFORCE'}
         </span>
         <h2 className="text-2xl sm:text-3xl lg:text-4xl font-medium sm:font-semibold text-white mt-2 font-display">

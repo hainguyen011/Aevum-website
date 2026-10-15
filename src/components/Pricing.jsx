@@ -31,53 +31,52 @@ export const Pricing = ({
 
   const faqs = [
     {
-      q: isVi ? "Chương trình 1 tháng (30 ngày) Pro Beta hoạt động như thế nào?" : "How does the 1-Month (30-Day) Pro Beta Trial work?",
+      q: isVi ? "Chương trình 30 ngày dùng thử Pro miễn phí hoạt động như thế nào?" : "How does the 30-Day Pro Free Trial work?",
       a: isVi 
-        ? "Mọi tài khoản khi đăng ký trên Aevum OS đều được tự động kích hoạt bảo lưu Hạng PRO trong 1 tháng (30 ngày). Hoàn toàn không cần thẻ tín dụng."
-        : "Every new account registered on Aevum OS automatically gets full PRO access for 1 month (30 days). No credit card required."
+        ? "Mọi tài khoản mới khi tải và kích hoạt Aevum OS đều được tự động tặng 30 ngày trải nghiệm trọn vẹn sức mạnh của Hạng PRO. Hoàn toàn không yêu cầu thẻ tín dụng."
+        : "Every new account on Aevum OS automatically receives a 30-day full PRO trial. Zero credit card required."
     },
     {
-      q: isVi ? "Hết 1 tháng dùng thử, dữ liệu .aevum/ của tôi có bị mất không?" : "Will I lose my .aevum/ data after the trial ends?",
+      q: isVi ? "Hết 30 ngày dùng thử, mã nguồn và dữ liệu của tôi có bị mất không?" : "Will I lose my projects and memory after the trial ends?",
       a: isVi
-        ? "Hoàn toàn KHÔNG! Aevum OS là Local-First. Toàn bộ mã nguồn, cấu trúc DDD và ký ức trong .aevum/ trên máy trạm của bạn vẫn được giữ nguyên 100% và tiếp tục dùng trên Hạng Community."
-        : "Never! Aevum OS is strictly Local-First. All code, DDD structure, and local memory in .aevum/ stay completely intact on your machine on the Community tier."
-    },
-
-    {
-      q: isVi ? "Cơ chế BYOK hỗ trợ những nhà cung cấp LLM và mô hình nào?" : "Which LLM providers and models are supported via BYOK?",
-      a: isVi
-        ? "Aevum OS hỗ trợ toàn diện các nền tảng LLM hàng đầu thông qua API Key cá nhân của bạn: Google Gemini (1.5 Flash/Pro), Anthropic Claude (3.5 Sonnet), OpenAI (GPT-4o), DeepSeek, OpenRouter và các Local LLM chạy cục bộ qua Ollama / LM Studio hoàn toàn offline."
-        : "Aevum OS comprehensively supports all major LLM providers via your own API Keys: Google Gemini (1.5 Flash/Pro), Anthropic Claude (3.5 Sonnet), OpenAI (GPT-4o), DeepSeek, OpenRouter, and offline local LLMs via Ollama / LM Studio."
+        ? "Hoàn toàn KHÔNG! Aevum OS hoạt động ưu tiên trên máy của bạn (Local-First). Toàn bộ mã nguồn, ghi chú và bộ nhớ dự án trên máy tính của bạn vẫn giữ nguyên 100% và bạn tiếp tục sử dụng miễn phí vĩnh viễn trên gói Community."
+        : "Never! Aevum OS is strictly Local-First. All your code, local memory, and project context remain 100% intact on your machine, transitioning seamlessly to the free lifetime Community tier."
     },
     {
-      q: isVi ? "Biệt đội Đa Agent (Multi-Agent Squad Mode) hoạt động ra sao?" : "How does Multi-Agent Squad Mode work in practice?",
+      q: isVi ? "Tôi có thể kết nối những mô hình AI nào (Cơ chế BYOK)?" : "Which AI models can I connect with my own API keys?",
       a: isVi
-        ? "Thay vì chỉ tương tác đơn lẻ, Squad Mode cho phép bạn triệu tập đồng thời nhiều Persona chuyên biệt (An - Kiến trúc sư, Vidus - Kỹ sư Backend, Zenith - Reviewer, Luna - UI/UX). Các Persona tự động chia nhỏ task, phối hợp giải quyết vấn đề và đồng bộ qua bộ nhớ chung."
-        : "Instead of single-threaded chat, Squad Mode orchestrates multiple specialized Personas simultaneously (An - Architect, Vidus - Backend, Zenith - Reviewer, Luna - UI/UX). They break down complex features, collaborate in real-time, and sync state through shared memory."
+        ? "Aevum OS hỗ trợ toàn diện các nền tảng AI hàng đầu: Google Gemini (1.5 Flash/Pro), Anthropic Claude (3.5 Sonnet), OpenAI (GPT-4o), DeepSeek, OpenRouter và các mô hình chạy offline trực tiếp trên máy qua Ollama / LM Studio. Bạn chỉ trả tiền trực tiếp cho nhà cung cấp AI theo nhu cầu mà không lo bị đội phí."
+        : "Aevum OS natively supports all leading AI providers via your own API Keys: Google Gemini (1.5 Flash/Pro), Anthropic Claude (3.5 Sonnet), OpenAI (GPT-4o), DeepSeek, OpenRouter, and offline local models via Ollama / LM Studio with zero markup."
     },
     {
-      q: isVi ? "Tôi có thể liên kết bao nhiêu máy trạm (Machine ID Binding)?" : "How many workstations can I link?",
+      q: isVi ? "Biệt đội Đa AI (Multi-Agent Squad Mode) giúp tôi làm việc thế nào?" : "How does the Multi-Agent AI Squad help me build faster?",
       a: isVi
-        ? "Hạng Community hỗ trợ 1 máy trạm cố định. Hạng Pro hỗ trợ tối đa 5 máy tính đồng thời (Laptop, PC văn phòng, Mac) với cơ chế đồng bộ Ký ức đám mây. Gói Enterprise hỗ trợ số lượng máy trạm linh hoạt theo thỏa thuận hợp đồng."
-        : "Community supports 1 linked workstation. Pro supports up to 5 concurrent machines (Laptop, Desktop, Mac) with Living Memory cloud roaming. Enterprise offers custom workstation bindings tailored to your agreement."
+        ? "Thay vì bạn phải tự chat qua lại với một con bot đơn lẻ, Squad Mode cho phép bạn triệu tập đồng thời cả một nhóm AI chuyên trách: Kiến trúc sư (lên kế hoạch), Lập trình viên (viết mã), Luna (thiết kế UI/UX) và Tester (rà soát lỗi). Các AI tự động thảo luận, chia nhỏ công việc và cùng nhau hoàn thiện tính năng cho bạn."
+        : "Instead of single-threaded chatting, Squad Mode lets you deploy a full coordinated AI team: Architect (system planning), Fullstack Engineer (coding), UI/UX Specialist, and QA Tester. They autonomously debate, break down tasks, and execute together."
     },
     {
-      q: isVi ? "Mã nguồn và dữ liệu dự án của tôi được bảo mật thế nào?" : "How is my project source code and data secured?",
+      q: isVi ? "Tôi có thể sử dụng Aevum OS trên bao nhiêu máy tính?" : "How many computers can I use Aevum OS on?",
       a: isVi
-        ? "Aevum OS tuân thủ triết lý Sovereign Security: Không telemetry theo dõi, không gửi mã nguồn của bạn về máy chủ bên thứ ba. Mọi chữ ký phần cứng đều được xác thực cục bộ bằng mật mã Ed25519 bất đối xứng tiêu chuẩn quân sự."
-        : "Aevum OS enforces Sovereign Security: Zero telemetry tracking, zero unauthorized source code leaks. All hardware-bound licenses and actions are validated locally using military-grade Ed25519 asymmetric cryptography."
+        ? "Gói Community hỗ trợ sử dụng trên 1 máy tính cá nhân. Gói Pro cho phép bạn sử dụng linh hoạt trên tối đa 5 máy tính cùng lúc (ví dụ: Laptop công ty, PC ở nhà, máy Mac di động) với ký ức dự án được tự động đồng bộ xuyên suốt. Gói Enterprise hỗ trợ số lượng tùy chỉnh theo thỏa thuận đội ngũ."
+        : "Community is dedicated to 1 personal computer. Pro lets you roam seamlessly across up to 5 concurrent machines (e.g. Work laptop, Home desktop, Mac) with instant cloud memory sync. Enterprise offers custom seat allocations."
     },
     {
-      q: isVi ? "Tôi có thể hủy gia hạn hoặc đổi gói bất kỳ lúc nào không?" : "Can I cancel or change my subscription at any time?",
+      q: isVi ? "Mã nguồn và dữ liệu dự án của tôi được bảo mật như thế nào?" : "How is my project source code and data kept secure?",
       a: isVi
-        ? "Có, bạn có toàn quyền quản lý gói cước tự phục vụ (Self-serve). Nếu hủy gói Pro, bạn vẫn được sử dụng toàn bộ tính năng Pro cho đến hết chu kỳ đã thanh toán và sau đó tự động chuyển về gói Community vĩnh viễn."
-        : "Yes, you have full self-serve control over your subscription. If you cancel Pro, you retain full Pro access until the end of your billing cycle, then automatically transition to the free lifetime Community tier."
+        ? "Aevum OS tuân thủ triết lý Sovereign Security: Không theo dõi telemetry ngầm, tuyệt đối không gửi mã nguồn của bạn về máy chủ bên thứ ba. Mọi dữ liệu nhạy cảm đều được mã hóa cục bộ an toàn ngay trên máy tính của bạn."
+        : "Aevum OS strictly enforces Sovereign Security: Zero covert telemetry, zero third-party source code exposure. All sensitive operations and cryptographic signatures remain private on your local machine."
     },
     {
-      q: isVi ? "Gói Enterprise được triển khai và hỗ trợ như thế nào?" : "How is the Enterprise tier deployed and supported?",
+      q: isVi ? "Tôi có thể hủy gói Pro hoặc thay đổi bất kỳ lúc nào không?" : "Can I cancel or switch my plan at any time?",
       a: isVi
-        ? "Đội ngũ kỹ sư I2FLabs sẽ làm việc trực tiếp cùng doanh nghiệp để triển khai Private Cloud hoặc On-Premise hoàn toàn cô lập (Air-gapped VPC), tích hợp Single Sign-On (SSO), RBAC và đào tạo Persona theo quy chuẩn kỹ thuật nội bộ."
-        : "The I2FLabs engineering team works directly with your company to deploy isolated Private Cloud or Air-Gapped On-Premise VPC clusters, integrating SSO, Enterprise RBAC, and bespoke fine-tuned model adapters."
+        ? "Có, bạn hoàn toàn chủ động quản lý gói dịch vụ. Nếu hủy gia hạn Pro, bạn vẫn được sử dụng toàn bộ tính năng Pro cho đến hết chu kỳ đã thanh toán và sau đó tự động chuyển về gói Community vĩnh viễn mà không phát sinh thêm bất kỳ chi phí nào."
+        : "Yes, you have complete self-serve control. If you cancel Pro, you retain full Pro features until the end of your current billing period, then automatically revert to the lifetime free Community tier."
+    },
+    {
+      q: isVi ? "Gói Enterprise dành cho doanh nghiệp được triển khai ra sao?" : "How is the Enterprise tier deployed for organizations?",
+      a: isVi
+        ? "Đội ngũ kỹ sư I2FLabs sẽ đồng hành trực tiếp cùng doanh nghiệp để triển khai Private Cloud hoặc On-Premise hoàn toàn cô lập (Air-gapped), tích hợp đăng nhập tập trung (SSO), phân quyền thành viên và tinh chỉnh Cộng sự AI theo đúng quy chuẩn mã nguồn nội bộ."
+        : "The I2FLabs engineering team works directly with your company to deploy isolated Private Cloud or Air-Gapped On-Premise clusters, integrating SSO, enterprise RBAC, and bespoke AI Personas fine-tuned to your internal standards."
     }
   ];
 
@@ -89,7 +88,7 @@ export const Pricing = ({
         
         {/* Left Side: Tag + Title + Subtitle */}
         <div className="text-left space-y-1.5 max-w-2xl">
-          <span className="text-[11px] font-sans text-cyan-400 [html[data-theme='light']_&]:text-cyan-700 font-semibold tracking-widest uppercase block">
+          <span className="text-xs sm:text-[13px] font-sans text-white [html[data-theme='light']_&]:text-slate-900 font-semibold tracking-widest uppercase block">
             {isVi ? 'ĐỒNG HÀNH CÙNG BUILDER' : 'EMPOWERING BUILDERS'}
           </span>
 
@@ -103,8 +102,8 @@ export const Pricing = ({
           
           <p className="text-slate-400 [html[data-theme='light']_&]:text-slate-600 text-xs sm:text-sm font-normal leading-relaxed pt-1">
             {isVi 
-              ? 'Khởi đầu hoàn toàn miễn phí trên máy của bạn. Khi ý tưởng lớn dần, hãy để các Persona AI đồng hành cùng bạn bứt phá mọi giới hạn sáng tạo.' 
-              : 'Start 100% free on your local machine. As your vision grows, let autonomous AI Personas accelerate your creative journey.'}
+              ? 'Khởi đầu miễn phí với cộng sự AI chạy trực tiếp trên máy của bạn. Khi dự án lớn dần, hãy mở khóa cả một biệt đội AI cùng phối hợp và đồng bộ đa thiết bị.' 
+              : 'Start 100% free with your personal AI companion on your machine. Scale up to a full collaborative AI team with seamless multi-device sync.'}
           </p>
 
           {!showDetails && (
@@ -189,10 +188,10 @@ export const Pricing = ({
           <div className="relative z-10">
             <div className="flex justify-between items-center mb-2">
               <span className="text-[11px] font-mono font-bold text-slate-400 [html[data-theme='light']_&]:text-slate-500 uppercase tracking-widest">
-                {isVi ? 'BUILDER KHÁM PHÁ' : 'EXPLORER BUILDER'}
+                {isVi ? 'DÀNH CHO CÁ NHÂN' : 'FOR INDIVIDUALS'}
               </span>
               <span className="px-2.5 py-0.5 rounded-full border border-white/10 [html[data-theme='light']_&]:border-slate-300/80 bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-100 text-[10px] font-mono text-slate-400 [html[data-theme='light']_&]:text-slate-600 shrink-0 font-medium">
-                LOCAL FIRST
+                {isVi ? 'MIỄN PHÍ TRỌN ĐỜI' : 'FREE FOREVER'}
               </span>
             </div>
 
@@ -202,8 +201,8 @@ export const Pricing = ({
 
             <p className="text-xs text-slate-400 [html[data-theme='light']_&]:text-slate-600 min-h-[36px] leading-relaxed">
               {isVi 
-                ? 'Miễn phí trọn đời cho cá nhân. Chạy 100% cục bộ với API Key riêng của bạn.' 
-                : 'Free forever for individual builders. 100% Local-First with your own API Keys.'}
+                ? 'Trải nghiệm trọn đời trên máy tính của bạn. Tự do kết nối AI yêu thích, giữ kín 100% mã nguồn.' 
+                : 'Free forever on your computer. Connect your favorite AI models while keeping all code 100% private.'}
             </p>
 
             {/* Price (100% Single-Line & Uniform Baseline Alignment) */}
@@ -213,12 +212,12 @@ export const Pricing = ({
                   0 VNĐ
                 </span>
                 <span className="text-xs text-slate-300 [html[data-theme='light']_&]:text-slate-500 font-mono whitespace-nowrap">
-                  {isVi ? '/ Trọn đời' : '/ Forever'}
+                  {isVi ? '/ Trọn đời' : '/ Lifetime'}
                 </span>
               </div>
               <div className="pricing-sub-community pl-2 mt-1.5 py-0.5">
                 <span className="text-[11px] font-mono block whitespace-nowrap leading-none font-normal text-slate-400 [html[data-theme='light']_&]:text-slate-500">
-                  {isVi ? 'Tự do dùng API Key riêng (BYOK)' : 'Bring your own API keys (BYOK)'}
+                  {isVi ? 'Tự do dùng API Key riêng (Gemini, Claude, GPT...)' : 'Use your own API keys (Gemini, Claude, GPT...)'}
                 </span>
               </div>
             </div>
@@ -226,36 +225,36 @@ export const Pricing = ({
             {/* Clean Open Feature List */}
             <div className="space-y-3 mb-6">
               <div className="text-[11px] font-mono font-medium tracking-wider text-slate-400 [html[data-theme='light']_&]:text-slate-500 uppercase">
-                {isVi ? 'ĐẶC QUYỀN CỐT LÕI' : 'CORE PRIVILEGES'}
+                {isVi ? 'TÍNH NĂNG CỐT LÕI' : 'CORE CAPABILITIES'}
               </div>
               <div className="space-y-2.5 text-xs font-mono text-slate-300 [html[data-theme='light']_&]:text-slate-700">
                 <p className="flex items-center gap-2.5">
                   <Check size={14} className="text-white/80 [html[data-theme='light']_&]:text-slate-700 shrink-0 stroke-[2]" />
-                  <span>{isVi ? '100% Tính năng cốt lõi Local-First' : 'Full Local-First Core OS features'}</span>
+                  <span>{isVi ? 'Chạy 100% trên máy (Local-First), bảo mật tuyệt đối' : 'Runs 100% locally on your machine with total privacy'}</span>
                 </p>
                 <p className="flex items-center gap-2.5">
                   <Check size={14} className="text-white/80 [html[data-theme='light']_&]:text-slate-700 shrink-0 stroke-[2]" />
-                  <span>{isVi ? 'BYOK: Dùng API Key (Gemini, Claude, GPT, Ollama)' : 'BYOK API Keys (Gemini, Claude, GPT, Ollama)'}</span>
+                  <span>{isVi ? 'Kết nối mọi mô hình: Gemini, Claude, GPT, Ollama...' : 'Connect any AI: Gemini, Claude, GPT, Ollama...'}</span>
                 </p>
                 <p className="flex items-center gap-2.5">
                   <Check size={14} className="text-white/80 [html[data-theme='light']_&]:text-slate-700 shrink-0 stroke-[2]" />
-                  <span>{isVi ? 'Chat tương tác 1-1 với Persona độc lập' : '1-on-1 Persona Interactive Chat'}</span>
+                  <span>{isVi ? '1 Cộng sự AI đồng hành: Viết code & giải đáp 1-1' : '1-on-1 AI Companion: Real-time code & chat'}</span>
                 </p>
                 <p className="flex items-center gap-2.5">
                   <Check size={14} className="text-white/80 [html[data-theme='light']_&]:text-slate-700 shrink-0 stroke-[2]" />
-                  <span>{isVi ? 'Lưu trữ Ký ức & Phản xạ DDD trong .aevum/' : 'Local Memory & Reflex Storage (.aevum/)'}</span>
+                  <span>{isVi ? 'Ghi nhớ bối cảnh dự án: AI hiểu code không cần nhắc lại' : 'Smart Project Memory: AI remembers your codebase context'}</span>
                 </p>
                 <p className="flex items-center gap-2.5">
                   <Check size={14} className="text-white/80 [html[data-theme='light']_&]:text-slate-700 shrink-0 stroke-[2]" />
-                  <span>{isVi ? 'Tối đa 1 máy trạm liên kết' : 'Max 1 linked Workstation'}</span>
+                  <span>{isVi ? 'Cài đặt và sử dụng trên 1 máy tính cá nhân' : 'Installed and active on 1 personal computer'}</span>
                 </p>
                 <p className="flex items-center gap-2.5 text-slate-400 [html[data-theme='light']_&]:text-slate-400 opacity-60">
                   <X size={14} className="text-slate-500 [html[data-theme='light']_&]:text-slate-400 shrink-0" />
-                  <span className="line-through [html[data-theme='light']_&]:text-slate-400">{isVi ? 'Multi-Agent Squad Mode (Khóa)' : 'Multi-Agent Squad Mode (Locked)'}</span>
+                  <span className="line-through [html[data-theme='light']_&]:text-slate-400">{isVi ? 'Biệt đội Đa AI phối hợp nhóm (Squad Mode)' : 'Multi-Agent Squad Mode'}</span>
                 </p>
                 <p className="flex items-center gap-2.5 text-slate-400 [html[data-theme='light']_&]:text-slate-400 opacity-60">
                   <X size={14} className="text-slate-500 [html[data-theme='light']_&]:text-slate-400 shrink-0" />
-                  <span className="line-through [html[data-theme='light']_&]:text-slate-400">{isVi ? 'Living Memory Cloud Sync (Khóa)' : 'Living Memory Cloud Sync (Locked)'}</span>
+                  <span className="line-through [html[data-theme='light']_&]:text-slate-400">{isVi ? 'Đồng bộ ký ức & dự án giữa nhiều máy tính' : 'Cloud sync across multiple devices'}</span>
                 </p>
               </div>
             </div>
@@ -318,10 +317,10 @@ export const Pricing = ({
             {/* Top Monochrome Ribbon */}
             <div className="flex justify-between items-center mb-2">
               <span className="text-[11px] font-mono font-bold text-slate-300 [html[data-theme='light']_&]:text-cyan-800 uppercase tracking-widest">
-                {isVi ? 'BUILDER CHUYÊN NGHIỆP' : 'PRO BUILDER'}
+                {isVi ? 'LẬP TRÌNH VIÊN & CREATOR' : 'DEVELOPERS & CREATORS'}
               </span>
               <span className="px-2.5 py-0.5 rounded-full border border-white/20 [html[data-theme='light']_&]:border-cyan-300 bg-white/10 [html[data-theme='light']_&]:bg-cyan-50 text-[10px] font-mono text-white [html[data-theme='light']_&]:text-cyan-800 font-bold shrink-0">
-                {isVi ? 'PHỔ BIẾN' : 'POPULAR'}
+                {isVi ? 'PHỔ BIẾN NHẤT' : 'MOST POPULAR'}
               </span>
             </div>
 
@@ -332,8 +331,8 @@ export const Pricing = ({
 
             <p className="text-xs text-slate-300 [html[data-theme='light']_&]:text-slate-600 min-h-[36px] leading-relaxed">
               {isVi 
-                ? 'Mở khóa Biệt đội Đa Agent (Squad Mode), Đồng bộ Ký ức đám mây và Nghiên cứu sâu đa bước.' 
-                : 'Autonomous Squad Orchestration, Cloud Living Memory Sync, and Deep Research.'}
+                ? 'Biệt đội Đa AI làm việc nhóm: Tự động chia việc, viết code, kiểm thử và đồng bộ mượt mà đa thiết bị.' 
+                : 'Full AI squad working together: Auto-decompose tasks, code, test, and sync across all your devices.'}
             </p>
 
             {/* Price (100% Single-Line & Uniform Baseline Alignment) */}
@@ -362,7 +361,7 @@ export const Pricing = ({
               <div className="pricing-sub-pro pl-2 mt-1.5 py-0.5">
                 <span className="text-[11px] font-mono font-medium text-slate-200 [html[data-theme='light']_&]:text-cyan-700 block whitespace-nowrap leading-none">
                   {billingCycle === 'monthly' 
-                    ? (isVi ? 'Tặng 1 tháng (30 ngày) dùng thử PRO' : '1-month (30-day) free trial included')
+                    ? (isVi ? 'Tặng 30 ngày dùng thử PRO — Không cần thẻ' : '30-day free trial — No credit card required')
                     : (isVi ? 'Tiết kiệm 20% (~165k/tháng)' : 'Save 20% (~$7/mo)')}
                 </span>
               </div>
@@ -371,36 +370,36 @@ export const Pricing = ({
             {/* Clean Open Feature List */}
             <div className="space-y-3 mb-6">
               <div className="text-[11px] font-mono font-medium tracking-wider text-slate-300 [html[data-theme='light']_&]:text-cyan-800 uppercase">
-                {isVi ? 'ĐẶC QUYỀN CHUYÊN NGHIỆP' : 'PRO PRIVILEGES'}
+                {isVi ? 'ĐẶC QUYỀN CHUYÊN NGHIỆP' : 'PRO SUPERPOWERS'}
               </div>
               <div className="space-y-2.5 text-xs font-mono text-slate-200 [html[data-theme='light']_&]:text-slate-700">
                 <p className="flex items-center gap-2.5">
                   <Check size={14} className="text-white [html[data-theme='light']_&]:text-cyan-600 shrink-0 stroke-[2.5]" />
-                  <span className="text-white [html[data-theme='light']_&]:text-slate-900 font-medium">{isVi ? 'Bao gồm toàn bộ tính năng Community' : 'Includes everything in Community'}</span>
+                  <span className="text-white [html[data-theme='light']_&]:text-slate-900 font-medium">{isVi ? 'Bao gồm toàn bộ tính năng của gói Community' : 'Includes everything in Community'}</span>
                 </p>
                 <p className="flex items-center gap-2.5">
                   <Check size={14} className="text-white [html[data-theme='light']_&]:text-cyan-600 shrink-0 stroke-[2.5]" />
-                  <span className="text-white [html[data-theme='light']_&]:text-slate-900 font-medium">{isVi ? 'Multi-Agent Squad Mode: Điều phối đa Persona' : 'Multi-Agent Squad Mode (Multi-Personas)'}</span>
+                  <span className="text-white [html[data-theme='light']_&]:text-slate-900 font-medium">{isVi ? 'Biệt đội Đa AI (Squad): Kiến trúc sư, Coder & QA tự phối hợp' : 'Multi-Agent Squad: Architect, Coder & QA collaborate'}</span>
                 </p>
                 <p className="flex items-center gap-2.5">
                   <Check size={14} className="text-white [html[data-theme='light']_&]:text-cyan-600 shrink-0 stroke-[2.5]" />
-                  <span className="[html[data-theme='light']_&]:text-slate-700">{isVi ? 'Living Memory Cloud Sync: Đồng bộ Ký ức đa máy' : 'Living Memory Cloud Sync & Roaming'}</span>
+                  <span className="[html[data-theme='light']_&]:text-slate-700">{isVi ? 'Đồng bộ mây thông suốt: Đổi máy tiếp tục dự án ngay' : 'Cloud Sync: Seamlessly roam project context across PCs'}</span>
                 </p>
                 <p className="flex items-center gap-2.5">
                   <Check size={14} className="text-white [html[data-theme='light']_&]:text-cyan-600 shrink-0 stroke-[2.5]" />
-                  <span className="[html[data-theme='light']_&]:text-slate-700">{isVi ? 'Ed25519 Machine ID: Tối đa 5 máy trạm liên kết' : 'Ed25519 Machine ID (Up to 5 Devices)'}</span>
+                  <span className="[html[data-theme='light']_&]:text-slate-700">{isVi ? 'Sử dụng linh hoạt trên tối đa 5 máy tính (Mac, Windows)' : 'Active on up to 5 devices (Mac, Windows, Linux)'}</span>
                 </p>
                 <p className="flex items-center gap-2.5">
                   <Check size={14} className="text-white [html[data-theme='light']_&]:text-cyan-600 shrink-0 stroke-[2.5]" />
-                  <span className="[html[data-theme='light']_&]:text-slate-700">{isVi ? 'Deep Research Engine: Nghiên cứu sâu đa bước' : 'Deep Research Engine & Whitepapers'}</span>
+                  <span className="[html[data-theme='light']_&]:text-slate-700">{isVi ? 'Nghiên cứu chuyên sâu: Tự đọc tài liệu dài & công nghệ mới' : 'Deep Research: Auto-digest long docs & whitepapers'}</span>
                 </p>
                 <p className="flex items-center gap-2.5">
                   <Check size={14} className="text-white [html[data-theme='light']_&]:text-cyan-600 shrink-0 stroke-[2.5]" />
-                  <span className="[html[data-theme='light']_&]:text-slate-700">{isVi ? 'Technical Debt Radar & Báo cáo Tiến hóa Persona' : 'Technical Debt Radar & Evolution'}</span>
+                  <span className="[html[data-theme='light']_&]:text-slate-700">{isVi ? 'Rà soát lỗi tồn đọng & tự động đề xuất tối ưu code' : 'Technical Debt Radar: Detect bugs & optimize code quality'}</span>
                 </p>
                 <p className="flex items-center gap-2.5">
                   <Check size={14} className="text-white [html[data-theme='light']_&]:text-cyan-600 shrink-0 stroke-[2.5]" />
-                  <span className="[html[data-theme='light']_&]:text-slate-700">{isVi ? 'Ưu tiên kết nối PiperNet Mesh & Hỗ trợ VIP' : 'Priority PiperNet Mesh & VIP Support'}</span>
+                  <span className="[html[data-theme='light']_&]:text-slate-700">{isVi ? 'Kênh hỗ trợ kỹ thuật ưu tiên 1-1 từ đội ngũ phát triển' : 'Priority 1-on-1 direct support from core engineers'}</span>
                 </p>
               </div>
             </div>
@@ -445,10 +444,10 @@ export const Pricing = ({
           <div className="relative z-10">
             <div className="flex justify-between items-center mb-2">
               <span className="text-[11px] font-mono font-bold text-slate-400 [html[data-theme='light']_&]:text-slate-500 uppercase tracking-widest">
-                {isVi ? 'DOANH NGHIỆP & TỔ CHỨC' : 'ENTERPRISE & TEAMS'}
+                {isVi ? 'DOANH NGHIỆP & ĐỘI NGŨ' : 'ENTERPRISE & TEAMS'}
               </span>
               <span className="px-2.5 py-0.5 rounded-full border border-white/10 [html[data-theme='light']_&]:border-slate-300/80 bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-100 text-[10px] font-mono text-slate-400 [html[data-theme='light']_&]:text-slate-600 font-medium tracking-wider shrink-0 uppercase">
-                ON-PREM / CLOUD
+                {isVi ? 'BẢO MẬT TUYỆT ĐỐI' : 'AIR-GAPPED'}
               </span>
             </div>
 
@@ -458,8 +457,8 @@ export const Pricing = ({
 
             <p className="text-xs text-slate-400 [html[data-theme='light']_&]:text-slate-600 min-h-[36px]">
               {isVi 
-                ? 'Triển khai On-Premise hoặc Private Cloud hoàn toàn cô lập, bảo mật tối đa cho doanh nghiệp.' 
-                : 'Isolated On-Premise or Private Cloud deployment with customized governance & security.'}
+                ? 'Hệ thống AI cô lập hoàn toàn cho công ty. Không rò rỉ mã nguồn, tùy biến mô hình & quản trị tập trung.' 
+                : 'Fully isolated AI OS for enterprises. Zero code leakage, custom LLMs, and centralized team governance.'}
             </p>
 
             {/* Price (100% Single-Line & Uniform Baseline Alignment) */}
@@ -469,12 +468,12 @@ export const Pricing = ({
                   {isVi ? 'Tùy Chỉnh' : 'Custom'}
                 </span>
                 <span className="text-xs text-slate-300 [html[data-theme='light']_&]:text-slate-500 font-mono whitespace-nowrap">
-                  {isVi ? '/ Đội ngũ' : '/ Tailored'}
+                  {isVi ? '/ Quy mô' : '/ Tailored'}
                 </span>
               </div>
               <div className="pricing-sub-enterprise pl-2 mt-1.5 py-0.5">
                 <span className="text-[11px] font-mono font-normal text-slate-400 [html[data-theme='light']_&]:text-slate-500 block whitespace-nowrap leading-none">
-                  {isVi ? 'Triển khai On-Premise / Private VPC' : 'Isolated On-Premise / Private VPC'}
+                  {isVi ? 'Cài đặt On-Premise hoặc Private Cloud riêng' : 'Deployed On-Premise or Private VPC'}
                 </span>
               </div>
             </div>
@@ -491,27 +490,27 @@ export const Pricing = ({
                 </p>
                 <p className="flex items-center gap-2.5">
                   <Check size={14} className="text-white/80 [html[data-theme='light']_&]:text-slate-700 shrink-0 stroke-[2]" />
-                  <span className="[html[data-theme='light']_&]:text-slate-700">{isVi ? 'Triển khai On-Premise / Private Cloud cô lập 100%' : '100% Air-gapped On-Premise or Private VPC'}</span>
+                  <span className="[html[data-theme='light']_&]:text-slate-700">{isVi ? 'Cài đặt nội bộ 100% cô lập (On-Premise / Private Cloud)' : '100% Air-gapped On-Premise or Private VPC'}</span>
                 </p>
                 <p className="flex items-center gap-2.5">
                   <Check size={14} className="text-white/80 [html[data-theme='light']_&]:text-slate-700 shrink-0 stroke-[2]" />
-                  <span className="[html[data-theme='light']_&]:text-slate-700">{isVi ? 'Số lượng máy trạm & Seats theo thỏa thuận' : 'Custom Workstation Bindings & Seats (Customizable)'}</span>
+                  <span className="[html[data-theme='light']_&]:text-slate-700">{isVi ? 'Mã nguồn dự án không bao giờ ra khỏi mạng nội bộ' : 'Zero data leakage: Code never leaves company network'}</span>
                 </p>
                 <p className="flex items-center gap-2.5">
                   <Check size={14} className="text-white/80 [html[data-theme='light']_&]:text-slate-700 shrink-0 stroke-[2]" />
-                  <span className="[html[data-theme='light']_&]:text-slate-700">{isVi ? 'Tùy biến Custom Personas & Fine-tuned LLM riêng' : 'Custom Personas & Fine-Tuned Model Adapters'}</span>
+                  <span className="[html[data-theme='light']_&]:text-slate-700">{isVi ? 'Tùy chỉnh số lượng máy tính & thành viên theo nhu cầu' : 'Flexible seats & workstation allocation'}</span>
                 </p>
                 <p className="flex items-center gap-2.5">
                   <Check size={14} className="text-white/80 [html[data-theme='light']_&]:text-slate-700 shrink-0 stroke-[2]" />
-                  <span className="[html[data-theme='light']_&]:text-slate-700">{isVi ? 'Quản trị phân quyền tổ chức (RBAC) & Audit Logs' : 'Enterprise RBAC, SSO & Security Audit Logs'}</span>
+                  <span className="[html[data-theme='light']_&]:text-slate-700">{isVi ? 'Huấn luyện Cộng sự AI riêng theo quy chuẩn mã công ty' : 'Custom AI Personas trained on internal codebase standards'}</span>
                 </p>
                 <p className="flex items-center gap-2.5">
                   <Check size={14} className="text-white/80 [html[data-theme='light']_&]:text-slate-700 shrink-0 stroke-[2]" />
-                  <span className="[html[data-theme='light']_&]:text-slate-700">{isVi ? 'Cam kết SLA 99.99% & Hỗ trợ kỹ thuật 24/7' : '99.99% SLA Guarantee & 24/7 Tech Support'}</span>
+                  <span className="[html[data-theme='light']_&]:text-slate-700">{isVi ? 'Quản trị phân quyền (RBAC), SSO & Nhật ký bảo mật' : 'Role-based access (RBAC), SSO & audit logs'}</span>
                 </p>
                 <p className="flex items-center gap-2.5">
                   <Check size={14} className="text-white/80 [html[data-theme='light']_&]:text-slate-700 shrink-0 stroke-[2]" />
-                  <span className="[html[data-theme='light']_&]:text-slate-700">{isVi ? 'Đội ngũ kỹ sư I2FLabs đồng hành triển khai' : 'Dedicated I2FLabs Solutions Engineering Team'}</span>
+                  <span className="[html[data-theme='light']_&]:text-slate-700">{isVi ? 'Cam kết SLA 99.99% & Kỹ sư đồng hành triển khai tận nơi' : '99.99% SLA guarantee & dedicated deployment engineers'}</span>
                 </p>
               </div>
             </div>
@@ -561,45 +560,45 @@ export const Pricing = ({
                   <tbody className="divide-y divide-white/5">
                     <tr>
                       <td className="py-3 px-4 font-sans font-medium text-white">{isVi ? 'Mô hình chi phí' : 'Pricing Model'}</td>
-                      <td className="py-3 px-4 text-center text-slate-400">0 VNĐ / Trọn đời</td>
+                      <td className="py-3 px-4 text-center text-slate-400">{isVi ? '0 VNĐ / Trọn đời' : '0 VND / Forever'}</td>
                       <td className="py-3 px-4 text-center text-white font-medium">{isVi ? '249.000 VNĐ / Tháng' : '249,000 VND / Mo'}</td>
-                      <td className="py-3 px-4 text-center text-slate-300">Tùy chỉnh theo quy mô</td>
+                      <td className="py-3 px-4 text-center text-slate-300">{isVi ? 'Tùy chỉnh theo quy mô' : 'Custom Tailored'}</td>
                     </tr>
                     <tr>
-                      <td className="py-3 px-4 font-sans font-medium text-white">{isVi ? 'Cơ chế API Key & LLM' : 'BYOK LLM API Keys'}</td>
-                      <td className="py-3 px-4 text-center text-white font-medium">✓ 100% BYOK</td>
-                      <td className="py-3 px-4 text-center text-white font-medium">✓ 100% BYOK</td>
-                      <td className="py-3 px-4 text-center text-white font-medium">✓ BYOK + Private LLM VPC</td>
+                      <td className="py-3 px-4 font-sans font-medium text-white">{isVi ? 'Cơ chế kết nối AI (BYOK)' : 'AI Model Connectivity'}</td>
+                      <td className="py-3 px-4 text-center text-white font-medium">{isVi ? '✓ Tự do dùng API Key riêng' : '✓ Full BYOK API Keys'}</td>
+                      <td className="py-3 px-4 text-center text-white font-medium">{isVi ? '✓ Tự do dùng API Key riêng' : '✓ Full BYOK API Keys'}</td>
+                      <td className="py-3 px-4 text-center text-white font-medium">{isVi ? '✓ API Key + Cụm AI Private VPC' : '✓ BYOK + Private LLM VPC'}</td>
                     </tr>
                     <tr>
-                      <td className="py-3 px-4 font-sans font-medium text-white">{isVi ? 'Giới hạn máy trạm (Machine ID)' : 'Max Workstations'}</td>
-                      <td className="py-3 px-4 text-center">1 Thiết bị</td>
-                      <td className="py-3 px-4 text-center text-white font-medium">5 Thiết bị (Đổi máy linh hoạt)</td>
-                      <td className="py-3 px-4 text-center text-slate-300">{isVi ? 'Theo thỏa thuận' : 'Custom Agreement'}</td>
+                      <td className="py-3 px-4 font-sans font-medium text-white">{isVi ? 'Số máy tính sử dụng' : 'Supported Devices'}</td>
+                      <td className="py-3 px-4 text-center">{isVi ? '1 Máy tính cá nhân' : '1 Personal Computer'}</td>
+                      <td className="py-3 px-4 text-center text-white font-medium">{isVi ? 'Tối đa 5 máy (Mac, Windows, Linux)' : 'Up to 5 Computers (Mac, PC)'}</td>
+                      <td className="py-3 px-4 text-center text-slate-300">{isVi ? 'Linh hoạt theo thỏa thuận' : 'Custom Agreement'}</td>
                     </tr>
                     <tr>
-                      <td className="py-3 px-4 font-sans font-medium text-white">{isVi ? 'Multi-Agent Squad Mode' : 'Multi-Agent Squad Mode'}</td>
+                      <td className="py-3 px-4 font-sans font-medium text-white">{isVi ? 'Làm việc nhóm Đa AI (Squad Mode)' : 'Multi-Agent Squad Mode'}</td>
                       <td className="py-3 px-4 text-center text-slate-400">—</td>
-                      <td className="py-3 px-4 text-center text-white font-medium">✓ Không giới hạn</td>
-                      <td className="py-3 px-4 text-center text-white font-medium">✓ Đa Biệt đội Song song</td>
+                      <td className="py-3 px-4 text-center text-white font-medium">{isVi ? '✓ Tự động phối hợp không giới hạn' : '✓ Unlimited Squad Coordination'}</td>
+                      <td className="py-3 px-4 text-center text-white font-medium">{isVi ? '✓ Đa Biệt đội Song song' : '✓ Parallel Enterprise Squads'}</td>
                     </tr>
                     <tr>
-                      <td className="py-3 px-4 font-sans font-medium text-white">{isVi ? 'Living Memory Cloud Sync' : 'Living Memory Cloud Sync'}</td>
-                      <td className="py-3 px-4 text-center text-slate-400">—</td>
-                      <td className="py-3 px-4 text-center text-white font-medium">✓ Tự động đồng bộ Đám mây</td>
-                      <td className="py-3 px-4 text-center text-white font-medium">✓ Private Cluster Sync</td>
+                      <td className="py-3 px-4 font-sans font-medium text-white">{isVi ? 'Đồng bộ ký ức & bối cảnh dự án' : 'Project Context & Memory Sync'}</td>
+                      <td className="py-3 px-4 text-center text-slate-400">{isVi ? 'Lưu cục bộ trên máy' : 'Local Only'}</td>
+                      <td className="py-3 px-4 text-center text-white font-medium">{isVi ? '✓ Đồng bộ đám mây tức thì giữa các máy' : '✓ Real-time Multi-Device Cloud Sync'}</td>
+                      <td className="py-3 px-4 text-center text-white font-medium">{isVi ? '✓ Đồng bộ cụm Private Cluster nội bộ' : '✓ Private Cluster Enterprise Sync'}</td>
                     </tr>
                     <tr>
-                      <td className="py-3 px-4 font-sans font-medium text-white">{isVi ? 'Mô hình triển khai' : 'Deployment Model'}</td>
-                      <td className="py-3 px-4 text-center text-slate-400">Desktop Cục bộ</td>
-                      <td className="py-3 px-4 text-center text-slate-300">Desktop + Cloud Sync</td>
-                      <td className="py-3 px-4 text-center text-slate-300">On-Premise / Private Cloud</td>
+                      <td className="py-3 px-4 font-sans font-medium text-white">{isVi ? 'Môi trường hoạt động' : 'Deployment Environment'}</td>
+                      <td className="py-3 px-4 text-center text-slate-400">{isVi ? 'Cài đặt trực tiếp trên máy (Desktop)' : 'Local Desktop App'}</td>
+                      <td className="py-3 px-4 text-center text-slate-300">{isVi ? 'Desktop + Đồng bộ đám mây' : 'Desktop + Cloud Roaming'}</td>
+                      <td className="py-3 px-4 text-center text-slate-300">{isVi ? 'On-Premise / Private Cloud cô lập 100%' : '100% Air-Gapped / Private VPC'}</td>
                     </tr>
                     <tr>
                       <td className="py-3 px-4 font-sans font-medium text-white">{isVi ? 'Hỗ trợ kỹ thuật & SLA' : 'Tech Support & SLA'}</td>
-                      <td className="py-3 px-4 text-center text-slate-400">Cộng đồng</td>
-                      <td className="py-3 px-4 text-center text-white font-medium">Ưu tiên VIP</td>
-                      <td className="py-3 px-4 text-center text-slate-300">24/7 SLA 99.99% + 1-on-1</td>
+                      <td className="py-3 px-4 text-center text-slate-400">{isVi ? 'Cộng đồng Discord & GitHub' : 'Community Support'}</td>
+                      <td className="py-3 px-4 text-center text-white font-medium">{isVi ? 'Kênh hỗ trợ ưu tiên 1-1 từ đội ngũ phát triển' : 'Priority 1-on-1 Core Team Support'}</td>
+                      <td className="py-3 px-4 text-center text-slate-300">{isVi ? 'Cam kết SLA 99.99% & Kỹ sư hỗ trợ 24/7' : '24/7 SLA 99.99% + Dedicated Lead'}</td>
                     </tr>
                   </tbody>
                 </table>

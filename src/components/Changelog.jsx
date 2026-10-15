@@ -31,6 +31,25 @@ marked.setOptions({
   breaks: true,
 });
 
+// Icon hệ điều hành Windows, Apple macOS, Linux chuẩn SVG siêu sắc nét
+const WindowsIcon = ({ size = 13, className = "" }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
+    <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801" />
+  </svg>
+);
+
+const AppleIcon = ({ size = 13, className = "" }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
+    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.85c.66-.82 1.11-1.96.99-3.1-.96.04-2.11.64-2.8 1.45-.6.71-1.13 1.87-.99 2.98 1.07.08 2.14-.51 2.8-1.33z" />
+  </svg>
+);
+
+const LinuxIcon = ({ size = 13, className = "" }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
+    <path d="M12.504 0c-.155 0-.315.008-.48.021-3.165.263-5.32 2.454-5.352 5.441-.013 1.21.373 2.438.932 3.49-1.066.862-2.28 2.172-2.738 3.89-.533 2.003-.186 4.053.953 5.626-1.03.65-1.854 1.576-2.327 2.625-.79 1.75-.688 3.513.284 4.58.647.711 1.58 1.053 2.696.988 1.834-.108 3.99-1.182 5.926-2.95 1.547.464 3.19.467 4.733.008 1.934 1.764 4.086 2.835 5.918 2.942 1.115.065 2.048-.277 2.695-.988.972-1.067 1.074-2.83.284-4.58-.473-1.05-1.297-1.975-2.327-2.625 1.14-1.573 1.486-3.623.953-5.626-.458-1.718-1.672-3.028-2.738-3.89.56-1.052.945-2.28.932-3.49-.032-2.987-2.187-5.178-5.352-5.441-.165-.013-.325-.021-.48-.021z" />
+  </svg>
+);
+
 // Verified status mappings for established releases
 const KNOWN_RELEASE_STATUS = {
   'v1.0.0-beta.6': 'upgrade',     // Fastify v5 Core, OpenAPI 3.1 & Zero-Copy WebSocket (Nâng cấp)
@@ -142,7 +161,57 @@ export function Changelog({ activeLang, onNavigate, userProfile, user }) {
   const [viewMode, setViewMode] = useState('grouped'); // 'grouped' | 'flat'
   const [approvedTags, setApprovedTags] = useState(new Set());
   const [isApproving, setIsApproving] = useState(false);
+  const [detectedOS, setDetectedOS] = useState(null);
   const isVi = activeLang === 'vi';
+
+  // Tự động nhận diện hệ điều hành của người dùng (Windows x64/ARM, macOS Apple Silicon/Intel, Linux)
+  useEffect(() => {
+    try {
+      if (typeof window === 'undefined' || typeof navigator === 'undefined') return;
+      const ua = (navigator.userAgent || '').toLowerCase();
+      const platform = (navigator.platform || '').toLowerCase();
+
+      // 1. Windows
+      if (platform.includes('win') || ua.includes('windows')) {
+        if (ua.includes('arm64') || ua.includes('aarch64')) {
+          setDetectedOS('win-arm64');
+        } else {
+          setDetectedOS('win-x64');
+        }
+        return;
+      }
+
+      // 2. macOS
+      if (platform.includes('mac') || ua.includes('mac os') || ua.includes('macintosh')) {
+        let isAppleSilicon = true;
+        try {
+          const canvas = document.createElement('canvas');
+          const gl = canvas.getContext('webgl');
+          if (gl) {
+            const ext = gl.getExtension('WEBGL_debug_renderer_info');
+            if (ext) {
+              const renderer = gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) || '';
+              if (/intel/i.test(renderer)) {
+                isAppleSilicon = false;
+              }
+            }
+          }
+        } catch (e) {
+          // Mặc định Apple Silicon cho Mac hiện đại
+        }
+        setDetectedOS(isAppleSilicon ? 'mac-arm64-dmg' : 'mac-x64-dmg');
+        return;
+      }
+
+      // 3. Linux
+      if (platform.includes('linux') || ua.includes('linux')) {
+        setDetectedOS('linux');
+        return;
+      }
+    } catch (err) {
+      console.warn('[Changelog] OS detection error:', err);
+    }
+  }, []);
 
   // Role Checks
   const isAdmin = Boolean(
@@ -682,11 +751,10 @@ export function Changelog({ activeLang, onNavigate, userProfile, user }) {
                     setActiveTab('all');
                     setSelectedIndex(0);
                   }}
-                  className={`py-1.5 px-3.5 rounded-full text-xs text-center flex items-center justify-center transition-colors duration-150 cursor-pointer whitespace-nowrap ${
-                    activeTab === 'all'
-                      ? 'bg-white text-slate-950 font-medium shadow-sm changelog-tab-active'
-                      : 'text-white/70 hover:text-white hover:bg-white/[0.04] changelog-tab-inactive'
-                  }`}
+                  className={`py-1.5 px-3.5 rounded-full text-xs text-center flex items-center justify-center transition-colors duration-150 cursor-pointer whitespace-nowrap ${activeTab === 'all'
+                    ? 'bg-white text-slate-950 font-medium shadow-sm changelog-tab-active'
+                    : 'text-white/70 hover:text-white hover:bg-white/[0.04] changelog-tab-inactive'
+                    }`}
                 >
                   {isVi ? 'Tất cả' : 'All'}
                 </button>
@@ -701,11 +769,10 @@ export function Changelog({ activeLang, onNavigate, userProfile, user }) {
                     setActiveTab('community');
                     setSelectedIndex(0);
                   }}
-                  className={`py-1.5 px-3.5 rounded-full text-xs text-center flex items-center justify-center transition-colors duration-150 cursor-pointer whitespace-nowrap ${
-                    activeTab === 'community'
-                      ? 'bg-white text-slate-950 font-medium shadow-sm changelog-tab-active'
-                      : 'text-white/70 hover:text-white hover:bg-white/[0.04] changelog-tab-inactive'
-                  }`}
+                  className={`py-1.5 px-3.5 rounded-full text-xs text-center flex items-center justify-center transition-colors duration-150 cursor-pointer whitespace-nowrap ${activeTab === 'community'
+                    ? 'bg-white text-slate-950 font-medium shadow-sm changelog-tab-active'
+                    : 'text-white/70 hover:text-white hover:bg-white/[0.04] changelog-tab-inactive'
+                    }`}
                 >
                   {isVi ? 'Cộng đồng' : 'Community'}
                 </button>
@@ -727,13 +794,12 @@ export function Changelog({ activeLang, onNavigate, userProfile, user }) {
                       ? (isVi ? '🔒 Chỉ dành cho Admin & Developer (Bạn không có quyền truy cập)' : '🔒 Restricted to Admin & Developers (Access Denied)')
                       : (isVi ? 'Kênh thử nghiệm nội bộ Developer' : 'Developer Internal Test Channel')
                   }
-                  className={`py-1.5 px-3.5 rounded-full text-xs transition-colors duration-150 flex items-center justify-center gap-1.5 whitespace-nowrap ${
-                    !isDevUser
-                      ? 'opacity-40 cursor-not-allowed text-white/40 select-none'
-                      : activeTab === 'developer'
+                  className={`py-1.5 px-3.5 rounded-full text-xs transition-colors duration-150 flex items-center justify-center gap-1.5 whitespace-nowrap ${!isDevUser
+                    ? 'opacity-40 cursor-not-allowed text-white/40 select-none'
+                    : activeTab === 'developer'
                       ? 'bg-white text-slate-950 font-medium shadow-sm cursor-pointer changelog-tab-active'
                       : 'text-white/70 hover:text-white hover:bg-white/[0.04] cursor-pointer changelog-tab-inactive'
-                  }`}
+                    }`}
                 >
                   {!isDevUser && <Lock size={11} className="text-white/50 shrink-0" />}
                   <span>Dev</span>
@@ -789,11 +855,10 @@ export function Changelog({ activeLang, onNavigate, userProfile, user }) {
                             <div
                               key={item.release.id}
                               onClick={() => setSelectedIndex(item.flatIdx)}
-                              className={`group flex items-center justify-between py-2 px-2.5 rounded-xl cursor-pointer transition-all font-mono text-xs ${
-                                isFocused
-                                  ? 'text-white font-medium bg-white/[0.08] changelog-row-active'
-                                  : 'text-white/80 hover:text-white hover:bg-white/[0.03] changelog-row-inactive'
-                              }`}
+                              className={`group flex items-center justify-between py-2 px-2.5 rounded-xl cursor-pointer transition-all font-mono text-xs ${isFocused
+                                ? 'text-white font-medium bg-white/[0.08] changelog-row-active'
+                                : 'text-white/80 hover:text-white hover:bg-white/[0.03] changelog-row-inactive'
+                                }`}
                             >
                               <div className="flex items-center gap-2 min-w-0">
                                 <span className="text-white font-bold w-3 text-center shrink-0">
@@ -958,42 +1023,114 @@ export function Changelog({ activeLang, onNavigate, userProfile, user }) {
                     </div>
                   )}
 
-                  {/* Bảng Các Link Tải Xuống (Transparent, No Border, No Bg, Hỗ trợ Light Mode) */}
+                  {/* Bảng Các Link Tải Xuống (Tự động nhận diện & highlight hệ điều hành của người dùng) */}
                   <div className="space-y-2 pt-1">
                     <div className="text-[11px] font-mono text-white uppercase tracking-wider flex items-center justify-between px-1">
                       <span>{isVi ? 'Link tải xuống:' : 'Download Links:'}</span>
-                      <span className="text-[10px] text-white/60 font-normal">
-                        {isVi ? 'Mọi nền tảng' : 'All platforms'}
+                      <span className="text-[10px] text-cyan-400 font-mono font-medium">
+                        {detectedOS ? (isVi ? 'Đã nhận diện OS' : 'OS Detected') : (isVi ? 'Mọi nền tảng' : 'All platforms')}
                       </span>
                     </div>
 
                     {(() => {
-                      const downloadItems = getDownloadItems(selectedRelease);
-                      return downloadItems.length > 0 ? (
+                      const rawItems = getDownloadItems(selectedRelease);
+                      if (rawItems.length === 0) {
+                        return (
+                          <div className="inline-flex items-center gap-2 text-xs text-white/60 font-mono py-2">
+                            <RefreshCw size={12} className="animate-spin text-white/60" />
+                            <span>{isVi ? 'Đang chuẩn bị gói cài đặt...' : 'Preparing installers...'}</span>
+                          </div>
+                        );
+                      }
+
+                      // Hàm kiểm tra gói cài đặt có khớp với hệ điều hành người dùng đang dùng không
+                      const isItemMatchingOS = (item) => {
+                        if (!detectedOS) return false;
+                        if (item.id === detectedOS) return true;
+                        if (detectedOS === 'win-x64' && item.id.startsWith('win-x64')) return true;
+                        if (detectedOS === 'win-arm64' && item.id.startsWith('win-arm64')) return true;
+                        if (detectedOS.startsWith('mac') && item.id === detectedOS) return true;
+                        if (detectedOS.startsWith('mac') && !rawItems.some(i => i.id === detectedOS) && item.id.startsWith('mac')) return true;
+                        if (detectedOS === 'linux' && item.id.startsWith('linux')) return true;
+                        return false;
+                      };
+
+                      // Ưu tiên đưa gói cài đặt phù hợp với máy của người dùng lên vị trí đầu tiên
+                      const downloadItems = [...rawItems].sort((a, b) => {
+                        const aMatch = isItemMatchingOS(a);
+                        const bMatch = isItemMatchingOS(b);
+                        if (aMatch && !bMatch) return -1;
+                        if (!aMatch && bMatch) return 1;
+                        return 0;
+                      });
+
+                      // Hàm lấy icon tương ứng với từng hệ điều hành
+                      const getOSIcon = (item) => {
+                        if (item.id.startsWith('win')) {
+                          return <WindowsIcon size={13} className="shrink-0" />;
+                        }
+                        if (item.id.startsWith('mac')) {
+                          return <AppleIcon size={13} className="shrink-0" />;
+                        }
+                        return <LinuxIcon size={13} className="shrink-0" />;
+                      };
+
+                      return (
                         <div className="space-y-1.5 pt-0.5">
-                          {downloadItems.map((item) => (
-                            <a
-                              key={item.id}
-                              href={item.url}
-                              className="group flex items-center justify-between py-2 px-1.5 rounded-lg bg-transparent hover:bg-transparent transition-colors duration-150 cursor-pointer download-item"
-                              title={item.name}
-                            >
-                              <div className="truncate text-left min-w-0 flex-1">
-                                <div className="text-xs font-semibold text-white/70 group-hover:text-white truncate transition-colors duration-150 download-title">
-                                  {item.label}
+                          {downloadItems.map((item) => {
+                            const isMatch = isItemMatchingOS(item);
+
+                            return (
+                              <a
+                                key={item.id}
+                                href={item.url}
+                                className={`group flex items-center justify-between py-2 px-2.5 rounded-lg transition-all duration-150 cursor-pointer download-item ${isMatch
+                                  ? "bg-cyan-500/10 [html[data-theme='light']_&]:bg-cyan-50/90 border border-cyan-500/30 [html[data-theme='light']_&]:border-cyan-300 shadow-[0_0_15px_rgba(6,182,212,0.12)]"
+                                  : "bg-transparent hover:bg-white/[0.03] [html[data-theme='light']_&]:hover:bg-slate-100/60 border border-transparent"
+                                  }`}
+                                title={item.name}
+                              >
+                                <div className="flex items-center gap-2.5 min-w-0 flex-1 truncate text-left">
+                                  {/* Icon Hệ Điều Hành (Windows / Mac / Linux) */}
+                                  <div className={`w-6 h-6 rounded flex items-center justify-center shrink-0 transition-colors ${isMatch
+                                    ? "bg-cyan-500/20 text-cyan-300 [html[data-theme='light']_&]:bg-cyan-100 [html[data-theme='light']_&]:text-cyan-800"
+                                    : "bg-white/[0.06] text-white/70 group-hover:text-white [html[data-theme='light']_&]:bg-slate-200/80 [html[data-theme='light']_&]:text-slate-700"
+                                    }`}>
+                                    {getOSIcon(item)}
+                                  </div>
+
+                                  <div className="truncate text-left min-w-0 flex-1">
+                                    <div className="flex items-center gap-2">
+                                      <span className={`text-xs font-semibold truncate transition-colors duration-150 download-title ${isMatch
+                                        ? "text-cyan-300 [html[data-theme='light']_&]:text-cyan-800 font-bold"
+                                        : "text-white/70 group-hover:text-white [html[data-theme='light']_&]:text-slate-700 [html[data-theme='light']_&]:group-hover:text-slate-900"
+                                        }`}>
+                                        {item.label}
+                                      </span>
+                                      {isMatch && (
+                                        <span className="inline-flex items-center text-[9.5px] font-sans font-medium px-2 py-0.5 rounded-full bg-cyan-500/15 text-cyan-300 [html[data-theme='light']_&]:bg-cyan-100 [html[data-theme='light']_&]:text-cyan-800 border border-cyan-500/30 shrink-0 tracking-wide">
+                                          {isVi ? 'Thiết bị của bạn' : 'Your Device'}
+                                        </span>
+                                      )}
+                                    </div>
+                                    <div className={`text-[10px] truncate font-mono transition-colors duration-150 download-filename ${isMatch
+                                      ? "text-cyan-200/70 [html[data-theme='light']_&]:text-cyan-700"
+                                      : "text-white/40 group-hover:text-white/80 [html[data-theme='light']_&]:text-slate-400 [html[data-theme='light']_&]:group-hover:text-slate-600"
+                                      }`}>
+                                      {item.name}
+                                    </div>
+                                  </div>
                                 </div>
-                                <div className="text-[10px] text-white/40 group-hover:text-white/80 truncate font-mono transition-colors duration-150 download-filename">
-                                  {item.name}
+
+                                <div className={`p-1.5 rounded-md transition-colors shrink-0 ml-2 ${isMatch
+                                  ? "bg-cyan-500/20 [html[data-theme='light']_&]:bg-cyan-100 text-cyan-300 [html[data-theme='light']_&]:text-cyan-700"
+                                  : "text-white/40 group-hover:text-white [html[data-theme='light']_&]:text-slate-400 [html[data-theme='light']_&]:group-hover:text-slate-700"
+                                  }`}>
+                                  <Download size={13} className="download-icon" />
                                 </div>
-                              </div>
-                              <Download size={13} className="text-white/40 group-hover:text-white transition-colors duration-150 shrink-0 ml-2 download-icon" />
-                            </a>
-                          ))}
-                        </div>
-                      ) : (
-                        <div className="inline-flex items-center gap-2 text-xs text-white/60 font-mono py-2">
-                          <RefreshCw size={12} className="animate-spin text-white/60" />
-                          <span>{isVi ? 'Đang chuẩn bị gói cài đặt...' : 'Preparing installers...'}</span>
+                              </a>
+                            );
+                          })}
                         </div>
                       );
                     })()}

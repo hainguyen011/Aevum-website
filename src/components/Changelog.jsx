@@ -157,7 +157,9 @@ export function Changelog({ activeLang, onNavigate, userProfile, user }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [translatedNotes, setTranslatedNotes] = useState('');
   const [isTranslating, setIsTranslating] = useState(false);
-  const [collapsedGroups, setCollapsedGroups] = useState({});
+  const [collapsedGroups, setCollapsedGroups] = useState({
+    'aevum-beta-test': true
+  });
   const [viewMode, setViewMode] = useState('grouped'); // 'grouped' | 'flat'
   const [approvedTags, setApprovedTags] = useState(new Set());
   const [isApproving, setIsApproving] = useState(false);
@@ -258,11 +260,22 @@ export function Changelog({ activeLang, onNavigate, userProfile, user }) {
 
     // 1. Beta test channel (e.g. v1.0.0-beta.4, beta.3, etc.)
     if (tag.includes('beta') || name.includes('beta')) {
+      const isV1 = tag.includes('v1.') || tag.includes('1.0.0') || !tag.includes('v2');
+      if (isV1) {
+        return {
+          groupId: 'aevum-beta-test',
+          groupName: isVi ? 'AevumOS v1.0 Beta (Lưu Trữ)' : 'AevumOS v1.0 Beta (Archived)',
+          groupBadge: isVi ? 'Lưu trữ' : 'Archived',
+          channel: 'beta',
+          isArchived: true
+        };
+      }
       return {
-        groupId: 'aevum-beta-test',
-        groupName: 'Aevum-Beta-Test',
-        groupBadge: isVi ? 'Bản Thử Nghiệm' : 'Public Beta',
-        channel: 'beta'
+        groupId: 'aevum-v2-beta',
+        groupName: isVi ? 'AevumOS v2 Beta Test' : 'AevumOS v2 Beta Test',
+        groupBadge: isVi ? 'Bản Thử Nghiệm v2' : 'v2 Beta',
+        channel: 'beta',
+        isArchived: false
       };
     }
 
@@ -496,13 +509,13 @@ export function Changelog({ activeLang, onNavigate, userProfile, user }) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [releases.length]);
 
-  // Auto-expand group if active release is inside a collapsed group
+  // Auto-expand group if active release is inside a collapsed group (chỉ tự mở nếu không phải nhóm lưu trữ)
   useEffect(() => {
     if (!releases.length || selectedIndex < 0 || selectedIndex >= releases.length) return;
     const activeRelease = releases[selectedIndex];
     if (!activeRelease) return;
     const cat = categorizeRelease(activeRelease);
-    if (collapsedGroups[cat.groupId]) {
+    if (!cat.isArchived && collapsedGroups[cat.groupId]) {
       setCollapsedGroups(prev => ({
         ...prev,
         [cat.groupId]: false
@@ -812,6 +825,22 @@ export function Changelog({ activeLang, onNavigate, userProfile, user }) {
               </span>
             </div>
 
+            {/* V2 Transition Spotlight Banner */}
+            <div className="p-2.5 rounded-xl bg-gradient-to-r from-sky-500/10 via-purple-500/10 to-transparent border border-sky-400/20 flex items-center gap-2.5">
+              <div className="w-6 h-6 rounded-lg bg-sky-500/20 border border-sky-400/30 flex items-center justify-center shrink-0 text-sky-300">
+                <Sparkles size={13} />
+              </div>
+              <div className="min-w-0 flex-1 font-mono">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-[11.5px] font-semibold text-white tracking-wide">AevumOS v2 Era</span>
+                  <span className="text-[8.5px] px-1.5 py-0.2 rounded bg-sky-400/20 text-sky-200 border border-sky-400/30 uppercase font-semibold">Active</span>
+                </div>
+                <p className="text-[10px] text-white/60 truncate mt-0.5">
+                  {isVi ? 'Đã đóng chu kỳ Beta v1 · Chuyển dịch toàn diện sang v2' : 'Closed v1 Beta cycle · Transitioned to sovereign v2'}
+                </p>
+              </div>
+            </div>
+
             {/* Loading / Error / Empty States */}
             {isLoading ? (
               <div className="flex items-center gap-2 text-xs text-white/80 py-4 font-mono">
@@ -832,54 +861,82 @@ export function Changelog({ activeLang, onNavigate, userProfile, user }) {
               /* Minimalist Interactive Version List theo từng Kênh (Hover Scrollbar, Hỗ trợ Light Mode) */
               <div className="space-y-4 flex-1 flex flex-col min-h-0 pt-1">
                 <div className="space-y-4 overflow-y-auto max-h-[calc(100vh-250px)] pr-1 scrollbar-hover-only">
-                  {groupedReleases.map((group) => (
-                    <div key={group.id} className="space-y-1">
-                      {/* Tiêu đề của Kênh phía trên các Version */}
-                      <div className="flex items-center justify-between px-2 pt-1 pb-1">
-                        <span className="text-[11px] font-mono text-white font-semibold tracking-wider uppercase">
-                          {group.name}
-                        </span>
-                        <span className="text-[10px] text-white/50 font-mono">
-                          {group.items.length} {isVi ? 'bản' : 'builds'}
-                        </span>
-                      </div>
+                  {groupedReleases.map((group) => {
+                    const isCollapsed = Boolean(collapsedGroups[group.id]);
+                    const isArchived = Boolean(group.items[0]?.release && categorizeRelease(group.items[0].release).isArchived);
 
-                      {/* Danh sách các version thuộc Kênh */}
-                      <div className="space-y-1">
-                        {group.items.map((item) => {
-                          const isFocused = selectedIndex === item.flatIdx;
-                          const displayTitle = getDisplayTitle(item.release);
-                          const status = item.status;
-
-                          return (
-                            <div
-                              key={item.release.id}
-                              onClick={() => setSelectedIndex(item.flatIdx)}
-                              className={`group flex items-center justify-between py-2 px-2.5 rounded-xl cursor-pointer transition-all font-mono text-xs ${isFocused
-                                ? 'text-white font-medium bg-white/[0.08] changelog-row-active'
-                                : 'text-white/80 hover:text-white hover:bg-white/[0.03] changelog-row-inactive'
-                                }`}
-                            >
-                              <div className="flex items-center gap-2 min-w-0">
-                                <span className="text-white font-bold w-3 text-center shrink-0">
-                                  {isFocused ? '>' : ' '}
-                                </span>
-                                <span className="text-white/70 font-mono text-[10px] shrink-0">
-                                  {status.label}
-                                </span>
-                                <span className="truncate text-xs text-white">
-                                  {displayTitle}
-                                </span>
-                              </div>
-                              <span className="text-[10px] text-white/60 shrink-0 pl-1 font-mono">
-                                {formatDate(item.release.published_at)}
+                    return (
+                      <div key={group.id} className="space-y-1">
+                        {/* Tiêu đề của Kênh phía trên các Version (Clickable Toggle) */}
+                        <div
+                          onClick={() => toggleGroup(group.id)}
+                          role="button"
+                          tabIndex={0}
+                          title={isVi ? (isCollapsed ? "Bấm để mở danh sách bản" : "Bấm để thu gọn") : (isCollapsed ? "Click to expand" : "Click to collapse")}
+                          className="flex items-center justify-between px-2 pt-1.5 pb-1 cursor-pointer select-none rounded-lg hover:bg-white/[0.04] transition-all group/header"
+                        >
+                          <div className="flex items-center gap-1.5 min-w-0">
+                            <span className="text-white/40 group-hover/header:text-white/80 transition-colors">
+                              {isCollapsed ? <ChevronRight size={12} /> : <ChevronDown size={12} />}
+                            </span>
+                            <span className="text-[11px] font-mono text-white font-semibold tracking-wider uppercase truncate">
+                              {group.name}
+                            </span>
+                            {group.badge && (
+                              <span
+                                className={`text-[9px] font-mono px-1.5 py-0.2 rounded shrink-0 ${isArchived
+                                  ? 'bg-amber-400/10 text-amber-300 border border-amber-400/20'
+                                  : 'bg-white/10 text-white/70'
+                                  }`}
+                              >
+                                {group.badge}
                               </span>
-                            </div>
-                          );
-                        })}
+                            )}
+                          </div>
+                          <span className="text-[10px] text-white/50 font-mono shrink-0 pl-1">
+                            {group.items.length} {isVi ? 'bản' : 'builds'}
+                          </span>
+                        </div>
+
+                        {/* Danh sách các version thuộc Kênh - Chỉ render khi không collapsed */}
+                        {!isCollapsed && (
+                          <div className="space-y-1 pl-1">
+                            {group.items.map((item) => {
+                              const isFocused = selectedIndex === item.flatIdx;
+                              const displayTitle = getDisplayTitle(item.release);
+                              const status = item.status;
+
+                              return (
+                                <div
+                                  key={item.release.id}
+                                  onClick={() => setSelectedIndex(item.flatIdx)}
+                                  className={`group flex items-center justify-between py-2 px-2.5 rounded-xl cursor-pointer transition-all font-mono text-xs ${isFocused
+                                    ? 'text-white font-medium bg-white/[0.08] changelog-row-active'
+                                    : 'text-white/80 hover:text-white hover:bg-white/[0.03] changelog-row-inactive'
+                                    }`}
+                                >
+                                  <div className="flex items-center gap-2 min-w-0">
+                                    <span className="text-white font-bold w-3 text-center shrink-0">
+                                      {isFocused ? '>' : ' '}
+                                    </span>
+                                    <span className="text-white/70 font-mono text-[10px] shrink-0">
+                                      {status.label}
+                                    </span>
+                                    <span className="truncate text-xs text-white">
+                                      {displayTitle}
+                                    </span>
+                                  </div>
+                                  <span className="text-[10px] text-white/60 shrink-0 pl-1 font-mono">
+                                    {formatDate(item.release.published_at)}
+                                  </span>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        )}
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             )}

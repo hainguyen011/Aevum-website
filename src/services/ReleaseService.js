@@ -1,4 +1,44 @@
 const RELEASE_BODY_OVERRIDES = {
+  'v2.0.0-beta.0': `# Aevum-OS v2.0.0-beta.0
+Khởi đầu kỷ nguyên AevumOS v2 - Tái định hình hệ điều hành AI có chủ quyền với hiệu năng vượt trội, không gian làm việc tinh gọn và cơ chế cập nhật tự động mượt mà.
+
+### Tính năng mới (New Features)
+- **Kiến trúc AevumOS v2 (Next-Gen Architecture)**: Tái cấu trúc toàn diện hệ thống nhân điều phối, chuyển dịch hoàn toàn chu kỳ phát triển từ Beta v1 sang nền tảng v2 hiện đại, tối ưu 40% bộ nhớ tạm và tăng tốc độ khởi động app.
+- **Không gian làm việc Lean Workspace**: Ra mắt chế độ làm việc tối giản, trực quan, hỗ trợ đa màn hình, tập trung cao độ vào quy trình tư duy và tương tác sâu cùng các AI Persona.
+- **Động cơ Auto-Updater v2**: Tích hợp cơ chế lắng nghe cập nhật thông minh qua GitHub Releases công khai, tự động kích hoạt kênh Beta, kiểm tra ngầm khi khởi động và hỗ trợ tải/nâng cấp mượt mà ngay trong ứng dụng.
+- **Hệ thống Quản lý Bản quyền & Giấy phép v2**: Tích hợp định danh phần cứng (Machine ID Fingerprint), quản trị phân hạng gói (Free / Pro), hỗ trợ kích hoạt giấy phép ngoại tuyến (Offline License Modal) và đồng bộ trực tiếp với Aevum Cloud.
+- **Phòng Tác tử Trực tiếp (Live Agent Room) & Đa Tác tử MCP**: Tối ưu hóa kênh truyền thông thời gian thực giữa Main Process và Renderer, nâng cao khả năng phối hợp tác tử tự trị và hỗ trợ công cụ MCP động.
+
+### Cải tiến & Tối ưu (Improvements)
+- **Bộ dịch thuật tự động đa ngôn ngữ**: Tích hợp công cụ nhận diện và chuyển ngữ thông tin bản cập nhật (Release Notes) sang Tiếng Việt và Tiếng Anh tức thì.
+- **Tối ưu hóa Pipeline CI/CD**: Hoàn thiện quy trình build đa nền tảng Windows (.exe) và macOS (.dmg, .zip) tự động, xuất bản đầy đủ tệp kê khai blockmap và manifest.
+- **Tăng cường Bảo mật & Ổn định**: Khắc phục hiện tượng xung đột token xác thực, bảo vệ an toàn danh tính Persona và đồng bộ trạng thái liền mạch.
+
+### Tệp cài đặt / Installation
+- Tải file cài đặt \`Aevum-OS-Setup-2.0.0-beta.0.exe\` hoặc các gói macOS Apple Silicon/Intel bên dưới để trải nghiệm.
+
+---
+*Phát hành tự động bởi Aevum CI/CD Engine*`,
+
+  'v2.0.0-dev.0': `# Aevum-OS v2.0.0-dev.0
+Bản dựng thử nghiệm nội bộ dành riêng cho đội ngũ kỹ sư và QA đo kiểm các tính năng nền tảng của kỷ nguyên AevumOS v2.
+
+### Tính năng mới (New Features)
+- **Kênh Thử nghiệm Dev Test v2 (Internal Dev Channel)**: Kích hoạt kênh phân phối các tính năng thử nghiệm sớm, tách biệt an toàn với kênh công chúng và hỗ trợ chuyển đổi linh hoạt trong Cài đặt hệ thống.
+- **Thử nghiệm Lean Workspace & Performance Instrumentation**: Bổ sung bộ thu thập telemetry hiệu năng thời gian thực, đo kiểm độ trễ tương tác UI và mức tiêu thụ tài nguyên hệ thống.
+- **Cơ chế Prerelease Auto-Updater**: Thử nghiệm luồng phân phối tự động các gói build phát triển nội bộ (\`-dev.X\`) cho phép QA cập nhật tức thì khi có commit mới.
+- **Nâng cấp MCP Dev Tools**: Tích hợp bộ công cụ gỡ lỗi, kiểm tra sức khỏe bridge kết nối và giả lập kịch bản đa tác tử phức hợp.
+
+### Cải tiến & Tối ưu (Improvements)
+- **Tối ưu hóa Build Script**: Hỗ trợ tự động gắn thẻ tag, đồng bộ phiên bản \`package.json\` và kích hoạt GitHub Actions build song song Windows & macOS.
+- **Tăng cường khả năng chịu lỗi (Resilience)**: Xử lý các tình huống mất kết nối mạng đột ngột trong quá trình kiểm tra cập nhật và đồng bộ phiên đăng nhập.
+
+### Tệp cài đặt / Installation
+- Tải file cài đặt \`Aevum-OS-Setup-2.0.0-dev.0.exe\` hoặc bản macOS bên dưới để tiến hành kiểm thử.
+
+---
+*Phát hành tự động bởi Aevum CI/CD Engine*`,
+
   'v1.0.0-beta.2': `# Aevum-OS v1.0.0-beta.2
 Bản cập nhật này mang đến hệ thống tự động cập nhật mạnh mẽ, đảm bảo bạn luôn trải nghiệm Aevum-OS với những cải tiến mới nhất một cách liền mạch.
 

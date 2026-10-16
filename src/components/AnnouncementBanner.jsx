@@ -5,15 +5,22 @@ import { ReleaseService } from '../services/ReleaseService';
 export const AnnouncementBanner = ({ onNavigate, activeLang, isScrolled: propIsScrolled }) => {
   const [internalScrolled, setInternalScrolled] = useState(false);
   const isScrolled = propIsScrolled !== undefined ? propIsScrolled : internalScrolled;
-  const [latestVersion, setLatestVersion] = useState('v1.0.0-beta.6');
+  const [latestVersion, setLatestVersion] = useState('v2.0.0-beta.0');
   const isVi = activeLang === 'vi';
 
   useEffect(() => {
     ReleaseService.getReleases()
       .then((releases) => {
         if (releases && releases.length > 0) {
-          const newest = releases[0];
-          const tag = newest.tag_name || newest.name || 'v1.0.0-beta.6';
+          const valid = releases.filter((r) => {
+            const tag = (r.tag_name || r.name || '').toLowerCase();
+            return !(
+              (tag.includes('beta') || (r.name || '').toLowerCase().includes('beta')) &&
+              (tag.startsWith('v1.') || tag.startsWith('1.') || tag.includes('1.0.0'))
+            );
+          });
+          const newest = valid[0] || releases[0];
+          const tag = newest.tag_name || newest.name || 'v2.0.0-beta.0';
           setLatestVersion(tag);
         }
       })

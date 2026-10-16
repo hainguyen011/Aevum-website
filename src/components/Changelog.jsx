@@ -258,19 +258,8 @@ export function Changelog({ activeLang, onNavigate, userProfile, user }) {
       };
     }
 
-    // 1. Beta test channel (e.g. v1.0.0-beta.4, beta.3, etc.)
+    // 1. Beta test channel (e.g. v2.0.0-beta.0)
     if (tag.includes('beta') || name.includes('beta')) {
-      const isV1 = tag.includes('v1.') || tag.includes('1.0.0') || !tag.includes('v2');
-      if (isV1) {
-        return {
-          groupId: 'aevum-beta-test',
-          groupName: isVi ? 'AevumOS v1.0 Beta (Đã Đóng Tải Xuống)' : 'AevumOS v1.0 Beta (Downloads Closed)',
-          groupBadge: isVi ? 'Đóng tải' : 'Closed',
-          channel: 'beta',
-          isArchived: true,
-          isDownloadDisabled: true
-        };
-      }
       return {
         groupId: 'aevum-v2-beta',
         groupName: isVi ? 'AevumOS v2.0 Beta Test' : 'AevumOS v2.0 Beta Test',
@@ -339,6 +328,15 @@ export function Changelog({ activeLang, onNavigate, userProfile, user }) {
         const authorized = allReleases.filter((release) => {
           const tag = (release.tag_name || release.name || '').toLowerCase();
           const rawTag = release.tag_name || release.name || '';
+
+          // Loại bỏ hoàn toàn các bản Beta v1 (v1.0.0-beta.*) - chuyển hoàn toàn sang Beta test v2
+          const isV1Beta =
+            (tag.includes('beta') || (release.name || '').toLowerCase().includes('beta')) &&
+            (tag.startsWith('v1.') || tag.startsWith('1.') || tag.includes('1.0.0') || !tag.includes('v2'));
+          if (isV1Beta) {
+            return false;
+          }
+
           const isDev = tag.includes('-dev') || tag.includes('.dev') || (release.prerelease && tag.includes('dev'));
 
           if (!isDev) {
@@ -825,22 +823,6 @@ export function Changelog({ activeLang, onNavigate, userProfile, user }) {
               <span className="text-[11px] text-white/70 font-mono uppercase tracking-wider shrink-0 pr-1">
                 {releases.length} {isVi ? 'bản' : 'tags'}
               </span>
-            </div>
-
-            {/* V2 Transition Spotlight Banner */}
-            <div className="p-2.5 rounded-xl bg-gradient-to-r from-sky-500/10 via-purple-500/10 to-transparent border border-sky-400/20 flex items-center gap-2.5">
-              <div className="w-6 h-6 rounded-lg bg-sky-500/20 border border-sky-400/30 flex items-center justify-center shrink-0 text-sky-300">
-                <Sparkles size={13} />
-              </div>
-              <div className="min-w-0 flex-1 font-mono">
-                <div className="flex items-center gap-1.5">
-                  <span className="text-[11.5px] font-semibold text-white tracking-wide">AevumOS v2 Era</span>
-                  <span className="text-[8.5px] px-1.5 py-0.2 rounded bg-sky-400/20 text-sky-200 border border-sky-400/30 uppercase font-semibold">Active</span>
-                </div>
-                <p className="text-[10px] text-white/60 truncate mt-0.5">
-                  {isVi ? 'Đã đóng chu kỳ Beta v1 · Chuyển dịch toàn diện sang v2' : 'Closed v1 Beta cycle · Transitioned to sovereign v2'}
-                </p>
-              </div>
             </div>
 
             {/* Loading / Error / Empty States */}

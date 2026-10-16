@@ -264,18 +264,20 @@ export function Changelog({ activeLang, onNavigate, userProfile, user }) {
       if (isV1) {
         return {
           groupId: 'aevum-beta-test',
-          groupName: isVi ? 'AevumOS v1.0 Beta (Lưu Trữ)' : 'AevumOS v1.0 Beta (Archived)',
-          groupBadge: isVi ? 'Lưu trữ' : 'Archived',
+          groupName: isVi ? 'AevumOS v1.0 Beta (Đã Đóng Tải Xuống)' : 'AevumOS v1.0 Beta (Downloads Closed)',
+          groupBadge: isVi ? 'Đóng tải' : 'Closed',
           channel: 'beta',
-          isArchived: true
+          isArchived: true,
+          isDownloadDisabled: true
         };
       }
       return {
         groupId: 'aevum-v2-beta',
-        groupName: isVi ? 'AevumOS v2 Beta Test' : 'AevumOS v2 Beta Test',
+        groupName: isVi ? 'AevumOS v2.0 Beta Test' : 'AevumOS v2.0 Beta Test',
         groupBadge: isVi ? 'Bản Thử Nghiệm v2' : 'v2 Beta',
         channel: 'beta',
-        isArchived: false
+        isArchived: false,
+        isDownloadDisabled: false
       };
     }
 
@@ -905,6 +907,7 @@ export function Changelog({ activeLang, onNavigate, userProfile, user }) {
                               const isFocused = selectedIndex === item.flatIdx;
                               const displayTitle = getDisplayTitle(item.release);
                               const status = item.status;
+                              const isItemArchived = isArchived || Boolean(item.release && categorizeRelease(item.release).isArchived);
 
                               return (
                                 <div
@@ -912,21 +915,31 @@ export function Changelog({ activeLang, onNavigate, userProfile, user }) {
                                   onClick={() => setSelectedIndex(item.flatIdx)}
                                   className={`group flex items-center justify-between py-2 px-2.5 rounded-xl cursor-pointer transition-all font-mono text-xs ${isFocused
                                     ? 'text-white font-medium bg-white/[0.08] changelog-row-active'
-                                    : 'text-white/80 hover:text-white hover:bg-white/[0.03] changelog-row-inactive'
+                                    : isItemArchived
+                                      ? 'text-white/40 hover:text-white/75 hover:bg-white/[0.02] opacity-75'
+                                      : 'text-white/80 hover:text-white hover:bg-white/[0.03] changelog-row-inactive'
                                     }`}
+                                  title={isItemArchived ? (isVi ? 'Bản thử nghiệm v1 này đã đóng tải xuống (tham gia bản v2)' : 'Downloads closed for this v1 beta (join v2)') : undefined}
                                 >
                                   <div className="flex items-center gap-2 min-w-0">
                                     <span className="text-white font-bold w-3 text-center shrink-0">
                                       {isFocused ? '>' : ' '}
                                     </span>
-                                    <span className="text-white/70 font-mono text-[10px] shrink-0">
-                                      {status.label}
-                                    </span>
-                                    <span className="truncate text-xs text-white">
+                                    {isItemArchived ? (
+                                      <span className="text-amber-400/90 font-mono text-[9px] px-1.5 py-0.5 rounded bg-amber-500/10 border border-amber-500/20 shrink-0 flex items-center gap-1">
+                                        <Lock size={8} />
+                                        <span>{isVi ? 'Đóng tải' : 'Closed'}</span>
+                                      </span>
+                                    ) : (
+                                      <span className="text-white/70 font-mono text-[10px] shrink-0">
+                                        {status.label}
+                                      </span>
+                                    )}
+                                    <span className={`truncate text-xs ${isItemArchived ? 'text-white/60' : 'text-white'}`}>
                                       {displayTitle}
                                     </span>
                                   </div>
-                                  <span className="text-[10px] text-white/60 shrink-0 pl-1 font-mono">
+                                  <span className="text-[10px] text-white/50 shrink-0 pl-1 font-mono">
                                     {formatDate(item.release.published_at)}
                                   </span>
                                 </div>
@@ -1017,8 +1030,10 @@ export function Changelog({ activeLang, onNavigate, userProfile, user }) {
                       </div>
                       <div className="p-1.5 bg-transparent">
                         <div className="text-[10px] text-white/60 uppercase">TỆP TẢI</div>
-                        <div className="text-white font-bold text-[11px] mt-0.5">
-                          {getDownloadItems(selectedRelease).length} {isVi ? 'tệp' : 'files'}
+                        <div className={`font-bold text-[11px] mt-0.5 ${selectedMeta?.isArchived ? 'text-amber-400' : 'text-white'}`}>
+                          {selectedMeta?.isArchived
+                            ? (isVi ? 'Đã đóng tải' : 'Closed')
+                            : `${getDownloadItems(selectedRelease).length} ${isVi ? 'tệp' : 'files'}`}
                         </div>
                       </div>
                     </div>
@@ -1080,118 +1095,152 @@ export function Changelog({ activeLang, onNavigate, userProfile, user }) {
                     </div>
                   )}
 
-                  {/* Bảng Các Link Tải Xuống (Tự động nhận diện & highlight hệ điều hành của người dùng) */}
-                  <div className="space-y-2 pt-1">
-                    <div className="text-[11px] font-mono text-white uppercase tracking-wider flex items-center justify-between px-1">
-                      <span>{isVi ? 'Link tải xuống:' : 'Download Links:'}</span>
-                      <span className="text-[10px] text-cyan-400 font-mono font-medium">
-                        {detectedOS ? (isVi ? 'Đã nhận diện OS' : 'OS Detected') : (isVi ? 'Mọi nền tảng' : 'All platforms')}
-                      </span>
-                    </div>
+                  {/* Bảng Các Link Tải Xuống hoặc Banner Đóng Tải Xuống Cho Bản Beta v1 */}
+                  {selectedMeta?.isArchived ? (
+                    <div className="rounded-2xl border border-amber-500/30 bg-amber-500/[0.04] p-4 space-y-3 backdrop-blur-md">
+                      <div className="flex items-center gap-2.5 text-amber-300">
+                        <div className="w-7 h-7 rounded-lg bg-amber-500/20 border border-amber-500/30 flex items-center justify-center shrink-0 text-amber-400">
+                          <Lock size={14} />
+                        </div>
+                        <div>
+                          <span className="text-xs font-bold font-mono uppercase tracking-wide block text-amber-300">
+                            {isVi ? 'Bản thử nghiệm v1 đã đóng tải xuống' : 'Beta v1 Downloads Closed'}
+                          </span>
+                          <span className="text-[10px] text-amber-400/70 font-mono">
+                            {isVi ? 'Giai đoạn thử nghiệm Beta v1.0 đã kết thúc' : 'Beta v1.0 testing phase has ended'}
+                          </span>
+                        </div>
+                      </div>
 
-                    {(() => {
-                      const rawItems = getDownloadItems(selectedRelease);
-                      if (rawItems.length === 0) {
+                      <p className="text-[11px] text-white/75 leading-relaxed font-sans">
+                        {isVi
+                          ? 'Bản cài đặt của chuỗi Beta v1 này đã chính thức ngừng cung cấp tải xuống để tránh phát sinh lỗi không tương thích với kiến trúc mới. Người dùng và Beta Tester vui lòng tham gia tải bản cập nhật trong Chiến dịch Beta Test AevumOS v2.'
+                          : 'Download links for this v1 Beta series have been officially disabled. All users and beta testers will participate in the upcoming AevumOS v2 Beta Test campaign.'}
+                      </p>
+
+                      <div className="pt-2 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-t border-amber-500/20">
+                        <span className="inline-flex items-center gap-1.5 text-[10.5px] font-mono text-amber-300 bg-amber-500/15 px-2.5 py-1 rounded-full border border-amber-500/30">
+                          <AlertCircle size={12} />
+                          {isVi ? 'Đã đóng tải xuống · Tham gia bản v2' : 'Downloads Closed · Join v2'}
+                        </span>
+
+                        <span className="text-[10.5px] font-mono text-white/50">
+                          {isVi ? 'Trạng thái: Đã khóa liên kết' : 'Status: Download locked'}
+                        </span>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="space-y-2 pt-1">
+                      <div className="text-[11px] font-mono text-white uppercase tracking-wider flex items-center justify-between px-1">
+                        <span>{isVi ? 'Link tải xuống:' : 'Download Links:'}</span>
+                        <span className="text-[10px] text-cyan-400 font-mono font-medium">
+                          {detectedOS ? (isVi ? 'Đã nhận diện OS' : 'OS Detected') : (isVi ? 'Mọi nền tảng' : 'All platforms')}
+                        </span>
+                      </div>
+
+                      {(() => {
+                        const rawItems = getDownloadItems(selectedRelease);
+                        if (rawItems.length === 0) {
+                          return (
+                            <div className="inline-flex items-center gap-2 text-xs text-white/60 font-mono py-2">
+                              <RefreshCw size={12} className="animate-spin text-white/60" />
+                              <span>{isVi ? 'Đang chuẩn bị gói cài đặt...' : 'Preparing installers...'}</span>
+                            </div>
+                          );
+                        }
+
+                        // Hàm kiểm tra gói cài đặt có khớp với hệ điều hành người dùng đang dùng không
+                        const isItemMatchingOS = (item) => {
+                          if (!detectedOS) return false;
+                          if (item.id === detectedOS) return true;
+                          if (detectedOS === 'win-x64' && item.id.startsWith('win-x64')) return true;
+                          if (detectedOS === 'win-arm64' && item.id.startsWith('win-arm64')) return true;
+                          if (detectedOS.startsWith('mac') && item.id === detectedOS) return true;
+                          if (detectedOS.startsWith('mac') && !rawItems.some(i => i.id === detectedOS) && item.id.startsWith('mac')) return true;
+                          if (detectedOS === 'linux' && item.id.startsWith('linux')) return true;
+                          return false;
+                        };
+
+                        // Ưu tiên đưa gói cài đặt phù hợp với máy của người dùng lên vị trí đầu tiên
+                        const downloadItems = [...rawItems].sort((a, b) => {
+                          const aMatch = isItemMatchingOS(a);
+                          const bMatch = isItemMatchingOS(b);
+                          if (aMatch && !bMatch) return -1;
+                          if (!aMatch && bMatch) return 1;
+                          return 0;
+                        });
+
+                        // Hàm lấy icon tương ứng với từng hệ điều hành
+                        const getOSIcon = (item) => {
+                          if (item.id.startsWith('win')) {
+                            return <WindowsIcon size={13} className="shrink-0" />;
+                          }
+                          if (item.id.startsWith('mac')) {
+                            return <AppleIcon size={13} className="shrink-0" />;
+                          }
+                          return <LinuxIcon size={13} className="shrink-0" />;
+                        };
+
                         return (
-                          <div className="inline-flex items-center gap-2 text-xs text-white/60 font-mono py-2">
-                            <RefreshCw size={12} className="animate-spin text-white/60" />
-                            <span>{isVi ? 'Đang chuẩn bị gói cài đặt...' : 'Preparing installers...'}</span>
+                          <div className="space-y-1.5 pt-0.5">
+                            {downloadItems.map((item) => {
+                              const isMatch = isItemMatchingOS(item);
+
+                              return (
+                                <a
+                                  key={item.id}
+                                  href={item.url}
+                                  className={`group flex items-center justify-between py-2 px-2.5 rounded-lg transition-all duration-150 cursor-pointer download-item ${isMatch
+                                    ? "bg-cyan-500/10 [html[data-theme='light']_&]:bg-cyan-50/90 border border-cyan-500/30 [html[data-theme='light']_&]:border-cyan-300 shadow-[0_0_15px_rgba(6,182,212,0.12)]"
+                                    : "bg-transparent hover:bg-white/[0.03] [html[data-theme='light']_&]:hover:bg-slate-100/60 border border-transparent"
+                                    }`}
+                                  title={item.name}
+                                >
+                                  <div className="flex items-center gap-2.5 min-w-0 flex-1 truncate text-left">
+                                    <div className={`w-6 h-6 rounded flex items-center justify-center shrink-0 transition-colors ${isMatch
+                                      ? "bg-cyan-500/20 text-cyan-300 [html[data-theme='light']_&]:bg-cyan-100 [html[data-theme='light']_&]:text-cyan-800"
+                                      : "bg-white/[0.06] text-white/70 group-hover:text-white [html[data-theme='light']_&]:bg-slate-200/80 [html[data-theme='light']_&]:text-slate-700"
+                                      }`}>
+                                      {getOSIcon(item)}
+                                    </div>
+
+                                    <div className="truncate text-left min-w-0 flex-1">
+                                      <div className="flex items-center gap-2">
+                                        <span className={`text-xs font-semibold truncate transition-colors duration-150 download-title ${isMatch
+                                          ? "text-cyan-300 [html[data-theme='light']_&]:text-cyan-800 font-bold"
+                                          : "text-white/70 group-hover:text-white [html[data-theme='light']_&]:text-slate-700 [html[data-theme='light']_&]:group-hover:text-slate-900"
+                                          }`}>
+                                          {item.label}
+                                        </span>
+                                        {isMatch && (
+                                          <span className="inline-flex items-center text-[9.5px] font-sans font-medium px-2 py-0.5 rounded-full bg-cyan-500/15 text-cyan-300 [html[data-theme='light']_&]:bg-cyan-100 [html[data-theme='light']_&]:text-cyan-800 border border-cyan-500/30 shrink-0 tracking-wide">
+                                            {isVi ? 'Thiết bị của bạn' : 'Your Device'}
+                                          </span>
+                                        )}
+                                      </div>
+                                      <div className={`text-[10px] truncate font-mono transition-colors duration-150 download-filename ${isMatch
+                                        ? "text-cyan-200/70 [html[data-theme='light']_&]:text-cyan-700"
+                                        : "text-white/40 group-hover:text-white/80 [html[data-theme='light']_&]:text-slate-400 [html[data-theme='light']_&]:group-hover:text-slate-600"
+                                        }`}>
+                                        {item.name}
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div className={`p-1.5 rounded-md transition-colors shrink-0 ml-2 ${isMatch
+                                    ? "bg-cyan-500/20 [html[data-theme='light']_&]:bg-cyan-100 text-cyan-300 [html[data-theme='light']_&]:text-cyan-700"
+                                    : "text-white/40 group-hover:text-white [html[data-theme='light']_&]:text-slate-400 [html[data-theme='light']_&]:group-hover:text-slate-700"
+                                    }`}>
+                                    <Download size={13} className="download-icon" />
+                                  </div>
+                                </a>
+                              );
+                            })}
                           </div>
                         );
-                      }
-
-                      // Hàm kiểm tra gói cài đặt có khớp với hệ điều hành người dùng đang dùng không
-                      const isItemMatchingOS = (item) => {
-                        if (!detectedOS) return false;
-                        if (item.id === detectedOS) return true;
-                        if (detectedOS === 'win-x64' && item.id.startsWith('win-x64')) return true;
-                        if (detectedOS === 'win-arm64' && item.id.startsWith('win-arm64')) return true;
-                        if (detectedOS.startsWith('mac') && item.id === detectedOS) return true;
-                        if (detectedOS.startsWith('mac') && !rawItems.some(i => i.id === detectedOS) && item.id.startsWith('mac')) return true;
-                        if (detectedOS === 'linux' && item.id.startsWith('linux')) return true;
-                        return false;
-                      };
-
-                      // Ưu tiên đưa gói cài đặt phù hợp với máy của người dùng lên vị trí đầu tiên
-                      const downloadItems = [...rawItems].sort((a, b) => {
-                        const aMatch = isItemMatchingOS(a);
-                        const bMatch = isItemMatchingOS(b);
-                        if (aMatch && !bMatch) return -1;
-                        if (!aMatch && bMatch) return 1;
-                        return 0;
-                      });
-
-                      // Hàm lấy icon tương ứng với từng hệ điều hành
-                      const getOSIcon = (item) => {
-                        if (item.id.startsWith('win')) {
-                          return <WindowsIcon size={13} className="shrink-0" />;
-                        }
-                        if (item.id.startsWith('mac')) {
-                          return <AppleIcon size={13} className="shrink-0" />;
-                        }
-                        return <LinuxIcon size={13} className="shrink-0" />;
-                      };
-
-                      return (
-                        <div className="space-y-1.5 pt-0.5">
-                          {downloadItems.map((item) => {
-                            const isMatch = isItemMatchingOS(item);
-
-                            return (
-                              <a
-                                key={item.id}
-                                href={item.url}
-                                className={`group flex items-center justify-between py-2 px-2.5 rounded-lg transition-all duration-150 cursor-pointer download-item ${isMatch
-                                  ? "bg-cyan-500/10 [html[data-theme='light']_&]:bg-cyan-50/90 border border-cyan-500/30 [html[data-theme='light']_&]:border-cyan-300 shadow-[0_0_15px_rgba(6,182,212,0.12)]"
-                                  : "bg-transparent hover:bg-white/[0.03] [html[data-theme='light']_&]:hover:bg-slate-100/60 border border-transparent"
-                                  }`}
-                                title={item.name}
-                              >
-                                <div className="flex items-center gap-2.5 min-w-0 flex-1 truncate text-left">
-                                  {/* Icon Hệ Điều Hành (Windows / Mac / Linux) */}
-                                  <div className={`w-6 h-6 rounded flex items-center justify-center shrink-0 transition-colors ${isMatch
-                                    ? "bg-cyan-500/20 text-cyan-300 [html[data-theme='light']_&]:bg-cyan-100 [html[data-theme='light']_&]:text-cyan-800"
-                                    : "bg-white/[0.06] text-white/70 group-hover:text-white [html[data-theme='light']_&]:bg-slate-200/80 [html[data-theme='light']_&]:text-slate-700"
-                                    }`}>
-                                    {getOSIcon(item)}
-                                  </div>
-
-                                  <div className="truncate text-left min-w-0 flex-1">
-                                    <div className="flex items-center gap-2">
-                                      <span className={`text-xs font-semibold truncate transition-colors duration-150 download-title ${isMatch
-                                        ? "text-cyan-300 [html[data-theme='light']_&]:text-cyan-800 font-bold"
-                                        : "text-white/70 group-hover:text-white [html[data-theme='light']_&]:text-slate-700 [html[data-theme='light']_&]:group-hover:text-slate-900"
-                                        }`}>
-                                        {item.label}
-                                      </span>
-                                      {isMatch && (
-                                        <span className="inline-flex items-center text-[9.5px] font-sans font-medium px-2 py-0.5 rounded-full bg-cyan-500/15 text-cyan-300 [html[data-theme='light']_&]:bg-cyan-100 [html[data-theme='light']_&]:text-cyan-800 border border-cyan-500/30 shrink-0 tracking-wide">
-                                          {isVi ? 'Thiết bị của bạn' : 'Your Device'}
-                                        </span>
-                                      )}
-                                    </div>
-                                    <div className={`text-[10px] truncate font-mono transition-colors duration-150 download-filename ${isMatch
-                                      ? "text-cyan-200/70 [html[data-theme='light']_&]:text-cyan-700"
-                                      : "text-white/40 group-hover:text-white/80 [html[data-theme='light']_&]:text-slate-400 [html[data-theme='light']_&]:group-hover:text-slate-600"
-                                      }`}>
-                                      {item.name}
-                                    </div>
-                                  </div>
-                                </div>
-
-                                <div className={`p-1.5 rounded-md transition-colors shrink-0 ml-2 ${isMatch
-                                  ? "bg-cyan-500/20 [html[data-theme='light']_&]:bg-cyan-100 text-cyan-300 [html[data-theme='light']_&]:text-cyan-700"
-                                  : "text-white/40 group-hover:text-white [html[data-theme='light']_&]:text-slate-400 [html[data-theme='light']_&]:group-hover:text-slate-700"
-                                  }`}>
-                                  <Download size={13} className="download-icon" />
-                                </div>
-                              </a>
-                            );
-                          })}
-                        </div>
-                      );
-                    })()}
-                  </div>
+                      })()}
+                    </div>
+                  )}
 
                   {/* Nút Báo lỗi & Gửi phản hồi (Transparent, Pill, Hỗ trợ Light Mode) */}
                   <div className="pt-2">

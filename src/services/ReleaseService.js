@@ -1,4 +1,49 @@
 const RELEASE_BODY_OVERRIDES = {
+  'v2.0.0-beta.2': `# Aevum-OS v2.0.0-beta.2
+Bản phát hành Beta công khai toàn diện mang sức mạnh tự hành Hermes, kiến trúc ảo hóa phòng ARCV và trải nghiệm làm việc mượt mà 120 FPS đến với cộng đồng người dùng thử nghiệm.
+
+### Tính năng mới (New Features)
+- **Động cơ Tác tử Tự hành Hermes (Autonomous Tool Calling)**: Kích hoạt khả năng đọc/ghi file và tương tác lệnh dòng lệnh tự hành cho các nhân sự số trong Casual Mode, mang lại trải nghiệm trợ lý lập trình như một kỹ sư thực thụ.
+- **Hệ thống Ảo hóa Ngữ cảnh Phòng (ARCV & LSR)**: Giảm tải hơn 70% chi phí token và tăng tốc độ phản hồi khi trò chuyện đa tác tử nhờ cơ chế nạp ngữ cảnh động theo nhu cầu.
+- **Khung Nghiên cứu Cộng sinh (Co-Research Cockpit)**: Đưa không gian nghiên cứu học thuật và cây tri thức đa phân nhánh trực tiếp vào luồng đàm thoại hàng ngày.
+- **Đồng bộ Giao tiếp Đa Ngôi Thalamus**: Hỗ trợ đàm thoại nhóm tự nhiên, cho phép các tác tử tự trao đổi và ủy thác công việc cho nhau mà không làm ngắt mạch người dùng.
+
+### Cải tiến & Tối ưu (Improvements)
+- **Hiệu năng Giao diện 120 FPS (Zero-Jank Input Pacing)**: Tối ưu hóa phản hồi bàn phím và luồng hiển thị tin nhắn, loại bỏ hoàn toàn độ trễ khi gõ phím ngay cả trong các dự án lớn.
+- **Phong cách Thẩm mỹ Tối giản Hiện đại**: Áp dụng ngôn ngữ thiết kế phẳng không bóng đổ (Zero Box-Shadow) kết hợp đường nét thanh mảnh Neuromorphic Hairline.
+- **Ổn định hóa Auto-Updater & Pipeline Đóng gói**: Chuẩn hóa quy trình xuất bản Windows (.exe) và macOS (.dmg, .zip) song song, đồng bộ thông tin phát hành tức thì.
+
+### Sửa lỗi (Fixes)
+- Sửa lỗi trùng lặp tệp kê khai cập nhật macOS (latest-mac.yml) trên GitHub Actions Release.
+- Khắc phục sự cố xung đột quyền ghi tệp và lỗi hiển thị avatar tác tử.
+- Loại bỏ hoàn toàn các câu trả lời máy móc, đảm bảo luồng suy nghĩ mượt mà theo đúng tính cách của từng Persona.
+
+---
+*Phát hành tự động bởi Aevum CI/CD Engine*`,
+
+  'v2.0.0-dev.6': `# Aevum-OS v2.0.0-dev.6
+Bản phát hành đột phá với động cơ Hermes tự hành đa tác tử, kiến trúc ảo hóa ngữ cảnh phòng ARCV & LSR, Living Knowledge Fabric v3.0 và giao diện Lean Workspace 120 FPS.
+
+### Tính năng mới (New Features)
+- **Hermes Autonomous Agent Engine & Tool Calling**: Cho phép các tác tử AI trong Casual Mode tự động thao tác file, thực thi lệnh CLI và gọi công cụ đa tầng không giới hạn, đồng thời đo kiểm chuẩn xác thời gian thực thi của từng tool.
+- **Adaptive Room Context Virtualization (ARCV) & Lazy Semantic Hydration (LSR)**: Bộ ảo hóa ngữ cảnh thông minh RoomContextVirtualizer, tự động gom cụm và tái tạo lịch sử đàm thoại của phòng khi tác tử mới tham gia, tối ưu hơn 70% lượng token tiêu thụ.
+- **Living Knowledge Fabric v3.0**: Hệ thống nhận thức tự tiến hóa tích hợp Autonomous Post-Mortem (tự phân tích lỗi build/AST), cơ chế đồng thuận Squad Consensus Auto-ADR và cây cấu trúc Fractal Meta-Knowledge thay thế RAG phẳng truyền thống.
+- **Không gian Nghiên cứu Cộng sinh (Human-Agent Co-Research Cockpit)**: Tích hợp bảng điều khiển nghiên cứu trực tiếp trong khung trò chuyện, hỗ trợ mô hình khóa pha Kuramoto và đồ thị DAG nhận thức thời gian thực.
+- **Thalamus Multi-Party Relay**: Nâng cấp bộ điều phối hội thoại đa ngôi, hỗ trợ phân giải đại từ ngữ dụng và cơ chế đánh thức chéo giữa các tác tử số.
+
+### Cải tiến & Giao diện (Improvements & UI)
+- **Lean Workspace 120 FPS Zero-Jank**: Tái cấu trúc phân rã thành HeroWorkspaceView, LeanSidebar, LeanChatInputCapsule kết hợp thuật toán điều tiết ngân sách nhập liệu của Kael, đạt chuẩn độ mượt 120 FPS và triệt tiêu hoàn toàn giật lag INP.
+- **Chuẩn hóa Thẩm mỹ Tối giản (Zero Box-Shadow)**: Loại bỏ các bóng đổ rườm rà, thay thế bằng viền AdLIF Neuromorphic Hairline và hiệu ứng viền chìm Inset Linear tinh tế.
+- **Tối ưu hóa Băng thông & Phân rã Thẻ công cụ**: Phân tách rõ ràng giữa thời gian suy nghĩ Chain of Thought (CoT) của mô hình và độ trễ thực thi vật lý của công cụ MCP.
+
+### Sửa lỗi (Fixes)
+- Khắc phục triệt để hiện tượng phản hồi tự động đóng băng trong nhóm chat Casual Mode.
+- Sửa lỗi truy cập hệ thống tệp EPERM khi quét kho tri thức và loại bỏ thư mục cache sandbox.
+- Chuẩn hóa tỷ lệ khung hình vuông và thuộc tính object-fit: cover cho avatar kích hoạt tác tử.
+
+---
+*Phát hành tự động bởi Aevum CI/CD Engine — Kênh Dev Test dành riêng cho Developers*`,
+
   'v2.0.0-beta.0': `# Aevum-OS v2.0.0-beta.0
 Khởi đầu kỷ nguyên AevumOS v2 - Tái định hình hệ điều hành AI có chủ quyền với hiệu năng vượt trội, không gian làm việc tinh gọn và cơ chế cập nhật tự động mượt mà.
 

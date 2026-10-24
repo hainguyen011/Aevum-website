@@ -1,4 +1,5 @@
 import { BaseEmailLayout } from './BaseLayout.js';
+import { escapeHtml } from '../../utils/sanitize.js';
 
 /**
  * Early Access Welcome Email Template (Centered Layout & Respectful Salutation with Cute An Sticker)
@@ -6,13 +7,15 @@ import { BaseEmailLayout } from './BaseLayout.js';
  * @returns {string} HTML string
  */
 export function WelcomeEmailTemplate({ name, salutation = 'Anh/Chị' }) {
+  const safeName = escapeHtml(name || '');
+  const safeSalutation = escapeHtml(salutation || 'Anh/Chị');
   const anStickerUrl = 'https://raw.githubusercontent.com/hainguyen011/Aevum-website/main/assets/stickers/An_Collection/An_Lover.png';
 
   const contentHtml = `
     <h1>Chào mừng bạn đến với Aevum OS</h1>
     
-    <p>Xin chào <strong>${name}</strong>,</p>
-    <p>Cảm ơn ${salutation} đã dành thời gian đăng ký tham gia chương trình Early Access của <strong>Aevum OS</strong>. Đội ngũ I2FLabs Việt Nam rất trân trọng sự đồng hành và những đóng góp khảo sát quý báu của ${salutation}.</p>
+    <p>Xin chào <strong>${safeName}</strong>,</p>
+    <p>Cảm ơn ${safeSalutation} đã dành thời gian đăng ký tham gia chương trình Early Access của <strong>Aevum OS</strong>. Đội ngũ I2FLabs Việt Nam rất trân trọng sự đồng hành và những đóng góp khảo sát quý báu của ${safeSalutation}.</p>
     
     <p>Mã nạp Daemon (Daemon Access Token) kèm tài liệu hướng dẫn tích hợp trực tiếp vào Workspace sẽ được gửi đến hòm thư này ngay khi đợt thử nghiệm mở cửa.</p>
     
@@ -35,14 +38,14 @@ export function WelcomeEmailTemplate({ name, salutation = 'Anh/Chị' }) {
     </div>
 
     <p style="color: #94A3B8; margin-bottom: 0; text-align: center;">
-      Chúc ${salutation} một ngày làm việc ngập tràn niềm vui và nhiều cảm hứng sáng tạo,<br>
+      Chúc ${safeSalutation} một ngày làm việc ngập tràn niềm vui và nhiều cảm hứng sáng tạo,<br>
       <strong style="color: #ffffff;">An & Đội ngũ I2FLabs Việt Nam</strong>
     </p>
   `;
 
   return BaseEmailLayout({
-    previewText: `Chào mừng ${name} đến với Aevum OS`,
-    headerTitle: `Chào mừng ${name} - Aevum OS`,
+    previewText: `Chào mừng ${safeName} đến với Aevum OS`,
+    headerTitle: `Chào mừng ${safeName} - Aevum OS`,
     contentHtml
   });
 }

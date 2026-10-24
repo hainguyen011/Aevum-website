@@ -9,8 +9,20 @@
           "value": "nosniff"
         },
         {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=31536000; includeSubDomains; preload"
+        },
+        {
+          "key": "X-Permitted-Cross-Domain-Policies",
+          "value": "none"
+        },
+        {
           "key": "Content-Security-Policy",
-          "value": "frame-ancestors 'self' http://localhost:* http://127.0.0.1:* https://*.pipernet.io.vn https://pipernet.io.vn https://*.aevum.ai.vn https://aevum.ai.vn;"
+          "value": "frame-ancestors 'self' http://localhost:* http://127.0.0.1:* https://*.pipernet.io.vn https://pipernet.io.vn https://*.aevum.ai.vn https://aevum.ai.vn; base-uri 'self'; object-src 'none';"
         },
         {
           "key": "X-XSS-Protection",

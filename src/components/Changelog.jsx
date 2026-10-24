@@ -25,6 +25,7 @@ import { TranslationService } from '../services/TranslationService';
 import { ReleaseService } from '../services/ReleaseService';
 import { CustomSelect } from './ui/CustomSelect';
 import { marked } from 'marked';
+import { sanitizeHtml } from '../utils/sanitize.js';
 
 marked.setOptions({
   gfm: true,
@@ -714,10 +715,11 @@ export function Changelog({ activeLang, onNavigate, userProfile, user }) {
     if (!notes) return null;
     try {
       const rawHtml = marked.parse(notes);
+      const safeHtml = sanitizeHtml(rawHtml);
       return (
         <div
           className="github-markdown-body"
-          dangerouslySetInnerHTML={{ __html: rawHtml }}
+          dangerouslySetInnerHTML={{ __html: safeHtml }}
         />
       );
     } catch (e) {

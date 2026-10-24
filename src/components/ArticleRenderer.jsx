@@ -14,6 +14,7 @@ import {
   Film,
 } from 'lucide-react';
 import { MermaidDiagram } from './MermaidDiagram';
+import { sanitizeUrl } from '../utils/sanitize.js';
 
 /**
  * Intelligent Tokenizer for Terminal, Bash, JSON, JS/TS, Python, PowerShell
@@ -401,7 +402,11 @@ export const ArticleRenderer = ({
     // Handle inline markdown images: ![alt](url)
     escaped = escaped.replace(
       /!\[([^\]]*)\]\(([^)]+)\)/g,
-      '<img src="$2" alt="$1" class="inline-block max-h-12 align-middle rounded mx-1 border border-white/10 [html[data-theme=\'light\']_&]:border-slate-200" loading="lazy" />'
+      (match, alt, url) => {
+        const safeSrc = sanitizeUrl(url);
+        const safeAlt = alt.replace(/"/g, '&quot;');
+        return `<img src="${safeSrc}" alt="${safeAlt}" class="inline-block max-h-12 align-middle rounded mx-1 border border-white/10 [html[data-theme='light']_&]:border-slate-200" loading="lazy" />`;
+      }
     );
 
     // Handle markdown links: [text](url)
@@ -409,11 +414,14 @@ export const ArticleRenderer = ({
       /\[([^\]]+)\]\(([^)]+)\)/g,
       (match, linkText, url) => {
         const cleanText = linkText.replace(/`([^`]+)`/g, '$1');
+        const safeHref = sanitizeUrl(url);
         const isFileOrVersion = /\.(exe|dmg|zip|yml|blockmap)$/i.test(cleanText) || /^v?\d+\.\d+/i.test(cleanText);
+        const isExternal = safeHref.startsWith('http');
         const extraClass = isFileOrVersion
           ? 'font-mono text-[12px] bg-white/[0.06] hover:bg-white/[0.12] [html[data-theme=\'light\']_&]:bg-slate-200/80 px-2 py-0.5 rounded no-underline text-zinc-200 [html[data-theme=\'light\']_&]:text-slate-900 font-medium border border-white/10 hover:border-white/25 cursor-pointer'
           : 'underline underline-offset-2 font-medium cursor-pointer';
-        return `<a href="${url}" class="text-white [html[data-theme=\'light\']_&]:text-blue-600 hover:text-zinc-200 [html[data-theme=\'light\']_&]:hover:text-blue-700 transition-colors inline-flex items-center gap-1 ${extraClass}">${cleanText}</a>`;
+        const relAttr = isExternal ? ' rel="noopener noreferrer"' : '';
+        return `<a href="${safeHref}"${relAttr} class="text-white [html[data-theme=\'light\']_&]:text-blue-600 hover:text-zinc-200 [html[data-theme=\'light\']_&]:hover:text-blue-700 transition-colors inline-flex items-center gap-1 ${extraClass}">${cleanText}</a>`;
       }
     );
 

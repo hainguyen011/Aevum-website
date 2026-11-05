@@ -14,18 +14,18 @@ const SECTIONS = (lang) => {
         {
           type: 'p',
           text: isVi
-            ? 'Bằng việc truy cập hoặc sử dụng bất kỳ dịch vụ nào của Aevum OS (bao gồm aevum.ai.vn, Aevum OS Desktop App, Aevum Cloud API và các công cụ liên quan), bạn đồng ý tuân thủ và chịu sự ràng buộc bởi các Điều khoản Dịch vụ này.'
-            : 'By accessing or using any Aevum OS services (including aevum.ai.vn, Aevum OS Desktop App, Aevum Cloud API, and related tools), you agree to be bound by these Terms of Service.'
+            ? 'Bằng việc truy cập, cài đặt hoặc sử dụng bất kỳ thành phần nào của Aevum OS (bao gồm aevum.ai.vn, ứng dụng Aevum OS Desktop, Aevum Cloud Gateway, PiperNet Mesh và các giao diện dòng lệnh CLI/MCP liên quan), bạn đồng ý tuân thủ và chịu sự ràng buộc bởi các Điều khoản Dịch vụ này.'
+            : 'By accessing, installing, or using any component of Aevum OS (including aevum.ai.vn, Aevum OS Desktop application, Aevum Cloud Gateway, PiperNet Mesh, and associated CLI/MCP interfaces), you agree to be bound by these Terms of Service.'
         },
         {
           type: 'p',
           text: isVi
-            ? 'Nếu bạn đại diện cho một tổ chức hoặc doanh nghiệp, bạn xác nhận rằng bạn có đầy đủ thẩm quyền pháp lý để ràng buộc tổ chức đó với các điều khoản này. Nếu bạn không đồng ý với bất kỳ phần nào, vui lòng không sử dụng dịch vụ.'
-            : 'If you are using the services on behalf of an organization, you confirm that you have legal authority to bind that entity to these terms. If you do not agree with any part, please discontinue use immediately.'
+            ? 'Nếu bạn đại diện cho một tổ chức hoặc doanh nghiệp, bạn xác nhận rằng bạn có đầy đủ thẩm quyền pháp lý để ràng buộc tổ chức đó với các điều khoản này. Nếu bạn không đồng ý với bất kỳ phần nào, vui lòng không cài đặt hoặc ngừng sử dụng dịch vụ ngay lập tức.'
+            : 'If you are using the services on behalf of an organization, you confirm that you have full legal authority to bind that entity to these terms. If you do not agree with any part, please do not install and discontinue use immediately.'
         },
         {
           type: 'meta',
-          text: isVi ? 'Hiệu lực: 01/01/2026  ·  Cập nhật: Tháng 08/2026' : 'Effective: 01/01/2026  ·  Updated: August 2026'
+          text: isVi ? 'Hiệu lực: 01/01/2026  ·  Cập nhật: Tháng 11/2026 (v2.4 Proprietary)' : 'Effective: 01/01/2026  ·  Updated: November 2026 (v2.4 Proprietary)'
         }
       ]
     },
@@ -147,15 +147,17 @@ const SECTIONS = (lang) => {
         },
         {
           type: 'group',
-          label: isVi ? 'Tài sản của I2FLabs' : 'I2FLabs assets',
+          label: isVi ? 'Quyền sở hữu I2FLabs & Bản quyền Phần mềm Độc quyền' : 'I2FLabs Assets & Proprietary Software Ownership',
           items: isVi
             ? [
-                'Thương hiệu Aevum OS, logo, giao diện người dùng, tài liệu và mã nguồn nền tảng thuộc quyền sở hữu của I2FLabs',
-                'Các thành phần mã nguồn mở được phát hành theo giấy phép open-source tương ứng đính kèm trong repository'
+                'Aevum OS là phần mềm thương mại độc quyền (Closed-Source / Proprietary Commercial Software). Toàn bộ nhãn hiệu, logo, giao diện người dùng, tài liệu, cấu trúc hệ điều hành, binary và mã nguồn nền tảng thuộc toàn quyền sở hữu trí tuệ của I2FLabs',
+                'Nghiêm cấm mọi hành vi sao chép, trích xuất, phân phối lại hoặc dịch ngược (reverse engineering) bất kỳ phần nào của phần mềm khi chưa có sự đồng ý bằng văn bản từ I2FLabs',
+                'Các thành phần hoặc thư viện bên thứ ba (FOSS dependencies) được đóng gói độc lập vẫn tuân theo giấy phép riêng của từng tác giả và không làm thay đổi bản chất độc quyền của Aevum OS'
               ]
             : [
-                'The Aevum OS brand, logos, user interfaces, documentation, and platform code are proprietary to I2FLabs',
-                'Open-source components are distributed under their respective licenses included in the repositories'
+                'Aevum OS is closed-source, proprietary commercial software. All trademarks, logos, UI designs, system documentation, OS architecture, binaries, and platform source code are the exclusive intellectual property of I2FLabs',
+                'Any unauthorized reproduction, extraction, redistribution, or reverse engineering of any portion of the software without prior written consent from I2FLabs is strictly prohibited',
+                'Third-party dependencies and open-source libraries packaged alongside remain subject to their respective licenses and do not alter the proprietary nature of Aevum OS'
               ]
         }
       ]

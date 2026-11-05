@@ -25,7 +25,7 @@ const SECTIONS = (lang) => {
         },
         {
           type: 'meta',
-          text: isVi ? 'Hiệu lực: 01/01/2026  ·  Cập nhật: Tháng 08/2026' : 'Effective: 01/01/2026  ·  Updated: August 2026'
+          text: isVi ? 'Hiệu lực: 01/01/2026  ·  Cập nhật: Tháng 11/2026 (Nghị định 13/2023/NĐ-CP & GDPR Compliance)' : 'Effective: 01/01/2026  ·  Updated: November 2026 (PDPD Decree 13/2023/ND-CP & GDPR Compliance)'
         }
       ]
     },
@@ -51,10 +51,10 @@ const SECTIONS = (lang) => {
         },
         {
           type: 'group',
-          label: isVi ? 'Dữ liệu workspace (local-first)' : 'Workspace data (local-first)',
+          label: isVi ? 'Dữ liệu workspace (Local-First & Zero Knowledge)' : 'Workspace data (Local-First & Zero Knowledge)',
           items: isVi
-            ? ['Memory graph và plans được lưu trên thiết bị của bạn', 'Dữ liệu cloud sync được mã hóa đầu-cuối trước khi truyền', 'Chúng tôi không đọc nội dung code hoặc tài liệu của bạn']
-            : ['Memory graph and plans stored on your device', 'Cloud-synced data is end-to-end encrypted before transmission', 'We do not read the content of your code or documents']
+            ? ['Memory graph và plans được lưu trên thiết bị của bạn', 'Dữ liệu cloud sync được mã hóa đầu-cuối (E2EE)', 'Cam kết không dùng dữ liệu/code của bạn để huấn luyện mô hình AI công cộng', 'Chúng tôi không đọc nội dung code hoặc tài liệu của bạn']
+            : ['Memory graph and plans stored on your device', 'Cloud-synced data is end-to-end encrypted (E2EE)', 'Strict non-training pledge: your code and private data are never used to train public foundation models', 'We do not read the content of your code or documents']
         }
       ]
     },
@@ -135,6 +135,7 @@ const SECTIONS = (lang) => {
               ['Vercel', 'Hosting và CDN'],
               ['GrowthBook', 'A/B testing ẩn danh'],
               ['Resend', 'Gửi email thông báo'],
+              ['OpenAI / Anthropic / Google Gemini APIs', 'Cung cấp mô hình suy luận theo cấu hình API Key của người dùng (BYOK)'],
             ]
             : [
               ['Supabase', 'Database and authentication'],
@@ -143,6 +144,7 @@ const SECTIONS = (lang) => {
               ['Vercel', 'Hosting and CDN'],
               ['GrowthBook', 'Anonymous A/B testing'],
               ['Resend', 'Transactional email'],
+              ['OpenAI / Anthropic / Google Gemini APIs', 'Language model inference under user BYOK (Bring Your Own Key) configuration'],
             ]
         }
       ]
@@ -162,8 +164,8 @@ const SECTIONS = (lang) => {
         {
           type: 'list',
           items: isVi
-            ? ['Quyền truy cập — yêu cầu bản sao dữ liệu cá nhân', 'Quyền sửa chữa — cập nhật thông tin không chính xác', 'Quyền xóa — yêu cầu xóa tài khoản và tất cả dữ liệu liên quan', 'Quyền hạn chế — yêu cầu tạm ngừng hoặc hạn chế xử lý', 'Quyền di chuyển — nhận dữ liệu dưới định dạng JSON / CSV tiêu chuẩn']
-            : ['Right to access — request a copy of your personal data', 'Right to rectification — update inaccurate information', 'Right to erasure — request deletion of account and all associated data', 'Right to restriction — request limitation of data processing', 'Right to portability — receive data in standard JSON / CSV format']
+            ? ['Quyền được biết & đồng ý xử lý dữ liệu (Nghị định 13/2023/NĐ-CP & GDPR)', 'Quyền truy cập — yêu cầu bản sao dữ liệu cá nhân', 'Quyền sửa chữa — cập nhật thông tin không chính xác', 'Quyền xóa & rút lại sự đồng ý — yêu cầu xóa tài khoản và dữ liệu liên quan', 'Quyền hạn chế — yêu cầu tạm ngừng hoặc hạn chế xử lý', 'Quyền di chuyển — nhận dữ liệu dưới định dạng JSON / CSV tiêu chuẩn']
+            : ['Right to be informed & consent management (PDPD Decree 13/2023/ND-CP & GDPR)', 'Right to access — request a copy of your personal data', 'Right to rectification — update inaccurate information', 'Right to erasure & withdraw consent — request deletion of account and all associated data', 'Right to restriction — request limitation of data processing', 'Right to portability — receive data in standard JSON / CSV format']
         }
       ]
     },

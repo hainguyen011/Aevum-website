@@ -57,13 +57,13 @@
     "handshake_registry": "mcp/handshake_registry.json",
     "knowledge_rules": "Every active persona has a dedicated knowledge folder in `.aevum/global/personas/<id>/knowledge/`. Log project-specific patterns and agent-exclusive wisdom there.",
     "debtHistory": [
-      92,
       90,
       95,
       93,
       97,
       100,
-      60
+      60,
+      87
     ]
   },
   "agents": [

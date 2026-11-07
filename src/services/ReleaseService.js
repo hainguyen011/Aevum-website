@@ -1,4 +1,42 @@
 const RELEASE_BODY_OVERRIDES = {
+  'v2.0.0-beta.5': `# Aevum-OS v2.0.0-beta.5
+Bản phát hành Beta công khai toàn diện, tích hợp ma trận ký số tự động đa nền tảng, hệ thống phát sóng email thông báo cập nhật qua Aevum Cloud và cơ chế cập nhật vi sai Blockmap siêu tốc.
+
+### Tính năng mới (New Features)
+- **Hạ tầng Ký số Tự động & Apple Notarization (Automated Code Signing & Notarization)**: Tích hợp đầy đủ Apple Entitlements (Hardened Runtime, JIT cho V8, bộ nhớ thực thi không dấu cho terminal \`node-pty\`), tự động công chứng qua Apple Notarytool trên máy ảo Apple Silicon và ký số Windows với chuẩn RFC 3161 DigiCert Timestamping.
+- **Hệ thống Phát sóng Email Tự Động Qua Aevum Cloud (Release Email Broadcast)**: Kết nối trực tiếp GitHub Actions với máy chủ Aevum Cloud (Fastify + Resend), tự động nhận diện và gửi thông báo cập nhật tới toàn bộ tệp người dùng Beta Tester ngay khi quá trình đóng gói hoàn tất.
+- **Đồng bộ hóa Trung tâm Nhật ký Cập nhật (Changelog Hub)**: Toàn bộ nút liên kết trong hệ thống thông báo và email được quy chuẩn trỏ trực tiếp về trang \`https://www.aevum.ai.vn/changelog\`.
+
+### Cải tiến & Tối ưu (Improvements)
+- **Nâng cấp Môi trường Build lên Node.js 22**: Chuẩn hóa toàn bộ runner GitHub Actions (\`windows-latest\` và \`macos-latest\`) lên Node 22, triệt tiêu hoàn toàn cảnh báo không tương thích engine (\`EBADENGINE\`) và tối ưu hóa tốc độ đóng gói electron-builder.
+- **Tối ưu hóa Cập nhật Vi sai (Blockmap Delta Updates)**: Phân tách khối nhị phân thông minh, cho phép người dùng nâng cấp từ các bản Beta trước chỉ cần tải từ 5MB - 15MB thay vì toàn bộ bộ cài đặt 150MB.
+- **Cơ chế Kháng Lỗi Linh hoạt (Zero-Break Graceful Fallback)**: Tự động chuyển đổi giữa ký số thương mại và đóng gói ad-hoc an toàn khi thiếu chứng chỉ mà không gây gián đoạn quy trình xuất bản.
+
+### Tệp cài đặt / Installation
+- **Windows (x64)**: Tải file cài đặt \`Aevum-OS-Setup-2.0.0-beta.5.exe\` bên dưới để trải nghiệm.
+- **macOS (Apple Silicon & Intel)**: Tải các gói \`.dmg\` hoặc \`.zip\` tương ứng cho chip Apple M-series hoặc Intel.
+
+---
+*Phát hành tự động bởi Aevum CI/CD Engine — Bản thử nghiệm cộng đồng (Beta Channel)*\`,
+
+  'v2.0.0-dev.9': \`# Aevum-OS v2.0.0-dev.9
+Bản phát hành Dev Test nội bộ với bộ khung tự động hóa ký số Apple Hardened Runtime, chuẩn hóa Node.js 22 và tích hợp giao thức thông báo email qua Aevum Cloud API.
+
+### Tính năng mới (New Features)
+- **Kiến trúc Hardened Runtime & Cấu hình Entitlements macOS**: Bổ sung plist entitlements cho phép JIT compiler, bộ nhớ thực thi không dấu cho terminal PTY và chuẩn bị sẵn sàng cho quy trình Apple Notarization.
+- **Cơ chế Dispatch Broadcast Email qua Cloud API**: Tích hợp hook tự động thông báo qua Aevum Cloud backend (api.aevum.ai.vn) dành riêng cho quản trị viên và đội ngũ kiểm thử nội bộ.
+- **Hỗ trợ Timestamping Ký số Windows RFC 3161**: Cấu hình quy chuẩn máy chủ đóng dấu thời gian DigiCert tự động trong pipeline CI/CD.
+
+### Cải tiến & Tối ưu (Improvements)
+- **Nâng cấp Toàn diện Runner lên Node.js 22**: Đảm bảo tương thích hoàn hảo với @electron/rebuild và electron-builder thế hệ mới.
+- **Đồng bộ hóa Đường dẫn Điều hướng**: Thống nhất chuyển hướng người dùng đến Trung tâm Changelog chính thức tại aevum.ai.vn.
+
+### Tệp cài đặt / Installation
+- Tải file cài đặt \`Aevum-OS-Setup-2.0.0-dev.9.exe\` hoặc bản macOS bên dưới để tiến hành kiểm thử nội bộ.
+
+---
+*Phát hành tự động bởi Aevum CI/CD Engine — Kênh Dev Test dành riêng cho Developers*`,
+
   'v2.0.0-beta.2': `# Aevum-OS v2.0.0-beta.2
 Bản phát hành Beta công khai toàn diện mang sức mạnh tự hành Hermes, kiến trúc ảo hóa phòng ARCV và trải nghiệm làm việc mượt mà 120 FPS đến với cộng đồng người dùng thử nghiệm.
 

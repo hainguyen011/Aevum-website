@@ -2,11 +2,18 @@ import { useState, useEffect, useCallback, lazy, Suspense } from 'react';
 import { flushSync } from 'react-dom';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
+import { ValuePropsSection } from './components/ValuePropsSection';
+import { InteractiveAuditSection } from './components/InteractiveAuditSection';
+import { WorkflowStepsSection } from './components/WorkflowStepsSection';
+import { ProofMetricsSection } from './components/ProofMetricsSection';
+import { FaqSection } from './components/FaqSection';
+import { CoralCtaSection } from './components/CoralCtaSection';
 import { DigitalWorkforceSection } from './components/DigitalWorkforceSection';
 import { SubNavTabs } from './components/SubNavTabs';
 import { ScrollToTop } from './components/ScrollToTop';
 
 // Code-split below-the-fold landing components for ultra-fast Mobile FCP & LCP (<0.8s)
+const BentoGrid = lazy(() => import('./components/BentoGrid').then(m => ({ default: m.BentoGrid })));
 const AgentsShowcase = lazy(() => import('./components/AgentsShowcase').then(m => ({ default: m.AgentsShowcase })));
 const Testimonials = lazy(() => import('./components/Testimonials').then(m => ({ default: m.Testimonials })));
 const UnikornSection = lazy(() => import('./components/UnikornSection').then(m => ({ default: m.UnikornSection })));
@@ -736,111 +743,64 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
 
   return (
     <>
-      <div className={`min-h-screen bg-[#07080c] text-slate-100 selection:bg-cyan-500 selection:text-black w-full relative overflow-x-clip perspective-container ${isMobileMenuOpen ? 'mobile-menu-active' : ''
-        }`}>
+      <div className={`min-h-screen bg-[#0A0B0F] text-slate-100 selection:bg-white/20 selection:text-white w-full relative flex flex-col ${isMobileMenuOpen ? 'mobile-menu-active' : ''}`}>
 
-        {/* Page Content Wrapper (shrinks and pushes in 3D) */}
-        <div className="app-content-wrapper">
-          <div className="py-3 sm:py-6 lg:py-8 w-full relative">
-            {/* Neuro-Aesthetic Focal Spine Aura (Soft Golden-Ratio Central Illumination) */}
-            <div className="pointer-events-none absolute inset-0 overflow-hidden -z-10 select-none">
-              <div className="sticky top-1/4 w-[480px] sm:w-[720px] h-[480px] sm:h-[720px] mx-auto bg-gradient-to-b from-cyan-500/[0.03] via-sky-500/[0.015] to-transparent rounded-full blur-[160px] opacity-70" />
-            </div>
+        {/* Top Navbar Row */}
+        <Navbar
+          currentPage={currentPage}
+          onNavigate={handleNavigate}
+          activeLang={activeLang}
+          onChangeLang={handleLanguageChange}
+          onOpenSearch={() => setIsSearchOpen(true)}
+          isMobileMenuOpen={isMobileMenuOpen}
+          onToggleMobileMenu={() => setIsMobileMenuOpen(prev => !prev)}
+          user={user}
+          userProfile={userProfile}
+          onOpenAuthModal={() => setIsAuthModalOpen(true)}
+          theme={theme}
+          onToggleTheme={handleToggleTheme}
+        />
 
-            {/* Monolithic Seamless Grid Container Frame */}
-            <div className="monolithic-frame">
-              {/* Top Navbar Row */}
-              <Navbar
-                currentPage={currentPage}
+        <main id="main-content" role="main" className="w-full flex-1">
+          {currentPage === 'landing' && (
+            <>
+              {/* 1. Hero 2-Column (CoralOS Archetype) */}
+              <Hero
                 onNavigate={handleNavigate}
+                onOpenTrialModal={handleOpenTrialModal}
                 activeLang={activeLang}
-                onChangeLang={handleLanguageChange}
-                onOpenSearch={() => setIsSearchOpen(true)}
-                isMobileMenuOpen={isMobileMenuOpen}
-                onToggleMobileMenu={() => setIsMobileMenuOpen(prev => !prev)}
-                user={user}
-                userProfile={userProfile}
-                onOpenAuthModal={() => setIsAuthModalOpen(true)}
               />
 
-              <main id="main-content" role="main" className="w-full">
-                {currentPage === 'landing' && (
-                  <>
-                    {/* Hero 2-Column Grid Row */}
-                    <Hero
-                      onNavigate={handleNavigate}
-                      onOpenTrialModal={handleOpenTrialModal}
-                      activeLang={activeLang}
-                    />
+              {/* 2. Value Props Section */}
+              <ValuePropsSection activeLang={activeLang} />
 
-                    {/* Section: Nhân Lực Số Thông Minh & Giải Quyết Điểm Đau */}
-                    <DigitalWorkforceSection
-                      activeLang={activeLang}
-                      onNavigate={handleNavigate}
-                      onOpenTrialModal={handleOpenTrialModal}
-                    />
+              {/* 3. Large Interactive Audit & Orchestration Canvas Card */}
+              <InteractiveAuditSection activeLang={activeLang} />
 
-                    {/* Sub Nav Category Tabs Row */}
-                    <SubNavTabs activeLang={activeLang} onNavigate={handleNavigate} />
+              {/* 4. 3-Step Incremental Workflow */}
+              <WorkflowStepsSection
+                onNavigate={handleNavigate}
+                onOpenTrialModal={handleOpenTrialModal}
+                activeLang={activeLang}
+              />
 
-                    {/* Below-the-fold Progressive Lazy Loaded Sections via Intersection Observer (Zero Main-Thread Block) */}
-                    <LazySection id="agents" minHeight="720px">
-                      <Suspense fallback={<div className="min-h-[720px]" />}>
-                        <AgentsShowcase
-                          activeLang={activeLang}
-                          onOpenTrialModal={handleOpenTrialModal}
-                        />
-                      </Suspense>
-                    </LazySection>
+              {/* 5. Proof & Metrics (99% & 66%) */}
+              <ProofMetricsSection
+                onNavigate={handleNavigate}
+                activeLang={activeLang}
+              />
 
-                    <LazySection id="pricing" minHeight="780px">
-                      <Suspense fallback={<div className="min-h-[780px]" />}>
-                        <Pricing
-                          activeLang={activeLang}
-                          onOpenTrialModal={handleOpenTrialModal}
-                          onOpenPaymentModal={handleOpenPaymentModal}
-                          onOpenAuthModal={() => setIsAuthModalOpen(true)}
-                          showDetails={false}
-                          onNavigate={handleNavigate}
-                        />
-                      </Suspense>
-                    </LazySection>
+              {/* 6. Practical FAQs */}
+              <FaqSection activeLang={activeLang} />
 
-                    <LazySection id="testimonials" minHeight="520px">
-                      <Suspense fallback={<div className="min-h-[520px]" />}>
-                        <Testimonials activeLang={activeLang} />
-                      </Suspense>
-                    </LazySection>
-
-                    <LazySection id="unikorn" minHeight="420px">
-                      <Suspense fallback={<div className="min-h-[420px]" />}>
-                        <UnikornSection activeLang={activeLang} />
-                      </Suspense>
-                    </LazySection>
-
-                    <LazySection id="i2flabs" minHeight="450px">
-                      <Suspense fallback={<div className="min-h-[450px]" />}>
-                        <I2FLabsSection activeLang={activeLang} />
-                      </Suspense>
-                    </LazySection>
-
-                    <LazySection id="sponsors" minHeight="320px">
-                      <Suspense fallback={<div className="min-h-[320px]" />}>
-                        <Sponsors activeLang={activeLang} />
-                      </Suspense>
-                    </LazySection>
-
-                    <LazySection id="cta" minHeight="350px">
-                      <Suspense fallback={<div className="min-h-[350px]" />}>
-                        <CtaBanner
-                          onNavigate={handleNavigate}
-                          onOpenTrialModal={handleOpenTrialModal}
-                          activeLang={activeLang}
-                        />
-                      </Suspense>
-                    </LazySection>
-                  </>
-                )}
+              {/* 7. CoralOS Bottom Elevated CTA Card */}
+              <CoralCtaSection
+                onNavigate={handleNavigate}
+                onOpenTrialModal={handleOpenTrialModal}
+                activeLang={activeLang}
+              />
+            </>
+          )}
 
                 <Suspense fallback={<div className="min-h-[40vh] flex items-center justify-center font-mono text-xs text-slate-400">Loading...</div>}>
                   {currentPage === 'pricing' && (
@@ -931,9 +891,6 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
                 <Footer onNavigate={handleNavigate} activeLang={activeLang} />
               </Suspense>
             </div>
-          </div>
-        </div>
-      </div>
 
       {/* Click-to-close overlay on content */}
       {isMobileMenuOpen && (
@@ -1196,50 +1153,6 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
           />
         )}
       </Suspense>
-
-      {/* Floating Cyber HUD Utility Toolbar (Docked Exactly on Right Edge Seam) */}
-      <div className="fixed docked-right-seam top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col items-center bg-[#07080E]/95 [html[data-theme='light']_&]:bg-white/95 backdrop-blur-md border border-white/10 [html[data-theme='light']_&]:border-slate-300/80 p-0.5 w-[38px] transition-all duration-300 group rounded-md shadow-2xl [html[data-theme='light']_&]:shadow-md">
-
-        {/* Language Switcher Toggle (Placed above Eye Care Toggle) */}
-        <button
-          onClick={() => handleLanguageChange(activeLang === 'vi' ? 'en' : 'vi')}
-          className="utility-bar-btn flex items-center justify-center w-[34px] h-[34px] transition-all duration-200 cursor-pointer rounded select-none text-slate-300 [html[data-theme='light']_&]:text-slate-600 hover:text-cyan-400 [html[data-theme='light']_&]:hover:text-cyan-600 font-mono"
-          title={activeLang === 'vi' ? "Chuyển sang Tiếng Anh (EN)" : "Switch to Vietnamese (VI)"}
-          aria-label="Toggle Language"
-        >
-          <span className="text-xs font-extrabold uppercase tracking-wider">{activeLang === 'vi' ? 'VI' : 'EN'}</span>
-        </button>
-
-        {/* Eye Care Toggle */}
-        <button
-          onClick={() => setIsEyeCare(prev => !prev)}
-          aria-label="Toggle Eye Care Mode"
-          className={`utility-bar-btn flex items-center justify-center w-[34px] h-[34px] transition-all duration-200 cursor-pointer rounded select-none text-slate-300 [html[data-theme='light']_&]:text-slate-600 hover:text-cyan-400 [html[data-theme='light']_&]:hover:text-cyan-600 ${isEyeCare
-            ? '!bg-amber-500/10 !text-amber-500 [html[data-theme="light"]_&]:!bg-amber-500/15 [html[data-theme="light"]_&]:!text-amber-600 hover:!bg-amber-500/20'
-            : ''
-            }`}
-          title={activeLang === 'vi' ? "Bật/Tắt bảo vệ mắt" : "Toggle Eye Care"}
-        >
-          {isEyeCare ? <ScanEye size={17} className="text-amber-400 [html[data-theme='light']_&]:text-amber-600" /> : <Eye size={17} />}
-        </button>
-
-        {/* Theme Toggle */}
-        <button
-          onClick={(e) => handleToggleTheme(e)}
-          className="utility-bar-btn flex items-center justify-center w-[34px] h-[34px] transition-all duration-200 cursor-pointer rounded active:scale-[0.92] select-none text-slate-300 [html[data-theme='light']_&]:text-slate-600 hover:text-cyan-400 [html[data-theme='light']_&]:hover:text-cyan-600"
-          title={
-            activeLang === 'vi'
-              ? (theme === 'dark' ? "Chuyển sang Chế độ Sáng" : "Chuyển sang Chế độ Tối")
-              : (theme === 'dark' ? "Switch to Light Mode" : "Switch to Dark Mode")
-          }
-          aria-label="Toggle Theme Mode"
-        >
-          <div className="theme-icon-wrapper">
-            <Sun size={17} className="theme-icon theme-icon-sun" />
-            <Atom size={17} className="theme-icon theme-icon-electron" />
-          </div>
-        </button>
-      </div>
 
       {/* Floating Fixed Scroll To Top Button */}
       <ScrollToTop />

@@ -18,7 +18,9 @@ export const Navbar = ({
   onToggleMobileMenu,
   user,
   userProfile,
-  onOpenAuthModal 
+  onOpenAuthModal,
+  theme,
+  onToggleTheme
 }) => {
   const [langOpen, setLangOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null); // 'features' | 'resources' | 'profile' | null
@@ -203,10 +205,10 @@ export const Navbar = ({
       {/* Top Accent Marquee Announcement Banner */}
       <AnnouncementBanner onNavigate={onNavigate} activeLang={activeLang} isScrolled={isScrolled} />
 
-      {/* Main Navbar Top Row */}
-      <div className="w-full flex items-stretch justify-between pl-4 sm:pl-6 lg:pl-8 xl:pl-10 pr-0 h-16">
+      {/* Main Navbar Top Row - Clean Edge-to-Edge Container */}
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
         {/* Left Cell: Logo + Main Navigation */}
-        <div className="flex items-center gap-3 xl:gap-5 min-w-0 py-2">
+        <div className="flex items-center gap-4 xl:gap-8 min-w-0">
           <a 
             href="#" 
             onClick={(e) => { e.preventDefault(); onNavigate('landing'); }}
@@ -215,15 +217,15 @@ export const Navbar = ({
             <img 
               src={logoImg} 
               alt="Aevum OS Logo" 
-              className="w-7 h-7 object-contain" 
+              className="w-7 h-7 object-contain [html[data-theme='light']_&]:brightness-0 transition-[filter] duration-200" 
             />
-            <span className="font-semibold text-lg text-white [html[data-theme='light']_&]:text-slate-900 tracking-wide font-display whitespace-nowrap">
+            <span className="font-semibold text-lg text-white [html[data-theme='light']_&]:text-slate-900 tracking-wide font-sans whitespace-nowrap">
               AEVUM OS
             </span>
           </a>
 
-          {/* Desktop Nav Links */}
-          <nav className="hidden lg:flex items-center gap-4 xl:gap-6 text-xs sm:text-[13px] font-medium whitespace-nowrap text-nowrap">
+          {/* Desktop Nav Links - Clean Monochrome, No flashy colors */}
+          <nav className="hidden lg:flex items-center gap-5 xl:gap-7 text-xs sm:text-[13px] font-normal whitespace-nowrap text-nowrap">
             
             {/* Desktop Features & Architecture Toggle Button */}
             {(() => {
@@ -231,15 +233,14 @@ export const Navbar = ({
               return (
                 <button 
                   onClick={() => toggleDropdown('features')}
-                  className={`flex items-center gap-1.5 text-xs sm:text-[13px] font-medium py-1.5 px-3 rounded-[5px] transition-all duration-200 cursor-pointer ${
+                  className={`flex items-center gap-1.5 text-xs sm:text-[13px] py-1 px-2.5 rounded-md transition-all duration-150 cursor-pointer ${
                     isButtonActive
-                      ? 'border-beam-btn text-white [html[data-theme="light"]_&]:text-slate-900 [html[data-theme="light"]_&]:bg-slate-100'
-                      : 'text-white [html[data-theme="light"]_&]:text-slate-700 border border-white/20 [html[data-theme="light"]_&]:border-slate-300/80 bg-white/[0.04] [html[data-theme="light"]_&]:bg-slate-100/70 hover:bg-white/[0.08] [html[data-theme="light"]_&]:hover:bg-slate-200/70 hover:border-white/40'
+                      ? 'text-white [html[data-theme="light"]_&]:text-slate-900 bg-white/10 [html[data-theme="light"]_&]:bg-slate-200'
+                      : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
                   }`}
                 >
-
-                  <span className="relative z-10 font-medium tracking-wide text-white [html[data-theme='light']_&]:text-slate-800">{getButtonLabel()}</span>
-                  <ChevronDown size={13} className={`relative z-10 text-white [html[data-theme='light']_&]:text-slate-600 transition-transform duration-300 ${featuresOpen ? 'rotate-180' : ''}`} />
+                  <span className="font-normal text-inherit">{getButtonLabel()}</span>
+                  <ChevronDown size={12} className={`transition-transform duration-200 ${featuresOpen ? 'rotate-180' : ''}`} />
                 </button>
               );
             })()}
@@ -249,8 +250,8 @@ export const Navbar = ({
               data-nav="pricing"
               onClick={() => { onNavigate('pricing'); closeDropdown(); }}
               onMouseEnter={() => prefetchPage('pricing')}
-              className={`transition-colors font-medium whitespace-nowrap text-nowrap cursor-pointer ${
-                currentPage === 'pricing' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
+              className={`transition-colors font-normal whitespace-nowrap cursor-pointer ${
+                currentPage === 'pricing' ? 'text-white [html[data-theme="light"]_&]:text-slate-900 font-medium' : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
               }`}
             >
               {t.navbar.pricing}
@@ -261,46 +262,66 @@ export const Navbar = ({
               data-nav="about"
               onClick={() => { onNavigate('about'); closeDropdown(); }}
               onMouseEnter={() => prefetchPage('about')}
-              className={`transition-colors font-medium whitespace-nowrap text-nowrap cursor-pointer ${
-                currentPage === 'about' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
+              className={`transition-colors font-normal whitespace-nowrap cursor-pointer ${
+                currentPage === 'about' ? 'text-white [html[data-theme="light"]_&]:text-slate-900 font-medium' : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
               }`}
             >
               {t.navbar.about}
             </button>
 
-            {/* Resources & Community Dropdown (Designed as a Clean Text Link) */}
+            {/* Resources & Community Dropdown */}
             <button 
               onClick={() => toggleDropdown('resources')}
-              className={`flex items-center gap-1.5 transition-colors font-medium whitespace-nowrap text-nowrap cursor-pointer ${
+              className={`flex items-center gap-1.5 transition-colors font-normal whitespace-nowrap cursor-pointer ${
                 resourcesOpen || ['docs', 'changelog', 'discussions', 'explore'].includes(currentPage)
-                  ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600'
-                  : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
+                  ? 'text-white [html[data-theme="light"]_&]:text-slate-900 font-medium'
+                  : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
               }`}
             >
               <span>{isVi ? 'Tài liệu & Cộng đồng' : 'Docs & Community'}</span>
-              <ChevronDown size={12} className={`transition-transform duration-200 ${resourcesOpen ? 'rotate-180' : ''}`} />
+              <ChevronDown size={11} className={`transition-transform duration-200 ${resourcesOpen ? 'rotate-180' : ''}`} />
             </button>
 
           </nav>
         </div>
 
-        {/* Right Cell: Search + Full-Height Sign In + Social Icons */}
-        <div className="flex items-stretch gap-0 shrink-0">
-          {/* Search Input — desktop only, centered vertically */}
-          <div className="hidden lg:flex items-center self-center mr-3 xl:mr-4">
+        {/* Right Cell: Search + Language + Theme + Sign In + Try Aevum Button (No table grid borders!) */}
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+          {/* Search Input — desktop only */}
+          <div className="hidden lg:flex items-center">
             <div 
               onClick={onOpenSearch}
-              className="flex items-center gap-3 bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-100 hover:bg-white/[0.08] [html[data-theme='light']_&]:hover:bg-slate-200/70 border border-white/10 [html[data-theme='light']_&]:border-slate-300/80 px-3 py-1.5 rounded-lg text-slate-400 [html[data-theme='light']_&]:text-slate-500 cursor-pointer transition-all group"
+              className="flex items-center gap-2 bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-100 hover:bg-white/[0.08] [html[data-theme='light']_&]:hover:bg-slate-200 border border-white/10 [html[data-theme='light']_&]:border-slate-300 px-2.5 py-1 rounded-md text-slate-400 cursor-pointer transition-all group"
             >
-              <Search size={14} className="group-hover:text-white [html[data-theme='light']_&]:group-hover:text-slate-900 transition-colors" />
-              <span className="text-xs text-slate-400 [html[data-theme='light']_&]:text-slate-600 group-hover:text-white [html[data-theme='light']_&]:group-hover:text-slate-900">
-                {isVi ? 'Tìm kiếm OS...' : 'Search OS...'}
+              <Search size={13} className="group-hover:text-white transition-colors" />
+              <span className="text-xs text-slate-400 group-hover:text-white">
+                {isVi ? 'Tìm kiếm OS...' : 'Search...'}
               </span>
-              <kbd className="hidden sm:inline-block text-[10px] font-mono bg-white/10 [html[data-theme='light']_&]:bg-slate-200/80 px-1.5 py-0.5 rounded text-slate-400 [html[data-theme='light']_&]:text-slate-600 border border-white/10 [html[data-theme='light']_&]:border-slate-300 ml-2">
+              <kbd className="hidden sm:inline-block text-[10px] font-mono bg-white/5 px-1 py-0.5 rounded text-slate-400 border border-white/10">
                 Ctrl K
               </kbd>
             </div>
           </div>
+
+          {/* Clean Language Switcher (VI / EN) */}
+          <button
+            onClick={() => onChangeLang(activeLang === 'vi' ? 'en' : 'vi')}
+            className="px-2 py-1 text-xs font-mono text-slate-400 hover:text-white [html[data-theme='light']_&]:text-slate-600 [html[data-theme='light']_&]:hover:text-slate-900 transition-colors cursor-pointer"
+            title={activeLang === 'vi' ? 'Switch to English' : 'Chuyển sang Tiếng Việt'}
+          >
+            {activeLang === 'vi' ? 'EN' : 'VI'}
+          </button>
+
+          {/* Theme Toggle Button */}
+          {onToggleTheme && (
+            <button
+              onClick={onToggleTheme}
+              className="p-1.5 text-slate-400 hover:text-white [html[data-theme='light']_&]:text-slate-600 [html[data-theme='light']_&]:hover:text-slate-900 transition-colors cursor-pointer"
+              title="Toggle Theme"
+            >
+              <Sun size={15} />
+            </button>
+          )}
 
           {/* Supabase User Authentication Button */}
           {user ? (() => {
@@ -361,19 +382,25 @@ export const Navbar = ({
 
             <button
               onClick={onOpenAuthModal}
-              className={`flex items-center self-stretch gap-2 text-xs font-mono text-slate-300 hover:text-white [html[data-theme='light']_&]:text-slate-700 [html[data-theme='light']_&]:hover:text-slate-900 px-4 sm:px-5 border-l border-r ${
-                isNavbarScrolled
-                  ? 'border-white/10 [html[data-theme=\'light\']_&]:border-slate-200'
-                  : 'border-transparent'
-              } bg-transparent hover:bg-white/[0.04] [html[data-theme='light']_&]:hover:bg-slate-100/60 transition-all cursor-pointer group rounded-none`}
+              className="flex items-center gap-1.5 text-xs font-mono text-slate-300 hover:text-white px-3 py-1.5 rounded-md hover:bg-white/5 transition-all cursor-pointer"
               title={isVi ? "Đăng nhập tài khoản" : "Sign in to Aevum account"}
             >
-              <User size={13} className="text-slate-400 group-hover:text-cyan-400 [html[data-theme='light']_&]:text-slate-500 [html[data-theme='light']_&]:group-hover:text-cyan-600 transition-colors" />
-              <span className="font-bold uppercase tracking-wider text-slate-300 group-hover:text-cyan-400 [html[data-theme='light']_&]:text-slate-700 [html[data-theme='light']_&]:group-hover:text-cyan-600 transition-colors">
+              <User size={13} className="text-slate-400" />
+              <span className="font-medium uppercase tracking-wider text-slate-300 hover:text-white">
                 {isVi ? 'ĐĂNG NHẬP' : 'SIGN IN'}
               </span>
             </button>
           )}
+
+          {/* CoralOS Signature "Try Aevum" Header Pill */}
+          <div className="hidden sm:flex items-center pl-1">
+            <button
+              onClick={() => onNavigate('changelog')}
+              className="px-4 py-1.5 rounded-full bg-[#ECEEFE] hover:bg-white text-[#0A0B0F] font-semibold text-xs transition-all duration-200 shadow-sm cursor-pointer select-none"
+            >
+              {isVi ? 'Dùng thử' : 'Try Aevum'}
+            </button>
+          </div>
 
           {/* Social Icons */}
           <div className="hidden md:flex items-center gap-2 px-3 sm:px-4 lg:px-6">

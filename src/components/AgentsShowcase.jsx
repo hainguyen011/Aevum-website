@@ -219,13 +219,21 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
     },
   ];
 
-  // Shared agent card renderer (Preserving exact visual design: no border-radius, flush edges, linear fading borders)
+  // Shared agent card renderer with CoralOS Telemetry Overlay
   const AgentCard = ({ agent, className = '', isActive = false }) => {
     return (
       <div
-        className={`relative bg-[#07090D] [html[data-theme='light']_&]:bg-[#0F172A] overflow-hidden rounded-none agent-masonry-card ${className}`}
+        className={`relative bg-[#07090D] [html[data-theme='light']_&]:bg-[#0F172A] overflow-hidden rounded-none agent-masonry-card group ${className}`}
         style={{ '--agent-theme': agent.themeColor }}
       >
+        {/* Top Telemetry Badge */}
+        <div className="absolute top-4 left-4 z-20 flex items-center gap-2">
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#0C0E14]/85 border border-white/15 backdrop-blur-md text-[10px] font-mono text-cyan-300 font-medium select-none shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span>{agent.aid}</span>
+          </span>
+        </div>
+
         <img
           src={agent.avatar}
           alt={agent.name}
@@ -233,14 +241,19 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
           decoding="async"
           width="400"
           height="520"
-          className={`absolute inset-0 w-full h-full object-cover ${agent.objectPosition || 'object-center'} opacity-65 brightness-[0.72] contrast-[1.05]`}
+          className={`absolute inset-0 w-full h-full object-cover ${agent.objectPosition || 'object-center'} opacity-65 brightness-[0.72] contrast-[1.05] group-hover:scale-105 group-hover:opacity-85 transition-all duration-700`}
         />
         <div className="absolute inset-x-0 bottom-0 h-3/5 agent-card-gradient pointer-events-none" />
         <div className="absolute inset-x-0 bottom-0 p-6 sm:p-7 agent-card-gradient z-10 font-sans space-y-2.5">
           <div className="space-y-1">
-            <h3 className="text-2xl sm:text-3xl text-white font-medium tracking-tight font-display">
-              {agent.name}
-            </h3>
+            <div className="flex items-center justify-between">
+              <h3 className="text-2xl sm:text-3xl text-white font-medium tracking-tight font-display">
+                {agent.name}
+              </h3>
+              <span className="text-[10px] font-mono text-cyan-400 font-semibold px-2 py-0.5 rounded bg-cyan-500/10 border border-cyan-400/30">
+                SWARM READY
+              </span>
+            </div>
             <p className="text-xs font-sans text-slate-300 font-normal tracking-normal truncate" title={agent.role}>
               {agent.role}
             </p>
@@ -249,7 +262,7 @@ export const AgentsShowcase = ({ activeLang, onOpenTrialModal }) => {
             <p className="text-xs text-slate-300 leading-relaxed font-sans">{agent.bio}</p>
             <div className="flex flex-wrap gap-1.5 pt-1">
               {agent.capabilities.map((cap, i) => (
-                <span key={i} className="px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/10 text-[11px] font-sans text-slate-300 font-normal">
+                <span key={i} className="px-2.5 py-1 rounded-full bg-white/[0.06] border border-white/10 text-[11px] font-sans text-slate-200 font-normal">
                   {cap}
                 </span>
               ))}

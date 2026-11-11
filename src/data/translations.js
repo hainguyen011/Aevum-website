@@ -17,12 +17,20 @@ export const translations = {
     },
     hero: {
       badge: "I2FLABS VIỆT NAM • HỆ ĐIỀU HÀNH NHÂN LỰC SỐ THÔNG MINH",
+      tagline: "AEVUM OS 2.0 • HỆ ĐIỀU HÀNH CHO BIỆT ĐỘI TÁC TỬ TỰ HÀNH",
       title: "Hệ Điều Hành Nhân Lực Số Thông Minh",
+      coraloTitle: "Hệ Điều Hành Cho Biệt Đội Tác Tử Tự Hành",
       desc: "Giải phóng bạn khỏi sự cô độc và kiệt sức khi xây dựng sản phẩm. Aevum OS mang đến Biệt đội AI Agent chuyên môn hóa (Dev, Architect, QA, Growth) có Ký ức Sống, tự phối hợp giải quyết dự án trọn vẹn 24/7.",
-      downloadBtn: "Tải xuống ngay",
+      coraloDesc: "Triển khai, cô lập và điều phối các biệt đội AI tự hành với CoW sandbox không rủi ro, bộ lập lịch ưu tiên MLFQ và giao thức kết nối IoA toàn cầu.",
+      downloadBtn: "Tải bản Desktop",
       docsBtn: "Đọc tài liệu",
       startKernel: "KHỞI CHẠY NHÂN OS:",
-      copyCmd: "Sao chép lệnh"
+      copyCmd: "Sao chép lệnh",
+      cliCmd: "npm i -g aevum-os",
+      copied: "Đã chép!",
+      simTitle: "AEVUM SWARM KERNEL v2.0 • LIVE ORCHESTRATION TRACE",
+      simReplay: "Chạy lại mô phỏng",
+      liveBadge: "HỆ THỐNG TRỰC TUYẾN"
     },
     subNavTabs: {
       tab1: "Nhân OS Độc lập",
@@ -229,12 +237,20 @@ export const translations = {
     },
     hero: {
       badge: "BY I2FLABS VIETNAM • AUTONOMOUS DIGITAL WORKFORCE OS",
+      tagline: "AEVUM OS 2.0 • THE OPERATING SYSTEM FOR AUTONOMOUS SWARMS",
       title: "The Autonomous Digital Workforce OS",
+      coraloTitle: "The Operating System for Autonomous Swarms",
       desc: "Never build alone or struggle with forgetful chatbots again. Aevum OS equips you with a specialized AI squad (Dev, Architect, QA, Growth) with Living Memory that collaborates to ship complex projects 24/7.",
-      downloadBtn: "Download Now",
+      coraloDesc: "Deploy, isolate, and orchestrate autonomous AI swarms with zero-trust CoW sandboxes, MLFQ preemptive scheduling, and global IoA mesh protocols.",
+      downloadBtn: "Download Desktop App",
       docsBtn: "Read Documentation",
       startKernel: "START KERNEL:",
-      copyCmd: "Copy command"
+      copyCmd: "Copy command",
+      cliCmd: "npm i -g aevum-os",
+      copied: "Copied!",
+      simTitle: "AEVUM SWARM KERNEL v2.0 • LIVE ORCHESTRATION TRACE",
+      simReplay: "Replay Simulation",
+      liveBadge: "SYSTEM ONLINE"
     },
     subNavTabs: {
       tab1: "Standalone OS Kernel",

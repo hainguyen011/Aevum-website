@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import React, { useState } from 'react';
 import { translations } from '../data/translations';
+import { Shield, Cpu, Layers, Network, Activity, HardDrive, GitBranch, Zap, CheckCircle2, HeartPulse, Terminal } from 'lucide-react';
 
 // Sticker Imports from Agent Collections (Optimized WebP)
 import anHiSticker from '../../assets/stickers/An_Collection/An_Hi.webp';
@@ -8,329 +8,239 @@ import zenithCuriosSticker from '../../assets/stickers/Zenith_Collection/Zenith_
 import lunaLoverSticker from '../../assets/stickers/Luna_Collection/Luna_Lover.webp';
 import vidusHipeSticker from '../../assets/stickers/Vidus_Collection/Vidus_Hipe.webp';
 
-export const BentoGrid = ({ activeLang }) => {
+export const BentoGrid = ({ activeLang = 'vi' }) => {
   const t = translations[activeLang] || translations.en;
-  const [activeSlide, setActiveSlide] = useState(0);
-  const scrollRef = useRef(null);
+  const isVi = activeLang === 'vi';
 
-  // Typewriter Speech State
-  const [typedSpeech, setTypedSpeech] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
+  const [activeTab, setActiveTab] = useState(0);
 
-  const handleScroll = () => {
-    if (!scrollRef.current) return;
-    window.requestAnimationFrame(() => {
-      if (!scrollRef.current) return;
-      const { scrollLeft, children, clientWidth } = scrollRef.current;
-      const cardWidth = children[0]?.clientWidth ?? clientWidth ?? 300;
-      if (cardWidth > 0) {
-        const idx = Math.round(scrollLeft / cardWidth);
-        setActiveSlide(Math.min(Math.max(0, idx), items.length - 1));
-      }
-    });
-  };
-
-  const scrollToSlide = (idx) => {
-    if (!scrollRef.current) return;
-    const cardWidth = scrollRef.current.children[0]?.offsetWidth ?? scrollRef.current.offsetWidth;
-    scrollRef.current.scrollTo({ left: idx * cardWidth, behavior: 'smooth' });
-    setActiveSlide(idx);
-  };
-
-  // Render title with highlight span programmatically
-  const titleText = t.bentoGrid.title;
-  let titleNode = titleText;
-  if (titleText.includes("Aevum OS")) {
-    const parts = titleText.split("Aevum OS");
-    titleNode = (
-      <>
-        {parts[0]}<span className="text-white">Aevum OS</span>{parts[1]}
-      </>
-    );
-  }
-
-  const items = [
+  const modules = [
     {
-      id: "01",
-      tag: "HANDSHAKE & SOUL SYNC",
-      num: "01",
-      title: t.bentoGrid.b1Title,
-      desc: t.bentoGrid.b1Desc,
-      agentName: "An • Soul Companion",
-      speech: t.bentoGrid.b1Speech,
-      sticker: anHiSticker,
-      badgeColor: "border-cyan-400/40 text-cyan-400 bg-cyan-500/10",
-      glowColor: "from-cyan-500/20 to-blue-600/10"
-    },
-    {
-      id: "02",
-      tag: "DOMAIN-DRIVEN BRAIN (DDD)",
-      num: "02",
-      title: t.bentoGrid.b2Title,
-      desc: t.bentoGrid.b2Desc,
-      agentName: "Zenith • System Architect",
-      speech: t.bentoGrid.b2Speech,
-      sticker: zenithCuriosSticker,
-      badgeColor: "border-indigo-400/40 text-indigo-400 bg-indigo-500/10",
-      glowColor: "from-indigo-500/20 to-purple-600/10"
-    },
-    {
-      id: "03",
-      tag: "AUTONOMOUS SQUAD OS",
-      num: "03",
-      title: t.bentoGrid.b3Title,
-      desc: t.bentoGrid.b3Desc,
-      agentName: "Luna • UI/UX Specialist",
-      speech: t.bentoGrid.b3Speech,
-      sticker: lunaLoverSticker,
-      badgeColor: "border-pink-400/40 text-pink-400 bg-pink-500/10",
-      glowColor: "from-pink-500/20 to-rose-600/10"
-    },
-    {
-      id: "04",
-      tag: "PIPERNET IOA MESH",
-      num: "04",
-      title: t.bentoGrid.b4Title,
-      desc: t.bentoGrid.b4Desc,
-      agentName: "Vidus • Security Auditor",
-      speech: t.bentoGrid.b4Speech,
+      id: 'cow-sandbox',
+      colSpan: 'lg:col-span-8',
+      tag: isVi ? 'ẢO HÓA BỘ NHỚ CÔ LẬP' : 'COPY-ON-WRITE VIRTUALIZATION',
+      title: isVi ? 'CoW Virtual Sandbox: An Toàn 100% Cho Đĩa Cứng' : 'CoW Virtual Sandbox: Zero-Risk Ephemeral Isolation',
+      desc: isVi
+        ? 'Mỗi cửa sổ agent hoạt động trong một phân vùng RAM ảo hóa Copy-on-Write riêng biệt. Toàn bộ thao tác ghi file, thực thi lệnh CLI và thay đổi tạm thời đều được cô lập hoàn toàn, tự động dọn dẹp trong 4ms khi hoàn tất tác vụ.'
+        : 'Every agent window runs in an isolated Copy-on-Write volatile RAM partition. All file modifications, CLI command executions, and state diffs are 100% sandboxed with instant 4ms rollback.',
+      agentName: 'Hawl & Vidus • Zero-Trust Gate',
       sticker: vidusHipeSticker,
-      badgeColor: "border-emerald-400/40 text-emerald-400 bg-emerald-500/10",
-      glowColor: "from-emerald-500/20 to-teal-600/10"
+      icon: Shield,
+      accent: '#00C8F0',
+      badgeClass: 'text-cyan-400 bg-cyan-500/10 border-cyan-400/30',
+      widget: (
+        <div className="mt-4 p-4 rounded-xl bg-[#08090D] [html[data-theme='light']_&]:bg-slate-100 border border-white/10 [html[data-theme='light']_&]:border-slate-200 font-mono text-xs space-y-2">
+          <div className="flex items-center justify-between text-slate-400 [html[data-theme='light']_&]:text-slate-600 text-[11px] pb-2 border-b border-white/5 [html[data-theme='light']_&]:border-slate-200">
+            <span>ISOLATION PROTOCOL: CoW-V2</span>
+            <span className="text-emerald-400 font-semibold">HOST DISK: UNTOUCHED</span>
+          </div>
+          <div className="grid grid-cols-3 gap-2 pt-1 text-center">
+            <div className="p-2 rounded bg-white/[0.02] [html[data-theme='light']_&]:bg-white border border-white/5 [html[data-theme='light']_&]:border-slate-200">
+              <span className="block text-[10px] text-slate-500">RAM DIFF</span>
+              <span className="text-slate-200 [html[data-theme='light']_&]:text-slate-800 font-bold text-sm">+12.4 MB</span>
+            </div>
+            <div className="p-2 rounded bg-white/[0.02] [html[data-theme='light']_&]:bg-white border border-white/5 [html[data-theme='light']_&]:border-slate-200">
+              <span className="block text-[10px] text-slate-500">DISK DRIFT</span>
+              <span className="text-emerald-400 font-bold text-sm">0 BYTES</span>
+            </div>
+            <div className="p-2 rounded bg-white/[0.02] [html[data-theme='light']_&]:bg-white border border-white/5 [html[data-theme='light']_&]:border-slate-200">
+              <span className="block text-[10px] text-slate-500">TEARDOWN</span>
+              <span className="text-cyan-400 font-bold text-sm">3.8 ms</span>
+            </div>
+          </div>
+        </div>
+      )
+    },
+    {
+      id: 'mlfq-scheduler',
+      colSpan: 'lg:col-span-4',
+      tag: isVi ? 'LẬP LỊCH ĐA HÀNG ĐỢI' : 'PREEMPTIVE MLFQ SCHEDULER',
+      title: isVi ? 'MLFQ Preemptive Scheduling' : 'MLFQ Preemptive Scheduler',
+      desc: isVi
+        ? 'Phân luồng ưu tiên 3 cấp (Q0 Realtime Voice/UI, Q1 Squad Handoff, Q2 Background LTM) loại bỏ hoàn toàn hiện tượng nghẽn đơn luồng và zombie processes.'
+        : 'Multi-Level Feedback Queue with 3 tiers (Q0 Realtime, Q1 Handoff, Q2 Background) completely eliminating thread starvation and zombie processes.',
+      agentName: 'Zenith • Algorithm Lead',
+      sticker: zenithCuriosSticker,
+      icon: Layers,
+      accent: '#10B981',
+      badgeClass: 'text-emerald-400 bg-emerald-500/10 border-emerald-400/30',
+      widget: (
+        <div className="mt-4 p-3.5 rounded-xl bg-[#08090D] [html[data-theme='light']_&]:bg-slate-100 border border-white/10 [html[data-theme='light']_&]:border-slate-200 font-mono text-[11px] space-y-2">
+          <div className="flex items-center justify-between text-slate-300 [html[data-theme='light']_&]:text-slate-700">
+            <span>Q0 • Realtime UI (2ms)</span>
+            <span className="text-cyan-400 font-semibold">Priority High</span>
+          </div>
+          <div className="w-full bg-white/5 rounded-full h-1.5 overflow-hidden">
+            <div className="bg-cyan-400 h-1.5 rounded-full w-[92%]" />
+          </div>
+
+          <div className="flex items-center justify-between text-slate-300 [html[data-theme='light']_&]:text-slate-700 pt-1">
+            <span>Q1 • Inter-Agent IACP</span>
+            <span className="text-emerald-400 font-semibold">&lt; 0.4ms</span>
+          </div>
+          <div className="w-full bg-white/5 rounded-full h-1.5 overflow-hidden">
+            <div className="bg-emerald-400 h-1.5 rounded-full w-[78%]" />
+          </div>
+
+          <div className="flex items-center justify-between text-slate-300 [html[data-theme='light']_&]:text-slate-700 pt-1">
+            <span>Q2 • Deep LTM Reflex</span>
+            <span className="text-purple-400 font-semibold">Yielding</span>
+          </div>
+          <div className="w-full bg-white/5 rounded-full h-1.5 overflow-hidden">
+            <div className="bg-purple-400 h-1.5 rounded-full w-[45%]" />
+          </div>
+        </div>
+      )
+    },
+    {
+      id: 'pipernet-mesh',
+      colSpan: 'lg:col-span-5',
+      tag: isVi ? 'MẠNG LƯỚI TOÀN CẦU' : 'DECENTRALIZED IOA MESH',
+      title: isVi ? 'PiperNet & Internet of Agents' : 'PiperNet & Internet of Agents (IoA)',
+      desc: isVi
+        ? 'Giao thức mạng lưới P2P phi tập trung kết nối hàng ngàn biệt đội tác tử trên khắp thế giới. Trao đổi và chưng cất giải pháp kiến trúc đã mã hóa trừu tượng mà không rò rỉ mã nguồn dự án.'
+        : 'Decentralized peer-to-peer mesh connecting thousands of autonomous swarms globally. Shares abstract DDD architectural patterns without leaking proprietary code.',
+      agentName: 'Kai • IoA Protocol Lead',
+      sticker: anHiSticker,
+      icon: Network,
+      accent: '#38BDF8',
+      badgeClass: 'text-sky-400 bg-sky-500/10 border-sky-400/30',
+      widget: (
+        <div className="mt-4 p-3.5 rounded-xl bg-[#08090D] [html[data-theme='light']_&]:bg-slate-100 border border-white/10 [html[data-theme='light']_&]:border-slate-200 font-mono text-[11px] space-y-1.5">
+          <div className="flex items-center justify-between text-slate-400 [html[data-theme='light']_&]:text-slate-600 pb-1 border-b border-white/5 [html[data-theme='light']_&]:border-slate-200">
+            <span>TOPOLOGY: P2P KADEMLIA</span>
+            <span className="text-cyan-400">1,428 PEERS</span>
+          </div>
+          <div className="flex items-center justify-between pt-1 text-slate-300 [html[data-theme='light']_&]:text-slate-700">
+            <span className="flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-emerald-400" />
+              <span>Singapore Mesh Node</span>
+            </span>
+            <span className="text-emerald-400 font-semibold">18ms</span>
+          </div>
+          <div className="flex items-center justify-between text-slate-300 [html[data-theme='light']_&]:text-slate-700">
+            <span className="flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-emerald-400" />
+              <span>Tokyo Mesh Node</span>
+            </span>
+            <span className="text-emerald-400 font-semibold">32ms</span>
+          </div>
+          <div className="flex items-center justify-between text-slate-300 [html[data-theme='light']_&]:text-slate-700">
+            <span className="flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-emerald-400" />
+              <span>Frankfurt Mesh Node</span>
+            </span>
+            <span className="text-emerald-400 font-semibold">84ms</span>
+          </div>
+        </div>
+      )
+    },
+    {
+      id: 'living-organs',
+      colSpan: 'lg:col-span-7',
+      tag: isVi ? 'KIẾN TRÚC SINH HỌC O-DDD' : 'ORGANISMIC DOMAIN ARCHITECTURE',
+      title: isVi ? '7 Living Organs: Cấu Trúc Cơ Quan Sống' : '7 Living Organs: Bio-Architectural System',
+      desc: isVi
+        ? 'Aevum OS cấu trúc 18 miền vật lý thành 7 cơ quan sinh học sống: Kernel Tuần hoàn, Vỏ não Nhận thức, Lưới Đa tác tử, Hệ Chuyển hóa Đám mây, Vùng Cảm giác Workspace, Hệ Miễn dịch Zero-Trust và Phòng Đo kiểm Chất lượng.'
+        : 'Aevum OS maps 18 physical domains into 7 living organs: Circulatory Kernel, Cerebral Cortex, Swarm Mesh, Metabolic Cloud, Sensory Presentation, Phagocytic Immune Defense, and Evolutionary Audit Lab.',
+      agentName: 'Bé An & Luna • Core Architects',
+      sticker: lunaLoverSticker,
+      icon: HeartPulse,
+      accent: '#A855F7',
+      badgeClass: 'text-purple-400 bg-purple-500/10 border-purple-400/30',
+      widget: (
+        <div className="mt-4 p-4 rounded-xl bg-[#08090D] [html[data-theme='light']_&]:bg-slate-100 border border-white/10 [html[data-theme='light']_&]:border-slate-200 font-mono text-xs">
+          <div className="flex items-center justify-between text-slate-400 [html[data-theme='light']_&]:text-slate-600 text-[11px] pb-2 border-b border-white/5 [html[data-theme='light']_&]:border-slate-200">
+            <span>VITALITY INDEX: APEX 96.8%</span>
+            <span className="text-emerald-400 font-semibold">ALL ORGANS OPTIMAL</span>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2.5 text-center">
+            <div className="p-2 rounded bg-white/[0.02] [html[data-theme='light']_&]:bg-white border border-white/5 [html[data-theme='light']_&]:border-slate-200">
+              <span className="block text-[10px] text-slate-500">KERNEL</span>
+              <span className="text-cyan-400 font-bold text-xs">97% Vital</span>
+            </div>
+            <div className="p-2 rounded bg-white/[0.02] [html[data-theme='light']_&]:bg-white border border-white/5 [html[data-theme='light']_&]:border-slate-200">
+              <span className="block text-[10px] text-slate-500">REFLEX</span>
+              <span className="text-purple-400 font-bold text-xs">96% Vital</span>
+            </div>
+            <div className="p-2 rounded bg-white/[0.02] [html[data-theme='light']_&]:bg-white border border-white/5 [html[data-theme='light']_&]:border-slate-200">
+              <span className="block text-[10px] text-slate-500">SWARM</span>
+              <span className="text-emerald-400 font-bold text-xs">95% Vital</span>
+            </div>
+            <div className="p-2 rounded bg-white/[0.02] [html[data-theme='light']_&]:bg-white border border-white/5 [html[data-theme='light']_&]:border-slate-200">
+              <span className="block text-[10px] text-slate-500">IMMUNE</span>
+              <span className="text-amber-400 font-bold text-xs">100% Guard</span>
+            </div>
+          </div>
+        </div>
+      )
     }
   ];
 
-  // Trigger typewriter effect on slide switch or language change
-  useEffect(() => {
-    const fullSpeech = items[activeSlide]?.speech || '';
-    setTypedSpeech('');
-    setIsTyping(true);
-    let currentIdx = 0;
-
-    const interval = setInterval(() => {
-      if (currentIdx < fullSpeech.length) {
-        currentIdx++;
-        setTypedSpeech(fullSpeech.slice(0, currentIdx));
-      } else {
-        setIsTyping(false);
-        clearInterval(interval);
-      }
-    }, 18);
-
-    return () => clearInterval(interval);
-  }, [activeSlide, activeLang]);
-
   return (
-    <div id="breakthroughs" className="border-subtle-b bg-[#07090D]">
+    <section id="breakthroughs" className="relative w-full py-20 sm:py-28 bg-[#0A0B0F] [html[data-theme='light']_&]:bg-[#F8FAFC] border-subtle-b [html[data-theme='light']_&]:border-slate-200/80">
 
-      {/* Section Header Cell */}
-      <div className="section-header-optical text-center border-subtle-b bg-[#07090D] border-scan">
-        <span className="text-[11px] font-mono text-white font-semibold tracking-widest uppercase">
-          {t.bentoGrid.tag}
-        </span>
-        <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-2 font-display">
-          {titleNode}
+      {/* Top Header */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-12 sm:mb-16">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0C0E14] border border-white/10 [html[data-theme='light']_&]:bg-slate-100 [html[data-theme='light']_&]:border-slate-300 mb-4">
+          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+          <span className="text-[11px] font-mono uppercase tracking-widest text-slate-300 [html[data-theme='light']_&]:text-slate-700 font-semibold">
+            {isVi ? 'ĐỘT PHÁ CÔNG NGHỆ CỐT LÕI' : 'CORE ARCHITECTURAL BREAKTHROUGHS'}
+          </span>
+        </div>
+
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white [html[data-theme='light']_&]:text-slate-900 tracking-tight font-display">
+          {isVi ? 'Kiến Trúc Đột Phá Chuẩn Enterprise' : 'Enterprise-Grade Architectural Pillars'}
         </h2>
-        <p className="text-slate-400 text-xs sm:text-sm max-w-xl mx-auto mt-2">
-          {t.bentoGrid.desc}
+
+        <p className="mt-4 text-sm sm:text-base text-slate-400 [html[data-theme='light']_&]:text-slate-600 max-w-2xl mx-auto font-sans leading-relaxed">
+          {isVi
+            ? 'Thiết kế theo triết lý O-DDD đỉnh cao, trao cho mỗi tác tử không gian ảo hóa an toàn tuyệt đối và khả năng hiệp đồng phi tập trung.'
+            : 'Engineered on Tier-5 O-DDD principles, providing zero-trust isolation and sovereign decentralized swarm coordination.'}
         </p>
       </div>
 
-      {/* Mobile Carousel View (lg:hidden) */}
-      <div className="lg:hidden">
-        <div
-          ref={scrollRef}
-          onScroll={handleScroll}
-          className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory py-0"
-          data-lenis-prevent
-        >
-          {items.map((item, idx) => (
-            <div
-              key={idx}
-              className="snap-start shrink-0 w-full p-6 sm:p-8 flex flex-col justify-between group bg-[#07080d]/60 border-b border-white/10"
-            >
-              <div className="space-y-3 mb-6">
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-mono font-bold text-cyan-400 tracking-wider uppercase">
-                    {item.tag}
-                  </span>
-                  <span className="text-xs font-mono font-extrabold text-slate-300">
-                    {item.num}
-                  </span>
-                </div>
-                <h3 className="text-lg font-bold text-white font-display">
-                  {item.title}
-                </h3>
-                <p className="text-slate-400 text-xs leading-relaxed">
-                  {item.desc}
-                </p>
-              </div>
-
-              {/* Cloud Speech Bubble & Sticker for Mobile */}
-              <div className="flex flex-col items-center space-y-4 pt-2">
-                <div className="relative bg-white text-slate-900 p-4 rounded-xl border border-white/40 shadow-none text-center max-w-xs transition-all duration-300 animate-pop-in">
-                  <div className="text-[10px] font-mono font-bold text-cyan-700 mb-1">
-                    {item.agentName}
-                  </div>
-                  <p className="text-slate-900 text-xs leading-relaxed font-sans font-semibold">
-                    "{activeSlide === idx ? typedSpeech : item.speech}"
-                    {activeSlide === idx && isTyping && (
-                      <span className="inline-block w-1 h-3 ml-0.5 bg-cyan-600 animate-pulse align-middle"></span>
-                    )}
-                  </p>
-                  {/* Cloud Tail Pointing Down to Agent with matching border */}
-                  <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-white border-r border-b border-inherit rotate-45"></div>
-                </div>
-                <img
-                  src={item.sticker}
-                  alt={item.agentName}
-                  loading="lazy"
-                  decoding="async"
-                  width="128"
-                  height="128"
-                  className="h-32 w-auto object-contain select-none"
-                />
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Mobile Dot Indicators (44x44px Touch Targets for Accessibility) */}
-        <div className="flex justify-center items-center gap-1 py-3 border-subtle-t">
-          {items.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => scrollToSlide(idx)}
-              aria-label={`Go to slide ${idx + 1} - ${items[idx].title}`}
-              className="min-w-[44px] min-h-[44px] flex items-center justify-center cursor-pointer p-2"
-            >
-              <span
-                className={`block transition-all duration-300 rounded-full ${
-                  activeSlide === idx
-                    ? 'w-6 h-2 bg-cyan-400'
-                    : 'w-2 h-2 bg-white/20 hover:bg-white/40'
-                }`}
-              />
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Desktop Interactive Carousel Showcase (lg:block) */}
-      <div className="hidden lg:block max-w-6xl mx-auto px-8 py-12">
-        {/* Main Stage Grid */}
-        <div className="relative p-10 sm:p-12 rounded-3xl bg-[#07080d]/80 border border-white/10 overflow-hidden shadow-none transition-all duration-500">
-          
-          {/* Ambient Background Radial Glow */}
-          <div className={`absolute -right-20 -bottom-20 w-96 h-96 rounded-full bg-gradient-to-br ${items[activeSlide].glowColor} blur-3xl opacity-50 pointer-events-none transition-all duration-700`}></div>
-
-          <div className="grid grid-cols-12 gap-8 items-center relative z-10">
-            
-            {/* Left Column: Title & Feature Details (5 cols) */}
-            <div className="col-span-5 space-y-5">
-              <div className="flex items-center gap-3">
-                <span className={`px-3 py-1 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider border ${items[activeSlide].badgeColor}`}>
-                  {items[activeSlide].tag}
-                </span>
-                <span className="text-xs font-mono font-extrabold text-slate-300">
-                  {items[activeSlide].num} / 04
-                </span>
-              </div>
-
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-white font-display leading-tight">
-                {items[activeSlide].title}
-              </h3>
-
-              <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
-                {items[activeSlide].desc}
-              </p>
-
-              {/* Navigation Controls */}
-              <div className="flex items-center gap-3 pt-4">
-                <button
-                  onClick={() => setActiveSlide((prev) => (prev > 0 ? prev - 1 : items.length - 1))}
-                  className="w-10 h-10 rounded-full border border-white/10 bg-white/[0.03] hover:bg-cyan-500/20 hover:border-cyan-400/50 text-white flex items-center justify-center transition-all cursor-pointer"
-                  aria-label="Previous Slide"
-                >
-                  <ChevronLeft size={18} />
-                </button>
-                <button
-                  onClick={() => setActiveSlide((prev) => (prev < items.length - 1 ? prev + 1 : 0))}
-                  className="w-10 h-10 rounded-full border border-white/10 bg-white/[0.03] hover:bg-cyan-500/20 hover:border-cyan-400/50 text-white flex items-center justify-center transition-all cursor-pointer"
-                  aria-label="Next Slide"
-                >
-                  <ChevronRight size={18} />
-                </button>
-              </div>
-            </div>
-
-            {/* Right Column: Cloud Speech Bubble & Agent Sticker Stage (7 cols) */}
-            <div className="col-span-7 flex flex-col items-center justify-center space-y-6">
-              
-              {/* Cloud Speech Bubble with Pop-In Animation & Live Typewriter Effect */}
+      {/* Bento Grid 4 Asymmetric Modules */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          {modules.map((mod) => {
+            const Icon = mod.icon;
+            return (
               <div
-                key={`bubble-${activeSlide}`}
-                className="relative bg-white text-slate-900 p-6 rounded-2xl border border-white/40 shadow-none max-w-lg transition-all duration-300 animate-pop-in"
+                key={mod.id}
+                className={`${mod.colSpan} bento-card-coral rounded-2xl p-6 sm:p-8 bg-[#0C0E14] [html[data-theme='light']_&]:bg-white border border-white/10 [html[data-theme='light']_&]:border-slate-200 flex flex-col justify-between group hover:border-cyan-400/40 transition-all duration-300 shadow-md`}
               >
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-mono font-extrabold text-cyan-700 uppercase tracking-wider">
-                    {items[activeSlide].agentName}
-                  </span>
-                  <span className="text-[10px] font-mono font-bold text-slate-600">VOICE STREAM</span>
+                <div>
+                  {/* Top Bar with Tag and Icon */}
+                  <div className="flex items-center justify-between mb-4">
+                    <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider border ${mod.badgeClass}`}>
+                      <Icon size={12} />
+                      <span>{mod.tag}</span>
+                    </span>
+                    <span className="text-[11px] font-mono text-slate-500 font-medium">
+                      {mod.agentName}
+                    </span>
+                  </div>
+
+                  {/* Title & Description */}
+                  <h3 className="text-xl sm:text-2xl font-bold text-white [html[data-theme='light']_&]:text-slate-900 font-display group-hover:text-cyan-300 transition-colors">
+                    {mod.title}
+                  </h3>
+
+                  <p className="mt-3 text-xs sm:text-sm text-slate-400 [html[data-theme='light']_&]:text-slate-600 leading-relaxed font-sans">
+                    {mod.desc}
+                  </p>
                 </div>
-                
-                <p className="text-slate-900 text-sm sm:text-base font-semibold leading-relaxed font-sans min-h-[52px]">
-                  "{typedSpeech}"
-                  {isTyping && (
-                    <span className="inline-block w-1.5 h-4 ml-1 bg-cyan-600 animate-pulse align-middle"></span>
-                  )}
-                </p>
 
-                {/* Cloud Tail Pointing Down to Agent with matching border */}
-                <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-white border-r border-b border-inherit rotate-45"></div>
+                {/* Subsystem Live Interactive Widget */}
+                {mod.widget}
               </div>
-
-              {/* Floating Agent Sticker */}
-              <div className="relative pt-2">
-                <img
-                  key={activeSlide}
-                  src={items[activeSlide].sticker}
-                  alt={items[activeSlide].agentName}
-                  loading="lazy"
-                  decoding="async"
-                  width="208"
-                  height="208"
-                  className="h-44 sm:h-52 w-auto object-contain transition-all duration-500 animate-pulse-slow select-none"
-                />
-              </div>
-
-            </div>
-
-          </div>
-        </div>
-
-        {/* Bottom Thumbnail Selector Bar */}
-        <div className="grid grid-cols-4 gap-4 mt-6">
-          {items.map((item, idx) => (
-            <button
-              key={idx}
-              onClick={() => setActiveSlide(idx)}
-              className={`p-4 rounded-xl border text-left transition-all duration-300 cursor-pointer ${
-                activeSlide === idx
-                  ? 'bg-cyan-500/10 border-cyan-400/60 shadow-none'
-                  : 'bg-[#090b14]/60 border-white/10 hover:bg-white/[0.03] opacity-70 hover:opacity-100'
-              }`}
-            >
-              <div className="flex items-center justify-between mb-1">
-                <span className="text-[10px] font-mono font-bold text-cyan-400">{item.num}</span>
-              </div>
-              <p className="text-xs font-bold text-white truncate font-display">{item.title}</p>
-            </button>
-          ))}
+            );
+          })}
         </div>
       </div>
 
-    </div>
+    </section>
   );
 };
 

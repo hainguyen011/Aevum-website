@@ -50,3 +50,6 @@ scratch/
 .agents/
 .gemini/
 .antigravitycli/
+ 
+out/*.log
+

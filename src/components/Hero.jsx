@@ -28,7 +28,7 @@ export const Hero = ({ onNavigate, onOpenTrialModal, activeLang }) => {
               {isVi ? (
                 <>
                   Giữ trọn mã nguồn.<br />
-                  <span className="text-slate-300 [html[data-theme='light']_&]:text-slate-700">Kết nối biệt đội.</span>
+                  <span className="text-slate-300 [html[data-theme='light']_&]:text-slate-700">Cộng sự số.</span>
                 </>
               ) : (
                 <>

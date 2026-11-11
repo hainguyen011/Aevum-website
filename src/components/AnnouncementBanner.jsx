@@ -82,7 +82,7 @@ export const AnnouncementBanner = ({ onNavigate, activeLang, isScrolled: propIsS
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center gap-2 sm:gap-3 text-xs sm:text-[13px] font-sans">
         {/* Version Badge Pill */}
-        <span className="announcement-badge inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium bg-cyan-500/10 text-cyan-300 border border-cyan-400/25 tracking-wide shrink-0 [html[data-theme='light']_&]:bg-cyan-50 [html[data-theme='light']_&]:text-cyan-700 [html[data-theme='light']_&]:border-cyan-300">
+        <span className="announcement-badge inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium bg-white/10 text-white border border-white/20 tracking-wide shrink-0 [html[data-theme='light']_&]:bg-slate-200 [html[data-theme='light']_&]:text-slate-800 [html[data-theme='light']_&]:border-slate-300">
           {badgeText}
         </span>
 
@@ -91,12 +91,12 @@ export const AnnouncementBanner = ({ onNavigate, activeLang, isScrolled: propIsS
           {mainMessage}
         </span>
 
-        <span className="announcement-divider text-slate-500 [html[data-theme='light']_&]:text-slate-400 hidden sm:inline select-none">·</span>
+        <span className="announcement-divider text-slate-500 [html[data-theme='light']_&]:text-slate-400 hidden sm:inline select-none">/</span>
 
         {/* CTA Link */}
-        <span className="announcement-cta text-cyan-400 [html[data-theme='light']_&]:text-cyan-600 font-medium inline-flex items-center gap-1 group-hover:text-cyan-300 [html[data-theme='light']_&]:group-hover:text-cyan-700 transition-colors shrink-0">
+        <span className="announcement-cta text-slate-300 [html[data-theme='light']_&]:text-slate-700 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 font-medium inline-flex items-center gap-1 transition-colors shrink-0">
           <span>{ctaText}</span>
-          <ArrowRight size={13} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+          <ArrowRight size={13} />
         </span>
       </div>
     </div>

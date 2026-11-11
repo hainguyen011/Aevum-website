@@ -77,13 +77,13 @@ export const FaqSection = ({ activeLang = 'vi' }) => {
                 >
                   <button
                     onClick={() => setOpenIdx(isOpen ? -1 : idx)}
-                    className="w-full flex items-center justify-between text-left py-2 font-sans font-medium text-base sm:text-lg text-white [html[data-theme='light']_&]:text-slate-900 hover:text-cyan-300 transition-colors cursor-pointer gap-4"
+                    className="w-full flex items-center justify-between text-left py-2 font-sans font-medium text-base sm:text-lg text-white [html[data-theme='light']_&]:text-slate-900 hover:text-slate-200 [html[data-theme='light']_&]:hover:text-black transition-colors cursor-pointer gap-4"
                   >
                     <span>{faq.q}</span>
                     <ChevronDown
                       size={18}
                       className={`text-slate-400 shrink-0 transition-transform duration-200 ${
-                        isOpen ? 'rotate-180 text-cyan-400' : ''
+                        isOpen ? 'rotate-180 text-white [html[data-theme="light"]_&]:text-slate-900' : ''
                       }`}
                     />
                   </button>

@@ -41,7 +41,7 @@ export const Footer = ({ onNavigate, activeLang }) => {
                 aria-label="Aevum OS Homepage"
                 className="flex items-center gap-2.5 text-left p-0 cursor-pointer group bg-transparent border-0"
               >
-                <img src={logoImg} alt="Aevum OS Logo" width="24" height="24" className="w-6 h-6 object-contain group-hover:scale-105 transition-transform [html[data-theme='light']_&]:brightness-0" />
+                <img src={logoImg} alt="Aevum OS Logo" width="24" height="24" className="w-6 h-6 object-contain [html[data-theme='light']_&]:brightness-0" />
                 <span className="font-bold text-white text-base tracking-tight font-display">AEVUM OS</span>
               </button>
             </div>
@@ -177,7 +177,7 @@ export const Footer = ({ onNavigate, activeLang }) => {
             >
               {activeLang === 'vi' ? 'Chính sách Bảo mật' : 'Privacy Policy'}
             </button>
-            <span className="text-white/10 select-none">•</span>
+            <span className="text-white/20 select-none">/</span>
             <button
               onClick={() => onNavigate('terms')}
               className="text-slate-400 hover:text-white transition-colors py-1 cursor-pointer bg-transparent border-0 font-mono text-[11px]"

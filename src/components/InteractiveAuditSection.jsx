@@ -37,7 +37,7 @@ export const InteractiveAuditSection = ({ activeLang = 'vi' }) => {
         </div>
 
         {/* Giant CoralOS Signature Inspection Card */}
-        <div className="bento-card-coral rounded-2xl bg-[#0C0E14] [html[data-theme='light']_&]:bg-white border border-white/10 [html[data-theme='light']_&]:border-slate-200 overflow-hidden shadow-2xl">
+        <div className="bento-card-coral rounded-2xl bg-[#0C0E14] [html[data-theme='light']_&]:bg-white border border-white/10 [html[data-theme='light']_&]:border-slate-200 overflow-hidden">
           
           {/* Card Top Chrome Navigation */}
           <div className="flex flex-wrap items-center justify-between px-6 py-4 bg-[#08090D] [html[data-theme='light']_&]:bg-slate-100 border-b border-white/10 [html[data-theme='light']_&]:border-slate-200 gap-3">
@@ -53,7 +53,7 @@ export const InteractiveAuditSection = ({ activeLang = 'vi' }) => {
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono transition-all cursor-pointer ${
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono transition-colors cursor-pointer ${
                       isActive
                         ? "bg-white/10 text-white border border-white/20 [html[data-theme='light']_&]:bg-white [html[data-theme='light']_&]:text-slate-900 [html[data-theme='light']_&]:border-slate-300"
                         : "text-slate-400 hover:text-slate-200 [html[data-theme='light']_&]:text-slate-600"
@@ -66,8 +66,7 @@ export const InteractiveAuditSection = ({ activeLang = 'vi' }) => {
               })}
             </div>
 
-            <div className="flex items-center gap-2 text-xs font-mono text-emerald-400">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <div className="flex items-center text-xs font-mono text-slate-400 [html[data-theme='light']_&]:text-slate-600">
               <span>{isVi ? 'Chốt chặn Zero-Trust đang chạy' : 'Live Boundary Guard Active'}</span>
             </div>
           </div>
@@ -84,7 +83,7 @@ export const InteractiveAuditSection = ({ activeLang = 'vi' }) => {
                   { name: 'Claude Code', type: 'CLI Terminal' },
                   { name: 'Terminal', type: 'Bash / Zsh' }
                 ].map((c, i) => (
-                  <div key={i} className="p-3 rounded-xl bg-white text-slate-900 border border-white/90 text-center select-none shadow-sm">
+                  <div key={i} className="p-3 rounded-xl bg-white text-slate-900 border border-white/90 text-center select-none">
                     <span className="block text-xs font-bold font-sans">{c.name}</span>
                     <span className="block text-[10px] text-slate-500 font-mono mt-0.5">{c.type}</span>
                   </div>
@@ -114,11 +113,8 @@ export const InteractiveAuditSection = ({ activeLang = 'vi' }) => {
 
               {/* Target substrate */}
               <div className="p-4 rounded-xl bg-[#090A0E] [html[data-theme='light']_&]:bg-slate-50 border border-white/10 [html[data-theme='light']_&]:border-slate-200 flex items-center justify-between font-mono text-xs">
-                <div className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
-                  <span className="text-slate-300 [html[data-theme='light']_&]:text-slate-700">Living Knowledge Substrate</span>
-                </div>
-                <span className="text-[11px] text-slate-300 font-normal">Verified Clean</span>
+                <span className="text-slate-300 [html[data-theme='light']_&]:text-slate-700 font-sans font-medium">Living Knowledge Substrate</span>
+                <span className="text-[11px] text-slate-400 font-normal">Verified Clean</span>
               </div>
             </div>
 
@@ -142,20 +138,20 @@ export const InteractiveAuditSection = ({ activeLang = 'vi' }) => {
                   : 'The boundary guard detected modification attempts outside activeFiles scope. Execution was automatically suspended for human review.'}
               </p>
 
-              {/* Amber Warning Box matching screenshot */}
-              <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 [html[data-theme='light']_&]:bg-amber-50 [html[data-theme='light']_&]:text-amber-900 [html[data-theme='light']_&]:border-amber-300 space-y-1 text-xs font-sans">
-                <div className="flex items-center gap-2 font-semibold">
-                  <AlertTriangle size={15} className="text-amber-400 shrink-0" />
+              {/* Understated Neutral Audit Box */}
+              <div className="p-4 rounded-xl bg-white/[0.03] [html[data-theme='light']_&]:bg-slate-100 border border-white/10 [html[data-theme='light']_&]:border-slate-300 text-slate-300 [html[data-theme='light']_&]:text-slate-800 space-y-1 text-xs font-sans">
+                <div className="flex items-center gap-2 font-medium">
+                  <AlertTriangle size={15} className="text-slate-400 [html[data-theme='light']_&]:text-slate-600 shrink-0" />
                   <span>{isVi ? '1 tác vụ cần người dùng xác nhận (Human-in-the-loop)' : '1 task requiring human verification'}</span>
                 </div>
-                <p className="text-[11px] text-amber-200/80 [html[data-theme='light']_&]:text-amber-800 font-mono pl-6">
+                <p className="text-[11px] text-slate-400 [html[data-theme='light']_&]:text-slate-500 font-mono pl-6">
                   Boundary check: core/auth/session.ts
                 </p>
               </div>
 
               {/* Citation Footer */}
               <div className="pt-2 text-xs font-mono text-slate-500 [html[data-theme='light']_&]:text-slate-500">
-                {isVi ? 'UAC Security Engine • Nghi thức O-DDD Guard' : 'UAC Security Engine • O-DDD Protocol Guard'}
+                {isVi ? 'UAC Security Engine / Nghi thức O-DDD Guard' : 'UAC Security Engine / O-DDD Protocol Guard'}
               </div>
 
             </div>

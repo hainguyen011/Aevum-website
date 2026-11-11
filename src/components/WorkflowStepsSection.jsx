@@ -59,12 +59,12 @@ export const WorkflowStepsSection = ({ onNavigate, onOpenTrialModal, activeLang 
             <div className="pt-2">
               <button
                 onClick={onOpenTrialModal || (() => onNavigate('changelog'))}
-                className="px-6 py-3 rounded-full bg-[#ECEEFE] hover:bg-white text-[#0A0B0F] font-semibold text-sm transition-all duration-200 shadow-sm cursor-pointer"
+                className="px-6 py-3 rounded-full bg-[#ECEEFE] hover:bg-white text-[#0A0B0F] font-semibold text-sm transition-colors cursor-pointer"
               >
                 {isVi ? 'Dùng thử Aevum' : 'Try Aevum'}
               </button>
               <p className="mt-3 text-xs font-mono text-slate-500">
-                {isVi ? 'Không cần thiết lập phức tạp • Khởi động trong 1 giây' : 'No complex setup • Boots in 1 second'}
+                {isVi ? 'Không cần thiết lập phức tạp / Khởi động trong 1 giây' : 'No complex setup / Boots in 1 second'}
               </p>
             </div>
           </div>

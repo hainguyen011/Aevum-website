@@ -43,7 +43,8 @@
   "energy": {
     "provider": "Google",
     "apiKeyId": "AN_GOOGLE_KEY",
-    "model": "Gemini 3.5 Flash (High)"
+    "model": "Gemini 4 Argon High",
+    "cliModel": "Gemini 4 Argon High"
   },
   "capabilities": [
     "AI Tuning",
@@ -186,5 +187,6 @@
   "user_modified": false,
   "id": "an",
   "isActive": true,
-  "casual_role": "Chuyên gia Rà soát Mã nguồn & Quản trị Git Flow"
+  "casual_role": "Chuyên gia Rà soát Mã nguồn & Quản trị Git Flow",
+  "cliModel": "Gemini 4 Argon High"
 }

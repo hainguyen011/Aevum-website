@@ -187,11 +187,11 @@ export const Navbar = ({
     ? (Boolean(activeDropdown)
         ? 'bg-black/20 [html[data-theme="light"]_&]:bg-white/80 backdrop-blur-md border-b border-white/10 [html[data-theme="light"]_&]:border-slate-200/80'
         : 'bg-transparent border-b border-transparent backdrop-blur-none')
-    : 'bg-[#07090D]/85 [html[data-theme="light"]_&]:bg-white/90 backdrop-blur-md border-b border-white/10 [html[data-theme="light"]_&]:border-slate-200/80 [html[data-theme="light"]_&]:shadow-[0_1px_3px_rgba(0,0,0,0.05)]';
+    : 'bg-[#07090D]/85 [html[data-theme="light"]_&]:bg-white/90 backdrop-blur-md border-b border-white/10 [html[data-theme="light"]_&]:border-slate-200/80';
 
   const dropdownBgClass = isAtTopLanding
-    ? 'bg-black/40 [html[data-theme="light"]_&]:bg-white/95 backdrop-blur-xl border-b border-white/10 [html[data-theme="light"]_&]:border-slate-200 text-white [html[data-theme="light"]_&]:text-slate-800 [html[data-theme="light"]_&]:shadow-lg'
-    : 'bg-[#07090D]/95 [html[data-theme="light"]_&]:bg-white/95 backdrop-blur-xl border-b border-white/10 [html[data-theme="light"]_&]:border-slate-200 text-white [html[data-theme="light"]_&]:text-slate-800 [html[data-theme="light"]_&]:shadow-lg';
+    ? 'bg-black/40 [html[data-theme="light"]_&]:bg-white/95 backdrop-blur-xl border-b border-white/10 [html[data-theme="light"]_&]:border-slate-200 text-white [html[data-theme="light"]_&]:text-slate-800'
+    : 'bg-[#07090D]/95 [html[data-theme="light"]_&]:bg-white/95 backdrop-blur-xl border-b border-white/10 [html[data-theme="light"]_&]:border-slate-200 text-white [html[data-theme="light"]_&]:text-slate-800';
 
   const isNavbarScrolled = !isAtTopLanding || Boolean(activeDropdown);
 
@@ -355,7 +355,7 @@ export const Navbar = ({
                 title={isVi ? "Xem tài khoản Aevum" : "View Aevum profile"}
               >
                 {/* Clean Soft Rounded Avatar */}
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-[6px] overflow-hidden flex items-center justify-center shrink-0 border border-white/10 [html[data-theme='light']_&]:border-slate-200 shadow-sm">
+                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-[6px] overflow-hidden flex items-center justify-center shrink-0 border border-white/10 [html[data-theme='light']_&]:border-slate-200">
                   {avatarUrl ? (
                     <img src={avatarUrl} alt="avatar" className="w-full h-full object-cover" />
                   ) : (
@@ -396,7 +396,7 @@ export const Navbar = ({
           <div className="hidden sm:flex items-center pl-1">
             <button
               onClick={() => onNavigate('changelog')}
-              className="px-4 py-1.5 rounded-full bg-[#ECEEFE] hover:bg-white text-[#0A0B0F] font-semibold text-xs transition-all duration-200 shadow-sm cursor-pointer select-none"
+              className="px-4 py-1.5 rounded-full bg-[#ECEEFE] hover:bg-white text-[#0A0B0F] font-semibold text-xs transition-colors cursor-pointer select-none"
             >
               {isVi ? 'Dùng thử' : 'Try Aevum'}
             </button>
@@ -439,7 +439,7 @@ export const Navbar = ({
           <div className="lg:hidden flex items-center justify-center px-3 sm:px-4">
             <button
               onClick={onToggleMobileMenu}
-              className="flex items-center justify-center w-9 h-9 text-slate-300 hover:text-white [html[data-theme='light']_&]:text-slate-700 [html[data-theme='light']_&]:hover:text-slate-950 bg-white/5 hover:bg-white/10 [html[data-theme='light']_&]:bg-slate-100 [html[data-theme='light']_&]:hover:bg-slate-200/80 active:scale-95 border border-white/10 [html[data-theme='light']_&]:border-slate-200 rounded-lg transition-all cursor-pointer"
+              className="flex items-center justify-center w-9 h-9 text-slate-300 hover:text-white [html[data-theme='light']_&]:text-slate-700 [html[data-theme='light']_&]:hover:text-slate-950 bg-white/5 hover:bg-white/10 [html[data-theme='light']_&]:bg-slate-100 [html[data-theme='light']_&]:hover:bg-slate-200/80 border border-white/10 [html[data-theme='light']_&]:border-slate-200 rounded-lg transition-colors cursor-pointer"
               aria-label="Toggle Mobile Navigation"
             >
               {isMobileMenuOpen ? <X size={18} className="shrink-0" /> : <Menu size={18} className="shrink-0" />}
@@ -654,7 +654,7 @@ export const Navbar = ({
 
                   {userProfile?.role === 'admin' && (
                     <>
-                      <span className="text-zinc-600 [html[data-theme='light']_&]:text-zinc-400 text-xs select-none">•</span>
+                      <span className="text-zinc-600 [html[data-theme='light']_&]:text-zinc-400 text-xs select-none">/</span>
                       <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-400 [html[data-theme='light']_&]:text-zinc-600 select-none shrink-0">
                         ADMIN
                       </span>

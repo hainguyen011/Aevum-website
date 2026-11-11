@@ -65,10 +65,10 @@ export const ProofMetricsSection = ({ onNavigate, activeLang = 'vi' }) => {
               </div>
               <button
                 onClick={() => onNavigate('docs')}
-                className="inline-flex items-center gap-1.5 text-xs font-mono text-slate-300 hover:text-white [html[data-theme='light']_&]:text-slate-700 [html[data-theme='light']_&]:hover:text-black pt-2 cursor-pointer group"
+                className="inline-flex items-center gap-1.5 text-xs font-mono text-slate-300 hover:text-white [html[data-theme='light']_&]:text-slate-700 [html[data-theme='light']_&]:hover:text-black pt-2 cursor-pointer"
               >
                 <span>{isVi ? 'Khám phá kiến trúc bộ nhớ' : 'Explore memory architecture'}</span>
-                <span className="group-hover:translate-x-1 transition-transform">→</span>
+                <span>→</span>
               </button>
             </div>
           </div>
@@ -100,10 +100,10 @@ export const ProofMetricsSection = ({ onNavigate, activeLang = 'vi' }) => {
               </div>
               <button
                 onClick={() => onNavigate('explore')}
-                className="inline-flex items-center gap-1.5 text-xs font-mono text-slate-300 hover:text-white [html[data-theme='light']_&]:text-slate-700 [html[data-theme='light']_&]:hover:text-black pt-2 cursor-pointer group"
+                className="inline-flex items-center gap-1.5 text-xs font-mono text-slate-300 hover:text-white [html[data-theme='light']_&]:text-slate-700 [html[data-theme='light']_&]:hover:text-black pt-2 cursor-pointer"
               >
                 <span>{isVi ? 'Xem báo cáo đo kiểm hiệu năng' : 'Explore benchmark report'}</span>
-                <span className="group-hover:translate-x-1 transition-transform">→</span>
+                <span>→</span>
               </button>
             </div>
           </div>

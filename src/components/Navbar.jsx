@@ -141,7 +141,7 @@ export const Navbar = ({
     if (activeSection === 'testimonials') return t.navbar.testimonials;
     if (activeSection === 'unikorn') return t.navbar.unikorn;
     if (activeSection === 'i2flabs') return t.navbar.i2flabs;
-    return isVi ? 'Kiến trúc & Tính năng' : 'Features & Architecture';
+    return isVi ? 'Kiến trúc' : 'Architecture';
   };
 
   // Handle click outside to close features, resources & profile Cyber HUD menus
@@ -208,11 +208,11 @@ export const Navbar = ({
       {/* Main Navbar Top Row - Clean Edge-to-Edge Container */}
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
         {/* Left Cell: Logo + Main Navigation */}
-        <div className="flex items-center gap-4 xl:gap-8 min-w-0">
+        <div className="flex items-center gap-6 xl:gap-8 min-w-0">
           <a 
             href="#" 
             onClick={(e) => { e.preventDefault(); onNavigate('landing'); }}
-            className="flex items-center gap-2 text-decoration-none group shrink-0"
+            className="flex items-center gap-2.5 text-decoration-none group shrink-0"
           >
             <img 
               src={logoImg} 
@@ -224,8 +224,8 @@ export const Navbar = ({
             </span>
           </a>
 
-          {/* Desktop Nav Links - Clean Monochrome, No flashy colors */}
-          <nav className="hidden lg:flex items-center gap-5 xl:gap-7 text-xs sm:text-[13px] font-normal whitespace-nowrap text-nowrap">
+          {/* Desktop Nav Links - Clean Monochrome, Concise & Punchy */}
+          <nav className="hidden lg:flex items-center gap-5 xl:gap-7 text-xs sm:text-[13px] font-normal whitespace-nowrap shrink-0">
             
             {/* Desktop Features & Architecture Toggle Button */}
             {(() => {
@@ -233,7 +233,7 @@ export const Navbar = ({
               return (
                 <button 
                   onClick={() => toggleDropdown('features')}
-                  className={`flex items-center gap-1.5 text-xs sm:text-[13px] py-1 px-2.5 rounded-md transition-all duration-150 cursor-pointer ${
+                  className={`flex items-center gap-1.5 text-xs sm:text-[13px] py-1 px-2.5 rounded-md transition-colors cursor-pointer ${
                     isButtonActive
                       ? 'text-white [html[data-theme="light"]_&]:text-slate-900 bg-white/10 [html[data-theme="light"]_&]:bg-slate-200'
                       : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
@@ -269,7 +269,7 @@ export const Navbar = ({
               {t.navbar.about}
             </button>
 
-            {/* Resources & Community Dropdown */}
+            {/* Resources Dropdown - Concise "Tài liệu" */}
             <button 
               onClick={() => toggleDropdown('resources')}
               className={`flex items-center gap-1.5 transition-colors font-normal whitespace-nowrap cursor-pointer ${
@@ -278,30 +278,29 @@ export const Navbar = ({
                   : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
               }`}
             >
-              <span>{isVi ? 'Tài liệu & Cộng đồng' : 'Docs & Community'}</span>
+              <span>{isVi ? 'Tài liệu' : 'Docs'}</span>
               <ChevronDown size={11} className={`transition-transform duration-200 ${resourcesOpen ? 'rotate-180' : ''}`} />
             </button>
 
           </nav>
         </div>
 
-        {/* Right Cell: Search + Language + Theme + Sign In + Try Aevum Button (No table grid borders!) */}
-        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-          {/* Search Input — desktop only */}
-          <div className="hidden lg:flex items-center">
-            <div 
-              onClick={onOpenSearch}
-              className="flex items-center gap-2 bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-100 hover:bg-white/[0.08] [html[data-theme='light']_&]:hover:bg-slate-200 border border-white/10 [html[data-theme='light']_&]:border-slate-300 px-2.5 py-1 rounded-md text-slate-400 cursor-pointer transition-all group"
-            >
-              <Search size={13} className="group-hover:text-white transition-colors" />
-              <span className="text-xs text-slate-400 group-hover:text-white">
-                {isVi ? 'Tìm kiếm OS...' : 'Search...'}
-              </span>
-              <kbd className="hidden sm:inline-block text-[10px] font-mono bg-white/5 px-1 py-0.5 rounded text-slate-400 border border-white/10">
-                Ctrl K
-              </kbd>
-            </div>
-          </div>
+        {/* Right Cell: Search + Language + Theme + Sign In + Try Aevum Button */}
+        <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+          {/* Sleek Adaptive Search Trigger */}
+          <button 
+            onClick={onOpenSearch}
+            className="flex items-center gap-1.5 sm:gap-2 bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-100 hover:bg-white/[0.08] [html[data-theme='light']_&]:hover:bg-slate-200 border border-white/10 [html[data-theme='light']_&]:border-slate-300 px-2.5 py-1.5 rounded-md text-slate-400 hover:text-white [html[data-theme='light']_&]:text-slate-600 [html[data-theme='light']_&]:hover:text-slate-900 cursor-pointer transition-colors"
+            title={isVi ? 'Tìm kiếm (Ctrl+K)' : 'Search (Ctrl+K)'}
+          >
+            <Search size={13} />
+            <span className="hidden xl:inline text-xs font-sans">
+              {isVi ? 'Tìm kiếm...' : 'Search...'}
+            </span>
+            <kbd className="hidden xl:inline-block text-[10px] font-mono bg-white/5 px-1 py-0.5 rounded text-slate-400 border border-white/10">
+              Ctrl K
+            </kbd>
+          </button>
 
           {/* Clean Language Switcher (VI / EN) */}
           <button
@@ -339,10 +338,10 @@ export const Navbar = ({
               : 'Community';
 
             const tierTextGradient = tierSlug === 'enterprise'
-              ? 'bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-fuchsia-300 to-purple-400'
+              ? 'text-purple-300'
               : tierSlug === 'pro'
-              ? 'bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-sky-300 to-cyan-400'
-              : 'bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-400';
+              ? 'text-slate-300'
+              : 'text-slate-400';
 
             return (
               <button
@@ -351,7 +350,7 @@ export const Navbar = ({
                   isNavbarScrolled
                     ? 'border-white/10 [html[data-theme=\'light\']_&]:border-slate-200'
                     : 'border-transparent'
-                } bg-transparent hover:bg-white/[0.04] [html[data-theme='light']_&]:hover:bg-slate-100/60 transition-all cursor-pointer group rounded-none`}
+                } bg-transparent hover:bg-white/[0.04] [html[data-theme='light']_&]:hover:bg-slate-100/60 transition-colors cursor-pointer group rounded-none`}
                 title={isVi ? "Xem tài khoản Aevum" : "View Aevum profile"}
               >
                 {/* Clean Soft Rounded Avatar */}
@@ -359,7 +358,7 @@ export const Navbar = ({
                   {avatarUrl ? (
                     <img src={avatarUrl} alt="avatar" className="w-full h-full object-cover" />
                   ) : (
-                    <div className="w-full h-full bg-cyan-950 flex items-center justify-center text-white text-xs font-mono font-bold">
+                    <div className="w-full h-full bg-slate-800 flex items-center justify-center text-white text-xs font-mono font-bold">
                       {initials}
                     </div>
                   )}
@@ -382,7 +381,7 @@ export const Navbar = ({
 
             <button
               onClick={onOpenAuthModal}
-              className="flex items-center gap-1.5 text-xs font-mono text-slate-300 hover:text-white px-3 py-1.5 rounded-md hover:bg-white/5 transition-all cursor-pointer"
+              className="flex items-center gap-1.5 text-xs font-mono text-slate-300 hover:text-white px-3 py-1.5 rounded-md hover:bg-white/5 transition-colors cursor-pointer"
               title={isVi ? "Đăng nhập tài khoản" : "Sign in to Aevum account"}
             >
               <User size={13} className="text-slate-400" />
@@ -402,41 +401,8 @@ export const Navbar = ({
             </button>
           </div>
 
-          {/* Social Icons */}
-          <div className="hidden md:flex items-center gap-2 px-3 sm:px-4 lg:px-6">
-            <a 
-              href="https://facebook.com" 
-              target="_blank" 
-              rel="noreferrer" 
-              aria-label="Facebook I2FLabs"
-              className="text-slate-400 hover:text-white [html[data-theme='light']_&]:text-slate-500 [html[data-theme='light']_&]:hover:text-slate-900 transition-colors p-1"
-            >
-              <Facebook size={14} />
-            </a>
-            <a 
-              href="https://unikorn.vn" 
-              target="_blank" 
-              rel="noreferrer" 
-              aria-label="Unikorn Vietnam Creative Tech Agency"
-              className="opacity-70 hover:opacity-100 transition-opacity p-1 flex items-center justify-center"
-              title="Unikorn - Creative Tech Agency"
-            >
-              <img src={unikornLogo} alt="Unikorn Logo" width="14" height="14" className="w-3.5 h-3.5 object-contain unikorn-header-light" />
-              <img src={unikornLogoDark} alt="Unikorn Logo" width="14" height="14" className="w-3.5 h-3.5 object-contain unikorn-header-dark" />
-            </a>
-
-            <a
-              href="mailto:hainguyen011238@gmail.com"
-              aria-label="Email Aevum OS Support"
-              className="text-slate-400 hover:text-white [html[data-theme='light']_&]:text-slate-500 [html[data-theme='light']_&]:hover:text-slate-900 transition-colors p-1"
-              title="hainguyen011238@gmail.com"
-            >
-              <Mail size={14} />
-            </a>
-          </div>
-
           {/* Mobile Hamburger Menu Toggle */}
-          <div className="lg:hidden flex items-center justify-center px-3 sm:px-4">
+          <div className="lg:hidden flex items-center justify-center pl-1">
             <button
               onClick={onToggleMobileMenu}
               className="flex items-center justify-center w-9 h-9 text-slate-300 hover:text-white [html[data-theme='light']_&]:text-slate-700 [html[data-theme='light']_&]:hover:text-slate-950 bg-white/5 hover:bg-white/10 [html[data-theme='light']_&]:bg-slate-100 [html[data-theme='light']_&]:hover:bg-slate-200/80 border border-white/10 [html[data-theme='light']_&]:border-slate-200 rounded-lg transition-colors cursor-pointer"
@@ -462,7 +428,7 @@ export const Navbar = ({
                 href="#cli" 
                 onClick={(e) => { handleNavLink(e, 'cli'); closeDropdown(); }}
                 className={`transition-colors whitespace-nowrap shrink-0 ${
-                  activeSection === 'cli' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600 font-bold' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
+                  activeSection === 'cli' ? 'text-white [html[data-theme="light"]_&]:text-slate-900 font-semibold' : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
                 }`}
               >
                 {t.navbar.kernel}
@@ -471,7 +437,7 @@ export const Navbar = ({
                 href="#breakthroughs" 
                 onClick={(e) => { handleNavLink(e, 'breakthroughs'); closeDropdown(); }}
                 className={`transition-colors whitespace-nowrap shrink-0 ${
-                  activeSection === 'breakthroughs' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600 font-bold' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
+                  activeSection === 'breakthroughs' ? 'text-white [html[data-theme="light"]_&]:text-slate-900 font-semibold' : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
                 }`}
               >
                 {t.navbar.breakthroughs}
@@ -480,7 +446,7 @@ export const Navbar = ({
                 href="#agents" 
                 onClick={(e) => { handleNavLink(e, 'agents'); closeDropdown(); }}
                 className={`transition-colors whitespace-nowrap shrink-0 ${
-                  activeSection === 'agents' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600 font-bold' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
+                  activeSection === 'agents' ? 'text-white [html[data-theme="light"]_&]:text-slate-900 font-semibold' : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
                 }`}
               >
                 {t.navbar.agents}
@@ -489,7 +455,7 @@ export const Navbar = ({
                 href="#architecture" 
                 onClick={(e) => { handleNavLink(e, 'architecture'); closeDropdown(); }}
                 className={`transition-colors whitespace-nowrap shrink-0 ${
-                  activeSection === 'architecture' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600 font-bold' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
+                  activeSection === 'architecture' ? 'text-white [html[data-theme="light"]_&]:text-slate-900 font-semibold' : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
                 }`}
               >
                 {t.navbar.architecture}
@@ -498,7 +464,7 @@ export const Navbar = ({
                 href="#orchestration" 
                 onClick={(e) => { handleNavLink(e, 'orchestration'); closeDropdown(); }}
                 className={`transition-colors whitespace-nowrap shrink-0 ${
-                  activeSection === 'orchestration' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600 font-bold' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
+                  activeSection === 'orchestration' ? 'text-white [html[data-theme="light"]_&]:text-slate-900 font-semibold' : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
                 }`}
               >
                 {t.navbar.orchestration}
@@ -507,7 +473,7 @@ export const Navbar = ({
                 href="#pricing" 
                 onClick={(e) => { handleNavLink(e, 'pricing'); closeDropdown(); }}
                 className={`transition-colors whitespace-nowrap shrink-0 ${
-                  activeSection === 'pricing' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600 font-bold' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
+                  activeSection === 'pricing' ? 'text-white [html[data-theme="light"]_&]:text-slate-900 font-semibold' : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
                 }`}
               >
                 {t.navbar.pricing}
@@ -516,7 +482,7 @@ export const Navbar = ({
                 href="#testimonials" 
                 onClick={(e) => { handleNavLink(e, 'testimonials'); closeDropdown(); }}
                 className={`transition-colors whitespace-nowrap shrink-0 ${
-                  activeSection === 'testimonials' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600 font-bold' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
+                  activeSection === 'testimonials' ? 'text-white [html[data-theme="light"]_&]:text-slate-900 font-semibold' : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
                 }`}
               >
                 {t.navbar.testimonials}
@@ -525,7 +491,7 @@ export const Navbar = ({
                 href="#unikorn" 
                 onClick={(e) => { handleNavLink(e, 'unikorn'); closeDropdown(); }}
                 className={`transition-colors whitespace-nowrap shrink-0 ${
-                  activeSection === 'unikorn' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600 font-bold' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
+                  activeSection === 'unikorn' ? 'text-white [html[data-theme="light"]_&]:text-slate-900 font-semibold' : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
                 }`}
               >
                 {t.navbar.unikorn}
@@ -534,7 +500,7 @@ export const Navbar = ({
                 href="#i2flabs" 
                 onClick={(e) => { handleNavLink(e, 'i2flabs'); closeDropdown(); }}
                 className={`transition-colors whitespace-nowrap shrink-0 ${
-                  activeSection === 'i2flabs' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600 font-bold' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
+                  activeSection === 'i2flabs' ? 'text-white [html[data-theme="light"]_&]:text-slate-900 font-semibold' : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
                 }`}
               >
                 {t.navbar.i2flabs}
@@ -549,7 +515,7 @@ export const Navbar = ({
                 onClick={() => { onNavigate('docs'); closeDropdown(); }}
                 onMouseEnter={() => prefetchPage('docs')}
                 className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-medium ${
-                  currentPage === 'docs' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
+                  currentPage === 'docs' ? 'text-white [html[data-theme="light"]_&]:text-slate-900 font-semibold' : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
                 }`}
               >
                 {t.navbar.docs}
@@ -559,7 +525,7 @@ export const Navbar = ({
                 onClick={() => { onNavigate('explore'); closeDropdown(); }}
                 onMouseEnter={() => prefetchPage('explore')}
                 className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-medium ${
-                  currentPage === 'explore' || currentPage === 'kham-pha' || currentPage === 'learn' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
+                  currentPage === 'explore' || currentPage === 'kham-pha' || currentPage === 'learn' ? 'text-white [html[data-theme="light"]_&]:text-slate-900 font-semibold' : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
                 }`}
               >
                 {isVi ? 'Khám phá Kỉ nguyên' : 'Era Academy'}
@@ -569,7 +535,7 @@ export const Navbar = ({
                 onClick={() => { onNavigate('changelog'); closeDropdown(); }}
                 onMouseEnter={() => prefetchPage('changelog')}
                 className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-medium ${
-                  currentPage === 'changelog' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
+                  currentPage === 'changelog' ? 'text-white [html[data-theme="light"]_&]:text-slate-900 font-semibold' : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
                 }`}
               >
                 {isVi ? 'Nhật ký cập nhật' : 'Changelog'}
@@ -579,7 +545,7 @@ export const Navbar = ({
                 onClick={() => { onNavigate('discussions'); closeDropdown(); }}
                 onMouseEnter={() => prefetchPage('discussions')}
                 className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-medium ${
-                  currentPage === 'discussions' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
+                  currentPage === 'discussions' ? 'text-white [html[data-theme="light"]_&]:text-slate-900 font-semibold' : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
                 }`}
               >
                 {isVi ? 'Thảo luận' : 'Discussions'}

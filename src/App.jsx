@@ -2,10 +2,13 @@ import { useState, useEffect, useCallback, lazy, Suspense } from 'react';
 import { flushSync } from 'react-dom';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
+import { PartnersInfiniteSection } from './components/PartnersInfiniteSection';
+import { CoreMissionSection } from './components/CoreMissionSection';
 import { ValuePropsSection } from './components/ValuePropsSection';
-import { InteractiveAuditSection } from './components/InteractiveAuditSection';
+import { CoEvolutionSection } from './components/CoEvolutionSection';
 import { WorkflowStepsSection } from './components/WorkflowStepsSection';
 import { ProofMetricsSection } from './components/ProofMetricsSection';
+import { IoARoadmapSection } from './components/IoARoadmapSection';
 import { FaqSection } from './components/FaqSection';
 import { CoralCtaSection } from './components/CoralCtaSection';
 import { DigitalWorkforceSection } from './components/DigitalWorkforceSection';
@@ -764,36 +767,49 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
         <main id="main-content" role="main" className="w-full flex-1">
           {currentPage === 'landing' && (
             <>
-              {/* 1. Hero 2-Column (CoralOS Archetype) */}
+              {/* 1. Hero 2-Column: Định danh sản phẩm & Sandbox Motion */}
               <Hero
                 onNavigate={handleNavigate}
                 onOpenTrialModal={handleOpenTrialModal}
                 activeLang={activeLang}
               />
 
-              {/* 2. Value Props Section */}
+              {/* 2. Strategic Partners & Allies: Dải băng đối tác uy tín ngay dưới Hero */}
+              <PartnersInfiniteSection activeLang={activeLang} />
+
+              {/* 3. Core Mission: Làm rõ mục tiêu của AevumOS & V-Formation Pixel Agent Motion */}
+              <CoreMissionSection activeLang={activeLang} />
+
+              {/* 4. Value Props: Nêu trúng nỗi đau phân mảnh & 3 trụ cột giá trị */}
               <ValuePropsSection activeLang={activeLang} />
 
-              {/* 3. Large Interactive Audit & Orchestration Canvas Card */}
-              <InteractiveAuditSection activeLang={activeLang} />
+              {/* 4. Co-Evolution & Interdisciplinary Swarm: Trực quan 5 Agent cộng tác giải phóng con người */}
+              <CoEvolutionSection activeLang={activeLang} />
 
-              {/* 4. 3-Step Incremental Workflow */}
+              {/* 5. 3-Step Incremental Workflow: Bắt đầu nhẹ nhàng từ 3 bước không đổi thói quen */}
               <WorkflowStepsSection
                 onNavigate={handleNavigate}
                 onOpenTrialModal={handleOpenTrialModal}
                 activeLang={activeLang}
               />
 
-              {/* 5. Proof & Metrics (99% & 66%) */}
+              {/* 6. Proof & Metrics: 6 Lợi ích cốt lõi chuẩn Swiss Typography Masonry Grid */}
               <ProofMetricsSection
                 onNavigate={handleNavigate}
                 activeLang={activeLang}
               />
 
-              {/* 6. Practical FAQs */}
+              {/* 7. R&D Frontier & IoA Roadmap: Con hào công nghệ & Lộ trình tương lai */}
+              <IoARoadmapSection
+                onNavigate={handleNavigate}
+                onOpenTrialModal={handleOpenTrialModal}
+                activeLang={activeLang}
+              />
+
+              {/* 8. Practical FAQs: Giải đáp thắc mắc thực tế */}
               <FaqSection activeLang={activeLang} />
 
-              {/* 7. CoralOS Bottom Elevated CTA Card */}
+              {/* 9. CoralOS Bottom Elevated CTA Card: Kêu gọi hành động & Chuyển đổi */}
               <CoralCtaSection
                 onNavigate={handleNavigate}
                 onOpenTrialModal={handleOpenTrialModal}

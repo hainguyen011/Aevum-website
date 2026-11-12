@@ -36,6 +36,7 @@ export const Navbar = ({
   const [activeSection, setActiveSection] = useState(null);
   const [entitlements, setEntitlements] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const isScrolledRef = useRef(false);
   const featuresRef = useRef(null);
   const isVi = activeLang === 'vi';
   const t = translations[activeLang] || translations.en;
@@ -44,7 +45,21 @@ export const Navbar = ({
     let ticking = false;
     const updateScroll = () => {
       const scrollY = Math.max(0, window.pageYOffset ?? window.scrollY ?? document.documentElement.scrollTop ?? 0);
-      setIsScrolled(scrollY > 20);
+      
+      // Hysteresis deadband: prevents jitter/flutter when scrolling near top
+      if (isScrolledRef.current) {
+        // Currently scrolled: only reveal banner when user reaches the very top (<= 12px)
+        if (scrollY <= 12) {
+          isScrolledRef.current = false;
+          setIsScrolled(false);
+        }
+      } else {
+        // Currently at top: only hide banner when user scrolls down past 60px
+        if (scrollY > 60) {
+          isScrolledRef.current = true;
+          setIsScrolled(true);
+        }
+      }
       ticking = false;
     };
 
@@ -57,15 +72,11 @@ export const Navbar = ({
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleScroll, { passive: true });
-    window.addEventListener('wheel', handleScroll, { passive: true });
-    window.addEventListener('touchmove', handleScroll, { passive: true });
     updateScroll();
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleScroll);
-      window.removeEventListener('wheel', handleScroll);
-      window.removeEventListener('touchmove', handleScroll);
     };
   }, []);
 

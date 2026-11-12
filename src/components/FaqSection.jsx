@@ -7,39 +7,51 @@ export const FaqSection = ({ activeLang = 'vi' }) => {
 
   const faqs = [
     {
-      q: isVi ? 'Tôi có cần từ bỏ IDE hiện tại đang dùng không?' : 'Do I need to abandon my existing IDE or tools?',
+      q: isVi ? 'Tôi có cần đổi IDE hay công cụ đang quen dùng không?' : 'Do I need to abandon my existing IDE or tools?',
       a: isVi
-        ? 'Hoàn toàn không. Aevum OS hoạt động như một tầng daemon nền thông qua giao thức Open MCP. Bạn tiếp tục code trên Cursor, Claude Code hay VS Code và kết nối về chung một bộ não.'
+        ? 'Hoàn toàn không. Aevum OS chạy ngầm như một daemon cục bộ qua giao thức Open MCP. Bạn cứ viết code trên Cursor, Claude Code hay VS Code như bình thường; Aevum sẽ là bộ não trung tâm đứng sau hỗ trợ.'
         : 'Not at all. Aevum OS operates as a decoupled local daemon via the Open MCP protocol. You keep coding in Cursor, Claude Code, or VS Code while sharing one central brain.'
     },
     {
-      q: isVi ? 'CoW Virtual Sandbox bảo vệ đĩa cứng của tôi như thế nào?' : 'How does the CoW Virtual Sandbox protect my host disk?',
+      q: isVi ? 'CoW Virtual Sandbox bảo vệ đĩa cứng của tôi ra sao?' : 'How does the CoW Virtual Sandbox protect my host disk?',
       a: isVi
-        ? 'Mọi lệnh CLI và thao tác sửa file diễn ra trong một phân vùng RAM Copy-on-Write ảo hóa. Đĩa cứng chủ chỉ được ghi khi vượt qua kiểm tra ranh giới Zero-Trust và được bạn phê duyệt.'
+        ? 'Mọi câu lệnh CLI và thao tác sửa file của AI ban đầu chỉ chạy trên bộ nhớ RAM ảo hóa. Mã chỉ được ghi vào ổ cứng thật khi vượt qua các rà soát an toàn và nhận được sự đồng ý từ bạn.'
         : 'All CLI commands and file edits run in a volatile Copy-on-Write RAM partition. Your host disk is only touched after passing Zero-Trust boundary audits and user verification.'
     },
     {
-      q: isVi ? 'Aevum hỗ trợ những mô hình AI và CLI nào?' : 'What models and CLI agents does Aevum support?',
+      q: isVi ? 'Aevum hỗ trợ những mô hình AI và công cụ nào?' : 'What models and CLI agents does Aevum support?',
       a: isVi
-        ? 'Hỗ trợ toàn diện Claude 3.5/3.7 Sonnet, GPT-4o, Gemini 2.0 Flash/Pro và các công cụ CLI cục bộ (Antigravity, Cursor, Claude Code) qua nhân Hermes thông minh.'
+        ? 'Hệ thống tích hợp mượt mà với Claude 3.5/3.7 Sonnet, GPT-4o, Gemini 2.0 Flash/Pro cùng các công cụ quen thuộc như Antigravity, Claude Code và Cursor.'
         : 'Fully supports Claude 3.5/3.7 Sonnet, GPT-4o, Gemini 2.0 Flash/Pro, and local CLI engines (Antigravity, Cursor, Claude Code) via the Hermes synthesizer.'
     },
     {
-      q: isVi ? 'Mã nguồn của tôi có bị gửi lên đám mây không?' : 'Is my code or private context sent to third-party clouds?',
+      q: isVi ? 'Mã nguồn và dữ liệu của tôi có bị tải lên đám mây không?' : 'Is my code or private context sent to third-party clouds?',
       a: isVi
-        ? 'Tuyệt đối không. Aevum OS vận hành 100% Local-First. Toàn bộ đồ thị tri thức, phân vùng sandbox và lịch sử phiên làm việc được lưu trên ổ cứng nội bộ của bạn.'
+        ? 'Tuyệt đối không. Aevum OS được thiết kế theo triết lý Local-First: toàn bộ đồ thị tri thức, phân vùng thử nghiệm và lịch sử tác vụ đều nằm trọn vẹn trên ổ cứng máy bạn.'
         : 'Never. Aevum OS operates 100% Local-First. Your living memory graphs, sandbox state, and agent transcripts remain stored exclusively on your local machine.'
     },
     {
-      q: isVi ? 'PiperNet chia sẻ tri thức như thế nào mà không rò rỉ mã?' : 'How does PiperNet share knowledge without leaking code?',
+      q: isVi ? 'Các cộng sự số học hỏi và tiến hóa như thế nào?' : 'How do digital companions learn without leaking code?',
       a: isVi
-        ? 'PiperNet chỉ phát sóng các mẫu thiết kế kiến trúc trừu tượng (như quy chuẩn JWT rotation, sơ đồ phân tầng O-DDD) sau khi đã khử toàn bộ chi tiết mã nguồn thô của dự án.'
-        : 'PiperNet only broadcasts abstract architectural patterns (like token rotation rituals and O-DDD schemas) after strictly scrubbing all proprietary source code.'
+        ? 'Sau mỗi tác vụ hoàn thành, hệ thống tự động đúc kết các bài học, quy chuẩn thiết kế và cách giải quyết lỗi vào bộ nhớ cục bộ, giúp cộng sự ngày càng hiểu dự án của bạn hơn.'
+        : 'After every completed task, abstract architectural patterns and lessons are harvested locally, allowing companions to continuously adapt without leaking raw proprietary code.'
+    },
+    {
+      q: isVi ? 'Tầm nhìn Internet of Agents (IoA) là gì và Aevum đóng vai trò gì?' : 'What is the Internet of Agents (IoA) vision?',
+      a: isVi
+        ? 'IoA là mạng lưới phân tán nơi hàng triệu AI Agent tự do đàm phán, trao đổi kỹ năng và phối hợp giải quyết công việc xuyên tổ chức. Aevum OS là hệ điều hành cục bộ và giao thức PiperNet làm nền móng hạ tầng cho mạng lưới này.'
+        : 'IoA is a decentralized mesh where autonomous agents negotiate, trade skills, and coordinate work across organizations. Aevum OS acts as the local-first OS runtime and foundational PiperNet protocol.'
+    },
+    {
+      q: isVi ? 'Nhà đầu tư hoặc đối tác muốn hợp tác R&D thì liên hệ ra sao?' : 'How can investors or partners collaborate on R&D?',
+      a: isVi
+        ? 'I2FLabs sẵn sàng chia sẻ Pitch Deck, mô hình tài chính Unit Economics và mở cổng trải nghiệm Private Beta. Đối tác có thể gửi thư trực tiếp tới contact@i2flabs.com để kết nối.'
+        : 'I2FLabs welcomes venture capital inquiries, offering our Pitch Deck, unit economics models, and private beta access via contact@i2flabs.com.'
     }
   ];
 
   return (
-    <section className="w-full py-24 sm:py-32 bg-[#0A0B0F] [html[data-theme='light']_&]:bg-[#FFFFFF] border-subtle-b [html[data-theme='light']_&]:border-slate-200/80">
+    <section id="faq" className="w-full py-24 sm:py-32 bg-[#0A0B0F] [html[data-theme='light']_&]:bg-[#FFFFFF] border-subtle-b [html[data-theme='light']_&]:border-slate-200/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
@@ -61,8 +73,8 @@ export const FaqSection = ({ activeLang = 'vi' }) => {
             </h2>
             <p className="mt-4 text-sm sm:text-base text-slate-400 [html[data-theme='light']_&]:text-slate-600 leading-relaxed font-sans font-light">
               {isVi
-                ? 'Tìm hiểu cách Aevum OS mang lại sự an toàn và giải phóng năng suất cho bạn.'
-                : 'Learn how Aevum OS protects your sovereignty while unleashing autonomous swarms.'}
+                ? 'Giải đáp ngắn gọn, minh bạch để bạn yên tâm đưa Aevum vào công việc hàng ngày.'
+                : 'Clear, transparent answers so you can confidently bring Aevum into your daily workflow.'}
             </p>
           </div>
 

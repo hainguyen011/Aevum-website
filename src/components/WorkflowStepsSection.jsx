@@ -7,31 +7,31 @@ export const WorkflowStepsSection = ({ onNavigate, onOpenTrialModal, activeLang 
   const steps = [
     {
       num: '01',
-      title: isVi ? 'Chọn biệt đội tác tử' : 'Choose the squad',
+      title: isVi ? 'Chọn cộng sự số phù hợp' : 'Choose your companion',
       desc: isVi
-        ? 'Bắt đầu với các Persona cốt lõi (An, Kai, Hawl) hoặc tự do tạo chuyên gia nghiệp vụ riêng qua agentu.'
-        : 'Select core personas (An, Kai, Hawl) or create custom domain specialists via agentu.'
+        ? 'Dùng ngay các vai trò sẵn có (kiến trúc, lập trình, kiểm thử) hoặc tự tạo cộng sự am hiểu nghiệp vụ riêng của bạn.'
+        : 'Select ready-to-use roles (Architect, Dev, QA) or create custom specialists tailored to your codebase.'
     },
     {
       num: '02',
-      title: isVi ? 'Kết nối môi trường làm việc' : 'Connect your tools',
+      title: isVi ? 'Gắn vào công cụ bạn đang dùng' : 'Connect your tools',
       desc: isVi
-        ? 'Cắm nối tức thì vào Cursor, Claude Code, hay VS Code thông qua giao thức chuẩn Open MCP.'
-        : 'Plug seamlessly into Cursor, Claude Code, or VS Code using the universal Open MCP protocol.'
+        ? 'Kết nối tức thì với Cursor, Claude Code, VS Code hay terminal chỉ qua một chuẩn Open MCP duy nhất.'
+        : 'Plug seamlessly into Cursor, Claude Code, VS Code, or terminal via standard Open MCP.'
     },
     {
       num: '03',
-      title: isVi ? 'Tác tử tự động giải quyết' : 'Agent to the next step',
+      title: isVi ? 'Để cộng sự giải quyết trọn vẹn' : 'Let companions deliver',
       desc: isVi
-        ? 'Quan sát biệt đội tự động luân chuyển tác vụ, thực thi trong CoW sandbox và đúc kết tri thức tái sử dụng.'
-        : 'Watch autonomous handoffs resolve tasks, run inside CoW sandboxes, and harvest reusable wisdom.'
+        ? 'Theo dõi công việc được xử lý an toàn trong sandbox, tự động lưu lại bài học kinh nghiệm để lần sau làm tốt hơn.'
+        : 'Watch tasks resolve safely inside sandboxes, continuously harvesting reusable wisdom for future workflows.'
     }
   ];
 
   return (
-    <section className="w-full py-24 sm:py-32 bg-[#0A0B0F] [html[data-theme='light']_&]:bg-[#FFFFFF] border-subtle-b [html[data-theme='light']_&]:border-slate-200/80">
+    <section id="workflow" className="w-full py-24 sm:py-32 bg-[#0A0B0F] [html[data-theme='light']_&]:bg-[#FFFFFF] border-subtle-b [html[data-theme='light']_&]:border-slate-200/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
 
           {/* Left Column: Heading & Pill Action */}
@@ -39,8 +39,8 @@ export const WorkflowStepsSection = ({ onNavigate, onOpenTrialModal, activeLang 
             <h2 className="text-3xl sm:text-5xl lg:text-5xl font-normal tracking-[-0.03em] text-white [html[data-theme='light']_&]:text-slate-900 leading-[1.12] font-sans">
               {isVi ? (
                 <>
-                  Bắt đầu với<br />
-                  <span className="text-slate-300 [html[data-theme='light']_&]:text-slate-800">một tác vụ duy nhất.</span>
+                  Bắt đầu dễ dàng từ<br />
+                  <span className="text-slate-300 [html[data-theme='light']_&]:text-slate-800">một việc nhỏ.</span>
                 </>
               ) : (
                 <>
@@ -52,8 +52,8 @@ export const WorkflowStepsSection = ({ onNavigate, onOpenTrialModal, activeLang 
 
             <p className="text-base sm:text-lg text-slate-400 [html[data-theme='light']_&]:text-slate-600 leading-relaxed font-sans font-light">
               {isVi
-                ? 'Tiếp cận Aevum OS theo từng bước linh hoạt. Bắt đầu với một cộng sự số trong IDE ưa thích của bạn, sau đó mở rộng thành biệt đội tự hành khi dự án lớn mạnh.'
-                : 'Adopt Aevum OS incrementally. Start with a single companion in your favourite IDE, then expand to a full autonomous swarm as your codebase scales.'}
+                ? 'Bạn không cần thay đổi thói quen làm việc. Cứ tiếp tục dùng IDE quen thuộc, Aevum sẽ âm thầm hỗ trợ phía sau và đồng hành lớn dần cùng dự án.'
+                : 'Adopt Aevum OS incrementally. Keep your favorite IDE, while Aevum silently operates in the background and scales alongside your project.'}
             </p>
 
             <div className="pt-2">
@@ -61,11 +61,9 @@ export const WorkflowStepsSection = ({ onNavigate, onOpenTrialModal, activeLang 
                 onClick={onOpenTrialModal || (() => onNavigate('changelog'))}
                 className="px-6 py-3 rounded-full bg-[#ECEEFE] hover:bg-white text-[#0A0B0F] font-semibold text-sm transition-colors cursor-pointer"
               >
-                {isVi ? 'Dùng thử Aevum' : 'Try Aevum'}
+                {isVi ? 'Dùng thử Aevum miễn phí' : 'Try Aevum for Free'}
               </button>
-              <p className="mt-3 text-xs font-mono text-slate-500">
-                {isVi ? 'Không cần thiết lập phức tạp / Khởi động trong 1 giây' : 'No complex setup / Boots in 1 second'}
-              </p>
+
             </div>
           </div>
 

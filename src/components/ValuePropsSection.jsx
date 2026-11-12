@@ -7,57 +7,65 @@ export const ValuePropsSection = ({ activeLang = 'vi' }) => {
   const items = [
     {
       icon: Zap,
-      title: isVi ? 'Thu thập ngữ cảnh thời gian thực' : 'Gather context in real time',
+      title: isVi ? 'Đồng hành bền bỉ. Thấu hiểu sâu sắc.' : 'Persistent companions. Deep context.',
       desc: isVi
-        ? 'Tự động trích xuất ranh giới kiến trúc, tệp domain và ma trận quy tắc mà không cần sao chép thủ công.'
-        : 'Extracts architectural constraints, domain boundaries, and rule sets without tedious copy-pasting across tools.'
+        ? 'Không còn cảnh "quên sạch" bối cảnh sau mỗi lần đóng tab. Cộng sự ghi nhớ trọn vẹn quy ước kiến trúc, lý do ra quyết định và cùng bạn đi qua từng chặng đường phát triển.'
+        : 'Never lose context after closing a tab. Companions preserve full architectural intent and decisions across multi-week milestones.'
     },
     {
       icon: Shield,
-      title: isVi ? 'Thực thi trong sandbox an toàn' : 'Execute in zero-risk sandboxes',
+      title: isVi ? 'Tin cậy tuyệt đối. Không lo hỏng code.' : 'Zero-risk trust. Safe execution.',
       desc: isVi
-        ? 'Lớp ảo hóa RAM Copy-on-Write cô lập hoàn toàn mọi lệnh CLI và mã sinh ra, cam kết đĩa cứng nguyên vẹn.'
-        : 'Copy-on-Write volatile RAM virtualization isolates all CLI commands and generated code, protecting host disks.'
+        ? 'Mọi thử nghiệm và câu lệnh CLI đều vận hành trong phân vùng RAM ảo hóa (CoW Sandbox). An toàn tuyệt đối, chỉ chạm vào máy thật khi bạn đã hoàn toàn an tâm.'
+        : 'Copy-on-Write volatile RAM virtualization isolates all execution safely, protecting your host system until you give explicit approval.'
     },
     {
       icon: Network,
-      title: isVi ? 'Hiệp đồng biệt đội đa tác tử' : 'Coordinate multi-agent swarms',
+      title: isVi ? 'Cùng nhau khám phá. Giải bài toán lớn.' : 'Explore & conquer big challenges together.',
       desc: isVi
-        ? 'Luân chuyển tác vụ tự động giữa các Persona chuyên biệt (Kiến trúc sư, Lập trình viên, Bảo mật) với 100% ngữ cảnh.'
-        : 'Autonomous handoffs between specialized personas (Architect, Dev, QA) preserving 100% context fidelity.'
+        ? 'Từ kiến trúc, lập trình, kiểm thử đến nghiên cứu khoa học — các cộng sự số chủ động phối hợp, chia lửa và mở ra những chân trời công nghệ mới cùng bạn.'
+        : 'Autonomous cross-domain squads (Architect, Coder, QA, Researcher) collaborating smoothly over shared memory to expand new frontiers.'
     }
   ];
 
   return (
-    <section className="w-full py-24 sm:py-32 bg-[#0A0B0F] [html[data-theme='light']_&]:bg-[#FFFFFF] border-subtle-b [html[data-theme='light']_&]:border-slate-200/80">
+    <section id="value-props" className="w-full py-24 sm:py-32 bg-[#0A0B0F] [html[data-theme='light']_&]:bg-[#FFFFFF] border-subtle-b [html[data-theme='light']_&]:border-slate-200/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Top 2-Column Header */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start mb-16 sm:mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start mb-16 sm:mb-20 text-left">
           
           {/* Left Title: Clean, Large, Editorial font */}
-          <div className="lg:col-span-7">
+          <div className="lg:col-span-7 space-y-3">
+            <div className="text-xs font-mono tracking-widest text-slate-400 [html[data-theme='light']_&]:text-slate-500 uppercase select-none">
+              <span>{isVi ? 'TRIẾT LÝ CỘNG SỰ • BEYOND CHAT' : 'COMPANION PHILOSOPHY • BEYOND CHAT'}</span>
+            </div>
+
             <h2 className="text-3xl sm:text-5xl lg:text-5xl font-normal tracking-[-0.03em] text-white [html[data-theme='light']_&]:text-slate-900 leading-[1.12] font-sans">
               {isVi ? (
                 <>
-                  Đừng làm cầu nối<br />
-                  <span className="text-slate-300 [html[data-theme='light']_&]:text-slate-800">thủ công giữa các hệ thống.</span>
+                  Vượt xa khung chat.<br />
+                  <span className="text-slate-300 [html[data-theme='light']_&]:text-slate-800">
+                    Cộng sự số đích thực cho bạn.
+                  </span>
                 </>
               ) : (
                 <>
-                  Stop being the link<br />
-                  <span className="text-slate-300 [html[data-theme='light']_&]:text-slate-800">between every system.</span>
+                  Beyond prompt chat.<br />
+                  <span className="text-slate-300 [html[data-theme='light']_&]:text-slate-800">
+                    True digital companions for you.
+                  </span>
                 </>
               )}
             </h2>
           </div>
 
-          {/* Right Description */}
+          {/* Right Description: Câu thông điệp cốt lõi theo đúng yêu cầu */}
           <div className="lg:col-span-5 pt-2">
-            <p className="text-base sm:text-lg text-slate-400 [html[data-theme='light']_&]:text-slate-600 leading-relaxed font-sans font-light">
+            <p className="text-base sm:text-lg text-slate-300 [html[data-theme='light']_&]:text-slate-700 leading-relaxed font-sans font-light">
               {isVi
-                ? 'Các trợ lý AI thông thường bị xóa sạch ngữ cảnh ngay khi bạn đóng cửa sổ. Aevum OS kết nối các IDE, công cụ terminal và đồ thị tri thức sống thành một thực thể duy nhất.'
-                : 'AI assistants forget context the moment you close a tab. Aevum OS connects your IDEs, terminal CLI tools, and living memory graphs into one unified cognitive substrate.'}
+                ? 'Không chỉ chat, chúng tôi muốn trao cho bạn các cộng sự số: đồng hành, tin cậy và cùng nhau khám phá.'
+                : 'Beyond chat, we want to give you true digital companions: persistent, trusted, and exploring the future together.'}
             </p>
           </div>
 

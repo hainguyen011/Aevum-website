@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { ReleaseService } from '../services/ReleaseService';
 
 export const AnnouncementBanner = ({ onNavigate, activeLang, isScrolled: propIsScrolled }) => {
   const [internalScrolled, setInternalScrolled] = useState(false);
+  const internalScrolledRef = useRef(false);
   const isScrolled = propIsScrolled !== undefined ? propIsScrolled : internalScrolled;
   const [latestVersion, setLatestVersion] = useState('v2.0.0-beta.0');
   const isVi = activeLang === 'vi';
@@ -41,7 +42,17 @@ export const AnnouncementBanner = ({ onNavigate, activeLang, isScrolled: propIsS
     let ticking = false;
     const updateScroll = () => {
       const scrollY = Math.max(0, window.pageYOffset ?? window.scrollY ?? document.documentElement.scrollTop ?? 0);
-      setInternalScrolled(scrollY > 20);
+      if (internalScrolledRef.current) {
+        if (scrollY <= 12) {
+          internalScrolledRef.current = false;
+          setInternalScrolled(false);
+        }
+      } else {
+        if (scrollY > 60) {
+          internalScrolledRef.current = true;
+          setInternalScrolled(true);
+        }
+      }
       ticking = false;
     };
 
@@ -75,7 +86,7 @@ export const AnnouncementBanner = ({ onNavigate, activeLang, isScrolled: propIsS
       }}
       className={`announcement-banner group relative w-full overflow-hidden cursor-pointer select-none transition-all duration-300 ease-in-out border-b border-white/[0.08] [html[data-theme='light']_&]:border-slate-200/80 ${
         isScrolled
-          ? 'max-h-0 opacity-0 py-0 border-b-0 pointer-events-none'
+          ? 'max-h-0 opacity-0 py-0 border-b-transparent pointer-events-none'
           : 'max-h-12 opacity-100 py-2.5 bg-white/[0.02] hover:bg-white/[0.05] [html[data-theme="light"]_&]:bg-slate-100 [html[data-theme="light"]_&]:hover:bg-slate-200/80 pointer-events-auto'
       }`}
       title={isVi ? "Bấm để xem nhật ký cập nhật & tải về" : "Click to view changelog & download"}

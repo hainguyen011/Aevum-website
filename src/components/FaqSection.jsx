@@ -45,17 +45,17 @@ export const FaqSection = ({ activeLang = 'vi' }) => {
     {
       q: isVi ? 'Nhà đầu tư hoặc đối tác muốn hợp tác R&D thì liên hệ ra sao?' : 'How can investors or partners collaborate on R&D?',
       a: isVi
-        ? 'I2FLabs sẵn sàng chia sẻ Pitch Deck, mô hình tài chính Unit Economics và mở cổng trải nghiệm Private Beta. Đối tác có thể gửi thư trực tiếp tới contact@i2flabs.com để kết nối.'
-        : 'I2FLabs welcomes venture capital inquiries, offering our Pitch Deck, unit economics models, and private beta access via contact@i2flabs.com.'
+        ? 'I2FLabs sẵn sàng chia sẻ Pitch Deck, mô hình tài chính Unit Economics và mở cổng trải nghiệm Private Beta. Đối tác có thể gửi thư trực tiếp tới dev@aevum.ai.vn để kết nối.'
+        : 'I2FLabs welcomes venture capital inquiries, offering our Pitch Deck, unit economics models, and private beta access via dev@aevum.ai.vn.'
     }
   ];
 
   return (
     <section id="faq" className="w-full py-24 sm:py-32 bg-[#0A0B0F] [html[data-theme='light']_&]:bg-[#FFFFFF] border-subtle-b [html[data-theme='light']_&]:border-slate-200/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          
+
           {/* Left Column: Heading */}
           <div className="lg:col-span-5 text-left">
             <h2 className="text-3xl sm:text-5xl lg:text-5xl font-normal tracking-[-0.03em] text-white [html[data-theme='light']_&]:text-slate-900 leading-[1.12] font-sans">
@@ -94,9 +94,8 @@ export const FaqSection = ({ activeLang = 'vi' }) => {
                     <span>{faq.q}</span>
                     <ChevronDown
                       size={18}
-                      className={`text-slate-400 shrink-0 transition-transform duration-200 ${
-                        isOpen ? 'rotate-180 text-white [html[data-theme="light"]_&]:text-slate-900' : ''
-                      }`}
+                      className={`text-slate-400 shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180 text-white [html[data-theme="light"]_&]:text-slate-900' : ''
+                        }`}
                     />
                   </button>
                   {isOpen && (

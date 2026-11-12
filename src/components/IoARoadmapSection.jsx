@@ -1,7 +1,7 @@
 import React from 'react';
-import { 
-  Check, 
-  ArrowRight, 
+import {
+  Check,
+  ArrowRight,
   FileText
 } from 'lucide-react';
 import { HeroIoAMotionDiagram } from './HeroIoAMotionDiagram';
@@ -47,10 +47,10 @@ export const IoARoadmapSection = ({ onNavigate, onOpenTrialModal, activeLang = '
   return (
     <section id="ioa-roadmap" className="w-full py-24 sm:py-32 bg-[#0A0B0F] [html[data-theme='light']_&]:bg-[#FFFFFF] border-b border-white/[0.08] [html[data-theme='light']_&]:border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* ── 2-COLUMN HEADER (MATCHING EDITORIAL ARCHETYPE) ── */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start mb-10 sm:mb-14 text-left">
-          
+
           <div className="lg:col-span-7 space-y-4">
             <div className="text-xs font-mono tracking-widest text-slate-400 [html[data-theme='light']_&]:text-slate-500 uppercase select-none">
               <span>{isVi ? 'TIẾN TRÌNH R&D & LỘ TRÌNH IOA' : 'R&D FRONTIER & IOA ROADMAP'}</span>
@@ -97,7 +97,7 @@ export const IoARoadmapSection = ({ onNavigate, onOpenTrialModal, activeLang = '
                 <span className="inline-block text-[10px] font-mono uppercase tracking-widest text-slate-400 [html[data-theme='light']_&]:text-slate-500 select-none">
                   {point.tag}
                 </span>
-                
+
                 <h4 className="text-base font-medium text-white [html[data-theme='light']_&]:text-slate-900 font-sans tracking-tight leading-snug">
                   {point.title}
                 </h4>
@@ -133,7 +133,7 @@ export const IoARoadmapSection = ({ onNavigate, onOpenTrialModal, activeLang = '
 
           <div className="flex flex-wrap items-center gap-3 shrink-0">
             <a
-              href="mailto:contact@i2flabs.com?subject=Aevum%20OS%20-%20Strategic%20Investment%20%26%20R%26D%20Inquiry"
+              href="mailto:dev@aevum.ai.vn?subject=Aevum%20OS%20-%20Strategic%20Investment%20%26%20R%26D%20Inquiry"
               className="px-5 py-2.5 rounded-full bg-[#ECEEFE] hover:bg-white text-[#0A0B0F] font-semibold text-xs transition-colors flex items-center gap-1.5 cursor-pointer"
             >
               <FileText size={13} />

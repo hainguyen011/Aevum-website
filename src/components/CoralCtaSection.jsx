@@ -1,4 +1,5 @@
 import React from 'react';
+import { DualDownloadButtons } from './DualDownloadButtons';
 
 export const CoralCtaSection = ({ onNavigate, onOpenTrialModal, activeLang = 'vi' }) => {
   const isVi = activeLang === 'vi';
@@ -6,7 +7,7 @@ export const CoralCtaSection = ({ onNavigate, onOpenTrialModal, activeLang = 'vi
   return (
     <section className="w-full py-20 sm:py-28 bg-[#0A0B0F] [html[data-theme='light']_&]:bg-[#FFFFFF]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="rounded-3xl p-10 sm:p-16 lg:p-20 bg-[#0C0E14] [html[data-theme='light']_&]:bg-slate-100 border border-white/10 [html[data-theme='light']_&]:border-slate-300 text-left space-y-6 relative overflow-hidden">
+        <div className="rounded-3xl p-10 sm:p-16 lg:p-20 bg-[#0C0E14] [html[data-theme='light']_&]:bg-slate-100 border border-white/10 [html[data-theme='light']_&]:border-slate-300 text-left space-y-6 relative overflow-visible">
           <h2 className="text-3xl sm:text-5xl lg:text-6xl font-normal tracking-[-0.03em] text-white [html[data-theme='light']_&]:text-slate-900 leading-[1.08] font-sans max-w-3xl">
             {isVi ? (
               <>
@@ -28,12 +29,10 @@ export const CoralCtaSection = ({ onNavigate, onOpenTrialModal, activeLang = 'vi
           </p>
 
           <div className="pt-4 flex flex-wrap items-center gap-4 sm:gap-6">
-            <button
-              onClick={onOpenTrialModal || (() => onNavigate('changelog'))}
-              className="px-7 py-3.5 rounded-full bg-[#ECEEFE] hover:bg-white text-[#0A0B0F] font-semibold text-sm transition-colors cursor-pointer"
-            >
-              {isVi ? 'Dùng thử Aevum miễn phí' : 'Try Aevum for Free'}
-            </button>
+            <DualDownloadButtons
+              activeLang={activeLang}
+              onNavigate={onNavigate}
+            />
 
             <button
               onClick={() => onNavigate('docs')}

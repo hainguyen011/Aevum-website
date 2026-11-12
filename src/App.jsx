@@ -954,39 +954,53 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
           {/* Navigation Links */}
           <div className="flex flex-col space-y-4 drawer-nav-list">
             <a
-              href="#cli"
-              onClick={(e) => handleNavLink(e, 'cli')}
+              href="#mission"
+              onClick={(e) => handleNavLink(e, 'mission')}
               className="text-right text-lg font-bold text-slate-200 hover:text-cyan-400 transition-colors uppercase tracking-wide"
             >
-              {t.navbar.kernel}
+              {t.navbar.mission}
             </a>
             <a
-              href="#breakthroughs"
-              onClick={(e) => handleNavLink(e, 'breakthroughs')}
+              href="#value-props"
+              onClick={(e) => handleNavLink(e, 'value-props')}
               className="text-right text-lg font-bold text-slate-200 hover:text-cyan-400 transition-colors uppercase tracking-wide"
             >
-              {t.navbar.breakthroughs}
+              {t.navbar.valueProps}
             </a>
             <a
-              href="#agents"
-              onClick={(e) => handleNavLink(e, 'agents')}
+              href="#co-evolution"
+              onClick={(e) => handleNavLink(e, 'co-evolution')}
               className="text-right text-lg font-bold text-slate-200 hover:text-cyan-400 transition-colors uppercase tracking-wide"
             >
-              {t.navbar.agents}
+              {t.navbar.coEvolution}
             </a>
             <a
-              href="#architecture"
-              onClick={(e) => handleNavLink(e, 'architecture')}
+              href="#workflow"
+              onClick={(e) => handleNavLink(e, 'workflow')}
               className="text-right text-lg font-bold text-slate-200 hover:text-cyan-400 transition-colors uppercase tracking-wide"
             >
-              {t.navbar.architecture}
+              {t.navbar.workflow}
             </a>
             <a
-              href="#orchestration"
-              onClick={(e) => handleNavLink(e, 'orchestration')}
+              href="#metrics"
+              onClick={(e) => handleNavLink(e, 'metrics')}
               className="text-right text-lg font-bold text-slate-200 hover:text-cyan-400 transition-colors uppercase tracking-wide"
             >
-              {t.navbar.orchestration}
+              {t.navbar.metrics}
+            </a>
+            <a
+              href="#ioa-roadmap"
+              onClick={(e) => handleNavLink(e, 'ioa-roadmap')}
+              className="text-right text-lg font-bold text-slate-200 hover:text-cyan-400 transition-colors uppercase tracking-wide"
+            >
+              {t.navbar.roadmap}
+            </a>
+            <a
+              href="#faq"
+              onClick={(e) => handleNavLink(e, 'faq')}
+              className="text-right text-lg font-bold text-slate-200 hover:text-cyan-400 transition-colors uppercase tracking-wide"
+            >
+              {t.navbar.faq}
             </a>
 
             {/* Standalone Pages UI Block (PRICING, DOCUMENTATION, ABOUT, CHANGELOG, DISCUSSIONS) */}

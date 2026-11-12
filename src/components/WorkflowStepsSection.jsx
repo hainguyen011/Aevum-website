@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import { DualDownloadButtons } from './DualDownloadButtons';
 
 export const WorkflowStepsSection = ({ onNavigate, onOpenTrialModal, activeLang = 'vi' }) => {
   const isVi = activeLang === 'vi';
@@ -57,13 +58,10 @@ export const WorkflowStepsSection = ({ onNavigate, onOpenTrialModal, activeLang 
             </p>
 
             <div className="pt-2">
-              <button
-                onClick={onOpenTrialModal || (() => onNavigate('changelog'))}
-                className="px-6 py-3 rounded-full bg-[#ECEEFE] hover:bg-white text-[#0A0B0F] font-semibold text-sm transition-colors cursor-pointer"
-              >
-                {isVi ? 'Dùng thử Aevum miễn phí' : 'Try Aevum for Free'}
-              </button>
-
+              <DualDownloadButtons
+                activeLang={activeLang}
+                onNavigate={onNavigate}
+              />
             </div>
           </div>
 

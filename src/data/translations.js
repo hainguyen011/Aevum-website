@@ -1,6 +1,13 @@
 export const translations = {
   vi: {
     navbar: {
+      mission: "Mục tiêu",
+      valueProps: "Giá trị cốt lõi",
+      coEvolution: "Cộng sự số",
+      workflow: "Quy trình",
+      metrics: "Đo kiểm",
+      roadmap: "Lộ trình IoA",
+      faq: "Hỏi đáp",
       breakthroughs: "Điểm đột phá",
       agents: "Biệt đội Agent",
       architecture: "Kiến trúc OS",
@@ -221,6 +228,13 @@ export const translations = {
   },
   en: {
     navbar: {
+      mission: "Mission",
+      valueProps: "Value Pillars",
+      coEvolution: "Co-Evolution",
+      workflow: "Workflow",
+      metrics: "Proof & Metrics",
+      roadmap: "IoA Roadmap",
+      faq: "FAQ",
       breakthroughs: "Breakthroughs",
       agents: "Agent Squad",
       architecture: "Architecture",

@@ -342,5 +342,187 @@ export const ReleaseService = {
     // Invalidate cache
     cachedReleases = null;
     return true;
+  },
+
+  /**
+   * Resolves the latest available download URLs for Windows and macOS.
+   * Scans across latest releases until valid .exe and .dmg/.zip assets are located.
+   */
+  async getLatestDownloads() {
+    const fallback = {
+      windows: {
+        version: 'v2.0.0-dev.9',
+        name: 'Aevum-OS-Setup-2.0.0-dev.9.exe',
+        url: 'https://github.com/hainguyen011/aevum-os-releases/releases/download/v2.0.0-dev.9/Aevum-OS-Setup-2.0.0-dev.9.exe',
+        options: [
+          {
+            id: 'win-x64',
+            label: 'Windows x64 (.exe)',
+            sublabel: 'Bản 64-bit phổ biến',
+            url: 'https://github.com/hainguyen011/aevum-os-releases/releases/download/v2.0.0-dev.9/Aevum-OS-Setup-2.0.0-dev.9.exe',
+            name: 'Aevum-OS-Setup-2.0.0-dev.9.exe'
+          }
+        ]
+      },
+      mac: {
+        version: 'v2.0.0-dev.6',
+        name: 'Aevum-OS-2.0.0-dev.6-mac-arm64.dmg',
+        url: 'https://github.com/hainguyen011/aevum-os-releases/releases/download/v2.0.0-dev.6/Aevum-OS-2.0.0-dev.6-mac-arm64.dmg',
+        options: [
+          {
+            id: 'mac-arm64-dmg',
+            label: 'macOS Apple Silicon (.dmg)',
+            sublabel: 'M1 / M2 / M3 / M4 (Khuyên dùng)',
+            url: 'https://github.com/hainguyen011/aevum-os-releases/releases/download/v2.0.0-dev.6/Aevum-OS-2.0.0-dev.6-mac-arm64.dmg',
+            name: 'Aevum-OS-2.0.0-dev.6-mac-arm64.dmg'
+          },
+          {
+            id: 'mac-x64-dmg',
+            label: 'macOS Intel (.dmg)',
+            sublabel: 'Chip Intel Core x86_64',
+            url: 'https://github.com/hainguyen011/aevum-os-releases/releases/download/v2.0.0-dev.6/Aevum-OS-2.0.0-dev.6-mac-x64.dmg',
+            name: 'Aevum-OS-2.0.0-dev.6-mac-x64.dmg'
+          },
+          {
+            id: 'mac-arm64-zip',
+            label: 'macOS Apple Silicon (.zip)',
+            sublabel: 'Bản nén di động',
+            url: 'https://github.com/hainguyen011/aevum-os-releases/releases/download/v2.0.0-dev.6/Aevum-OS-2.0.0-dev.6-mac-arm64.zip',
+            name: 'Aevum-OS-2.0.0-dev.6-mac-arm64.zip'
+          }
+        ]
+      }
+    };
+
+    try {
+      const releases = await this.getReleases();
+      if (!Array.isArray(releases) || releases.length === 0) {
+        return fallback;
+      }
+
+      let winData = null;
+      let macData = null;
+
+      for (const rel of releases) {
+        if (!rel.assets || rel.assets.length === 0) continue;
+
+        // Windows candidate
+        if (!winData) {
+          const exeAssets = rel.assets.filter(a => a.name.endsWith('.exe'));
+          const winArm = exeAssets.find(a => /arm64|aarch64/i.test(a.name));
+          const winX64 = exeAssets.find(a => !/arm64|aarch64/i.test(a.name)) || exeAssets[0];
+
+          if (winX64 || winArm) {
+            const primaryWin = winX64 || winArm;
+            const options = [];
+            if (winX64) {
+              options.push({
+                id: 'win-x64',
+                label: 'Windows x64 (.exe)',
+                sublabel: 'Bản 64-bit phổ biến',
+                url: winX64.browser_download_url,
+                name: winX64.name
+              });
+            }
+            if (winArm) {
+              options.push({
+                id: 'win-arm64',
+                label: 'Windows ARM64 (.exe)',
+                sublabel: 'Snapdragon X / ARM máy tính',
+                url: winArm.browser_download_url,
+                name: winArm.name
+              });
+            }
+            winData = {
+              version: rel.tag_name || rel.name,
+              name: primaryWin.name,
+              url: primaryWin.browser_download_url,
+              options
+            };
+          }
+        }
+
+        // macOS candidate
+        if (!macData) {
+          const dmgAssets = rel.assets.filter(a => a.name.endsWith('.dmg'));
+          const zipAssets = rel.assets.filter(a => a.name.endsWith('.zip') && !a.name.includes('.blockmap'));
+
+          const macArmDmg = dmgAssets.find(a => /arm64|apple|m1|m2/i.test(a.name));
+          const macX64Dmg = dmgAssets.find(a => /x64|intel/i.test(a.name));
+          const macUniversalDmg = dmgAssets.find(a => !/arm64|x64/i.test(a.name));
+
+          const macArmZip = zipAssets.find(a => /mac/i.test(a.name) && /arm64|apple/i.test(a.name));
+          const macX64Zip = zipAssets.find(a => /mac/i.test(a.name) && /x64|intel/i.test(a.name));
+
+          const primaryMac = macArmDmg || macUniversalDmg || macX64Dmg || macArmZip;
+
+          if (primaryMac) {
+            const options = [];
+            if (macArmDmg) {
+              options.push({
+                id: 'mac-arm64-dmg',
+                label: 'macOS Apple Silicon (.dmg)',
+                sublabel: 'M1 / M2 / M3 / M4 (Khuyên dùng)',
+                url: macArmDmg.browser_download_url,
+                name: macArmDmg.name
+              });
+            }
+            if (macX64Dmg) {
+              options.push({
+                id: 'mac-x64-dmg',
+                label: 'macOS Intel (.dmg)',
+                sublabel: 'Chip Intel Core x86_64',
+                url: macX64Dmg.browser_download_url,
+                name: macX64Dmg.name
+              });
+            }
+            if (macUniversalDmg && !macArmDmg && !macX64Dmg) {
+              options.push({
+                id: 'mac-dmg',
+                label: 'macOS (.dmg)',
+                sublabel: 'Bản cài đặt tiêu chuẩn',
+                url: macUniversalDmg.browser_download_url,
+                name: macUniversalDmg.name
+              });
+            }
+            if (macArmZip) {
+              options.push({
+                id: 'mac-arm64-zip',
+                label: 'macOS Apple Silicon (.zip)',
+                sublabel: 'Bản nén di động',
+                url: macArmZip.browser_download_url,
+                name: macArmZip.name
+              });
+            }
+            if (macX64Zip) {
+              options.push({
+                id: 'mac-x64-zip',
+                label: 'macOS Intel (.zip)',
+                sublabel: 'Bản nén di động',
+                url: macX64Zip.browser_download_url,
+                name: macX64Zip.name
+              });
+            }
+
+            macData = {
+              version: rel.tag_name || rel.name,
+              name: primaryMac.name,
+              url: primaryMac.browser_download_url,
+              options
+            };
+          }
+        }
+
+        if (winData && macData) break;
+      }
+
+      return {
+        windows: winData || fallback.windows,
+        mac: macData || fallback.mac
+      };
+    } catch (err) {
+      console.warn('[ReleaseService] getLatestDownloads fallback used:', err);
+      return fallback;
+    }
   }
 };

@@ -8,17 +8,19 @@ import { MembershipBadge } from './ui/MembershipBadge';
 import { AnnouncementBanner } from './AnnouncementBanner';
 import { prefetchPage } from '../utils/prefetch';
 
-export const Navbar = ({ 
-  currentPage, 
-  onNavigate, 
-  activeLang, 
-  onChangeLang, 
-  onOpenSearch, 
-  isMobileMenuOpen, 
+export const Navbar = ({
+  currentPage,
+  onNavigate,
+  activeLang,
+  onChangeLang,
+  onOpenSearch,
+  isMobileMenuOpen,
   onToggleMobileMenu,
   user,
   userProfile,
-  onOpenAuthModal 
+  onOpenAuthModal,
+  theme,
+  onToggleTheme
 }) => {
   const [langOpen, setLangOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null); // 'features' | 'resources' | 'profile' | null
@@ -34,6 +36,7 @@ export const Navbar = ({
   const [activeSection, setActiveSection] = useState(null);
   const [entitlements, setEntitlements] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const isScrolledRef = useRef(false);
   const featuresRef = useRef(null);
   const isVi = activeLang === 'vi';
   const t = translations[activeLang] || translations.en;
@@ -42,7 +45,21 @@ export const Navbar = ({
     let ticking = false;
     const updateScroll = () => {
       const scrollY = Math.max(0, window.pageYOffset ?? window.scrollY ?? document.documentElement.scrollTop ?? 0);
-      setIsScrolled(scrollY > 20);
+
+      // Hysteresis deadband: prevents jitter/flutter when scrolling near top
+      if (isScrolledRef.current) {
+        // Currently scrolled: only reveal banner when user reaches the very top (<= 12px)
+        if (scrollY <= 12) {
+          isScrolledRef.current = false;
+          setIsScrolled(false);
+        }
+      } else {
+        // Currently at top: only hide banner when user scrolls down past 60px
+        if (scrollY > 60) {
+          isScrolledRef.current = true;
+          setIsScrolled(true);
+        }
+      }
       ticking = false;
     };
 
@@ -55,15 +72,11 @@ export const Navbar = ({
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleScroll, { passive: true });
-    window.addEventListener('wheel', handleScroll, { passive: true });
-    window.addEventListener('touchmove', handleScroll, { passive: true });
     updateScroll();
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleScroll);
-      window.removeEventListener('wheel', handleScroll);
-      window.removeEventListener('touchmove', handleScroll);
     };
   }, []);
 
@@ -92,8 +105,8 @@ export const Navbar = ({
       return;
     }
 
-    const sections = ['cli', 'breakthroughs', 'agents', 'architecture', 'orchestration', 'pricing', 'testimonials', 'unikorn', 'i2flabs'];
-    
+    const sections = ['mission', 'value-props', 'co-evolution', 'workflow', 'metrics', 'ioa-roadmap', 'faq'];
+
     const observerOptions = {
       root: null,
       rootMargin: '-20% 0px -50% 0px', // Detect current section inside center screen viewport window
@@ -130,16 +143,7 @@ export const Navbar = ({
 
   // Get active section label or default fallback
   const getButtonLabel = () => {
-    if (activeSection === 'cli') return t.navbar.kernel;
-    if (activeSection === 'breakthroughs') return t.navbar.breakthroughs;
-    if (activeSection === 'agents') return t.navbar.agents;
-    if (activeSection === 'architecture') return t.navbar.architecture;
-    if (activeSection === 'orchestration') return t.navbar.orchestration;
-    if (activeSection === 'pricing') return t.navbar.pricing;
-    if (activeSection === 'testimonials') return t.navbar.testimonials;
-    if (activeSection === 'unikorn') return t.navbar.unikorn;
-    if (activeSection === 'i2flabs') return t.navbar.i2flabs;
-    return isVi ? 'Kiến trúc & Tính năng' : 'Features & Architecture';
+    return isVi ? 'Tổng quan' : 'Overview';
   };
 
   // Handle click outside to close features, resources & profile Cyber HUD menus
@@ -183,124 +187,138 @@ export const Navbar = ({
 
   const headerBgClass = isAtTopLanding
     ? (Boolean(activeDropdown)
-        ? 'bg-black/20 [html[data-theme="light"]_&]:bg-white/80 backdrop-blur-md border-b border-white/10 [html[data-theme="light"]_&]:border-slate-200/80'
-        : 'bg-transparent border-b border-transparent backdrop-blur-none')
-    : 'bg-[#07090D]/85 [html[data-theme="light"]_&]:bg-white/90 backdrop-blur-md border-b border-white/10 [html[data-theme="light"]_&]:border-slate-200/80 [html[data-theme="light"]_&]:shadow-[0_1px_3px_rgba(0,0,0,0.05)]';
+      ? 'bg-black/20 [html[data-theme="light"]_&]:bg-white/80 backdrop-blur-md border-b border-white/10 [html[data-theme="light"]_&]:border-slate-200/80'
+      : 'bg-transparent border-b border-transparent backdrop-blur-none')
+    : 'bg-[#07090D]/85 [html[data-theme="light"]_&]:bg-white/90 backdrop-blur-md border-b border-white/10 [html[data-theme="light"]_&]:border-slate-200/80';
 
   const dropdownBgClass = isAtTopLanding
-    ? 'bg-black/40 [html[data-theme="light"]_&]:bg-white/95 backdrop-blur-xl border-b border-white/10 [html[data-theme="light"]_&]:border-slate-200 text-white [html[data-theme="light"]_&]:text-slate-800 [html[data-theme="light"]_&]:shadow-lg'
-    : 'bg-[#07090D]/95 [html[data-theme="light"]_&]:bg-white/95 backdrop-blur-xl border-b border-white/10 [html[data-theme="light"]_&]:border-slate-200 text-white [html[data-theme="light"]_&]:text-slate-800 [html[data-theme="light"]_&]:shadow-lg';
+    ? 'bg-black/40 [html[data-theme="light"]_&]:bg-white/95 backdrop-blur-xl border-b border-white/10 [html[data-theme="light"]_&]:border-slate-200 text-white [html[data-theme="light"]_&]:text-slate-800'
+    : 'bg-[#07090D]/95 [html[data-theme="light"]_&]:bg-white/95 backdrop-blur-xl border-b border-white/10 [html[data-theme="light"]_&]:border-slate-200 text-white [html[data-theme="light"]_&]:text-slate-800';
 
   const isNavbarScrolled = !isAtTopLanding || Boolean(activeDropdown);
 
   return (
-    <div 
-      ref={featuresRef} 
+    <div
+      ref={featuresRef}
       className={`navbar-root ${isNavbarScrolled ? 'navbar-scrolled' : 'navbar-transparent'} relative w-full !sticky top-0 z-40 flex flex-col transition-all duration-300 ${headerBgClass}`}
       style={{ position: 'sticky', top: 0, zIndex: 40 }}
     >
-      
+
       {/* Top Accent Marquee Announcement Banner */}
       <AnnouncementBanner onNavigate={onNavigate} activeLang={activeLang} isScrolled={isScrolled} />
 
-      {/* Main Navbar Top Row */}
-      <div className="w-full flex items-stretch justify-between pl-4 sm:pl-6 lg:pl-8 xl:pl-10 pr-0 h-16">
+      {/* Main Navbar Top Row - Clean Edge-to-Edge Container */}
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
         {/* Left Cell: Logo + Main Navigation */}
-        <div className="flex items-center gap-3 xl:gap-5 min-w-0 py-2">
-          <a 
-            href="#" 
+        <div className="flex items-center gap-6 xl:gap-8 min-w-0">
+          <a
+            href="#"
             onClick={(e) => { e.preventDefault(); onNavigate('landing'); }}
-            className="flex items-center gap-2 text-decoration-none group shrink-0"
+            className="flex items-center gap-2.5 text-decoration-none group shrink-0"
           >
-            <img 
-              src={logoImg} 
-              alt="Aevum OS Logo" 
-              className="w-7 h-7 object-contain" 
+            <img
+              src={logoImg}
+              alt="Aevum OS Logo"
+              className="w-7 h-7 object-contain [html[data-theme='light']_&]:brightness-0 transition-[filter] duration-200"
             />
-            <span className="font-semibold text-lg text-white [html[data-theme='light']_&]:text-slate-900 tracking-wide font-display whitespace-nowrap">
+            <span className="font-semibold text-lg text-white [html[data-theme='light']_&]:text-slate-900 tracking-wide font-sans whitespace-nowrap">
               AEVUM OS
             </span>
           </a>
 
-          {/* Desktop Nav Links */}
-          <nav className="hidden lg:flex items-center gap-4 xl:gap-6 text-xs sm:text-[13px] font-medium whitespace-nowrap text-nowrap">
-            
+          {/* Desktop Nav Links - Clean Monochrome, Concise & Punchy */}
+          <nav className="hidden lg:flex items-center gap-5 xl:gap-7 text-xs sm:text-[13px] font-normal whitespace-nowrap shrink-0">
+
             {/* Desktop Features & Architecture Toggle Button */}
             {(() => {
               const isButtonActive = featuresOpen || Boolean(activeSection) || currentPage === 'home';
               return (
-                <button 
+                <button
                   onClick={() => toggleDropdown('features')}
-                  className={`flex items-center gap-1.5 text-xs sm:text-[13px] font-medium py-1.5 px-3 rounded-[5px] transition-all duration-200 cursor-pointer ${
-                    isButtonActive
-                      ? 'border-beam-btn text-white [html[data-theme="light"]_&]:text-slate-900 [html[data-theme="light"]_&]:bg-slate-100'
-                      : 'text-white [html[data-theme="light"]_&]:text-slate-700 border border-white/20 [html[data-theme="light"]_&]:border-slate-300/80 bg-white/[0.04] [html[data-theme="light"]_&]:bg-slate-100/70 hover:bg-white/[0.08] [html[data-theme="light"]_&]:hover:bg-slate-200/70 hover:border-white/40'
-                  }`}
+                  className={`flex items-center gap-1.5 text-xs sm:text-[13px] py-1 px-2.5 rounded-md transition-colors cursor-pointer ${isButtonActive
+                    ? 'text-white [html[data-theme="light"]_&]:text-slate-900 bg-white/10 [html[data-theme="light"]_&]:bg-slate-200'
+                    : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
+                    }`}
                 >
-
-                  <span className="relative z-10 font-medium tracking-wide text-white [html[data-theme='light']_&]:text-slate-800">{getButtonLabel()}</span>
-                  <ChevronDown size={13} className={`relative z-10 text-white [html[data-theme='light']_&]:text-slate-600 transition-transform duration-300 ${featuresOpen ? 'rotate-180' : ''}`} />
+                  <span className="font-normal text-inherit">{getButtonLabel()}</span>
+                  <ChevronDown size={12} className={`transition-transform duration-200 ${featuresOpen ? 'rotate-180' : ''}`} />
                 </button>
               );
             })()}
 
             {/* Pricing Link */}
-            <button 
+            <button
               data-nav="pricing"
               onClick={() => { onNavigate('pricing'); closeDropdown(); }}
               onMouseEnter={() => prefetchPage('pricing')}
-              className={`transition-colors font-medium whitespace-nowrap text-nowrap cursor-pointer ${
-                currentPage === 'pricing' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
-              }`}
+              className={`transition-colors font-normal whitespace-nowrap cursor-pointer ${currentPage === 'pricing' ? 'text-white [html[data-theme="light"]_&]:text-slate-900 font-medium' : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
+                }`}
             >
               {t.navbar.pricing}
             </button>
 
             {/* About Link */}
-            <button 
+            <button
               data-nav="about"
               onClick={() => { onNavigate('about'); closeDropdown(); }}
               onMouseEnter={() => prefetchPage('about')}
-              className={`transition-colors font-medium whitespace-nowrap text-nowrap cursor-pointer ${
-                currentPage === 'about' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
-              }`}
+              className={`transition-colors font-normal whitespace-nowrap cursor-pointer ${currentPage === 'about' ? 'text-white [html[data-theme="light"]_&]:text-slate-900 font-medium' : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
+                }`}
             >
               {t.navbar.about}
             </button>
 
-            {/* Resources & Community Dropdown (Designed as a Clean Text Link) */}
-            <button 
+            {/* Resources Dropdown - Concise "Tài liệu" */}
+            <button
               onClick={() => toggleDropdown('resources')}
-              className={`flex items-center gap-1.5 transition-colors font-medium whitespace-nowrap text-nowrap cursor-pointer ${
-                resourcesOpen || ['docs', 'changelog', 'discussions', 'explore'].includes(currentPage)
-                  ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600'
-                  : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
-              }`}
+              className={`flex items-center gap-1.5 transition-colors font-normal whitespace-nowrap cursor-pointer ${resourcesOpen || ['docs', 'changelog', 'discussions', 'explore'].includes(currentPage)
+                ? 'text-white [html[data-theme="light"]_&]:text-slate-900 font-medium'
+                : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
+                }`}
             >
-              <span>{isVi ? 'Tài liệu & Cộng đồng' : 'Docs & Community'}</span>
-              <ChevronDown size={12} className={`transition-transform duration-200 ${resourcesOpen ? 'rotate-180' : ''}`} />
+              <span>{isVi ? 'Tài liệu' : 'Docs'}</span>
+              <ChevronDown size={11} className={`transition-transform duration-200 ${resourcesOpen ? 'rotate-180' : ''}`} />
             </button>
 
           </nav>
         </div>
 
-        {/* Right Cell: Search + Full-Height Sign In + Social Icons */}
-        <div className="flex items-stretch gap-0 shrink-0">
-          {/* Search Input — desktop only, centered vertically */}
-          <div className="hidden lg:flex items-center self-center mr-3 xl:mr-4">
-            <div 
-              onClick={onOpenSearch}
-              className="flex items-center gap-3 bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-100 hover:bg-white/[0.08] [html[data-theme='light']_&]:hover:bg-slate-200/70 border border-white/10 [html[data-theme='light']_&]:border-slate-300/80 px-3 py-1.5 rounded-lg text-slate-400 [html[data-theme='light']_&]:text-slate-500 cursor-pointer transition-all group"
+        {/* Right Cell: Search + Language + Theme + Sign In + Try Aevum Button */}
+        <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+          {/* Sleek Adaptive Search Trigger */}
+          <button
+            onClick={onOpenSearch}
+            className="flex items-center gap-1.5 sm:gap-2 bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-100 hover:bg-white/[0.08] [html[data-theme='light']_&]:hover:bg-slate-200 border border-white/10 [html[data-theme='light']_&]:border-slate-300 px-2.5 py-1.5 rounded-md text-slate-400 hover:text-white [html[data-theme='light']_&]:text-slate-600 [html[data-theme='light']_&]:hover:text-slate-900 cursor-pointer transition-colors"
+            title={isVi ? 'Tìm kiếm (Ctrl+K)' : 'Search (Ctrl+K)'}
+          >
+            <Search size={13} />
+            <span className="hidden xl:inline text-xs font-sans">
+              {isVi ? 'Tìm kiếm...' : 'Search...'}
+            </span>
+            <kbd className="hidden xl:inline-block text-[10px] font-mono bg-white/5 px-1 py-0.5 rounded text-slate-400 border border-white/10">
+              Ctrl K
+            </kbd>
+          </button>
+
+          {/* Clean Language Switcher (VI / EN) */}
+          <button
+            onClick={() => onChangeLang(activeLang === 'vi' ? 'en' : 'vi')}
+            className="px-2 py-1 text-xs font-mono text-slate-400 hover:text-white [html[data-theme='light']_&]:text-slate-600 [html[data-theme='light']_&]:hover:text-slate-900 transition-colors cursor-pointer"
+            title={activeLang === 'vi' ? 'Switch to English' : 'Chuyển sang Tiếng Việt'}
+          >
+            {activeLang === 'vi' ? 'EN' : 'VI'}
+          </button>
+
+          {/* Theme Toggle Button */}
+          {onToggleTheme && (
+            <button
+              onClick={onToggleTheme}
+              className="p-1.5 text-slate-400 hover:text-white [html[data-theme='light']_&]:text-slate-600 [html[data-theme='light']_&]:hover:text-slate-900 transition-colors cursor-pointer"
+              title="Toggle Theme"
             >
-              <Search size={14} className="group-hover:text-white [html[data-theme='light']_&]:group-hover:text-slate-900 transition-colors" />
-              <span className="text-xs text-slate-400 [html[data-theme='light']_&]:text-slate-600 group-hover:text-white [html[data-theme='light']_&]:group-hover:text-slate-900">
-                {isVi ? 'Tìm kiếm OS...' : 'Search OS...'}
-              </span>
-              <kbd className="hidden sm:inline-block text-[10px] font-mono bg-white/10 [html[data-theme='light']_&]:bg-slate-200/80 px-1.5 py-0.5 rounded text-slate-400 [html[data-theme='light']_&]:text-slate-600 border border-white/10 [html[data-theme='light']_&]:border-slate-300 ml-2">
-                Ctrl K
-              </kbd>
-            </div>
-          </div>
+              <Sun size={15} />
+            </button>
+          )}
 
           {/* Supabase User Authentication Button */}
           {user ? (() => {
@@ -314,31 +332,30 @@ export const Navbar = ({
             const tierLabel = effectiveTier === 'ENTERPRISE'
               ? 'Enterprise'
               : (effectiveTier === 'PRO' || entitlements?.isPro)
-              ? (isWaitlist ? 'Waitlist (1M)' : (entitlements?.isTrial ? 'Pro Beta' : 'Pro'))
-              : 'Community';
+                ? (isWaitlist ? 'Waitlist (1M)' : (entitlements?.isTrial ? 'Pro Beta' : 'Pro'))
+                : 'Community';
 
             const tierTextGradient = tierSlug === 'enterprise'
-              ? 'bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-fuchsia-300 to-purple-400'
+              ? 'text-purple-300'
               : tierSlug === 'pro'
-              ? 'bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-sky-300 to-cyan-400'
-              : 'bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-400';
+                ? 'text-slate-300'
+                : 'text-slate-400';
 
             return (
               <button
                 onClick={() => toggleDropdown('profile')}
-                className={`flex items-center self-stretch gap-2.5 text-xs font-mono text-slate-300 hover:text-white [html[data-theme='light']_&]:text-slate-700 [html[data-theme='light']_&]:hover:text-slate-950 px-3 sm:px-4 border-l border-r ${
-                  isNavbarScrolled
-                    ? 'border-white/10 [html[data-theme=\'light\']_&]:border-slate-200'
-                    : 'border-transparent'
-                } bg-transparent hover:bg-white/[0.04] [html[data-theme='light']_&]:hover:bg-slate-100/60 transition-all cursor-pointer group rounded-none`}
+                className={`flex items-center self-stretch gap-2.5 text-xs font-mono text-slate-300 hover:text-white [html[data-theme='light']_&]:text-slate-700 [html[data-theme='light']_&]:hover:text-slate-950 px-3 sm:px-4 border-l border-r ${isNavbarScrolled
+                  ? 'border-white/10 [html[data-theme=\'light\']_&]:border-slate-200'
+                  : 'border-transparent'
+                  } bg-transparent hover:bg-white/[0.04] [html[data-theme='light']_&]:hover:bg-slate-100/60 transition-colors cursor-pointer group rounded-none`}
                 title={isVi ? "Xem tài khoản Aevum" : "View Aevum profile"}
               >
                 {/* Clean Soft Rounded Avatar */}
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-[6px] overflow-hidden flex items-center justify-center shrink-0 border border-white/10 [html[data-theme='light']_&]:border-slate-200 shadow-sm">
+                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-[6px] overflow-hidden flex items-center justify-center shrink-0 border border-white/10 [html[data-theme='light']_&]:border-slate-200">
                   {avatarUrl ? (
                     <img src={avatarUrl} alt="avatar" className="w-full h-full object-cover" />
                   ) : (
-                    <div className="w-full h-full bg-cyan-950 flex items-center justify-center text-white text-xs font-mono font-bold">
+                    <div className="w-full h-full bg-slate-800 flex items-center justify-center text-white text-xs font-mono font-bold">
                       {initials}
                     </div>
                   )}
@@ -361,58 +378,31 @@ export const Navbar = ({
 
             <button
               onClick={onOpenAuthModal}
-              className={`flex items-center self-stretch gap-2 text-xs font-mono text-slate-300 hover:text-white [html[data-theme='light']_&]:text-slate-700 [html[data-theme='light']_&]:hover:text-slate-900 px-4 sm:px-5 border-l border-r ${
-                isNavbarScrolled
-                  ? 'border-white/10 [html[data-theme=\'light\']_&]:border-slate-200'
-                  : 'border-transparent'
-              } bg-transparent hover:bg-white/[0.04] [html[data-theme='light']_&]:hover:bg-slate-100/60 transition-all cursor-pointer group rounded-none`}
+              className="flex items-center gap-1.5 text-xs font-mono text-slate-300 hover:text-white px-3 py-1.5 rounded-md hover:bg-white/5 transition-colors cursor-pointer"
               title={isVi ? "Đăng nhập tài khoản" : "Sign in to Aevum account"}
             >
-              <User size={13} className="text-slate-400 group-hover:text-cyan-400 [html[data-theme='light']_&]:text-slate-500 [html[data-theme='light']_&]:group-hover:text-cyan-600 transition-colors" />
-              <span className="font-bold uppercase tracking-wider text-slate-300 group-hover:text-cyan-400 [html[data-theme='light']_&]:text-slate-700 [html[data-theme='light']_&]:group-hover:text-cyan-600 transition-colors">
+              <User size={13} className="text-slate-400" />
+              <span className="font-medium uppercase tracking-wider text-slate-300 hover:text-white">
                 {isVi ? 'ĐĂNG NHẬP' : 'SIGN IN'}
               </span>
             </button>
           )}
 
-          {/* Social Icons */}
-          <div className="hidden md:flex items-center gap-2 px-3 sm:px-4 lg:px-6">
-            <a 
-              href="https://facebook.com" 
-              target="_blank" 
-              rel="noreferrer" 
-              aria-label="Facebook I2FLabs"
-              className="text-slate-400 hover:text-white [html[data-theme='light']_&]:text-slate-500 [html[data-theme='light']_&]:hover:text-slate-900 transition-colors p-1"
+          {/* CoralOS Signature "Download" Header Pill */}
+          <div className="hidden sm:flex items-center pl-1">
+            <button
+              onClick={() => onNavigate('changelog')}
+              className="px-4 py-1.5 rounded-full bg-[#ECEEFE] hover:bg-white text-[#0A0B0F] font-semibold text-xs transition-colors cursor-pointer select-none"
             >
-              <Facebook size={14} />
-            </a>
-            <a 
-              href="https://unikorn.vn" 
-              target="_blank" 
-              rel="noreferrer" 
-              aria-label="Unikorn Vietnam Creative Tech Agency"
-              className="opacity-70 hover:opacity-100 transition-opacity p-1 flex items-center justify-center"
-              title="Unikorn - Creative Tech Agency"
-            >
-              <img src={unikornLogo} alt="Unikorn Logo" width="14" height="14" className="w-3.5 h-3.5 object-contain unikorn-header-light" />
-              <img src={unikornLogoDark} alt="Unikorn Logo" width="14" height="14" className="w-3.5 h-3.5 object-contain unikorn-header-dark" />
-            </a>
-
-            <a
-              href="mailto:hainguyen011238@gmail.com"
-              aria-label="Email Aevum OS Support"
-              className="text-slate-400 hover:text-white [html[data-theme='light']_&]:text-slate-500 [html[data-theme='light']_&]:hover:text-slate-900 transition-colors p-1"
-              title="hainguyen011238@gmail.com"
-            >
-              <Mail size={14} />
-            </a>
+              {isVi ? 'Tải xuống' : 'Download'}
+            </button>
           </div>
 
           {/* Mobile Hamburger Menu Toggle */}
-          <div className="lg:hidden flex items-center justify-center px-3 sm:px-4">
+          <div className="lg:hidden flex items-center justify-center pl-1">
             <button
               onClick={onToggleMobileMenu}
-              className="flex items-center justify-center w-9 h-9 text-slate-300 hover:text-white [html[data-theme='light']_&]:text-slate-700 [html[data-theme='light']_&]:hover:text-slate-950 bg-white/5 hover:bg-white/10 [html[data-theme='light']_&]:bg-slate-100 [html[data-theme='light']_&]:hover:bg-slate-200/80 active:scale-95 border border-white/10 [html[data-theme='light']_&]:border-slate-200 rounded-lg transition-all cursor-pointer"
+              className="flex items-center justify-center w-9 h-9 text-slate-300 hover:text-white [html[data-theme='light']_&]:text-slate-700 [html[data-theme='light']_&]:hover:text-slate-950 bg-white/5 hover:bg-white/10 [html[data-theme='light']_&]:bg-slate-100 [html[data-theme='light']_&]:hover:bg-slate-200/80 border border-white/10 [html[data-theme='light']_&]:border-slate-200 rounded-lg transition-colors cursor-pointer"
               aria-label="Toggle Mobile Navigation"
             >
               {isMobileMenuOpen ? <X size={18} className="shrink-0" /> : <Menu size={18} className="shrink-0" />}
@@ -423,144 +413,114 @@ export const Navbar = ({
       </div>
 
       {/* Unified Compact Expandable Sub-Navigation Floating Overlay (Never pushes content down, never overlaps) */}
-      <div 
-        className={`navbar-dropdown-panel absolute top-full left-0 right-0 z-50 overflow-hidden transition-all duration-300 ease-out ${dropdownBgClass} ${
-          (featuresOpen || resourcesOpen) ? 'max-h-16 opacity-100 py-3 pointer-events-auto' : 'max-h-0 opacity-0 py-0 border-b-0 pointer-events-none'
-        }`}
+      <div
+        className={`navbar-dropdown-panel absolute top-full left-0 right-0 z-50 overflow-hidden transition-all duration-300 ease-out ${dropdownBgClass} ${(featuresOpen || resourcesOpen) ? 'max-h-16 opacity-100 py-3 pointer-events-auto' : 'max-h-0 opacity-0 py-0 border-b-0 pointer-events-none'
+          }`}
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-8 flex items-center justify-between text-xs">
           {featuresOpen && (
             <div className="flex items-center gap-5 sm:gap-7 font-medium overflow-x-auto no-scrollbar py-1 pr-4 animate-in fade-in duration-150">
-              <a 
-                href="#cli" 
-                onClick={(e) => { handleNavLink(e, 'cli'); closeDropdown(); }}
-                className={`transition-colors whitespace-nowrap shrink-0 ${
-                  activeSection === 'cli' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600 font-bold' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
-                }`}
+              <a
+                href="#mission"
+                onClick={(e) => { handleNavLink(e, 'mission'); closeDropdown(); }}
+                className={`transition-colors whitespace-nowrap shrink-0 ${activeSection === 'mission' ? 'text-white [html[data-theme="light"]_&]:text-slate-900 font-semibold' : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
+                  }`}
               >
-                {t.navbar.kernel}
+                {t.navbar.mission}
               </a>
-              <a 
-                href="#breakthroughs" 
-                onClick={(e) => { handleNavLink(e, 'breakthroughs'); closeDropdown(); }}
-                className={`transition-colors whitespace-nowrap shrink-0 ${
-                  activeSection === 'breakthroughs' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600 font-bold' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
-                }`}
+              <a
+                href="#value-props"
+                onClick={(e) => { handleNavLink(e, 'value-props'); closeDropdown(); }}
+                className={`transition-colors whitespace-nowrap shrink-0 ${activeSection === 'value-props' ? 'text-white [html[data-theme="light"]_&]:text-slate-900 font-semibold' : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
+                  }`}
               >
-                {t.navbar.breakthroughs}
+                {t.navbar.valueProps}
               </a>
-              <a 
-                href="#agents" 
-                onClick={(e) => { handleNavLink(e, 'agents'); closeDropdown(); }}
-                className={`transition-colors whitespace-nowrap shrink-0 ${
-                  activeSection === 'agents' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600 font-bold' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
-                }`}
+              <a
+                href="#co-evolution"
+                onClick={(e) => { handleNavLink(e, 'co-evolution'); closeDropdown(); }}
+                className={`transition-colors whitespace-nowrap shrink-0 ${activeSection === 'co-evolution' ? 'text-white [html[data-theme="light"]_&]:text-slate-900 font-semibold' : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
+                  }`}
               >
-                {t.navbar.agents}
+                {t.navbar.coEvolution}
               </a>
-              <a 
-                href="#architecture" 
-                onClick={(e) => { handleNavLink(e, 'architecture'); closeDropdown(); }}
-                className={`transition-colors whitespace-nowrap shrink-0 ${
-                  activeSection === 'architecture' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600 font-bold' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
-                }`}
+              <a
+                href="#workflow"
+                onClick={(e) => { handleNavLink(e, 'workflow'); closeDropdown(); }}
+                className={`transition-colors whitespace-nowrap shrink-0 ${activeSection === 'workflow' ? 'text-white [html[data-theme="light"]_&]:text-slate-900 font-semibold' : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
+                  }`}
               >
-                {t.navbar.architecture}
+                {t.navbar.workflow}
               </a>
-              <a 
-                href="#orchestration" 
-                onClick={(e) => { handleNavLink(e, 'orchestration'); closeDropdown(); }}
-                className={`transition-colors whitespace-nowrap shrink-0 ${
-                  activeSection === 'orchestration' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600 font-bold' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
-                }`}
+              <a
+                href="#metrics"
+                onClick={(e) => { handleNavLink(e, 'metrics'); closeDropdown(); }}
+                className={`transition-colors whitespace-nowrap shrink-0 ${activeSection === 'metrics' ? 'text-white [html[data-theme="light"]_&]:text-slate-900 font-semibold' : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
+                  }`}
               >
-                {t.navbar.orchestration}
+                {t.navbar.metrics}
               </a>
-              <a 
-                href="#pricing" 
-                onClick={(e) => { handleNavLink(e, 'pricing'); closeDropdown(); }}
-                className={`transition-colors whitespace-nowrap shrink-0 ${
-                  activeSection === 'pricing' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600 font-bold' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
-                }`}
+              <a
+                href="#ioa-roadmap"
+                onClick={(e) => { handleNavLink(e, 'ioa-roadmap'); closeDropdown(); }}
+                className={`transition-colors whitespace-nowrap shrink-0 ${activeSection === 'ioa-roadmap' ? 'text-white [html[data-theme="light"]_&]:text-slate-900 font-semibold' : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
+                  }`}
               >
-                {t.navbar.pricing}
+                {t.navbar.roadmap}
               </a>
-              <a 
-                href="#testimonials" 
-                onClick={(e) => { handleNavLink(e, 'testimonials'); closeDropdown(); }}
-                className={`transition-colors whitespace-nowrap shrink-0 ${
-                  activeSection === 'testimonials' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600 font-bold' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
-                }`}
+              <a
+                href="#faq"
+                onClick={(e) => { handleNavLink(e, 'faq'); closeDropdown(); }}
+                className={`transition-colors whitespace-nowrap shrink-0 ${activeSection === 'faq' ? 'text-white [html[data-theme="light"]_&]:text-slate-900 font-semibold' : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
+                  }`}
               >
-                {t.navbar.testimonials}
-              </a>
-              <a 
-                href="#unikorn" 
-                onClick={(e) => { handleNavLink(e, 'unikorn'); closeDropdown(); }}
-                className={`transition-colors whitespace-nowrap shrink-0 ${
-                  activeSection === 'unikorn' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600 font-bold' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
-                }`}
-              >
-                {t.navbar.unikorn}
-              </a>
-              <a 
-                href="#i2flabs" 
-                onClick={(e) => { handleNavLink(e, 'i2flabs'); closeDropdown(); }}
-                className={`transition-colors whitespace-nowrap shrink-0 ${
-                  activeSection === 'i2flabs' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600 font-bold' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
-                }`}
-              >
-                {t.navbar.i2flabs}
+                {t.navbar.faq}
               </a>
             </div>
           )}
 
           {resourcesOpen && (
             <div className="flex items-center gap-5 sm:gap-7 font-medium overflow-x-auto no-scrollbar py-1 pr-4 animate-in fade-in duration-150">
-              <button 
+              <button
                 data-nav="docs"
                 onClick={() => { onNavigate('docs'); closeDropdown(); }}
                 onMouseEnter={() => prefetchPage('docs')}
-                className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-medium ${
-                  currentPage === 'docs' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
-                }`}
+                className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-medium ${currentPage === 'docs' ? 'text-white [html[data-theme="light"]_&]:text-slate-900 font-semibold' : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
+                  }`}
               >
                 {t.navbar.docs}
               </button>
-              <button 
+              <button
                 data-nav="explore"
                 onClick={() => { onNavigate('explore'); closeDropdown(); }}
                 onMouseEnter={() => prefetchPage('explore')}
-                className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-medium ${
-                  currentPage === 'explore' || currentPage === 'kham-pha' || currentPage === 'learn' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
-                }`}
+                className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-medium ${currentPage === 'explore' || currentPage === 'kham-pha' || currentPage === 'learn' ? 'text-white [html[data-theme="light"]_&]:text-slate-900 font-semibold' : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
+                  }`}
               >
                 {isVi ? 'Khám phá Kỉ nguyên' : 'Era Academy'}
               </button>
-              <button 
+              <button
                 data-nav="changelog"
                 onClick={() => { onNavigate('changelog'); closeDropdown(); }}
                 onMouseEnter={() => prefetchPage('changelog')}
-                className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-medium ${
-                  currentPage === 'changelog' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
-                }`}
+                className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-medium ${currentPage === 'changelog' ? 'text-white [html[data-theme="light"]_&]:text-slate-900 font-semibold' : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
+                  }`}
               >
                 {isVi ? 'Nhật ký cập nhật' : 'Changelog'}
               </button>
-              <button 
+              <button
                 data-nav="discussions"
                 onClick={() => { onNavigate('discussions'); closeDropdown(); }}
                 onMouseEnter={() => prefetchPage('discussions')}
-                className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-medium ${
-                  currentPage === 'discussions' ? 'text-cyan-400 [html[data-theme="light"]_&]:text-cyan-600' : 'text-slate-300 hover:text-cyan-400 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-cyan-600'
-                }`}
+                className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer font-medium ${currentPage === 'discussions' ? 'text-white [html[data-theme="light"]_&]:text-slate-900 font-semibold' : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
+                  }`}
               >
                 {isVi ? 'Thảo luận' : 'Discussions'}
               </button>
             </div>
           )}
 
-          <button 
+          <button
             onClick={closeDropdown}
             aria-label={isVi ? "Đóng danh mục" : "Close menu"}
             className="text-slate-500 hover:text-white [html[data-theme='light']_&]:text-slate-400 [html[data-theme='light']_&]:hover:text-slate-800 transition-colors p-1 cursor-pointer shrink-0"
@@ -574,13 +534,12 @@ export const Navbar = ({
       {/* ── Profile Dropdown Floating Overlay (Never pushes content down) ── */}
       {user && (
         <div
-          className={`navbar-dropdown-panel absolute top-full left-0 right-0 z-50 overflow-hidden transition-all duration-300 ease-out ${dropdownBgClass} ${
-            profileOpen ? 'max-h-48 sm:max-h-24 opacity-100 py-3 sm:py-2.5 pointer-events-auto' : 'max-h-0 opacity-0 py-0 border-b-0 pointer-events-none'
-          }`}
+          className={`navbar-dropdown-panel absolute top-full left-0 right-0 z-50 overflow-hidden transition-all duration-300 ease-out ${dropdownBgClass} ${profileOpen ? 'max-h-48 sm:max-h-24 opacity-100 py-3 sm:py-2.5 pointer-events-auto' : 'max-h-0 opacity-0 py-0 border-b-0 pointer-events-none'
+            }`}
         >
           <div className="max-w-6xl mx-auto px-4 sm:px-8 flex items-center justify-between gap-3">
             {/* Avatar + Info -> Click to redirect to Profile Page */}
-            <div 
+            <div
               onClick={() => {
                 if (onNavigate) {
                   onNavigate('profile');
@@ -613,7 +572,7 @@ export const Navbar = ({
                   <span className="text-xs font-bold text-white [html[data-theme='light']_&]:text-slate-900 group-hover/user:text-cyan-400 [html[data-theme='light']_&]:group-hover/user:text-cyan-600 transition-colors tracking-tight truncate">
                     {user.user_metadata?.full_name || user.user_metadata?.name || user.email.split('@')[0]}
                   </span>
-                  
+
                   {/* Minimalist Transparent Membership Tier & Admin Badge */}
                   <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-white [html[data-theme='light']_&]:text-slate-700 select-none shrink-0">
                     {entitlements?.isWaitlist || entitlements?.status === 'beta_waitlist'
@@ -627,7 +586,7 @@ export const Navbar = ({
 
                   {userProfile?.role === 'admin' && (
                     <>
-                      <span className="text-zinc-600 [html[data-theme='light']_&]:text-zinc-400 text-xs select-none">•</span>
+                      <span className="text-zinc-600 [html[data-theme='light']_&]:text-zinc-400 text-xs select-none">/</span>
                       <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-400 [html[data-theme='light']_&]:text-zinc-600 select-none shrink-0">
                         ADMIN
                       </span>

@@ -710,6 +710,81 @@ pre code, code.hljs {
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
+/* CoralOS Inspired Obsidian Glass & Bento System */
+.hairline-border {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-obsidian {
+  background: rgba(12, 14, 20, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: none !important;
+}
+
+.bento-card-coral {
+  position: relative;
+  background: #0C0E14;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+  box-shadow: none !important;
+}
+
+.bento-card-coral:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.coral-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  box-shadow: none !important;
+}
+
+.pulse-dot {
+  display: none !important;
+}
+
+html[data-theme='light'] .glass-obsidian {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(15, 23, 42, 0.08);
+  box-shadow: none !important;
+}
+
+html[data-theme='light'] .bento-card-coral {
+  background: #FFFFFF;
+  border-color: rgba(15, 23, 42, 0.08);
+  box-shadow: none !important;
+}
+
+html[data-theme='light'] .bento-card-coral:hover {
+  border-color: rgba(15, 23, 42, 0.18);
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+html[data-theme='light'] .coral-pill {
+  background: rgba(15, 23, 42, 0.05);
+  border-color: rgba(15, 23, 42, 0.15);
+  color: #0F172A;
+  box-shadow: none !important;
+}
+
 .glass-card {
   background: rgba(19, 21, 32, 0.55);
   backdrop-filter: blur(12px);

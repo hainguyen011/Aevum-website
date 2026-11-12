@@ -41,7 +41,7 @@ export const Footer = ({ onNavigate, activeLang }) => {
                 aria-label="Aevum OS Homepage"
                 className="flex items-center gap-2.5 text-left p-0 cursor-pointer group bg-transparent border-0"
               >
-                <img src={logoImg} alt="Aevum OS Logo" width="24" height="24" className="w-6 h-6 object-contain group-hover:scale-105 transition-transform" />
+                <img src={logoImg} alt="Aevum OS Logo" width="24" height="24" className="w-6 h-6 object-contain [html[data-theme='light']_&]:brightness-0" />
                 <span className="font-bold text-white text-base tracking-tight font-display">AEVUM OS</span>
               </button>
             </div>
@@ -53,19 +53,19 @@ export const Footer = ({ onNavigate, activeLang }) => {
             <div className="flex flex-wrap items-center gap-x-3.5 gap-y-2 pt-2 text-slate-400 font-mono text-xs">
               <button 
                 onClick={() => onNavigate('pricing')} 
-                className="hover:text-cyan-400 transition-colors cursor-pointer bg-transparent border-none p-0 text-left"
+                className="hover:text-white transition-colors cursor-pointer bg-transparent border-none p-0 text-left"
               >
                 {t.navbar.pricing}
               </button>
               <button 
                 onClick={() => onNavigate('docs')} 
-                className="hover:text-cyan-400 transition-colors cursor-pointer bg-transparent border-none p-0 text-left"
+                className="hover:text-white transition-colors cursor-pointer bg-transparent border-none p-0 text-left"
               >
                 {t.footer.links.docs}
               </button>
               <button 
                 onClick={() => onNavigate('about')} 
-                className="hover:text-cyan-400 transition-colors cursor-pointer bg-transparent border-none p-0 text-left"
+                className="hover:text-white transition-colors cursor-pointer bg-transparent border-none p-0 text-left"
               >
                 {t.navbar.about}
               </button>
@@ -74,7 +74,7 @@ export const Footer = ({ onNavigate, activeLang }) => {
                 target="_blank" 
                 rel="noreferrer" 
                 aria-label="I2FLabs Official Website" 
-                className="hover:text-cyan-400 transition-colors"
+                className="hover:text-white transition-colors"
               >
                 I2FLabs
               </a>
@@ -83,7 +83,7 @@ export const Footer = ({ onNavigate, activeLang }) => {
                 target="_blank" 
                 rel="noreferrer" 
                 aria-label="Aevum Open VSX Extension" 
-                className="hover:text-cyan-400 transition-colors"
+                className="hover:text-white transition-colors"
               >
                 {t.footer.links.openVsx}
               </a>
@@ -92,7 +92,7 @@ export const Footer = ({ onNavigate, activeLang }) => {
                 target="_blank" 
                 rel="noreferrer" 
                 aria-label="Unikorn Product Hunt Page" 
-                className="hover:text-cyan-400 transition-colors"
+                className="hover:text-white transition-colors"
               >
                 {t.footer.links.unikorn}
               </a>
@@ -101,14 +101,14 @@ export const Footer = ({ onNavigate, activeLang }) => {
                 target="_blank" 
                 rel="noreferrer" 
                 aria-label="GitHub Repository" 
-                className="hover:text-cyan-400 transition-colors"
+                className="hover:text-white transition-colors"
               >
                 GitHub
               </a>
               <a 
                 href="mailto:hainguyen011238@gmail.com" 
                 aria-label="Email Aevum OS Support" 
-                className="hover:text-cyan-400 transition-colors" 
+                className="hover:text-white transition-colors" 
                 title="hainguyen011238@gmail.com"
               >
                 Mail
@@ -119,42 +119,42 @@ export const Footer = ({ onNavigate, activeLang }) => {
           {/* Architecture Column */}
           <div className="space-y-3 font-sans">
             <h3 className="font-bold text-white uppercase tracking-wider text-[11px] font-mono flex items-center gap-1.5">
-              <span className="w-1 h-2 bg-cyan-500 rounded-none inline-block"></span>
+              <span className="w-1 h-2 bg-white/40 rounded-none inline-block"></span>
               {t.footer.cols.arch}
             </h3>
             <ul className="space-y-2 text-xs">
-              <li><a href="#breakthroughs" onClick={(e) => handleNavLink(e, 'breakthroughs')} className="hover:text-cyan-400 transition-colors text-slate-300 block py-0.5">{activeLang === 'vi' ? 'Nghi thức Bắt tay' : 'The Handshake Ritual'}</a></li>
-              <li><a href="#breakthroughs" onClick={(e) => handleNavLink(e, 'breakthroughs')} className="hover:text-cyan-400 transition-colors text-slate-300 block py-0.5">{activeLang === 'vi' ? 'Bộ não hướng Tên miền' : 'Domain-Driven Brain'}</a></li>
-              <li><a href="#breakthroughs" onClick={(e) => handleNavLink(e, 'breakthroughs')} className="hover:text-cyan-400 transition-colors text-slate-300 block py-0.5">{activeLang === 'vi' ? 'Điều phối Biệt đội' : 'Squad Orchestration'}</a></li>
-              <li><a href="#breakthroughs" onClick={(e) => handleNavLink(e, 'breakthroughs')} className="hover:text-cyan-400 transition-colors text-slate-300 block py-0.5">{activeLang === 'vi' ? 'Thu hoạch Tri thức' : 'Knowledge Harvest'}</a></li>
+              <li><a href="#breakthroughs" onClick={(e) => handleNavLink(e, 'breakthroughs')} className="hover:text-white transition-colors text-slate-300 block py-0.5">{activeLang === 'vi' ? 'Nghi thức Bắt tay' : 'The Handshake Ritual'}</a></li>
+              <li><a href="#breakthroughs" onClick={(e) => handleNavLink(e, 'breakthroughs')} className="hover:text-white transition-colors text-slate-300 block py-0.5">{activeLang === 'vi' ? 'Bộ não hướng Tên miền' : 'Domain-Driven Brain'}</a></li>
+              <li><a href="#breakthroughs" onClick={(e) => handleNavLink(e, 'breakthroughs')} className="hover:text-white transition-colors text-slate-300 block py-0.5">{activeLang === 'vi' ? 'Điều phối Biệt đội' : 'Squad Orchestration'}</a></li>
+              <li><a href="#breakthroughs" onClick={(e) => handleNavLink(e, 'breakthroughs')} className="hover:text-white transition-colors text-slate-300 block py-0.5">{activeLang === 'vi' ? 'Thu hoạch Tri thức' : 'Knowledge Harvest'}</a></li>
             </ul>
           </div>
 
           {/* Execution Modes Column */}
           <div className="space-y-3 font-sans">
             <h3 className="font-bold text-white uppercase tracking-wider text-[11px] font-mono flex items-center gap-1.5">
-              <span className="w-1 h-2 bg-cyan-500 rounded-none inline-block"></span>
+              <span className="w-1 h-2 bg-white/40 rounded-none inline-block"></span>
               {t.footer.cols.exec}
             </h3>
             <ul className="space-y-2 text-xs">
-              <li><a href="#cli" onClick={(e) => handleNavLink(e, 'cli')} className="hover:text-cyan-400 transition-colors text-slate-300 block py-0.5">SSE Daemon (Port 3344)</a></li>
-              <li><a href="#cli" onClick={(e) => handleNavLink(e, 'cli')} className="hover:text-cyan-400 transition-colors text-slate-300 block py-0.5">Stdio OS Process</a></li>
-              <li><a href="#cli" onClick={(e) => handleNavLink(e, 'cli')} className="hover:text-cyan-400 transition-colors text-slate-300 block py-0.5">Health Ping Endpoint</a></li>
-              <li><a href="#cli" onClick={(e) => handleNavLink(e, 'cli')} className="hover:text-cyan-400 transition-colors text-slate-300 block py-0.5">Electron Desktop GUI</a></li>
+              <li><a href="#cli" onClick={(e) => handleNavLink(e, 'cli')} className="hover:text-white transition-colors text-slate-300 block py-0.5">SSE Daemon (Port 3344)</a></li>
+              <li><a href="#cli" onClick={(e) => handleNavLink(e, 'cli')} className="hover:text-white transition-colors text-slate-300 block py-0.5">Stdio OS Process</a></li>
+              <li><a href="#cli" onClick={(e) => handleNavLink(e, 'cli')} className="hover:text-white transition-colors text-slate-300 block py-0.5">Health Ping Endpoint</a></li>
+              <li><a href="#cli" onClick={(e) => handleNavLink(e, 'cli')} className="hover:text-white transition-colors text-slate-300 block py-0.5">Electron Desktop GUI</a></li>
             </ul>
           </div>
 
           {/* Agent Ecosystem Column */}
           <div className="space-y-3 font-sans col-span-1 sm:col-span-2 md:col-span-1">
             <h3 className="font-bold text-white uppercase tracking-wider text-[11px] font-mono flex items-center gap-1.5">
-              <span className="w-1 h-2 bg-cyan-500 rounded-none inline-block"></span>
+              <span className="w-1 h-2 bg-white/40 rounded-none inline-block"></span>
               {t.footer.cols.eco}
             </h3>
             <ul className="space-y-2 text-xs">
-              <li><a href="#orchestration" onClick={(e) => handleNavLink(e, 'orchestration')} className="hover:text-cyan-400 transition-colors text-slate-300 block py-0.5">Autonomous Agents</a></li>
-              <li><a href="#orchestration" onClick={(e) => handleNavLink(e, 'orchestration')} className="hover:text-cyan-400 transition-colors text-slate-300 block py-0.5">Claude Desktop Squads</a></li>
-              <li><a href="#orchestration" onClick={(e) => handleNavLink(e, 'orchestration')} className="hover:text-cyan-400 transition-colors text-slate-300 block py-0.5">Antigravity AI Brain</a></li>
-              <li><a href="#orchestration" onClick={(e) => handleNavLink(e, 'orchestration')} className="hover:text-cyan-400 transition-colors text-slate-300 block py-0.5">PiperNet IoA Mesh</a></li>
+              <li><a href="#orchestration" onClick={(e) => handleNavLink(e, 'orchestration')} className="hover:text-white transition-colors text-slate-300 block py-0.5">Autonomous Agents</a></li>
+              <li><a href="#orchestration" onClick={(e) => handleNavLink(e, 'orchestration')} className="hover:text-white transition-colors text-slate-300 block py-0.5">Claude Desktop Squads</a></li>
+              <li><a href="#orchestration" onClick={(e) => handleNavLink(e, 'orchestration')} className="hover:text-white transition-colors text-slate-300 block py-0.5">Antigravity AI Brain</a></li>
+              <li><a href="#orchestration" onClick={(e) => handleNavLink(e, 'orchestration')} className="hover:text-white transition-colors text-slate-300 block py-0.5">PiperNet IoA Mesh</a></li>
             </ul>
           </div>
 
@@ -162,8 +162,8 @@ export const Footer = ({ onNavigate, activeLang }) => {
       </div>
 
       {/* Bottom Copyright Bar */}
-      <div className="footer-bottom-bar bg-[#07090D]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 py-5 pb-16 sm:pb-5 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 text-slate-400 font-mono text-[11px]">
+      <div className="footer-bottom-bar bg-[#07090D] border-t border-white/[0.06]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 text-slate-400 font-mono text-[11px]">
           {/* Copyright text */}
           <p className="text-center sm:text-left m-0 text-slate-400 text-xs sm:text-[11px] leading-relaxed">
             {t.footer.copyright}
@@ -173,14 +173,14 @@ export const Footer = ({ onNavigate, activeLang }) => {
           <div className="flex items-center justify-center sm:justify-end gap-4">
             <button
               onClick={() => onNavigate('privacy')}
-              className="text-slate-400 hover:text-cyan-400 transition-colors py-1 cursor-pointer bg-transparent border-0 font-mono text-[11px]"
+              className="text-slate-400 hover:text-white transition-colors py-1 cursor-pointer bg-transparent border-0 font-mono text-[11px]"
             >
               {activeLang === 'vi' ? 'Chính sách Bảo mật' : 'Privacy Policy'}
             </button>
-            <span className="text-white/10 select-none">•</span>
+            <span className="text-white/20 select-none">/</span>
             <button
               onClick={() => onNavigate('terms')}
-              className="text-slate-400 hover:text-cyan-400 transition-colors py-1 cursor-pointer bg-transparent border-0 font-mono text-[11px]"
+              className="text-slate-400 hover:text-white transition-colors py-1 cursor-pointer bg-transparent border-0 font-mono text-[11px]"
             >
               {activeLang === 'vi' ? 'Điều khoản Dịch vụ' : 'Terms of Service'}
             </button>

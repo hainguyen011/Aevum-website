@@ -302,11 +302,11 @@ export const About = ({ activeLang }) => {
   }, [folderStack]);
 
   return (
-    <div id="about" className="w-full bg-[#07090D] text-slate-100 min-h-[calc(100vh-73px)] font-sans flex flex-col">
+    <div id="about" className="w-full bg-[#0A0B0F] text-slate-100 min-h-[calc(100vh-73px)] font-sans flex flex-col">
 
       {isLoading ? (
         /* 2.5s Retro Loading Screen with Pure Transparent Logo */
-        <div className="border-subtle-b bg-[#07090D] py-10 px-6 lg:px-10 h-[520px] max-h-[75vh] flex flex-col items-center justify-center text-center font-mono relative overflow-hidden flex-1">
+        <div className="border-subtle-b bg-[#0A0B0F] py-10 px-6 lg:px-10 h-[520px] max-h-[75vh] flex flex-col items-center justify-center text-center font-mono relative overflow-hidden flex-1">
 
           {/* Rendered Transparent Logo Image */}
           <div className="relative z-10 space-y-4 max-w-xl mx-auto flex flex-col items-center">

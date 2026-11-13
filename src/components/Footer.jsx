@@ -28,7 +28,7 @@ export const Footer = ({ onNavigate, activeLang }) => {
   };
 
   return (
-    <footer className="bg-[#07090D] [html[data-theme='light']_&]:bg-[#F8FAFC] text-slate-400 [html[data-theme='light']_&]:text-slate-600 relative z-10 w-full border-t border-white/[0.06] [html[data-theme='light']_&]:border-slate-200">
+    <footer className="bg-[#0A0B0F] [html[data-theme='light']_&]:bg-[#F8FAFC] text-slate-400 [html[data-theme='light']_&]:text-slate-600 relative z-10 w-full border-t border-white/[0.06] [html[data-theme='light']_&]:border-slate-200">
       {/* Top Main Section with Responsive Grid */}
       <div className="px-4 sm:px-8 lg:px-12 py-10 sm:py-14 lg:py-16 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-8">
@@ -257,7 +257,7 @@ export const Footer = ({ onNavigate, activeLang }) => {
       </div>
 
       {/* Bottom Copyright Bar */}
-      <div className="footer-bottom-bar bg-[#07090D] [html[data-theme='light']_&]:bg-[#F1F5F9] border-t border-white/[0.06] [html[data-theme='light']_&]:border-slate-200">
+      <div className="footer-bottom-bar bg-[#0A0B0F] [html[data-theme='light']_&]:bg-[#F1F5F9] border-t border-white/[0.06] [html[data-theme='light']_&]:border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 text-slate-400 [html[data-theme='light']_&]:text-slate-600 font-mono text-[11px]">
           {/* Copyright text */}
           <p className="text-center sm:text-left m-0 text-slate-400 [html[data-theme='light']_&]:text-slate-600 text-xs sm:text-[11px] leading-relaxed">

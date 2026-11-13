@@ -432,16 +432,19 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
   // Initialize Scroll Reveal Animations Hook
   useScrollReveal([currentPage]);
 
-  // Dynamically set favicon using compiled Vite asset
+  // Dynamically bust cache and set favicons using compiled Vite asset
   useEffect(() => {
-    let link = document.querySelector("link[rel~='icon']");
-    if (!link) {
-      link = document.createElement('link');
+    const iconLinks = document.querySelectorAll("link[rel*='icon']");
+    if (iconLinks && iconLinks.length > 0) {
+      iconLinks.forEach(link => {
+        link.href = logoImg;
+      });
+    } else {
+      const link = document.createElement('link');
       link.rel = 'icon';
-      document.getElementsByTagName('head')[0].appendChild(link);
+      link.href = logoImg;
+      document.head.appendChild(link);
     }
-    link.href = logoImg;
-    link.type = 'image/png';
   }, []);
 
   // Language Preference Manager (Default to 'vi')
@@ -746,7 +749,7 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
 
   return (
     <>
-      <div className={`min-h-screen bg-[#0A0B0F] text-slate-100 selection:bg-white/20 selection:text-white w-full relative flex flex-col ${isMobileMenuOpen ? 'mobile-menu-active' : ''}`}>
+      <div className={`min-h-screen bg-[#0A0B0F] [html[data-theme='light']_&]:bg-white text-slate-100 [html[data-theme='light']_&]:text-slate-900 selection:bg-white/20 selection:text-white [html[data-theme='light']_&]:selection:bg-slate-900 [html[data-theme='light']_&]:selection:text-white w-full relative flex flex-col ${isMobileMenuOpen ? 'mobile-menu-active' : ''}`}>
 
         {/* Top Navbar Row */}
         <Navbar

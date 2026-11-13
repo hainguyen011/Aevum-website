@@ -119,6 +119,7 @@ export const HeroCompanionMotion = ({ activeLang = 'vi' }) => {
       isSurprised = true
     }) => {
       if (alpha <= 0.01) return;
+      const isLight = typeof document !== 'undefined' && document.documentElement.getAttribute('data-theme') === 'light';
       ctx.save();
       ctx.globalAlpha = Math.min(1, Math.max(0, alpha));
 
@@ -130,7 +131,9 @@ export const HeroCompanionMotion = ({ activeLang = 'vi' }) => {
 
       // Soft Radiance double border when unified
       if (highlightIntensity > 0.02) {
-        ctx.strokeStyle = `rgba(255, 255, 255, ${0.45 * highlightIntensity})`;
+        ctx.strokeStyle = isLight 
+          ? `rgba(15, 23, 42, ${0.25 * highlightIntensity})` 
+          : `rgba(255, 255, 255, ${0.45 * highlightIntensity})`;
         ctx.lineWidth = 5;
         if (ctx.roundRect) {
           ctx.beginPath();
@@ -139,7 +142,10 @@ export const HeroCompanionMotion = ({ activeLang = 'vi' }) => {
         }
 
         const breath = Math.sin(tickRef.current * 0.04) * 4 + 7;
-        ctx.strokeStyle = `rgba(255, 255, 255, ${0.22 * highlightIntensity})`;
+        const breathAlpha = (isLight ? 0.12 : 0.22) * highlightIntensity;
+        ctx.strokeStyle = isLight 
+          ? `rgba(15, 23, 42, ${breathAlpha})` 
+          : `rgba(255, 255, 255, ${breathAlpha})`;
         ctx.lineWidth = 1.6;
         if (ctx.roundRect) {
           ctx.beginPath();
@@ -148,9 +154,18 @@ export const HeroCompanionMotion = ({ activeLang = 'vi' }) => {
         }
       }
 
-      // 1. Crisp White Squircle Body (Size 112px)
-      ctx.fillStyle = highlightIntensity > 0.5 ? '#FFFFFF' : '#F8FAFC';
-      ctx.strokeStyle = highlightIntensity > 0.5 ? '#FFFFFF' : 'rgba(255, 255, 255, 0.4)';
+      // 1. Crisp Squircle Body with rich 3D shading & distinct dark border in Light Mode
+      if (isLight) {
+        const bodyGrad = ctx.createLinearGradient(0, -size / 2, 0, size / 2);
+        bodyGrad.addColorStop(0, '#FFFFFF');
+        bodyGrad.addColorStop(0.7, '#F8FAFC');
+        bodyGrad.addColorStop(1, '#E2E8F0');
+        ctx.fillStyle = bodyGrad;
+        ctx.strokeStyle = highlightIntensity > 0.5 ? '#0F172A' : 'rgba(15, 23, 42, 0.28)';
+      } else {
+        ctx.fillStyle = highlightIntensity > 0.5 ? '#FFFFFF' : '#F8FAFC';
+        ctx.strokeStyle = highlightIntensity > 0.5 ? '#FFFFFF' : 'rgba(255, 255, 255, 0.4)';
+      }
       ctx.lineWidth = highlightIntensity > 0.5 ? 2.6 : 1.4;
 
       if (ctx.roundRect) {
@@ -198,13 +213,14 @@ export const HeroCompanionMotion = ({ activeLang = 'vi' }) => {
       ctx.save();
       ctx.globalAlpha = Math.min(1, Math.max(0, alpha));
 
+      const isLight = typeof document !== 'undefined' && document.documentElement.getAttribute('data-theme') === 'light';
       const radius = 31;   // 62px diameter circular badge (expanded for visual presence)
       const logoSize = 33; // 33px crisp official logo vector
 
       // Soft Radiance pulsing ring when active
       if (isActive) {
         const pulse = Math.sin(tickRef.current * 0.08) * 1.5;
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.45)';
+        ctx.strokeStyle = isLight ? 'rgba(15, 23, 42, 0.25)' : 'rgba(255, 255, 255, 0.45)';
         ctx.lineWidth = 4;
         ctx.beginPath();
         ctx.arc(x, y, radius + 5 + pulse, 0, Math.PI * 2);
@@ -212,8 +228,13 @@ export const HeroCompanionMotion = ({ activeLang = 'vi' }) => {
       }
 
       // Badge Circle
-      ctx.fillStyle = isActive ? '#FFFFFF' : '#0B0D13';
-      ctx.strokeStyle = isActive ? '#FFFFFF' : 'rgba(255, 255, 255, 0.25)';
+      if (isLight) {
+        ctx.fillStyle = isActive ? '#0F172A' : '#FFFFFF';
+        ctx.strokeStyle = isActive ? '#0F172A' : 'rgba(15, 23, 42, 0.20)';
+      } else {
+        ctx.fillStyle = isActive ? '#FFFFFF' : '#0B0D13';
+        ctx.strokeStyle = isActive ? '#FFFFFF' : 'rgba(255, 255, 255, 0.25)';
+      }
       ctx.lineWidth = isActive ? 2.2 : 1.4;
 
       ctx.beginPath();
@@ -227,7 +248,11 @@ export const HeroCompanionMotion = ({ activeLang = 'vi' }) => {
         ctx.save();
         ctx.translate(x - logoSize / 2, y - logoSize / 2);
         ctx.scale(logoSize / 24, logoSize / 24);
-        ctx.fillStyle = isActive ? '#0A0B0F' : '#FFFFFF';
+        if (isLight) {
+          ctx.fillStyle = isActive ? '#FFFFFF' : '#0F172A';
+        } else {
+          ctx.fillStyle = isActive ? '#0A0B0F' : '#FFFFFF';
+        }
         ctx.fill(logoPath);
         ctx.restore();
       }
@@ -253,6 +278,7 @@ export const HeroCompanionMotion = ({ activeLang = 'vi' }) => {
     // ── Speech / Insight Badge (Compact & Pristine) ──
     const drawBadge = ({ x, y, text = '', alpha = 1, type = 'normal' }) => {
       if (alpha <= 0.02 || !text) return;
+      const isLight = typeof document !== 'undefined' && document.documentElement.getAttribute('data-theme') === 'light';
       ctx.save();
       ctx.globalAlpha = Math.min(1, Math.max(0, alpha));
 
@@ -263,8 +289,10 @@ export const HeroCompanionMotion = ({ activeLang = 'vi' }) => {
       const bx = x - bw / 2;
       const by = y - bh / 2;
 
-      ctx.fillStyle = '#0A0B0F';
-      ctx.strokeStyle = type === 'match' ? '#FFFFFF' : 'rgba(255, 255, 255, 0.35)';
+      ctx.fillStyle = isLight ? '#FFFFFF' : '#0A0B0F';
+      ctx.strokeStyle = isLight 
+        ? (type === 'match' ? '#0F172A' : 'rgba(15, 23, 42, 0.25)')
+        : (type === 'match' ? '#FFFFFF' : 'rgba(255, 255, 255, 0.35)');
       ctx.lineWidth = type === 'match' ? 1.5 : 1.0;
 
       if (ctx.roundRect) {
@@ -277,7 +305,7 @@ export const HeroCompanionMotion = ({ activeLang = 'vi' }) => {
         ctx.strokeRect(bx, by, bw, bh);
       }
 
-      ctx.fillStyle = '#FFFFFF';
+      ctx.fillStyle = isLight ? '#0F172A' : '#FFFFFF';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText(text, x, y);
@@ -415,7 +443,7 @@ export const HeroCompanionMotion = ({ activeLang = 'vi' }) => {
           ctx.save();
           ctx.globalAlpha = pAlpha;
           ctx.font = '10px "JetBrains Mono", monospace';
-          ctx.fillStyle = '#FFFFFF';
+          ctx.fillStyle = (typeof document !== 'undefined' && document.documentElement.getAttribute('data-theme') === 'light') ? '#0F172A' : '#FFFFFF';
           ctx.fillText(p.text, curX, curY);
           ctx.restore();
         }

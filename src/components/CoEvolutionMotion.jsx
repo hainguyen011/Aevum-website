@@ -122,9 +122,10 @@ export const CoEvolutionMotion = ({ activeLang = 'vi' }) => {
     // ── 1. DRAW 3D PERSPECTIVE FLOOR (SÀN LỚP HỌC 3D) ──
     const drawStudioFloor = (horizonY) => {
       const vpX = width * 0.5;
+      const isLight = typeof document !== 'undefined' && document.documentElement.getAttribute('data-theme') === 'light';
 
       ctx.save();
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.038)';
+      ctx.strokeStyle = isLight ? 'rgba(15, 23, 42, 0.06)' : 'rgba(255, 255, 255, 0.038)';
       ctx.lineWidth = 1.0;
 
       // Perspective floor rays radiating down from horizon
@@ -151,9 +152,10 @@ export const CoEvolutionMotion = ({ activeLang = 'vi' }) => {
     // ── 2. DRAW COLLABORATIVE DREAM HOUSE ARCHITECTURE TRÊN BẢNG ──
     // Vẽ lũy tiến theo từng bước (activeStep: 0..4)
     const drawCollaborativeHouse = (ox, oy, activeStep) => {
+      const isLight = typeof document !== 'undefined' && document.documentElement.getAttribute('data-theme') === 'light';
       ctx.save();
-      ctx.strokeStyle = '#FFFFFF';
-      ctx.fillStyle = '#FFFFFF';
+      ctx.strokeStyle = isLight ? '#0F172A' : '#FFFFFF';
+      ctx.fillStyle = isLight ? '#0F172A' : '#FFFFFF';
       ctx.lineWidth = 1.35;
       ctx.lineCap = 'round';
       ctx.lineJoin = 'round';
@@ -456,20 +458,21 @@ export const CoEvolutionMotion = ({ activeLang = 'vi' }) => {
       const bHeight = 224;
       const bx = width * 0.5 - bWidth / 2;
       const by = 16;
+      const isLight = typeof document !== 'undefined' && document.documentElement.getAttribute('data-theme') === 'light';
 
       ctx.save();
 
       // Đổ bóng êm phía sau bảng
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.65)';
+      ctx.fillStyle = isLight ? 'rgba(15, 23, 42, 0.08)' : 'rgba(0, 0, 0, 0.65)';
       if (ctx.roundRect) {
         ctx.beginPath();
         ctx.roundRect(bx + 4, by + 6, bWidth, bHeight, 6);
         ctx.fill();
       }
 
-      // Mặt bảng đá phiến tối giản
-      ctx.fillStyle = '#080A12';
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.22)';
+      // Mặt bảng đá phiến tối giản (Hoặc bản vẽ sáng thanh lịch trong Light Mode)
+      ctx.fillStyle = isLight ? '#F1F5F9' : '#080A12';
+      ctx.strokeStyle = isLight ? 'rgba(15, 23, 42, 0.18)' : 'rgba(255, 255, 255, 0.22)';
       ctx.lineWidth = 1.3;
 
       if (ctx.roundRect) {
@@ -484,12 +487,12 @@ export const CoEvolutionMotion = ({ activeLang = 'vi' }) => {
 
       // Dòng trên cùng: Số bước & Tiêu đề chuyên môn (Không emoji)
       ctx.font = '10px "JetBrains Mono", monospace';
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+      ctx.fillStyle = isLight ? 'rgba(15, 23, 42, 0.6)' : 'rgba(255, 255, 255, 0.5)';
       ctx.textAlign = 'left';
       ctx.fillText(`${activeBuddy.stepNumber} / 05  •  ${activeBuddy.title}`, bx + 16, by + 20);
 
       ctx.textAlign = 'right';
-      ctx.fillStyle = '#FFFFFF';
+      ctx.fillStyle = isLight ? '#0F172A' : '#FFFFFF';
       ctx.fillText(
         isVi ? 'BẢN VẼ: NGÔI NHÀ TƯƠNG LAI' : 'BLUEPRINT: RESIDENTIAL SANCTUARY',
         bx + bWidth - 16,
@@ -497,7 +500,7 @@ export const CoEvolutionMotion = ({ activeLang = 'vi' }) => {
       );
 
       // Đường kẻ mỏng ngăn cách header
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+      ctx.strokeStyle = isLight ? 'rgba(15, 23, 42, 0.1)' : 'rgba(255, 255, 255, 0.08)';
       ctx.setLineDash([2, 3]);
       ctx.beginPath();
       ctx.moveTo(bx + 14, by + 28);
@@ -523,20 +526,20 @@ export const CoEvolutionMotion = ({ activeLang = 'vi' }) => {
         ctx.beginPath();
         ctx.arc(dx, dotY, isCurrent ? 3.0 : 2.0, 0, Math.PI * 2);
         if (isCurrent) {
-          ctx.fillStyle = '#FFFFFF';
+          ctx.fillStyle = isLight ? '#0F172A' : '#FFFFFF';
           ctx.fill();
         } else if (isPastOrCurrent) {
-          ctx.fillStyle = 'rgba(255, 255, 255, 0.65)';
+          ctx.fillStyle = isLight ? 'rgba(15, 23, 42, 0.65)' : 'rgba(255, 255, 255, 0.65)';
           ctx.fill();
         } else {
-          ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+          ctx.fillStyle = isLight ? 'rgba(15, 23, 42, 0.2)' : 'rgba(255, 255, 255, 0.2)';
           ctx.fill();
         }
       }
 
       // Dòng tóm tắt tiến trình bên phải đáy bảng (Không emoji)
       ctx.font = '9.5px "JetBrains Mono", monospace';
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+      ctx.fillStyle = isLight ? 'rgba(15, 23, 42, 0.75)' : 'rgba(255, 255, 255, 0.7)';
       ctx.textAlign = 'right';
       ctx.fillText(activeBuddy.summary, bx + bWidth - 16, by + bHeight - 13);
 
@@ -555,10 +558,11 @@ export const CoEvolutionMotion = ({ activeLang = 'vi' }) => {
       isSpeaking = false,
       bob = 0
     }) => {
+      const isLight = typeof document !== 'undefined' && document.documentElement.getAttribute('data-theme') === 'light';
       ctx.save();
 
       // Soft 3D Floor Shadow
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.55)';
+      ctx.fillStyle = isLight ? 'rgba(15, 23, 42, 0.15)' : 'rgba(0, 0, 0, 0.55)';
       ctx.beginPath();
       ctx.ellipse(x, y + size / 2 + 10, size * 0.44, 7, 0, 0, Math.PI * 2);
       ctx.fill();
@@ -571,7 +575,7 @@ export const CoEvolutionMotion = ({ activeLang = 'vi' }) => {
 
       // Subtle glow border when speaking
       if (isSpeaking) {
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.65)';
+        ctx.strokeStyle = isLight ? 'rgba(15, 23, 42, 0.22)' : 'rgba(255, 255, 255, 0.65)';
         ctx.lineWidth = 3.2;
         if (ctx.roundRect) {
           ctx.beginPath();
@@ -580,9 +584,18 @@ export const CoEvolutionMotion = ({ activeLang = 'vi' }) => {
         }
       }
 
-      // Squircle Body
-      ctx.fillStyle = '#FFFFFF';
-      ctx.strokeStyle = isSpeaking ? '#FFFFFF' : 'rgba(255, 255, 255, 0.45)';
+      // Squircle Body with subtle 3D lighting in Light Mode
+      if (isLight) {
+        const bodyGrad = ctx.createLinearGradient(0, -size / 2, 0, size / 2);
+        bodyGrad.addColorStop(0, '#FFFFFF');
+        bodyGrad.addColorStop(0.7, '#F8FAFC');
+        bodyGrad.addColorStop(1, '#E2E8F0');
+        ctx.fillStyle = bodyGrad;
+        ctx.strokeStyle = isSpeaking ? '#0F172A' : 'rgba(15, 23, 42, 0.28)';
+      } else {
+        ctx.fillStyle = '#FFFFFF';
+        ctx.strokeStyle = isSpeaking ? '#FFFFFF' : 'rgba(255, 255, 255, 0.45)';
+      }
       ctx.lineWidth = isSpeaking ? 2.2 : 1.4;
 
       if (ctx.roundRect) {
@@ -617,7 +630,7 @@ export const CoEvolutionMotion = ({ activeLang = 'vi' }) => {
 
       // Subtle sparkle
       if (isSpeaking) {
-        ctx.fillStyle = '#FFFFFF';
+        ctx.fillStyle = isLight ? '#0F172A' : '#FFFFFF';
         ctx.font = '11px "JetBrains Mono", monospace';
         ctx.fillText('✦', -size * 0.5 - 6, -size * 0.35);
         ctx.fillText('✦', size * 0.5 + 6, -size * 0.45);
@@ -689,15 +702,16 @@ export const CoEvolutionMotion = ({ activeLang = 'vi' }) => {
       }
 
       const textY = agentY - agentSize / 2 - 20;
+      const isLight = typeof document !== 'undefined' && document.documentElement.getAttribute('data-theme') === 'light';
 
       // Đổ bóng tương phản cao
-      ctx.shadowColor = 'rgba(0, 0, 0, 0.95)';
-      ctx.shadowBlur = 6;
+      ctx.shadowColor = isLight ? 'rgba(255, 255, 255, 0.95)' : 'rgba(0, 0, 0, 0.95)';
+      ctx.shadowBlur = isLight ? 3 : 6;
       ctx.shadowOffsetX = 0;
       ctx.shadowOffsetY = 1;
 
       // Vẽ văn bản cố định startX (textAlign: 'left')
-      ctx.fillStyle = '#FFFFFF';
+      ctx.fillStyle = isLight ? '#0F172A' : '#FFFFFF';
       ctx.textAlign = 'left';
       ctx.textBaseline = 'middle';
       ctx.fillText(typedSubstring + cursor, startX, textY);

@@ -134,7 +134,7 @@ export const IoARoadmapSection = ({ onNavigate, onOpenTrialModal, activeLang = '
           <div className="flex flex-wrap items-center gap-3 shrink-0">
             <a
               href="mailto:dev@aevum.ai.vn?subject=Aevum%20OS%20-%20Strategic%20Investment%20%26%20R%26D%20Inquiry"
-              className="px-5 py-2.5 rounded-full bg-[#ECEEFE] hover:bg-white text-[#0A0B0F] font-semibold text-xs transition-colors flex items-center gap-1.5 cursor-pointer"
+              className="px-5 py-2.5 rounded-full bg-[#ECEEFE] hover:bg-white text-[#0A0B0F] [html[data-theme='light']_&]:bg-slate-900 [html[data-theme='light']_&]:hover:bg-black [html[data-theme='light']_&]:text-white font-semibold text-xs transition-colors flex items-center gap-1.5 cursor-pointer"
             >
               <FileText size={13} />
               <span>{isVi ? 'Nhận Pitch Deck & Dữ liệu' : 'Request Pitch Deck'}</span>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Search, Facebook, ChevronDown, Globe, Eye, EyeOff, Sun, Atom, Menu, X, Sparkles, Layers, Network, Terminal, ArrowRight, Mail, User, LogOut, Zap } from 'lucide-react';
-const logoImg = '/assets/logos/AevumOS-transparent.webp';
+import logoImg from '../../assets/logos/AevumOS-transparent.webp';
 import unikornLogo from '../../assets/unikorn-logo.webp';
 import unikornLogoDark from '../../assets/unikorn-logo-dark.webp';
 import { translations } from '../data/translations';
@@ -187,9 +187,9 @@ export const Navbar = ({
 
   const headerBgClass = isAtTopLanding
     ? (Boolean(activeDropdown)
-      ? 'bg-black/20 [html[data-theme="light"]_&]:bg-white/80 backdrop-blur-md border-b border-white/10 [html[data-theme="light"]_&]:border-slate-200/80'
-      : 'bg-transparent border-b border-transparent backdrop-blur-none')
-    : 'bg-[#07090D]/85 [html[data-theme="light"]_&]:bg-white/90 backdrop-blur-md border-b border-white/10 [html[data-theme="light"]_&]:border-slate-200/80';
+      ? 'bg-black/20 [html[data-theme="light"]_&]:bg-white/95 backdrop-blur-md border-b border-white/10 [html[data-theme="light"]_&]:border-slate-200/80'
+      : 'bg-transparent [html[data-theme="light"]_&]:bg-white/95 border-b border-transparent [html[data-theme="light"]_&]:border-slate-200/80 backdrop-blur-none [html[data-theme="light"]_&]:backdrop-blur-md')
+    : 'bg-[#07090D]/85 [html[data-theme="light"]_&]:bg-white/95 backdrop-blur-md border-b border-white/10 [html[data-theme="light"]_&]:border-slate-200/80';
 
   const dropdownBgClass = isAtTopLanding
     ? 'bg-black/40 [html[data-theme="light"]_&]:bg-white/95 backdrop-blur-xl border-b border-white/10 [html[data-theme="light"]_&]:border-slate-200 text-white [html[data-theme="light"]_&]:text-slate-800'
@@ -378,11 +378,11 @@ export const Navbar = ({
 
             <button
               onClick={onOpenAuthModal}
-              className="flex items-center gap-1.5 text-xs font-mono text-slate-300 hover:text-white px-3 py-1.5 rounded-md hover:bg-white/5 transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 text-xs font-mono text-slate-300 hover:text-white [html[data-theme='light']_&]:text-slate-700 [html[data-theme='light']_&]:hover:text-slate-950 px-3 py-1.5 rounded-md hover:bg-white/5 [html[data-theme='light']_&]:hover:bg-slate-100 transition-colors cursor-pointer"
               title={isVi ? "Đăng nhập tài khoản" : "Sign in to Aevum account"}
             >
-              <User size={13} className="text-slate-400" />
-              <span className="font-medium uppercase tracking-wider text-slate-300 hover:text-white">
+              <User size={13} className="text-slate-400 [html[data-theme='light']_&]:text-slate-600" />
+              <span className="font-medium uppercase tracking-wider text-slate-300 hover:text-white [html[data-theme='light']_&]:text-slate-700 [html[data-theme='light']_&]:hover:text-slate-950">
                 {isVi ? 'ĐĂNG NHẬP' : 'SIGN IN'}
               </span>
             </button>
@@ -392,7 +392,7 @@ export const Navbar = ({
           <div className="hidden sm:flex items-center pl-1">
             <button
               onClick={() => onNavigate('changelog')}
-              className="px-4 py-1.5 rounded-full bg-[#ECEEFE] hover:bg-white text-[#0A0B0F] font-semibold text-xs transition-colors cursor-pointer select-none"
+              className="px-4 py-1.5 rounded-full bg-[#ECEEFE] hover:bg-white text-[#0A0B0F] [html[data-theme='light']_&]:bg-slate-900 [html[data-theme='light']_&]:hover:bg-black [html[data-theme='light']_&]:text-white font-semibold text-xs transition-colors cursor-pointer select-none"
             >
               {isVi ? 'Tải xuống' : 'Download'}
             </button>

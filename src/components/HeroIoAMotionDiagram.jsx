@@ -78,9 +78,10 @@ export const HeroIoAMotionDiagram = () => {
     // ── Draw Pixel Question Mark (?) ──
     const drawPixelQuestionMark = (centerX, topY, size, alpha) => {
       if (alpha <= 0.01) return;
+      const isLight = typeof document !== 'undefined' && document.documentElement.getAttribute('data-theme') === 'light';
       ctx.save();
       ctx.globalAlpha = Math.min(1, Math.max(0, alpha));
-      ctx.fillStyle = '#FFFFFF';
+      ctx.fillStyle = isLight ? '#0F172A' : '#FFFFFF';
 
       const p = Math.max(3.5, Math.round(size * 0.085));
       const qBlocks = [
@@ -109,6 +110,7 @@ export const HeroIoAMotionDiagram = () => {
       status = 'neutral' // 'neutral', 'match', 'error'
     }) => {
       if (alpha <= 0.02 || !text) return;
+      const isLight = typeof document !== 'undefined' && document.documentElement.getAttribute('data-theme') === 'light';
       ctx.save();
       ctx.globalAlpha = Math.min(1, Math.max(0, alpha));
 
@@ -123,12 +125,16 @@ export const HeroIoAMotionDiagram = () => {
       const by = y - bh - 10 - floatRise;
 
       // Bubble Background (Strictly Flat Vector - Zero shadow)
-      ctx.fillStyle = status === 'error' ? '#180E10' : '#0A0B0F';
-      ctx.strokeStyle = status === 'match' 
-        ? '#FFFFFF' 
-        : status === 'error' 
-          ? 'rgba(255, 255, 255, 0.45)' 
-          : 'rgba(255, 255, 255, 0.32)';
+      ctx.fillStyle = isLight
+        ? '#FFFFFF'
+        : (status === 'error' ? '#180E10' : '#0A0B0F');
+      ctx.strokeStyle = isLight
+        ? (status === 'match' 
+            ? '#0F172A' 
+            : (status === 'error' ? 'rgba(239, 68, 68, 0.6)' : 'rgba(15, 23, 42, 0.25)'))
+        : (status === 'match' 
+            ? '#FFFFFF' 
+            : (status === 'error' ? 'rgba(255, 255, 255, 0.45)' : 'rgba(255, 255, 255, 0.32)'));
       ctx.lineWidth = status === 'match' ? 1.8 : 1.0;
 
       if (ctx.roundRect) {
@@ -153,12 +159,12 @@ export const HeroIoAMotionDiagram = () => {
       // Small status indicator dot
       let textOffsetX = 0;
       if (status === 'match') {
-        ctx.fillStyle = '#FFFFFF';
+        ctx.fillStyle = isLight ? '#0F172A' : '#FFFFFF';
         ctx.fillRect(bx + 8, by + 10, 4, 4);
         textOffsetX = 4;
       }
 
-      ctx.fillStyle = '#FFFFFF';
+      ctx.fillStyle = isLight ? '#0F172A' : '#FFFFFF';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText(text, x + textOffsetX, by + bh / 2 + 0.5);
@@ -182,6 +188,7 @@ export const HeroIoAMotionDiagram = () => {
       expression = 'normal' // 'normal', 'happy', 'denied'
     }) => {
       if (alpha <= 0.01) return;
+      const isLight = typeof document !== 'undefined' && document.documentElement.getAttribute('data-theme') === 'light';
       ctx.save();
       ctx.globalAlpha = Math.min(1, Math.max(0, alpha));
 
@@ -193,7 +200,9 @@ export const HeroIoAMotionDiagram = () => {
 
       // Soft swelling radiance double border when verified
       if (highlightIntensity > 0.02) {
-        ctx.strokeStyle = `rgba(255, 255, 255, ${0.45 * highlightIntensity})`;
+        ctx.strokeStyle = isLight 
+          ? `rgba(15, 23, 42, ${0.25 * highlightIntensity})` 
+          : `rgba(255, 255, 255, ${0.45 * highlightIntensity})`;
         ctx.lineWidth = 3.5;
         if (ctx.roundRect) {
           ctx.beginPath();
@@ -203,8 +212,10 @@ export const HeroIoAMotionDiagram = () => {
 
         // Secondary subtle gentle breathing ring
         const breathSize = Math.sin(tickRef.current * 0.04) * 2 + 4;
-        const breathAlpha = 0.22 * highlightIntensity;
-        ctx.strokeStyle = `rgba(255, 255, 255, ${breathAlpha})`;
+        const breathAlpha = (isLight ? 0.15 : 0.22) * highlightIntensity;
+        ctx.strokeStyle = isLight 
+          ? `rgba(15, 23, 42, ${breathAlpha})` 
+          : `rgba(255, 255, 255, ${breathAlpha})`;
         ctx.lineWidth = 1.2;
         if (ctx.roundRect) {
           ctx.beginPath();
@@ -213,9 +224,18 @@ export const HeroIoAMotionDiagram = () => {
         }
       }
 
-      // 1. Crisp White Squircle Body
-      ctx.fillStyle = highlightIntensity > 0.5 ? '#FFFFFF' : '#F1F5F9';
-      ctx.strokeStyle = highlightIntensity > 0.5 ? '#FFFFFF' : 'rgba(255, 255, 255, 0.4)';
+      // 1. Squircle Body with subtle shading & distinct border in Light Mode
+      if (isLight) {
+        const bodyGrad = ctx.createLinearGradient(0, -size / 2, 0, size / 2);
+        bodyGrad.addColorStop(0, '#FFFFFF');
+        bodyGrad.addColorStop(0.7, '#F8FAFC');
+        bodyGrad.addColorStop(1, '#E2E8F0');
+        ctx.fillStyle = bodyGrad;
+        ctx.strokeStyle = highlightIntensity > 0.5 ? '#0F172A' : 'rgba(15, 23, 42, 0.28)';
+      } else {
+        ctx.fillStyle = highlightIntensity > 0.5 ? '#FFFFFF' : '#F1F5F9';
+        ctx.strokeStyle = highlightIntensity > 0.5 ? '#FFFFFF' : 'rgba(255, 255, 255, 0.4)';
+      }
       ctx.lineWidth = highlightIntensity > 0.5 ? 2.2 : 1.2;
 
       if (ctx.roundRect) {
@@ -701,7 +721,7 @@ export const HeroIoAMotionDiagram = () => {
           ctx.save();
           ctx.globalAlpha = gAlpha;
           ctx.font = '10px "JetBrains Mono", monospace';
-          ctx.fillStyle = '#FFFFFF';
+          ctx.fillStyle = (typeof document !== 'undefined' && document.documentElement.getAttribute('data-theme') === 'light') ? '#0F172A' : '#FFFFFF';
           ctx.fillText(g.char, curX, curY);
           ctx.restore();
         }

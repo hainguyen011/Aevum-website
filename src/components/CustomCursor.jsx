@@ -102,15 +102,15 @@ export const CustomCursor = () => {
   if (isCoarse.current) return null;
 
   // Determine dynamic scale, styling and special cursor zone state
-  let cursorStyle = 'w-11 h-11 border-white/45 scale-100 flex items-center justify-center';
+  let cursorStyle = "w-11 h-11 border-white/45 [html[data-theme='light']_&]:border-slate-800/45 scale-100 flex items-center justify-center";
   if (isUnikornZone) {
     cursorStyle = 'w-2 h-2 border-transparent bg-transparent scale-0 flex items-center justify-center shadow-none overflow-visible';
   } else if (isDodgeZone) {
     cursorStyle = 'w-11 h-11 border-red-500 bg-[#07090D]/90 scale-100 flex items-center justify-center shadow-none';
   } else if (isMouseDown) {
-    cursorStyle = 'w-11 h-11 border-white/60 bg-transparent scale-[0.68] flex items-center justify-center';
+    cursorStyle = "w-11 h-11 border-white/60 [html[data-theme='light']_&]:border-slate-800/60 bg-transparent scale-[0.68] flex items-center justify-center";
   } else if (isHovered) {
-    cursorStyle = 'w-14 h-14 border-white/80 bg-white/[0.02] scale-110 flex items-center justify-center';
+    cursorStyle = "w-14 h-14 border-white/80 [html[data-theme='light']_&]:border-slate-900/80 bg-white/[0.02] [html[data-theme='light']_&]:bg-slate-900/[0.03] scale-110 flex items-center justify-center";
   }
 
   return (

@@ -176,9 +176,12 @@ export const translations = {
         github: "GitHub"
       },
       cols: {
-        arch: "Kiến trúc OS",
-        exec: "Chế độ Chạy OS",
-        eco: "Hệ sinh thái Agent"
+        overview: "Tổng quan & Tác tử",
+        metrics: "Giá trị & Đo kiểm",
+        roadmap: "Hệ sinh thái & Lộ trình",
+        arch: "Tổng quan & Tác tử",
+        exec: "Giá trị & Đo kiểm",
+        eco: "Hệ sinh thái & Lộ trình"
       },
       copyright: "Bản quyền © 2026 I2FLabs Việt Nam. Hệ điều hành Agent tự trị.",
       status: "Aevum OS Standalone MCP Daemon • Nhân hệ thống trực tuyến"
@@ -403,9 +406,12 @@ export const translations = {
         github: "GitHub"
       },
       cols: {
-        arch: "OS Architecture",
-        exec: "OS Runtime",
-        eco: "Agent Ecosystem"
+        overview: "Overview & Agents",
+        metrics: "Proof & Metrics",
+        roadmap: "Ecosystem & Roadmap",
+        arch: "Overview & Agents",
+        exec: "Proof & Metrics",
+        eco: "Ecosystem & Roadmap"
       },
       copyright: "Copyright © 2026 I2FLabs Vietnam. Autonomous Agentic OS.",
       status: "Aevum OS Standalone MCP Daemon • Kernel Running"

@@ -113,7 +113,8 @@ export const CoreMissionMotion = () => {
       ctx.shadowOffsetY = 0;
 
       // 3. Đường viền tinh xảo ngăn cách các khối squircle khi xếp đè nhau
-      ctx.strokeStyle = 'rgba(15, 23, 42, 0.20)';
+      const isLight = typeof document !== 'undefined' && document.documentElement.getAttribute('data-theme') === 'light';
+      ctx.strokeStyle = isLight ? 'rgba(15, 23, 42, 0.28)' : 'rgba(15, 23, 42, 0.20)';
       ctx.lineWidth = 1.25;
       if (ctx.roundRect) {
         ctx.beginPath();
@@ -188,14 +189,15 @@ export const CoreMissionMotion = () => {
       const baseY = height * 0.50;
 
       // ── ÁNH SÁNG SÀN AMBIENT PERSPECTIVE ──
+      const isLight = typeof document !== 'undefined' && document.documentElement.getAttribute('data-theme') === 'light';
       ctx.save();
       const floorGlow = ctx.createRadialGradient(
         cx, baseY + 45 * responsiveScale, 20,
         cx, baseY + 45 * responsiveScale, 380 * responsiveScale
       );
-      floorGlow.addColorStop(0, 'rgba(255, 255, 255, 0.12)');
-      floorGlow.addColorStop(0.35, 'rgba(255, 255, 255, 0.05)');
-      floorGlow.addColorStop(0.7, 'rgba(148, 163, 184, 0.02)');
+      floorGlow.addColorStop(0, isLight ? 'rgba(15, 23, 42, 0.05)' : 'rgba(255, 255, 255, 0.12)');
+      floorGlow.addColorStop(0.35, isLight ? 'rgba(15, 23, 42, 0.02)' : 'rgba(255, 255, 255, 0.05)');
+      floorGlow.addColorStop(0.7, isLight ? 'rgba(148, 163, 184, 0.01)' : 'rgba(148, 163, 184, 0.02)');
       floorGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
       ctx.fillStyle = floorGlow;
       ctx.beginPath();
@@ -203,7 +205,7 @@ export const CoreMissionMotion = () => {
       ctx.fill();
 
       // Lưới sàn 3D nhẹ
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+      ctx.strokeStyle = isLight ? 'rgba(15, 23, 42, 0.06)' : 'rgba(255, 255, 255, 0.05)';
       ctx.lineWidth = 1;
       const gridStartY = baseY - 45 * responsiveScale;
       for (let i = -5; i <= 5; i++) {

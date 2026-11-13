@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ArrowRight } from 'lucide-react';
 
 /**
  * TypoAnimatedNumber - Typography Animated Counter
@@ -261,10 +260,6 @@ export const ProofMetricsSection = ({ onNavigate, activeLang = 'vi' }) => {
           {/* ── ROW 1: THE ANCHOR DUO (7 COLS + 5 COLS = 12 COLS) ── */}
           {/* CARD 01: LIVING MEMORY GRAPH (7 COLS) */}
           <div className="md:col-span-1 lg:col-span-7 bg-transparent border-0 p-0 flex flex-col justify-start space-y-3 group">
-            <span className="text-[11px] sm:text-xs font-mono uppercase tracking-[0.2em] text-slate-400 [html[data-theme='light']_&]:text-slate-500 block select-none">
-              {benefits[0].tag}
-            </span>
-
             <div className="space-y-1.5">
               <TypoAnimatedNumber
                 value={benefits[0].value}
@@ -285,27 +280,10 @@ export const ProofMetricsSection = ({ onNavigate, activeLang = 'vi' }) => {
                 {benefits[0].desc}
               </p>
             </div>
-
-            <div className="pt-2">
-              <button
-                onClick={() => onNavigate && onNavigate(benefits[0].actionTarget)}
-                className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-slate-300 hover:text-white [html[data-theme='light']_&]:text-slate-700 [html[data-theme='light']_&]:hover:text-black cursor-pointer transition-colors group/btn"
-              >
-                <span>{benefits[0].actionText}</span>
-                <ArrowRight
-                  size={13}
-                  className="group-hover/btn:translate-x-1 transition-transform"
-                />
-              </button>
-            </div>
           </div>
 
           {/* CARD 02: PLAN-FIRST DISCIPLINE (5 COLS) */}
           <div className="md:col-span-1 lg:col-span-5 bg-transparent border-0 p-0 flex flex-col justify-start space-y-3 group">
-            <span className="text-[11px] sm:text-xs font-mono uppercase tracking-[0.2em] text-slate-400 [html[data-theme='light']_&]:text-slate-500 block select-none">
-              {benefits[1].tag}
-            </span>
-
             <div className="space-y-1.5">
               <TypoAnimatedNumber
                 value={benefits[1].value}
@@ -326,28 +304,11 @@ export const ProofMetricsSection = ({ onNavigate, activeLang = 'vi' }) => {
                 {benefits[1].desc}
               </p>
             </div>
-
-            <div className="pt-2">
-              <button
-                onClick={() => onNavigate && onNavigate(benefits[1].actionTarget)}
-                className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-slate-300 hover:text-white [html[data-theme='light']_&]:text-slate-700 [html[data-theme='light']_&]:hover:text-black cursor-pointer transition-colors group/btn"
-              >
-                <span>{benefits[1].actionText}</span>
-                <ArrowRight
-                  size={13}
-                  className="group-hover/btn:translate-x-1 transition-transform"
-                />
-              </button>
-            </div>
           </div>
 
           {/* ── ROW 2: THE 3-PILLAR BASELINE GRID (4 COLS + 4 COLS + 4 COLS = 12 COLS) ── */}
           {/* CARD 03: ZERO-TRUST GUARD (4 COLS) */}
           <div className="md:col-span-1 lg:col-span-4 bg-transparent border-0 p-0 flex flex-col justify-start space-y-3 group">
-            <span className="text-[11px] sm:text-xs font-mono uppercase tracking-[0.2em] text-slate-400 [html[data-theme='light']_&]:text-slate-500 block select-none">
-              {benefits[2].tag}
-            </span>
-
             <div className="space-y-1.5">
               <TypoAnimatedNumber
                 value={benefits[2].value}
@@ -368,27 +329,10 @@ export const ProofMetricsSection = ({ onNavigate, activeLang = 'vi' }) => {
                 {benefits[2].desc}
               </p>
             </div>
-
-            <div className="pt-2">
-              <button
-                onClick={() => onNavigate && onNavigate(benefits[2].actionTarget)}
-                className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-slate-300 hover:text-white [html[data-theme='light']_&]:text-slate-700 [html[data-theme='light']_&]:hover:text-black cursor-pointer transition-colors group/btn"
-              >
-                <span>{benefits[2].actionText}</span>
-                <ArrowRight
-                  size={13}
-                  className="group-hover/btn:translate-x-1 transition-transform"
-                />
-              </button>
-            </div>
           </div>
 
           {/* CARD 04: SWARM CONCURRENCY (4 COLS) */}
           <div className="md:col-span-1 lg:col-span-4 bg-transparent border-0 p-0 flex flex-col justify-start space-y-3 group">
-            <span className="text-[11px] sm:text-xs font-mono uppercase tracking-[0.2em] text-slate-400 [html[data-theme='light']_&]:text-slate-500 block select-none">
-              {benefits[3].tag}
-            </span>
-
             <div className="space-y-1.5">
               <TypoAnimatedNumber
                 value={benefits[3].value}
@@ -409,27 +353,10 @@ export const ProofMetricsSection = ({ onNavigate, activeLang = 'vi' }) => {
                 {benefits[3].desc}
               </p>
             </div>
-
-            <div className="pt-2">
-              <button
-                onClick={() => onNavigate && onNavigate(benefits[3].actionTarget)}
-                className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-slate-300 hover:text-white [html[data-theme='light']_&]:text-slate-700 [html[data-theme='light']_&]:hover:text-black cursor-pointer transition-colors group/btn"
-              >
-                <span>{benefits[3].actionText}</span>
-                <ArrowRight
-                  size={13}
-                  className="group-hover/btn:translate-x-1 transition-transform"
-                />
-              </button>
-            </div>
           </div>
 
           {/* CARD 05: LIFE-WORK HARMONY (4 COLS) */}
           <div className="md:col-span-1 lg:col-span-4 bg-transparent border-0 p-0 flex flex-col justify-start space-y-3 group">
-            <span className="text-[11px] sm:text-xs font-mono uppercase tracking-[0.2em] text-slate-400 [html[data-theme='light']_&]:text-slate-500 block select-none">
-              {benefits[4].tag}
-            </span>
-
             <div className="space-y-1.5">
               <TypoAnimatedNumber
                 value={benefits[4].value}
@@ -450,28 +377,11 @@ export const ProofMetricsSection = ({ onNavigate, activeLang = 'vi' }) => {
                 {benefits[4].desc}
               </p>
             </div>
-
-            <div className="pt-2">
-              <button
-                onClick={() => onNavigate && onNavigate(benefits[4].actionTarget)}
-                className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-slate-300 hover:text-white [html[data-theme='light']_&]:text-slate-700 [html[data-theme='light']_&]:hover:text-black cursor-pointer transition-colors group/btn"
-              >
-                <span>{benefits[4].actionText}</span>
-                <ArrowRight
-                  size={13}
-                  className="group-hover/btn:translate-x-1 transition-transform"
-                />
-              </button>
-            </div>
           </div>
 
           {/* ── ROW 3: WIDESCREEN EDITORIAL CLOSER (SPAN 12 COLS) ── */}
           {/* CARD 06: ENDURING CRAFTSMANSHIP & ZERO DEBT */}
           <div className="md:col-span-2 lg:col-span-12 bg-transparent border-0 p-0 group">
-            <span className="text-[11px] sm:text-xs font-mono uppercase tracking-[0.2em] text-slate-400 [html[data-theme='light']_&]:text-slate-500 block select-none mb-3">
-              {benefits[5].tag}
-            </span>
-
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start">
               {/* Cột 1 (4 cols): Số liệu Animated 0 nợ */}
               <div className="lg:col-span-4 space-y-1.5">
@@ -486,31 +396,14 @@ export const ProofMetricsSection = ({ onNavigate, activeLang = 'vi' }) => {
                 </p>
               </div>
 
-              {/* Cột 2 (5 cols): Tiêu đề & Diễn giải chi tiết */}
-              <div className="lg:col-span-5 space-y-2 pt-1">
+              {/* Cột 2 (8 cols): Tiêu đề & Diễn giải chi tiết */}
+              <div className="lg:col-span-8 space-y-2 pt-1">
                 <h3 className="text-2xl sm:text-3xl font-semibold text-white [html[data-theme='light']_&]:text-slate-900 font-sans tracking-tight leading-snug group-hover:text-slate-100 [html[data-theme='light']_&]:group-hover:text-slate-950 transition-colors">
                   {benefits[5].title}
                 </h3>
-                <p className="text-sm sm:text-base text-slate-400 [html[data-theme='light']_&]:text-slate-600 leading-relaxed font-sans font-normal">
+                <p className="text-sm sm:text-base text-slate-400 [html[data-theme='light']_&]:text-slate-600 leading-relaxed font-sans font-normal max-w-3xl">
                   {benefits[5].desc}
                 </p>
-              </div>
-
-              {/* Cột 3 (3 cols): Hành động & Chuẩn O-DDD */}
-              <div className="lg:col-span-3 space-y-3 pt-2 lg:pt-3 flex flex-col items-start lg:items-end text-left lg:text-right">
-                <button
-                  onClick={() => onNavigate && onNavigate(benefits[5].actionTarget)}
-                  className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-slate-300 hover:text-white [html[data-theme='light']_&]:text-slate-700 [html[data-theme='light']_&]:hover:text-black cursor-pointer transition-colors group/btn"
-                >
-                  <span>{benefits[5].actionText}</span>
-                  <ArrowRight
-                    size={13}
-                    className="group-hover/btn:translate-x-1 transition-transform"
-                  />
-                </button>
-                <span className="text-[11px] font-mono text-slate-400 [html[data-theme='light']_&]:text-slate-500">
-                  {isVi ? 'Định chuẩn O-DDD v2.0 Clean Cut' : 'Standardized O-DDD v2.0 Clean Cut'}
-                </span>
               </div>
             </div>
           </div>

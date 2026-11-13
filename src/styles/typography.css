@@ -4,10 +4,16 @@
  * Full Vietnamese Diacritics Support • Optical Sizing Hierarchy • Regular Weight Standard (400)
  */
 
-/* Global Selection */
+/* Global Selection (High-Contrast Scan Text) */
 ::selection {
-  background-color: var(--electron-blue);
-  color: #000000;
+  background-color: rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
+}
+
+html[data-theme="light"] ::selection,
+html[data-theme="light"] *::selection {
+  background-color: #0F172A !important;
+  color: #FFFFFF !important;
 }
 
 /* Base Body Typography - Strict Regular Weight (400) for Eye Comfort & Accessibility */

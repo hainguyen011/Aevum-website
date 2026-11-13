@@ -120,8 +120,8 @@ export const DualDownloadButtons = ({
   const isMacUser = userOS === 'mac';
 
   // Primary Pill Styles (Swiss Editorial Tone)
-  const primaryPillClass = "bg-[#ECEEFE] hover:bg-white text-[#0A0B0F] shadow-sm";
-  const secondaryPillClass = "bg-white/[0.08] hover:bg-white/[0.14] text-white [html[data-theme='light']_&]:bg-slate-200/80 [html[data-theme='light']_&]:hover:bg-slate-300 [html[data-theme='light']_&]:text-slate-900 border border-white/10 [html[data-theme='light']_&]:border-slate-300";
+  const primaryPillClass = "bg-[#ECEEFE] hover:bg-white text-[#0A0B0F] [html[data-theme='light']_&]:bg-slate-900 [html[data-theme='light']_&]:hover:bg-black [html[data-theme='light']_&]:text-white shadow-sm";
+  const secondaryPillClass = "bg-white/[0.08] hover:bg-white/[0.14] text-white [html[data-theme='light']_&]:bg-slate-100 [html[data-theme='light']_&]:hover:bg-slate-200 [html[data-theme='light']_&]:text-slate-900 border border-white/10 [html[data-theme='light']_&]:border-slate-300";
 
   const paddingClass = size === 'compact'
     ? 'px-3.5 py-1.5 text-xs'
@@ -149,7 +149,7 @@ export const DualDownloadButtons = ({
           {winOptions.length > 1 && (
             <button
               onClick={(e) => toggleMenu('windows', e)}
-              className="px-2 py-3 hover:opacity-75 transition-opacity cursor-pointer border-l border-black/10 dark:border-white/10"
+              className="px-2 py-3 hover:opacity-75 transition-opacity cursor-pointer border-l border-current/20"
               aria-label="Windows download options"
             >
               <ChevronDown size={13} className={`transition-transform duration-200 ${openMenu === 'windows' ? 'rotate-180' : ''}`} />
@@ -214,7 +214,7 @@ export const DualDownloadButtons = ({
           {macOptions.length > 0 && (
             <button
               onClick={(e) => toggleMenu('mac', e)}
-              className="px-2.5 py-3 hover:opacity-75 transition-opacity cursor-pointer border-l border-white/10 [html[data-theme='light']_&]:border-slate-300"
+              className="px-2.5 py-3 hover:opacity-75 transition-opacity cursor-pointer border-l border-current/20"
               aria-label="macOS download options"
             >
               <ChevronDown size={13} className={`transition-transform duration-200 ${openMenu === 'mac' ? 'rotate-180' : ''}`} />

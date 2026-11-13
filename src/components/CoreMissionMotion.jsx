@@ -32,31 +32,34 @@ export const CoreMissionMotion = () => {
     let width = (canvas.width = canvas.parentElement?.clientWidth || 780);
     let height = 260;
 
-    // ── HÀM VẼ BÓNG SÀN TIẾP ĐẤT (GROUND SHADOW) ──
-    const drawFloorShadow = (x, y, size, alpha = 0.75, widthScale = 1) => {
+    // ── HÀM VẼ BÓNG SÀN TIẾP ĐẤT (SOFT AMBIENT CONTACT SHADOW - ÁNH SÁNG TRƯỚC MẶT) ──
+    const drawFloorShadow = (x, y, size, alpha = 0.6, widthScale = 1) => {
       ctx.save();
-      const groundY = y + size * 0.47;
-      const shadowW = size * 0.48 * widthScale;
-      const shadowH = size * 0.14;
+      const isLight = typeof document !== 'undefined' && document.documentElement.getAttribute('data-theme') === 'light';
 
-      // Quầng bóng mềm tỏa ra sàn
+      // Ánh sáng chiếu hướng trước mặt agent:
+      // - Bóng tiếp đất dẹt ngang theo luật phối cảnh 3D sàn (shadowH siêu mỏng)
+      // - Loại bỏ hoàn toàn khối tròn đen (contact core) thô cứng
+      // - Tỏa mờ dịu mắt, hòa quyện tự nhiên vào nền
+      const groundY = y + size * 0.46;
+      const shadowW = size * 0.46 * widthScale;
+      const shadowH = size * 0.075; // Siêu dẹt, triệt tiêu hoàn toàn bóng tròn
+
+      const maxAlpha = isLight ? alpha * 0.14 : alpha * 0.32;
+      const shadowColor = isLight ? '15, 23, 42' : '0, 0, 0';
+
       const softGrad = ctx.createRadialGradient(
-        x, groundY, shadowW * 0.15,
-        x, groundY, shadowW * 1.35
+        x, groundY, 0,
+        x, groundY, shadowW * 1.15
       );
-      softGrad.addColorStop(0, `rgba(0, 0, 0, ${alpha * 0.85})`);
-      softGrad.addColorStop(0.45, `rgba(0, 0, 0, ${alpha * 0.45})`);
-      softGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      softGrad.addColorStop(0, `rgba(${shadowColor}, ${maxAlpha})`);
+      softGrad.addColorStop(0.35, `rgba(${shadowColor}, ${maxAlpha * 0.5})`);
+      softGrad.addColorStop(0.7, `rgba(${shadowColor}, ${maxAlpha * 0.15})`);
+      softGrad.addColorStop(1, `rgba(${shadowColor}, 0)`);
 
       ctx.fillStyle = softGrad;
       ctx.beginPath();
-      ctx.ellipse(x, groundY, shadowW * 1.35, shadowH * 1.45, 0, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Tâm tiếp đất đậm đặc (contact core)
-      ctx.fillStyle = `rgba(0, 0, 0, ${alpha * 0.95})`;
-      ctx.beginPath();
-      ctx.ellipse(x, groundY, shadowW * 0.78, shadowH * 0.65, 0, 0, Math.PI * 2);
+      ctx.ellipse(x, groundY, shadowW * 1.15, shadowH * 1.25, 0, 0, Math.PI * 2);
       ctx.fill();
 
       ctx.restore();
@@ -86,11 +89,16 @@ export const CoreMissionMotion = () => {
 
       const radius = size * 0.28;
 
-      // 1. ĐỔ BÓNG TRỰC TIẾP LÊN CÁC BẠN AGENT ĐỨNG PHÍA SAU (Layer Occlusion Shadow)
-      ctx.shadowColor = `rgba(0, 0, 0, ${dropShadowAlpha})`;
-      ctx.shadowBlur = dropShadowBlur * responsiveScale;
+      // 1. ĐỔ BÓNG LÊN CÁC BẠN AGENT ĐỨNG PHÍA SAU (Layer Occlusion Shadow - Ánh sáng trước mặt)
+      const isLight = typeof document !== 'undefined' && document.documentElement.getAttribute('data-theme') === 'light';
+      const actualAlpha = isLight ? dropShadowAlpha * 0.16 : dropShadowAlpha * 0.40;
+      const actualBlur = (isLight ? dropShadowBlur * 0.65 : dropShadowBlur) * responsiveScale;
+      const actualOffsetY = (isLight ? 3 : 5) * responsiveScale;
+
+      ctx.shadowColor = isLight ? `rgba(15, 23, 42, ${actualAlpha})` : `rgba(0, 0, 0, ${actualAlpha})`;
+      ctx.shadowBlur = actualBlur;
       ctx.shadowOffsetX = 0;
-      ctx.shadowOffsetY = dropShadowOffsetY * responsiveScale;
+      ctx.shadowOffsetY = actualOffsetY;
 
       // 2. Thân Squircle 3D tinh tế
       const bodyGrad = ctx.createLinearGradient(0, -size / 2, 0, size / 2);
@@ -113,7 +121,6 @@ export const CoreMissionMotion = () => {
       ctx.shadowOffsetY = 0;
 
       // 3. Đường viền tinh xảo ngăn cách các khối squircle khi xếp đè nhau
-      const isLight = typeof document !== 'undefined' && document.documentElement.getAttribute('data-theme') === 'light';
       ctx.strokeStyle = isLight ? 'rgba(15, 23, 42, 0.28)' : 'rgba(15, 23, 42, 0.20)';
       ctx.lineWidth = 1.25;
       if (ctx.roundRect) {
@@ -191,21 +198,24 @@ export const CoreMissionMotion = () => {
       // ── ÁNH SÁNG SÀN AMBIENT PERSPECTIVE ──
       const isLight = typeof document !== 'undefined' && document.documentElement.getAttribute('data-theme') === 'light';
       ctx.save();
-      const floorGlow = ctx.createRadialGradient(
-        cx, baseY + 45 * responsiveScale, 20,
-        cx, baseY + 45 * responsiveScale, 380 * responsiveScale
-      );
-      floorGlow.addColorStop(0, isLight ? 'rgba(15, 23, 42, 0.05)' : 'rgba(255, 255, 255, 0.12)');
-      floorGlow.addColorStop(0.35, isLight ? 'rgba(15, 23, 42, 0.02)' : 'rgba(255, 255, 255, 0.05)');
-      floorGlow.addColorStop(0.7, isLight ? 'rgba(148, 163, 184, 0.01)' : 'rgba(148, 163, 184, 0.02)');
-      floorGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
-      ctx.fillStyle = floorGlow;
-      ctx.beginPath();
-      ctx.ellipse(cx, baseY + 45 * responsiveScale, 380 * responsiveScale, 75 * responsiveScale, 0, 0, Math.PI * 2);
-      ctx.fill();
+      if (!isLight) {
+        // Chỉ phủ quầng sáng sàn ambient khi ở Dark theme
+        const floorGlow = ctx.createRadialGradient(
+          cx, baseY + 45 * responsiveScale, 20,
+          cx, baseY + 45 * responsiveScale, 380 * responsiveScale
+        );
+        floorGlow.addColorStop(0, 'rgba(255, 255, 255, 0.10)');
+        floorGlow.addColorStop(0.35, 'rgba(255, 255, 255, 0.04)');
+        floorGlow.addColorStop(0.7, 'rgba(148, 163, 184, 0.015)');
+        floorGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
+        ctx.fillStyle = floorGlow;
+        ctx.beginPath();
+        ctx.ellipse(cx, baseY + 45 * responsiveScale, 380 * responsiveScale, 75 * responsiveScale, 0, 0, Math.PI * 2);
+        ctx.fill();
+      }
 
-      // Lưới sàn 3D nhẹ
-      ctx.strokeStyle = isLight ? 'rgba(15, 23, 42, 0.06)' : 'rgba(255, 255, 255, 0.05)';
+      // Lưới sàn 3D nhẹ, thanh mảnh và tinh tế
+      ctx.strokeStyle = isLight ? 'rgba(15, 23, 42, 0.04)' : 'rgba(255, 255, 255, 0.05)';
       ctx.lineWidth = 1;
       const gridStartY = baseY - 45 * responsiveScale;
       for (let i = -5; i <= 5; i++) {
@@ -380,15 +390,15 @@ export const CoreMissionMotion = () => {
 
       // ── BƯỚC 1: VẼ BÓNG SÀN THEO CHIỀU SÂU TRÊN DƯỚI (FLOOR SHADOW PASS) ──
       // 1. Tầng trên (Hậu cảnh): Agent 1 & Agent 5
-      drawFloorShadow(p1.x, p1.y, p1.size, 0.60);
-      drawFloorShadow(currentX5, p5.y, p5.size, 0.60, (curTick >= 185 && curTick < 285) ? 0.9 : 1);
+      drawFloorShadow(p1.x, p1.y, p1.size, 0.40);
+      drawFloorShadow(currentX5, p5.y, p5.size, 0.40, (curTick >= 185 && curTick < 285) ? 0.85 : 1);
 
       // 2. Tầng giữa (Trung cảnh): Agent 2 & Agent 4
-      drawFloorShadow(p2.x, p2.y, p2.size, 0.75);
-      drawFloorShadow(p4.x, p4.y, p4.size, 0.75);
+      drawFloorShadow(p2.x, p2.y, p2.size, 0.50);
+      drawFloorShadow(p4.x, p4.y, p4.size, 0.50);
 
       // 3. Tầng dưới cùng (Tiền cảnh): Agent 3 - Kael
-      drawFloorShadow(p3.x, p3.y, p3.size, 0.95);
+      drawFloorShadow(p3.x, p3.y, p3.size, 0.60);
 
       // ── BƯỚC 2: VẼ THÂN AGENT VỚI ĐỔ BÓNG ĐA TẦNG ──
       // 1. HẬU CẢNH: Agent 1 & Agent 5

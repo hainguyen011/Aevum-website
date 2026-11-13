@@ -81,10 +81,10 @@ export const Pricing = ({
   ];
 
   return (
-    <div id="pricing" className="pricing-section border-subtle-b bg-[#07090D] [html[data-theme='light']_&]:bg-[#F8FAFC] text-slate-100 [html[data-theme='light']_&]:text-slate-900 transition-colors">
+    <div id="pricing" className="pricing-section border-subtle-b bg-[#0A0B0F] [html[data-theme='light']_&]:bg-[#F8FAFC] text-slate-100 [html[data-theme='light']_&]:text-slate-900 transition-colors">
       
       {/* ── 1. SECTION HEADER (ALIGN LEFT & SINGLE-LINE TITLE) ── */}
-      <div className="p-6 sm:p-10 lg:p-14 border-subtle-b bg-[#07090D] [html[data-theme='light']_&]:bg-[#F8FAFC] [html[data-theme='light']_&]:border-slate-200/80 relative flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <div className="p-6 sm:p-10 lg:p-14 border-subtle-b bg-[#0A0B0F] [html[data-theme='light']_&]:bg-[#F8FAFC] [html[data-theme='light']_&]:border-slate-200/80 relative flex flex-col md:flex-row md:items-end justify-between gap-6">
         
         {/* Left Side: Tag + Title + Subtitle */}
         <div className="text-left space-y-1.5 max-w-2xl">
@@ -170,7 +170,7 @@ export const Pricing = ({
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-0 max-w-6xl mx-auto items-stretch py-10 px-4 sm:px-6">
         
         {/* COLUMN 1: COMMUNITY TIER (TUCKED UNDER PRO ON RIGHT) */}
-        <div className="pricing-card-subtle relative z-10 p-8 sm:p-10 space-y-6 flex flex-col justify-between overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 [html[data-theme='light']_&]:border-slate-200/90 [html[data-theme='light']_&]:bg-white [html[data-theme='light']_&]:shadow-lg lg:mr-[-16px] lg:my-3 lg:pr-10 bg-[#07090D]">
+        <div className="pricing-card-subtle relative z-10 p-8 sm:p-10 space-y-6 flex flex-col justify-between overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 [html[data-theme='light']_&]:border-slate-200/90 [html[data-theme='light']_&]:bg-white [html[data-theme='light']_&]:shadow-lg lg:mr-[-16px] lg:my-3 lg:pr-10 bg-[#0A0B0F]">
           {/* Subtle Grainy Gradient Atmosphere Layer */}
           <div className="pointer-events-none absolute inset-0 overflow-hidden select-none z-0">
             <div className="pricing-card-gradient pricing-gradient-layer absolute inset-0" />
@@ -272,7 +272,7 @@ export const Pricing = ({
         </div>
 
         {/* COLUMN 2: PRO TIER (PROMINENT CENTER LAYER OVERLAPPING SIDE CARDS) */}
-        <div className="pricing-pro-column relative z-20 p-8 sm:p-10 space-y-6 flex flex-col justify-between overflow-hidden lg:-my-1 rounded-2xl sm:rounded-3xl border border-white/20 [html[data-theme='light']_&]:border-cyan-300/80 [html[data-theme='light']_&]:bg-white [html[data-theme='light']_&]:shadow-2xl [html[data-theme='light']_&]:shadow-cyan-500/10 bg-[#07090D]">
+        <div className="pricing-pro-column relative z-20 p-8 sm:p-10 space-y-6 flex flex-col justify-between overflow-hidden lg:-my-1 rounded-2xl sm:rounded-3xl border border-white/20 [html[data-theme='light']_&]:border-cyan-300/80 [html[data-theme='light']_&]:bg-white [html[data-theme='light']_&]:shadow-2xl [html[data-theme='light']_&]:shadow-cyan-500/10 bg-[#0A0B0F]">
           {/* Refined High-Contrast Grainy Gradient Atmosphere */}
           <div className="pointer-events-none absolute inset-0 overflow-hidden select-none z-0">
             {/* Primary Gradient Flow - Soft ambient cyan fading quickly into deep black */}
@@ -426,7 +426,7 @@ export const Pricing = ({
         </div>
 
         {/* COLUMN 3: ENTERPRISE TIER (PREMIUM BESPOKE CTA) */}
-        <div className="pricing-card-enterprise relative z-10 p-8 sm:p-10 space-y-6 flex flex-col justify-between overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 [html[data-theme='light']_&]:border-slate-200/90 [html[data-theme='light']_&]:bg-white [html[data-theme='light']_&]:shadow-lg lg:ml-[-16px] lg:my-3 lg:pl-10 bg-[#07090D]">
+        <div className="pricing-card-enterprise relative z-10 p-8 sm:p-10 space-y-6 flex flex-col justify-between overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 [html[data-theme='light']_&]:border-slate-200/90 [html[data-theme='light']_&]:bg-white [html[data-theme='light']_&]:shadow-lg lg:ml-[-16px] lg:my-3 lg:pl-10 bg-[#0A0B0F]">
           {/* Subtle Grainy Gradient Atmosphere Layer */}
           <div className="pointer-events-none absolute inset-0 overflow-hidden select-none z-0">
             <div className="pricing-card-gradient pricing-gradient-layer absolute inset-0" />
@@ -531,7 +531,7 @@ export const Pricing = ({
 
       {/* ── 3. FEATURE COMPARISON MATRIX TABLE ── */}
       {showDetails ? (
-        <div className="p-8 sm:p-12 border-subtle-b bg-[#07090D]">
+        <div className="p-8 sm:p-12 border-subtle-b bg-[#0A0B0F]">
           <div className="max-w-5xl mx-auto">
             <div className="text-left mb-6">
               <span className="text-[11px] font-mono text-white font-semibold tracking-widest uppercase">
@@ -608,7 +608,7 @@ export const Pricing = ({
         </div>
       ) : (
         /* Call-To-Action Button to view details on the dedicated page */
-        <div className="py-14 text-center bg-[#07090D] border-subtle-b">
+        <div className="py-14 text-center bg-[#0A0B0F] border-subtle-b">
           <Button
             onClick={() => {
               if (onNavigate) {
@@ -626,7 +626,7 @@ export const Pricing = ({
 
       {/* ── 4. FAQS ACCORDION DROPDOWN ── */}
       {showDetails && (
-        <div className="p-8 sm:p-12 lg:p-14 bg-[#07090D]">
+        <div className="p-8 sm:p-12 lg:p-14 bg-[#0A0B0F]">
           <div className="max-w-4xl mx-auto">
             <div className="text-left mb-8">
               <span className="text-[11px] font-mono text-white font-semibold tracking-widest uppercase block">

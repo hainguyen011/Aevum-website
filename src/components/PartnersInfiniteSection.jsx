@@ -31,23 +31,23 @@ export const PartnersInfiniteSection = ({ activeLang = 'vi' }) => {
     },
     {
       id: 'dj54n',
-      name: 'DJ54N',
+      name: 'DJ54N STUDIO',
       role: isVi ? 'Đơn vị sáng tạo âm nhạc' : 'Music Creation & Production Studio'
     },
     {
       id: 'i2flabs',
-      name: 'I2F LABS',
-      role: isVi ? 'Viện Nghiên cứu Trí tuệ Nhân tạo' : 'AI & Agentic Systems Lab'
+      name: 'I2FLABS VIETNAM',
+      role: isVi ? 'Tổ chức Nghiên cứu AI & ứng dụng' : 'AI & Agentic Systems Lab'
     }
   ];
 
   return (
     <section id="partners" className="w-full py-10 sm:py-14 bg-[#0A0B0F] [html[data-theme='light']_&]:bg-[#FFFFFF] border-b border-white/[0.08] [html[data-theme='light']_&]:border-slate-200 overflow-hidden select-none">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 sm:mb-8">
-        
+
         {/* 2-Column Compact Header */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-10 items-end text-left">
-          
+
           {/* Cột Trái: Lời tri ân đồng hành (Nhỏ gọn, tinh tế) */}
           <div className="lg:col-span-5 order-2 lg:order-1">
             <p className="text-xs sm:text-sm text-slate-300 [html[data-theme='light']_&]:text-slate-600 leading-relaxed font-sans font-light max-w-md">
@@ -88,14 +88,14 @@ export const PartnersInfiniteSection = ({ activeLang = 'vi' }) => {
 
       {/* ── SEAMLESS COMPACT INFINITE MARQUEE SLIDER ── */}
       <div className="relative w-full overflow-hidden">
-        
+
         {/* Left & Right Cinematic Fade Gradients */}
         <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-28 z-10 pointer-events-none bg-gradient-to-r from-[#0A0B0F] via-[#0A0B0F]/80 to-transparent [html[data-theme='light']_&]:from-[#FFFFFF] [html[data-theme='light']_&]:via-[#FFFFFF]/80 [html[data-theme='light']_&]:to-transparent" />
         <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-28 z-10 pointer-events-none bg-gradient-to-l from-[#0A0B0F] via-[#0A0B0F]/80 to-transparent [html[data-theme='light']_&]:from-[#FFFFFF] [html[data-theme='light']_&]:via-[#FFFFFF]/80 [html[data-theme='light']_&]:to-transparent" />
 
         {/* Infinite Moving Track (Nhỏ gọn, mượt mà, text rõ nét) */}
         <div className="flex gap-6 sm:gap-10 animate-marquee hover:[animation-play-state:paused] py-2">
-          
+
           {/* Render 4 Sets to guarantee seamless gapless infinity loop */}
           {[1, 2, 3, 4].map((setNum) => (
             <React.Fragment key={`set-${setNum}`}>

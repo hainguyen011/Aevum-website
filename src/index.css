@@ -6,8 +6,8 @@
 
 :root,
 html[data-theme="dark"] {
-  --bg-dark: #07090D;
-  --bg-frame: #07090D;
+  --bg-dark: #0A0B0F;
+  --bg-frame: #0A0B0F;
   --bg-cell: #0e0f17;
   --bg-cell-hover: #131520;
   

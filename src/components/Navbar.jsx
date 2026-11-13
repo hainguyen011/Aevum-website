@@ -187,13 +187,13 @@ export const Navbar = ({
 
   const headerBgClass = isAtTopLanding
     ? (Boolean(activeDropdown)
-      ? 'bg-black/20 [html[data-theme="light"]_&]:bg-white/95 backdrop-blur-md border-b border-white/10 [html[data-theme="light"]_&]:border-slate-200/80'
+      ? 'bg-[#0A0B0F]/80 [html[data-theme="light"]_&]:bg-white/95 backdrop-blur-md border-b border-white/10 [html[data-theme="light"]_&]:border-slate-200/80'
       : 'bg-transparent [html[data-theme="light"]_&]:bg-white/95 border-b border-transparent [html[data-theme="light"]_&]:border-slate-200/80 backdrop-blur-none [html[data-theme="light"]_&]:backdrop-blur-md')
-    : 'bg-[#07090D]/85 [html[data-theme="light"]_&]:bg-white/95 backdrop-blur-md border-b border-white/10 [html[data-theme="light"]_&]:border-slate-200/80';
+    : 'bg-[#0A0B0F]/85 [html[data-theme="light"]_&]:bg-white/95 backdrop-blur-md border-b border-white/10 [html[data-theme="light"]_&]:border-slate-200/80';
 
   const dropdownBgClass = isAtTopLanding
-    ? 'bg-black/40 [html[data-theme="light"]_&]:bg-white/95 backdrop-blur-xl border-b border-white/10 [html[data-theme="light"]_&]:border-slate-200 text-white [html[data-theme="light"]_&]:text-slate-800'
-    : 'bg-[#07090D]/95 [html[data-theme="light"]_&]:bg-white/95 backdrop-blur-xl border-b border-white/10 [html[data-theme="light"]_&]:border-slate-200 text-white [html[data-theme="light"]_&]:text-slate-800';
+    ? 'bg-[#0A0B0F]/90 [html[data-theme="light"]_&]:bg-white/95 backdrop-blur-xl border-b border-white/10 [html[data-theme="light"]_&]:border-slate-200 text-white [html[data-theme="light"]_&]:text-slate-800'
+    : 'bg-[#0A0B0F]/95 [html[data-theme="light"]_&]:bg-white/95 backdrop-blur-xl border-b border-white/10 [html[data-theme="light"]_&]:border-slate-200 text-white [html[data-theme="light"]_&]:text-slate-800';
 
   const isNavbarScrolled = !isAtTopLanding || Boolean(activeDropdown);
 
@@ -222,7 +222,7 @@ export const Navbar = ({
               className="w-7 h-7 object-contain [html[data-theme='light']_&]:brightness-0 transition-[filter] duration-200"
             />
             <span className="font-semibold text-lg text-white [html[data-theme='light']_&]:text-slate-900 tracking-wide font-sans whitespace-nowrap">
-              AEVUM OS
+              Aevum OS
             </span>
           </a>
 

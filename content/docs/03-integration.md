@@ -10,14 +10,14 @@ order: 3
 Aevum OS hoạt động như một máy chủ ngoại vi độc lập thông qua giao thức chuẩn **Model Context Protocol (MCP)**. Bạn có thể tích hợp Aevum OS vào bất kỳ môi trường lập trình AI yêu thích nào: Cursor, Claude Desktop, Google Antigravity IDE, Windsurf, Zed hay VS Code.
 
 Hệ thống hỗ trợ 2 phương thức kết nối:
-1. **Phương pháp 1 (Khuyến nghị)**: Kích hoạt tự động 1-Click qua tab **Integrations** trên ứng dụng Desktop.
-2. **Phương pháp 2 (Thủ công)**: Thêm cấu hình JSON vào tệp `mcp.json` / `mcp_config.json` của IDE.
+1. **Phương pháp 1 (Khuyến nghị)**: Kích hoạt tự động 1-Click qua tab **Integrations** trên ứng dụng Desktop Control Center.
+2. **Phương pháp 2 (Thủ công)**: Thêm khối cấu hình JSON vào tệp cấu hình MCP của IDE tương ứng.
 
 ```mermaid
 flowchart LR
     IDE["<b>IDE Khách</b><br/>Cursor • Claude • AGY • Cline"]
-    MCP["<b>Kênh Giao Thức MCP</b><br/>http://localhost:3344/sse"]
-    Core["<b>Aevum OS Core</b><br/>101 Tools • LTM • Personas"]
+    MCP["<b>Kênh Giao Thức MCP</b><br/>{{FASTIFY_SSE_URL}}"]
+    Core["<b>Aevum OS Core</b><br/>{{MCP_TOOLS_COUNT}} Tools • LTM • Personas"]
 
     IDE -->|Kết nối Realtime| MCP
     MCP -->|Phục vụ Lệnh Code| Core
@@ -80,14 +80,14 @@ Tạo hoặc mở tệp `.cursor/mcp.json` tại thư mục gốc của dự án
 {
   "mcpServers": {
     "aevos": {
-      "url": "http://localhost:3344/sse"
+      "url": "{{FASTIFY_SSE_URL}}"
     }
   }
 }
 ```
 
 > [!TIP]
-> Bạn cũng có thể mở **Cursor Settings** (phím tắt `Ctrl + ,` hoặc `Cmd + ,`) ➔ **Features** ➔ **MCP Servers** ➔ Bấm **Add New MCP Server** với Type: `sse` và Server URL: `http://localhost:3344/sse`.
+> Bạn cũng có thể mở **Cursor Settings** (phím tắt `Ctrl + ,` hoặc `Cmd + ,`) ➔ **Features** ➔ **MCP Servers** ➔ Bấm **Add New MCP Server** với Type: `sse` và Server URL: `{{FASTIFY_SSE_URL}}`.
 
 ---
 
@@ -102,14 +102,14 @@ Thêm cấu hình máy chủ `aevos`:
 {
   "mcpServers": {
     "aevos": {
-      "url": "http://localhost:3344/sse"
+      "url": "{{FASTIFY_SSE_URL}}"
     }
   }
 }
 ```
 
 > [!TIP]
-> Kết nối SSE qua máy chủ daemon cục bộ tại cổng 3344 là phương thức kết nối chuẩn hóa, tối ưu độ trễ và hỗ trợ đa tác nhân mượt mà nhất.
+> Kết nối SSE qua máy chủ daemon cục bộ tại cổng {{FASTIFY_PORT}} là phương thức kết nối chuẩn hóa, tối ưu độ trễ và hỗ trợ đa tác nhân mượt mà nhất.
 
 ---
 
@@ -120,7 +120,7 @@ Thêm cấu hình `aevos` vào tệp `.agents/mcp_config.json` trong dự án:
 {
   "mcpServers": {
     "aevos": {
-      "url": "http://localhost:3344/sse",
+      "url": "{{FASTIFY_SSE_URL}}",
       "transport": "sse"
     }
   }
@@ -136,7 +136,7 @@ Mở phần cài đặt của extension (tệp `cline_mcp_settings.json`) và d�
 {
   "mcpServers": {
     "aevos": {
-      "url": "http://localhost:3344/sse"
+      "url": "{{FASTIFY_SSE_URL}}"
     }
   }
 }
@@ -145,7 +145,7 @@ Mở phần cài đặt của extension (tệp `cline_mcp_settings.json`) và d�
 ---
 
 ### 5. Dành cho Windsurf & Zed Editor
-* **Windsurf** (`~/.codeium/windsurf/mcp_config.json`): Dán cùng khối JSON máy chủ `aevos` với `url: "http://localhost:3344/sse"`.
+* **Windsurf** (`~/.codeium/windsurf/mcp_config.json`): Dán cùng khối JSON máy chủ `aevos` với `url: "{{FASTIFY_SSE_URL}}"`.
 * **Zed Editor** (`~/.config/zed/settings.json`): Bổ sung cấu hình context server theo chuẩn Zed MCP.
 
 ---
@@ -165,8 +165,8 @@ An ơi, kết nối vào dự án nhé!
 ```
 
 ### Phản hồi mong đợi từ AI:
-* AI sẽ kích hoạt công cụ `aevum_request_connection` và `aevum_get_bootstrap_context`.
+* AI sẽ kích hoạt chuỗi Handshake Chuẩn v2.0 (`aevum_bridge_lifecycle`, `aevum_persona_manage`, `aevum_semantic_vault`).
 * AI chào bạn với tư cách **An** (`ENG-AN-7B9F1D`), xác nhận cấp độ (Level), vai trò Lead Architect và nạp toàn bộ quy chuẩn dự án.
 
 > [!TIP]
-> **Bước tiếp theo**: Để hiểu rõ quy trình 5 bước an toàn diễn ra ngầm khi AI bắt tay cùng Aevum OS, hãy đọc tiếp tại **[Nghi thức Bắt tay (Handshake Ritual)](/docs/handshake-ritual)**.
+> **Bước tiếp theo**: Để hiểu rõ quy trình bắt tay an toàn diễn ra ngầm khi AI kết nối cùng Aevum OS, hãy đọc tiếp tại **[Nghi thức Bắt tay (Handshake Ritual)](/docs/handshake-ritual)**.

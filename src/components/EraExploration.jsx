@@ -3,6 +3,8 @@ import { createPortal } from 'react-dom';
 import { curriculumModules, findLessonById } from '../data/learningCurriculum';
 import { ArticleRenderer } from './ArticleRenderer';
 import { TranslationService } from '../services/TranslationService';
+import { ReleaseService } from '../services/ReleaseService';
+import { SITE_CONSTANTS } from '../config/siteConstants';
 import { ReaderSidebarLeft } from './ReaderSidebarLeft';
 import { ReaderSidebarRight } from './ReaderSidebarRight';
 import { ExploreCardAtmosphere, getExploreCategoryTheme, ExploreCardSkeleton } from './ExploreCardAtmosphere';
@@ -27,7 +29,26 @@ import {
 } from 'lucide-react';
 
 export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId = null }) => {
-  const isVi = activeLang === 'vi';
+  const [latestVersion, setLatestVersion] = useState(SITE_CONSTANTS.AEVUM_VERSION);
+
+  useEffect(() => {
+    ReleaseService.getReleases()
+      .then((releases) => {
+        if (releases && releases.length > 0) {
+          const valid = releases.filter((r) => {
+            const tag = (r.tag_name || r.name || '').toLowerCase();
+            return !(
+              (tag.includes('beta') || (r.name || '').toLowerCase().includes('beta')) &&
+              (tag.startsWith('v1.') || tag.startsWith('1.') || tag.includes('1.0.0'))
+            );
+          });
+          const newest = valid[0] || releases[0];
+          const tag = newest.tag_name || newest.name || SITE_CONSTANTS.AEVUM_VERSION;
+          setLatestVersion(tag);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   // Flatten all lessons across curriculum modules
   const allLessons = useMemo(() => {
@@ -893,7 +914,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                         title="Xem Nhật ký Cập nhật"
                       >
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                        <span className="group-hover:underline">Aevum OS v1.0.0-beta.6</span>
+                        <span className="group-hover:underline">Aevum OS {latestVersion}</span>
                       </a>
                     }
                   />
@@ -923,7 +944,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                 title="Xem Nhật ký Cập nhật"
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="group-hover:underline">Aevum OS v1.0.0-beta.6</span>
+                <span className="group-hover:underline">Aevum OS {latestVersion}</span>
               </a>
             }
             footerRight={

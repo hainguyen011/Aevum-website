@@ -6,10 +6,10 @@
 
 ## 🧠 Bối cảnh Nhiệm vụ (Mission Context)
 <!-- aevum_mission_start -->
-- **Mission ID:** `NONE`
-- **Domain:** `GLOBAL`
-- **Feature:** `N/A`
-- **Status:** `INITIALIZED`
+- **Mission ID:** `{{MISSION_ID}}`
+- **Domain:** `{{DOMAIN_ID}}`
+- **Feature:** `{{FEATURE_ID}}`
+- **Status:** `{{STATUS}}`
 <!-- aevum_mission_end -->
 
 ## 📜 Giao thức Hiệp lực (Collaboration Protocol)

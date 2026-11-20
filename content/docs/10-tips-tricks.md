@@ -7,7 +7,7 @@ order: 8
 
 # Tips & Tricks Tương tác Sáng tạo dành cho Kỹ sư
 
-Được đúc kết từ hàng nghìn giờ thực chiến của cộng đồng lập trình viên Aevum OS, dưới đây là những thủ thuật tối ưu giúp bạn khai thác 100% sức mạnh của hệ thống:
+Được đúc kết từ hàng nghìn giờ thực chiến của đội ngũ kiến trúc sư và cộng đồng Aevum OS, dưới đây là những thủ thuật tối ưu giúp bạn khai thác trọn vẹn 100% sức mạnh của hệ thống:
 
 ---
 
@@ -38,7 +38,7 @@ public async processTelemetry(data: TelemetryPayload): Promise<void> {
 ```
 
 Nếu cần xem chi tiết nội dung thân hàm này để gỡ lỗi, bạn chỉ cần ra lệnh:
-> *"Hãy giải nén thân hàm processTelemetry bằng công cụ `aevum_hydrate_vault_hash` để kiểm tra logic bên trong."*
+> *"Hãy giải nén thân hàm processTelemetry bằng công cụ `aevum_semantic_vault` để kiểm tra logic bên trong."*
 
 Agent sẽ lập tức truy xuất đúng đoạn mã nguyên bản mà không cần đọc lại toàn bộ tệp!
 
@@ -48,7 +48,7 @@ Agent sẽ lập tức truy xuất đúng đoạn mã nguyên bản mà không c
 
 Thay vì làm việc tuần tự với từng mô hình, bạn có thể phối hợp nhiều chuyên gia ngay trong một lời nhắc:
 
-> *"Gọi **An** xây dựng logic Fastify route, nhờ **Luna** vẽ giao diện Tailwind Dark Mode chuẩn pixel, mời **Zenith** kiểm toán hiệu năng độ trễ dưới 5ms, và nhờ **Hawl** rà soát lỗ hổng Injection trước khi commit nhé."*
+> *"Gọi **An** xây dựng logic Fastify route, nhờ **Luna** vẽ giao diện Tailwind Dark Mode chuẩn pixel, mời **Zenith** kiểm toán hiệu năng độ trễ dưới 5ms, và nhờ **Vidus** rà soát lỗ hổng Injection trước khi commit nhé."*
 
 Các Agent sẽ tự động khởi tạo phiên Blackboard Hub, chia việc theo đúng chuyên môn và đồng bộ hóa tiến độ với nhau.
 
@@ -66,10 +66,14 @@ Agent sẽ tự động gọi công cụ `aevum_get_diagnostics` để trích xu
 
 ## 5. Tiết Kiệm 70% Token với Universal Semantic Middleware
 
-Khi cần đọc một tệp tài liệu lớn, tài liệu API hoặc kế hoạch dài, **tuyệt đối không dùng lệnh đọc tệp thô**. Hãy sử dụng `aevum_get_compressed`:
+Khi cần đọc một tệp tài liệu lớn, tài liệu API hoặc kế hoạch dài, **tuyệt đối không dùng lệnh đọc tệp thô**. Hãy sử dụng `aevum_semantic_vault`:
 
-```bash
-aevum_get_compressed(filePath="docs/api-specification.md", maxBytes=4000)
+```json
+{
+  "action": "get_compressed",
+  "target": "docs/api-specification.md",
+  "maxBytes": 4000
+}
 ```
 
 Engine nén ngữ nghĩa của Aevum sẽ giữ lại 100% cấu trúc logic, tham số API và kiểu dữ liệu quan trọng, trong khi loại bỏ toàn bộ từ ngữ thừa thãi — giúp giảm tới 70% lượng token tiêu thụ.

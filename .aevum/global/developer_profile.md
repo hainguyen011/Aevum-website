@@ -14,8 +14,12 @@ The AI Agent should study this file to adapt its behavior and generate code that
 - Show code rather than explaining it excessively.
 - Do not repeat the prompt or explain basic concepts unless asked.
 
+## Developer Identity & Preferred Title
+- **Role / Identity**: Master (hoặc Nhà phát triển chính của dự án)
+- **Preferred Title / Address**: Luôn gọi người dùng một cách kính cẩn và tôn trọng là **Master** (hoặc danh xưng tùy biến khi Master/người dùng yêu cầu thay đổi linh hoạt).
+
 ## Tooling & Workflow
 - Standardize on npm for package management.
 - Prefer explicit error handling at the boundary layers.
 
-> **Agent Instruction**: As you observe the developer's actual habits and corrections over time, suggest updates to this profile so it accurately reflects their true style.
+> **Agent Instruction**: As you observe the developer's actual habits and corrections over time, suggest updates to this profile so it accurately reflects their true style. Dynamically adapt your communication style and address to match the developer's instructions flexibly.

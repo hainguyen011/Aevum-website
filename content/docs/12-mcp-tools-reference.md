@@ -5,13 +5,13 @@ category: "Phát triển"
 order: 13
 ---
 
-# MCP Tools Reference — Bảng Tham chiếu Toàn diện 101 Công cụ
+# MCP Tools Reference — Bảng Tham chiếu Toàn diện {{MCP_TOOLS_COUNT}} Công cụ
 
-Aevum OS cung cấp **101 công cụ Model Context Protocol (MCP)** chính thức được đăng ký qua `McpRegistry`, sẵn sàng phục vụ các AI Agent thông qua hai giao vận tiêu chuẩn Server-Sent Events (SSE) và Standard I/O (Stdio).
+Aevum OS cung cấp **{{MCP_TOOLS_COUNT}} công cụ Model Context Protocol (MCP)** chính thức được đăng ký qua `McpRegistry`, sẵn sàng phục vụ các AI Agent thông qua hai giao vận tiêu chuẩn Server-Sent Events (SSE) và Standard I/O (Stdio).
 
 ```mermaid
 flowchart LR
-    Hub["<b>Aevum MCP Core</b><br/>(101 Tools Chuẩn Hóa)"]
+    Hub["<b>Aevum MCP Core</b><br/>({{MCP_TOOLS_COUNT}} Tools Chuẩn Hóa)"]
     Hub --> C["<b>Điều Phối & Persona</b><br/>29 công cụ cốt lõi"]
     Hub --> M["<b>Bộ Nhớ & Kiến Trúc DDD</b><br/>28 công cụ AST & LTM"]
     Hub --> P["<b>Nghiên Cứu & Mesh P2P</b><br/>44 công cụ mở rộng"]

@@ -30,6 +30,8 @@ import {
   ExternalLink
 } from 'lucide-react';
 import { TranslationService } from '../services/TranslationService';
+import { ReleaseService } from '../services/ReleaseService';
+import { SITE_CONSTANTS } from '../config/siteConstants';
 
 import { ArticleRenderer, MarkdownRenderer } from './ArticleRenderer';
 import { DocPagination } from './DocPagination';
@@ -76,7 +78,27 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
   const [filterQuery, setFilterQuery] = useState('');
   const [copiedLink, setCopiedLink] = useState(false);
   const [helpfulFeedback, setHelpfulFeedback] = useState(null); // 'yes' | 'no' | null
+  const [latestVersion, setLatestVersion] = useState(SITE_CONSTANTS.AEVUM_VERSION);
   const searchInputRef = useRef(null);
+
+  useEffect(() => {
+    ReleaseService.getReleases()
+      .then((releases) => {
+        if (releases && releases.length > 0) {
+          const valid = releases.filter((r) => {
+            const tag = (r.tag_name || r.name || '').toLowerCase();
+            return !(
+              (tag.includes('beta') || (r.name || '').toLowerCase().includes('beta')) &&
+              (tag.startsWith('v1.') || tag.startsWith('1.') || tag.includes('1.0.0'))
+            );
+          });
+          const newest = valid[0] || releases[0];
+          const tag = newest.tag_name || newest.name || SITE_CONSTANTS.AEVUM_VERSION;
+          setLatestVersion(tag);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   // Push main container to the right in 3D when Docs mobile sidebar is active
   useEffect(() => {
@@ -701,7 +723,7 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
                     title="Xem Nhật ký Cập nhật"
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                    <span className="group-hover:underline">Aevum OS v1.0.0-beta.6</span>
+                    <span className="group-hover:underline">Aevum OS {latestVersion}</span>
                   </a>
                 }
               />
@@ -732,7 +754,7 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
             title="Xem Nhật ký Cập nhật"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="group-hover:underline">Aevum OS v1.0.0-beta.6</span>
+            <span className="group-hover:underline">Aevum OS {latestVersion}</span>
           </a>
         }
         footerRight={<span className="px-1.5 py-0.5 rounded bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-200">Ctrl K</span>}

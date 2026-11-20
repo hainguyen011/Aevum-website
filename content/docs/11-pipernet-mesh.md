@@ -45,19 +45,19 @@ Khi đội ngũ của bạn đối mặt với một bài toán kỹ thuật m�
 
 ## 2. Cách Sử Dụng Trong Công Việc Hàng Ngày
 
-### A. Truy Vấn Giải Pháp Từ Cộng Đồng (`aevum_pipernet_query`)
+### A. Truy Vấn Giải Pháp Từ Cộng Đồng (`aevum_pipernet_manage`)
 Khi bắt đầu một bài toán khó, bạn có thể bảo AI:
 
 > *"Hãy truy vấn PiperNet xem cộng đồng có mẫu cấu hình Fastify WebSocket Zero-Copy nhị phân chuẩn không nhé."*
 
-AI sẽ tìm kiếm trên mạng lưới phân tán và mang về cho bạn cấu trúc giải pháp tối ưu nhất.
+AI sẽ kích hoạt `aevum_pipernet_manage(action: "query", ...)` để tìm kiếm trên mạng lưới phân tán và mang về cho bạn cấu trúc giải pháp tối ưu nhất.
 
-### B. Chia Sẻ Giải Pháp Đột Phá Lên Mạng Lưới (`aevum_pipernet_broadcast`)
+### B. Chia Sẻ Giải Pháp Đột Phá Lên Mạng Lưới
 Khi đội của bạn vừa giải quyết thành công một ca hóc búa mang tính sáng tạo:
 
 > *"Hãy chia sẻ mẫu thiết kế chống race condition cho token này lên PiperNet để đóng góp cho cộng đồng Agent nhé."*
 
-Tri thức trừu tượng của giải pháp sẽ được đóng gói an toàn và phát sóng tới mạng lưới để các lập trình viên khác cùng hưởng lợi.
+Tri thức trừu tượng của giải pháp sẽ được đóng gói an toàn và phát sóng tới mạng lưới (`aevum_pipernet_manage(action: "broadcast", ...)`).
 
 ---
 

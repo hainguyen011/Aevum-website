@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { MermaidDiagram } from './MermaidDiagram';
 import { sanitizeUrl } from '../utils/sanitize.js';
+import { replaceDynamicVariables } from '../config/siteConstants.js';
 
 /**
  * Intelligent Tokenizer for Terminal, Bash, JSON, JS/TS, Python, PowerShell
@@ -434,14 +435,15 @@ export const ArticleRenderer = ({
     return escaped;
   };
 
-  // Pre-process text to separate code blocks from markdown blocks
+  // Pre-process text with dynamic site constants and separate code blocks
+  const processedContent = useMemo(() => replaceDynamicVariables(content || ''), [content]);
   const blocks = [];
   let currentIdx = 0;
 
-  const matches = [...content.matchAll(/```(\w*)\n([\s\S]*?)```/g)];
+  const matches = [...processedContent.matchAll(/```(\w*)\n([\s\S]*?)```/g)];
 
   matches.forEach((match, index) => {
-    const textBefore = content.substring(currentIdx, match.index);
+    const textBefore = processedContent.substring(currentIdx, match.index);
     if (textBefore.trim()) {
       blocks.push({ type: 'text', content: textBefore });
     }
@@ -456,7 +458,7 @@ export const ArticleRenderer = ({
     currentIdx = match.index + match[0].length;
   });
 
-  const textAfter = content.substring(currentIdx);
+  const textAfter = processedContent.substring(currentIdx);
   if (textAfter.trim()) {
     blocks.push({ type: 'text', content: textAfter });
   }

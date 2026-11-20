@@ -1,46 +1,44 @@
 ---
 id: "cognitive-dual-memory"
-title: "Não bộ Kép & Ghi nhớ Vĩnh viễn"
+title: "Bộ nhớ Kép & Ghi nhớ Vĩnh viễn"
 category: "Phát triển"
 order: 9
 ---
 
-# Não bộ Kép & Cơ chế Ghi nhớ Vĩnh viễn (Cognitive Memory)
+# Bộ nhớ Kép Nhận thức & Cơ chế Ghi nhớ Vĩnh viễn
 
 Một trong những hạn chế lớn nhất của AI Coding hiện nay là **"hội chứng mau quên" (Context Amnesia)**: hôm nay bạn dặn AI không được dùng `any` trong TypeScript, ngày mai ở file khác AI lại tiếp tục dùng `any`.
 
-Aevum OS giải quyết triệt để điều này bằng kiến trúc **Não bộ Kép (Dual-Memory)**: tách biệt rõ ràng giữa nháp tạm thời và sổ tay kinh nghiệm dài hạn.
+Aevum OS giải quyết triệt để điều này bằng kiến trúc **Bộ nhớ Kép Nhận thức (Dual-Memory Engine)**: tách biệt rõ ràng giữa nháp tạm thời và sổ tay kinh nghiệm dài hạn.
+
+```mermaid
+flowchart LR
+    STM["<b>Bộ Nhớ Ngắn Hạn (STM)</b><br/>Session Buffer • Giấy nháp tạm"]
+    LTM["<b>Bộ Nhớ Dài Hạn (LTM)</b><br/>Semantic Vault • Quy tắc vĩnh viễn"]
+    STM -->|Dream Consolidation<br/>Chắt lọc bài học tự động| LTM
+    LTM -.->|Truy hồi Phản xạ < 5ms<br/>Instant Recall| STM
+```
 
 ---
 
 ## 1. Hai Tầng Ký Ức: Ngắn Hạn (STM) & Dài Hạn (LTM)
 
-```mermaid
-flowchart LR
-    STM["<b>Não Ngắn Hạn (STM)</b><br/>Giấy nháp tạm • Phiên debug"]
-    LTM["<b>Não Dài Hạn (LTM)</b><br/>Sổ tay tri thức • Quy tắc vĩnh viễn"]
-    STM -->|Dream Consolidation<br/>Chắt lọc bài học| LTM
-    LTM -.->|Instant Recall < 5ms<br/>Truy hồi phản xạ| STM
-```
-
-### So sánh Thực Tế Cho Lập Trình Viên:
-
 | Đặc tính | Bộ nhớ Ngắn hạn (STM - Scratchpad) | Bộ nhớ Dài hạn (LTM - Living Rules) |
 |---|---|---|
-| **Hình tượng đời sống** | Giấy nháp trên bàn làm việc | Cuốn cẩm nang quy chuẩn của dự án |
+| **Hình tượng đời sống** | Giấy nháp ghi chú trên bàn làm việc | Cuốn cẩm nang quy chuẩn bất biến của dự án |
 | **Dữ liệu lưu trữ** | Log lỗi tạm, các bước debug dở dang | Lời dặn của bạn, quy chuẩn code, bài học sửa bug |
-| **Vòng đời** | Tự động dọn dẹp sau khi xong việc | Lưu vĩnh viễn trong kho tri thức của dự án |
-| **Lợi ích thực tế** | Giữ context sạch sẽ, không tràn token | Dặn 1 lần duy nhất, AI nhớ mãi mãi |
+| **Vòng đời** | Tự động dọn dẹp sau khi xong việc | Lưu vĩnh viễn trong kho tri thức của dự án (`.aevum/memory/`) |
+| **Lợi ích thực tế** | Giữ context sạch sẽ, không tràn token | Dặn 1 lần duy nhất, AI ghi nhớ mãi mãi |
 
 ---
 
-## 2. Cách Dạy AI Ghi Nhớ Quy Tắc Mới Bằng Ngôn Ngữ Tự Nhiên
+## 2. Dạy AI Ghi Nhớ Bằng Ngôn Ngữ Tự Nhiên
 
-Bạn không cần phải sửa file cấu hình phức tạp. Trong khung chat hàng ngày, bạn chỉ cần ra lệnh:
+Bạn không cần phải chỉnh sửa file cấu hình phức tạp. Trong khung chat hàng ngày, bạn chỉ cần ra lệnh:
 
 > *"An ơi, hãy nhớ quy tắc dài hạn: Trong dự án này, mọi API route mới đều phải dùng Fastify TypeBox để validate dữ liệu đầu vào nhé."*
 
-AI sẽ tự động gọi công cụ `aevum_manage_memory` để lưu quy tắc này vào LTM. Lần sau khi bạn yêu cầu tạo route mới, AI sẽ tự động áp dụng TypeBox mà bạn không cần phải nhắc lại!
+AI sẽ tự động kích hoạt công cụ quản trị bộ nhớ (`aevum_memory_manage`) để lưu quy tắc này vào LTM. Lần sau khi bạn yêu cầu tạo route mới, AI sẽ tự động áp dụng TypeBox mà bạn không cần phải nhắc lại!
 
 ---
 
@@ -53,20 +51,20 @@ Khi bạn mở một file code và yêu cầu AI làm việc:
 
 ---
 
-## 4. Tự Động Tổng Hợp Bài Học Khi Kết Thúc Phiên (Dream Consolidation)
+## 4. Tự Động Tổng Hợp Bài Học (Dream Consolidation)
 
 Khi bạn hoàn thành một buổi lập trình và đóng máy:
-1. Aevum OS tự động kích hoạt tiến trình tổng hợp Hồi hải mã (**Dream Consolidation**).
-2. Hệ thống quét qua toàn bộ giấy nháp ngắn hạn (STM) trong ngày.
-3. Tự động loại bỏ các đoạn log lỗi rác tạm thời.
-4. Chắt lọc những giải pháp sửa lỗi thành công và thăng hạng thành bài học dài hạn (LTM) cho ngày làm việc tiếp theo.
+1. Aevum OS tự động kích hoạt tiến trình tổng hợp hồi hải mã (**Dream Consolidation**).
+2. Hệ thống quét qua toàn bộ giấy nháp ngắn hạn (STM) trong phiên làm việc.
+3. Tự động loại bỏ các đoạn log lỗi rác và thông tin tạm thời.
+4. Chắt lọc những giải pháp sửa lỗi thành công và thăng hạng thành bài học dài hạn (LTM) cho những ngày tiếp theo.
 
 ---
 
-## 5. Chỉ Số Năng Lượng & Tâm Lý Của AI (Neurotransmitter Vibe)
+## 5. Chỉ Số Năng Lượng & Tâm Lý Nhận Thức (Vibe Dynamics)
 
 Để AI phản hồi sống động và đúng mực như một người đồng đội thực thụ, Aevum OS mô phỏng 3 chỉ số điều tiết nhận thức:
 
 * **Dopamine (Động lực)**: Tăng lên khi hoàn thành một tính năng khó hoặc được bạn khen ngợi, giúp AI hăng hái và sáng tạo hơn.
 * **Noradrenaline (Tập trung & Cảnh giác)**: Tăng cao khi quét thấy lỗi bảo mật hoặc mã nguồn có rủi ro, giúp AI cẩn trọng hơn trong từng dòng code.
-* **Serotonin (Kiên nhẫn & Nhất quán)**: Giữ cho phong cách giao tiếp điềm tĩnh, giải thích mạch lạc và không vội vã đưa ra quyết định thiếu an toàn.
+* **Serotonin (Kiên nhẫn & Điềm tĩnh)**: Giữ cho phong cách giao tiếp điềm tĩnh, giải thích mạch lạc và không vội vã đưa ra quyết định thiếu an toàn.

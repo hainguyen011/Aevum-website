@@ -5,8 +5,25 @@ feature: "${featureId}"
 research_mission_id: "${researchMissionId}"
 version: "1.0.0"
 status: "todo"
+
+# Ai làm & Phân công
 authors: ["Aevum Architect"]
+assigned_to:
+  agent: "@[Agent]"
+  role: "Developer (Implementation)"
+  intent: "Thực thi kế hoạch chuẩn kiến trúc O-DDD"
+reviewer:
+  agent: "@[Agent]"
+  role: "Lead Architect (Review & Gate)"
+
+# Làm khi nào & Thời gian thực thi
 created_at: "${createdAt}"
+started_at: ""
+completed_at: ""
+updated_at: "${createdAt}"
+
+# Ranh giới tệp & Phụ thuộc
+active_files: []
 dependencies: []
 ---
 
@@ -79,8 +96,9 @@ graph TD
 ### Phase 3: Validation & Evidence
 - [ ] [TEST] Chạy toàn bộ test suite [Evidence: pending]
 - [ ] [DOC] Cập nhật walkthrough.md [Evidence: walkthrough.md]
-- [x] [FINISH] Hoàn tất Plan [Evidence: signed]
+- [ ] [FINISH] Hoàn tất Plan [Evidence: signed]
 
 ## KNOWLEDGE HARVEST
 - **Pattern:** [Mô tả pattern mới phát hiện]
 - **Lesson:** [Bài học kinh nghiệm]
+- **Distilled Skill:** [Tên/ID kỹ năng đã chưng cất bằng `aevum_skill_manage` (action: "distill") (nếu có)]

@@ -194,7 +194,15 @@ To add a new MCP migration in future versions:
 | `.aevum/aevum_version.json` | Metadata | Tracks applied migrations |
 | `src/core/upgrades.ts` | Source | Migration implementation |
 
+### 5. `mcp_polymorphic_v2_0_clean_cut` - Polymorphic Tool Consolidation & Clean Cut
+**Status**: Applied (Aevum v2.0.0-beta.3)
+
+**Purpose**:
+- Hợp nhất 115 công cụ đơn lẻ dư thừa thành 44 công cụ đa hình (Polymorphic Tools v2.0).
+- Cắt tỉa triệt để toàn bộ legacy shims (Clean Cut) để giải phóng ~20,000 prompt tokens/turn.
+- Chuẩn hóa 2-Tier Tool Framework (`tool_bundles.json`) và Neuromorphic Thalamic Semantic Attention.
+
 ---
 
-**Last Updated**: 2026-04-02  
-**Aevum Version**: 1.7.0+
+**Last Updated**: 2026-10-29  
+**Aevum Version**: 2.0.0-beta.3

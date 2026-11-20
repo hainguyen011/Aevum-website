@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { replaceDynamicVariables } from '../src/config/siteConstants.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -218,8 +219,17 @@ function compileContentToJSON() {
     mediaFiles.forEach((file) => {
       const srcFile = path.resolve(MEDIA_CONTENT_DIR, file);
       const destFile = path.resolve(publicMediaDir, file);
-      if (fs.statSync(srcFile).isFile()) {
-        fs.copyFileSync(srcFile, destFile);
+      try {
+        if (fs.statSync(srcFile).isFile()) {
+          if (!fs.existsSync(destFile) || fs.statSync(srcFile).size !== fs.statSync(destFile).size) {
+            fs.copyFileSync(srcFile, destFile);
+          }
+        }
+      } catch (err) {
+        // Ignore lock / permission warnings if destination file already exists
+        if (!fs.existsSync(destFile)) {
+          console.warn(`   ⚠️ Không thể sao chép media file ${file}:`, err.message);
+        }
       }
     });
     console.log(`   ✓ Đồng bộ ${mediaFiles.length} media files vào public/media`);
@@ -240,7 +250,7 @@ function compileContentToJSON() {
       title: data.title || docId,
       category: data.category || 'Tài liệu',
       order: data.order !== undefined ? data.order : 999,
-      content: content
+      content: replaceDynamicVariables(content)
     });
   });
 
@@ -295,7 +305,7 @@ function compileContentToJSON() {
         },
         summary: data.summary || '',
         order: data.order !== undefined ? data.order : 999,
-        content: content
+        content: replaceDynamicVariables(content)
       });
     });
 

@@ -166,6 +166,7 @@ export default defineConfig(({ mode }) => {
       minify: 'esbuild',
       cssMinify: true,
       chunkSizeWarningLimit: 800,
+      emptyOutDir: false,
       rollupOptions: {
         output: {
           manualChunks(id) {

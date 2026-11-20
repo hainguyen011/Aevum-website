@@ -38,90 +38,1085 @@
     },
     {
       "id": "health",
-      "uri": "aevum://context/health.json",
-      "name": "Project Health Metrics",
-      "description": "Complexity, duplication and overall project health",
+      "uri": "aevum://health/status",
+      "name": "System Health",
+      "description": "Real-time system health and performance diagnostics",
       "mimeType": "application/json"
     },
     {
-      "id": "global-agent-rules",
-      "uri": "aevum://context/global/agent_rules.md",
-      "name": "Agent Rules",
-      "description": "Operational rules and MCP-First mandate for all Agents",
-      "mimeType": "text/markdown"
+      "id": "research-node",
+      "uri": "aevum://research/nodes/{nodeId}",
+      "name": "Research Node Specification",
+      "description": "Chi tiết node tri thức RDD kèm bằng chứng, công thức hoặc sandbox test",
+      "mimeType": "application/json"
     },
     {
-      "id": "global-tech-stack",
-      "uri": "aevum://context/global/tech_stack.md",
-      "name": "Tech Stack",
-      "description": "Technology stack and architectural conventions",
-      "mimeType": "text/markdown"
-    },
-    {
-      "id": "global-conventions",
-      "uri": "aevum://context/global/conventions.md",
-      "name": "Conventions",
-      "description": "Coding and documentation conventions",
+      "id": "research-paper",
+      "uri": "aevum://research/papers/{paperFile}",
+      "name": "Research Whitepaper",
+      "description": "Toàn văn bài báo chuyên khảo nguyên tử trong .aevum/research/",
       "mimeType": "text/markdown"
     }
   ],
   "prompts": [
     {
-      "id": "bootstrap",
-      "name": "Bootstrap Instruction",
-      "description": "Get the Aevum bootstrap instruction and initial context"
+      "id": "plan_execution",
+      "name": "Plan Execution",
+      "description": "Guidance for executing an Aevum plan step-by-step",
+      "arguments": [
+        {
+          "name": "planPath",
+          "description": "Path to the plan file",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "research_mission",
+      "name": "Deep Research Mission",
+      "description": "Autonomous recursive deep research exploration",
+      "arguments": [
+        {
+          "name": "topic",
+          "description": "Research topic",
+          "required": true
+        }
+      ]
     }
   ],
   "tools": [
     {
-      "id": "aevum_mark_plan_done",
-      "name": "Mark Plan Done",
-      "description": "Mark a plan as completed and update project index"
+      "name": "Bridge Lifecycle",
+      "description": "Quản lý vòng đời kết nối bridge, bootstrap và handshake tín hiệu hệ thống (bootstrap, ack, connect, ping, disconnect).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "bootstrap",
+              "ack",
+              "connect",
+              "ping",
+              "disconnect"
+            ]
+          },
+          "signalId": {
+            "type": "string"
+          },
+          "client": {
+            "type": "string"
+          },
+          "projectPath": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
     },
     {
-      "id": "aevum_assign_plan",
-      "name": "Assign Plan",
-      "description": "Assign a plan to in-progress status for agent work"
+      "name": "Session Lifecycle",
+      "description": "Quản lý phiên làm việc: khởi tạo session, nộp báo cáo thực thi (report) và bằng chứng (evidence), nghiệm thu và đóng phiên.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "start",
+              "submit_report",
+              "add_evidence",
+              "finalize",
+              "get_status"
+            ]
+          },
+          "sessionId": {
+            "type": "string"
+          },
+          "report": {
+            "type": "string"
+          },
+          "evidence": {
+            "type": "string"
+          },
+          "projectPath": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
     },
     {
-      "id": "aevum_sync_index",
-      "name": "Sync Index",
-      "description": "Synchronize project index from filesystem"
+      "name": "Persona Manage",
+      "description": "Quản trị nhân cách (Persona): chuyển đổi, khởi tạo danh tính, tinh chỉnh năng lượng (vibe) hoặc xem hồ sơ.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "init",
+              "switch",
+              "get_active",
+              "list",
+              "tune_vibe"
+            ]
+          },
+          "personaId": {
+            "type": "string"
+          },
+          "client": {
+            "type": "string"
+          },
+          "vibe": {
+            "type": "string"
+          },
+          "projectPath": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
     },
     {
-      "id": "aevum_capture_evidence",
-      "name": "Capture Evidence",
-      "description": "Save execution outputs and terminal logs as evidence for a plan"
+      "name": "Semantic Vault",
+      "description": "Kho lưu trữ ngữ nghĩa: nén văn bản, trích xuất quy tắc nén (agent_rules.md) hoặc giải mã tri thức rút gọn.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "get_compressed",
+              "compress_text",
+              "decompress_text",
+              "list_vault"
+            ]
+          },
+          "target": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
     },
     {
-      "id": "aevum_search_knowledge",
+      "name": "Architecture Inspect",
+      "description": "Chẩn đoán 7 Living Organs O-DDD, đo lường sinh tồn (vitality), hoặc trích xuất cây cấu trúc và bản vẽ Mermaid.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "mode": {
+            "type": "string"
+          },
+          "reCook": {
+            "type": "string"
+          },
+          "projectPath": {
+            "type": "string"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "Structure Design",
+      "description": "Thiết kế và cấu trúc hóa hệ thống: tạo mới, gợi ý, đổi tên hoặc xóa Domain, Feature, Plan.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "create",
+              "suggest",
+              "rename",
+              "delete"
+            ]
+          },
+          "type": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "domainId": {
+            "type": "string"
+          },
+          "featureId": {
+            "type": "string"
+          },
+          "fileName": {
+            "type": "string"
+          },
+          "researchTopic": {
+            "type": "string"
+          },
+          "newName": {
+            "type": "string"
+          },
+          "scope": {
+            "type": "string"
+          },
+          "projectPath": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
+    },
+    {
+      "name": "Plan Lifecycle",
+      "description": "Điều phối vòng đời thực thi kế hoạch: đồng bộ từ IDE, kích hoạt và khóa ranh giới file (activeFiles), cập nhật tiến độ từng bước, và nghiệm thu hoàn tất.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "activate",
+              "sync",
+              "update_step",
+              "finalize",
+              "assign",
+              "mark_done"
+            ]
+          },
+          "domainId": {
+            "type": "string"
+          },
+          "planName": {
+            "type": "string"
+          },
+          "featureId": {
+            "type": "string"
+          },
+          "activeFiles": {
+            "type": "string"
+          },
+          "stepMatch": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "comment": {
+            "type": "string"
+          },
+          "sourceFilePath": {
+            "type": "string"
+          },
+          "planTitle": {
+            "type": "string"
+          },
+          "agent": {
+            "type": "string"
+          },
+          "projectPath": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
+    },
+    {
+      "name": "Boundary Guard",
+      "description": "Kiểm soát ranh giới Bounded Context Clean Architecture, kiểm định tính toàn vẹn thư mục (sanity check), phân tích nợ kỹ thuật và sao lưu an toàn.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "audit_boundary",
+              "sanity_check",
+              "debt",
+              "snapshot"
+            ]
+          },
+          "filePath": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "projectPath": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
+    },
+    {
+      "name": "Switch Workspace",
+      "description": "Chuyển đổi không gian làm việc Aevum OS sang một thư mục dự án khác một cách linh hoạt.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "projectPath": {
+            "type": "string"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "Squad Communicate",
+      "description": "Giao tiếp đa tác tử (Multi-Agent IACP): gửi tin nhắn trực tiếp, họp huddle nhóm, phát tín hiệu hoặc truy vấn lịch sử trao đổi.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "send_dm",
+              "huddle",
+              "broadcast",
+              "get_history"
+            ]
+          },
+          "toAgent": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "topic": {
+            "type": "string"
+          },
+          "fromAgent": {
+            "type": "string"
+          },
+          "limit": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
+    },
+    {
+      "name": "Notification Manage",
+      "description": "Quản trị thông báo hệ thống và tác tử: đẩy thông báo, lấy danh sách hoặc đánh dấu đã xử lý (pop).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "push",
+              "get",
+              "pop",
+              "clear"
+            ]
+          },
+          "toAgentId": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "notificationId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
+    },
+    {
+      "name": "Squad Manage",
+      "description": "Quản trị đội ngũ tác tử (Squad): xem danh sách thành viên, cập nhật trạng thái hoạt động (presence) và cấu hình đội hình.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "list_agents",
+              "get_presence",
+              "set_status",
+              "configure_squad"
+            ]
+          },
+          "agentId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
+    },
+    {
+      "name": "Squad Handoff",
+      "description": "Chuyển giao quyền kiểm soát và ngữ cảnh công việc giữa các Agent một cách mượt mà và an toàn.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "targetAgent": {
+            "type": "string"
+          },
+          "contextSummary": {
+            "type": "string"
+          },
+          "artifacts": {
+            "type": "string"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "Recruit Agent",
+      "description": "Chiêu mộ hoặc tạo mới một Agent Persona vào dự án kèm hồ sơ năng lực và kỹ năng chuyên biệt.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "bio": {
+            "type": "string"
+          },
+          "skills": {
+            "type": "string"
+          },
+          "poster_title": {
+            "type": "string"
+          },
+          "posterTitle": {
+            "type": "string"
+          },
+          "art_style": {
+            "type": "string"
+          },
+          "artStyle": {
+            "type": "string"
+          },
+          "accent_color": {
+            "type": "string"
+          },
+          "accentColor": {
+            "type": "string"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "Evolution Manage",
+      "description": "Quản trị tiến hóa và kinh nghiệm (EXP): trao điểm EXP, xem báo cáo tiến hóa, ghi nhận phản hồi hoặc cộng hưởng năng lượng (vibe resonance).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "award_exp",
+              "get_report",
+              "feedback",
+              "resonate_vibe"
+            ]
+          },
+          "personaId": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "feedback": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
+    },
+    {
+      "name": "Skill Manage",
+      "description": "Quản trị kỹ năng chuyên sâu của Agent: chưng cất kỹ năng mới từ thực tiễn (distill), kích hoạt kỹ năng (invoke) hoặc tra cứu.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "distill",
+              "invoke",
+              "list",
+              "inspect"
+            ]
+          },
+          "skillName": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "personaId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
+    },
+    {
+      "name": "Review Manage",
+      "description": "Quản lý phiên đánh giá mã nguồn (Autonomous Code Review): khởi tạo phiên review, mời chuyên gia, ghi nhận góp ý và kết luận nghiệm thu.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "start",
+              "invite",
+              "comment",
+              "approve",
+              "close"
+            ]
+          },
+          "sessionId": {
+            "type": "string"
+          },
+          "files": {
+            "type": "string"
+          },
+          "reviewer": {
+            "type": "string"
+          },
+          "feedback": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
+    },
+    {
+      "name": "Proactive Thought",
+      "description": "Kích hoạt hoặc ghi nhận luồng tư duy chủ động (Proactive Thought) của Agent khi giải quyết vấn đề phức tạp.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "thought": {
+            "type": "string"
+          },
+          "agentId": {
+            "type": "string"
+          },
+          "topic": {
+            "type": "string"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "Research Tree Manage",
+      "description": "Quản trị cây tri thức nghiên cứu sâu (RDD Knowledge Tree): phân nhánh node đa hình (formal_proof, empirical_poc, benchmark, trade_off...), nối cạnh ngữ nghĩa (proves, depends_on...) và liên kết bài báo chuyên khảo.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "add_node",
+              "link_nodes",
+              "update_node",
+              "get_tree",
+              "get_node"
+            ]
+          },
+          "treeId": {
+            "type": "string"
+          },
+          "nodeId": {
+            "type": "string"
+          },
+          "nodeType": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "edgeType": {
+            "type": "string"
+          },
+          "sourceNodeId": {
+            "type": "string"
+          },
+          "targetNodeId": {
+            "type": "string"
+          },
+          "paperFile": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
+    },
+    {
+      "name": "Research Mission",
+      "description": "Khởi tạo và thực thi nhiệm vụ nghiên cứu tự trị chuyên sâu (Autonomous Deep Research Mission) theo chuẩn RDD.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "start_mission",
+              "get_mission_status",
+              "complete_mission"
+            ]
+          },
+          "topic": {
+            "type": "string"
+          },
+          "missionId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
+    },
+    {
+      "name": "Research Explore",
+      "description": "Khám phá và duyệt sâu các tài liệu chuyên khảo, bằng chứng thực nghiệm và đồ thị nghiên cứu đã thực hiện.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string"
+          },
+          "limit": {
+            "type": "string"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "Coresearch Interact",
+      "description": "Giao tiếp và đồng nghiên cứu thời gian thực giữa con người (Master) và các Agent trong phòng Lab Nghiên cứu Aevum.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "send_prompt",
+              "get_hypotheses",
+              "validate_poc"
+            ]
+          },
+          "prompt": {
+            "type": "string"
+          },
+          "missionId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
+    },
+    {
+      "name": "Coresearch Evolution",
+      "description": "Tiến hóa và hoàn thiện cây giả thuyết nghiên cứu dựa trên phản hồi và phát hiện mới của buổi đồng nghiên cứu.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "missionId": {
+            "type": "string"
+          },
+          "evolutionReport": {
+            "type": "string"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "Memory Manage",
+      "description": "Quản trị bộ nhớ sống (Living Memory): thêm ký ức mới (semantic_rule, procedural_sop, episodic_event), hợp nhất bộ nhớ hoặc kiểm toán tính toàn vẹn của ký ức.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "add",
+              "manage",
+              "consolidate",
+              "audit"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "memoryType": {
+            "type": "string"
+          },
+          "scope": {
+            "type": "string"
+          },
+          "personaId": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
+    },
+    {
+      "name": "Graph Manage",
+      "description": "Quản lý đồ thị tri thức ngữ nghĩa (Knowledge Graph): thêm node, liên kết cạnh, truy vấn k-hop lân cận hoặc nạp lại changelog.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "add_node",
+              "add_edge",
+              "query_subgraph",
+              "replay_changelog"
+            ]
+          },
+          "nodeId": {
+            "type": "string"
+          },
+          "nodeType": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string"
+          },
+          "relation": {
+            "type": "string"
+          },
+          "depth": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
+    },
+    {
+      "name": "Reflex Manage",
+      "description": "Quản trị hệ thống phản xạ tri thức (Knowledge Reflex Engine): kích hoạt phản xạ ngữ cảnh dưới 6ms và quản lý bộ nhớ đệm LUT.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "trigger_reflex",
+              "clear_cache",
+              "inspect_stats"
+            ]
+          },
+          "query": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
+    },
+    {
       "name": "Search Knowledge",
-      "description": "Semantic and keyword search across Aevum project knowledge"
+      "description": "Tìm kiếm tri thức toàn diện trên kho dữ liệu .aevum (ghi chú, kế hoạch, quyết định kiến trúc, tài liệu chuyên khảo).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string"
+          },
+          "limit": {
+            "type": "string"
+          }
+        },
+        "required": []
+      }
     },
     {
-      "id": "aevum_get_ui_context",
-      "name": "Get UI Context",
-      "description": "Fetch real-time VS Code editor and UI state"
+      "name": "Pipernet Manage",
+      "description": "Quản trị mạng phân tán P2P PiperNet: phát sóng tri thức, đồng bộ trạng thái ngang hàng và quản lý kết nối swarm.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "broadcast",
+              "sync_state",
+              "get_peers"
+            ]
+          },
+          "payload": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
     },
     {
-      "id": "aevum_submit_suggestion",
-      "name": "Submit Suggestion",
-      "description": "Communicate structural improvement ideas (Plans/Domains/Features) to the extension"
+      "name": "Execute Command",
+      "description": "Thực thi lệnh terminal, shell script trong môi trường sandbox cô lập an toàn có kiểm soát thời gian chờ (Watchdog).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "command": {
+            "type": "string"
+          },
+          "cwd": {
+            "type": "string"
+          },
+          "timeoutMs": {
+            "type": "string"
+          }
+        },
+        "required": []
+      }
     },
     {
-      "id": "aevum_suggest_plans",
-      "name": "Suggest Plans",
-      "description": "Request the system to suggest next Plans based on history"
+      "name": "Get Diagnostics",
+      "description": "Lấy thông tin chẩn đoán sức khỏe hệ thống: cảnh báo lỗi biên dịch, linter, bộ nhớ và trạng thái daemon.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "projectPath": {
+            "type": "string"
+          }
+        },
+        "required": []
+      }
     },
     {
-      "id": "aevum_suggest_domains",
-      "name": "Suggest Domains",
-      "description": "Request the system to suggest new Domains for the project"
+      "name": "Get Ui Context",
+      "description": "Trích xuất ngữ cảnh giao diện hiện tại của người dùng (tệp đang mở, tab đang active, vị trí con trỏ).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
     },
     {
-      "id": "aevum_suggest_features",
-      "name": "Suggest Features",
-      "description": "Request the system to suggest new Features for a specific Domain"
+      "name": "Browser Card Manage",
+      "description": "Quản trị thẻ duyệt web thông minh: tạo thẻ preview, cập nhật URL hoặc chụp màn hình render.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "open",
+              "update",
+              "close",
+              "capture"
+            ]
+          },
+          "url": {
+            "type": "string"
+          },
+          "cardId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
+    },
+    {
+      "name": "Runtime Telemetry",
+      "description": "Thu thập số liệu đo lường hiệu năng runtime thời gian thực: độ trễ Event Loop, throughput và bộ nhớ.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    },
+    {
+      "name": "Github Manage",
+      "description": "Tương tác với GitHub: kiểm tra trạng thái remote, tạo commit, pull request hoặc đồng bộ nhánh.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "status",
+              "commit",
+              "create_pr",
+              "sync"
+            ]
+          },
+          "message": {
+            "type": "string"
+          },
+          "branch": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
+    },
+    {
+      "name": "Blackboard Manage",
+      "description": "Quản lý bảng đen cộng tác chung (Shared Blackboard): ghim thông tin quan trọng, thảo luận nhóm và ghi nhận quyết định.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "post",
+              "read",
+              "clear",
+              "lock"
+            ]
+          },
+          "topic": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
+    },
+    {
+      "name": "App Launch",
+      "description": "Khởi chạy hoặc chuyển tiếp đến ứng dụng con trong hệ sinh thái Aevum Desktop OS.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "appId": {
+            "type": "string"
+          },
+          "params": {
+            "type": "string"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "Uac Manage",
+      "description": "Quản trị quyền truy cập và kiểm soát tài khoản người dùng (User Access Control) cho các tác vụ nhạy cảm.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "check_permission",
+              "request_elevation",
+              "audit_log"
+            ]
+          },
+          "resource": {
+            "type": "string"
+          },
+          "level": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
+    },
+    {
+      "name": "Mcp Contracts Manage",
+      "description": "Quản trị hợp đồng các máy chủ MCP ngoại vi được kết nối (Cursor, Antigravity, Claude, Cline).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "list",
+              "inspect",
+              "sync",
+              "validate"
+            ]
+          },
+          "serverName": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
     }
   ]
 }

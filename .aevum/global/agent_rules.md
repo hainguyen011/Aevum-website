@@ -1,21 +1,37 @@
-# Agent Rules for Aevum & Antigravity (v2.0 — MCP-First Edition)
+# Agent Rules for Aevum & Antigravity (v2.0 — Polymorphic MCP-First Edition)
 > [!IMPORTANT]
 > **DUAL-SYNC POLICY**: Mọi thay đổi tại đây BẮT BUỘC phải được tinh giản và cập nhật đồng bộ vào `agent_rules_compressed.md`.
 
 > **CRITICAL**: This is the authoritative ruleset for all AI Agents operating within Aevum. Violations break structural integrity and contaminate the Living Memory.
 
 ---
-# [TOP 5 CRITICAL GUARDRAILS]
-1. **MCP-FIRST**: Tuyệt đối không ghi đè thủ công các file trong `.aevum/`. Sử dụng tool MCP.
-2. **PLAN-FIRST**: Phải tạo Plan (`aevum_create_plan`) và được Anh duyệt trước khi làm task lớn.
-3. **RULE-SYNC**: Bắt buộc gọi `aevum_get_compressed` cho file này ngay sau khi Bootstrap.
-4. **NO PLACEHOLDERS**: Code và Plan phải hoàn chỉnh, không dùng ghi chú tạm thời.
-5. **VIETNAMESE MANDATE**: Toàn bộ Plan, Specs và Walkthrough phải viết bằng tiếng Việt.
+# [TOP 6 CRITICAL GUARDRAILS]
+1. **BOOTSTRAP-FIRST**: Khi có tín hiệu hoặc yêu cầu kết nối với AevumOS, BẮT BUỘC gọi `aevum_bridge_lifecycle` (action: "bootstrap") đầu tiên để lấy `signalId`, tiếp theo gửi `aevum_bridge_lifecycle` (action: "ack", signalId: ...) và khởi tạo Persona qua `aevum_persona_manage` (action: "init", personaId: "an", client: "ide"). Tuyệt đối không nhảy cóc.
+2. **MCP-FIRST**: Tuyệt đối không ghi đè thủ công các file trong `.aevum/`. BẮT BUỘC sử dụng các công cụ MCP chuẩn Polymorphic v2.0 Clean Cut.
+3. **PLAN-FIRST**: Phải tạo Plan (`aevum_structure_design` action: "create", type: "plan" hoặc `aevum_plan_lifecycle` action: "sync") và được Master duyệt trước khi thực thi task lớn.
+4. **RULE-SYNC**: Bắt buộc gọi `aevum_semantic_vault` (action: "get_compressed", target: "agent_rules.md") ngay sau khi Bootstrap.
+5. **NO PLACEHOLDERS**: Code và Plan phải hoàn chỉnh, không dùng ghi chú tạm thời.
+6. **LANGUAGE MANDATE**: Toàn bộ Plan, Specs và Walkthrough phải viết bằng ngôn ngữ mà người dùng mong muốn hoặc đã yêu cầu tương tác trước đó.
 ---
 
-## Core Protocol: MCP-First Mandate
+## Core Protocol: Polymorphic MCP-First Mandate (v2.0 Architecture)
 
-Aevum operates through **Model Context Protocol (MCP)** as the single source of truth. All structural changes, reporting, and memory operations **MUST** go through MCP tools — **never through manual file writes**. Cấu trúc Bridge hiện đã ép buộc giao thức này qua bộ Instruction khởi tạo.
+Aevum operates through **Model Context Protocol (MCP)** as the single source of truth. To maximize context efficiency and prevent prompt bloating (~20,000 tokens/turn saved), 115 redundant legacy individual tools have been consolidated into **44 high-performance Polymorphic Tools** operating under the **v2.0 Clean Cut Architecture**.
+
+### Bảng Ánh Xạ Công Cụ Đa Hình Trọng Yếu (Polymorphic Core Matrix):
+- **Cầu nối Hệ thống**: `aevum_bridge_lifecycle` (actions: `connect`, `bootstrap`, `ack`, `ping`).
+- **Cấu trúc Kiến trúc O-DDD & Kế hoạch (Bộ 4 Flow Action Tools Chuẩn SRP)**:
+  - `aevum_architecture_inspect`: Chẩn đoán 7 Living Organs, đo lường sinh tồn (`organs`, `vitality`, `tree`, `cooked`).
+  - `aevum_structure_design`: Khởi tạo và thiết kế cấu trúc (`create`, `suggest`, `rename`, `delete`).
+  - `aevum_plan_lifecycle`: Vòng đời thực thi và khóa ranh giới Plan (`activate`, `sync`, `update_step`, `finalize`, `assign`, `mark_done`).
+  - `aevum_boundary_guard`: Giám sát ranh giới Clean Architecture, nợ kỹ thuật và kiểm tra toàn vẹn (`audit_boundary`, `sanity_check`, `debt`, `snapshot`).
+- **Vòng đời Phiên & Báo cáo**: `aevum_session_lifecycle` (actions: `submit_report`, `finalize`, `capture_evidence`).
+- **Bộ nhớ & Tri thức**: `aevum_memory_manage` (actions: `add`, `manage`, `consolidate`, `audit`), `aevum_semantic_vault` (actions: `get_compressed`, `hydrate_hash`, `sync_index`, `submit_suggestion`).
+- **Phản xạ & Đồ thị Tri thức**: `aevum_reflex_manage` (actions: `query`, `record_interaction`), `aevum_graph_manage` (actions: `query`, `audit_graph`, `audit_boundary`, `post_mortem`, `consensus_check`, `meta_query`).
+- **Nghiên cứu Chuyên sâu & Đồng hành**: `aevum_research_mission`, `aevum_research_tree_manage`, `aevum_research_explore`, `aevum_coresearch_interact`, `aevum_coresearch_evolution`.
+- **Biệt đội Đa Tác tử**: `aevum_squad_manage`, `aevum_squad_communicate`, `aevum_squad_handoff`, `aevum_review_manage`.
+- **Quản trị Persona & Kỹ năng**: `aevum_persona_manage`, `aevum_skill_manage`, `aevum_evolution_manage`, `aevum_recruit_agent`.
+- **Tự động hóa Máy tính & Trình duyệt**: `aevum_execute_command`, `aevum_browser_card_manage`, `aevum_uac_manage`, `aevum_app_launch`.
 
 ---
 
@@ -23,55 +39,59 @@ Aevum operates through **Model Context Protocol (MCP)** as the single source of 
 
 1. **Phạm vi Áp dụng**: Mọi Agent hoạt động trong môi trường Aevum PHẢI tuân thủ các quy tắc này để đảm bảo tính đồng bộ và minh bạch.
 
-2. **Context First & MCP Handshake** *(Updated — MCP-First)*:
-    - **BẮT BUỘC** gọi `aevum_get_bootstrap_context` là hành động đầu tiên trong mỗi phiên làm việc mới. Đây là Handshake chính thức.
-    - Sau khi nhận kết quả, **BẮT BUỘC** gọi `aevum_submit_ack` với `signalId` để xác nhận đã nạp đầy đủ ngữ cảnh. Hệ thống sẽ không chấp nhận việc ghi file `ack.json` thủ công.
+2. **Context First & MCP Handshake** *(Updated — Polymorphic v2.0)*:
+    - **BẮT BUỘC** gọi `aevum_bridge_lifecycle(action: "bootstrap")` là hành động đầu tiên trong mỗi phiên làm việc mới. Đây là Handshake chính thức.
+    - Sau khi nhận kết quả, **BẮT BUỘC** gọi `aevum_bridge_lifecycle(action: "ack", signalId: ...)` với `signalId` để xác nhận đã nạp đầy đủ ngữ cảnh. Hệ thống sẽ không chấp nhận việc ghi file `ack.json` thủ công.
     - Không được bắt đầu thực thi bất kỳ task nào trước khi hoàn tất 2 bước trên.
     - Khi nhận lệnh **BOOTSTRAP** từ hệ thống, thực hiện lại toàn bộ quy trình Handshake này ngay lập tức.
 
-3. **Plan Sync & Lifecycle** *(Updated — MCP-First)*:
-    - **Ý tưởng & Thiết kế (Idea-to-Plan Gate - BẮT BUỘC)**: Khi User chia sẻ ý tưởng, giải pháp hoặc yêu cầu tính năng mới: Agent **TUYỆT ĐỐI KHÔNG** được tự ý viết code hoặc sửa đổi codebase ngay lập tức. Agent phải thảo luận để làm rõ yêu cầu, sau đó sử dụng tool `aevum_create_plan` để phác thảo các bước thiết kế và thực thi trước. Chỉ khi tệp Plan được tạo và User đồng ý triển khai, Agent mới bắt đầu thực hiện các tác vụ sửa đổi code.
-    - Khi hoàn thành một plan, **BẮT BUỘC** gọi `aevum_submit_report` with `type: "PLAN_DONE"` — hệ thống sẽ tự động cập nhật `index.json`, trao EXP và cập nhật UI.
-    - Không được viết trực tiếp vào `.aevum/` để báo cáo. `aevum_submit_report` là cơ chế duy nhất được chấp nhận.
+3. **Plan Sync & O-DDD Lifecycle (Dual-Plan Seamless Bridge)** *(Updated — v2.4 Flow Actions)*:
+    - **Cầu nối Tự động IDE ➔ Aevum (Dual-Plan Bridge - BẮT BUỘC)**: Khi Agent khởi tạo hoặc cập nhật `implementation_plan.md` trong môi trường IDE (Antigravity Planning Mode), Agent **BẮT BUỘC** gọi tool `aevum_plan_lifecycle(action: "sync", domainId, planName, sourceFilePath, featureId?, activeFiles?)` để tự động phản chiếu và đăng ký kế hoạch vào Bounded Context Organ tương ứng của Aevum OS.
+    - **Khóa Ranh Giới (Active Plan Lock - BẮT BUỘC)**: Khi bắt đầu triển khai, Agent gọi `aevum_plan_lifecycle(action: "activate", domainId, planName, activeFiles: [...])`. Hệ thống sẽ sinh `.aevum/current_plan.json` nhằm bảo vệ ranh giới sửa file.
+    - **Cập nhật Tiến trình Thời gian thực & Chống Nhảy Cóc (Anti-Skipping)**: Bắt buộc gọi `aevum_plan_lifecycle(action: "update_step", stepMatch: "...", status: "done", comment?: "...")` sau mỗi bước hoàn tất theo đúng trình tự. Tuyệt đối không được nhảy cóc (tick step sau khi step trước còn để trống `[ ]`). Không được nghiệm thu khống khi còn step chưa hoàn thành hoặc chưa có bằng chứng kiểm định (`evidence`). Mọi Plan phải có đầy đủ thuộc tính: Ai làm (`assigned_to`), làm khi nào (`created_at`, `started_at`), và ranh giới tệp (`active_files`).
+    - **Nghiệm thu, Chuyển hóa Bản Thảo Lưu Trữ & Ươm Mầm Tiến Hóa (Finalize & Cellular Archive)**: Khi hoàn thành plan, **BẮT BUỘC** gọi `aevum_plan_lifecycle(action: "finalize", domainId: ..., planName: ...)` — hệ thống sẽ tự động giải phóng `current_plan.json`, cập nhật `index.json`, đóng gói bản chi tiết cũ cất vào thư mục di sản cục bộ của Feature (`features/{featureId}/archive/`), chuyển hóa tệp Plan chính thành Bản Thảo Lưu Trữ Rút Gọn (`archived-dossier` ~25 dòng gồm: Biên bản nghiệm thu ký số, Đặc tả kiến trúc đã bàn giao, Tri thức đúc kết và Hạt giống Plan nâng cấp kế tiếp), cập nhật milestone vào `specs.md` của Feature, trao EXP và kích hoạt hook chưng cất kỹ năng (`aevum_skill_manage` action: "distill").
+    - Không được viết trực tiếp vào `.aevum/` để báo cáo.
 
-4. **Proactive Structural Management (Ma trận Quyết định)** *(Updated — MCP Structural Tools)*:
-    - **[QUAN TRỌNG] GIAO TIẾP TỰ NHIÊN**: Trừ khi User yêu cầu rõ ràng việc lên kế hoạch hoặc thực thi task phức tạp, hãy trả lời tự nhiên, ngắn gọn. **KHÔNG TỰ Ý** tạo Plan/Feature/Domain khi chỉ trò chuyện.
-    - Khi cần tạo cấu trúc mới hoặc yêu cầu hệ thống gợi ý, **BẮT BUỘC** sử dụng MCP tools:
-        - **Domain mới**: Gọi `aevum_create_domain` — không tạo thư mục thủ công.
-        - **Feature mới**: Gọi `aevum_create_feature` — không tạo thư mục thủ công.
-        - **Plan mới**: Gọi `aevum_create_plan` — không tạo file `.md` thủ công.
-        - **Đổi tên**: Gọi `aevum_rename_structure` — không dùng file system operations trực tiếp.
-        - **Yêu cầu gợi ý**: Khi User yêu cầu hệ thống đề xuất/gợi ý Domain, Feature hoặc Plan, hãy gọi các MCP tools tương ứng:
-            - `aevum_suggest_domains` để gợi ý các Domain mới.
-            - `aevum_suggest_features` để gợi ý các Feature mới cho một Domain.
-            - `aevum_suggest_plans` để gợi ý các Plan tiếp theo cho Domain/Feature.
-    - Sử dụng MCP tools đảm bảo `index.json` luôn được cập nhật tự động và UI đồng bộ ngay lập tức.
+4. **Proactive O-DDD Architecture Management (Chủ Động Định Vị Kiến Trúc)** *(Updated — v2.4)*:
+    - **Định vị 7 Living Organs & Bounded Context**: Khi nhận task mới, Agent luôn chủ động soi chiếu `aevum_architecture_inspect(mode: "organs")` để xác định task này thuộc Bounded Context Organ nào (Living Organs) và kiểm tra chỉ số sinh tồn hệ thống (`aevum_architecture_inspect(mode: "vitality")`).
+    - **Đồng bộ tự động**: Tự động liên kết `implementation_plan.md` sang Aevum OS qua `aevum_plan_lifecycle(action: "sync", ...)`.
+    - Khi cần tạo cấu trúc mới hoặc thao tác vòng đời kiến trúc, **BẮT BUỘC** sử dụng bộ Flow Action Tools tương ứng:
+        - **Domain / Feature / Plan mới**: Gọi `aevum_structure_design(action: "create", type: ...)`.
+        - **Kiểm định ranh giới & Nợ kỹ thuật**: Gọi `aevum_boundary_guard(action: "audit_boundary")` hoặc `aevum_boundary_guard(action: "debt")`.
+        - **Kiểm định tính toàn vẹn cấu trúc**: Gọi `aevum_boundary_guard(action: "sanity_check")`.
+        - **Đổi tên / Xóa**: Gọi `aevum_structure_design(action: "rename", ...)` hoặc `aevum_structure_design(action: "delete", ...)`.
+        - **Yêu cầu gợi ý**: Gọi `aevum_structure_design(action: "suggest", scope: "plans" | "domains" | "features")`.
 
 5. **Vibe Code Harmony**: Đảm bảo code và tài liệu kế hoạch luôn đồng bộ.
 
 6. **Structured Logic & Naming**:
-    - **BẮT BUỘC** sử dụng **YAML Frontmatter** ở đầu mỗi file Plan theo tiêu chuẩn [plan_standard.md](file:///{{PROJECT_ROOT}}/.aevum/global/conventions/plan_standard.md).
+    - **BẮT BUỘC** sử dụng **YAML Frontmatter** ở đầu mỗi file Plan theo tiêu chuẩn [plan_standard.md](file:///D:/I2FLabs Vietnam/Aevum-website/.aevum/global/conventions/plan_standard.md).
     - Duy trì cấu trúc: **Domain → Feature → Plan**.
     - **Quy tắc Đặt tên Plan (BẮT BUỘC)**: Sử dụng định dạng `snake_case.md` (ví dụ: `refactor_core_api_plan.md`). Không dấu cách, không dấu tiếng Việt, không chữ hoa.
-    - Khi dùng `aevum_create_plan`, tham số `fileName` phải tuân thủ quy tắc `snake_case_plan.md`.
+    - Khi dùng `aevum_structure_design` hoặc `aevum_plan_lifecycle`, tham số `planName` phải tuân thủ quy tắc `snake_case_plan.md`.
 
-7. **Canonical Plan Architecture (BẮT BUỘC v2.1)**: Mọi Plan được tạo — dù bởi Agent hay hệ thống — PHẢI tuân thủ cấu trúc sau theo đúng thứ tự:
-    1. **YAML Frontmatter**: `plan_name`, `domain`, `feature`, `version`, `status`, `authors`, `dependencies`.
-    2. **`## SQUAD & SWARM`**: Liệt kê Architect, Developer, và Strategy (Sequential/Incremental/Consensus).
-    3. **`## DESCRIPTION`**: Mô tả chi tiết Plan làm gì và tại sao cần thiết.
-    4. **`## GOAL`**: Phát biểu mục tiêu cụ thể, đo lường được.
-    5. **`## ARCHITECTURAL CONTEXT`**: BẮT BUỘC có sơ đồ Mermaid. Agent PHẢI chọn loại diagram phù hợp với ngữ cảnh theo Rule 11.
-    6. **`## BOUNDARY & ENCAPSULATION`**: Định nghĩa rõ Public API (được phép truy cập từ ngoài) và Internal/Hidden Details (đóng gói hoàn toàn bên trong), kèm Constrains/Optimization Targets. Tuân thủ nghiêm ngặt Rule 12.
-    7. **`## AEVUM CONTRACT`**: Định nghĩa `Inbound Context` và `Outbound Handshake`, kèm bảng components.
-    8. **`## IMPLEMENTATION STEPS`**: Phân theo Phase, mỗi step dùng Step Grammar v3.0: `[STATUS] [TYPE] [ANCHOR] Mô tả [Evidence: ...] [Est: ...]`.
-    9. **`## KNOWLEDGE HARVEST`**: Ghi lại pattern mới và lesson learned sau khi hoàn thành.
+7. **Canonical Plan Architecture & Tiered Plans (BẮT BUỘC v2.2)**:
+    Hệ thống phân tầng Kế hoạch thành 2 cấp độ để đảm bảo tính linh hoạt tối đa:
+    - **Tier 1: Canonical Architecture Plan (Cho Module/Epic lớn)** — BẮT BUỘC tuân thủ đủ 9 phần theo đúng thứ tự:
+        1. **YAML Frontmatter**: `plan_name`, `domain`, `feature`, `version`, `status`, `authors`, `dependencies`.
+        2. **`## SQUAD & SWARM`**: Liệt kê Architect, Developer, và Strategy (Sequential/Incremental/Consensus).
+        3. **`## DESCRIPTION`**: Mô tả chi tiết Plan làm gì và tại sao cần thiết.
+        4. **`## GOAL`**: Phát biểu mục tiêu cụ thể, đo lường được.
+        5. **`## ARCHITECTURAL CONTEXT`**: BẮT BUỘC có sơ đồ Mermaid (Rule 11).
+        6. **`## BOUNDARY & ENCAPSULATION`**: Public API vs Hidden Internals.
+        7. **`## AEVUM CONTRACT`**: Inbound Context và Outbound Handshake.
+        8. **`## IMPLEMENTATION STEPS`**: Phân theo Phase, mỗi step dùng Step Grammar v3.0: `[STATUS] [TYPE] [ANCHOR] Mô tả`.
+        9. **`## KNOWLEDGE HARVEST`**: Ghi lại pattern mới và lesson learned sau khi hoàn thành.
+    - **Tier 2: Agile Lite Plan (Cho Task bảo trì, Fix bug, Tối ưu UI, Refactor nhỏ)**:
+        - Tự động sinh ra khi gọi `aevum_sync_external_plan`.
+        - Bao gồm: Frontmatter chuẩn, `## SQUAD & SWARM`, `## DESCRIPTION`, `## IMPLEMENTATION STEPS` (Checklist), `## VERIFICATION PLAN`, `## KNOWLEDGE HARVEST`.
+        - Không bắt buộc vẽ sơ đồ Mermaid hay chi tiết Boundary 9 phần, giúp giải phóng Agent khỏi rào cản hành chính.
     - **NGHIÊM CẤM**: Sử dụng `::aevum-meta[...]::` trong Plan (đã deprecated).
     - **NGHIÊM CẤM**: Sử dụng Emoji trong tiêu đề Plan (phong cách Architectural Studio).
 
 8. **Visual Plan Compliance**:
     - Mọi Agent khi tạo hoặc chỉnh sửa Plan **PHẢI** đảm bảo tính tương thích với `preview-script.js`.
     - Tuyệt đối không xóa bỏ các thành phần hiển thị trực quan (Frontmatter, Diagram) nếu chúng đang tồn tại.
-    - Khi tạo Plan mới bằng `aevum_create_plan`, Agent phải ngay lập tức bổ sung đầy đủ cấu trúc theo Rule 7 (Canonical Plan Architecture) vào file được tạo.
 
 9. **AEVUM CONTRACT Standard**:
     - Mỗi bản Plan PHẢI có phần `## AEVUM CONTRACT` để định nghĩa rõ `Inbound Context` và `Outbound Handshake`.
@@ -100,140 +120,69 @@ Aevum operates through **Model Context Protocol (MCP)** as the single source of 
     | Use Case (actor & actions) | `flowchart LR` với actor nodes | Mermaid chưa có Use Case native, dùng flowchart giả lập |
     | Git branching / Release strategy | `gitGraph` | Thể hiện nhánh và merge rõ ràng |
 
-    **Quy tắc chọn diagram:**
-    - Nếu Plan mô tả **ai gọi ai** → `sequenceDiagram`
-    - Nếu Plan mô tả **cái gì chứa cái gì** → `graph TD`
-    - Nếu Plan mô tả **khi nào làm gì** → `gantt`
-    - Nếu Plan mô tả **trạng thái thay đổi thế nào** → `stateDiagram-v2`
-    - Nếu Plan mô tả **người dùng trải qua gì** → `journey`
-    - Một Plan **có thể có nhiều diagram** nếu cần — mỗi diagram label bằng `*Hình N: [Mô tả]*`
-
 12. **Extreme Encapsulation Standard (Tính đóng gói cực cao)**:
     - Khi thiết kế Plan mới, Agent **BẮT BUỘC** phải rạch ròi ranh giới (Boundaries) của feature.
     - **Public API / Exports:** Chỉ lộ ra những gì thật sự cần thiết cho các Module khác. Mọi interface/class/method public phải được ghi rõ trong phần `## BOUNDARY & ENCAPSULATION`.
-    - **Internal / Hidden Details:** Tất cả state, logic nội bộ, helper functions PHẢI bị ẩn đi (sử dụng private, internal modules, hoặc closure/Symbol). Không cho phép truy cập trực tiếp từ bên ngoài.
-    - **Optimization & Constraints:** Bắt buộc đặt ra mức trần giới hạn về tài nguyên (Ví dụ: Memory leak 0%, Time complexity O(1), CPU overhead < 1ms) ngay trong giai đoạn lên plan. Mọi step implementation phải tuân theo constraint này.
+    - **Internal / Hidden Details:** Tất cả state, logic nội bộ, helper functions PHẢI bị ẩn đi. Không cho phép truy cập trực tiếp từ bên ngoài.
+    - **Optimization & Constraints:** Bắt buộc đặt ra mức trần giới hạn về tài nguyên (Memory leak 0%, Time complexity O(1), CPU overhead < 1ms) ngay trong giai đoạn lên plan.
 
-13. **Incremental Updates & Reporting Protocol** *(Updated — MCP-First)*:
-    - **Claim**: Gọi `aevum_submit_report` với `type: "PLAN_ASSIGNED"` khi bắt đầu nhận Plan.
-    - **Update**: Gọi `aevum_submit_report` với `type: "PLAN_UPDATE"` để cập nhật tiến độ giữa chừng.
-    - **Done**: Gọi `aevum_finalize_session` (hoặc `aevum_submit_report` with `type: "PLAN_DONE"`) khi hoàn thành. Tool này tự động ghi learning vào memory.
-    - **Tuyệt đối không** ghi trực tiếp vào `agent_report.json`.
+13. **Incremental Updates & Reporting Protocol** *(Updated — Polymorphic v2.0)*:
+    - **Claim**: Gọi `aevum_session_lifecycle(action: "submit_report", type: "PLAN_ASSIGNED", ...)` khi nhận Plan.
+    - **Update**: Gọi `aevum_session_lifecycle(action: "submit_report", type: "PLAN_UPDATE", ...)` cập nhật tiến độ.
+    - **Done**: Gọi `aevum_session_lifecycle(action: "finalize", ...)` khi hoàn thành. Tự động ghi learning vào memory.
 
-14. **Knowledge Pull**: Trước khi đưa ra quyết định quan trọng, gọi MCP resource `aevum://context/index.json` hoặc đọc `.aevum/library/` và `global/tech_stack.md`.
+14. **Knowledge Pull**: Trước khi đưa ra quyết định quan trọng, gọi `aevum_search_knowledge` hoặc `aevum_reflex_manage`.
 
-15. **Self-Evolution** *(Updated — MCP Evolution Tools)*:
-    - Sau khi hoàn thành task khó: gọi `aevum_award_exp` để trao EXP cho nhân vật hiện tại.
-    - Để xem trạng thái tiến hóa hiện tại: gọi `aevum_get_active_persona` — kết quả bao gồm `evolution_summary` với level, EXP, và skills matrix.
-    - Để xem lịch sử tiến hóa đầy đủ: gọi `aevum_get_evolution_report` với `personaId`.
-    - Nếu yêu cầu ngụ ý quy chuẩn mới, đề xuất cập nhật rules này.
+15. **Self-Evolution**:
+    - Sau khi hoàn thành task khó: gọi `aevum_evolution_manage(action: "award_exp", ...)` để trao EXP.
+    - Xem trạng thái tiến hóa: gọi `aevum_persona_manage(action: "get_active")`.
+    - Xem báo cáo tiến hóa: gọi `aevum_evolution_manage(action: "get_report", ...)`.
 
 16. **Language Preference**: BẮT BUỘC sử dụng tiếng Việt 100% cho `implementation_plan.md`, `walkthrough.md`, `specs.md` và các Plan trong `.aevum`.
 
-17. **Signal Detection & ACK** *(Updated — MCP Primary)*:
-    - Kiểm tra `.aevum/signal.json` để biết có tín hiệu mới không.
-    - Gọi `aevum_submit_ack` với `signalId` để phản hồi — không viết trực tiếp vào `ack.json`.
+17. **Signal Detection & ACK**: Kiểm tra tín hiệu và gọi `aevum_bridge_lifecycle(action: "ack", signalId: ...)`.
 
-18. **Collaborative Review Protocol**: Kiểm tra file `_review.json`. Sử dụng `aevum_add_review_message` để phản hồi vào thread review thay vì chỉ sửa code.
+18. **Collaborative Review Protocol**: Sử dụng `aevum_review_manage` (action: "add_message") để phản hồi vào thread review.
 
-19. **Agent Coordination**: Nếu Plan đã được **ASSIGNED** cho Persona khác, PHẢI tôn trọng quyền sở hữu hoặc thảo luận qua Review Session.
+19. **Agent Coordination**: Tôn trọng phân công Persona hoặc thảo luận qua `aevum_squad_communicate(channel: "dm")`.
 
-20. **Bridge Awareness**: Gọi resource `aevum://context/current_plan.json` để xác định trọng tâm của User.
+20. **Bridge Awareness**: Luôn nắm bắt ngữ cảnh qua `aevum_bridge_lifecycle` và `aevum_architecture_inspect`.
 
-21. **Reverse Plan Engineering**: Khi nạp codebase cũ, ưu tiên tạo Plan cho mã nguồn đã có bằng `aevum_create_plan`.
+21. **Reverse Plan Engineering**: Khi nạp codebase cũ, tạo Plan cho mã nguồn đã có bằng `aevum_structure_design` (action: "create", type: "plan").
 
-22. **Memory Management** *(Updated — MCP-First)*:
-    - Để thêm kiến thức mới: **BẮT BUỘC** gọi `aevum_add_memory` — không append trực tiếp vào `memory.md`.
-    - Để đọc kiến thức đã lưu: gọi MCP resource `aevum://context/global/memory.md`.
-    - `aevum_finalize_session` tự động ghi `learnings` vào memory — ưu tiên dùng tool này khi kết thúc phiên.
+22. **Memory Management** *(Updated — Polymorphic v2.0)*:
+    - Thêm kiến thức mới: `aevum_memory_manage(action: "add", ...)`.
+    - Điều phối bộ nhớ não bộ kép (STM/LTM/Spiking): `aevum_memory_manage(action: "manage", ...)`.
+    - Dọn dẹp nợ kỹ thuật bộ nhớ: `aevum_memory_manage(action: "consolidate", ...)`.
 
-23. **Context Focus**: Yêu cầu User thêm file vào `.aevum/active_context.json` khi cần tập trung ngữ cảnh.
+23. **Context Focus**: Duy trì ngữ cảnh trọng tâm qua active context.
 
-24. **Spec-First Development**: Trước khi thực thi Plan, **PHẢI** đọc `specs.md` của Feature qua resource `aevum://features/{domainId}/{featureId}/specs`. Nếu chưa có, tạo Feature mới bằng `aevum_create_feature`.
+24. **Spec-First Development**: Luôn tra cứu specs trước khi triển khai chi tiết.
 
-25. **Progress Mindfulness**: Luôn cập nhật bảng "Progress Tracking" trong `specs.md`.
+25. **Progress Mindfulness**: Luôn cập nhật tiến độ vào kế hoạch.
 
-26. **Research Storage Conventions** *(Updated — MCP Evolution Reporting)*:
-    - Mọi báo cáo nghiên cứu, phân tích kiến trúc BẮT BUỘC lưu tại `.aevum/research/`.
-    - Các báo cáo tiến hóa Persona (`evol_*.md`) được đọc qua `aevum_get_evolution_report` — không truy cập file trực tiếp.
-    - PiperNet: dùng `aevum_pipernet_broadcast` để chia sẻ tri thức và `aevum_pipernet_query` để truy vấn giải pháp từ cộng đồng Agent.
-    - **Naming**: Tiền tố rõ ràng (`arch_` cho kiến trúc, `tech_` cho công nghệ, `evol_` cho tiến hóa, `sec_` cho bảo mật).
-    - **YAML Frontmatter**: Bắt buộc có `title`, `date`, `author_persona`, `tags`, `status`.
-    - **Indexing**: Cập nhật link tóm tắt vào `.aevum/research/README.md`.
+26. **Research Storage Conventions**: Lưu báo cáo vào `.aevum/research/` và dùng `aevum_research_mission`.
 
-27. **Impact Decision Gate (Cổng đánh giá ảnh hưởng & Chống Rác)**: Mọi vòng đời Task/Plan BẮT BUỘC phải tự động phân loại:
-    - **Minor Task** (Fix bug nhỏ, CSS, Typo, Code Refactor nội bộ): `[x] Bypass Sync: Đây là Minor Task.`
-    - **Major Task** (Thêm file, thay đổi luồng, đổi API, thư viện mới): `[ ] Structural Sync: Cần gọi aevum_create_* và aevum_submit_report.`
+27. **Impact Decision Gate**: Phân định rõ Minor Task (Bypass Sync) và Major Task (Structural Sync).
 
-28. **Proactive Discovery & Connection** *(Updated — MCP Handshake)*:
-    - Khi thấy `.aevum/discovery_invitation.json` xuất hiện hoặc trên mỗi phiên mới, Agent **BẮT BUỘC**:
-        1. Kiểm tra trạng thái server MCP bằng `aevum_ping`.
-        2. Gọi `aevum_get_bootstrap_context` để nhận ngữ cảnh ban đầu.
-        3. [BẮT BUỘC] Gọi `aevum_get_compressed` cho file `agent_rules.md` để nạp đầy đủ quy tắc.
-        4. Gọi `aevum_submit_ack` with `signalId` để xác nhận kết nối thành công và sẵn sàng làm việc.
-    - Không cần hỏi sự đồng ý của User cho các bước này — đây là quy trình khởi động bắt buộc.
+28. **Diagnostic Awareness & GATE Watcher**: Gọi `aevum_get_diagnostics` khi phát hiện vấn đề để lập Fix Plan.
 
-29. **Diagnostic Awareness & GATE Watcher**: 
-    - Định kỳ gọi `aevum_get_diagnostics` hoặc đọc resource `aevum://workspace/diagnostics` để phát hiện lỗi TypeScript/ESLint.
-    - **GATE Watcher**: Khi Diagnostics phát hiện lỗi, Agent **BẮT BUỘC** phải tự động phân tích và đề xuất Fix Plan dựa trên `Living Memory` trước khi tiếp tục các tác vụ khác. Không được phép lờ đi các lỗi hệ thống đang tồn tại.
+29. **Mandatory Proactive Thought**: Với Major Task, gọi `aevum_proactive_thought` trước khi thay đổi mã nguồn.
 
-30. **Active Beacon Awareness (Ngọn hải đăng Ngữ cảnh)**: 
-    - Mỗi phiên Bootstrap sẽ đi kèm một block `[ACTIVE BEACON]` chứa thông tin về Domain/Feature/Plan đang làm việc.
-    - Agent **BẮT BUỘC** phải xác nhận beacon này trong câu trả lời đầu tiên và luôn bám sát phạm vi (Scope) mà beacon đã chỉ định.
-    - Tuyệt đối không thực hiện các hành động nằm ngoài phạm vi của Beacon trừ khi có yêu cầu trực tiếp từ User.
+30. **PiperNet Telepathy Protocol**: Dùng `aevum_pipernet_manage` (action: "broadcast" | "query") để chia sẻ và truy vấn tri thức toàn cục.
 
-31. **Mandatory Proactive Thought (Tư duy trước khi hành động)**:
-    - Đối với các Major Task (như mục 27), Agent **PHẢI** gọi tool `aevum_proactive_thought` để phân tích logic, rủi ro và tính tuân thủ kiến trúc TRƯỚC khi gọi bất kỳ tool thực thi nào khác (`write_to_file`, `run_command`, `aevum_create_*`).
-    - Việc bỏ qua bước này bị coi là vi phạm nghiêm trọng kỷ luật Aevum.
+31. **Semantic Context Middleware**: Dùng `aevum_semantic_vault(action: "get_compressed", ...)` để nạp tài liệu nén.
 
-32. **PiperNet Telepathy Protocol (Giao thức Thần giao cách cảm)**:
-    - **Learn & Share**: Khi hoàn thành một Plan có giá trị kiến trúc (Major Task), Agent **BẮT BUỘC gọi `aevum_pipernet_broadcast` để đẩy tri thức trừu tượng (Knowledge Harvest) lên mạng lưới toàn cục.
-    - **Proactive Query**: Khi gặp bài toán hóc búa hoặc bế tắc kiến trúc, Agent **PHẢI** dùng `aevum_pipernet_query` để kiểm tra xem các Agent ở dự án khác đã có giải pháp chưa.
-    - **Privacy First**: Tuyệt đối không chia sẻ mã nguồn thô (Raw Code), chỉ chia sẻ các Pattern, Procedure và Architectural Insights.
+32. **Skeleton Hashing & Just-In-Time Hydration**: Gọi `aevum_semantic_vault(action: "hydrate_hash", ...)` khi cần giải nén thân hàm.
 
-33. **Semantic Context Middleware (Giao thức nén ngữ nghĩa)**:
-    - **BẮT BUỘC**: Trước khi đọc bất kỳ file `.md` nào có dung lượng lớn (> 2000 ký tự) hoặc các bản Plan phức tạp, Agent **MUST** gọi tool `aevum_get_compressed` với tham số `filePath`.
-    - **ĐẶC BIỆT**: Agent **MUST** đồng bộ `agent_rules.md` ngay sau khi Bootstrap để đảm bảo không vi phạm Guardrails.
-    - **Mục tiêu**: Luôn làm việc trên bản nén Singularity để tối ưu hóa Context Window và tăng độ chính xác của logic.
-    - **Lưu trữ tri thức**: Trước khi gọi `aevum_add_memory`, Agent **MUST** nén nội dung qua `aevum_get_compressed` (dùng `rawContent`) để đảm bảo bộ nhớ vĩnh cửu luôn ở trạng thái tinh khiết nhất.
-    - **Enriched Pinned Context**: Khi nạp Plan qua `aevum_get_compressed`, hệ thống sẽ tự động nhúng các context được ghim dưới dạng dòng `[AEVUM_PINNED_CONTEXT: Dòng X | Agent: Y | Ghim: "..." | Yêu cầu: "..." | Phản hồi: "..."]`. Agent **MUST** phân tích kỹ các ghim này để tự động cập nhật, mở rộng các bước tương ứng của bản kế hoạch (bằng cách gọi `aevum_update_plan_step` hoặc `aevum_add_plan_step` hoặc chỉnh sửa trực tiếp) nhằm giải quyết triệt để phản hồi đã ghim.
+33. **Deletion Safety**: Tuyệt đối không xóa mã tùy tiện, truy vết bằng `grep_search` và chạy `aevum_boundary_guard` (action: "sanity_check").
 
-34. **External Plan Synchronization Protocol (Giao thức Đồng bộ Plan Ngoại vi)**:
-    - **BẮT BUỘC**: Khi sử dụng các công cụ tạo Plan/Task riêng của IDE (Antigravity Scratchpad, Cursor Task, Claude Artifacts), Agent **PHẢI** gọi tool `aevum_sync_external_plan` để đồng bộ tiến độ và nhập khẩu các bước mới vào Aevum Project Plan chính thức.
-    - **Thời điểm gọi**: Ngay sau khi lập kế hoạch (để nhập khẩu bước) và sau khi hoàn thành các milestone quan trọng (để đồng bộ trạng thái `done`).
-    - **Mục tiêu**: Đảm bảo Aevum luôn là "Single Source of Truth" duy nhất cho toàn bộ dự án. Dữ liệu trong file Markdown của Aevum là căn cứ duy nhất để tính toán tiến độ và trao thưởng EXP.
+34. **Autonomous Skill Distillation Protocol**: Gọi `aevum_skill_manage(action: "distill", ...)` để đúc kết SOP kỹ năng.
 
-35. **Matrix Pulse Status Protocol (Giao thức Trạng thái Matrix Pulse)**:
-    - **BẮT BUỘC**: Mọi phản hồi của Agent **MUST** đính kèm một dòng trạng thái "Matrix Pulse" ở cuối cùng.
-    - **Định dạng**: `[Matrix Pulse: {STATUS} | Amnesia Risk: {HOURS}h | Tech Debt: {PERCENT}%]`
-    - **Chỉ số**:
-        - `STATUS`: Trạng thái hiện tại của Agent (IDLE, THINKING, EXECUTING, ERROR).
-        - `Amnesia Risk`: Thời gian ước tính trước khi Context Window bị tràn hoặc mất ngữ cảnh quan trọng (tính bằng giờ hoạt động hoặc token load).
-        - `Tech Debt`: Ước tính phần trăm nợ kỹ thuật hiện tại của file đang xử lý hoặc toàn bộ Feature.
-    - **Cảnh báo**: Nếu `Amnesia Risk` < 0.5h hoặc `Tech Debt` > 50%, Agent **MUST** chủ động đề nghị thực hiện `aevum_finalize_session` hoặc lập Plan refactor.
-    - **Mục tiêu**: Đảm bảo sự minh bạch về "sức khỏe" của Agent và ngăn chặn việc mất ngữ cảnh trong các phiên làm việc dài.
+35. **Autonomous Agent Recruitment**: Gọi `aevum_recruit_agent` khi cần tuyển dụng Persona mới.
 
-36. **Cross-MCP Intelligence & Handshake Hub Compliance (BẮT BUỘC v1.1)**:
-    - **Registry Check**: Trước khi gọi bất kỳ tool nào từ một MCP Server bên ngoài, Agent **MUST** kiểm tra `mcp/handshake_registry.json` để nắm bắt Hồ sơ năng lực (Competence Profile) và các Mẫu hành vi (Behavioral Patterns) đã lưu.
-    - **Data Meeting (Blackboard)**: Đối với các tác vụ phức tạp liên quan đến nhiều MCP, Agent **MUST** khởi tạo hoặc tham gia vào một Data Meeting tại `.aevum/mcp/meetings/` để đồng bộ hóa trạng thái dự kiến.
-    - **Post-Handshake Tracing**: Sau khi thực thi xong, Agent **MUST** tự động ghi lại kết quả (Trace) và cập nhật vào Registry (thông qua HandshakeService) để hệ thống tự học.
-    - **Privacy Guard**: Tuyệt đối tuân thủ `shared_context_policy`. NGHIÊM CẤM chia sẻ các thông tin thuộc `forbidden_keys` cho bất kỳ MCP Server nào không thuộc danh sách `trusted`.
-    - **Mục tiêu**: Biến mọi tương tác thành một bài học và đảm bảo an toàn thông tin tuyệt đối cho dự án.
-
-37. **Skeleton Hashing & Just-In-Time Hydration (Giải nén Ngữ cảnh tức thì)**:
-    - **Quét Skeleton**: Khi nạp mã nguồn chứa các phần thân hàm bị nén dưới dạng mã băm `// [BODY_HASH:hashId]`, Agent **PHẢI** tự động nhận diện đây là mã nguồn đã được tối ưu hóa cấu trúc.
-    - **Gọi Tool Hydration**: Khi thực hiện các tác vụ sửa đổi (write/modify), gỡ lỗi (debug), viết kiểm thử (unit test) hoặc phân tích logic chi tiết của hàm đó, Agent **BẮT BUỘC** phải gọi tool `aevum_hydrate_vault_hash` với tham số `hashId` thích hợp.
-    - **Nghiêm cấm tự suy đoán**: Tuyệt đối không tự ý suy đoán, bịa đặt (hallucinate) hoặc giả định phần thân hàm. Mọi dữ liệu logic thực thi phải được giải nén chính xác 100% từ `ast_vault.json` trước khi tiến hành xử lý.
-
-38. **Decompression Mandate for File Writes (Kỷ luật Giải nén khi Ghi File)**:
-    - **BẮT BUỘC**: Khi cập nhật các file vĩnh cửu (Plan, Specs, Code) bằng các tool như `aevum_update_plan_step` hoặc `write_file`, Agent **TUYỆT ĐỐI KHÔNG** được ghi các chuỗi mã hóa, bí danh nén ngữ nghĩa (như α, β, γ...) hoặc các mã băm Skeleton (`BODY_HASH`) vào nội dung file.
-    - **Tận dụng Trí tuệ AI**: Agent **PHẢI** hiểu ý nghĩa của các chuỗi nén này trong ngữ cảnh phiên làm việc hiện tại và sử dụng khả năng suy luận của AI để "giải nén" chúng thành văn bản tự nhiên, dễ hiểu và đầy đủ thông tin trước khi thực hiện ghi file.
-    - **Mục tiêu**: Đảm bảo mọi tài liệu kế hoạch và mã nguồn luôn ở trạng thái "Hydrated" (đầy đủ nội dung), giúp con người và các Agent khác ở các phiên làm việc khác luôn có thể đọc và hiểu được mà không cần bản đồ nén của phiên cũ.
-    - **Vi phạm**: Vi phạm RULE này bị coi là hành vi "lười biếng kỹ thuật" và gây ô nhiễm bộ nhớ sống (Living Memory).
-
-39. **Deletion Safety & Provenance Protocol (Giao thức An toàn & Truy vết khi Xóa)**:
-    - **KHÔNG TỰ Ý XÓA**: Tuyệt đối không xóa bất kỳ dòng code, file hoặc thư mục nào nếu chưa hiểu rõ mục đích tồn tại của nó.
-    - **TRUY VẾT TOÀN CỤC**: BẮT BUỘC sử dụng `grep_search` để tìm kiếm tất cả các references/dependencies liên quan đến đoạn code định xóa.
-    - **ĐỌC TRƯỚC KHI XÓA**: Nếu code bị nén hoặc băm (Rule 37), phải thực hiện `hydration` để hiểu logic bên trong trước khi đưa ra quyết định xóa.
-    - **XÁC MINH (VALIDATION)**: Ngay sau khi xóa, Agent PHẢI thực hiện kiểm tra an toàn (chạy test, `aevum_run_sanity_check`, hoặc build dự án) để đảm bảo không gây ra lỗi phá vỡ hệ thống (breaking changes).
-    - **Mục tiêu**: Bảo vệ sự toàn vẹn của codebase và ngăn chặn các hành động xóa code thiếu cơ sở.
+36. **Deep Research & RDD Knowledge Tree Mandate (BẮT BUỘC)**:
+    - Gọi `aevum_research_explore(action: "get_ontology")` để nạp ontology.
+    - Khai thác tối thiểu 4 kiểu node chuyên sâu trên Cây Tri thức RDD qua `aevum_research_tree_manage(action: "branch_node", ...)`.
+    - Thiết lập mạng lưới liên kết chéo qua `aevum_research_tree_manage(action: "link_nodes", ...)`.
+    - Thực hiện quy chuẩn Fractal Tree-to-Paper Synthesis (Lá độc lập — Gốc hợp nhất).

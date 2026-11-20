@@ -7,9 +7,9 @@ order: 14
 
 # Đồ thị Tri thức Sống (Living Memory Graph)
 
-**Living Memory Graph** là kho lưu trữ kiến thức dạng đồ thị tích hợp sẵn trong Aevum OS. 
+**Living Memory Graph** là kho lưu trữ kiến thức nhận thức dạng đồ thị tích hợp sẵn trong Aevum OS. 
 
-Điểm đặc biệt nhất: Các bài học, quyết định kiến trúc và quy chuẩn coding không nằm im trong các file tài liệu phủ bụi, mà được **neo chặt trực tiếp vào từng hàm, class và file code cụ thể** trong dự án của bạn.
+Điểm đặc biệt nhất: Các bài học, quyết định kiến trúc và quy chuẩn coding không nằm im trong các tệp tài liệu phủ bụi, mà được **neo chặt trực tiếp vào từng hàm, class và file code cụ thể** trong dự án của bạn (`[file:line]`).
 
 ```mermaid
 flowchart LR
@@ -40,7 +40,7 @@ Mỗi nút trên đồ thị đại diện cho một loại kinh nghiệm quý g
 Trong các dự án phần mềm, tài liệu thường nhanh chóng bị "lạc hậu" vì code thay đổi liên tục: các hàm bị đổi tên, tách file hoặc xóa bỏ.
 
 Living Memory Graph giải quyết vấn đề này bằng tính năng **Tự phục hồi**:
-* Đồ thị tự động neo vào tên hàm và cấu trúc cú pháp của mã nguồn.
+* Đồ thị tự động neo vào tên hàm và cấu trúc cú pháp của mã nguồn (AST Node).
 * Khi bạn đổi tên hàm (ví dụ từ `refreshToken()` sang `rotateToken()`), hệ thống tự động nhận biết và cập nhật lại mối liên kết.
 * Nếu một hàm bị xóa bỏ hoàn toàn, hệ thống tự động đánh dấu bài học liên quan là `STALE` để cảnh báo AI không dùng kiến thức cũ đã lỗi thời.
 
@@ -48,16 +48,16 @@ Living Memory Graph giải quyết vấn đề này bằng tính năng **Tự ph
 
 ## 3. Bảo Vệ Ranh Giới Kiến Trúc (Clean Architecture Guardrails)
 
-Đồ thị tự động theo dõi các mối quan hệ giữa các Domain trong dự án để cảnh báo bạn và AI:
+Đồ thị tự động theo dõi các mối quan hệ giữa các Bounded Context trong dự án để cảnh báo bạn và AI:
 * Cảnh báo nếu tầng Giao diện (UI) cố tình gọi trực tiếp vào Cơ sở dữ liệu (Database) mà không thông qua Service Interface.
-* Ngăn chặn Domain này "chọc trộm" vào dữ liệu nội bộ của Domain khác, giúp codebase luôn sạch sẽ và dễ bảo trì.
+* Ngăn chặn Domain này "chọc trộm" vào dữ liệu nội bộ của Domain khác, bảo đảm tính toàn vẹn của hệ thống.
 
 ---
 
-## 4. Cách Tra Cứu Tri Thức Bằng Khung Chat
+## 4. Tra Cứu Tri Thức Bằng Ngôn Ngữ Tự Nhiên
 
 Bạn có thể tìm kiếm lại bất kỳ kinh nghiệm nào trong quá khứ chỉ bằng câu hỏi tự nhiên:
 
 > *"An ơi, tìm lại bài học trước đây về cách xử lý CORS trên Fastify giúp anh với."*
 
-AI sẽ tự động quét đồ thị tri thức sống và trích xuất lại giải pháp kèm theo file code mẫu chính xác cho bạn trong tích tắc!
+AI sẽ tự động quét đồ thị tri thức sống qua `aevum_graph_manage` và trích xuất lại giải pháp kèm theo file code mẫu chính xác cho bạn trong tích tắc!

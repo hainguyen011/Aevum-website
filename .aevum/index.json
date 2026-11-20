@@ -1,48 +1,7 @@
 {
   "version": "2.1.0",
   "project": "Aevum-website",
-  "domains": [
-    {
-      "id": "ui_views",
-      "name": "Ui Views",
-      "path": ".aevum/domains/ui_views",
-      "plans": [],
-      "features": [
-        {
-          "id": "git_headless_content",
-          "name": "Git-based Headless Content & Rich Media System",
-          "path": "features/git_headless_content",
-          "plans": [
-            {
-              "name": "Implement Git-based Headless Content and Rich Media Pipeline",
-              "path": "domains/ui_views/features/git_headless_content/plans/implement_git_headless_content_and_rich_media_plan.md",
-              "status": "todo",
-              "updatedAt": "2026-10-09T14:45:05.818Z"
-            }
-          ]
-        },
-        {
-          "id": "interactive-dashboard",
-          "name": "Interactive Dashboard",
-          "path": ".aevum/domains/ui_views/features/interactive-dashboard",
-          "plans": [
-            {
-              "name": "Antigravity Visual and Interactive Website Redesign",
-              "path": "domains/ui_views/features/interactive-dashboard/plans/antigravity_website_redesign_plan.md",
-              "status": "todo",
-              "updatedAt": "2026-10-04T03:01:23.762Z"
-            },
-            {
-              "name": "dark_light_mode_integration_plan.md",
-              "status": "done",
-              "progress": 20,
-              "updatedAt": "2026-08-02T05:16:37.670Z"
-            }
-          ]
-        }
-      ]
-    }
-  ],
+  "domains": [],
   "global": {
     "architecture": "global/architecture.md",
     "conventions": "global/conventions.md",
@@ -55,24 +14,22 @@
     "companion_persona": "global/companion_persona.json",
     "evolution_report": "global/evolution_report.md",
     "handshake_registry": "mcp/handshake_registry.json",
-    "knowledge_rules": "Every active persona has a dedicated knowledge folder in `.aevum/global/personas/<id>/knowledge/`. Log project-specific patterns and agent-exclusive wisdom there.",
-    "debtHistory": [
-      90,
-      95,
-      93,
-      97,
-      100,
-      60,
-      87
-    ]
+    "knowledge_rules": "Every active persona has a dedicated knowledge folder in `.aevum/global/personas/<id>/knowledge/`. Log project-specific patterns and agent-exclusive wisdom there."
   },
   "agents": [
     {
-      "id": "ALG-ZENITH-A1B2C3",
-      "name": "Zenith",
-      "capability": "Performance Audit",
+      "id": "ENG-AN-7B9F1D",
+      "name": "An",
+      "capability": "AI Tuning",
       "level": 1,
-      "knowledgePath": ".aevum/global/personas/zenith/knowledge"
+      "knowledgePath": ".aevum/global/personas/an/knowledge"
+    },
+    {
+      "id": "DSN-LUNA-3C9A12",
+      "name": "Luna",
+      "capability": "UI/UX Design",
+      "level": 1,
+      "knowledgePath": ".aevum/global/personas/luna/knowledge"
     },
     {
       "id": "ARC-VIDUS-AUHD2Y",
@@ -82,11 +39,21 @@
       "knowledgePath": ".aevum/global/personas/vidus/knowledge"
     },
     {
-      "id": "ENG-AN-7B9F1D",
-      "name": "An",
-      "capability": "AI Tuning",
+      "id": "ALG-ZENITH-A1B2C3",
+      "name": "Zenith",
+      "capability": "Algorithm Design",
       "level": 1,
-      "knowledgePath": ".aevum/global/personas/an/knowledge"
+      "knowledgePath": ".aevum/global/personas/zenith/knowledge"
+    }
+  ],
+  "research": [
+    {
+      "id": "mis_flow_state_seed",
+      "topic": "Tối Ưu Hóa Trạng Thái Dòng Chảy (Flow State) Cùng AI",
+      "author_persona": "An",
+      "status": "completed",
+      "path": "research/tech_optimizing_flow_state_with_ai.md",
+      "date": "2026-09-23"
     }
   ]
 }

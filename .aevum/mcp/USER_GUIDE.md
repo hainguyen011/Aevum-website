@@ -55,12 +55,12 @@ const client = new Client({ name: "my-agent", version: "1.0.0" }, { capabilities
 await client.connect(transport);
 ```
 
-## 🛠️ Bước 3: Các Công Cụ & Tài Nguyên Có Sẵn
-Sau khi kết nối, Agent của bạn sẽ có quyền truy cập vào:
-- **`aevum_get_session_snapshot`**: Lấy ngữ cảnh tức thì của các tệp đang mở và tư duy xử lý.
-- **`aevum_submit_report`**: Agent gửi kết quả thực thi Plan trở lại VS Code.
-- **`aevum_get_active_persona"**: Đồng bộ hành vi của Agent với Persona đang hoạt động trong Aevum.
-- **`aevum_add_review_message`**: Tham gia thảo luận trong các phiên Review Plan.
+## 🛠️ Bước 3: Các Công Cụ & Tài Nguyên Có Sẵn (Polymorphic v2.0)
+Sau khi kết nối, Agent của bạn sẽ có quyền truy cập vào 44 công cụ đa hình chuẩn:
+- **`aevum_bridge_lifecycle`**: Kết nối và nạp ngữ cảnh bootstrap tức thì.
+- **`aevum_session_lifecycle`**: Gửi báo cáo tiến độ thực thi Plan trở lại VS Code và nghiệm thu phiên.
+- **`aevum_persona_manage`**: Đồng bộ danh tính và tính cách của Agent đang hoạt động.
+- **`aevum_review_manage`**: Tham gia thảo luận trong các phiên Review Plan.
 
 ## 🔍 Khắc Phục Sự Cố
 - **Máy chủ không hoạt động (inactive)**: Đảm bảo bạn đã mở một Workspace trong VS Code.

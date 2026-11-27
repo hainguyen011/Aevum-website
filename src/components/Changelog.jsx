@@ -96,7 +96,7 @@ const extractSummary = (bodyText) => {
   return cleanLines.join(' ');
 };
 
-export function Changelog({ activeLang, onNavigate, userProfile, user }) {
+export function Changelog({ activeLang, onNavigate, userProfile, user, onOpenAuthModal }) {
   const [rawReleases, setRawReleases] = useState([]);
   const [activeTab, setActiveTab] = useState('all'); // 'all' | 'community' | 'developer'
   const [isLoading, setIsLoading] = useState(true);
@@ -538,7 +538,7 @@ export function Changelog({ activeLang, onNavigate, userProfile, user }) {
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-normal tracking-[-0.03em] text-white [html[data-theme='light']_&]:text-slate-900 leading-[1.12]">
                 {isVi ? 'Nhật ký cập nhật' : 'Changelog'}
               </h1>
-              <p className="text-sm sm:text-base text-slate-400 [html[data-theme='light']_&]:text-slate-600 max-w-xl font-light leading-relaxed">
+              <p className="text-base text-slate-300 [html[data-theme='light']_&]:text-slate-600 max-w-xl font-normal leading-relaxed">
                 {isVi
                   ? 'Theo dõi tiến trình phát triển, các tính năng mới và cải tiến hiệu năng của Aevum OS.'
                   : 'Explore new features, architectural improvements, and bug fixes across Aevum OS releases.'}
@@ -546,13 +546,13 @@ export function Changelog({ activeLang, onNavigate, userProfile, user }) {
             </div>
 
             {/* Segmented Filter Pills */}
-            <div className="inline-flex items-center p-1 rounded-full bg-transparent border border-white/10 [html[data-theme='light']_&]:border-slate-200 text-xs font-mono shrink-0 self-start sm:self-end">
+            <div className="inline-flex items-center p-1 rounded-full bg-transparent border border-white/10 [html[data-theme='light']_&]:border-slate-200 text-xs sm:text-sm font-mono shrink-0 self-start sm:self-end">
               <button
                 type="button"
                 onClick={() => setActiveTab('all')}
-                className={`py-1.5 px-3.5 rounded-full transition-colors cursor-pointer ${activeTab === 'all'
+                className={`min-h-[44px] py-2 px-4 rounded-full transition-colors cursor-pointer ${activeTab === 'all'
                   ? 'bg-white text-slate-950 font-semibold shadow-sm [html[data-theme="light"]_&]:bg-slate-900 [html[data-theme="light"]_&]:text-white'
-                  : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900 font-normal'
+                  : 'text-slate-300 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900 font-normal'
                   }`}
               >
                 {isVi ? `Tất cả (${tabCounts.all})` : `All (${tabCounts.all})`}
@@ -561,9 +561,9 @@ export function Changelog({ activeLang, onNavigate, userProfile, user }) {
               <button
                 type="button"
                 onClick={() => setActiveTab('community')}
-                className={`py-1.5 px-3.5 rounded-full transition-colors cursor-pointer ${activeTab === 'community'
+                className={`min-h-[44px] py-2 px-4 rounded-full transition-colors cursor-pointer ${activeTab === 'community'
                   ? 'bg-white text-slate-950 font-semibold shadow-sm [html[data-theme="light"]_&]:bg-slate-900 [html[data-theme="light"]_&]:text-white'
-                  : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900 font-normal'
+                  : 'text-slate-300 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900 font-normal'
                   }`}
               >
                 {isVi ? `Cộng đồng (${tabCounts.community})` : `Community (${tabCounts.community})`}
@@ -573,13 +573,25 @@ export function Changelog({ activeLang, onNavigate, userProfile, user }) {
                 <button
                   type="button"
                   onClick={() => setActiveTab('developer')}
-                  className={`py-1.5 px-3.5 rounded-full transition-colors cursor-pointer flex items-center gap-1.5 ${activeTab === 'developer'
+                  className={`min-h-[44px] py-2 px-4 rounded-full transition-colors cursor-pointer flex items-center gap-1.5 ${activeTab === 'developer'
                     ? 'bg-white text-slate-950 font-semibold shadow-sm [html[data-theme="light"]_&]:bg-slate-900 [html[data-theme="light"]_&]:text-white'
-                    : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900 font-normal'
+                    : 'text-slate-300 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900 font-normal'
                     }`}
                 >
-                  <Lock size={10} />
+                  <Lock size={12} />
                   <span>Dev ({tabCounts.developer})</span>
+                </button>
+              )}
+
+              {!user && onOpenAuthModal && (
+                <button
+                  type="button"
+                  onClick={onOpenAuthModal}
+                  className="min-h-[44px] py-2 px-4 rounded-full transition-colors cursor-pointer flex items-center gap-1.5 text-slate-300 hover:text-white [html[data-theme='light']_&]:text-slate-600 [html[data-theme='light']_&]:hover:text-slate-900 font-normal"
+                  title={isVi ? 'Đăng nhập tài khoản Dev Tester để xem kênh Dev nội bộ' : 'Sign in as a Dev Tester to unlock internal dev releases'}
+                >
+                  <Lock size={12} />
+                  <span>{isVi ? 'Dev Test' : 'Dev Login'}</span>
                 </button>
               )}
             </div>
@@ -701,31 +713,31 @@ export function Changelog({ activeLang, onNavigate, userProfile, user }) {
               return (
                 <div
                   key={releaseKey}
-                  className="rounded-3xl bg-transparent border border-white/[0.08] [html[data-theme='light']_&]:border-slate-200/80 p-5 sm:p-7 space-y-4 hover:border-white/20 [html[data-theme='light']_&]:hover:border-slate-300 transition-all text-left group"
+                  className="rounded-3xl bg-transparent border border-white/[0.08] [html[data-theme='light']_&]:border-slate-200/80 p-5 sm:p-7 space-y-4 hover:border-white/20 [html[data-theme='light']_&]:hover:border-slate-300 transition-colors text-left group"
                 >
                   {/* Card Header: Version, Badges & Date */}
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
                     <div className="flex items-center gap-3 flex-wrap">
                       <button
                         onClick={() => setActiveModalRelease(release)}
-                        className="text-xl sm:text-2xl font-semibold text-white [html[data-theme='light']_&]:text-slate-900 font-mono tracking-tight hover:underline cursor-pointer text-left flex items-center gap-2 group-hover:text-cyan-300 [html[data-theme='light']_&]:group-hover:text-cyan-700 transition-colors"
+                        className="text-xl sm:text-2xl font-semibold text-white [html[data-theme='light']_&]:text-slate-900 font-mono tracking-tight hover:underline cursor-pointer text-left flex items-center gap-2 group-hover:text-slate-200 [html[data-theme='light']_&]:group-hover:text-black transition-colors"
                       >
                         <span>{tag}</span>
                         <ChevronRight size={18} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                       </button>
 
                       {idx === 0 && (
-                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-medium uppercase tracking-wider bg-white/[0.08] [html[data-theme='light']_&]:bg-slate-200 text-white [html[data-theme='light']_&]:text-slate-900 border border-white/15 [html[data-theme='light']_&]:border-slate-300">
+                        <span className="px-2.5 py-0.5 rounded-full text-xs font-mono font-medium uppercase tracking-wider bg-white/[0.08] [html[data-theme='light']_&]:bg-slate-200 text-white [html[data-theme='light']_&]:text-slate-900 border border-white/15 [html[data-theme='light']_&]:border-slate-300">
                           {isVi ? 'MỚI NHẤT' : 'LATEST'}
                         </span>
                       )}
 
-                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-medium uppercase tracking-wider bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-100 text-slate-300 [html[data-theme='light']_&]:text-slate-700 border border-white/10 [html[data-theme='light']_&]:border-slate-200">
+                      <span className="px-2.5 py-0.5 rounded-full text-xs font-mono font-medium uppercase tracking-wider bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-100 text-slate-300 [html[data-theme='light']_&]:text-slate-700 border border-white/10 [html[data-theme='light']_&]:border-slate-200">
                         {status.label}
                       </span>
 
                       {isDev && (
-                        <span className="px-2 py-0.5 rounded-full text-[9px] font-mono font-medium uppercase tracking-wider bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-100 text-slate-400 [html[data-theme='light']_&]:text-slate-600 border border-white/10 [html[data-theme='light']_&]:border-slate-200">
+                        <span className="px-2.5 py-0.5 rounded-full text-xs font-mono font-medium uppercase tracking-wider bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-100 text-slate-300 [html[data-theme='light']_&]:text-slate-600 border border-white/10 [html[data-theme='light']_&]:border-slate-200">
                           DEV BUILD
                         </span>
                       )}
@@ -736,14 +748,19 @@ export function Changelog({ activeLang, onNavigate, userProfile, user }) {
                     </time>
                   </div>
 
-                  {/* Summary Snippet Preview (Compact, Doesn't Bloat the Page) */}
+                  {/* Summary Snippet Preview (Relatable Highlights Layer) */}
                   {summarySnippet && (
-                    <p
+                    <div
                       onClick={() => setActiveModalRelease(release)}
-                      className="text-xs sm:text-sm text-slate-400 [html[data-theme='light']_&]:text-slate-600 line-clamp-2 font-light leading-relaxed cursor-pointer hover:text-slate-300 [html[data-theme='light']_&]:hover:text-slate-800 transition-colors"
+                      className="rounded-xl border border-white/[0.06] [html[data-theme='light']_&]:border-slate-200/80 bg-white/[0.015] [html[data-theme='light']_&]:bg-slate-50/80 px-4 py-3 cursor-pointer hover:border-white/15 [html[data-theme='light']_&]:hover:border-slate-300 transition-colors space-y-1.5"
                     >
-                      {summarySnippet}
-                    </p>
+                      <div className="text-xs font-mono uppercase tracking-widest text-slate-300 [html[data-theme='light']_&]:text-slate-600">
+                        {isVi ? 'ĐIỂM NỔI BẬT DÀNH CHO BẠN' : 'HIGHLIGHTS FOR YOU'}
+                      </div>
+                      <p className="text-base text-slate-200 [html[data-theme='light']_&]:text-slate-700 line-clamp-2 font-normal leading-relaxed m-0">
+                        {summarySnippet}
+                      </p>
+                    </div>
                   )}
 
                   {/* Action Bar: Download Buttons + "Xem chi tiết" Button */}

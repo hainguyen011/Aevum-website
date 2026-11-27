@@ -408,20 +408,20 @@ export const PaymentModal = ({
         {isSuccess ? (
           <div className="text-center py-4 space-y-5">
             <div className="space-y-2">
-              <span className="inline-block text-[11px] font-medium uppercase tracking-wider px-3 py-1 rounded-full border border-white/20 [html[data-theme='light']_&]:border-cyan-300 bg-white/10 [html[data-theme='light']_&]:bg-cyan-50 text-white [html[data-theme='light']_&]:text-cyan-800 backdrop-blur-sm font-semibold">
+              <span className="inline-block text-xs font-medium uppercase tracking-wider px-3 py-1 rounded-full border border-white/20 [html[data-theme='light']_&]:border-slate-300 bg-white/10 [html[data-theme='light']_&]:bg-slate-100 text-white [html[data-theme='light']_&]:text-slate-900 backdrop-blur-sm font-semibold">
                 {isVi ? 'Thành Công' : 'Success'}
               </span>
-              <h4 className="text-lg sm:text-xl font-medium text-white [html[data-theme='light']_&]:text-slate-900 tracking-wide uppercase">
+              <h4 className="text-xl sm:text-2xl font-medium text-white [html[data-theme='light']_&]:text-slate-900 tracking-tight">
                 {appliedCoupon?.isFree || orderData?.isFreeActivation || orderData?.amount === 0
                   ? (isVi ? 'Kích Hoạt Pro Miễn Phí Thành Công' : 'Free Pro Activation Successful')
                   : (isVi ? 'Thanh Toán Hoàn Tất' : 'Payment Completed')}
               </h4>
-              <p className="text-xs text-slate-300 [html[data-theme='light']_&]:text-slate-600 max-w-sm mx-auto leading-relaxed">
+              <p className="text-sm sm:text-base text-slate-300 [html[data-theme='light']_&]:text-slate-600 max-w-sm mx-auto leading-relaxed">
                 {isVi ? 'Đặc quyền Aevum Pro đã được mở khóa ngay tức thì trên toàn bộ máy trạm của bạn.' : 'Aevum Pro privileges are now fully unlocked across all your linked workstations.'}
               </p>
             </div>
 
-            <div className="p-4 rounded-xl sm:rounded-2xl bg-black/40 [html[data-theme='light']_&]:bg-slate-50 backdrop-blur-md border border-white/10 [html[data-theme='light']_&]:border-slate-200/90 text-xs text-left space-y-2.5">
+            <div className="p-4 rounded-xl sm:rounded-2xl bg-black/40 [html[data-theme='light']_&]:bg-slate-50 backdrop-blur-md border border-white/10 [html[data-theme='light']_&]:border-slate-200/90 text-xs sm:text-sm text-left space-y-2.5">
               <div className="flex justify-between items-center text-slate-300 [html[data-theme='light']_&]:text-slate-600">
                 <span>{isVi ? 'Mã đơn hàng:' : 'Order Code:'}</span>
                 <span className="text-white [html[data-theme='light']_&]:text-slate-900 font-medium font-mono">{orderData?.orderCode || (isVi ? 'KÍCH HOẠT ƯU ĐÃI' : 'PROMO ACTIVATION')}</span>
@@ -437,24 +437,24 @@ export const PaymentModal = ({
                 </div>
               )}
               {appliedCoupon?.partnerBadge && (
-                <div className="flex justify-between items-center text-purple-300 [html[data-theme='light']_&]:text-purple-700">
+                <div className="flex justify-between items-center text-white [html[data-theme='light']_&]:text-slate-900">
                   <span>{isVi ? 'Huy hiệu đối tác:' : 'Partner Badge:'}</span>
                   <span className="font-semibold">{dynamicPartnerBadge}</span>
                 </div>
               )}
               {appliedCoupon?.bonusWorkstations > 0 && (
-                <div className="flex justify-between items-center text-cyan-300 [html[data-theme='light']_&]:text-cyan-700">
+                <div className="flex justify-between items-center text-white [html[data-theme='light']_&]:text-slate-900">
                   <span>{isVi ? 'Máy trạm mở rộng:' : 'Extra Workstations:'}</span>
                   <span className="font-semibold">+{appliedCoupon.bonusWorkstations} {isVi ? 'máy trạm' : 'devices'}</span>
                 </div>
               )}
             </div>
 
-            {/* Signature Pill Button (Hero Style) */}
+            {/* Signature Pill Button */}
             <button
               type="button"
               onClick={onClose}
-              className="payment-btn-primary w-full py-3.5 rounded-full bg-white hover:bg-slate-200 text-black font-medium text-xs sm:text-sm uppercase tracking-wider transition-colors cursor-pointer"
+              className="payment-btn-primary w-full min-h-[48px] py-3.5 rounded-full bg-white hover:bg-slate-200 text-black font-semibold text-xs sm:text-sm uppercase tracking-wider transition-colors cursor-pointer"
             >
               {isVi ? 'Bắt Đầu Sử Dụng Pro' : 'Done & Start Using Pro'}
             </button>
@@ -469,7 +469,7 @@ export const PaymentModal = ({
               <div className="space-y-4">
                 {/* 1. Plan selection */}
                 <div className="space-y-2">
-                  <label className="text-[11px] font-semibold text-slate-300 [html[data-theme='light']_&]:text-slate-600 uppercase tracking-wider block">
+                  <label className="text-xs font-semibold text-slate-300 [html[data-theme='light']_&]:text-slate-700 uppercase tracking-wider block">
                     {isVi ? '1. Chọn Chu Kỳ Thanh Toán' : '1. Choose Billing Cycle'}
                   </label>
 
@@ -478,14 +478,14 @@ export const PaymentModal = ({
                     <button
                       type="button"
                       onClick={() => handleSelectCycle('monthly')}
-                      className={`payment-plan-card p-4 rounded-xl sm:rounded-2xl border text-left transition-all cursor-pointer backdrop-blur-md ${
+                      className={`payment-plan-card p-4 rounded-xl sm:rounded-2xl border text-left cursor-pointer backdrop-blur-md ${
                         cycle === 'monthly' ? 'active' : 'inactive'
                       }`}
                     >
                       <div className="flex justify-between items-center mb-1.5">
-                        <span className="payment-plan-title text-xs font-semibold">{isVi ? 'Gói Tháng' : 'Monthly Plan'}</span>
+                        <span className="payment-plan-title text-xs sm:text-sm font-semibold">{isVi ? 'Gói Tháng' : 'Monthly Plan'}</span>
                         {cycle === 'monthly' && (
-                          <span className="payment-plan-badge text-[10px] uppercase tracking-wider font-bold">
+                          <span className="payment-plan-badge text-xs uppercase tracking-wider font-bold">
                             {isVi ? 'Đang chọn' : 'Selected'}
                           </span>
                         )}
@@ -498,7 +498,7 @@ export const PaymentModal = ({
                           <span className="payment-plan-oldprice text-xs line-through font-normal">249.000 đ</span>
                         )}
                       </div>
-                      <div className="payment-plan-desc text-[11px] mt-1">
+                      <div className="payment-plan-desc text-xs mt-1">
                         {isRetentionApplicable 
                           ? (isVi ? `Ưu đãi mã ${activeRetention.code} (-${activeRetention.discountPercent}%)` : `Promo ${activeRetention.code} (-${activeRetention.discountPercent}%)`)
                           : (isVi ? 'Thanh toán theo tháng' : 'Billed monthly')}
@@ -509,18 +509,18 @@ export const PaymentModal = ({
                     <button
                       type="button"
                       onClick={() => handleSelectCycle('yearly')}
-                      className={`payment-plan-card p-4 rounded-xl sm:rounded-2xl border text-left transition-all cursor-pointer relative overflow-hidden backdrop-blur-md ${
+                      className={`payment-plan-card p-4 rounded-xl sm:rounded-2xl border text-left cursor-pointer relative overflow-hidden backdrop-blur-md ${
                         cycle === 'yearly' ? 'active' : 'inactive'
                       }`}
                     >
                       <div className="flex justify-between items-center mb-1.5">
-                        <span className="payment-plan-title text-xs font-semibold">{isVi ? 'Gói Năm' : 'Yearly Plan'}</span>
-                        <span className="payment-plan-discount text-[10px] px-2 py-0.5 rounded-full font-bold">
+                        <span className="payment-plan-title text-xs sm:text-sm font-semibold">{isVi ? 'Gói Năm' : 'Yearly Plan'}</span>
+                        <span className="payment-plan-discount text-xs px-2 py-0.5 rounded-full font-bold">
                           -20%
                         </span>
                       </div>
                       <div className="payment-plan-price text-base sm:text-lg font-bold font-mono tracking-tight">1.990.000 đ</div>
-                      <div className="payment-plan-desc text-[11px] mt-1">
+                      <div className="payment-plan-desc text-xs mt-1">
                         {isVi ? 'Tiết kiệm ~500.000 đ/năm' : 'Save ~500,000 VND/year'}
                       </div>
                     </button>
@@ -530,11 +530,11 @@ export const PaymentModal = ({
                 {/* 2. Coupon & Voucher Input Section */}
                 <div className="space-y-2">
                   <div className="flex justify-between items-center">
-                    <label className="text-[11px] font-semibold text-slate-300 [html[data-theme='light']_&]:text-slate-600 uppercase tracking-wider block">
+                    <label className="text-xs font-semibold text-slate-300 [html[data-theme='light']_&]:text-slate-700 uppercase tracking-wider block">
                       {isVi ? '2. Mã Ưu Đãi / Voucher Tri Ân' : '2. Promo Code / Tribute Voucher'}
                     </label>
                     {appliedCoupon && (
-                      <span className="text-[10px] font-semibold text-slate-200 [html[data-theme='light']_&]:text-cyan-800 uppercase tracking-wider bg-white/[0.06] [html[data-theme='light']_&]:bg-cyan-50 border border-white/15 [html[data-theme='light']_&]:border-cyan-300 px-2.5 py-0.5 rounded-full">
+                      <span className="text-xs font-semibold text-white [html[data-theme='light']_&]:text-slate-900 uppercase tracking-wider bg-white/[0.08] [html[data-theme='light']_&]:bg-slate-100 border border-white/20 [html[data-theme='light']_&]:border-slate-300 px-2.5 py-0.5 rounded-full">
                         {isVi ? 'Đang áp dụng' : 'Applied'}
                       </span>
                     )}
@@ -553,37 +553,37 @@ export const PaymentModal = ({
                           }
                         }}
                         placeholder={isVi ? "Nhập mã ưu đãi..." : "Enter promo code..."}
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-black/40 [html[data-theme='light']_&]:bg-slate-50 border border-white/10 [html[data-theme='light']_&]:border-slate-300 text-white [html[data-theme='light']_&]:text-slate-900 placeholder-slate-500 [html[data-theme='light']_&]:placeholder-slate-400 placeholder:normal-case text-xs font-mono tracking-wider focus:outline-none focus:border-white/40 [html[data-theme='light']_&]:focus:border-cyan-500 uppercase transition-colors"
+                        className="w-full min-h-[48px] px-3.5 py-3 rounded-xl bg-black/40 [html[data-theme='light']_&]:bg-slate-50 border border-white/10 [html[data-theme='light']_&]:border-slate-300 text-white [html[data-theme='light']_&]:text-slate-900 placeholder-slate-500 [html[data-theme='light']_&]:placeholder-slate-400 placeholder:normal-case text-sm font-mono tracking-wider focus:outline-none focus:border-white/50 [html[data-theme='light']_&]:focus:border-slate-900 uppercase transition-colors"
                       />
                     </div>
                     <button
                       type="button"
                       onClick={() => handleApplyCouponDirect(couponInput)}
                       disabled={couponLoading || !couponInput.trim()}
-                      className="payment-btn-apply px-5 py-2.5 rounded-xl bg-white hover:bg-slate-200 text-black text-xs font-medium uppercase tracking-wider transition-colors disabled:opacity-40 cursor-pointer flex items-center justify-center shrink-0 min-w-[95px]"
+                      className="payment-btn-apply min-h-[48px] px-5 py-3 rounded-xl bg-white hover:bg-slate-200 text-black text-xs font-semibold uppercase tracking-wider transition-colors disabled:opacity-40 cursor-pointer flex items-center justify-center shrink-0 min-w-[95px]"
                     >
                       {couponLoading ? (isVi ? 'Kiểm tra...' : 'Checking...') : (isVi ? 'Áp dụng' : 'Apply')}
                     </button>
                   </div>
 
                   {couponError && (
-                    <div className="p-3 rounded-xl bg-black/60 [html[data-theme='light']_&]:bg-rose-50 backdrop-blur-md border border-white/20 [html[data-theme='light']_&]:border-rose-200 text-slate-200 [html[data-theme='light']_&]:text-rose-700 text-xs font-medium animate-in fade-in duration-200">
+                    <div className="p-3 rounded-xl bg-black/60 [html[data-theme='light']_&]:bg-rose-50 backdrop-blur-md border border-white/20 [html[data-theme='light']_&]:border-rose-200 text-slate-200 [html[data-theme='light']_&]:text-rose-700 text-xs sm:text-sm font-medium animate-in fade-in duration-200">
                       {couponError}
                     </div>
                   )}
 
                   {/* Hiển thị ưu đãi gia hạn tự động theo đúng mã đã đăng ký */}
                   {isRetentionApplicable && (
-                    <div className="p-3.5 rounded-xl bg-white/[0.04] [html[data-theme='light']_&]:bg-cyan-50/60 border border-white/15 [html[data-theme='light']_&]:border-cyan-200 space-y-1.5 animate-in fade-in duration-200">
+                    <div className="p-3.5 rounded-xl bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-100 border border-white/15 [html[data-theme='light']_&]:border-slate-300 space-y-1.5 animate-in fade-in duration-200">
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-semibold text-white [html[data-theme='light']_&]:text-slate-900">
+                        <span className="text-xs sm:text-sm font-semibold text-white [html[data-theme='light']_&]:text-slate-900">
                           {isVi ? `Đặc quyền gia hạn: Mã ${activeRetention.code}` : `Renewal Benefit: ${activeRetention.code}`}
                         </span>
-                        <span className="text-[10px] font-mono text-white [html[data-theme='light']_&]:text-cyan-800 bg-white/10 [html[data-theme='light']_&]:bg-cyan-100 px-2 py-0.5 rounded-full border border-white/10 [html[data-theme='light']_&]:border-cyan-200 font-bold">
+                        <span className="text-xs font-mono text-white [html[data-theme='light']_&]:text-slate-900 bg-white/10 [html[data-theme='light']_&]:bg-white px-2.5 py-0.5 rounded-full border border-white/15 [html[data-theme='light']_&]:border-slate-300 font-bold">
                           -{activeRetention.discountPercent}% • {isVi ? `Còn ${activeRetention.remainingDiscountMonths} tháng` : `${activeRetention.remainingDiscountMonths} months left`}
                         </span>
                       </div>
-                      <p className="text-[11px] text-slate-300/90 [html[data-theme='light']_&]:text-slate-600 leading-relaxed font-normal">
+                      <p className="text-xs sm:text-sm text-slate-300 [html[data-theme='light']_&]:text-slate-600 leading-relaxed font-normal">
                         {isVi 
                           ? `Tài khoản của bạn đã được ghi nhận ưu đãi từ mã ${activeRetention.code}. Hệ thống tự động áp dụng mức giảm ${activeRetention.discountPercent}% cho chu kỳ gia hạn này.` 
                           : `Your account has registered benefit from code ${activeRetention.code}. A ${activeRetention.discountPercent}% discount is automatically applied to this renewal.`}
@@ -596,14 +596,14 @@ export const PaymentModal = ({
                 {finalAmount === 0 ? (
                   <div className="p-4 rounded-xl sm:rounded-2xl bg-black/40 [html[data-theme='light']_&]:bg-slate-50/80 backdrop-blur-md border border-white/10 [html[data-theme='light']_&]:border-slate-200/90 space-y-2">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs sm:text-sm font-semibold text-white [html[data-theme='light']_&]:text-slate-900">
+                      <span className="text-sm font-semibold text-white [html[data-theme='light']_&]:text-slate-900">
                         {isVi ? 'Đặc Quyền Kích Hoạt Miễn Phí 100%' : '100% Free Pro Experience'}
                       </span>
-                      <span className="text-[10px] font-semibold text-slate-200 [html[data-theme='light']_&]:text-cyan-800 uppercase tracking-wider bg-white/[0.06] [html[data-theme='light']_&]:bg-cyan-50 border border-white/15 [html[data-theme='light']_&]:border-cyan-200 px-2.5 py-0.5 rounded-full">
+                      <span className="text-xs font-semibold text-white [html[data-theme='light']_&]:text-slate-900 uppercase tracking-wider bg-white/[0.06] [html[data-theme='light']_&]:bg-slate-100 border border-white/15 [html[data-theme='light']_&]:border-slate-300 px-2.5 py-0.5 rounded-full">
                         {isVi ? '0 VNĐ • Tức thì' : '0 VND • Instant'}
                       </span>
                     </div>
-                    <p className="text-xs text-slate-300/90 [html[data-theme='light']_&]:text-slate-600 leading-relaxed font-normal">
+                    <p className="text-sm text-slate-300 [html[data-theme='light']_&]:text-slate-600 leading-relaxed font-normal">
                       {isVi 
                         ? 'Không yêu cầu chuyển khoản hoặc thẻ tín dụng. Hệ thống sẽ kích hoạt trực tiếp bản quyền Aevum Pro vào tài khoản ngay khi xác nhận.' 
                         : 'No payment or credit card required. Aevum Pro will be activated directly to your account upon confirmation.'}
@@ -612,14 +612,14 @@ export const PaymentModal = ({
                 ) : (
                   <div className="p-4 rounded-xl sm:rounded-2xl bg-black/40 [html[data-theme='light']_&]:bg-slate-50/80 backdrop-blur-md border border-white/10 [html[data-theme='light']_&]:border-slate-200/90 space-y-2">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs sm:text-sm font-semibold text-white [html[data-theme='light']_&]:text-slate-900">
+                      <span className="text-sm font-semibold text-white [html[data-theme='light']_&]:text-slate-900">
                         VietQR Napas 24/7 (Techcombank)
                       </span>
-                      <span className="text-[10px] font-semibold text-slate-200 [html[data-theme='light']_&]:text-cyan-800 uppercase tracking-wider bg-white/[0.06] [html[data-theme='light']_&]:bg-cyan-50 border border-white/15 [html[data-theme='light']_&]:border-cyan-200 px-2.5 py-0.5 rounded-full">
+                      <span className="text-xs font-semibold text-white [html[data-theme='light']_&]:text-slate-900 uppercase tracking-wider bg-white/[0.06] [html[data-theme='light']_&]:bg-slate-100 border border-white/15 [html[data-theme='light']_&]:border-slate-300 px-2.5 py-0.5 rounded-full">
                         {isVi ? '0% Phí • Tức thì' : '0% Fee • Instant'}
                       </span>
                     </div>
-                    <p className="text-xs text-slate-300/90 [html[data-theme='light']_&]:text-slate-600 leading-relaxed font-normal">
+                    <p className="text-sm text-slate-300 [html[data-theme='light']_&]:text-slate-600 leading-relaxed font-normal">
                       {isVi 
                         ? 'Chuyển khoản liên ngân hàng 24/7 không phí trung gian. Quét mã bằng bất kỳ ứng dụng ngân hàng nào (Vietcombank, MB, Techcombank, VPBank, MoMo,...).' 
                         : 'Instant 24/7 interbank transfer with zero fees. Scan QR code using any banking or e-wallet app (Vietcombank, MB, Techcombank, MoMo,...).'}
@@ -629,14 +629,14 @@ export const PaymentModal = ({
 
                 {/* Chi tiết giá gia hạn tự động */}
                 {isRetentionApplicable && (
-                  <div className="p-3.5 rounded-xl bg-black/40 [html[data-theme='light']_&]:bg-slate-50 border border-white/10 [html[data-theme='light']_&]:border-slate-200 space-y-2 text-xs">
+                  <div className="p-3.5 rounded-xl bg-black/40 [html[data-theme='light']_&]:bg-slate-50 border border-white/10 [html[data-theme='light']_&]:border-slate-200 space-y-2 text-xs sm:text-sm">
                     <div className="flex justify-between items-center text-slate-300 [html[data-theme='light']_&]:text-slate-600">
                       <span className="text-slate-400 [html[data-theme='light']_&]:text-slate-500">{isVi ? 'Giá niêm yết:' : 'Regular price:'}</span>
                       <span className="font-mono text-slate-300 [html[data-theme='light']_&]:text-slate-800">{baseAmount.toLocaleString('vi-VN')} đ</span>
                     </div>
                     <div className="flex justify-between items-center text-slate-200 [html[data-theme='light']_&]:text-slate-700">
                       <span className="text-slate-400 [html[data-theme='light']_&]:text-slate-500">{isVi ? `Ưu đãi gia hạn (${activeRetention.code}):` : `Renewal benefit (${activeRetention.code}):`}</span>
-                      <span className="font-mono text-white [html[data-theme='light']_&]:text-cyan-700 font-semibold">-{discountAmount.toLocaleString('vi-VN')} đ (-{activeRetention.discountPercent}%)</span>
+                      <span className="font-mono text-white [html[data-theme='light']_&]:text-slate-900 font-semibold">-{discountAmount.toLocaleString('vi-VN')} đ (-{activeRetention.discountPercent}%)</span>
                     </div>
                     <div className="flex justify-between items-center text-white [html[data-theme='light']_&]:text-slate-900 pt-2 border-t border-white/10 [html[data-theme='light']_&]:border-slate-200 font-semibold">
                       <span>{isVi ? 'Tổng thanh toán:' : 'Total due:'}</span>
@@ -669,7 +669,7 @@ export const PaymentModal = ({
                 type="button"
                 onClick={handleCreateOrder}
                 disabled={loading}
-                className="payment-btn-primary w-full mt-4 py-3.5 sm:py-4 rounded-full font-medium text-xs sm:text-sm uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center disabled:opacity-50 bg-white hover:bg-slate-200 text-black"
+                className="payment-btn-primary w-full min-h-[48px] mt-4 py-3.5 sm:py-4 rounded-full font-semibold text-xs sm:text-sm uppercase tracking-wider transition-colors cursor-pointer flex items-center justify-center disabled:opacity-50 bg-white hover:bg-slate-200 text-black"
               >
                 {loading 
                   ? (finalAmount === 0 
@@ -681,7 +681,7 @@ export const PaymentModal = ({
               </button>
             </div>
 
-            {/* CỘT PHẢI (RIGHT COLUMN: DIGITAL VOUCHER TICKET CAO CẤP MỞ RA MƯỢT MÀ VỚI HIỆU ỨNG DRAWER KHÔNG ÉP NỘI DUNG) */}
+            {/* CỘT PHẢI (RIGHT COLUMN: DIGITAL VOUCHER TICKET) */}
             <div
               className={`transition-[width,min-width,max-width,margin,opacity,transform,max-height] duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden ${
                 appliedCoupon
@@ -691,7 +691,7 @@ export const PaymentModal = ({
             >
               {activeTicketCoupon && (
                 <div className="w-full md:w-[350px] shrink-0 h-full flex flex-col justify-between">
-                  {/* Digital Ticket Container - Chỉ giữ viền top, bỏ hoàn toàn border left, right và bottom */}
+                  {/* Digital Ticket Container */}
                   <div className="payment-ticket-container p-6 sm:p-7 rounded-3xl border-t border-x-0 border-b-0 border-white/10 [html[data-theme='light']_&]:border-slate-200/90 shadow-2xl relative flex-1 flex flex-col justify-between overflow-hidden bg-[#07090D] [html[data-theme='light']_&]:bg-[#F8FAFC]">
                     
                     {/* 1. Primary Linear Gradient Flow */}
@@ -701,7 +701,7 @@ export const PaymentModal = ({
                     <div
                       className="absolute -top-16 left-1/2 -translate-x-1/2 w-[120%] h-[150px] pointer-events-none z-0"
                       style={{
-                        background: 'radial-gradient(ellipse 70% 50% at 50% 0%, rgba(56, 189, 248, 0.18) 0%, transparent 100%)',
+                        background: 'radial-gradient(ellipse 70% 50% at 50% 0%, rgba(255, 255, 255, 0.08) 0%, transparent 100%)',
                         filter: 'blur(24px)',
                       }}
                     />
@@ -717,19 +717,19 @@ export const PaymentModal = ({
                     />
 
                     {/* 4. Precision Top Luminous Crest Hairline Highlight */}
-                    <div className="absolute top-0 left-6 right-6 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/40 [html[data-theme='light']_&]:via-cyan-400/60 to-transparent pointer-events-none z-10" />
+                    <div className="absolute top-0 left-6 right-6 h-[1px] bg-gradient-to-r from-transparent via-white/30 [html[data-theme='light']_&]:via-slate-400/50 to-transparent pointer-events-none z-10" />
 
                     {/* Ticket Upper Section: Header, Code Pill & Perks */}
                     <div className="relative z-10 space-y-4">
                       {/* Header Row: Clean & Line-free */}
                       <div className="flex items-center justify-between">
-                        <span className="text-[11px] font-semibold text-slate-400 [html[data-theme='light']_&]:text-slate-500 uppercase tracking-widest">
+                        <span className="text-xs font-semibold text-slate-400 [html[data-theme='light']_&]:text-slate-600 uppercase tracking-widest">
                           {isVi ? 'Chi Tiết Ưu Đãi' : 'Coupon Details'}
                         </span>
                         <button
                           type="button"
                           onClick={handleRemoveCoupon}
-                          className="text-xs text-slate-400 [html[data-theme='light']_&]:text-slate-500 hover:text-white [html[data-theme='light']_&]:hover:text-rose-600 transition-colors cursor-pointer font-medium"
+                          className="text-xs text-slate-300 [html[data-theme='light']_&]:text-slate-600 hover:text-white [html[data-theme='light']_&]:hover:text-rose-600 transition-colors cursor-pointer font-medium"
                         >
                           {isVi ? 'Gỡ bỏ' : 'Remove'}
                         </button>
@@ -738,17 +738,17 @@ export const PaymentModal = ({
                       {/* Voucher Pill Badge & Title */}
                       <div className="space-y-2 pt-1">
                         <div>
-                          <span className="inline-block text-xs font-mono font-bold px-3.5 py-1 rounded-full border border-white/20 [html[data-theme='light']_&]:border-cyan-300 bg-white/[0.08] [html[data-theme='light']_&]:bg-cyan-50 text-white [html[data-theme='light']_&]:text-cyan-800 tracking-wider shadow-sm">
+                          <span className="inline-block text-xs font-mono font-bold px-3.5 py-1 rounded-full border border-white/20 [html[data-theme='light']_&]:border-slate-300 bg-white/[0.08] [html[data-theme='light']_&]:bg-white text-white [html[data-theme='light']_&]:text-slate-900 tracking-wider">
                             {activeTicketCoupon.code}
                           </span>
                         </div>
-                        <h4 className="text-sm font-semibold text-white [html[data-theme='light']_&]:text-slate-900 leading-snug">
+                        <h4 className="text-base font-semibold text-white [html[data-theme='light']_&]:text-slate-900 leading-snug">
                           {dynamicCouponName}
                         </h4>
                         {activeTicketCoupon.partnerBadge && (
                           <div className="text-xs text-slate-300 [html[data-theme='light']_&]:text-slate-600 flex items-center gap-1.5 pt-0.5">
                             <span className="text-slate-400 [html[data-theme='light']_&]:text-slate-500">{isVi ? 'Đặc quyền:' : 'Perk:'}</span>
-                            <span className="font-semibold text-white [html[data-theme='light']_&]:text-cyan-800 uppercase tracking-wider">
+                            <span className="font-semibold text-white [html[data-theme='light']_&]:text-slate-900 uppercase tracking-wider">
                               {dynamicPartnerBadge}
                             </span>
                           </div>
@@ -845,7 +845,7 @@ export const PaymentModal = ({
                         </div>
                         <div className="flex justify-between text-slate-400 [html[data-theme='light']_&]:text-slate-500">
                           <span>{isVi ? 'Ưu đãi áp dụng:' : 'Discount applied:'}</span>
-                          <span className="text-white [html[data-theme='light']_&]:text-cyan-700 font-semibold">-{discountAmount.toLocaleString('vi-VN')} đ</span>
+                          <span className="text-white [html[data-theme='light']_&]:text-slate-900 font-semibold">-{discountAmount.toLocaleString('vi-VN')} đ</span>
                         </div>
                         <div className="flex justify-between items-baseline pt-2">
                           <span className="text-xs sm:text-sm font-semibold text-white [html[data-theme='light']_&]:text-slate-900 font-sans">
@@ -910,15 +910,15 @@ export const PaymentModal = ({
                 </div>
               )}
 
-              {/* Polling Live Radar & Countdown Timer (Clean Minimalist, Zero Circular Dots) */}
-              <div className="p-3 rounded-xl bg-black/40 [html[data-theme='light']_&]:bg-slate-50 backdrop-blur-md border border-white/10 [html[data-theme='light']_&]:border-slate-200 text-xs space-y-2">
+              {/* Polling Live Radar & Countdown Timer */}
+              <div className="p-3.5 rounded-xl bg-black/40 [html[data-theme='light']_&]:bg-slate-50 backdrop-blur-md border border-white/10 [html[data-theme='light']_&]:border-slate-200 text-xs space-y-2.5">
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-mono font-medium tracking-wider uppercase px-2 py-0.5 rounded bg-cyan-950/70 [html[data-theme='light']_&]:bg-cyan-50 text-cyan-300 [html[data-theme='light']_&]:text-cyan-700 border border-cyan-500/30 [html[data-theme='light']_&]:border-cyan-200">
+                  <span className="text-xs font-mono font-medium tracking-wider uppercase px-2.5 py-0.5 rounded-full bg-white/[0.08] [html[data-theme='light']_&]:bg-slate-200 text-white [html[data-theme='light']_&]:text-slate-900 border border-white/15 [html[data-theme='light']_&]:border-slate-300">
                     NAPAS 24/7
                   </span>
-                  <div className="flex items-center gap-1.5 font-mono text-[11px]">
+                  <div className="flex items-center gap-1.5 font-mono text-xs">
                     <span className="text-slate-400 [html[data-theme='light']_&]:text-slate-500 font-sans">{isVi ? 'Hết hạn:' : 'Expires:'}</span>
-                    <span className={`font-medium ${isExpired ? 'text-rose-400 font-bold' : timeLeft < 180 ? 'text-amber-400 font-bold' : 'text-cyan-300 [html[data-theme=\'light\']_&]:text-cyan-700 font-semibold'}`}>
+                    <span className={`font-medium ${isExpired ? 'text-rose-400 font-bold' : timeLeft < 180 ? 'text-amber-400 font-bold' : 'text-white [html[data-theme=\'light\']_&]:text-slate-900 font-semibold'}`}>
                       {isExpired ? '00:00' : formatTime(timeLeft)}
                     </span>
                   </div>
@@ -927,7 +927,7 @@ export const PaymentModal = ({
                   type="button"
                   onClick={handleManualCheck}
                   disabled={loading || isExpired}
-                  className="w-full py-1.5 rounded-lg border border-white/15 [html[data-theme='light']_&]:border-slate-300 hover:border-white/30 [html[data-theme='light']_&]:hover:border-slate-400 bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-100 hover:bg-white/[0.1] [html[data-theme='light']_&]:hover:bg-slate-200 text-white [html[data-theme='light']_&]:text-slate-800 text-[11px] font-medium uppercase tracking-wider transition-colors cursor-pointer text-center disabled:opacity-40"
+                  className="w-full min-h-[44px] py-2 rounded-full border border-white/15 [html[data-theme='light']_&]:border-slate-300 hover:border-white/30 [html[data-theme='light']_&]:hover:border-slate-400 bg-white/[0.04] [html[data-theme='light']_&]:bg-white hover:bg-white/[0.1] [html[data-theme='light']_&]:hover:bg-slate-100 text-white [html[data-theme='light']_&]:text-slate-900 text-xs font-medium uppercase tracking-wider transition-colors cursor-pointer text-center disabled:opacity-40"
                 >
                   {loading ? (isVi ? 'Đang kiểm tra...' : 'Checking...') : (isVi ? 'Kiểm tra ngay' : 'Check Now')}
                 </button>
@@ -937,7 +937,7 @@ export const PaymentModal = ({
             {/* CỘT PHẢI (col-span-12 md:col-span-7): Bảng thông tin thanh toán & Lưu ý */}
             <div className="md:col-span-7 flex flex-col justify-between space-y-3">
               {/* Bank Details Table */}
-              <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-black/40 [html[data-theme='light']_&]:bg-slate-50/80 backdrop-blur-md border border-white/10 [html[data-theme='light']_&]:border-slate-200 space-y-2.5 text-xs">
+              <div className="p-4 rounded-xl sm:rounded-2xl bg-black/40 [html[data-theme='light']_&]:bg-slate-50/80 backdrop-blur-md border border-white/10 [html[data-theme='light']_&]:border-slate-200 space-y-2.5 text-xs sm:text-sm">
                 
                 {/* Bank Name */}
                 <div className="flex justify-between items-center py-1 border-b border-white/5 [html[data-theme='light']_&]:border-slate-200/80">
@@ -951,13 +951,13 @@ export const PaymentModal = ({
                 <div className="flex justify-between items-center py-1 border-b border-white/5 [html[data-theme='light']_&]:border-slate-200/80">
                   <span className="text-slate-400 [html[data-theme='light']_&]:text-slate-500">{isVi ? 'Số tài khoản:' : 'Account No:'}</span>
                   <div className="flex items-center gap-2">
-                    <span className="text-white [html[data-theme='light']_&]:text-slate-900 font-medium font-mono tracking-wider text-xs sm:text-sm">
+                    <span className="text-white [html[data-theme='light']_&]:text-slate-900 font-medium font-mono tracking-wider text-sm">
                       {orderData.bankInfo?.accountNo || '0879299627'}
                     </span>
                     <button
                       type="button"
                       onClick={() => copyToClipboard(orderData.bankInfo?.accountNo || '0879299627', 'acc')}
-                      className="text-[10px] font-medium text-slate-200 [html[data-theme='light']_&]:text-slate-700 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 px-2 py-0.5 rounded border border-white/15 [html[data-theme='light']_&]:border-slate-300 hover:border-white/30 [html[data-theme='light']_&]:hover:border-slate-400 bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-100 transition-colors cursor-pointer"
+                      className="text-xs font-medium text-slate-200 [html[data-theme='light']_&]:text-slate-700 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 px-2.5 py-1 rounded-full border border-white/15 [html[data-theme='light']_&]:border-slate-300 hover:border-white/30 [html[data-theme='light']_&]:hover:border-slate-400 bg-white/[0.04] [html[data-theme='light']_&]:bg-white transition-colors cursor-pointer"
                     >
                       {copiedField === 'acc' ? (isVi ? 'Đã chép' : 'Copied') : (isVi ? 'Sao chép' : 'Copy')}
                     </button>
@@ -976,13 +976,13 @@ export const PaymentModal = ({
                 <div className="flex justify-between items-center py-1 border-b border-white/5 [html[data-theme='light']_&]:border-slate-200/80">
                   <span className="text-slate-400 [html[data-theme='light']_&]:text-slate-500">{isVi ? 'Số tiền:' : 'Amount:'}</span>
                   <div className="flex items-center gap-2">
-                    <span className="text-cyan-300 [html[data-theme='light']_&]:text-cyan-700 font-semibold font-mono text-xs sm:text-sm">
+                    <span className="text-white [html[data-theme='light']_&]:text-slate-900 font-semibold font-mono text-sm">
                       {isVi ? `${orderData.amount?.toLocaleString('vi-VN')} VNĐ` : `${orderData.amount?.toLocaleString('en-US')} VND`}
                     </span>
                     <button
                       type="button"
                       onClick={() => copyToClipboard(orderData.amount, 'amt')}
-                      className="text-[10px] font-medium text-slate-200 [html[data-theme='light']_&]:text-slate-700 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 px-2 py-0.5 rounded border border-white/15 [html[data-theme='light']_&]:border-slate-300 hover:border-white/30 [html[data-theme='light']_&]:hover:border-slate-400 bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-100 transition-colors cursor-pointer"
+                      className="text-xs font-medium text-slate-200 [html[data-theme='light']_&]:text-slate-700 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 px-2.5 py-1 rounded-full border border-white/15 [html[data-theme='light']_&]:border-slate-300 hover:border-white/30 [html[data-theme='light']_&]:hover:border-slate-400 bg-white/[0.04] [html[data-theme='light']_&]:bg-white transition-colors cursor-pointer"
                     >
                       {copiedField === 'amt' ? (isVi ? 'Đã chép' : 'Copied') : (isVi ? 'Sao chép' : 'Copy')}
                     </button>
@@ -993,13 +993,13 @@ export const PaymentModal = ({
                 <div className="flex justify-between items-center py-1">
                   <span className="text-slate-400 [html[data-theme='light']_&]:text-slate-500">{isVi ? 'Nội dung chuyển khoản:' : 'Transfer memo:'}</span>
                   <div className="flex items-center gap-2">
-                    <span className="text-white [html[data-theme='light']_&]:text-cyan-900 font-bold font-mono bg-cyan-950/60 [html[data-theme='light']_&]:bg-cyan-50 text-cyan-200 [html[data-theme='light']_&]:text-cyan-800 px-2 py-0.5 rounded border border-cyan-500/30 [html[data-theme='light']_&]:border-cyan-200 text-xs">
+                    <span className="text-white [html[data-theme='light']_&]:text-slate-900 font-bold font-mono bg-white/[0.08] [html[data-theme='light']_&]:bg-slate-200/80 px-2.5 py-1 rounded border border-white/20 [html[data-theme='light']_&]:border-slate-300 text-xs">
                       {orderData.description}
                     </span>
                     <button
                       type="button"
                       onClick={() => copyToClipboard(orderData.description, 'desc')}
-                      className="text-[10px] font-medium text-slate-200 [html[data-theme='light']_&]:text-slate-700 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 px-2 py-0.5 rounded border border-white/15 [html[data-theme='light']_&]:border-slate-300 hover:border-white/30 [html[data-theme='light']_&]:hover:border-slate-400 bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-100 transition-colors cursor-pointer"
+                      className="text-xs font-medium text-slate-200 [html[data-theme='light']_&]:text-slate-700 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 px-2.5 py-1 rounded-full border border-white/15 [html[data-theme='light']_&]:border-slate-300 hover:border-white/30 [html[data-theme='light']_&]:hover:border-slate-400 bg-white/[0.04] [html[data-theme='light']_&]:bg-white transition-colors cursor-pointer"
                     >
                       {copiedField === 'desc' ? (isVi ? 'Đã chép' : 'Copied') : (isVi ? 'Sao chép' : 'Copy')}
                     </button>
@@ -1008,8 +1008,8 @@ export const PaymentModal = ({
               </div>
 
               {/* Clean Notice */}
-              <div className="text-[11px] text-slate-300/90 [html[data-theme='light']_&]:text-slate-600 bg-black/40 [html[data-theme='light']_&]:bg-slate-50 backdrop-blur-md border border-white/10 [html[data-theme='light']_&]:border-slate-200 p-3 rounded-xl leading-relaxed">
-                <span className={isExpired ? 'text-amber-300 [html[data-theme=\'light\']_&]:text-amber-800 font-medium' : 'text-cyan-300 [html[data-theme=\'light\']_&]:text-cyan-700 font-medium'}>
+              <div className="text-xs sm:text-sm text-slate-300 [html[data-theme='light']_&]:text-slate-600 bg-black/40 [html[data-theme='light']_&]:bg-slate-50 backdrop-blur-md border border-white/10 [html[data-theme='light']_&]:border-slate-200 p-3.5 rounded-xl leading-relaxed">
+                <span className={isExpired ? 'text-amber-300 [html[data-theme=\'light\']_&]:text-amber-800 font-medium' : 'text-white [html[data-theme=\'light\']_&]:text-slate-900 font-semibold'}>
                   {isVi ? 'Lưu ý quan trọng:' : 'Important Note:'}
                 </span>{' '}
                 {isExpired ? (

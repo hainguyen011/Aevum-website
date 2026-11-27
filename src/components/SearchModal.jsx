@@ -334,11 +334,11 @@ export const SearchModal = ({ isOpen, onClose, onNavigate, activeLang }) => {
       {/* Backdrop overlay click to close */}
       <div className="fixed inset-0" onClick={onClose} />
 
-      {/* Main Command Palette Dialog (Zero box-shadow, pure minimalist transparent) */}
-      <div className="relative w-full max-w-2xl bg-[#07090D]/95 border border-white/10 rounded-xl overflow-hidden z-10 font-sans">
+      {/* Main Command Palette Dialog (Monochrome Obsidian Surface) */}
+      <div className="relative w-full max-w-2xl bg-[#07090D]/95 [html[data-theme='light']_&]:bg-white border border-white/15 [html[data-theme='light']_&]:border-slate-200 rounded-2xl overflow-hidden z-10 font-sans shadow-2xl">
         {/* Search Input Bar */}
-        <div className="flex items-center px-4 py-3.5 border-b border-white/10 bg-white/[0.02]">
-          <Search size={17} className="text-cyan-400 shrink-0 mr-3" />
+        <div className="flex items-center px-4 py-3.5 border-b border-white/10 [html[data-theme='light']_&]:border-slate-200 bg-white/[0.02] [html[data-theme='light']_&]:bg-slate-50/70">
+          <Search size={18} className="text-white [html[data-theme='light']_&]:text-slate-900 shrink-0 mr-3" />
           <input
             ref={inputRef}
             type="text"
@@ -352,18 +352,18 @@ export const SearchModal = ({ isOpen, onClose, onNavigate, activeLang }) => {
                 ? 'Tìm kiếm tài liệu, câu lệnh CLI (aevum status, init...), công cụ MCP...'
                 : 'Search docs, CLI commands (aevum init, status...), MCP tools...'
             }
-            className="w-full bg-transparent text-white placeholder-slate-500 text-sm font-medium focus:outline-none"
+            className="w-full bg-transparent text-white [html[data-theme='light']_&]:text-slate-900 placeholder-slate-400 text-sm sm:text-base font-medium focus:outline-none"
           />
           {query && (
             <button
               onClick={() => setQuery('')}
-              className="text-slate-500 hover:text-white mr-2 cursor-pointer"
+              className="text-slate-400 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 mr-2 p-1 cursor-pointer"
               aria-label="Xóa nội dung tìm kiếm"
             >
-              <X size={14} />
+              <X size={16} />
             </button>
           )}
-          <kbd className="hidden sm:inline-block text-[10px] font-mono bg-white/5 px-2 py-1 rounded text-slate-400 border border-white/10">
+          <kbd className="hidden sm:inline-block text-xs font-mono bg-white/5 [html[data-theme='light']_&]:bg-slate-200/70 px-2 py-1 rounded text-slate-300 [html[data-theme='light']_&]:text-slate-700 border border-white/10 [html[data-theme='light']_&]:border-slate-300">
             ESC
           </kbd>
         </div>
@@ -380,48 +380,48 @@ export const SearchModal = ({ isOpen, onClose, onNavigate, activeLang }) => {
                   key={item.id}
                   onClick={() => item.action()}
                   onMouseEnter={() => setSelectedIndex(idx)}
-                  className={`flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs cursor-pointer border transition-all duration-150 ease-out ${
+                  className={`flex items-center justify-between px-3.5 py-3 min-h-[44px] rounded-xl text-sm cursor-pointer border transition-colors duration-150 ${
                     isSelected
-                      ? 'bg-white/[0.04] text-cyan-300 border-cyan-500/30 translate-x-0.5'
-                      : 'text-slate-300 border-transparent hover:bg-white/[0.02]'
+                      ? 'bg-white/[0.08] text-white border-white/25 [html[data-theme="light"]_&]:bg-slate-100 [html[data-theme="light"]_&]:text-slate-950 [html[data-theme="light"]_&]:border-slate-300'
+                      : 'text-slate-300 [html[data-theme="light"]_&]:text-slate-700 border-transparent hover:bg-white/[0.03] [html[data-theme="light"]_&]:hover:bg-slate-50'
                   }`}
                 >
                   <div className="flex items-center gap-3 min-w-0">
                     <IconComp
-                      size={14}
-                      className={isSelected ? 'text-cyan-400 shrink-0' : 'text-slate-500 shrink-0'}
+                      size={15}
+                      className={isSelected ? 'text-white [html[data-theme="light"]_&]:text-slate-900 shrink-0' : 'text-slate-400 shrink-0'}
                     />
                     <span className="font-medium truncate">{item.title}</span>
                   </div>
                   <div className="flex items-center gap-2 shrink-0 ml-3">
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.03] text-slate-400 border border-white/5">
+                    <span className="text-xs font-mono px-2.5 py-0.5 rounded-full bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-200/70 text-slate-300 [html[data-theme='light']_&]:text-slate-700 border border-white/10 [html[data-theme='light']_&]:border-slate-300">
                       {item.category}
                     </span>
-                    {isSelected && <ArrowRight size={13} className="text-cyan-400" />}
+                    {isSelected && <ArrowRight size={14} className="text-white [html[data-theme='light']_&]:text-slate-900" />}
                   </div>
                 </div>
               );
             })
           ) : (
-            <div className="p-8 text-center text-slate-500 text-xs font-mono">
+            <div className="p-8 text-center text-slate-400 text-sm font-mono">
               {isVi ? 'Không tìm thấy kết quả phù hợp' : 'No matching results found'}
             </div>
           )}
         </div>
 
         {/* Command Palette Footer Hints */}
-        <div className="px-4 py-2.5 bg-white/[0.015] border-t border-white/5 flex items-center justify-between text-[11px] font-mono text-slate-500">
+        <div className="px-4 py-2.5 bg-white/[0.015] [html[data-theme='light']_&]:bg-slate-50 border-t border-white/5 [html[data-theme='light']_&]:border-slate-200 flex items-center justify-between text-xs font-mono text-slate-400 [html[data-theme='light']_&]:text-slate-600">
           <div className="flex items-center gap-3">
             <span>
-              <kbd className="bg-white/5 px-1 py-0.5 rounded border border-white/5">↑↓</kbd>{' '}
+              <kbd className="bg-white/5 [html[data-theme='light']_&]:bg-slate-200 px-1.5 py-0.5 rounded border border-white/10 [html[data-theme='light']_&]:border-slate-300">↑↓</kbd>{' '}
               {isVi ? 'chọn' : 'navigate'}
             </span>
             <span>
-              <kbd className="bg-white/5 px-1 py-0.5 rounded border border-white/5">↵</kbd>{' '}
+              <kbd className="bg-white/5 [html[data-theme='light']_&]:bg-slate-200 px-1.5 py-0.5 rounded border border-white/10 [html[data-theme='light']_&]:border-slate-300">↵</kbd>{' '}
               {isVi ? 'mở' : 'select'}
             </span>
           </div>
-          <span className="text-[10px] text-slate-600">Aevum OS Intelligent Search</span>
+          <span className="text-xs text-slate-400 [html[data-theme='light']_&]:text-slate-500">Aevum OS Search</span>
         </div>
       </div>
     </div>

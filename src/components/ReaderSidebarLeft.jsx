@@ -139,8 +139,8 @@ export const ReaderSidebarLeft = ({
         {/* Quick Filter Search Bar */}
         <div className="relative">
           <Search
-            size={13}
-            className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none"
+            size={14}
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none"
           />
           <input
             ref={searchInputRef}
@@ -148,19 +148,19 @@ export const ReaderSidebarLeft = ({
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder={searchPlaceholder}
-            className="w-full bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-100 border border-white/5 [html[data-theme='light']_&]:border-slate-200/80 rounded-md pl-8 pr-10 py-1.5 text-xs text-white [html[data-theme='light']_&]:text-slate-900 placeholder-slate-500 focus:outline-none focus:bg-white/[0.07] [html[data-theme='light']_&]:focus:bg-white transition-colors font-sans"
+            className="w-full bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-100 border border-white/[0.08] [html[data-theme='light']_&]:border-slate-200/80 rounded-xl pl-9 pr-10 py-2 text-[13px] text-white [html[data-theme='light']_&]:text-slate-900 placeholder-slate-500 focus:outline-none focus:bg-white/[0.07] [html[data-theme='light']_&]:focus:bg-white transition-colors font-sans"
           />
-          <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center">
+          <div className="absolute right-2.5 top-1/2 -translate-y-1/2 flex items-center">
             {searchQuery ? (
               <button
                 onClick={() => onSearchChange('')}
-                className="text-slate-500 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 p-0.5 cursor-pointer"
+                className="text-slate-500 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 p-1 cursor-pointer"
                 aria-label={isVi ? 'Xóa bộ lọc' : 'Clear filter'}
               >
-                <X size={12} />
+                <X size={13} />
               </button>
             ) : (
-              <kbd className="hidden sm:inline-block text-[9px] font-sans bg-white/5 [html[data-theme='light']_&]:bg-slate-200 px-1.5 py-0.5 rounded text-slate-400 [html[data-theme='light']_&]:text-slate-600 select-none">
+              <kbd className="hidden sm:inline-block text-xs font-sans bg-white/[0.06] [html[data-theme='light']_&]:bg-slate-200 px-1.5 py-0.5 rounded-md text-slate-400 [html[data-theme='light']_&]:text-slate-600 select-none">
                 /
               </kbd>
             )}
@@ -172,23 +172,23 @@ export const ReaderSidebarLeft = ({
           <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setCategoryDropdownOpen(!categoryDropdownOpen)}
-              className="w-full flex items-center justify-between px-2.5 py-1.5 rounded-md bg-white/[0.03] [html[data-theme='light']_&]:bg-slate-100/90 hover:bg-white/[0.06] [html[data-theme='light']_&]:hover:bg-slate-200/80 border border-white/10 [html[data-theme='light']_&]:border-slate-200 text-xs transition-all cursor-pointer group"
+              className="w-full flex items-center justify-between px-3 py-2 rounded-xl bg-white/[0.03] [html[data-theme='light']_&]:bg-slate-100/90 hover:bg-white/[0.06] [html[data-theme='light']_&]:hover:bg-slate-200/80 border border-white/[0.08] [html[data-theme='light']_&]:border-slate-200 text-xs transition-all cursor-pointer group"
               aria-expanded={categoryDropdownOpen}
             >
               <div className="flex items-center gap-2 truncate min-w-0">
-                <Layers size={13} className="text-slate-400 shrink-0 group-hover:text-white [html[data-theme='light']_&]:group-hover:text-slate-900 transition-colors" />
-                <span className="truncate font-medium text-white [html[data-theme='light']_&]:text-slate-900 text-[12px]">
+                <Layers size={14} className="text-slate-400 shrink-0 group-hover:text-white [html[data-theme='light']_&]:group-hover:text-slate-900 transition-colors" />
+                <span className="truncate font-medium text-white [html[data-theme='light']_&]:text-slate-900 text-[13px]">
                   {selectedCategory === 'all'
                     ? (isVi ? 'Tất cả chuyên mục' : 'All categories')
                     : currentCategoryObj?.name}
                 </span>
               </div>
               <div className="flex items-center gap-1.5 shrink-0 ml-1.5">
-                <span className="text-[10px] font-sans font-medium text-slate-500 [html[data-theme='light']_&]:text-slate-600 bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-200 px-1.5 py-0.5 rounded">
+                <span className="text-xs font-sans font-medium text-slate-400 [html[data-theme='light']_&]:text-slate-600 bg-white/[0.05] [html[data-theme='light']_&]:bg-slate-200 px-2 py-0.5 rounded-full">
                   {selectedCategory === 'all' ? totalItemCount : currentCategoryObj?.count}
                 </span>
                 <ChevronDown
-                  size={12}
+                  size={13}
                   className={`text-slate-400 transition-transform duration-200 ${
                     categoryDropdownOpen ? 'rotate-180 text-white [html[data-theme="light"]_&]:text-slate-900' : ''
                   }`}
@@ -198,27 +198,27 @@ export const ReaderSidebarLeft = ({
 
             {/* Floating Dropdown Option Menu */}
             {categoryDropdownOpen && (
-              <div className="absolute top-full left-0 right-0 mt-1.5 z-50 p-1 rounded-lg bg-[#0E1118]/95 [html[data-theme='light']_&]:bg-white/95 border border-white/15 [html[data-theme='light']_&]:border-slate-300 shadow-2xl backdrop-blur-xl animate-fadeIn max-h-64 overflow-y-auto scrollbar-thin">
+              <div className="absolute top-full left-0 right-0 mt-1.5 z-50 p-1.5 rounded-xl bg-[#0C0E14]/95 [html[data-theme='light']_&]:bg-white/95 border border-white/15 [html[data-theme='light']_&]:border-slate-300 shadow-2xl backdrop-blur-xl animate-fadeIn max-h-64 overflow-y-auto scrollbar-thin space-y-0.5">
                 {/* Option 1: All Categories */}
                 <button
                   onClick={() => {
                     setSelectedCategory('all');
                     setCategoryDropdownOpen(false);
                   }}
-                  className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-xs transition-colors cursor-pointer text-left ${
+                  className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-[13px] transition-colors cursor-pointer text-left ${
                     selectedCategory === 'all'
-                      ? 'bg-white/10 [html[data-theme="light"]_&]:bg-slate-200 text-white [html[data-theme="light"]_&]:text-slate-900'
+                      ? 'bg-white/10 [html[data-theme="light"]_&]:bg-slate-200 text-white [html[data-theme="light"]_&]:text-slate-900 font-medium'
                       : 'text-slate-400 [html[data-theme="light"]_&]:text-slate-600 hover:text-white [html[data-theme="light"]_&]:hover:text-slate-900 hover:bg-white/[0.04] [html[data-theme="light"]_&]:hover:bg-slate-100'
                   }`}
                 >
                   <div className="flex items-center gap-2 truncate">
-                    <Layers size={12} className="shrink-0 text-slate-500" />
+                    <Layers size={13} className="shrink-0 text-slate-500" />
                     <span className="truncate">{isVi ? 'Tất cả chuyên mục' : 'All categories'}</span>
                   </div>
-                  <span className="text-[10px] font-sans font-medium opacity-60 ml-2">{totalItemCount}</span>
+                  <span className="text-xs font-sans font-medium opacity-70 ml-2">{totalItemCount}</span>
                 </button>
 
-                <div className="my-1 border-t border-white/5 [html[data-theme='light']_&]:border-slate-100" />
+                <div className="h-1" />
 
                 {/* Individual Category Options */}
                 {normalizedCategories.map((group) => {
@@ -231,17 +231,17 @@ export const ReaderSidebarLeft = ({
                         setCategoryDropdownOpen(false);
                         setExpandedCategories((prev) => ({ ...prev, [group.id]: true }));
                       }}
-                      className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-xs transition-colors cursor-pointer text-left ${
+                      className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-[13px] transition-colors cursor-pointer text-left ${
                         isSelected
-                          ? 'bg-white/10 [html[data-theme="light"]_&]:bg-slate-200 text-white [html[data-theme="light"]_&]:text-slate-900'
+                          ? 'bg-white/10 [html[data-theme="light"]_&]:bg-slate-200 text-white [html[data-theme="light"]_&]:text-slate-900 font-medium'
                           : 'text-slate-400 [html[data-theme="light"]_&]:text-slate-600 hover:text-white [html[data-theme="light"]_&]:hover:text-slate-900 hover:bg-white/[0.04] [html[data-theme="light"]_&]:hover:bg-slate-100'
                       }`}
                     >
                       <div className="flex items-center gap-2 truncate">
-                        <Folder size={12} className="shrink-0 text-slate-500" />
+                        <Folder size={13} className="shrink-0 text-slate-500" />
                         <span className="truncate">{group.name}</span>
                       </div>
-                      <span className="text-[10px] font-sans font-medium opacity-60 ml-2">{group.count}</span>
+                      <span className="text-xs font-sans font-medium opacity-70 ml-2">{group.count}</span>
                     </button>
                   );
                 })}
@@ -263,20 +263,20 @@ export const ReaderSidebarLeft = ({
               <button
                 type="button"
                 onClick={() => toggleCategory(group.id)}
-                className="w-full flex items-center justify-between px-2 py-1.5 rounded hover:bg-white/[0.03] [html[data-theme='light']_&]:hover:bg-slate-100/70 transition-colors cursor-pointer group/cat text-left select-none"
+                className="w-full flex items-center justify-between px-2.5 py-2 rounded-xl hover:bg-white/[0.04] [html[data-theme='light']_&]:hover:bg-slate-100/80 transition-colors cursor-pointer group/cat text-left select-none"
               >
                 <div className="flex items-center gap-2 truncate min-w-0">
                   <ChevronDown
-                    size={12}
+                    size={13}
                     className={`text-slate-400 transition-transform duration-200 shrink-0 ${
                       isExpanded ? '' : '-rotate-90'
                     }`}
                   />
-                  <span className="text-[11px] font-sans font-medium text-slate-300 [html[data-theme='light']_&]:text-slate-700 uppercase tracking-wider truncate group-hover/cat:text-white [html[data-theme='light']_&]:group-hover/cat:text-slate-900 transition-colors">
+                  <span className="text-xs font-sans font-medium text-slate-300 [html[data-theme='light']_&]:text-slate-700 uppercase tracking-wider truncate group-hover/cat:text-white [html[data-theme='light']_&]:group-hover/cat:text-slate-900 transition-colors">
                     {group.name}
                   </span>
                 </div>
-                <span className="text-[10px] font-sans font-medium text-slate-500 [html[data-theme='light']_&]:text-slate-400 shrink-0 ml-1.5">
+                <span className="text-xs font-sans font-medium text-slate-500 [html[data-theme='light']_&]:text-slate-500 shrink-0 ml-1.5">
                   {group.count}
                 </span>
               </button>
@@ -336,10 +336,10 @@ export const ReaderSidebarLeft = ({
                               onCloseDrawer();
                             }
                           }}
-                          className={`w-full flex items-center justify-between text-left py-1.5 px-2.5 rounded-md text-xs font-normal transition-colors duration-150 ease-out cursor-pointer ${
+                          className={`w-full flex items-center justify-between text-left py-2 px-3 rounded-xl text-[13px] font-normal transition-colors duration-150 ease-out cursor-pointer ${
                             isActive
                               ? 'text-white [html[data-theme="light"]_&]:text-slate-900 font-medium bg-white/10 [html[data-theme="light"]_&]:bg-slate-200 shadow-sm'
-                              : 'text-slate-400 [html[data-theme="light"]_&]:text-slate-600 hover:text-white [html[data-theme="light"]_&]:hover:text-slate-900 hover:bg-white/[0.03] [html[data-theme="light"]_&]:hover:bg-slate-100/60'
+                              : 'text-slate-400 [html[data-theme="light"]_&]:text-slate-600 hover:text-white [html[data-theme="light"]_&]:hover:text-slate-900 hover:bg-white/[0.04] [html[data-theme="light"]_&]:hover:bg-slate-100/70'
                           }`}
                         >
                           <span className="truncate">{item.title}</span>
@@ -364,7 +364,7 @@ export const ReaderSidebarLeft = ({
 
       {/* Sidebar Footer Hint */}
       {(footerLeft || footerRight) && (
-        <div className="p-3.5 flex items-center justify-between text-[11px] font-sans font-medium text-slate-400 [html[data-theme='light']_&]:text-slate-500 shrink-0">
+        <div className="p-3.5 flex items-center justify-between text-xs font-sans font-medium text-slate-400 [html[data-theme='light']_&]:text-slate-500 shrink-0">
           <div>{footerLeft}</div>
           <div>{footerRight}</div>
         </div>

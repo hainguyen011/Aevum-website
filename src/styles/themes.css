@@ -397,8 +397,8 @@ html[data-theme="light"] .pricing-card-subtle {
 
 html[data-theme="light"] .pricing-pro-column {
   background-color: #FFFFFF !important;
-  border-color: rgba(2, 132, 199, 0.35) !important;
-  box-shadow: 0 12px 32px -4px rgba(2, 132, 199, 0.12), 0 4px 16px -2px rgba(15, 23, 42, 0.06) !important;
+  border-color: rgba(15, 23, 42, 0.18) !important;
+  box-shadow: 0 12px 32px -4px rgba(15, 23, 42, 0.08), 0 4px 16px -2px rgba(15, 23, 42, 0.04) !important;
 }
 
 html[data-theme="light"] .pricing-card-enterprise {
@@ -409,36 +409,36 @@ html[data-theme="light"] .pricing-card-enterprise {
 
 /* Default Dark Gradients for Pricing & Modal Atmospheres */
 .pricing-card-gradient {
-  background: linear-gradient(180deg, rgba(14, 165, 233, 0.08) 0%, rgba(7, 9, 13, 0.6) 25%, #07090D 100%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(7, 9, 13, 0.6) 25%, #07090D 100%);
 }
 
 .pricing-pro-column .pricing-card-gradient {
-  background: linear-gradient(180deg, rgba(14, 165, 233, 0.16) 0%, rgba(2, 132, 199, 0.06) 16%, rgba(7, 9, 13, 0.75) 36%, #07090D 70%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.02) 18%, rgba(7, 9, 13, 0.78) 38%, #07090D 72%);
 }
 
 .modal-atmosphere-gradient {
-  background: linear-gradient(180deg, rgba(14, 165, 233, 0.16) 0%, rgba(2, 132, 199, 0.06) 16%, rgba(7, 9, 13, 0.75) 36%, #07090D 70%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.02) 18%, rgba(7, 9, 13, 0.78) 38%, #07090D 72%);
 }
 
 .payment-ticket-gradient {
-  background: linear-gradient(180deg, rgba(14, 165, 233, 0.16) 0%, rgba(2, 132, 199, 0.06) 16%, rgba(7, 9, 13, 0.75) 36%, #07090D 70%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.02) 18%, rgba(7, 9, 13, 0.78) 38%, #07090D 72%);
 }
 
 /* Eliminate dark background gradients inside pricing cards in Light Mode */
 html[data-theme="light"] .pricing-card-gradient,
 html[data-theme="light"] .pricing-gradient-layer {
-  background: linear-gradient(180deg, rgba(14, 165, 233, 0.06) 0%, rgba(248, 250, 252, 0.4) 25%, #FFFFFF 65%) !important;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.03) 0%, rgba(248, 250, 252, 0.5) 25%, #FFFFFF 65%) !important;
 }
 
 html[data-theme="light"] .pricing-pro-column .pricing-card-gradient,
 html[data-theme="light"] .pricing-pro-column .pricing-gradient-layer {
-  background: linear-gradient(180deg, rgba(14, 165, 233, 0.12) 0%, rgba(2, 132, 199, 0.03) 18%, #FFFFFF 60%) !important;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.05) 0%, rgba(248, 250, 252, 0.4) 20%, #FFFFFF 60%) !important;
 }
 
 html[data-theme="light"] .pricing-pro-tag {
-  background: #E0F2FE !important;
-  color: #0369A1 !important;
-  border-color: #7DD3FC !important;
+  background: #F1F5F9 !important;
+  color: #0F172A !important;
+  border-color: rgba(15, 23, 42, 0.2) !important;
 }
 
 html[data-theme="light"] .pricing-btn-community,
@@ -476,7 +476,7 @@ html[data-theme="light"] .modal-surface {
 }
 
 html[data-theme="light"] .modal-atmosphere-gradient {
-  background: linear-gradient(180deg, rgba(14, 165, 233, 0.1) 0%, rgba(240, 249, 255, 0.6) 20%, #FFFFFF 65%) !important;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.04) 0%, rgba(248, 250, 252, 0.7) 25%, #FFFFFF 65%) !important;
 }
 
 html[data-theme="light"] .payment-ticket-container {
@@ -486,7 +486,7 @@ html[data-theme="light"] .payment-ticket-container {
 }
 
 html[data-theme="light"] .payment-ticket-gradient {
-  background: linear-gradient(180deg, rgba(14, 165, 233, 0.1) 0%, rgba(240, 249, 255, 0.5) 25%, #F8FAFC 70%) !important;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.04) 0%, rgba(248, 250, 252, 0.6) 25%, #F8FAFC 70%) !important;
 }
 
 html[data-theme="light"] .payment-btn-apply,
@@ -503,33 +503,33 @@ html[data-theme="light"] .payment-btn-primary:hover {
 }
 
 /* ───────────────────────────────────────────────────────────────────────── */
-/* PAYMENT MODAL BILLING CYCLE PLAN CARDS                                    */
+/* PAYMENT MODAL BILLING CYCLE PLAN CARDS (MONOCHROME OBSIDIAN)              */
 /* ───────────────────────────────────────────────────────────────────────── */
 .payment-plan-card {
   position: relative;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Dark Mode Defaults */
 .payment-plan-card.active {
-  border-color: rgba(56, 189, 248, 0.6) !important;
-  background: linear-gradient(135deg, rgba(14, 165, 233, 0.22) 0%, rgba(2, 132, 199, 0.12) 100%), rgba(255, 255, 255, 0.05) !important;
-  box-shadow: 0 4px 20px -2px rgba(14, 165, 233, 0.25), inset 0 0 0 1px rgba(56, 189, 248, 0.2) !important;
+  border-color: rgba(255, 255, 255, 0.45) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  box-shadow: none !important;
 }
 .payment-plan-card.active .payment-plan-title,
 .payment-plan-card.active .payment-plan-price {
   color: #FFFFFF !important;
 }
 .payment-plan-card.active .payment-plan-badge {
-  color: #38BDF8 !important;
+  color: #FFFFFF !important;
 }
 .payment-plan-card.active .payment-plan-discount {
-  background-color: rgba(56, 189, 248, 0.2) !important;
-  color: #38BDF8 !important;
-  border: 1px solid rgba(56, 189, 248, 0.3) !important;
+  background-color: rgba(255, 255, 255, 0.14) !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
 }
 .payment-plan-card.active .payment-plan-desc {
-  color: rgba(255, 255, 255, 0.75) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
 }
 
 .payment-plan-card.inactive {
@@ -559,43 +559,38 @@ html[data-theme="light"] .payment-btn-primary:hover {
   color: #94A3B8 !important;
 }
 
-/* ───────────────────────────────────────────────────────────────────────── */
-/* Light Mode: "Chọn thì màu xanh gradient chữ trắng còn ko chọn thì màu     */
-/* trắng với viền"                                                           */
-/* ───────────────────────────────────────────────────────────────────────── */
+/* Light Mode Active: Crisp Slate Ink Card */
 html[data-theme="light"] .payment-plan-card.active {
-  background: linear-gradient(135deg, #0284C7 0%, #0EA5E9 50%, #38BDF8 100%) !important;
-  border: 1px solid #0284C7 !important;
-  box-shadow: 0 10px 25px -4px rgba(2, 132, 199, 0.38), 0 4px 10px -2px rgba(2, 132, 199, 0.2) !important;
+  background: #0F172A !important;
+  border: 1px solid #0F172A !important;
+  box-shadow: 0 10px 25px -4px rgba(15, 23, 42, 0.18) !important;
 }
 html[data-theme="light"] .payment-plan-card.active .payment-plan-title,
 html[data-theme="light"] .payment-plan-card.active .payment-plan-price {
   color: #FFFFFF !important;
 }
 html[data-theme="light"] .payment-plan-card.active .payment-plan-badge {
-  background-color: rgba(255, 255, 255, 0.25) !important;
+  background-color: rgba(255, 255, 255, 0.16) !important;
   color: #FFFFFF !important;
-  border: 1px solid rgba(255, 255, 255, 0.45) !important;
-  backdrop-filter: blur(4px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
   padding: 2px 7px !important;
   border-radius: 9999px !important;
   font-weight: 700 !important;
 }
 html[data-theme="light"] .payment-plan-card.active .payment-plan-discount {
-  background-color: rgba(255, 255, 255, 0.25) !important;
+  background-color: rgba(255, 255, 255, 0.18) !important;
   color: #FFFFFF !important;
-  border: 1px solid rgba(255, 255, 255, 0.45) !important;
-  backdrop-filter: blur(4px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
   font-weight: 700 !important;
 }
 html[data-theme="light"] .payment-plan-card.active .payment-plan-desc {
-  color: rgba(255, 255, 255, 0.92) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
 }
 html[data-theme="light"] .payment-plan-card.active .payment-plan-oldprice {
-  color: rgba(255, 255, 255, 0.75) !important;
+  color: rgba(255, 255, 255, 0.7) !important;
 }
 
-/* Light Mode: Không chọn -> Màu trắng với viền */
+/* Light Mode Inactive */
 html[data-theme="light"] .payment-plan-card.inactive {
   background-color: #FFFFFF !important;
   border: 1px solid #E2E8F0 !important;
@@ -613,9 +608,9 @@ html[data-theme="light"] .payment-plan-card.inactive .payment-plan-price {
   color: #0F172A !important;
 }
 html[data-theme="light"] .payment-plan-card.inactive .payment-plan-discount {
-  background-color: #E0F2FE !important;
-  color: #0369A1 !important;
-  border: 1px solid #BAE6FD !important;
+  background-color: #F1F5F9 !important;
+  color: #0F172A !important;
+  border: 1px solid #CBD5E1 !important;
   font-weight: 700 !important;
 }
 html[data-theme="light"] .payment-plan-card.inactive .payment-plan-desc {

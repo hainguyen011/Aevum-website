@@ -351,7 +351,7 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
       .trim()
       .substring(0, 160);
 
-    const docCanonicalUrl = `https://www.aevum.ai.vn/docs?doc=${activeRawDoc.id}`;
+    const docCanonicalUrl = `https://www.aevum.ai.vn/docs/${activeRawDoc.id}`;
 
     // 1. Update Title
     document.title = pageTitle;
@@ -412,7 +412,7 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
             }
           },
           "datePublished": "2026-08-01T08:00:00+07:00",
-          "dateModified": "2026-10-01T12:00:00+07:00"
+          "dateModified": "2026-11-27T07:30:00+07:00"
         },
         {
           "@type": "BreadcrumbList",
@@ -650,7 +650,7 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
   };
 
   return (
-    <div className="w-full min-h-[calc(100vh-73px)] bg-[#07090D] block lg:flex lg:flex-row relative justify-between overflow-x-clip font-sans">
+    <div className="w-full min-h-[calc(100vh-73px)] bg-[#07090D] [html[data-theme='light']_&]:bg-[#F8FAFC] block lg:flex lg:flex-row relative justify-between overflow-x-clip font-sans transition-colors">
       {/* Top Reading Progress Bar */}
       <div
         className="fixed top-0 left-0 right-0 h-[2px] bg-white/80 z-50 transition-all duration-75 pointer-events-none"
@@ -722,7 +722,7 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
                     className="hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors cursor-pointer flex items-center gap-1.5 group"
                     title="Xem Nhật ký Cập nhật"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-white/80 [html[data-theme='light']_&]:bg-slate-900 animate-pulse" />
                     <span className="group-hover:underline">Aevum OS {latestVersion}</span>
                   </a>
                 }
@@ -753,11 +753,11 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
             className="hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors cursor-pointer flex items-center gap-1.5 group"
             title="Xem Nhật ký Cập nhật"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="w-1.5 h-1.5 rounded-full bg-white/80 [html[data-theme='light']_&]:bg-slate-900 animate-pulse" />
             <span className="group-hover:underline">Aevum OS {latestVersion}</span>
           </a>
         }
-        footerRight={<span className="px-1.5 py-0.5 rounded bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-200">Ctrl K</span>}
+        footerRight={<span className="px-2 py-0.5 rounded-full bg-white/[0.05] [html[data-theme='light']_&]:bg-slate-200 text-xs">Ctrl K</span>}
       />
 
       {/* Main View Wrapper */}
@@ -774,12 +774,12 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
             setSidebarOpen(true);
           }}
           onMouseEnter={() => setIsBtnVisible(true)}
-          className={`lg:hidden sticky top-[76px] ml-4 mt-4 z-30 px-3 py-2 rounded-lg bg-[#07090D]/90 backdrop-blur-md hover:bg-white/10 text-white transition-all duration-300 cursor-pointer flex items-center gap-2 self-start ${
-            isBtnVisible ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-20 scale-90 hover:opacity-100'
+          className={`lg:hidden sticky top-[76px] ml-4 mt-4 z-30 min-h-[44px] px-4 py-2 rounded-full border border-white/10 [html[data-theme='light']_&]:border-slate-200 bg-[#0C0E14]/90 [html[data-theme='light']_&]:bg-white/95 backdrop-blur-md hover:bg-white/10 [html[data-theme='light']_&]:hover:bg-slate-100 text-white [html[data-theme='light']_&]:text-slate-900 transition-all duration-300 cursor-pointer flex items-center gap-2 self-start ${
+            isBtnVisible ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-25 scale-95 hover:opacity-100'
           }`}
           aria-label="Mở danh mục tài liệu"
         >
-          <Menu size={16} className="text-white" />
+          <Menu size={16} className="text-white [html[data-theme='light']_&]:text-slate-900" />
           <span className="text-xs font-sans font-medium">{activeLang === 'vi' ? 'Mục lục' : 'Menu'}</span>
         </button>
 
@@ -791,9 +791,9 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
           className="flex-1 px-6 md:px-12 lg:px-16 py-8 max-w-3xl xl:max-w-4xl w-full relative min-h-[500px]"
         >
           {translatingContent && (
-            <div className="absolute inset-0 bg-[#07090D]/80 backdrop-blur-sm z-20 flex flex-col items-center justify-center py-20 text-center font-sans text-sm text-white">
+            <div className="absolute inset-0 bg-[#07090D]/80 [html[data-theme='light']_&]:bg-[#F8FAFC]/85 backdrop-blur-sm z-20 flex flex-col items-center justify-center py-20 text-center font-sans text-sm text-white [html[data-theme='light']_&]:text-slate-900">
               <svg
-                className="animate-spin -ml-1 mr-3 h-8 w-8 text-white mb-4"
+                className="animate-spin -ml-1 mr-3 h-8 w-8 text-white [html[data-theme='light']_&]:text-slate-900 mb-4"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -829,7 +829,7 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
               {/* Semantic Breadcrumb Navigation */}
               <nav
                 aria-label="Breadcrumb"
-                className="mb-5 flex items-center flex-wrap gap-2 text-xs font-sans text-slate-400"
+                className="mb-5 flex items-center flex-wrap gap-2 text-xs font-sans text-slate-400 [html[data-theme='light']_&]:text-slate-600"
               >
                 <a
                   href="/"
@@ -837,45 +837,45 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
                     e.preventDefault();
                     onNavigate?.('landing');
                   }}
-                  className="hover:text-white transition-colors"
+                  className="hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors"
                 >
                   {activeLang === 'vi' ? 'Trang chủ' : 'Home'}
                 </a>
-                <ChevronRight size={12} className="text-slate-600 shrink-0" />
+                <ChevronRight size={12} className="text-slate-600 [html[data-theme='light']_&]:text-slate-400 shrink-0" />
                 <a
                   href="/docs"
                   onClick={(e) => {
                     e.preventDefault();
                     selectDoc('gioi-thieu');
                   }}
-                  className="hover:text-white transition-colors"
+                  className="hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors"
                 >
                   {activeLang === 'vi' ? 'Tài liệu' : 'Docs'}
                 </a>
-                <ChevronRight size={12} className="text-slate-600 shrink-0" />
-                <span className="text-slate-400 uppercase tracking-wider text-[11px] font-medium">
+                <ChevronRight size={12} className="text-slate-600 [html[data-theme='light']_&]:text-slate-400 shrink-0" />
+                <span className="text-slate-400 [html[data-theme='light']_&]:text-slate-600 uppercase tracking-wider text-xs font-medium">
                   {activeRawDoc.category}
                 </span>
-                <ChevronRight size={12} className="text-slate-600 shrink-0" />
-                <span className="text-white font-medium truncate">{activeRawDoc.title}</span>
+                <ChevronRight size={12} className="text-slate-600 [html[data-theme='light']_&]:text-slate-400 shrink-0" />
+                <span className="text-white [html[data-theme='light']_&]:text-slate-900 font-medium truncate">{activeRawDoc.title}</span>
               </nav>
 
               {/* Minimalist Article Metadata Bar & Reader Controls */}
-              <header className="flex flex-wrap items-center justify-between gap-3 pb-5 mb-8 text-xs font-sans text-slate-400">
-                <div className="flex items-center flex-wrap gap-4">
-                  <span className="px-2 py-0.5 rounded bg-white/[0.06] text-white uppercase tracking-wider text-[10px] font-medium">
+              <header className="flex flex-wrap items-center justify-between gap-3 pb-4 mb-7 text-xs font-sans text-slate-400 [html[data-theme='light']_&]:text-slate-600">
+                <div className="flex items-center flex-wrap gap-3 sm:gap-4">
+                  <span className="px-3 py-1 rounded-full bg-[#0C0E14] [html[data-theme='light']_&]:bg-slate-200/80 text-white [html[data-theme='light']_&]:text-slate-900 uppercase tracking-wider text-xs font-medium">
                     {activeRawDoc.category}
                   </span>
-                  <span className="flex items-center gap-1.5 text-slate-400">
-                    <Clock size={13} className="text-slate-500" />
+                  <span className="flex items-center gap-1.5 text-slate-400 [html[data-theme='light']_&]:text-slate-600">
+                    <Clock size={14} className="text-slate-500" />
                     <span>
                       {readingTime} {activeLang === 'vi' ? 'phút đọc' : 'min read'}
-                      <span className="text-slate-600 hidden sm:inline"> (~{wordCount.toLocaleString()} {activeLang === 'vi' ? 'từ' : 'words'})</span>
+                      <span className="text-slate-500 [html[data-theme='light']_&]:text-slate-400 hidden sm:inline"> (~{wordCount.toLocaleString()} {activeLang === 'vi' ? 'từ' : 'words'})</span>
                     </span>
                   </span>
-                  <span className="flex items-center gap-1.5 text-slate-400">
-                    <Calendar size={13} className="text-slate-500" />
-                    <span>01/10/2026</span>
+                  <span className="flex items-center gap-1.5 text-slate-400 [html[data-theme='light']_&]:text-slate-600">
+                    <Calendar size={14} className="text-slate-500" />
+                    <span>27/11/2026</span>
                   </span>
                 </div>
 
@@ -883,12 +883,12 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
                   {/* Font size toggle for comfortable reading & accessibility */}
                   <button
                     onClick={toggleFontSize}
-                    className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-white/[0.03] hover:bg-white/[0.08] text-slate-300 hover:text-white transition-all text-xs cursor-pointer select-none"
+                    className="flex items-center gap-1.5 min-h-[40px] sm:min-h-[44px] px-4 rounded-full bg-[#0C0E14] [html[data-theme='light']_&]:bg-white hover:bg-white/[0.08] [html[data-theme='light']_&]:hover:bg-slate-100 border border-white/10 [html[data-theme='light']_&]:border-slate-200 text-slate-200 [html[data-theme='light']_&]:text-slate-700 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors text-xs cursor-pointer select-none"
                     title={fontSize === 'normal' ? 'Tăng kích thước chữ (115%)' : 'Đặt lại cỡ chữ chuẩn'}
                     aria-label="Điều chỉnh kích thước chữ"
                   >
-                    <Type size={13} className="text-white" />
-                    <span className="text-[11px] font-sans font-medium">
+                    <Type size={14} className="text-white [html[data-theme='light']_&]:text-slate-900" />
+                    <span className="text-xs font-sans font-medium">
                       {fontSize === 'normal' ? 'A' : 'A+'}
                     </span>
                   </button>
@@ -896,26 +896,49 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
                   {/* Share / Copy Document Link Button */}
                   <button
                     onClick={handleCopyDocLink}
-                    className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-white/[0.03] hover:bg-white/[0.08] text-slate-300 hover:text-white transition-all text-xs cursor-pointer select-none"
+                    className="flex items-center gap-1.5 min-h-[40px] sm:min-h-[44px] px-4 rounded-full bg-[#0C0E14] [html[data-theme='light']_&]:bg-white hover:bg-white/[0.08] [html[data-theme='light']_&]:hover:bg-slate-100 border border-white/10 [html[data-theme='light']_&]:border-slate-200 text-slate-200 [html[data-theme='light']_&]:text-slate-700 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors text-xs cursor-pointer select-none"
                     title="Sao chép liên kết tài liệu"
                     aria-label="Sao chép liên kết tài liệu"
                   >
                     {copiedLink ? (
                       <>
-                        <Check size={13} className="text-emerald-400" />
-                        <span className="text-emerald-400">
+                        <Check size={14} className="text-white [html[data-theme='light']_&]:text-slate-900" />
+                        <span className="text-white [html[data-theme='light']_&]:text-slate-900 font-medium">
                           {activeLang === 'vi' ? 'Đã chép link' : 'Copied link'}
                         </span>
                       </>
                     ) : (
                       <>
-                        <Link2 size={13} />
+                        <Link2 size={14} />
                         <span>{activeLang === 'vi' ? 'Sao chép link' : 'Copy link'}</span>
                       </>
                     )}
                   </button>
                 </div>
               </header>
+
+              {/* Iris ZPD 30-Second Quick Orientation Banner (Monochrome Obsidian + 16px) */}
+              <div className="mb-8 rounded-2xl bg-[#0C0E14] [html[data-theme='light']_&]:bg-slate-50 p-6 sm:p-7 flex flex-col sm:flex-row sm:items-center justify-between gap-5">
+                <div className="space-y-1.5 text-left">
+                  <div className="text-xs font-mono font-semibold uppercase tracking-widest text-slate-400 [html[data-theme='light']_&]:text-slate-600">
+                    {activeLang === 'vi' ? 'LỘ TRÌNH ĐỌC NHANH · ZPD' : 'QUICK ORIENTATION · ZPD'}
+                  </div>
+                  <p className="text-base text-white [html[data-theme='light']_&]:text-slate-900 m-0 leading-[1.65]">
+                    {activeLang === 'vi'
+                      ? `Mục tiêu "${activeRawDoc.title}": nắm ý chính trong ~${readingTime} phút mà không cần nhớ toàn bộ lệnh nâng cao ngay.`
+                      : `Goal for "${activeRawDoc.title}": get practical value in ~${readingTime} min before diving into low-level specs.`}
+                  </p>
+                </div>
+                {activeRawDoc.id !== 'cai-dat' && (
+                  <button
+                    type="button"
+                    onClick={() => selectDoc('cai-dat')}
+                    className="shrink-0 px-5 py-2.5 min-h-[48px] rounded-full bg-white text-black hover:bg-slate-200 [html[data-theme='light']_&]:bg-slate-900 [html[data-theme='light']_&]:text-white [html[data-theme='light']_&]:hover:bg-slate-800 text-sm font-sans font-medium transition-colors cursor-pointer"
+                  >
+                    {activeLang === 'vi' ? 'Cài đặt 3 phút →' : '3-Min Install →'}
+                  </button>
+                )}
+              </div>
 
               {/* Article Content Rendered via MarkdownRenderer */}
               <div itemProp="articleBody" onClick={handleArticleClick}>
@@ -934,18 +957,18 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
                 />
               </div>
 
-              {/* Enterprise Helpful Feedback Widget */}
-              <div className="mt-12 p-5 rounded-lg bg-white/[0.02] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              {/* Quiet Luxury Obsidian Helpful Feedback Widget */}
+              <div className="mt-12 p-6 sm:p-7 rounded-2xl bg-[#0C0E14] [html[data-theme='light']_&]:bg-slate-50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
                 <div className="space-y-1">
-                  <div className="text-xs font-semibold text-white flex items-center gap-2">
-                    <MessageSquare size={14} className="text-white" />
+                  <div className="text-base font-medium text-white [html[data-theme='light']_&]:text-slate-900 flex items-center gap-2">
+                    <MessageSquare size={16} className="text-white [html[data-theme='light']_&]:text-slate-900 shrink-0" />
                     <span>
                       {activeLang === 'vi'
                         ? 'Tài liệu này có giải đáp được thắc mắc của bạn không?'
                         : 'Was this page helpful?'}
                     </span>
                   </div>
-                  <p className="text-[11px] text-slate-400">
+                  <p className="text-sm text-slate-400 [html[data-theme='light']_&]:text-slate-600 m-0 leading-relaxed">
                     {activeLang === 'vi'
                       ? 'Phản hồi của bạn giúp chúng tôi cải thiện chất lượng tài liệu hệ sinh thái Aevum OS.'
                       : 'Your feedback helps improve our engineering documentation.'}
@@ -953,7 +976,7 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
                 </div>
 
                 {helpfulFeedback ? (
-                  <div className="flex items-center gap-2 px-3 py-1.5 rounded bg-emerald-500/10 text-emerald-400 text-xs font-mono animate-fadeIn">
+                  <div className="flex items-center gap-2 min-h-[44px] px-4 py-2 rounded-full bg-white/[0.08] [html[data-theme='light']_&]:bg-slate-200 text-white [html[data-theme='light']_&]:text-slate-900 text-xs font-sans font-medium animate-fadeIn shrink-0">
                     <Check size={14} />
                     <span>
                       {activeLang === 'vi'
@@ -962,21 +985,21 @@ export const Docs = ({ activeLang = 'vi', onNavigate, initialDocId = null }) => 
                     </span>
                   </div>
                 ) : (
-                  <div className="flex items-center gap-2 shrink-0">
+                  <div className="flex items-center gap-2.5 shrink-0">
                     <button
                       onClick={() => setHelpfulFeedback('yes')}
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white/[0.04] hover:bg-white/[0.08] text-xs text-slate-300 hover:text-white transition-all cursor-pointer font-mono"
+                      className="flex items-center gap-2 min-h-[44px] px-5 rounded-full bg-white/[0.06] [html[data-theme='light']_&]:bg-white hover:bg-white/[0.14] [html[data-theme='light']_&]:hover:bg-slate-100 border border-white/10 [html[data-theme='light']_&]:border-slate-200 text-xs font-sans font-medium text-white [html[data-theme='light']_&]:text-slate-900 transition-colors cursor-pointer"
                       aria-label="Đánh giá tài liệu hữu ích"
                     >
-                      <ThumbsUp size={13} className="text-emerald-400" />
+                      <ThumbsUp size={14} className="text-white [html[data-theme='light']_&]:text-slate-900" />
                       <span>{activeLang === 'vi' ? 'Hữu ích' : 'Yes'}</span>
                     </button>
                     <button
                       onClick={() => setHelpfulFeedback('no')}
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white/[0.04] hover:bg-white/[0.08] text-xs text-slate-300 hover:text-white transition-all cursor-pointer font-mono"
+                      className="flex items-center gap-2 min-h-[44px] px-5 rounded-full bg-white/[0.04] [html[data-theme='light']_&]:bg-white hover:bg-white/[0.1] [html[data-theme='light']_&]:hover:bg-slate-100 border border-white/10 [html[data-theme='light']_&]:border-slate-200 text-xs font-sans font-medium text-slate-300 [html[data-theme='light']_&]:text-slate-700 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors cursor-pointer"
                       aria-label="Đánh giá tài liệu cần cải thiện"
                     >
-                      <ThumbsDown size={13} className="text-slate-400" />
+                      <ThumbsDown size={14} className="text-slate-400 [html[data-theme='light']_&]:text-slate-500" />
                       <span>{activeLang === 'vi' ? 'Chưa rõ' : 'No'}</span>
                     </button>
                   </div>

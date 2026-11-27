@@ -6,6 +6,31 @@
 
 const FALLBACK_RELEASES = [
   {
+    tag_name: 'v2.0.0-dev.17',
+    name: 'AevumOS v2.0.0-dev.17 (Dev Test)',
+    published_at: '2026-11-26T07:27:30Z',
+    created_at: '2026-11-26T07:27:30Z',
+    prerelease: true,
+    body: `# Aevum-OS v2.0.0-dev.17
+Bản thử nghiệm Dev Test tích hợp Neural Brain v3.0 (Symplectic SE-AdLIF Q15, e-prop, CLS Cascade & Hybrid RRF Hopfield), Pipeline Training Suy luận Đa bước và hệ sinh thái kỹ năng di động .aevx.
+
+### Tính năng mới (New Features)
+- **Neural Brain v3.0 (Waves 1-5)**: Symplectic-Euler Q15 SE-AdLIF với chặn ổn định Jury-Schur trên Rust WASM, O(1) 2-trace e-prop + iSTDP giữ định luật Dale, chuỗi Benna-Fusi CFL và Hybrid RRF Hopfield bảo toàn KV-cache Zone 1A.
+- **Pipeline Training Đa bước & Multi-Agent Pods**: Điều phối RAM/CPU tự động, thu hoạch cặp DPO sạch cho tác vụ tự sửa mã PoC.
+
+### Tệp cài đặt / Installation
+- Tải file cài đặt \`Aevum-OS-Setup-2.0.0-dev.17.exe\` hoặc bản macOS tương ứng bên dưới để kiểm thử nội bộ.`,
+    assets: [
+      {
+        id: 702000017,
+        name: 'Aevum-OS-Setup-2.0.0-dev.17.exe',
+        browser_download_url: 'https://github.com/hainguyen011/aevum-os-releases/releases/download/v2.0.0-dev.17/Aevum-OS-Setup-2.0.0-dev.17.exe',
+        content_type: 'application/x-msdownload',
+        size: 128530256
+      }
+    ]
+  },
+  {
     tag_name: 'v2.0.0-dev.11',
     name: 'AevumOS v2.0.0-dev.11 (Dev Test)',
     published_at: '2026-11-13T12:20:00Z',

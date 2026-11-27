@@ -188,11 +188,46 @@
   will-change: opacity, transform;
 }
 
+/* Slow, Silky Chat Mockup Entrances (Compositor-Safe GPU) */
+@keyframes chatBubbleGlideIn {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0) scale(0.985);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+.animate-chat-glide {
+  animation: chatBubbleGlideIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+  will-change: opacity, transform;
+}
+
+@keyframes chatFadeSlow {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 6px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-chat-fade {
+  animation: chatFadeSlow 0.72s cubic-bezier(0.22, 1, 0.36, 1) both;
+  will-change: opacity, transform;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-aurora-drift,
   .animate-particle-float,
   .animate-star-twinkle,
-  .animate-sparkle-pulse {
+  .animate-sparkle-pulse,
+  .animate-chat-glide,
+  .animate-chat-fade {
     animation: none !important;
   }
 }

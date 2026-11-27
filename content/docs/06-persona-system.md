@@ -78,7 +78,7 @@ Mỗi Persona trong Aevum OS được định nghĩa bởi một hồ sơ cấu 
     "Refactoring": 92,
     "Security": 88
   },
-  "preferredModel": "Claude 3.5 Sonnet / Gemini 2.5 Flash",
+  "preferredModel": "Dynamic Model Selector (Claude / Gemini / GPT)",
   "voiceTone": "Thân mật, tinh nghịch, tỉ mỉ, luôn xưng An và gọi Master"
 }
 ```

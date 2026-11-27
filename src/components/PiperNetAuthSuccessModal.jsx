@@ -102,18 +102,18 @@ export const PiperNetAuthSuccessModal = ({
   const tier = userProfile?.membership_tier || 'ENTERPRISE';
 
   return (
-    <div className="fixed inset-0 z-[99999] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-      {/* Modal Container: Flat, Minimalist, No Shadow */}
+    <div className="fixed inset-0 z-[99999] bg-black/75 [html[data-theme='light']_&]:bg-slate-900/45 backdrop-blur-sm flex items-center justify-center p-4 font-sans">
+      {/* Modal Container: Flat Obsidian Minimalist */}
       <div 
-        className="relative w-full max-w-[480px] bg-[#121316] border border-white/10 rounded-xl p-6 flex flex-col gap-5 text-white"
+        className="relative w-full max-w-[520px] bg-[#07090D] [html[data-theme='light']_&]:bg-white border border-white/10 [html[data-theme='light']_&]:border-slate-200 rounded-3xl p-6 sm:p-8 flex flex-col gap-5 text-white [html[data-theme='light']_&]:text-slate-900"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex flex-col gap-1.5">
-          <h3 className="text-xl font-semibold tracking-tight text-white">
+        <div className="flex flex-col gap-2">
+          <h3 className="text-xl sm:text-2xl font-semibold tracking-tight text-white [html[data-theme='light']_&]:text-slate-900 font-display">
             {isVi ? 'Xác thực thành công với PiperNet' : 'Successfully Connected to PiperNet'}
           </h3>
-          <p className="text-sm text-zinc-400 leading-relaxed">
+          <p className="text-base text-slate-300 [html[data-theme='light']_&]:text-slate-600 leading-[1.65]">
             {isVi 
               ? 'Tài khoản Aevum của bạn đã được kết nối với PiperNet Hub.'
               : 'Your Aevum account has been connected to PiperNet Hub.'}
@@ -121,9 +121,9 @@ export const PiperNetAuthSuccessModal = ({
         </div>
 
         {/* User Profile Summary Card: Flat Minimalist */}
-        <div className="bg-[#18191d] border border-white/5 rounded-lg p-3.5 flex items-center justify-between gap-3">
+        <div className="bg-[#0C0E14] [html[data-theme='light']_&]:bg-slate-50 border border-white/10 [html[data-theme='light']_&]:border-slate-200 rounded-2xl p-4 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3 min-w-0">
-            <div className="w-10 h-10 rounded-full bg-zinc-800 text-xs font-semibold flex items-center justify-center text-white overflow-hidden flex-shrink-0">
+            <div className="w-11 h-11 rounded-xl bg-white/10 [html[data-theme='light']_&]:bg-slate-900 text-xs font-semibold font-mono flex items-center justify-center text-white overflow-hidden flex-shrink-0">
               {user?.user_metadata?.avatar_url ? (
                 <img 
                   src={user.user_metadata.avatar_url} 
@@ -138,24 +138,24 @@ export const PiperNetAuthSuccessModal = ({
               )}
             </div>
             <div className="flex flex-col min-w-0">
-              <span className="text-sm font-medium text-white truncate">{displayName}</span>
-              <span className="text-xs text-zinc-400 truncate">{displayEmail}</span>
+              <span className="text-base font-medium text-white [html[data-theme='light']_&]:text-slate-900 truncate">{displayName}</span>
+              <span className="text-xs sm:text-sm font-mono text-slate-400 [html[data-theme='light']_&]:text-slate-600 truncate">{displayEmail}</span>
             </div>
           </div>
 
           <div className="flex-shrink-0">
-            <span className="text-xs text-zinc-400 border border-white/10 px-2.5 py-1 rounded bg-white/[0.02]">
+            <span className="text-xs font-mono text-white [html[data-theme='light']_&]:text-slate-900 border border-white/15 [html[data-theme='light']_&]:border-slate-300 px-3 py-1 rounded-full bg-white/[0.04] [html[data-theme='light']_&]:bg-white">
               {getTierDisplay(tier)}
             </span>
           </div>
         </div>
 
-        {/* Action Buttons: Clean Minimalist, Zero Glow */}
-        <div className="flex items-center justify-end gap-3 pt-2">
+        {/* Action Buttons: Clean Minimalist Pills */}
+        <div className="flex items-center justify-end gap-3 pt-1">
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 rounded-lg text-sm text-zinc-400 hover:text-white transition-colors"
+            className="min-h-[48px] px-5 py-3 rounded-full text-sm font-medium text-slate-300 hover:text-white [html[data-theme='light']_&]:text-slate-600 [html[data-theme='light']_&]:hover:text-slate-900 hover:bg-white/[0.06] [html[data-theme='light']_&]:hover:bg-slate-100 transition-colors cursor-pointer"
           >
             {isVi ? 'Đóng' : 'Close'}
           </button>
@@ -163,7 +163,7 @@ export const PiperNetAuthSuccessModal = ({
           <button
             type="button"
             onClick={handleReturnToHub}
-            className="px-5 py-2 rounded-lg text-sm font-semibold bg-white text-black hover:bg-zinc-200 transition-colors"
+            className="min-h-[48px] px-6 py-3 rounded-full text-sm font-semibold bg-white text-slate-950 hover:bg-slate-200 [html[data-theme='light']_&]:bg-slate-900 [html[data-theme='light']_&]:text-white [html[data-theme='light']_&]:hover:bg-black transition-colors cursor-pointer"
           >
             {isVi ? 'Quay lại PiperNet' : 'Return to PiperNet'}
           </button>

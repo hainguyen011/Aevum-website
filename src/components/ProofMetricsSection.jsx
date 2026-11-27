@@ -52,7 +52,7 @@ const TypoAnimatedNumber = ({ value, suffix = '', decimals = 0, isVisible }) => 
       onMouseEnter={() => startAnimation()}
       className="flex items-baseline gap-1 select-none cursor-default group/num"
     >
-      <span className="text-6xl sm:text-7xl lg:text-8xl font-bold font-sans text-white [html[data-theme='light']_&]:text-slate-950 tracking-tighter leading-none tabular-nums transition-colors duration-300 group-hover/num:text-amber-200/90 [html[data-theme='light']_&]:group-hover/num:text-blue-600">
+      <span className="text-6xl sm:text-7xl lg:text-8xl font-bold font-sans text-white [html[data-theme='light']_&]:text-slate-950 tracking-tighter leading-none tabular-nums transition-colors duration-300 group-hover/num:text-slate-200 [html[data-theme='light']_&]:group-hover/num:text-slate-800">
         {formatted}
       </span>
       {suffix && (
@@ -86,128 +86,82 @@ export const ProofMetricsSection = ({ onNavigate, activeLang = 'vi' }) => {
     return () => observer.disconnect();
   }, []);
 
-  // ── 6 LỢI ÍCH CỐT LÕI: XOAY QUANH CON NGƯỜI & CHẤT LƯỢNG SẢN PHẨM ──
-  // Nhịp điệu Typographic Masonry đan xen: Stat-First và Narrative-First tạo sự phong phú, chặt chẽ
+  // 6 Core Measurable Outcomes: Concise & Human-Centered
   const benefits = [
-    // 1. STAT-FIRST: Tâm trí thảnh thơi & Ký ức sống
     {
       id: 'memory',
       layout: 'stat-first',
-      tag: isVi ? '01 • TÂM TRÍ THẢNH THƠI & BẢO TOÀN TRÍ NHỚ' : '01 • MENTAL CLARITY & LIVING MEMORY',
-      title: isVi
-        ? 'Hiểu việc sâu sắc. Giữ trọn sự thảnh thơi cho tâm trí.'
-        : 'Deep understanding. Total mental freedom.',
+      tag: isVi ? '01 • TRÍ NHỚ LIỀN MẠCH' : '01 • CONTINUOUS MEMORY',
+      title: isVi ? 'Hiểu dự án sâu. Giữ trọn sự thảnh thơi.' : 'Deep continuity. Calm focus.',
       desc: isVi
-        ? 'Ký ức dài hạn (Living Memory Graph) lưu giữ trọn vẹn bối cảnh và lý do đằng sau từng quyết định kiến trúc. Bạn không còn phải làm "thư viện sống" giải thích lại dự án sau mỗi kỳ nghỉ hay sau khi mở lại tab làm việc.'
-        : 'Living Memory Graph preserves 100% of architectural context across long sessions. Eliminates cognitive overload and AI context amnesia once and for all.',
+        ? 'Lưu nguyên lý do thiết kế và quy ước code qua nhiều tuần, giúp bạn không phải giải thích lại mỗi khi mở máy.'
+        : 'Preserves architectural decisions across weeks so you never repeat project context.',
       value: 99,
       suffix: '%',
       decimals: 0,
-      caption: isVi
-        ? 'Bối cảnh kỹ thuật được bảo tồn nguyên vẹn qua nhiều tuần'
-        : 'Context fidelity preserved across multi-week milestones',
-      actionText: isVi ? 'Khám phá kiến trúc bộ nhớ sống' : 'Explore Living Memory Graph',
+      caption: isVi ? 'Bối cảnh được bảo tồn qua nhiều tuần' : 'Context preserved across milestones',
+      actionText: isVi ? 'Xem kiến trúc trí nhớ' : 'Explore memory graph',
       actionTarget: 'docs'
     },
-    // 2. NARRATIVE-FIRST: Kỷ luật Plan-First
     {
       id: 'plan',
       layout: 'narrative-first',
-      tag: isVi ? '02 • KỶ LUẬT PLAN-FIRST' : '02 • PLAN-FIRST DISCIPLINE',
-      title: isVi
-        ? 'Tính toán kỹ lưỡng trước khi gõ dòng code đầu tiên.'
-        : 'Plan thoroughly before committing a single line.',
+      tag: isVi ? '02 • LÀM ĐÚNG NGAY TỪ ĐẦU' : '02 • PLAN BEFORE CODE',
+      title: isVi ? 'Vẽ rõ lộ trình trước khi viết mã.' : 'Clear blueprint before editing.',
       desc: isVi
-        ? 'Nguyên tắc Plan-First giúp AI tính toán cặn kẽ lộ trình thay đổi, tránh sửa lan man gây hỏng code thừa, giảm mạnh token lãng phí và triệt tiêu nợ kỹ thuật ngay từ đầu.'
-        : 'Plan-First protocols eliminate trial-and-error churn, preventing code drift and slashing wasted token consumption.',
+        ? 'Kiểm tra kỹ phạm vi ảnh hưởng trước lúc sửa file, cắt mạnh token thừa và tránh code chắp vá.'
+        : 'Audits change scope before touching files, cutting wasted inference tokens cleanly.',
       value: 66,
       suffix: '%',
       decimals: 0,
-      caption: isVi
-        ? 'Giảm lãng phí token và sai lệch mã nguồn'
-        : 'Reduction in token waste and code drift',
-      actionText: isVi ? 'Xem báo cáo đo kiểm hiệu năng' : 'Explore benchmark report',
-      actionTarget: 'explore'
+      caption: isVi ? 'Tiết kiệm chi phí token lãng phí' : 'Token waste reduced',
+      actionText: isVi ? 'Xem tài liệu Plan-First' : 'Explore Plan-First',
+      actionTarget: 'docs'
     },
-    // 3. STAT-FIRST: Bình an & An toàn hệ thống
     {
       id: 'guard',
       layout: 'stat-first',
-      tag: isVi ? '03 • AN TÂM SAU MỖI LẦN DEPLOY' : '03 • ZERO-TRUST PEACE OF MIND',
-      title: isVi
-        ? 'Ranh giới bất khả xâm phạm. Tuyệt đối không lo vỡ code.'
-        : 'Impenetrable boundaries. Sleep soundly after deploy.',
+      tag: isVi ? '03 • AN TOÀN TUYỆT ĐỐI' : '03 • ZERO-TRUST GUARD',
+      title: isVi ? 'Khóa chặt ranh giới tệp.' : 'Strict boundary safety.',
       desc: isVi
-        ? 'Chốt chặn Zero-Trust tự động khóa chặt phạm vi activeFiles. Mọi thay đổi ngoài dự kiến đều lập tức dừng lại yêu cầu bạn phê duyệt. Mã nguồn an toàn tuyệt đối như trong két sắt.'
-        : 'Zero-Trust boundary guard isolates activeFiles strictly. Unauthorized edits are intercepted in volatile RAM before touching host files.',
+        ? 'Mọi thay đổi chạy nháp trên RAM; chạm đúng tệp được phép và chờ bạn gật đầu trước khi lưu.'
+        : 'Edits stay bounded inside activeFiles and volatile RAM until explicitly approved.',
       value: 100,
       suffix: '%',
       decimals: 0,
-      caption: isVi
-        ? 'Ranh giới tệp được chốt chặn an toàn tuyệt đối'
-        : 'Files bounded with Zero-Trust active isolation',
-      actionText: isVi ? 'Tìm hiểu chốt chặn Zero-Trust' : 'Explore Zero-Trust Guard',
+      caption: isVi ? 'Phạm vi tệp được kiểm soát an toàn' : 'Active files protected',
+      actionText: isVi ? 'Tìm hiểu Sandbox' : 'Explore Sandbox',
       actionTarget: 'docs'
     },
-    // 4. NARRATIVE-FIRST: Biệt đội đa chuyên môn & Swarm
     {
       id: 'swarm',
       layout: 'narrative-first',
-      tag: isVi ? '04 • CỘNG SỰ ĐA CHUYÊN MÔN' : '04 • CROSS-DOMAIN SWARM ACCELERATION',
-      title: isVi
-        ? 'Biệt đội cộng sự số. Cùng bạn giải quyết bài toán lớn.'
-        : 'Autonomous agent squad. Conquering massive challenges.',
+      tag: isVi ? '04 • ĐỒNG HÀNH ĐA LUỒNG' : '04 • CONCURRENT SQUAD',
+      title: isVi ? 'Chia tải đồng thời nhiều chuyên gia.' : 'Parallel multi-role teamwork.',
       desc: isVi
-        ? 'Điều phối song song nhiều Persona: Kiến trúc sư dựng khung, Lập trình viên viết mã, QA rà soát biên giới và Nhà nghiên cứu lập luận chứng minh. Bạn chuyển hóa từ người gõ code đơn độc thành Tổng công trình sư điều hành hệ thống.'
-        : 'Concurrent multi-persona orchestration (Architect, Coder, QA, Researcher) collaborating over shared memory, compressing multi-day refactors into minutes.',
+        ? 'Từ thiết kế đến kiểm thử cùng chạy song song, rút ngắn công việc nhiều ngày xuống chỉ còn vài giờ.'
+        : 'Architecture, coding, and verification run together, compressing multi-day work smoothly.',
       value: 3.8,
       suffix: 'x',
       decimals: 1,
-      caption: isVi
-        ? 'Gia tốc hoàn thành tác vụ kỹ thuật đa luồng'
-        : 'Collaborative execution acceleration factor',
-      actionText: isVi ? 'Trải nghiệm Swarm Concurrency' : 'Explore Swarm Concurrency',
+      caption: isVi ? 'Tốc độ hoàn thành tác vụ thực tế' : 'Measured delivery speedup',
+      actionText: isVi ? 'Khám phá Học viện' : 'Explore Academy',
       actionTarget: 'explore'
     },
-    // 5. STAT-FIRST: Cân bằng cuộc sống & Giấc ngủ sâu
     {
       id: 'balance',
       layout: 'stat-first',
-      tag: isVi ? '05 • CÂN BẰNG CUỘC SỐNG' : '05 • BIO-HARMONY & ANTI-BURNOUT',
-      title: isVi
-        ? 'Công nghệ phát triển khi con người khỏe mạnh.'
-        : 'Technology thrives when humanity thrives.',
+      tag: isVi ? '05 • CÂN BẰNG CUỘC SỐNG' : '05 • WORK-LIFE HARMONY',
+      title: isVi ? 'Giữ sức khỏe bên cạnh năng suất.' : 'Healthier rhythm without burnout.',
       desc: isVi
-        ? 'Ủy quyền các tác vụ lặp lại và kiểm thử ngầm cho máy chạy xuyên đêm. Bạn ngủ đủ 8 tiếng, cuối tuần thảnh thơi bên gia đình mà dự án vẫn về đích xuất sắc. Kỹ sư minh mẫn tạo ra sản phẩm hoàn hảo.'
-        : 'Delegate repetitive workloads and nocturnal batch runs to autonomous agents. Sleep a full 8 hours and reclaim your weekends while projects land on time.',
+        ? 'Giao việc lặp lại và kiểm thử dài hơi cho cộng sự số xử lý gọn, giữ cho bạn thời gian nghỉ ngơi.'
+        : 'Hand repetitive checks and batch workflows to digital companions while reclaiming rest.',
       value: 8,
       suffix: 'h',
       decimals: 0,
-      caption: isVi
-        ? 'Giấc ngủ sâu mỗi ngày mà deadline vẫn trọn vẹn'
-        : 'Deep restorative sleep with 100% deadline success',
-      actionText: isVi ? 'Tìm hiểu triết lý Co-Evolution' : 'Explore Co-Evolution philosophy',
-      actionTarget: 'docs'
-    },
-    // 6. NARRATIVE-FIRST: Chất lượng trường tồn & Zero nợ kỹ thuật
-    {
-      id: 'craft',
-      layout: 'narrative-first',
-      tag: isVi ? '06 • CHẤT LƯỢNG TRƯỜNG TỒN' : '06 • ENDURING CRAFTSMANSHIP',
-      title: isVi
-        ? 'Sản phẩm tinh xảo, không mục nát theo thời gian.'
-        : 'Exquisite software, zero accumulated tech debt.',
-      desc: isVi
-        ? 'Sau mỗi milestone, hệ thống tự động chưng cất tri thức, đóng gói tài liệu lưu trữ và chuẩn hóa ranh giới O-DDD. Mã nguồn phát triển như sinh thể sống khỏe mạnh, không bị mục nát bởi nợ kỹ thuật.'
-        : 'Cellular architecture auto-distills reusable skills and purges dead abstractions, ensuring the codebase stays clean, pristine, and maintainable for decades.',
-      value: 0,
-      suffix: isVi ? ' nợ' : ' debt',
-      decimals: 0,
-      caption: isVi
-        ? 'Zero nợ kỹ thuật tồn đọng sau mỗi lần bàn giao'
-        : 'Zero technical debt left after project handoff',
-      actionText: isVi ? 'Khám phá kiến trúc O-DDD' : 'Explore O-DDD Architecture',
-      actionTarget: 'docs'
+      caption: isVi ? 'Ngủ đủ mỗi ngày mà tiến độ vẫn vững' : 'Restful sleep with steady releases',
+      actionText: isVi ? 'Triết lý sản phẩm' : 'Read product story',
+      actionTarget: 'about'
     }
   ];
 
@@ -215,51 +169,51 @@ export const ProofMetricsSection = ({ onNavigate, activeLang = 'vi' }) => {
     <section
       id="metrics"
       ref={sectionRef}
-      className="w-full py-24 sm:py-32 bg-[#0A0B0F] [html[data-theme='light']_&]:bg-[#FFFFFF] border-b border-white/[0.08] [html[data-theme='light']_&]:border-slate-200"
+      className="w-full py-14 sm:py-20 bg-[#0A0B0F] [html[data-theme='light']_&]:bg-[#FFFFFF]"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* ── TOP 2-COLUMN EDITORIAL HEADER ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start mb-16 sm:mb-20 text-left">
+        {/* Concise Editorial Header */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-end mb-10 sm:mb-12 text-left">
           <div className="lg:col-span-7">
-            <div className="text-xs font-mono tracking-widest text-slate-400 [html[data-theme='light']_&]:text-slate-500 uppercase select-none mb-3">
-              <span>{isVi ? 'GIÁ TRỊ THỰC TẾ • CON NGƯỜI & CHẤT LƯỢNG' : 'CORE VALUES • HUMAN & QUALITY'}</span>
+            <div className="text-xs font-mono tracking-widest text-slate-300 [html[data-theme='light']_&]:text-slate-600 uppercase select-none mb-2.5">
+              <span>{isVi ? 'HIỆU QUẢ ĐO LƯỜNG ĐƯỢC' : 'MEASURABLE OUTCOMES'}</span>
             </div>
 
-            <h2 className="text-3xl sm:text-5xl lg:text-5xl font-normal tracking-[-0.03em] text-white [html[data-theme='light']_&]:text-slate-900 leading-[1.12] font-sans">
+            <h2 className="text-3xl sm:text-5xl font-normal tracking-[-0.03em] text-white [html[data-theme='light']_&]:text-slate-900 leading-[1.12] font-sans">
               {isVi ? (
                 <>
-                  Tôn vinh con người.<br />
+                  Ít nhắc lại hơn.<br />
                   <span className="text-slate-300 [html[data-theme='light']_&]:text-slate-800">
-                    Nâng tầm chất lượng sản phẩm.
+                    Nhiều thời gian sống hơn.
                   </span>
                 </>
               ) : (
                 <>
-                  Empowering humanity.<br />
+                  Less context friction.<br />
                   <span className="text-slate-300 [html[data-theme='light']_&]:text-slate-800">
-                    Elevating product excellence.
+                    Higher software craftsmanship.
                   </span>
                 </>
               )}
             </h2>
           </div>
 
-          <div className="lg:col-span-5 pt-2">
-            <p className="text-base sm:text-lg text-slate-400 [html[data-theme='light']_&]:text-slate-600 leading-relaxed font-sans font-light">
+          <div className="lg:col-span-5">
+            <p className="text-base text-slate-300 [html[data-theme='light']_&]:text-slate-700 leading-[1.7] font-sans font-normal m-0">
               {isVi
-                ? 'Được đúc kết từ hàng trăm giờ nghiên cứu mã nguồn phức tạp và vận hành thực tế. Chúng tôi tin rằng công nghệ ưu việt nhất là công nghệ giải phóng sức lao động và mang lại cuộc sống hạnh phúc hơn cho con người.'
-                : 'Distilled from hundreds of hours researching mission-critical code. We believe the highest technology is one that liberates human creativity and fosters true living well-being.'}
+                ? 'Công nghệ tốt nhất là công nghệ âm thầm giảm tải cho bạn mỗi ngày mà vẫn bảo toàn chất lượng code.'
+                : 'The best technology quietly removes daily friction while keeping engineering quality uncompromisingly high.'}
             </p>
           </div>
         </div>
 
-        {/* ── SWISS TYPOGRAPHY EDITORIAL GRID (INHERITED FROM "DON'T BREAK THE GRID") ── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-x-8 lg:gap-x-12 gap-y-14 sm:gap-y-16 text-left items-start">
+        {/* ── UNIFIED SWISS MASONRY BENTO GRID (7+5 / 4+4+4 / 12) ── */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 sm:gap-5 text-left items-stretch">
 
           {/* ── ROW 1: THE ANCHOR DUO (7 COLS + 5 COLS = 12 COLS) ── */}
           {/* CARD 01: LIVING MEMORY GRAPH (7 COLS) */}
-          <div className="md:col-span-1 lg:col-span-7 bg-transparent border-0 p-0 flex flex-col justify-start space-y-3 group">
+          <div className="md:col-span-1 lg:col-span-7 rounded-3xl bg-[#0C0E14] [html[data-theme='light']_&]:bg-slate-50 p-6 sm:p-8 flex flex-col justify-between space-y-4 group transition-colors hover:bg-[#10131C] [html[data-theme='light']_&]:hover:bg-slate-100/80">
             <div className="space-y-1.5">
               <TypoAnimatedNumber
                 value={benefits[0].value}
@@ -273,17 +227,17 @@ export const ProofMetricsSection = ({ onNavigate, activeLang = 'vi' }) => {
             </div>
 
             <div className="space-y-2 pt-1">
-              <h3 className="text-2xl sm:text-3xl lg:text-[28px] font-semibold text-white [html[data-theme='light']_&]:text-slate-900 font-sans tracking-tight leading-snug group-hover:text-slate-100 [html[data-theme='light']_&]:group-hover:text-slate-950 transition-colors">
+              <h3 className="text-2xl sm:text-3xl lg:text-[28px] font-semibold text-white [html[data-theme='light']_&]:text-slate-900 font-sans tracking-tight leading-snug">
                 {benefits[0].title}
               </h3>
-              <p className="text-sm sm:text-base text-slate-400 [html[data-theme='light']_&]:text-slate-600 leading-relaxed font-sans font-normal max-w-2xl">
+              <p className="text-base text-slate-300 [html[data-theme='light']_&]:text-slate-700 leading-[1.7] font-sans font-normal max-w-2xl m-0">
                 {benefits[0].desc}
               </p>
             </div>
           </div>
 
           {/* CARD 02: PLAN-FIRST DISCIPLINE (5 COLS) */}
-          <div className="md:col-span-1 lg:col-span-5 bg-transparent border-0 p-0 flex flex-col justify-start space-y-3 group">
+          <div className="md:col-span-1 lg:col-span-5 rounded-3xl bg-[#0C0E14] [html[data-theme='light']_&]:bg-slate-50 p-6 sm:p-8 flex flex-col justify-between space-y-4 group transition-colors hover:bg-[#10131C] [html[data-theme='light']_&]:hover:bg-slate-100/80">
             <div className="space-y-1.5">
               <TypoAnimatedNumber
                 value={benefits[1].value}
@@ -297,10 +251,10 @@ export const ProofMetricsSection = ({ onNavigate, activeLang = 'vi' }) => {
             </div>
 
             <div className="space-y-2 pt-1">
-              <h3 className="text-2xl sm:text-3xl lg:text-[28px] font-semibold text-white [html[data-theme='light']_&]:text-slate-900 font-sans tracking-tight leading-snug group-hover:text-slate-100 [html[data-theme='light']_&]:group-hover:text-slate-950 transition-colors">
+              <h3 className="text-2xl sm:text-3xl lg:text-[28px] font-semibold text-white [html[data-theme='light']_&]:text-slate-900 font-sans tracking-tight leading-snug">
                 {benefits[1].title}
               </h3>
-              <p className="text-sm sm:text-base text-slate-400 [html[data-theme='light']_&]:text-slate-600 leading-relaxed font-sans font-normal">
+              <p className="text-base text-slate-300 [html[data-theme='light']_&]:text-slate-700 leading-[1.7] font-sans font-normal m-0">
                 {benefits[1].desc}
               </p>
             </div>
@@ -308,7 +262,7 @@ export const ProofMetricsSection = ({ onNavigate, activeLang = 'vi' }) => {
 
           {/* ── ROW 2: THE 3-PILLAR BASELINE GRID (4 COLS + 4 COLS + 4 COLS = 12 COLS) ── */}
           {/* CARD 03: ZERO-TRUST GUARD (4 COLS) */}
-          <div className="md:col-span-1 lg:col-span-4 bg-transparent border-0 p-0 flex flex-col justify-start space-y-3 group">
+          <div className="md:col-span-1 lg:col-span-4 rounded-2xl bg-[#0C0E14] [html[data-theme='light']_&]:bg-slate-50 p-6 sm:p-7 flex flex-col justify-between space-y-4 group transition-colors hover:bg-[#10131C] [html[data-theme='light']_&]:hover:bg-slate-100/80">
             <div className="space-y-1.5">
               <TypoAnimatedNumber
                 value={benefits[2].value}
@@ -322,17 +276,17 @@ export const ProofMetricsSection = ({ onNavigate, activeLang = 'vi' }) => {
             </div>
 
             <div className="space-y-2 pt-1">
-              <h3 className="text-xl sm:text-2xl font-semibold text-white [html[data-theme='light']_&]:text-slate-900 font-sans tracking-tight leading-snug group-hover:text-slate-100 [html[data-theme='light']_&]:group-hover:text-slate-950 transition-colors">
+              <h3 className="text-xl sm:text-2xl font-semibold text-white [html[data-theme='light']_&]:text-slate-900 font-sans tracking-tight leading-snug">
                 {benefits[2].title}
               </h3>
-              <p className="text-xs sm:text-sm text-slate-400 [html[data-theme='light']_&]:text-slate-600 leading-relaxed font-sans font-normal">
+              <p className="text-base text-slate-300 [html[data-theme='light']_&]:text-slate-700 leading-[1.7] font-sans font-normal m-0">
                 {benefits[2].desc}
               </p>
             </div>
           </div>
 
           {/* CARD 04: SWARM CONCURRENCY (4 COLS) */}
-          <div className="md:col-span-1 lg:col-span-4 bg-transparent border-0 p-0 flex flex-col justify-start space-y-3 group">
+          <div className="md:col-span-1 lg:col-span-4 rounded-2xl bg-[#0C0E14] [html[data-theme='light']_&]:bg-slate-50 p-6 sm:p-7 flex flex-col justify-between space-y-4 group transition-colors hover:bg-[#10131C] [html[data-theme='light']_&]:hover:bg-slate-100/80">
             <div className="space-y-1.5">
               <TypoAnimatedNumber
                 value={benefits[3].value}
@@ -346,17 +300,17 @@ export const ProofMetricsSection = ({ onNavigate, activeLang = 'vi' }) => {
             </div>
 
             <div className="space-y-2 pt-1">
-              <h3 className="text-xl sm:text-2xl font-semibold text-white [html[data-theme='light']_&]:text-slate-900 font-sans tracking-tight leading-snug group-hover:text-slate-100 [html[data-theme='light']_&]:group-hover:text-slate-950 transition-colors">
+              <h3 className="text-xl sm:text-2xl font-semibold text-white [html[data-theme='light']_&]:text-slate-900 font-sans tracking-tight leading-snug">
                 {benefits[3].title}
               </h3>
-              <p className="text-xs sm:text-sm text-slate-400 [html[data-theme='light']_&]:text-slate-600 leading-relaxed font-sans font-normal">
+              <p className="text-base text-slate-300 [html[data-theme='light']_&]:text-slate-700 leading-[1.7] font-sans font-normal m-0">
                 {benefits[3].desc}
               </p>
             </div>
           </div>
 
           {/* CARD 05: LIFE-WORK HARMONY (4 COLS) */}
-          <div className="md:col-span-1 lg:col-span-4 bg-transparent border-0 p-0 flex flex-col justify-start space-y-3 group">
+          <div className="md:col-span-1 lg:col-span-4 rounded-2xl bg-[#0C0E14] [html[data-theme='light']_&]:bg-slate-50 p-6 sm:p-7 flex flex-col justify-between space-y-4 group transition-colors hover:bg-[#10131C] [html[data-theme='light']_&]:hover:bg-slate-100/80">
             <div className="space-y-1.5">
               <TypoAnimatedNumber
                 value={benefits[4].value}
@@ -370,41 +324,12 @@ export const ProofMetricsSection = ({ onNavigate, activeLang = 'vi' }) => {
             </div>
 
             <div className="space-y-2 pt-1">
-              <h3 className="text-xl sm:text-2xl font-semibold text-white [html[data-theme='light']_&]:text-slate-900 font-sans tracking-tight leading-snug group-hover:text-slate-100 [html[data-theme='light']_&]:group-hover:text-slate-950 transition-colors">
+              <h3 className="text-xl sm:text-2xl font-semibold text-white [html[data-theme='light']_&]:text-slate-900 font-sans tracking-tight leading-snug">
                 {benefits[4].title}
               </h3>
-              <p className="text-xs sm:text-sm text-slate-400 [html[data-theme='light']_&]:text-slate-600 leading-relaxed font-sans font-normal">
+              <p className="text-base text-slate-300 [html[data-theme='light']_&]:text-slate-700 leading-[1.7] font-sans font-normal m-0">
                 {benefits[4].desc}
               </p>
-            </div>
-          </div>
-
-          {/* ── ROW 3: WIDESCREEN EDITORIAL CLOSER (SPAN 12 COLS) ── */}
-          {/* CARD 06: ENDURING CRAFTSMANSHIP & ZERO DEBT */}
-          <div className="md:col-span-2 lg:col-span-12 bg-transparent border-0 p-0 group">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start">
-              {/* Cột 1 (4 cols): Số liệu Animated 0 nợ */}
-              <div className="lg:col-span-4 space-y-1.5">
-                <TypoAnimatedNumber
-                  value={benefits[5].value}
-                  suffix={benefits[5].suffix}
-                  decimals={benefits[5].decimals}
-                  isVisible={isVisible}
-                />
-                <p className="text-xs sm:text-sm font-mono text-slate-400 [html[data-theme='light']_&]:text-slate-600 leading-snug">
-                  {benefits[5].caption}
-                </p>
-              </div>
-
-              {/* Cột 2 (8 cols): Tiêu đề & Diễn giải chi tiết */}
-              <div className="lg:col-span-8 space-y-2 pt-1">
-                <h3 className="text-2xl sm:text-3xl font-semibold text-white [html[data-theme='light']_&]:text-slate-900 font-sans tracking-tight leading-snug group-hover:text-slate-100 [html[data-theme='light']_&]:group-hover:text-slate-950 transition-colors">
-                  {benefits[5].title}
-                </h3>
-                <p className="text-sm sm:text-base text-slate-400 [html[data-theme='light']_&]:text-slate-600 leading-relaxed font-sans font-normal max-w-3xl">
-                  {benefits[5].desc}
-                </p>
-              </div>
             </div>
           </div>
 

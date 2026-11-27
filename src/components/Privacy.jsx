@@ -226,28 +226,28 @@ const renderBlock = (block, idx, isVi) => {
   switch (block.type) {
     case 'p':
       return (
-        <p key={idx} className="text-slate-300 text-sm leading-relaxed mb-4">
+        <p key={idx} className="text-slate-300 [html[data-theme='light']_&]:text-slate-700 text-base leading-[1.7] mb-4">
           {block.text}
         </p>
       );
     case 'meta':
       return (
-        <div key={idx} className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-[#161B22] border border-white/5 text-slate-400 font-mono text-[11px] my-3">
-          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+        <div key={idx} className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-[#161B22] [html[data-theme='light']_&]:bg-slate-100 border border-white/10 [html[data-theme='light']_&]:border-slate-200 text-slate-300 [html[data-theme='light']_&]:text-slate-700 font-mono text-xs my-3">
+          <span className="w-1.5 h-1.5 rounded-full bg-white [html[data-theme='light']_&]:bg-slate-700" />
           <span>{block.text}</span>
         </div>
       );
     case 'note':
       return (
-        <div key={idx} className="p-4 rounded-md border my-6 flex gap-3 bg-cyan-950/20 border-cyan-500/20 text-cyan-200">
+        <div key={idx} className="p-5 rounded-xl border my-6 flex gap-3.5 bg-white/[0.03] [html[data-theme='light']_&]:bg-slate-50 border-white/15 [html[data-theme='light']_&]:border-slate-200 text-white [html[data-theme='light']_&]:text-slate-900">
           <div className="pt-0.5 shrink-0">
-            <Terminal size={16} className="text-cyan-400" />
+            <Terminal size={17} className="text-white [html[data-theme='light']_&]:text-slate-900" />
           </div>
           <div>
-            <div className="font-mono text-xs font-bold uppercase tracking-wider mb-1">
+            <div className="font-mono text-xs font-bold uppercase tracking-wider mb-1 text-white [html[data-theme='light']_&]:text-slate-900">
               {isVi ? 'Lưu ý' : 'Note'}
             </div>
-            <div className="text-xs leading-relaxed text-slate-300">
+            <div className="text-base leading-[1.7] text-slate-200 [html[data-theme='light']_&]:text-slate-700">
               {block.text}
             </div>
           </div>
@@ -256,13 +256,13 @@ const renderBlock = (block, idx, isVi) => {
     case 'group':
       return (
         <div key={idx} className="my-5">
-          <div className="text-xs font-mono font-bold text-white uppercase tracking-wider mb-2 flex items-center gap-2">
-            <span className="w-1 h-2.5 bg-cyan-400 rounded-sm inline-block"></span>
+          <div className="text-xs font-mono font-bold text-white [html[data-theme='light']_&]:text-slate-900 uppercase tracking-wider mb-2.5 flex items-center gap-2">
+            <span className="w-1 h-2.5 bg-white [html[data-theme='light']_&]:bg-slate-900 rounded-sm inline-block"></span>
             {block.label}
           </div>
-          <ul className="list-disc pl-5 my-2 space-y-2 text-slate-300 text-sm">
+          <ul className="list-disc pl-5 my-2 space-y-2 text-slate-300 [html[data-theme='light']_&]:text-slate-700 text-base">
             {block.items.map((item, i) => (
-              <li key={i} className="leading-relaxed">
+              <li key={i} className="leading-[1.7]">
                 {item}
               </li>
             ))}
@@ -271,9 +271,9 @@ const renderBlock = (block, idx, isVi) => {
       );
     case 'list':
       return (
-        <ul key={idx} className="list-disc pl-5 my-4 space-y-2 text-slate-300 text-sm">
+        <ul key={idx} className="list-disc pl-5 my-4 space-y-2 text-slate-300 [html[data-theme='light']_&]:text-slate-700 text-base">
           {block.items.map((item, i) => (
-            <li key={i} className="leading-relaxed">
+            <li key={i} className="leading-[1.7]">
               {item}
             </li>
           ))}
@@ -281,8 +281,8 @@ const renderBlock = (block, idx, isVi) => {
       );
     case 'table':
       return (
-        <div key={idx} className="overflow-x-auto my-6 border border-white/10 rounded-lg">
-          <table className="w-full text-left text-xs border-collapse">
+        <div key={idx} className="overflow-x-auto my-6 border border-white/10 [html[data-theme='light']_&]:border-slate-200 rounded-lg">
+          <table className="w-full text-left text-sm border-collapse">
             <thead>
               <tr className="border-b border-white/10 bg-white/[0.03]">
                 <th className="px-4 py-3 font-mono font-bold text-white uppercase tracking-wider w-2/5">
@@ -296,10 +296,10 @@ const renderBlock = (block, idx, isVi) => {
             <tbody className="divide-y divide-white/5 font-sans">
               {block.rows.map(([name, desc], i) => (
                 <tr key={i} className="hover:bg-white/[0.02] transition-colors">
-                  <td className="px-4 py-3 font-mono font-semibold text-cyan-400 align-top">
+                  <td className="px-4 py-3 font-mono font-semibold text-white [html[data-theme='light']_&]:text-slate-900 align-top">
                     {name}
                   </td>
-                  <td className="px-4 py-3 text-slate-300 align-top leading-relaxed">
+                  <td className="px-4 py-3 text-slate-300 [html[data-theme='light']_&]:text-slate-700 align-top leading-relaxed">
                     {desc}
                   </td>
                 </tr>
@@ -310,8 +310,8 @@ const renderBlock = (block, idx, isVi) => {
       );
     case 'contact':
       return (
-        <div key={idx} className="overflow-x-auto my-6 border border-white/10 rounded-lg">
-          <table className="w-full text-left text-xs border-collapse">
+        <div key={idx} className="overflow-x-auto my-6 border border-white/10 [html[data-theme='light']_&]:border-slate-200 rounded-lg">
+          <table className="w-full text-left text-sm border-collapse">
             <tbody className="divide-y divide-white/5 font-sans">
               {block.lines.map(({ label, value, href }, i) => (
                 <tr key={i} className="hover:bg-white/[0.02] transition-colors">
@@ -320,7 +320,7 @@ const renderBlock = (block, idx, isVi) => {
                   </td>
                   <td className="px-4 py-3 text-slate-200 break-all leading-relaxed">
                     {href ? (
-                      <a href={href} className="text-cyan-400 hover:text-cyan-300 underline underline-offset-4">
+                      <a href={href} className="text-white hover:text-slate-300 [html[data-theme='light']_&]:text-slate-900 underline underline-offset-4">
                         {value}
                       </a>
                     ) : (
@@ -440,43 +440,43 @@ export const Privacy = ({ activeLang = 'vi' }) => {
               </button>
             </div>
 
-          {/* Scrollable Categories List */}
-          <div className="flex-1 overflow-y-auto p-6 space-y-6 no-scrollbar docs-drawer-nav-list" data-lenis-prevent>
-            {Object.keys(categories).map((catName) => (
-              <div key={catName} className="space-y-2">
-                <div className="text-[11px] font-bold text-slate-400 uppercase tracking-widest px-2 mb-3">
-                  {catName}
-                </div>
-                <ul className="space-y-1">
-                  {categories[catName].map((sec) => {
-                    const isActive = sec.id === activeId;
-                    return (
-                      <li key={sec.id}>
-                        <button
-                          onClick={() => scrollToSection(sec.id)}
-                          className={`w-full flex items-center justify-between text-left py-2 px-3 rounded text-xs font-medium border transition-all duration-150 ease-out group cursor-pointer ${isActive
-                            ? 'text-cyan-400 font-bold bg-cyan-500/10 border-cyan-500/30'
-                            : 'text-slate-400 border-transparent hover:text-white hover:bg-white/[0.02]'
-                            }`}
-                        >
-                          <span className="truncate">{sec.nav}</span>
-                          <ChevronRight
-                            size={12}
-                            className={`transition-transform duration-150 ${isActive ? 'translate-x-0.5 text-cyan-400' : 'opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 text-slate-600'
+            {/* Scrollable Categories List */}
+            <div className="flex-1 overflow-y-auto p-6 space-y-6 no-scrollbar docs-drawer-nav-list" data-lenis-prevent>
+              {Object.keys(categories).map((catName) => (
+                <div key={catName} className="space-y-2">
+                  <div className="text-[11px] font-bold text-slate-400 uppercase tracking-widest px-2 mb-3">
+                    {catName}
+                  </div>
+                  <ul className="space-y-1">
+                    {categories[catName].map((sec) => {
+                      const isActive = sec.id === activeId;
+                      return (
+                        <li key={sec.id}>
+                          <button
+                            onClick={() => scrollToSection(sec.id)}
+                            className={`w-full flex items-center justify-between text-left py-2 px-3 min-h-[44px] rounded text-sm font-medium border transition-colors duration-150 ease-out group cursor-pointer ${isActive
+                              ? 'text-white font-semibold bg-white/10 border-white/25 [html[data-theme="light"]_&]:text-slate-900 [html[data-theme="light"]_&]:bg-slate-100 [html[data-theme="light"]_&]:border-slate-300'
+                              : 'text-slate-400 border-transparent hover:text-white hover:bg-white/[0.02]'
                               }`}
-                          />
-                        </button>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            ))}
+                          >
+                            <span className="truncate">{sec.nav}</span>
+                            <ChevronRight
+                              size={14}
+                              className={`transition-transform duration-150 ${isActive ? 'translate-x-0.5 text-white [html[data-theme="light"]_&]:text-slate-900' : 'opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 text-slate-500'
+                                }`}
+                            />
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </div>,
-      document.body
-    )}
+        </div>,
+        document.body
+      )}
 
       {/* Desktop Left Sidebar (Docs UI style) */}
       <aside className="hidden lg:block w-64 border-r border-white/5 shrink-0">
@@ -484,7 +484,7 @@ export const Privacy = ({ activeLang = 'vi' }) => {
           <div className="space-y-6">
             {Object.keys(categories).map((catName) => (
               <div key={catName} className="space-y-2">
-                <div className="text-[11px] font-bold text-slate-400 uppercase tracking-widest px-2 mb-3">
+                <div className="text-xs font-bold text-slate-400 uppercase tracking-widest px-2 mb-3">
                   {catName}
                 </div>
                 <ul className="space-y-1">
@@ -494,22 +494,22 @@ export const Privacy = ({ activeLang = 'vi' }) => {
                       <li key={sec.id}>
                         <button
                           onClick={() => scrollToSection(sec.id)}
-                          className={`w-full flex items-center justify-between text-left py-1.5 px-2.5 rounded text-xs font-medium border transition-all duration-150 ease-out group cursor-pointer ${isActive
-                            ? 'text-cyan-400 font-bold bg-cyan-500/10 border-cyan-500/30'
+                          className={`w-full flex items-center justify-between text-left py-2 px-2.5 rounded text-sm font-medium border transition-colors duration-150 ease-out group cursor-pointer ${isActive
+                            ? 'text-white font-semibold bg-white/10 border-white/25 [html[data-theme="light"]_&]:text-slate-900 [html[data-theme="light"]_&]:bg-slate-100 [html[data-theme="light"]_&]:border-slate-300'
                             : 'text-slate-400 border-transparent hover:text-white hover:bg-white/[0.01]'
                             }`}
                         >
-                          <span className="truncate">{sec.nav}</span>
-                          <ChevronRight
-                            size={12}
-                            className={`transition-transform duration-150 ${isActive ? 'translate-x-0.5 text-cyan-400' : 'opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 text-slate-600'
-                              }`}
-                          />
-                        </button>
+                        <span className="truncate">{sec.nav}</span>
+                        <ChevronRight
+                          size={14}
+                          className={`transition-transform duration-150 ${isActive ? 'translate-x-0.5 text-white [html[data-theme="light"]_&]:text-slate-900' : 'opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 text-slate-500'
+                            }`}
+                        />
+                      </button>
                       </li>
-                    );
+                );
                   })}
-                </ul>
+              </ul>
               </div>
             ))}
           </div>
@@ -519,8 +519,7 @@ export const Privacy = ({ activeLang = 'vi' }) => {
       {/* Main View Wrapper */}
       <div
         onClick={() => sidebarOpen && setSidebarOpen(false)}
-        className={`flex-1 flex flex-col xl:flex-row justify-between w-full bg-[#07090D] ${sidebarOpen ? 'cursor-pointer' : ''
-          }`}
+        className={`flex-1 flex flex-col xl:flex-row justify-between w-full bg-[#07090D] [html[data-theme='light']_&]:bg-[#F8FAFC] ${sidebarOpen ? 'cursor-pointer' : ''}`}
       >
         {/* Mobile Sticky Top-Left Menu Icon Button */}
         <button
@@ -529,8 +528,7 @@ export const Privacy = ({ activeLang = 'vi' }) => {
             setSidebarOpen(true);
           }}
           onMouseEnter={() => setIsBtnVisible(true)}
-          className={`lg:hidden sticky top-[76px] ml-4 mt-4 z-30 p-2 rounded-lg bg-[#07090D]/90 backdrop-blur-md hover:bg-white/10 text-white border border-white/15 transition-all duration-500 cursor-pointer flex items-center justify-center shadow-lg active:scale-95 self-start ${isBtnVisible ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-30 scale-90 hover:opacity-100'
-            }`}
+          className={`lg:hidden sticky top-[76px] ml-4 mt-4 z-30 p-2 rounded-lg bg-[#07090D]/90 backdrop-blur-md hover:bg-white/10 text-white border border-white/15 transition-opacity duration-500 cursor-pointer flex items-center justify-center shadow-lg active:scale-95 self-start ${isBtnVisible ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-30 scale-90 hover:opacity-100'}`}
           aria-label="Toggle Menu"
         >
           <Menu size={18} className="text-white" />
@@ -540,28 +538,65 @@ export const Privacy = ({ activeLang = 'vi' }) => {
         <main className="flex-1 px-6 md:px-12 lg:px-16 py-10 max-w-3xl xl:max-w-4xl w-full relative min-h-[500px]">
           {/* Header */}
           <div className="mb-8">
-            <div className="inline-flex items-center gap-1.5 text-xs font-mono text-white mb-2 font-bold uppercase tracking-wider">
+            <div className="inline-flex items-center gap-1.5 text-xs font-mono text-white [html[data-theme='light']_&]:text-slate-900 mb-2 font-bold uppercase tracking-wider">
               <span>I2FLABS</span>
               <span className="text-slate-600">/</span>
               <span>AEVUM OS</span>
             </div>
-            <h1 className="text-3xl font-extrabold text-white tracking-tight mb-4 font-display">
+            <h1 className="text-3xl font-extrabold text-white [html[data-theme='light']_&]:text-slate-900 tracking-tight mb-4 font-display">
               {isVi ? 'Chính sách Bảo mật' : 'Privacy Policy'}
             </h1>
-            <p className="text-slate-300 text-sm leading-relaxed mb-6">
+            <p className="text-slate-300 [html[data-theme='light']_&]:text-slate-600 text-base leading-[1.7] mb-6">
               {isVi
                 ? 'Tài liệu này giải thích rõ ràng cách I2FLabs thu thập, sử dụng và bảo vệ dữ liệu của bạn khi sử dụng Aevum OS và các dịch vụ trong hệ sinh thái.'
                 : 'This document clearly explains how I2FLabs collects, uses, and protects your data when using Aevum OS and ecosystem services.'}
             </p>
-            <hr className="border-t border-white/5 my-8" />
-          </div>
+
+{/* Iris CX Summary Cards — 10-second human reassurance before legal legalese */ }
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 mb-6">
+              {[
+                {
+                  tag: '01 • LOCAL-FIRST',
+                  title: isVi ? 'Mã nguồn ở máy bạn' : 'Code stays on your disk',
+                  desc: isVi ? 'Bộ nhớ dự án & đồ thị tri thức lưu cục bộ, không tải lén mã nguồn.' : 'Project graphs & context stay local with zero covert source upload.'
+                },
+                {
+                  tag: '02 • ZERO TRAINING',
+                  title: isVi ? 'Không dùng để train AI' : 'Zero public AI training',
+                  desc: isVi ? 'Cam kết tuyệt đối không dùng code hay prompt của bạn huấn luyện LLM.' : 'Strict non-training pledge: never used to train foundation models.'
+                },
+                {
+                  tag: '03 • FULL CONTROL',
+                  title: isVi ? 'Toàn quyền xuất & xóa' : 'Export or delete anytime',
+                  desc: isVi ? 'Xuất toàn bộ dữ liệu hoặc xóa sạch tài khoản bất kỳ lúc nào.' : 'Full portability and permanent deletion under Decree 13 & GDPR.'
+                }
+              ].map((card) => (
+                <div
+                  key={card.tag}
+                  className="rounded-xl p-5 bg-[#0C0E14] [html[data-theme='light']_&]:bg-white border border-white/10 [html[data-theme='light']_&]:border-slate-200 space-y-2"
+                >
+                  <div className="text-xs font-mono font-bold tracking-widest text-slate-300 [html[data-theme='light']_&]:text-slate-600 uppercase">
+                    {card.tag}
+                  </div>
+                  <div className="text-base font-semibold text-white [html[data-theme='light']_&]:text-slate-900 font-sans">
+                    {card.title}
+                  </div>
+                  <p className="text-base text-slate-300 [html[data-theme='light']_&]:text-slate-600 leading-[1.65] m-0">
+                    {card.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <hr className="border-t border-white/5 [html[data-theme='light']_&]:border-slate-200 my-8" />
+          </div >
 
           {/* Sections List */}
           <div className="space-y-12">
             {sections.map((section) => (
               <section key={section.id} id={section.id} className="scroll-mt-24">
-                <h2 className="text-xl font-bold text-white tracking-tight mb-4 font-display flex items-center gap-2">
-                  <span className="w-1.5 h-3 bg-cyan-500 rounded-sm"></span>
+                <h2 className="text-xl font-bold text-white [html[data-theme='light']_&]:text-slate-900 tracking-tight mb-4 font-display flex items-center gap-2.5">
+                  <span className="w-1.5 h-3.5 bg-white/70 [html[data-theme='light']_&]:bg-slate-800 rounded-sm"></span>
                   {section.title}
                 </h2>
                 <div>
@@ -574,23 +609,23 @@ export const Privacy = ({ activeLang = 'vi' }) => {
       </div>
 
       {/* Right Sidebar: Mini Index / On This Page (TOC) */}
-      <aside className="hidden xl:block w-56 relative border-l border-white/5">
+      <aside className="hidden xl:block w-56 relative border-l border-white/5 [html[data-theme='light']_&]:border-slate-200">
         <div className="sticky top-[73px] py-8">
           {/* Label */}
-          <div className="text-[9px] font-mono font-bold text-slate-600 uppercase tracking-widest px-4 py-3 border-b border-white/5">
+          <div className="text-xs font-mono font-bold text-slate-400 [html[data-theme='light']_&]:text-slate-600 uppercase tracking-widest px-4 py-3 border-b border-white/5 [html[data-theme='light']_&]:border-slate-200">
             {isVi ? 'TRONG TRANG NÀY' : 'ON THIS PAGE'}
           </div>
 
-          <ul className="text-xs">
+          <ul className="text-xs sm:text-sm">
             {sections.map((s) => {
               const isActive = s.id === activeId;
               return (
-                <li key={s.id} className={`border-b border-white/5 ${isActive ? 'bg-white/[0.05]' : ''}`}>
+                <li key={s.id} className={`border-b border-white/5 [html[data-theme='light']_&]:border-slate-200 ${isActive ? 'bg-white/[0.05] [html[data-theme="light"]_&]:bg-slate-100' : ''}`}>
                   <button
                     onClick={() => scrollToSection(s.id)}
                     className={`w-full text-left px-4 py-2.5 transition-colors flex items-start gap-2 group cursor-pointer ${isActive
-                      ? 'text-white font-bold'
-                      : 'text-slate-500 hover:text-white hover:bg-white/[0.03]'
+                      ? 'text-white [html[data-theme="light"]_&]:text-slate-900 font-bold'
+                      : 'text-slate-400 [html[data-theme="light"]_&]:text-slate-600 hover:text-white [html[data-theme="light"]_&]:hover:text-slate-900 hover:bg-white/[0.03]'
                       }`}
                   >
                     <span className="line-clamp-2 leading-snug">{s.title}</span>

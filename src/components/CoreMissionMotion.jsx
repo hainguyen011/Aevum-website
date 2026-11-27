@@ -482,9 +482,14 @@ export const CoreMissionMotion = () => {
       });
     };
 
+    const reducedMotionQuery =
+      typeof window.matchMedia === 'function'
+        ? window.matchMedia('(prefers-reduced-motion: reduce)')
+        : null;
+
     // ── VÒNG LẶP ĐIỀU PHỐI TỐI ƯU HIỆU NĂNG ──
     const loop = () => {
-      if (!isVisibleRef.current) {
+      if (!isVisibleRef.current || document.hidden || reducedMotionQuery?.matches) {
         animFrameId.current = null;
         return;
       }
@@ -505,7 +510,11 @@ export const CoreMissionMotion = () => {
       if (forceReset) {
         tickRef.current = 0;
       }
-      if (!animFrameId.current && isVisibleRef.current) {
+      if (reducedMotionQuery?.matches) {
+        renderFrame(420);
+        return;
+      }
+      if (!animFrameId.current && isVisibleRef.current && !document.hidden) {
         animFrameId.current = requestAnimationFrame(loop);
       }
     };
@@ -520,14 +529,14 @@ export const CoreMissionMotion = () => {
     // ── XỬ LÝ RESIZE (ĐẶT SAU KHI RENDERFRAME ĐÃ ĐƯỢC KHỞI TẠO) ──
     const handleResize = () => {
       if (!canvas.parentElement) return;
-      const dpr = window.devicePixelRatio || 1;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
       width = canvas.parentElement.clientWidth;
       height = width < 640 ? 210 : 260;
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
       canvas.style.width = `${width}px`;
       canvas.style.height = `${height}px`;
-      ctx.scale(dpr, dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
       // Nếu đang tạm dừng ở khung hình cuối, vẽ lại ngay 1 frame tĩnh để canvas sắc nét
       if (!animFrameId.current) {
@@ -536,7 +545,16 @@ export const CoreMissionMotion = () => {
     };
 
     handleResize();
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize, { passive: true });
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        stopAnimation();
+      } else if (isVisibleRef.current && tickRef.current < 420) {
+        startAnimation(false);
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     // ── INTERSECTION OBSERVER: CHỈ PHÁT KHI SCROLL QUA SECTION ──
     const observer = new IntersectionObserver(
@@ -567,6 +585,7 @@ export const CoreMissionMotion = () => {
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       canvas.removeEventListener('click', handleCanvasClick);
       observer.disconnect();
       stopAnimation();

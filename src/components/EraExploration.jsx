@@ -17,18 +17,17 @@ import {
   Check,
   Search,
   ArrowUp,
-  ArrowLeft,
   CheckCircle2,
   Circle,
   LayoutGrid,
   AlignLeft,
   Type,
   Clock,
-  BookOpen,
   Loader2
 } from 'lucide-react';
 
 export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId = null }) => {
+  const isVi = activeLang === 'vi';
   const [latestVersion, setLatestVersion] = useState(SITE_CONSTANTS.AEVUM_VERSION);
 
   useEffect(() => {
@@ -140,6 +139,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
 
   // Filter & Search states
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedTrack, setSelectedTrack] = useState('all'); // 'all' | 'essentials' | 'companions' | 'architecture'
   const [searchQuery, setSearchQuery] = useState('');
   const [sidebarFilterQuery, setSidebarFilterQuery] = useState('');
   const [copiedLink, setCopiedLink] = useState(false);
@@ -405,9 +405,38 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
     return () => window.removeEventListener('scroll', updateProgress);
   }, [activeLessonId, viewMode]);
 
+  const GUIDED_TRACKS = useMemo(() => ([
+    {
+      id: 'essentials',
+      tag: isVi ? 'LỘ TRÌNH 01 · PHỔ THÔNG' : 'TRACK 01 · ESSENTIALS',
+      title: isVi ? 'AI Cho Công Việc & Đời Sống' : 'Everyday AI & Productivity',
+      desc: isVi ? 'Dành cho mọi người — hiểu AI tự nhiên, không cần biết lập trình.' : 'Intuitive foundations & practical work habits — zero coding needed.',
+      modules: ['universal-foundations', 'real-world-applications']
+    },
+    {
+      id: 'companions',
+      tag: isVi ? 'LỘ TRÌNH 02 · CỘNG SỰ' : 'TRACK 02 · COMPANIONS',
+      title: isVi ? 'Làm Việc Cùng Tác Nhân AI' : 'Agentic Workflows & MCP',
+      desc: isVi ? 'Chuyển từ hỏi-đáp đơn lẻ sang quy trình cộng sự nhớ bối cảnh.' : 'Move from one-off prompts to context-aware digital collaborators.',
+      modules: ['agentic-era', 'context-mcp']
+    },
+    {
+      id: 'architecture',
+      tag: isVi ? 'LỘ TRÌNH 03 · KIẾN TRÚC' : 'TRACK 03 · SYSTEMS',
+      title: isVi ? 'Trí Nhớ Kép & Đội Ngũ Đa Agent' : 'Neural Brain & Multi-Agent',
+      desc: isVi ? 'Nghiên cứu sâu Spiking Neural Recall, Blackboard và Internet of Agents.' : 'Deep dive into cognitive memory, coordination hubs, and agent protocols.',
+      modules: ['cognitive-memory', 'squad-blackboard']
+    }
+  ]), [isVi]);
+
   // Filtered lessons for card grid
   const filteredLessons = useMemo(() => {
+    const activeTrackModules = selectedTrack === 'all'
+      ? null
+      : (GUIDED_TRACKS.find((t) => t.id === selectedTrack)?.modules || null);
+
     return allLessons.filter((lesson) => {
+      const matchesTrack = !activeTrackModules || activeTrackModules.includes(lesson.moduleId);
       const matchesCategory = selectedCategory === 'all' || lesson.moduleId === selectedCategory;
       const query = searchQuery.trim().toLowerCase();
       const matchesSearch =
@@ -415,9 +444,9 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
         lesson.title.toLowerCase().includes(query) ||
         lesson.summary.toLowerCase().includes(query) ||
         lesson.targetAudience?.toLowerCase().includes(query);
-      return matchesCategory && matchesSearch;
+      return matchesTrack && matchesCategory && matchesSearch;
     });
-  }, [allLessons, selectedCategory, searchQuery]);
+  }, [allLessons, selectedCategory, selectedTrack, GUIDED_TRACKS, searchQuery]);
 
   // Scroll-to-loading (Progressive Infinite Scroll)
   const INITIAL_BATCH = 9;
@@ -426,11 +455,11 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const loadMoreSentinelRef = useRef(null);
 
-  // Reset pagination when category or search query changes
+  // Reset pagination when category, track, or search query changes
   useEffect(() => {
     setVisibleCount(INITIAL_BATCH);
     setIsLoadingMore(false);
-  }, [selectedCategory, searchQuery]);
+  }, [selectedCategory, selectedTrack, searchQuery]);
 
   // Progressive sliced lessons for performance and infinite scroll
   const visibleLessons = useMemo(() => {
@@ -683,8 +712,8 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                   className="flex items-center gap-0.5 overflow-x-auto no-scrollbar py-0.5 text-xs scroll-smooth flex-1 min-w-0"
                 >
                   <button
-                    onClick={() => setSelectedCategory('all')}
-                    className={`px-2.5 py-1 rounded text-xs transition-colors whitespace-nowrap cursor-pointer ${selectedCategory === 'all'
+                    onClick={() => { setSelectedTrack('all'); setSelectedCategory('all'); }}
+                    className={`px-2.5 py-1 rounded text-xs transition-colors whitespace-nowrap cursor-pointer ${selectedCategory === 'all' && selectedTrack === 'all'
                       ? 'text-white [html[data-theme="light"]_&]:text-slate-900 bg-white/10 [html[data-theme="light"]_&]:bg-slate-200/70'
                       : 'text-slate-400 [html[data-theme="light"]_&]:text-slate-600 hover:text-white [html[data-theme="light"]_&]:hover:text-slate-900'
                       }`}
@@ -694,7 +723,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                   {curriculumModules.map((mod) => (
                     <button
                       key={mod.id}
-                      onClick={() => setSelectedCategory(mod.id)}
+                      onClick={() => { setSelectedTrack('all'); setSelectedCategory(mod.id); }}
                       className={`px-2.5 py-1 rounded text-xs transition-colors whitespace-nowrap cursor-pointer ${selectedCategory === mod.id
                         ? 'text-white [html[data-theme="light"]_&]:text-slate-900 bg-white/10 [html[data-theme="light"]_&]:bg-slate-200/70'
                         : 'text-slate-400 [html[data-theme="light"]_&]:text-slate-600 hover:text-white [html[data-theme="light"]_&]:hover:text-slate-900'
@@ -737,8 +766,47 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
             </div>
           </div>
 
+          {/* Iris ZPD: 3 Guided Learning Tracks (Choice-Overload Relief) */}
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-7 pb-1">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 text-left">
+              {GUIDED_TRACKS.map((track) => {
+                const active = selectedTrack === track.id;
+                const trackCount = allLessons.filter((l) => track.modules.includes(l.moduleId)).length;
+                return (
+                  <button
+                    key={track.id}
+                    type="button"
+                    onClick={() => {
+                      setSelectedCategory('all');
+                      setSelectedTrack((prev) => (prev === track.id ? 'all' : track.id));
+                    }}
+                    className={`min-h-[48px] p-4 sm:p-5 rounded-2xl border text-left transition-colors cursor-pointer ${active
+                      ? 'bg-white/[0.06] [html[data-theme="light"]_&]:bg-slate-100 border-white/30 [html[data-theme="light"]_&]:border-slate-500'
+                      : 'bg-[#0C0E14]/70 [html[data-theme="light"]_&]:bg-white border-white/[0.08] [html[data-theme="light"]_&]:border-slate-200 hover:border-white/20 [html[data-theme="light"]_&]:hover:border-slate-300'
+                      }`}
+                  >
+                    <div className="flex items-center justify-between gap-2 mb-1.5">
+                      <span className="text-xs font-mono tracking-widest text-slate-300 [html[data-theme='light']_&]:text-slate-700 uppercase">
+                        {track.tag}
+                      </span>
+                      <span className="text-xs font-mono text-slate-400">
+                        {trackCount} {isVi ? 'bài' : 'lessons'}
+                      </span>
+                    </div>
+                    <div className="text-base font-medium text-white [html[data-theme='light']_&]:text-slate-900 font-display">
+                      {track.title}
+                    </div>
+                    <p className="text-base text-slate-300 [html[data-theme='light']_&]:text-slate-600 mt-1.5 m-0 leading-relaxed">
+                      {track.desc}
+                    </p>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
           {/* Cards Grid */}
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
             {filteredLessons.length === 0 ? (
               <div className="text-center py-16 text-slate-400 text-xs font-sans">
                 <p>{isVi ? 'Không tìm thấy bài học phù hợp.' : 'No lessons found.'}</p>
@@ -765,37 +833,37 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                         {/* ── 1. Grainy Gradient Atmosphere Layer ── */}
                         <ExploreCardAtmosphere category={lesson.category} />
 
-                        {/* ── 2. Top Specular Hairline Rim Light (Hero Banner Cyan Aura) ── */}
-                        <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/50 [html[data-theme='light']_&]:via-cyan-500/40 to-transparent pointer-events-none z-10" />
+                        {/* ── 2. Top Specular Hairline Rim Light ── */}
+                        <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/25 [html[data-theme='light']_&]:via-slate-300/60 to-transparent pointer-events-none z-10" />
 
                         {/* ── 3. Main Body Section with Rounded Bottom Border & Overflow Control ── */}
                         <div className="relative z-10 flex-1 p-6 pb-5 flex flex-col justify-between rounded-b-2xl border-b border-white/[0.08] [html[data-theme='light']_&]:border-slate-900/[0.08] bg-white/[0.015] [html[data-theme='light']_&]:bg-white/60 shadow-[0_2px_8px_rgba(0,0,0,0.02)] overflow-hidden">
                           <div>
                             {/* Category & Read Time — Google Sans Flex */}
-                            <div className="flex items-center justify-between text-[12px] font-sans font-medium text-slate-400 [html[data-theme='light']_&]:text-slate-500 mb-3">
+                            <div className="flex items-center justify-between text-xs font-sans font-medium text-slate-300 [html[data-theme='light']_&]:text-slate-600 mb-3">
                               <span className="truncate">{lesson.category}</span>
-                              <span className="shrink-0 text-slate-400/80 [html[data-theme='light']_&]:text-slate-400 text-[11.5px] ml-2">
+                              <span className="shrink-0 text-slate-400 [html[data-theme='light']_&]:text-slate-500 text-xs ml-2">
                                 {lesson.readTime}
                               </span>
                             </div>
 
-                            {/* Title — Google Sans Flex, Optical Sizing, Elegant 450-500 Weight */}
-                            <h3 className="text-[16.5px] sm:text-[17.5px] font-medium text-white [html[data-theme='light']_&]:text-slate-900 group-hover:text-cyan-200 [html[data-theme='light']_&]:group-hover:text-cyan-800 transition-colors leading-[1.38] line-clamp-2 font-display mb-2.5 tracking-[-0.01em]">
+                            {/* Title — Google Sans Flex, Optical Sizing */}
+                            <h3 className="text-[17px] sm:text-lg font-medium text-white [html[data-theme='light']_&]:text-slate-900 group-hover:text-slate-200 [html[data-theme='light']_&]:group-hover:text-black transition-colors leading-[1.38] line-clamp-2 font-display mb-2.5 tracking-[-0.01em]">
                               {lesson.title}
                             </h3>
 
-                            {/* Summary — Airy & Concise 2-Line Rhythm */}
-                            <p className="text-[13px] text-slate-400/90 [html[data-theme='light']_&]:text-slate-600 leading-relaxed line-clamp-2 font-sans font-normal">
+                            {/* Summary — Iris >= 16px Airy Concise Rhythm */}
+                            <p className="text-base text-slate-300 [html[data-theme='light']_&]:text-slate-600 leading-[1.65] line-clamp-2 font-sans font-normal">
                               {lesson.summary}
                             </p>
                           </div>
                         </div>
 
-                        {/* ── 4. Footer Dock Layer (Distinct Sub-Layer Surface with Overflow Control) ── */}
-                        <div className="relative z-10 px-6 py-3.5 bg-black/20 [html[data-theme='light']_&]:bg-slate-900/[0.025] flex items-center justify-between text-xs transition-colors rounded-b-2xl overflow-hidden">
+                        {/* ── 4. Footer Dock Layer ── */}
+                        <div className="relative z-10 px-6 py-3.5 bg-black/20 [html[data-theme='light']_&]:bg-slate-900/[0.025] flex items-center justify-between text-sm transition-colors rounded-b-2xl overflow-hidden">
                           {/* Author Name */}
                           <div className="flex items-center gap-2">
-                            <span className="text-[12px] font-sans font-medium text-slate-400 [html[data-theme='light']_&]:text-slate-600">
+                            <span className="text-xs font-sans font-medium text-slate-400 [html[data-theme='light']_&]:text-slate-600">
                               {lesson.author?.name || 'Aevum'}
                             </span>
                           </div>
@@ -803,14 +871,14 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                           {/* Status & CTA Action */}
                           <div className="flex items-center gap-1.5 shrink-0">
                             {isDone ? (
-                              <span className="inline-flex items-center gap-1.5 text-[12px] text-emerald-400 [html[data-theme='light']_&]:text-emerald-600 font-sans font-medium">
-                                <CheckCircle2 size={13} />
+                              <span className="inline-flex items-center gap-1.5 text-xs text-white [html[data-theme='light']_&]:text-slate-900 font-sans font-semibold">
+                                <CheckCircle2 size={14} />
                                 <span>{isVi ? 'Đã học' : 'Done'}</span>
                               </span>
                             ) : (
-                              <span className="inline-flex items-center gap-1 text-[12px] text-slate-400 [html[data-theme='light']_&]:text-slate-600 group-hover:text-white [html[data-theme='light']_&]:group-hover:text-slate-900 font-sans font-medium transition-colors">
+                              <span className="inline-flex items-center gap-1 text-xs text-slate-300 [html[data-theme='light']_&]:text-slate-600 group-hover:text-white [html[data-theme='light']_&]:group-hover:text-slate-900 font-sans font-medium transition-colors">
                                 <span>{isVi ? 'Khám phá' : 'Read'}</span>
-                                <ChevronRight size={13} className="group-hover:translate-x-0.5 transition-transform text-slate-400 group-hover:text-white [html[data-theme='light']_&]:group-hover:text-slate-900" />
+                                <ChevronRight size={14} className="group-hover:translate-x-0.5 transition-transform text-slate-400 group-hover:text-white [html[data-theme='light']_&]:group-hover:text-slate-900" />
                               </span>
                             )}
                           </div>
@@ -833,7 +901,7 @@ export const EraExploration = ({ activeLang = 'vi', onNavigate, initialLessonId 
                 <div ref={loadMoreSentinelRef} className="pt-8 pb-3 flex flex-col items-center justify-center min-h-[56px]">
                   {isLoadingMore && (
                     <div className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/[0.03] [html[data-theme='light']_&]:bg-slate-900/[0.04] border border-white/10 [html[data-theme='light']_&]:border-slate-200/80 backdrop-blur-md shadow-sm animate-in fade-in duration-200">
-                      <Loader2 size={13} className="text-cyan-400 animate-spin" />
+                      <Loader2 size={14} className="text-white [html[data-theme='light']_&]:text-slate-900 animate-spin" />
                       <span className="text-xs font-sans font-medium text-slate-300 [html[data-theme='light']_&]:text-slate-700">
                         {isVi ? 'Đang tải thêm bài học...' : 'Loading more lessons...'}
                       </span>

@@ -261,28 +261,28 @@ const renderBlock = (block, idx, isVi) => {
   switch (block.type) {
     case 'p':
       return (
-        <p key={idx} className="text-slate-300 text-sm leading-relaxed mb-4">
+        <p key={idx} className="text-slate-300 [html[data-theme='light']_&]:text-slate-700 text-base leading-[1.7] mb-4">
           {block.text}
         </p>
       );
     case 'meta':
       return (
-        <div key={idx} className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-[#161B22] border border-white/5 text-slate-400 font-mono text-[11px] my-3">
-          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+        <div key={idx} className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-[#161B22] [html[data-theme='light']_&]:bg-slate-100 border border-white/10 [html[data-theme='light']_&]:border-slate-200 text-slate-300 [html[data-theme='light']_&]:text-slate-700 font-mono text-xs my-3">
+          <span className="w-1.5 h-1.5 rounded-full bg-white [html[data-theme='light']_&]:bg-slate-700" />
           <span>{block.text}</span>
         </div>
       );
     case 'note':
       return (
-        <div key={idx} className="p-4 rounded-md border my-6 flex gap-3 bg-cyan-950/20 border-cyan-500/20 text-cyan-200">
+        <div key={idx} className="p-5 rounded-xl border my-6 flex gap-3.5 bg-white/[0.03] [html[data-theme='light']_&]:bg-slate-50 border-white/15 [html[data-theme='light']_&]:border-slate-200 text-white [html[data-theme='light']_&]:text-slate-900">
           <div className="pt-0.5 shrink-0">
-            <Terminal size={16} className="text-cyan-400" />
+            <Terminal size={17} className="text-white [html[data-theme='light']_&]:text-slate-900" />
           </div>
           <div>
-            <div className="font-mono text-xs font-bold uppercase tracking-wider mb-1">
+            <div className="font-mono text-xs font-bold uppercase tracking-wider mb-1 text-white [html[data-theme='light']_&]:text-slate-900">
               {isVi ? 'Lưu ý' : 'Note'}
             </div>
-            <div className="text-xs leading-relaxed text-slate-300">
+            <div className="text-base leading-[1.7] text-slate-200 [html[data-theme='light']_&]:text-slate-700">
               {block.text}
             </div>
           </div>
@@ -291,13 +291,13 @@ const renderBlock = (block, idx, isVi) => {
     case 'group':
       return (
         <div key={idx} className="my-5">
-          <div className="text-xs font-mono font-bold text-white uppercase tracking-wider mb-2 flex items-center gap-2">
-            <span className="w-1 h-2.5 bg-cyan-400 rounded-sm inline-block"></span>
+          <div className="text-xs font-mono font-bold text-white [html[data-theme='light']_&]:text-slate-900 uppercase tracking-wider mb-2.5 flex items-center gap-2">
+            <span className="w-1 h-2.5 bg-white [html[data-theme='light']_&]:bg-slate-900 rounded-sm inline-block"></span>
             {block.label}
           </div>
-          <ul className="list-disc pl-5 my-2 space-y-2 text-slate-300 text-sm">
+          <ul className="list-disc pl-5 my-2 space-y-2 text-slate-300 [html[data-theme='light']_&]:text-slate-700 text-base">
             {block.items.map((item, i) => (
-              <li key={i} className="leading-relaxed">
+              <li key={i} className="leading-[1.7]">
                 {item}
               </li>
             ))}
@@ -306,9 +306,9 @@ const renderBlock = (block, idx, isVi) => {
       );
     case 'list':
       return (
-        <ul key={idx} className="list-disc pl-5 my-4 space-y-2 text-slate-300 text-sm">
+        <ul key={idx} className="list-disc pl-5 my-4 space-y-2 text-slate-300 [html[data-theme='light']_&]:text-slate-700 text-base">
           {block.items.map((item, i) => (
-            <li key={i} className="leading-relaxed">
+            <li key={i} className="leading-[1.7]">
               {item}
             </li>
           ))}
@@ -316,8 +316,8 @@ const renderBlock = (block, idx, isVi) => {
       );
     case 'contact':
       return (
-        <div key={idx} className="overflow-x-auto my-6 border border-white/10 rounded-lg">
-          <table className="w-full text-left text-xs border-collapse">
+        <div key={idx} className="overflow-x-auto my-6 border border-white/10 [html[data-theme='light']_&]:border-slate-200 rounded-lg">
+          <table className="w-full text-left text-sm border-collapse">
             <tbody className="divide-y divide-white/5 font-sans">
               {block.lines.map(({ label, value, href }, i) => (
                 <tr key={i} className="hover:bg-white/[0.02] transition-colors">
@@ -326,7 +326,7 @@ const renderBlock = (block, idx, isVi) => {
                   </td>
                   <td className="px-4 py-3 text-slate-200 break-all leading-relaxed">
                     {href ? (
-                      <a href={href} className="text-cyan-400 hover:text-cyan-300 underline underline-offset-4">
+                      <a href={href} className="text-white hover:text-slate-300 [html[data-theme='light']_&]:text-slate-900 underline underline-offset-4">
                         {value}
                       </a>
                     ) : (
@@ -467,17 +467,17 @@ export const Terms = ({ activeLang = 'vi' }) => {
                       <li key={sec.id}>
                         <button
                           onClick={() => scrollToSection(sec.id)}
-                          className={`w-full flex items-center justify-between text-left py-2 px-3 rounded text-xs font-medium border transition-all duration-150 ease-out group cursor-pointer ${
+                          className={`w-full flex items-center justify-between text-left py-2 px-3 min-h-[44px] rounded text-sm font-medium border transition-colors duration-150 ease-out group cursor-pointer ${
                             isActive
-                              ? 'text-cyan-400 font-bold bg-cyan-500/10 border-cyan-500/30'
+                              ? 'text-white font-semibold bg-white/10 border-white/25 [html[data-theme="light"]_&]:text-slate-900 [html[data-theme="light"]_&]:bg-slate-100 [html[data-theme="light"]_&]:border-slate-300'
                               : 'text-slate-400 border-transparent hover:text-white hover:bg-white/[0.02]'
                           }`}
                         >
                           <span className="truncate">{sec.nav}</span>
                           <ChevronRight
-                            size={12}
+                            size={14}
                             className={`transition-transform duration-150 ${
-                              isActive ? 'translate-x-0.5 text-cyan-400' : 'opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 text-slate-600'
+                              isActive ? 'translate-x-0.5 text-white [html[data-theme="light"]_&]:text-slate-900' : 'opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 text-slate-500'
                             }`}
                           />
                         </button>
@@ -498,7 +498,7 @@ export const Terms = ({ activeLang = 'vi' }) => {
           <div className="space-y-6">
             {Object.keys(categories).map((catName) => (
               <div key={catName} className="space-y-2">
-                <div className="text-[11px] font-bold text-slate-400 uppercase tracking-widest px-2 mb-3">
+                <div className="text-xs font-bold text-slate-400 uppercase tracking-widest px-2 mb-3">
                   {catName}
                 </div>
                 <ul className="space-y-1">
@@ -508,17 +508,17 @@ export const Terms = ({ activeLang = 'vi' }) => {
                       <li key={sec.id}>
                         <button
                           onClick={() => scrollToSection(sec.id)}
-                          className={`w-full flex items-center justify-between text-left py-1.5 px-2.5 rounded text-xs font-medium border transition-all duration-150 ease-out group cursor-pointer ${
+                          className={`w-full flex items-center justify-between text-left py-2 px-2.5 rounded text-sm font-medium border transition-colors duration-150 ease-out group cursor-pointer ${
                             isActive
-                              ? 'text-cyan-400 font-bold bg-cyan-500/10 border-cyan-500/30'
+                              ? 'text-white font-semibold bg-white/10 border-white/25 [html[data-theme="light"]_&]:text-slate-900 [html[data-theme="light"]_&]:bg-slate-100 [html[data-theme="light"]_&]:border-slate-300'
                               : 'text-slate-400 border-transparent hover:text-white hover:bg-white/[0.01]'
                           }`}
                         >
                           <span className="truncate">{sec.nav}</span>
                           <ChevronRight
-                            size={12}
+                            size={14}
                             className={`transition-transform duration-150 ${
-                              isActive ? 'translate-x-0.5 text-cyan-400' : 'opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 text-slate-600'
+                              isActive ? 'translate-x-0.5 text-white [html[data-theme="light"]_&]:text-slate-900' : 'opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 text-slate-500'
                             }`}
                           />
                         </button>
@@ -563,23 +563,60 @@ export const Terms = ({ activeLang = 'vi' }) => {
               <span className="text-slate-600">/</span>
               <span>AEVUM OS</span>
             </div>
-            <h1 className="text-3xl font-extrabold text-white tracking-tight mb-4 font-display">
+            <h1 className="text-3xl font-extrabold text-white [html[data-theme='light']_&]:text-slate-900 tracking-tight mb-4 font-display">
               {isVi ? 'Điều khoản Dịch vụ' : 'Terms of Service'}
             </h1>
-            <p className="text-slate-300 text-sm leading-relaxed mb-6">
+            <p className="text-slate-300 [html[data-theme='light']_&]:text-slate-600 text-base leading-[1.7] mb-6">
               {isVi
                 ? 'Văn bản này xác lập quyền, nghĩa vụ và các quy tắc sử dụng giữa người dùng và I2FLabs khi truy cập hệ sinh thái Aevum OS.'
                 : 'This document defines the rights, responsibilities, and terms between users and I2FLabs when accessing the Aevum OS ecosystem.'}
             </p>
-            <hr className="border-t border-white/5 my-8" />
+
+            {/* Iris CX Summary Cards — 10-second human reassurance before full clauses */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 mb-6">
+              {[
+                {
+                  tag: '01 • YOUR IP',
+                  title: isVi ? '100% Bản quyền của bạn' : 'You own your output',
+                  desc: isVi ? 'Mọi mã nguồn và sản phẩm tạo ra thuộc quyền sở hữu hoàn toàn của bạn.' : 'All code and artifacts generated with Aevum remain 100% yours.'
+                },
+                {
+                  tag: '02 • FAIR ACCESS',
+                  title: isVi ? 'Community miễn phí trọn đời' : 'Lifetime free Community',
+                  desc: isVi ? 'Không ràng buộc thẻ; hủy Pro bất cứ lúc nào vẫn giữ nguyên workspace.' : 'No lock-in: cancel Pro anytime and continue free locally.'
+                },
+                {
+                  tag: '03 • CLEAR SAFETY',
+                  title: isVi ? 'Minh bạch giới hạn' : 'Transparent guardrails',
+                  desc: isVi ? 'Rõ ràng trách nhiệm Sandbox và quy chuẩn dùng API Key cá nhân (BYOK).' : 'Clear Local Sandbox boundaries and BYOK API responsibilities.'
+                }
+              ].map((card) => (
+                <div
+                  key={card.tag}
+                  className="rounded-xl p-5 bg-[#0C0E14] [html[data-theme='light']_&]:bg-white border border-white/10 [html[data-theme='light']_&]:border-slate-200 space-y-2"
+                >
+                  <div className="text-xs font-mono font-bold tracking-widest text-slate-300 [html[data-theme='light']_&]:text-slate-600 uppercase">
+                    {card.tag}
+                  </div>
+                  <div className="text-base font-semibold text-white [html[data-theme='light']_&]:text-slate-900 font-sans">
+                    {card.title}
+                  </div>
+                  <p className="text-base text-slate-300 [html[data-theme='light']_&]:text-slate-600 leading-[1.65] m-0">
+                    {card.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <hr className="border-t border-white/5 [html[data-theme='light']_&]:border-slate-200 my-8" />
           </div>
 
           {/* Sections List */}
           <div className="space-y-12">
             {sections.map((section) => (
               <section key={section.id} id={section.id} className="scroll-mt-24">
-                <h2 className="text-xl font-bold text-white tracking-tight mb-4 font-display flex items-center gap-2">
-                  <span className="w-1.5 h-3 bg-cyan-500 rounded-sm"></span>
+                <h2 className="text-xl font-bold text-white [html[data-theme='light']_&]:text-slate-900 tracking-tight mb-4 font-display flex items-center gap-2.5">
+                  <span className="w-1.5 h-3.5 bg-white/70 [html[data-theme='light']_&]:bg-slate-800 rounded-sm"></span>
                   {section.title}
                 </h2>
                 <div>

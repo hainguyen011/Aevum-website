@@ -22,11 +22,20 @@ export class IntentRadar {
     this.lastVy = 0;
     this.ticking = false;
     this.targets = [];
+    this.rectCache = new Map();
+    this.rectCacheExpiresAt = 0;
     this.boundPointerHandler = this.onPointerMove.bind(this);
+    this.boundInvalidate = this.invalidateCache.bind(this);
   }
 
   registerTargets(targets) {
     this.targets = targets;
+    this.invalidateCache();
+  }
+
+  invalidateCache() {
+    this.rectCache.clear();
+    this.rectCacheExpiresAt = 0;
   }
 
   start() {
@@ -34,11 +43,16 @@ export class IntentRadar {
     if (!this.governor.isRadarPermitted()) return;
 
     window.addEventListener('pointermove', this.boundPointerHandler, { passive: true });
+    window.addEventListener('scroll', this.boundInvalidate, { passive: true });
+    window.addEventListener('resize', this.boundInvalidate, { passive: true });
   }
 
   stop() {
     if (typeof window === 'undefined') return;
     window.removeEventListener('pointermove', this.boundPointerHandler);
+    window.removeEventListener('scroll', this.boundInvalidate);
+    window.removeEventListener('resize', this.boundInvalidate);
+    this.invalidateCache();
   }
 
   onPointerMove(e) {
@@ -77,28 +91,36 @@ export class IntentRadar {
 
   evaluateIntentConvergence(x, y, vx, vy, speed, isDecelerating) {
     const reachRadius = this.governor.getReachRadius();
+    const now = performance.now();
 
-    this.targets.forEach((target) => {
-      const el = document.querySelector(target.selector);
-      if (!el) return;
+    if (now > this.rectCacheExpiresAt || this.rectCache.size === 0) {
+      this.rectCache.clear();
+      for (const target of this.targets) {
+        const el = document.querySelector(target.selector);
+        if (!el || !el.isConnected) continue;
+        const rect = el.getBoundingClientRect();
+        this.rectCache.set(target.id, {
+          cx: rect.left + rect.width * 0.5,
+          cy: rect.top + rect.height * 0.5
+        });
+      }
+      this.rectCacheExpiresAt = now + 180;
+    }
 
-      const rect = el.getBoundingClientRect();
-      const cx = rect.left + rect.width / 2;
-      const cy = rect.top + rect.height / 2;
+    for (const target of this.targets) {
+      const center = this.rectCache.get(target.id);
+      if (!center) continue;
 
-      const dx = cx - x;
-      const dy = cy - y;
+      const dx = center.cx - x;
+      const dy = center.cy - y;
       const dist = Math.hypot(dx, dy);
 
-      if (dist < reachRadius) {
-        // Dot product normalized cosine angle: cos(theta) = (v . D) / (|v| * |D|)
+      if (dist > 0 && dist < reachRadius) {
         const cosTheta = (vx * dx + vy * dy) / (speed * dist);
-
-        // Threshold phi: cos(theta) > 0.85 (cone < 30 degrees) OR close range deceleration
         if (cosTheta > 0.85 || (dist < 80 && isDecelerating)) {
           this.onIntentDetected(target.id);
         }
       }
-    });
+    }
   }
 }

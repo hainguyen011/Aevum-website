@@ -42,46 +42,19 @@ export const PartnersInfiniteSection = ({ activeLang = 'vi' }) => {
   ];
 
   return (
-    <section id="partners" className="w-full py-10 sm:py-14 bg-[#0A0B0F] [html[data-theme='light']_&]:bg-[#FFFFFF] border-b border-white/[0.08] [html[data-theme='light']_&]:border-slate-200 overflow-hidden select-none">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 sm:mb-8">
+    <section id="partners" className="w-full py-6 sm:py-8 bg-[#0A0B0F] [html[data-theme='light']_&]:bg-[#FFFFFF] overflow-hidden select-none">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-4 sm:mb-5">
 
-        {/* 2-Column Compact Header */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-10 items-end text-left">
-
-          {/* Cột Trái: Lời tri ân đồng hành (Nhỏ gọn, tinh tế) */}
-          <div className="lg:col-span-5 order-2 lg:order-1">
-            <p className="text-xs sm:text-sm text-slate-300 [html[data-theme='light']_&]:text-slate-600 leading-relaxed font-sans font-light max-w-md">
-              {isVi
-                ? 'Chúng tôi trân trọng các giá trị đồng hành và nỗ lực cùng nhau trên con đường phát triển công nghệ của quốc gia và thế giới.'
-                : 'We deeply honor the values of partnership, striving together on the frontier of technological advancement for the nation and the world.'}
-            </p>
+        {/* Concise Single-Line Alignment Header */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-left">
+          <div className="text-xs font-mono tracking-widest text-slate-400 [html[data-theme='light']_&]:text-slate-600 uppercase">
+            <span>{isVi ? 'ĐỐI TÁC ĐỒNG HÀNH • STRATEGIC ALLIES' : 'STRATEGIC ALLIES & ECOSYSTEM'}</span>
           </div>
-
-          {/* Cột Phải: Tag & Tiêu đề nhỏ gọn */}
-          <div className="lg:col-span-7 space-y-1.5 order-1 lg:order-2">
-            <div className="text-[10px] sm:text-[11px] font-mono tracking-widest text-slate-400 [html[data-theme='light']_&]:text-slate-500 uppercase select-none">
-              <span>{isVi ? 'ĐỐI TÁC ĐỒNG HÀNH • STRATEGIC ALLIES' : 'STRATEGIC ALLIES & ECOSYSTEM'}</span>
-            </div>
-
-            <h2 className="text-xl sm:text-2xl lg:text-3xl font-normal tracking-[-0.02em] text-white [html[data-theme='light']_&]:text-slate-900 leading-snug font-sans">
-              {isVi ? (
-                <>
-                  Đồng hành cùng{' '}
-                  <span className="text-slate-300 [html[data-theme='light']_&]:text-slate-800">
-                    những đơn vị tiên phong.
-                  </span>
-                </>
-              ) : (
-                <>
-                  Empowered by{' '}
-                  <span className="text-slate-300 [html[data-theme='light']_&]:text-slate-800">
-                    visionary innovators.
-                  </span>
-                </>
-              )}
-            </h2>
-          </div>
-
+          <h2 className="text-base font-normal text-slate-200 [html[data-theme='light']_&]:text-slate-800 font-sans">
+            {isVi
+              ? 'Đồng hành cùng những đơn vị tiên phong xây dựng công nghệ Việt.'
+              : 'Built alongside visionary Vietnamese technology teams.'}
+          </h2>
         </div>
 
       </div>
@@ -104,7 +77,7 @@ export const PartnersInfiniteSection = ({ activeLang = 'vi' }) => {
                   key={`${setNum}-${partner.id}`}
                   className="flex flex-col justify-center px-6 sm:px-8 py-2 sm:py-2.5 bg-transparent border-0 min-w-[190px] sm:min-w-[230px] group cursor-default text-left shrink-0 select-none"
                 >
-                  <div className="font-sans font-bold tracking-wider text-sm sm:text-base lg:text-lg text-white [html[data-theme='light']_&]:text-slate-900 uppercase group-hover:text-amber-200/90 [html[data-theme='light']_&]:group-hover:text-blue-600 transition-colors">
+                  <div className="font-sans font-bold tracking-wider text-sm sm:text-base lg:text-lg text-white [html[data-theme='light']_&]:text-slate-900 uppercase group-hover:text-slate-200 [html[data-theme='light']_&]:group-hover:text-black transition-colors">
                     {partner.name}
                   </div>
                   <div className="text-xs font-mono text-slate-400 [html[data-theme='light']_&]:text-slate-500 pt-1 leading-snug">

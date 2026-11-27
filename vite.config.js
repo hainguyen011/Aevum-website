@@ -4,7 +4,7 @@ import path from 'path';
 import fs from 'fs';
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ mode, isSsrBuild }) => {
   // Load environment variables from .env and .env.local into process.env for local API handler
   const env = loadEnv(mode, process.cwd(), '');
   Object.assign(process.env, env);
@@ -166,10 +166,16 @@ export default defineConfig(({ mode }) => {
       minify: 'esbuild',
       cssMinify: true,
       chunkSizeWarningLimit: 800,
-      emptyOutDir: false,
+      emptyOutDir: !isSsrBuild,
       rollupOptions: {
         output: {
-          manualChunks(id) {
+          manualChunks: isSsrBuild ? undefined : (id) => {
+            if (id.includes('/src/data/docsData') || id.includes('\\src\\data\\docsData') || id.includes('generatedDocs.json')) {
+              return 'data-docs';
+            }
+            if (id.includes('/src/data/learningCurriculum') || id.includes('\\src\\data\\learningCurriculum') || id.includes('generatedCurriculum.json')) {
+              return 'data-curriculum';
+            }
             if (id.includes('node_modules')) {
               if (id.includes('react') || id.includes('react-dom')) {
                 return 'vendor-react';

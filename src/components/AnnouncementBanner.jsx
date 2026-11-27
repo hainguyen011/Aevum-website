@@ -6,7 +6,7 @@ export const AnnouncementBanner = ({ onNavigate, activeLang, isScrolled: propIsS
   const [internalScrolled, setInternalScrolled] = useState(false);
   const internalScrolledRef = useRef(false);
   const isScrolled = propIsScrolled !== undefined ? propIsScrolled : internalScrolled;
-  const [latestVersion, setLatestVersion] = useState('v2.0.0-beta.0');
+  const [latestVersion, setLatestVersion] = useState('v2.0.0-beta.8');
   const isVi = activeLang === 'vi';
 
   useEffect(() => {
@@ -84,7 +84,7 @@ export const AnnouncementBanner = ({ onNavigate, activeLang, isScrolled: propIsS
           onNavigate && onNavigate('changelog');
         }
       }}
-      className={`announcement-banner group relative w-full overflow-hidden cursor-pointer select-none transition-all duration-300 ease-in-out border-b border-white/[0.08] [html[data-theme='light']_&]:border-slate-200/80 ${
+      className={`announcement-banner group relative w-full overflow-hidden cursor-pointer select-none transition-[max-height,opacity,padding] duration-300 ease-in-out border-b border-white/[0.08] [html[data-theme='light']_&]:border-slate-200/80 ${
         isScrolled
           ? 'max-h-0 opacity-0 py-0 border-b-transparent pointer-events-none'
           : 'max-h-12 opacity-100 py-2.5 bg-white/[0.02] hover:bg-white/[0.05] [html[data-theme="light"]_&]:bg-slate-100 [html[data-theme="light"]_&]:hover:bg-slate-200/80 pointer-events-auto'

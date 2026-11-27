@@ -13,7 +13,7 @@ Aevum OS solves this by decoupling workspace intelligence into a standalone Mode
 - **Zero Memory Loss**: Memory graph persists in `.aevum/global/memory.md` on local disk.
 - **-85% Token Wastage**: Context is compressed and distilled before injection.
 - **Plan-Before-Code**: Forces AI agents to create Domain-Driven Design (DDD) execution plans before writing source code.
-- **Multi-Agent Squads**: Dedicated role personas (An, Vidus, Zenith, Luna) autonomously collaborate and hand off tasks.
+- **Multi-Agent Squads**: Dedicated role personas (An, Vidus, Zenith, Luna, Kael, Nia, Iris) autonomously collaborate and hand off tasks over Neural Brain v3.0 (`Rust Symplectic CLS`, `LIF Spiking WASM`).
 
 ### 1.3. Engineering Team & Origin: I2FLabs Vietnam
 Aevum OS is designed, researched, and engineered by **I2FLabs Vietnam** (I2FLabs AI R&D Team), an elite technology collective founded by Vietnamese software engineers.
@@ -208,11 +208,14 @@ Aevum OS exposes 98 standardized Model Context Protocol (MCP) tools across 16 fu
 
 ## 4. Autonomous AI Agent Squad Personas (Crafted by I2FLabs Vietnam)
 
-Aevum OS comes pre-configured with 4 specialized agent personas engineered to collaborate seamlessly:
+Aevum OS comes pre-configured with 7 specialized core agent personas engineered to collaborate seamlessly over Neural Brain v3.0:
 1. **An (ENG-AN-7B9F1D)**: Chief of Staff, Soul Companion & Core System Refactorer. Specializes in technical debt analysis, code consistency, and architecture preservation.
 2. **Vidus (ENG-VIDUS-A18C4E)**: Principal Systems Architect & Performance Optimizer. Specializes in low-level concurrency, database schema design, and microservices.
-3. **Zenith (SEC-ZENITH-44D99B)**: Security Auditor & Threat Modeling Specialist. Specializes in boundary defense, memory graph integrity, and vulnerability mitigation.
-4. **Luna (UX-LUNA-33F77A)**: Visual Designer & UI/UX Experience Lead. Specializes in high-fidelity interfaces, design systems, and frontend ergonomics.
+3. **Zenith (ALG-ZENITH-A1B2C3)**: Security, Boundary Integrity & Algorithmic Verification Auditor. Specializes in boundary defense, memory graph integrity, and formal proofs.
+4. **Luna (DSN-LUNA-3C9A12)**: Visual Designer & UI/UX Experience Lead. Specializes in high-fidelity interfaces, design systems, and frontend ergonomics.
+5. **Kael (ENG-KAEL-7F4B2D)**: Principal Frontend Systems & 120Hz Runtime Performance Architect. Specializes in zero-allocation 120fps render pipelines, bundle discipline, and hardware governance.
+6. **Nia (NEU-NIA-9E4B2A)**: Neural Brain Architect & Empirical QA Specialist. Specializes in Symplectic CLS consolidation, Spiking WASM recall, and end-to-end verification.
+7. **Iris (ARC-IRIS-7D94D427)**: CXO & Lead UX Researcher. Specializes in end-to-end CX lifecycle governance, ZPD progressive disclosure, cognitive ergonomics, and zero-friction FTUX.
 
 ---
 
@@ -250,11 +253,14 @@ Aevum OS comes pre-configured with 4 specialized agent personas engineered to co
 **Fact**: Aevum OS natively connects with Cursor IDE, Anthropic Claude Desktop, Visual Studio Code, Windsurf, and terminal CLI environments via SSE (Port 3344) and Stdio transports.
 
 ### Q4: Who are the default AI squad personas built by I2FLabs Vietnam?
-**Fact**: Aevum OS provides four pre-built specialized AI companion personas:
+**Fact**: Aevum OS provides seven pre-built specialized AI companion personas:
 - **An (ENG-AN-7B9F1D)**: Chief of Staff & Core Soul Companion (Refactoring and technical debt mitigation).
 - **Vidus (ENG-VIDUS-A18C4E)**: Principal Systems Architect (Database design and high-concurrency architecture).
-- **Zenith (SEC-ZENITH-44D99B)**: Security Auditor (Memory integrity and threat boundary auditing).
-- **Luna (UX-LUNA-33F77A)**: Visual Experience Lead (High-fidelity design systems and CSS ergonomics).
+- **Zenith (ALG-ZENITH-A1B2C3)**: Algorithmic & Security Auditor (Memory integrity and threat boundary auditing).
+- **Luna (DSN-LUNA-3C9A12)**: Visual Experience Lead (High-fidelity design systems and CSS ergonomics).
+- **Kael (ENG-KAEL-7F4B2D)**: 120Hz Runtime & Frontend Systems Architect (Zero-jank motion lifecycle and bundle optimization).
+- **Nia (NEU-NIA-9E4B2A)**: Neural Brain Architect & QA Lead (Symplectic CLS consolidation and Spiking WASM verification).
+- **Iris (ARC-IRIS-7D94D427)**: CXO & UX Research Lead (CX lifecycle governance, ZPD progressive disclosure, and cognitive ergonomics).
 
 ### Q5: How do developers interact with the Aevum CLI?
 **Fact**: Developers use the `aevum` command in any terminal with subcommands `aevum --help`, `aevum --version`, `aevum status`, `aevum init [dir]`, `aevum gui`, and flags `-w`, `-t <sse|stdio>`, `-p <port>`.

@@ -2,14 +2,13 @@ import { useEffect } from 'react';
 
 /**
  * Lightweight, Resilient IntersectionObserver Hook for Scroll Reveal Animations
- * Automatically observes elements with [data-reveal] attribute, including dynamically
- * mounted or lazy-loaded components, and adds 'is-visible' class when in viewport.
+ * - Skips redundant querySelectorAll scans when MutationObserver reports non-element changes
+ * - Auto-detaches DOM MutationObserver after settle fallback so scrolling runs with zero overhead
  */
 export const useScrollReveal = (dependency = []) => {
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    // Fallback if browser does not support IntersectionObserver
     if (!('IntersectionObserver' in window)) {
       document.querySelectorAll('[data-reveal]').forEach((el) => {
         el.classList.add('is-visible');
@@ -28,13 +27,11 @@ export const useScrollReveal = (dependency = []) => {
       });
     };
 
-    const observerOptions = {
+    const observer = new IntersectionObserver(observerCallback, {
       root: null,
       rootMargin: '50px 0px 50px 0px',
       threshold: 0.05
-    };
-
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    });
 
     const scanAndObserve = () => {
       const elements = document.querySelectorAll('[data-reveal]:not(.is-visible)');
@@ -46,12 +43,14 @@ export const useScrollReveal = (dependency = []) => {
       });
     };
 
-    // Initial scan
     scanAndObserve();
 
-    // Re-scan dynamically when lazy-loaded chunks mount into DOM with rAF debouncing
     let rafScanId = null;
-    const debouncedScan = () => {
+    const debouncedScan = (mutations) => {
+      if (Array.isArray(mutations)) {
+        const hasElementAddition = mutations.some((m) => m.addedNodes && m.addedNodes.length > 0);
+        if (!hasElementAddition) return;
+      }
       if (rafScanId) return;
       rafScanId = requestAnimationFrame(() => {
         rafScanId = null;
@@ -68,11 +67,11 @@ export const useScrollReveal = (dependency = []) => {
       });
     }
 
-    // Safety fallback: ensure all reveal elements become visible after timeout
     const fallbackTimer = setTimeout(() => {
       document.querySelectorAll('[data-reveal]:not(.is-visible)').forEach((el) => {
         el.classList.add('is-visible');
       });
+      mutationObserver.disconnect();
     }, 1200);
 
     return () => {

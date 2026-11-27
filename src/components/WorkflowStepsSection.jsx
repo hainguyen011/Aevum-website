@@ -8,56 +8,56 @@ export const WorkflowStepsSection = ({ onNavigate, onOpenTrialModal, activeLang 
   const steps = [
     {
       num: '01',
-      title: isVi ? 'Chọn cộng sự số phù hợp' : 'Choose your companion',
+      title: isVi ? 'Chọn cộng sự phù hợp' : 'Pick your companion',
       desc: isVi
-        ? 'Dùng ngay các vai trò sẵn có (kiến trúc, lập trình, kiểm thử) hoặc tự tạo cộng sự am hiểu nghiệp vụ riêng của bạn.'
-        : 'Select ready-to-use roles (Architect, Dev, QA) or create custom specialists tailored to your codebase.'
+        ? 'Cài app trong 1 phút và chọn nhóm vai trò có sẵn cho công việc của bạn.'
+        : 'Install in 1 minute and select ready-to-help companion roles.'
     },
     {
       num: '02',
-      title: isVi ? 'Gắn vào công cụ bạn đang dùng' : 'Connect your tools',
+      title: isVi ? 'Mở ngay trong công cụ quen thuộc' : 'Plug into your current tools',
       desc: isVi
-        ? 'Kết nối tức thì với Cursor, Claude Code, VS Code hay terminal chỉ qua một chuẩn Open MCP duy nhất.'
-        : 'Plug seamlessly into Cursor, Claude Code, VS Code, or terminal via standard Open MCP.'
+        ? 'Giữ nguyên Cursor, Claude Code hay VS Code — Aevum tự đồng bộ ngầm qua Open MCP.'
+        : 'Keep coding inside Cursor, Claude, or VS Code with automatic Open MCP sync.'
     },
     {
       num: '03',
-      title: isVi ? 'Để cộng sự giải quyết trọn vẹn' : 'Let companions deliver',
+      title: isVi ? 'Nhớ sâu & làm tốt hơn mỗi ngày' : 'Grow smarter together',
       desc: isVi
-        ? 'Theo dõi công việc được xử lý an toàn trong sandbox, tự động lưu lại bài học kinh nghiệm để lần sau làm tốt hơn.'
-        : 'Watch tasks resolve safely inside sandboxes, continuously harvesting reusable wisdom for future workflows.'
+        ? 'Mọi quy ước dự án và bài học sửa lỗi được giữ lại cục bộ để lần sau nhanh hơn nữa.'
+        : 'Completed work automatically enriches your local memory for faster future tasks.'
     }
   ];
 
   return (
-    <section id="workflow" className="w-full py-24 sm:py-32 bg-[#0A0B0F] [html[data-theme='light']_&]:bg-[#FFFFFF] border-subtle-b [html[data-theme='light']_&]:border-slate-200/80">
+    <section id="workflow" className="w-full py-14 sm:py-20 bg-[#0A0B0F] [html[data-theme='light']_&]:bg-[#FFFFFF]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
 
-          {/* Left Column: Heading & Pill Action */}
-          <div className="lg:col-span-5 space-y-6 text-left">
-            <h2 className="text-3xl sm:text-5xl lg:text-5xl font-normal tracking-[-0.03em] text-white [html[data-theme='light']_&]:text-slate-900 leading-[1.12] font-sans">
+          {/* Left Column: Heading & Action */}
+          <div className="lg:col-span-5 space-y-5 text-left">
+            <h2 className="text-3xl sm:text-5xl font-normal tracking-[-0.03em] text-white [html[data-theme='light']_&]:text-slate-900 leading-[1.12] font-sans">
               {isVi ? (
                 <>
-                  Bắt đầu dễ dàng từ<br />
+                  Bắt đầu nhẹ nhàng từ<br />
                   <span className="text-slate-300 [html[data-theme='light']_&]:text-slate-800">một việc nhỏ.</span>
                 </>
               ) : (
                 <>
-                  Start with<br />
-                  <span className="text-slate-300 [html[data-theme='light']_&]:text-slate-800">one workflow.</span>
+                  Start gently with<br />
+                  <span className="text-slate-300 [html[data-theme='light']_&]:text-slate-800">one simple step.</span>
                 </>
               )}
             </h2>
 
-            <p className="text-base sm:text-lg text-slate-400 [html[data-theme='light']_&]:text-slate-600 leading-relaxed font-sans font-light">
+            <p className="text-base text-slate-300 [html[data-theme='light']_&]:text-slate-700 leading-[1.7] font-sans font-normal">
               {isVi
-                ? 'Bạn không cần thay đổi thói quen làm việc. Cứ tiếp tục dùng IDE quen thuộc, Aevum sẽ âm thầm hỗ trợ phía sau và đồng hành lớn dần cùng dự án.'
-                : 'Adopt Aevum OS incrementally. Keep your favorite IDE, while Aevum silently operates in the background and scales alongside your project.'}
+                ? 'Không cần đổi thói quen hay học lệnh mới. Cứ dùng IDE hàng ngày, Aevum hỗ trợ thầm lặng phía sau.'
+                : 'No workflow upheaval required. Keep your everyday editor while Aevum works quietly behind the scenes.'}
             </p>
 
-            <div className="pt-2">
+            <div className="pt-1">
               <DualDownloadButtons
                 activeLang={activeLang}
                 onNavigate={onNavigate}
@@ -65,22 +65,22 @@ export const WorkflowStepsSection = ({ onNavigate, onOpenTrialModal, activeLang 
             </div>
           </div>
 
-          {/* Right Column: 3 Clean Numbered Steps matching screenshot */}
-          <div className="lg:col-span-7 space-y-8 text-left lg:pl-8">
+          {/* Right Column: Staggered 2+1 Masonry Flow (Zero Dividing Lines) */}
+          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 text-left">
             {steps.map((step, idx) => (
               <div
                 key={idx}
-                className="pb-8 border-b border-white/10 [html[data-theme='light']_&]:border-slate-200 last:border-b-0 space-y-2 group"
+                className={`p-6 sm:p-7 rounded-2xl bg-[#0C0E14] [html[data-theme='light']_&]:bg-slate-50 transition-colors hover:bg-[#10131C] [html[data-theme='light']_&]:hover:bg-slate-100/80 space-y-2.5 ${idx === 2 ? 'sm:col-span-2' : ''}`}
               >
-                <div className="flex items-center gap-3">
-                  <span className="text-xs font-mono font-medium text-slate-400">
-                    {step.num}
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-xs font-mono font-semibold text-slate-300 [html[data-theme='light']_&]:text-slate-700 tracking-widest">
+                    STEP {step.num}
                   </span>
-                  <h3 className="text-xl sm:text-2xl font-medium text-white [html[data-theme='light']_&]:text-slate-900 font-sans tracking-tight">
-                    {step.title}
-                  </h3>
                 </div>
-                <p className="text-sm sm:text-base text-slate-400 [html[data-theme='light']_&]:text-slate-600 leading-relaxed font-sans font-light pl-7">
+                <h3 className="text-xl font-medium text-white [html[data-theme='light']_&]:text-slate-900 font-sans tracking-tight">
+                  {step.title}
+                </h3>
+                <p className="text-base text-slate-300 [html[data-theme='light']_&]:text-slate-700 leading-[1.7] font-sans font-normal m-0">
                   {step.desc}
                 </p>
               </div>

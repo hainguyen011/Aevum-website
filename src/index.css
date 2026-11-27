@@ -136,63 +136,15 @@ html[data-theme='light'] .highlight-hairline-red {
   scroll-margin-top: 80px;
 }
 
-/* Horizontal bounce for swipe-hint chevron */
-@keyframes bounce-x {
-  0%, 100% { transform: translateX(0); }
-  50% { transform: translateX(4px); }
-}
-.animate-bounce-x {
-  animation: bounce-x 1.2s ease-in-out infinite;
-}
-
-/* Fade In for Modals */
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.97) translateY(8px); }
-  to   { opacity: 1; transform: scale(1)    translateY(0); }
-}
-.animate-fadeIn {
-  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-/* Pop In Spring Animation for Speech Bubbles */
-@keyframes popIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.92) translateY(8px);
-  }
-  60% {
-    opacity: 1;
-    transform: scale(1.02) translateY(-2px);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-}
-.animate-pop-in {
-  animation: popIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes cuteGiggle {
-  0%, 100% {
-    transform: translate3d(0, 0, 0) rotate(0deg);
-  }
-  20% {
-    transform: translate3d(0, -10px, 0) rotate(-8deg);
-  }
-  40% {
-    transform: translate3d(0, -2px, 0) rotate(7deg);
-  }
-  60% {
-    transform: translate3d(0, -8px, 0) rotate(-6deg);
-  }
-  80% {
-    transform: translate3d(0, -2px, 0) rotate(5deg);
-  }
-}
-
-.animate-giggle {
-  animation: cuteGiggle 0.55s ease-in-out 2 forwards;
+/* Below-the-fold sections skip off-screen style/layout computation while preserving exact anchors */
+#mission,
+#value-props,
+#co-evolution,
+#metrics,
+#ioa-roadmap,
+#faq {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 620px;
 }
 
 /* Electron Blue Top-Left Corner Highlight (Softer, eye-friendly contrast) */
@@ -209,7 +161,7 @@ html[data-theme='light'] .highlight-hairline-red {
   background-origin: border-box !important;
   background-clip: padding-box, border-box !important;
   box-shadow: none !important;
-  transition: all 0.25s ease !important;
+  transition: background-image 0.25s ease, opacity 0.2s ease !important;
 }
 
 .border-beam-btn:hover {
@@ -1429,12 +1381,12 @@ html[data-theme="light"] .bg-red-950\/20 {
 }
 
 html[data-theme="light"] .text-sky-400 {
-  color: #0284C7 !important;
+  color: #0F172A !important;
 }
 
 html[data-theme="light"] .text-sky-400:hover,
 html[data-theme="light"] .hover\:text-sky-300:hover {
-  color: #0369A1 !important;
+  color: #000000 !important;
 }
 
 /* Footer Bottom Copyright Bar Light Mode Synchronization */
@@ -1455,7 +1407,7 @@ html[data-theme="light"] .footer-bottom-bar button {
 }
 
 html[data-theme="light"] .footer-bottom-bar button:hover {
-  color: #0284C7 !important;
+  color: #0F172A !important;
 }
 
 html[data-theme="light"] .footer-bottom-bar .text-white\/10 {
@@ -1463,20 +1415,19 @@ html[data-theme="light"] .footer-bottom-bar .text-white\/10 {
 }
 
 /* ==========================================================================
-   Desktop Authentication Success Modal (Dark & Light Theme)
+   Desktop Authentication Success Modal (Monochrome Obsidian Dark & Light)
    ========================================================================== */
 
 /* --- Default / Dark Mode --- */
 .desktop-auth-modal-backdrop {
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: rgba(0, 0, 0, 0.78);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
 
 .desktop-auth-modal-container {
-  background-color: #121217;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  background-color: #07090D;
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .desktop-auth-modal-title {
@@ -1484,22 +1435,22 @@ html[data-theme="light"] .footer-bottom-bar .text-white\/10 {
 }
 
 .desktop-auth-modal-desc {
-  color: #94A3B8;
+  color: #CBD5E1;
 }
 
 .desktop-auth-modal-close {
   background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: #94A3B8;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #CBD5E1;
 }
 
 .desktop-auth-modal-close:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.12);
   color: #FFFFFF;
 }
 
 .desktop-auth-modal-card {
-  background-color: #18181F;
+  background-color: #0C0E14;
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -1522,14 +1473,14 @@ html[data-theme="light"] .footer-bottom-bar .text-white\/10 {
 }
 
 .desktop-auth-tier-badge {
-  background-color: rgba(245, 158, 11, 0.12);
-  border: 1px solid rgba(245, 158, 11, 0.35);
-  color: #FBBF24;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #FFFFFF;
 }
 
 .desktop-auth-btn-cancel {
   background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   color: #E2E8F0;
 }
 
@@ -1539,19 +1490,19 @@ html[data-theme="light"] .footer-bottom-bar .text-white\/10 {
 }
 
 .desktop-auth-btn-action {
-  background: linear-gradient(135deg, #06b6d4, #0284c7, #2563eb);
-  color: #FFFFFF !important;
-  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+  background-color: #FFFFFF !important;
+  color: #07090D !important;
+  box-shadow: none !important;
 }
 
 .desktop-auth-btn-action:hover {
-  background: linear-gradient(135deg, #22d3ee, #0284c7, #1d4ed8);
-  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.45);
+  background-color: #E2E8F0 !important;
+  box-shadow: none !important;
 }
 
 .desktop-auth-btn-action span,
 .desktop-auth-btn-action svg {
-  color: #FFFFFF !important;
+  color: #07090D !important;
 }
 
 /* --- Light Mode Adaptations --- */
@@ -1561,8 +1512,8 @@ html[data-theme="light"] .desktop-auth-modal-backdrop {
 
 html[data-theme="light"] .desktop-auth-modal-container {
   background-color: #FFFFFF !important;
-  border: 1px solid rgba(15, 23, 42, 0.1) !important;
-  box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(15, 23, 42, 0.04) !important;
+  border: 1px solid rgba(15, 23, 42, 0.12) !important;
+  box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.12) !important;
 }
 
 html[data-theme="light"] .desktop-auth-modal-title {
@@ -1576,7 +1527,7 @@ html[data-theme="light"] .desktop-auth-modal-desc {
 html[data-theme="light"] .desktop-auth-modal-close {
   background-color: #F1F5F9 !important;
   border: 1px solid #E2E8F0 !important;
-  color: #64748B !important;
+  color: #475569 !important;
 }
 
 html[data-theme="light"] .desktop-auth-modal-close:hover {
@@ -1607,9 +1558,9 @@ html[data-theme="light"] .desktop-auth-user-email {
 }
 
 html[data-theme="light"] .desktop-auth-tier-badge {
-  background-color: #FEF3C7 !important;
-  border: 1px solid #FCD34D !important;
-  color: #B45309 !important;
+  background-color: #F1F5F9 !important;
+  border: 1px solid #CBD5E1 !important;
+  color: #0F172A !important;
   font-weight: 700 !important;
 }
 
@@ -1625,14 +1576,14 @@ html[data-theme="light"] .desktop-auth-btn-cancel:hover {
 }
 
 html[data-theme="light"] .desktop-auth-btn-action {
-  background: linear-gradient(135deg, #0284c7, #0ea5e9, #2563eb) !important;
+  background: #0F172A !important;
   color: #FFFFFF !important;
-  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35) !important;
+  box-shadow: none !important;
 }
 
 html[data-theme="light"] .desktop-auth-btn-action:hover {
-  background: linear-gradient(135deg, #0369a1, #0284c7, #1d4ed8) !important;
-  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.45) !important;
+  background: #020617 !important;
+  box-shadow: none !important;
 }
 
 html[data-theme="light"] .desktop-auth-btn-action span,
@@ -1641,7 +1592,7 @@ html[data-theme="light"] .desktop-auth-btn-action svg {
 }
 
 /* ==========================================================================
-   PiperNet Hub Authentication Success Modal (Dark & Light Theme)
+   PiperNet Hub Authentication Success Modal (Monochrome Obsidian)
    ========================================================================== */
 
 /* --- Default / Dark Mode --- */
@@ -1652,15 +1603,14 @@ html[data-theme="light"] .desktop-auth-btn-action svg {
 }
 
 .pipernet-auth-modal-container {
-  background-color: #0b0f19;
-  border: 1px solid rgba(0, 229, 255, 0.25);
-  box-shadow: 0 0 35px rgba(0, 229, 255, 0.08), 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+  background-color: #07090D;
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .pipernet-auth-tag {
-  background-color: rgba(0, 229, 255, 0.08);
-  border: 1px solid rgba(0, 229, 255, 0.3);
-  color: #00e5ff;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #FFFFFF;
 }
 
 .pipernet-auth-modal-title {
@@ -1668,29 +1618,28 @@ html[data-theme="light"] .desktop-auth-btn-action svg {
 }
 
 .pipernet-auth-modal-desc {
-  color: #94A3B8;
+  color: #CBD5E1;
 }
 
 .pipernet-auth-modal-close {
   background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: #94A3B8;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #CBD5E1;
 }
 
 .pipernet-auth-modal-close:hover {
-  background-color: rgba(0, 229, 255, 0.1);
-  border-color: rgba(0, 229, 255, 0.3);
-  color: #00e5ff;
+  background-color: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
 }
 
 .pipernet-auth-modal-card {
-  background-color: #111624;
-  border: 1px solid rgba(0, 229, 255, 0.15);
+  background-color: #0C0E14;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .pipernet-auth-avatar {
-  border: 1px solid rgba(0, 229, 255, 0.4);
-  box-shadow: 0 0 10px rgba(0, 229, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .pipernet-auth-user-name {
@@ -1702,9 +1651,9 @@ html[data-theme="light"] .desktop-auth-btn-action svg {
 }
 
 .pipernet-auth-tier-badge {
-  background-color: rgba(0, 229, 255, 0.1);
-  border: 1px solid rgba(0, 229, 255, 0.35);
-  color: #00e5ff;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #FFFFFF;
 }
 
 .pipernet-auth-btn-cancel {
@@ -1719,21 +1668,19 @@ html[data-theme="light"] .desktop-auth-btn-action svg {
 }
 
 .pipernet-auth-btn-action {
-  background: linear-gradient(135deg, #00e5ff, #0284c7, #2563eb);
-  color: #000000 !important;
+  background: #FFFFFF;
+  color: #07090D !important;
   font-weight: 700;
-  box-shadow: 0 4px 18px rgba(0, 229, 255, 0.35);
 }
 
 .pipernet-auth-btn-action:hover {
-  background: linear-gradient(135deg, #38bdf8, #00e5ff, #0284c7);
-  box-shadow: 0 6px 24px rgba(0, 229, 255, 0.5);
-  color: #000000 !important;
+  background: #E2E8F0;
+  color: #07090D !important;
 }
 
 .pipernet-auth-btn-action span,
 .pipernet-auth-btn-action svg {
-  color: #000000 !important;
+  color: #07090D !important;
 }
 
 /* --- Light Mode Adaptations --- */
@@ -1743,14 +1690,14 @@ html[data-theme="light"] .pipernet-auth-modal-backdrop {
 
 html[data-theme="light"] .pipernet-auth-modal-container {
   background-color: #FFFFFF !important;
-  border: 1px solid rgba(0, 180, 216, 0.25) !important;
-  box-shadow: 0 20px 45px -10px rgba(0, 180, 216, 0.15) !important;
+  border: 1px solid rgba(15, 23, 42, 0.12) !important;
+  box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.12) !important;
 }
 
 html[data-theme="light"] .pipernet-auth-tag {
-  background-color: rgba(2, 132, 199, 0.08) !important;
-  border: 1px solid rgba(2, 132, 199, 0.25) !important;
-  color: #0284c7 !important;
+  background-color: #F1F5F9 !important;
+  border: 1px solid #CBD5E1 !important;
+  color: #0F172A !important;
 }
 
 html[data-theme="light"] .pipernet-auth-modal-title {
@@ -1764,7 +1711,7 @@ html[data-theme="light"] .pipernet-auth-modal-desc {
 html[data-theme="light"] .pipernet-auth-modal-close {
   background-color: #F1F5F9 !important;
   border: 1px solid #E2E8F0 !important;
-  color: #64748B !important;
+  color: #475569 !important;
 }
 
 html[data-theme="light"] .pipernet-auth-modal-close:hover {
@@ -1778,7 +1725,7 @@ html[data-theme="light"] .pipernet-auth-modal-card {
 }
 
 html[data-theme="light"] .pipernet-auth-avatar {
-  border: 1px solid rgba(2, 132, 199, 0.3) !important;
+  border: 1px solid rgba(15, 23, 42, 0.12) !important;
 }
 
 html[data-theme="light"] .pipernet-auth-user-name {
@@ -1790,9 +1737,9 @@ html[data-theme="light"] .pipernet-auth-user-email {
 }
 
 html[data-theme="light"] .pipernet-auth-tier-badge {
-  background-color: #E0F2FE !important;
-  border: 1px solid #BAE6FD !important;
-  color: #0369A1 !important;
+  background-color: #F1F5F9 !important;
+  border: 1px solid #CBD5E1 !important;
+  color: #0F172A !important;
 }
 
 html[data-theme="light"] .pipernet-auth-btn-cancel {
@@ -1807,9 +1754,8 @@ html[data-theme="light"] .pipernet-auth-btn-cancel:hover {
 }
 
 html[data-theme="light"] .pipernet-auth-btn-action {
-  background: linear-gradient(135deg, #0284c7, #0ea5e9, #06b6d4) !important;
+  background: #0F172A !important;
   color: #FFFFFF !important;
-  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35) !important;
 }
 
 html[data-theme="light"] .pipernet-auth-btn-action span,
@@ -1983,9 +1929,9 @@ html[data-theme="light"] .border-beam-card {
 }
 
 html[data-theme="light"] .pricing-pro-tag {
-  background: transparent !important;
-  color: #0284c7 !important;
-  border-color: #0ea5e9 !important;
+  background: #F1F5F9 !important;
+  color: #0F172A !important;
+  border-color: rgba(15, 23, 42, 0.2) !important;
 }
 
 /* Header Unikorn Logo Theme Switching & Optical Size Alignment */
@@ -2492,14 +2438,16 @@ html[data-theme="light"] .pricing-sub-enterprise {
   font-weight: 500 !important;
 }
 
-/* Pricing Switcher Pill & White Text Highlighting */
+/* Pricing Switcher Pill & Monochrome Highlighting */
 .pricing-switch-pill {
-  background-color: #0369a1 !important;
+  background-color: rgba(255, 255, 255, 0.14) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
 }
 
 html[data-theme="light"] .pricing-switch-pill {
-  background-color: #0369a1 !important;
-  box-shadow: 0 2px 8px rgba(3, 105, 161, 0.3) !important;
+  background-color: #0F172A !important;
+  border: 1px solid #0F172A !important;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.16) !important;
 }
 
 .pricing-switch-btn-active,
@@ -2525,24 +2473,24 @@ html[data-theme="light"] .pricing-switch-btn-inactive:hover {
 
 /* Pricing Details CTA Button Style adaptation */
 .pricing-details-btn {
-  transition: all 0.2s ease !important;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease !important;
 }
 
 .pricing-details-btn:hover {
-  background-color: #22d3ee !important; /* cyan-400 */
-  border-color: #22d3ee !important;
-  color: #000000 !important;
+  background-color: #FFFFFF !important;
+  border-color: #FFFFFF !important;
+  color: #07090D !important;
 }
 
 html[data-theme="light"] .pricing-details-btn {
-  background-color: rgba(2, 132, 199, 0.05) !important;
-  border-color: rgba(2, 132, 199, 0.25) !important;
-  color: #0284c7 !important;
+  background-color: #F1F5F9 !important;
+  border-color: rgba(15, 23, 42, 0.2) !important;
+  color: #0F172A !important;
 }
 
 html[data-theme="light"] .pricing-details-btn:hover {
-  background-color: #0284c7 !important;
-  border-color: #0284c7 !important;
+  background-color: #0F172A !important;
+  border-color: #0F172A !important;
   color: #FFFFFF !important;
 }
 

@@ -2,7 +2,13 @@
 export default {
   content: [
     "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{jsx,ts,tsx}",
+    "./src/engine/**/*.js",
+    "./src/hooks/**/*.js",
+    "./src/services/**/*.js",
+    "./src/utils/**/*.js",
+    "./src/data/translations.js",
+    "./src/config/**/*.js",
   ],
   darkMode: 'class',
   theme: {

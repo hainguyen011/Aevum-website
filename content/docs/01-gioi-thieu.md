@@ -55,4 +55,5 @@ flowchart LR
 2. **Nghi thức Bắt tay Chuẩn v2.0 (Handshake Ritual)**: Mỗi khi mở IDE, AI tự động kết nối qua Bridge, nạp đúng danh tính Persona và nén quy tắc dự án chỉ trong tích tắc.
 3. **Quản trị Kế hoạch Chống Nhảy Cóc (O-DDD Plan Lifecycle)**: Lập kế hoạch rõ ràng, khóa ranh giới tệp (`activeFiles`), cập nhật tiến độ từng bước theo thời gian thực và tự động lưu trữ di sản (Cellular Archive).
 4. **Tự Động Đúc Kết Kỹ Năng (Autonomous Skill System)**: Khi AI gỡ thành công một lỗi khó, giải pháp được chưng cất thành quy trình chuẩn (SOP) để cả đội ngũ cùng tái sử dụng mãi mãi.
-5. **Đồ Thị Tri Thức Sống (Living Memory Graph)**: Neo giữ bài học trực tiếp vào từng hàm, class và dòng code với khả năng tự phục hồi khi code thay đổi (Self-Healing).
+5. **Đồ Thị Tri Thức Sống & Neural Brain v3.0**: Neo giữ bài học trực tiếp vào từng hàm, class và dòng code với khả năng tự phục hồi khi code thay đổi (Self-Healing) và truy hồi Hybrid RRF Hopfield tốc độ cao.
+6. **Không gian làm việc Lean Workspace 120 FPS**: Trải nghiệm trò chuyện đa tác nhân mượt mà với động cơ tự hành **Hermes** và bộ điều phối hội thoại đa ngôi **Thalamus**.

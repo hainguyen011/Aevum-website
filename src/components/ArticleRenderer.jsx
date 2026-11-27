@@ -72,11 +72,11 @@ export const renderHighlightedLine = (line, lang = 'bash') => {
     } else if (/^(import|export|from|default|const|let|var|function|return|async|await|if|else|new|try|catch)$/.test(text)) {
       className = 'text-purple-400 [html[data-theme=\'light\']_&]:text-purple-700 font-semibold';
     } else if (/^(aevum|npm|pnpm|yarn|bun|node|git|curl|npx)$/.test(text)) {
-      className = 'text-cyan-400 [html[data-theme=\'light\']_&]:text-cyan-700 font-bold';
+      className = 'text-white [html[data-theme=\'light\']_&]:text-slate-950 font-bold';
     } else if (/^(true|false|null|undefined)$/.test(text)) {
       className = 'text-amber-300 [html[data-theme=\'light\']_&]:text-amber-600 font-mono';
     } else if (/^\d+$/.test(text)) {
-      className = 'text-sky-300 [html[data-theme=\'light\']_&]:text-sky-600 font-mono';
+      className = 'text-amber-200 [html[data-theme=\'light\']_&]:text-amber-700 font-mono';
     }
 
     tokens.push(
@@ -143,25 +143,25 @@ export const CodeBlock = ({ block, onCopy, copiedId, isVi = true }) => {
   const lines = displayContent.trimEnd().split('\n');
 
   return (
-    <div className="rounded-lg bg-white/[0.02] [html[data-theme='light']_&]:bg-slate-100/70 border border-white/10 [html[data-theme='light']_&]:border-slate-300/80 overflow-hidden my-6 shadow-lg shadow-black/20">
+    <div className="rounded-2xl bg-[#0C0E14] [html[data-theme='light']_&]:bg-slate-100/80 border border-white/[0.08] [html[data-theme='light']_&]:border-slate-200/80 overflow-hidden my-6">
       {/* Code Header Bar */}
-      <div className="bg-white/[0.03] [html[data-theme='light']_&]:bg-slate-200/70 px-4 py-2 flex items-center justify-between gap-2 flex-wrap border-b border-white/5 [html[data-theme='light']_&]:border-slate-300">
+      <div className="bg-white/[0.03] [html[data-theme='light']_&]:bg-slate-200/70 px-4 py-2.5 flex items-center justify-between gap-2 flex-wrap">
         <div className="flex items-center gap-2">
           {/* Language badge */}
-          <span className="text-[10px] font-mono font-semibold text-white [html[data-theme='light']_&]:text-slate-900 uppercase tracking-widest bg-white/10 [html[data-theme='light']_&]:bg-white/80 px-1.5 py-0.5 rounded">
+          <span className="text-xs font-mono font-semibold text-white [html[data-theme='light']_&]:text-slate-900 uppercase tracking-wider bg-white/[0.08] [html[data-theme='light']_&]:bg-white/90 px-2 py-0.5 rounded-md">
             {block.lang || 'code'}
           </span>
 
           {/* Optional Package Manager Switcher Tabs */}
           {isPkgBlock && (
-            <div className="flex items-center bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-300/60 p-0.5 rounded text-[10px] font-mono ml-1">
+            <div className="flex items-center bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-300/60 p-0.5 rounded-lg text-xs font-mono ml-1">
               {['npm', 'pnpm', 'yarn', 'bun'].map((pkg) => (
                 <button
                   key={pkg}
                   onClick={() => setPkgManager(pkg)}
-                  className={`px-2 py-0.5 rounded transition-all cursor-pointer ${
+                  className={`px-2.5 py-0.5 rounded-md transition-colors cursor-pointer ${
                     pkgManager === pkg
-                      ? 'bg-white/15 text-white font-bold [html[data-theme="light"]_&]:bg-slate-800 [html[data-theme="light"]_&]:text-white'
+                      ? 'bg-white/15 text-white font-semibold [html[data-theme="light"]_&]:bg-slate-900 [html[data-theme="light"]_&]:text-white'
                       : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
                   }`}
                 >
@@ -172,40 +172,40 @@ export const CodeBlock = ({ block, onCopy, copiedId, isVi = true }) => {
           )}
 
           {lines.length > 1 && (
-            <span className="text-[9px] font-mono text-slate-500 [html[data-theme='light']_&]:text-slate-500 hidden sm:inline">
+            <span className="text-xs font-mono text-slate-500 [html[data-theme='light']_&]:text-slate-500 hidden sm:inline">
               · {lines.length} {isVi ? 'dòng' : 'lines'}
             </span>
           )}
         </div>
 
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1.5">
           <button
             onClick={() => setIsWrapped(!isWrapped)}
-            className={`p-1.5 rounded transition-all cursor-pointer text-xs font-mono flex items-center gap-1 ${
+            className={`px-2.5 py-1.5 rounded-full transition-colors cursor-pointer text-xs font-mono flex items-center gap-1 ${
               isWrapped
-                ? 'text-white bg-white/10 [html[data-theme="light"]_&]:text-slate-900 [html[data-theme="light"]_&]:bg-slate-300'
-                : 'text-slate-400 hover:text-white hover:bg-white/5 [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
+                ? 'text-white bg-white/12 [html[data-theme="light"]_&]:text-slate-900 [html[data-theme="light"]_&]:bg-slate-300'
+                : 'text-slate-400 hover:text-white hover:bg-white/[0.06] [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
             }`}
             title={isWrapped ? (isVi ? 'Tắt cuộn dòng (Unwrap)' : 'Unwrap lines') : (isVi ? 'Bật cuộn dòng (Wrap lines)' : 'Wrap lines')}
             aria-label="Chuyển chế độ cuộn dòng mã"
           >
-            <WrapText size={12} />
+            <WrapText size={13} />
           </button>
           <button
             onClick={() => onCopy(displayContent, block.id)}
-            className="p-1.5 rounded text-slate-400 hover:text-white hover:bg-white/5 [html[data-theme='light']_&]:text-slate-600 [html[data-theme='light']_&]:hover:text-slate-900 transition-all cursor-pointer flex items-center gap-1 text-[11px] font-mono"
+            className="px-3 py-1.5 rounded-full text-slate-400 hover:text-white hover:bg-white/[0.06] [html[data-theme='light']_&]:text-slate-600 [html[data-theme='light']_&]:hover:text-slate-900 transition-colors cursor-pointer flex items-center gap-1.5 text-xs font-mono"
             title={isVi ? 'Sao chép đoạn mã' : 'Copy code'}
             aria-label="Sao chép mã nguồn"
           >
             {copiedId === block.id ? (
               <>
-                <Check size={12} className="text-emerald-400" />
-                <span className="text-emerald-400 text-[10px]">{isVi ? 'Đã chép' : 'Copied'}</span>
+                <Check size={13} className="text-white [html[data-theme='light']_&]:text-slate-900" />
+                <span className="text-white [html[data-theme='light']_&]:text-slate-900 text-xs font-medium">{isVi ? 'Đã chép' : 'Copied'}</span>
               </>
             ) : (
               <>
-                <Copy size={12} />
-                <span className="text-slate-400 [html[data-theme='light']_&]:text-slate-600 text-[10px] hidden sm:inline">
+                <Copy size={13} />
+                <span className="text-slate-400 [html[data-theme='light']_&]:text-slate-600 text-xs hidden sm:inline">
                   {isVi ? 'Sao chép' : 'Copy'}
                 </span>
               </>
@@ -216,7 +216,7 @@ export const CodeBlock = ({ block, onCopy, copiedId, isVi = true }) => {
 
       {/* Code Content with Line Numbers & Syntax Highlighting */}
       <pre
-        className={`p-4 overflow-x-auto text-[12.5px] sm:text-[13px] font-mono leading-relaxed bg-[#07080e]/95 [html[data-theme='light']_&]:bg-[#F1F5F9] scrollbar-thin ${
+        className={`p-4 sm:p-5 overflow-x-auto text-[13px] sm:text-sm font-mono leading-relaxed bg-[#07080e]/95 [html[data-theme='light']_&]:bg-[#F1F5F9] scrollbar-thin ${
           isWrapped ? 'whitespace-pre-wrap break-words' : 'whitespace-pre'
         }`}
       >
@@ -262,10 +262,10 @@ export const extractYouTubeId = (input) => {
  */
 export const YouTubeEmbed = ({ videoId, title, isVi = true }) => {
   return (
-    <div className="my-7 max-w-prose rounded-xl overflow-hidden border border-white/10 [html[data-theme='light']_&]:border-slate-200 bg-black/60 shadow-xl group">
-      <div className="flex items-center justify-between px-3.5 py-2 bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-100/90 border-b border-white/5 [html[data-theme='light']_&]:border-slate-200 text-xs text-slate-300 [html[data-theme='light']_&]:text-slate-700">
+    <div className="my-7 max-w-prose rounded-2xl overflow-hidden border border-white/[0.08] [html[data-theme='light']_&]:border-slate-200 bg-[#0C0E14] [html[data-theme='light']_&]:bg-slate-50 group">
+      <div className="flex items-center justify-between px-4 py-2.5 bg-white/[0.03] [html[data-theme='light']_&]:bg-slate-100/90 text-xs text-slate-300 [html[data-theme='light']_&]:text-slate-700">
         <div className="flex items-center gap-2 font-mono">
-          <span className="w-2.5 h-2.5 rounded-full bg-red-500 inline-block animate-pulse" />
+          <span className="w-2.5 h-2.5 rounded-full bg-white/80 [html[data-theme='light']_&]:bg-slate-900 inline-block" />
           <span className="font-semibold text-slate-200 [html[data-theme='light']_&]:text-slate-800">YouTube</span>
           {title && <span className="truncate max-w-[220px] text-slate-400 [html[data-theme='light']_&]:text-slate-500">— {title}</span>}
         </div>
@@ -273,7 +273,7 @@ export const YouTubeEmbed = ({ videoId, title, isVi = true }) => {
           href={`https://www.youtube.com/watch?v=${videoId}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 text-[11px] text-slate-400 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors"
+          className="inline-flex items-center gap-1 text-xs text-slate-400 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors"
           title={isVi ? 'Mở trên YouTube' : 'Open on YouTube'}
         >
           <span>{isVi ? 'Xem trên YouTube' : 'Watch on YouTube'}</span>
@@ -299,10 +299,10 @@ export const YouTubeEmbed = ({ videoId, title, isVi = true }) => {
  */
 export const NativeVideoPlayer = ({ src, caption, isVi = true }) => {
   return (
-    <figure className="my-7 max-w-prose rounded-xl overflow-hidden border border-white/10 [html[data-theme='light']_&]:border-slate-200 bg-black/40 shadow-xl">
-      <div className="flex items-center justify-between px-3.5 py-2 bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-100/90 border-b border-white/5 [html[data-theme='light']_&]:border-slate-200 text-xs text-slate-300 [html[data-theme='light']_&]:text-slate-700">
+    <figure className="my-7 max-w-prose rounded-2xl overflow-hidden border border-white/[0.08] [html[data-theme='light']_&]:border-slate-200 bg-[#0C0E14] [html[data-theme='light']_&]:bg-slate-50">
+      <div className="flex items-center justify-between px-4 py-2.5 bg-white/[0.03] [html[data-theme='light']_&]:bg-slate-100/90 text-xs text-slate-300 [html[data-theme='light']_&]:text-slate-700">
         <div className="flex items-center gap-2 font-mono">
-          <Film size={13} className="text-cyan-400" />
+          <Film size={13} className="text-white [html[data-theme='light']_&]:text-slate-900" />
           <span className="font-semibold text-slate-200 [html[data-theme='light']_&]:text-slate-800">
             {isVi ? 'Video Minh Họa' : 'Video Player'}
           </span>
@@ -336,19 +336,19 @@ export const NativeVideoPlayer = ({ src, caption, isVi = true }) => {
  */
 export const MarkdownImage = ({ src, alt, caption, onImageClick }) => {
   return (
-    <figure className="my-6 max-w-prose rounded-xl overflow-hidden border border-white/10 [html[data-theme='light']_&]:border-slate-200 bg-white/[0.02] [html[data-theme='light']_&]:bg-slate-50/50 shadow-md group">
+    <figure className="my-6 max-w-prose rounded-2xl overflow-hidden border border-white/[0.08] [html[data-theme='light']_&]:border-slate-200 bg-[#0C0E14] [html[data-theme='light']_&]:bg-slate-50/70 group">
       <div
-        className="relative overflow-hidden cursor-zoom-in flex items-center justify-center bg-black/10 [html[data-theme='light']_&]:bg-slate-100/60 p-1 sm:p-2"
+        className="relative overflow-hidden cursor-zoom-in flex items-center justify-center bg-black/15 [html[data-theme='light']_&]:bg-slate-100/60 p-1.5 sm:p-2.5"
         onClick={() => onImageClick?.({ src, alt, caption })}
       >
         <img
           src={src}
           alt={alt || caption || 'Documentation visual'}
           loading="lazy"
-          className="w-full max-h-[520px] object-contain rounded-lg transition-transform duration-300 group-hover:scale-[1.01]"
+          className="w-full max-h-[520px] object-contain rounded-xl transition-transform duration-300 group-hover:scale-[1.01]"
         />
-        <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-black/60 backdrop-blur-md px-2 py-1 rounded text-[11px] text-white flex items-center gap-1 font-mono pointer-events-none">
-          <Maximize2 size={11} />
+        <div className="absolute bottom-3.5 right-3.5 opacity-0 group-hover:opacity-100 transition-opacity bg-black/75 backdrop-blur-md px-2.5 py-1 rounded-full text-xs text-white flex items-center gap-1.5 font-mono pointer-events-none">
+          <Maximize2 size={12} />
           <span>Phóng to</span>
         </div>
       </div>
@@ -422,7 +422,7 @@ export const ArticleRenderer = ({
           ? 'font-mono text-[12px] bg-white/[0.06] hover:bg-white/[0.12] [html[data-theme=\'light\']_&]:bg-slate-200/80 px-2 py-0.5 rounded no-underline text-zinc-200 [html[data-theme=\'light\']_&]:text-slate-900 font-medium border border-white/10 hover:border-white/25 cursor-pointer'
           : 'underline underline-offset-2 font-medium cursor-pointer';
         const relAttr = isExternal ? ' rel="noopener noreferrer"' : '';
-        return `<a href="${safeHref}"${relAttr} class="text-white [html[data-theme=\'light\']_&]:text-blue-600 hover:text-zinc-200 [html[data-theme=\'light\']_&]:hover:text-blue-700 transition-colors inline-flex items-center gap-1 ${extraClass}">${cleanText}</a>`;
+        return `<a href="${safeHref}"${relAttr} class="text-white [html[data-theme=\'light\']_&]:text-slate-900 hover:text-zinc-200 [html[data-theme=\'light\']_&]:hover:text-black transition-colors inline-flex items-center gap-1 ${extraClass}">${cleanText}</a>`;
       }
     );
 
@@ -858,31 +858,31 @@ export const ArticleRenderer = ({
             : (isVi ? 'Quan trọng' : 'Important');
 
           const textColor = isNote
-            ? 'text-blue-300 [html[data-theme="light"]_&]:text-blue-700'
+            ? 'text-white [html[data-theme="light"]_&]:text-slate-900'
             : isTip
-            ? 'text-emerald-300 [html[data-theme="light"]_&]:text-emerald-700'
+            ? 'text-white [html[data-theme="light"]_&]:text-slate-900'
             : isWarning
             ? 'text-amber-300 [html[data-theme="light"]_&]:text-amber-700'
             : 'text-white [html[data-theme="light"]_&]:text-slate-900';
 
           const bgAccent = isNote
-            ? 'bg-blue-500/[0.05] [html[data-theme="light"]_&]:bg-blue-50 border border-blue-500/15 [html[data-theme="light"]_&]:border-blue-200'
+            ? 'bg-[#0C0E14] [html[data-theme="light"]_&]:bg-slate-100 border border-white/[0.08] [html[data-theme="light"]_&]:border-slate-200'
             : isTip
-            ? 'bg-emerald-500/[0.05] [html[data-theme="light"]_&]:bg-emerald-50 border border-emerald-500/15 [html[data-theme="light"]_&]:border-emerald-200'
+            ? 'bg-white/[0.045] [html[data-theme="light"]_&]:bg-slate-100 border border-white/[0.12] [html[data-theme="light"]_&]:border-slate-300'
             : isWarning
-            ? 'bg-amber-500/[0.05] [html[data-theme="light"]_&]:bg-amber-50 border border-amber-500/15 [html[data-theme="light"]_&]:border-amber-200'
-            : 'bg-white/[0.04] [html[data-theme="light"]_&]:bg-slate-100 border border-white/10 [html[data-theme="light"]_&]:border-slate-300';
+            ? 'bg-amber-500/[0.05] [html[data-theme="light"]_&]:bg-amber-50 border border-amber-500/20 [html[data-theme="light"]_&]:border-amber-200'
+            : 'bg-[#0C0E14] [html[data-theme="light"]_&]:bg-slate-100 border border-white/[0.08] [html[data-theme="light"]_&]:border-slate-200';
 
           elements.push(
             <div
               key={`callout-${blockIdx}-${i}`}
-              className={`p-4 sm:p-5 rounded-lg my-6 flex gap-3.5 backdrop-blur-sm max-w-prose ${bgAccent}`}
+              className={`p-5 sm:p-6 rounded-2xl my-6 flex gap-3.5 max-w-prose ${bgAccent}`}
             >
               <div className="pt-0.5 shrink-0">
                 {isNote ? (
-                  <Info size={16} className="text-blue-400 [html[data-theme='light']_&]:text-blue-600" />
+                  <Info size={16} className="text-white [html[data-theme='light']_&]:text-slate-900" />
                 ) : isTip ? (
-                  <Sparkles size={16} className="text-emerald-400 [html[data-theme='light']_&]:text-emerald-600" />
+                  <Sparkles size={16} className="text-white [html[data-theme='light']_&]:text-slate-900" />
                 ) : isWarning ? (
                   <AlertTriangle size={16} className="text-amber-400 [html[data-theme='light']_&]:text-amber-600" />
                 ) : (
@@ -890,7 +890,7 @@ export const ArticleRenderer = ({
                 )}
               </div>
               <div className="min-w-0 flex-1">
-                <div className={`font-mono text-[11px] font-bold uppercase tracking-wider mb-1 ${textColor}`}>
+                <div className={`font-mono text-xs font-bold uppercase tracking-wider mb-1 ${textColor}`}>
                   {badgeTitle}
                 </div>
                 <div

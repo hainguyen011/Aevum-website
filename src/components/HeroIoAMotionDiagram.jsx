@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { attachCanvasMotionLifecycle } from '../utils/canvasMotionLifecycle';
 
 /**
  * HeroIoAMotionDiagram - Storytelling Motion: Chậm rãi, Mềm mại & Uyển chuyển
@@ -14,7 +15,6 @@ import React, { useEffect, useRef } from 'react';
  */
 export const HeroIoAMotionDiagram = () => {
   const canvasRef = useRef(null);
-  const animFrameId = useRef(null);
   const tickRef = useRef(0);
 
   // Smooth gaze & state references for continuous interpolation
@@ -34,23 +34,8 @@ export const HeroIoAMotionDiagram = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    let width = (canvas.width = canvas.parentElement?.clientWidth || 780);
-    let height = (canvas.height = 440);
-
-    const handleResize = () => {
-      if (!canvas.parentElement) return;
-      const dpr = window.devicePixelRatio || 1;
-      width = canvas.parentElement.clientWidth;
-      height = 440;
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      canvas.style.width = `${width}px`;
-      canvas.style.height = `${height}px`;
-      ctx.scale(dpr, dpr);
-    };
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
+    let width = canvas.parentElement?.clientWidth || 780;
+    let height = 440;
 
     // ── Silky Easing Curves ──
     const easeInOutCubic = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
@@ -335,8 +320,10 @@ export const HeroIoAMotionDiagram = () => {
     // Total cycle: 1800 frames (~30 seconds) for slow, spacious, graceful storytelling
     const CYCLE_LENGTH = 1800;
 
-    const render = () => {
-      tickRef.current++;
+    const drawFrame = (_ctx, nextWidth, nextHeight, { advanceTick = true } = {}) => {
+      width = nextWidth;
+      height = nextHeight;
+      if (advanceTick) tickRef.current++;
       const tick = tickRef.current;
 
       // 100% CLEAR TRANSPARENT CANVAS
@@ -838,18 +825,14 @@ export const HeroIoAMotionDiagram = () => {
           status: a1_bubbleStatus
         });
       }
-
-      animFrameId.current = requestAnimationFrame(render);
     };
 
-    render();
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      if (animFrameId.current) {
-        cancelAnimationFrame(animFrameId.current);
-      }
-    };
+    return attachCanvasMotionLifecycle({
+      canvas,
+      getHeight: () => 440,
+      onDraw: drawFrame,
+      threshold: 0.08
+    });
   }, []);
 
   return (

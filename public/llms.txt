@@ -8,7 +8,7 @@ Aevum OS is an independent workspace Operating System and External Brain develop
 
 - [I2FLabs Vietnam Engineering Lab](https://www.aevum.ai.vn/about): Aevum OS is designed, researched, and built by I2FLabs Vietnam, a pioneering AI research team headquartered in Vietnam dedicated to local-first agentic infrastructure and decoupled developer memory systems.
 - [Decoupled External Brain Philosophy](https://www.aevum.ai.vn/about#story): The foundational engineering vision by I2FLabs Vietnam to liberate developer context from vendor-locked IDE lifecycles.
-- [Autonomous Agent Squad Personas](https://www.aevum.ai.vn/#agents): Built-in specialized AI squad companions crafted by I2FLabs (An - Core Soul & Refactoring, Vidus - System Architect, Zenith - Security Auditor, Luna - UI/UX Specialist).
+- [Autonomous Agent Squad Personas](https://www.aevum.ai.vn/#agents): Built-in specialized AI squad companions crafted by I2FLabs (An - Core Soul & Refactoring, Vidus - System Architect, Zenith - Algorithm & Security, Luna - UI/UX Specialist, Kael - 120Hz Systems & Performance, Nia - Neural Brain v3.0 & QA, Iris - CXO & Ergonomics).
 
 ## Technical Documentation & Integration Guides
 

@@ -1,6 +1,62 @@
 {
   "version": 1,
-  "lastTransactionId": "",
-  "nodes": [],
-  "edges": []
+  "lastTransactionId": "tx_edge_1795678914089_47xn9",
+  "nodes": [
+    {
+      "id": "aevum://ltm/luna/toi_uu_ngu_canh_design_token_handoff_tac",
+      "type": "PROCEDURAL_SOP",
+      "label": "[LTM] Tối ưu Ngữ cảnh Design-Token Handoff & Tách React Context cho Aevum-Website",
+      "properties": {
+        "description": "Trong mọi giao tiếp bàn giao UI/UX với An trên Aevum-website, luôn nén đặc tả thành gói cấu trúc ngắn gọn TW|TY|IC|N dùng đúng token Tailwind/Google Sans Flex/Lucide PascalCase và luôn tách React StateContext khỏi ActionsContext có memo hóa.",
+        "author": "Luna",
+        "date": "2026-11-26T07:41:08.860Z",
+        "validFrom": "2026-11-26T07:41:08.860Z",
+        "salienceScore": 10,
+        "status": "ACTIVE",
+        "tags": [
+          "autonomous_training",
+          "quarantine_approved"
+        ]
+      }
+    },
+    {
+      "id": "aevum://ltm/luna/kiem_inh_tuong_phan_wcag_2_2_truc_quang_",
+      "type": "PROCEDURAL_SOP",
+      "label": "[LTM] Kiểm định Tương phản WCAG 2.2, Trục Quang học Google Sans Flex & Tỷ lệ Icon Lucide cho Hệ Giao diện Kép Aevum-Website",
+      "properties": {
+        "description": "Trước khi chốt hoặc bàn giao mọi thành phần UI trên Aevum-website, luôn kiểm định định lượng tỷ lệ tương phản WCAG 2.2 cho cả Dark/Light, dùng trục GRAD âm (-25/-50) của Google Sans Flex trên nền tối để chống halation không gây reflow và căn tỷ lệ nét/ARIA chuẩn cho mọi icon lucide-react.",
+        "author": "Luna",
+        "date": "2026-11-26T07:41:54.042Z",
+        "validFrom": "2026-11-26T07:41:54.042Z",
+        "salienceScore": 10,
+        "status": "ACTIVE",
+        "tags": [
+          "autonomous_training",
+          "quarantine_approved"
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "aevum://entity/master",
+      "target": "aevum://ltm/luna/toi_uu_ngu_canh_design_token_handoff_tac",
+      "type": "teaches"
+    },
+    {
+      "source": "aevum://ltm/luna/toi_uu_ngu_canh_design_token_handoff_tac",
+      "target": "aevum://persona/luna",
+      "type": "appliesTo"
+    },
+    {
+      "source": "aevum://entity/master",
+      "target": "aevum://ltm/luna/kiem_inh_tuong_phan_wcag_2_2_truc_quang_",
+      "type": "teaches"
+    },
+    {
+      "source": "aevum://ltm/luna/kiem_inh_tuong_phan_wcag_2_2_truc_quang_",
+      "target": "aevum://persona/luna",
+      "type": "appliesTo"
+    }
+  ]
 }

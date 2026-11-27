@@ -61,9 +61,9 @@ Khi bạn hoàn thành một buổi lập trình và đóng máy:
 
 ---
 
-## 5. Chỉ Số Năng Lượng & Tâm Lý Nhận Thức (Vibe Dynamics)
+## 5. Neural Brain v3.0 & Chỉ Số Nhận Thức (Vibe Dynamics)
 
-Để AI phản hồi sống động và đúng mực như một người đồng đội thực thụ, Aevum OS mô phỏng 3 chỉ số điều tiết nhận thức:
+Kiến trúc ký ức thế hệ mới kết hợp lõi **Neural Brain v3.0** (mô hình xung Symplectic SE-AdLIF, học tăng cường cục bộ e-prop, chuỗi Benna-Fusi và truy hồi **Hybrid RRF Hopfield**) cùng 3 chỉ số điều tiết nhận thức giúp AI đồng hành tự nhiên như một kỹ sư thực thụ:
 
 * **Dopamine (Động lực)**: Tăng lên khi hoàn thành một tính năng khó hoặc được bạn khen ngợi, giúp AI hăng hái và sáng tạo hơn.
 * **Noradrenaline (Tập trung & Cảnh giác)**: Tăng cao khi quét thấy lỗi bảo mật hoặc mã nguồn có rủi ro, giúp AI cẩn trọng hơn trong từng dòng code.

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, Facebook, ChevronDown, Globe, Eye, EyeOff, Sun, Atom, Menu, X, Sparkles, Layers, Network, Terminal, ArrowRight, Mail, User, LogOut, Zap } from 'lucide-react';
+import { Search, ChevronDown, Sun, Menu, X, User, LogOut } from 'lucide-react';
 import logoImg from '../../assets/logos/AevumOS-transparent.webp';
 import unikornLogo from '../../assets/unikorn-logo.webp';
 import unikornLogoDark from '../../assets/unikorn-logo-dark.webp';
@@ -200,7 +200,7 @@ export const Navbar = ({
   return (
     <div
       ref={featuresRef}
-      className={`navbar-root ${isNavbarScrolled ? 'navbar-scrolled' : 'navbar-transparent'} relative w-full !sticky top-0 z-40 flex flex-col transition-all duration-300 ${headerBgClass}`}
+      className={`navbar-root ${isNavbarScrolled ? 'navbar-scrolled' : 'navbar-transparent'} relative w-full !sticky top-0 z-40 flex flex-col transition-[background-color,border-color,backdrop-filter] duration-200 ${headerBgClass}`}
       style={{ position: 'sticky', top: 0, zIndex: 40 }}
     >
 
@@ -235,6 +235,7 @@ export const Navbar = ({
               return (
                 <button
                   onClick={() => toggleDropdown('features')}
+                  aria-expanded={featuresOpen}
                   className={`flex items-center gap-1.5 text-xs sm:text-[13px] py-1 px-2.5 rounded-md transition-colors cursor-pointer ${isButtonActive
                     ? 'text-white [html[data-theme="light"]_&]:text-slate-900 bg-white/10 [html[data-theme="light"]_&]:bg-slate-200'
                     : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
@@ -271,6 +272,7 @@ export const Navbar = ({
             {/* Resources Dropdown - Concise "Tài liệu" */}
             <button
               onClick={() => toggleDropdown('resources')}
+              aria-expanded={resourcesOpen}
               className={`flex items-center gap-1.5 transition-colors font-normal whitespace-nowrap cursor-pointer ${resourcesOpen || ['docs', 'changelog', 'discussions', 'explore'].includes(currentPage)
                 ? 'text-white [html[data-theme="light"]_&]:text-slate-900 font-medium'
                 : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
@@ -414,7 +416,7 @@ export const Navbar = ({
 
       {/* Unified Compact Expandable Sub-Navigation Floating Overlay (Never pushes content down, never overlaps) */}
       <div
-        className={`navbar-dropdown-panel absolute top-full left-0 right-0 z-50 overflow-hidden transition-all duration-300 ease-out ${dropdownBgClass} ${(featuresOpen || resourcesOpen) ? 'max-h-16 opacity-100 py-3 pointer-events-auto' : 'max-h-0 opacity-0 py-0 border-b-0 pointer-events-none'
+        className={`navbar-dropdown-panel absolute top-full left-0 right-0 z-50 overflow-hidden transition-[max-height,opacity,padding] duration-200 ease-out ${dropdownBgClass} ${(featuresOpen || resourcesOpen) ? 'max-h-16 opacity-100 py-3 pointer-events-auto' : 'max-h-0 opacity-0 py-0 border-b-0 pointer-events-none'
           }`}
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-8 flex items-center justify-between text-xs">
@@ -534,7 +536,7 @@ export const Navbar = ({
       {/* ── Profile Dropdown Floating Overlay (Never pushes content down) ── */}
       {user && (
         <div
-          className={`navbar-dropdown-panel absolute top-full left-0 right-0 z-50 overflow-hidden transition-all duration-300 ease-out ${dropdownBgClass} ${profileOpen ? 'max-h-48 sm:max-h-24 opacity-100 py-3 sm:py-2.5 pointer-events-auto' : 'max-h-0 opacity-0 py-0 border-b-0 pointer-events-none'
+          className={`navbar-dropdown-panel absolute top-full left-0 right-0 z-50 overflow-hidden transition-[max-height,opacity,padding] duration-300 ease-out ${dropdownBgClass} ${profileOpen ? 'max-h-48 sm:max-h-24 opacity-100 py-3 sm:py-2.5 pointer-events-auto' : 'max-h-0 opacity-0 py-0 border-b-0 pointer-events-none'
             }`}
         >
           <div className="max-w-6xl mx-auto px-4 sm:px-8 flex items-center justify-between gap-3">
@@ -555,11 +557,11 @@ export const Navbar = ({
                 const initials = displayName.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
 
                 return (
-                  <div className="w-10 h-10 rounded-md bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-100 border border-white/10 [html[data-theme='light']_&]:border-slate-300 overflow-hidden flex items-center justify-center shrink-0 group-hover/user:border-cyan-400/40 transition-all">
+                  <div className="w-10 h-10 rounded-md bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-100 border border-white/10 [html[data-theme='light']_&]:border-slate-300 overflow-hidden flex items-center justify-center shrink-0 group-hover/user:border-white/30 [html[data-theme='light']_&]:group-hover/user:border-slate-400 transition-colors">
                     {avatarUrl ? (
                       <img src={avatarUrl} alt={displayName} className="w-full h-full object-cover" />
                     ) : (
-                      <div className="w-full h-full bg-cyan-950 flex items-center justify-center text-cyan-300 text-xs font-bold font-mono">
+                      <div className="w-full h-full bg-white/10 [html[data-theme='light']_&]:bg-slate-200 flex items-center justify-center text-white [html[data-theme='light']_&]:text-slate-900 text-xs font-bold font-mono">
                         {initials}
                       </div>
                     )}
@@ -569,7 +571,7 @@ export const Navbar = ({
 
               <div className="min-w-0 flex-1 space-y-1">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-xs font-bold text-white [html[data-theme='light']_&]:text-slate-900 group-hover/user:text-cyan-400 [html[data-theme='light']_&]:group-hover/user:text-cyan-600 transition-colors tracking-tight truncate">
+                  <span className="text-xs font-bold text-white [html[data-theme='light']_&]:text-slate-900 group-hover/user:text-slate-200 [html[data-theme='light']_&]:group-hover/user:text-black transition-colors tracking-tight truncate">
                     {user.user_metadata?.full_name || user.user_metadata?.name || user.email.split('@')[0]}
                   </span>
 
@@ -608,7 +610,7 @@ export const Navbar = ({
                   await supabase.auth.signOut();
                   closeDropdown();
                 }}
-                className="px-2.5 py-1.5 rounded-sm border border-red-500/30 hover:border-red-400/60 bg-red-500/5 hover:bg-red-500/15 text-red-400 hover:text-red-300 text-[10px] font-mono font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center gap-1.5 whitespace-nowrap shrink-0"
+                className="px-2.5 py-1.5 rounded-sm border border-red-500/30 hover:border-red-400/60 bg-red-500/5 hover:bg-red-500/15 text-red-400 hover:text-red-300 text-[10px] font-mono font-bold uppercase tracking-wider transition-colors cursor-pointer flex items-center gap-1.5 whitespace-nowrap shrink-0"
                 title={isVi ? 'Đăng xuất tài khoản' : 'Sign out'}
               >
                 <LogOut size={12} className="shrink-0" />

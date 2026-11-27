@@ -28,7 +28,7 @@
         "@type": "SoftwareApplication",
         "name": "Aevum OS",
         "category": "Agentic Operating System & MCP Daemon",
-        "softwareVersion": "2.1.0",
+        "softwareVersion": "2.0.0",
         "description": "Standalone decoupled external brain providing persistent Living Memory Graph, Domain-Driven Design planning, high-performance CLI terminal engine, and multi-agent squad orchestration for modern AI coding tools.",
         "operatingSystem": "Windows, macOS, Linux",
         "license": "https://opensource.org/licenses/ISC",
@@ -84,15 +84,33 @@
           },
           {
             "name": "Zenith",
-            "id": "SEC-ZENITH-44D99B",
-            "role": "Security & Boundary Integrity Auditor",
-            "specialty": "Memory graph integrity, zero unauthorized writes, and boundary defense."
+            "id": "ALG-ZENITH-A1B2C3",
+            "role": "Security, Formal Verification & Boundary Integrity Auditor",
+            "specialty": "Memory graph integrity, mathematical proofs, zero unauthorized writes, and boundary defense."
           },
           {
             "name": "Luna",
-            "id": "UX-LUNA-33F77A",
+            "id": "DSN-LUNA-3C9A12",
             "role": "Visual Experience & Design System Lead",
             "specialty": "Minimalist transparent interfaces, design systems, and frontend ergonomics."
+          },
+          {
+            "name": "Kael",
+            "id": "ENG-KAEL-7F4B2D",
+            "role": "Principal Frontend Systems & 120Hz Runtime Performance Architect",
+            "specialty": "120fps motion lifecycle governance, deterministic bundle splitting, and zero main-thread jank."
+          },
+          {
+            "name": "Nia",
+            "id": "NEU-NIA-9E4B2A",
+            "role": "Neural Brain Architect & Empirical QA Specialist",
+            "specialty": "Neural Brain v3.0 Symplectic CLS consolidation, Spiking WASM recall, and end-to-end quality verification."
+          },
+          {
+            "name": "Iris",
+            "id": "ARC-IRIS-7D94D427",
+            "role": "CXO & Lead UX Researcher",
+            "specialty": "CX lifecycle seam elimination, ZPD progressive disclosure, cognitive ergonomics, and zero-friction FTUX."
           }
         ],
         "mcpToolModules": [

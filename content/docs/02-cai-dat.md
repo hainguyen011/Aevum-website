@@ -53,9 +53,9 @@ Lựa chọn lý tưởng cho lập trình viên muốn theo dõi kiến trúc v
 1. **Khởi động**: Mở ứng dụng **Aevum OS** từ màn hình Desktop (Windows) hoặc Launchpad (macOS).
 2. **Cơ chế tự động**: Ngay khi ứng dụng xuất hiện, **Fastify Core Daemon** tự động kích hoạt ngầm tại cổng `{{FASTIFY_PORT}}` mà bạn không cần duy trì bất kỳ cửa sổ console nào.
 3. **Các tính năng nổi bật trên giao diện**:
+   * **Lean Workspace & Agent Chat**: Trò chuyện trực tiếp cùng Persona yêu thích trên giao diện 120 FPS với bộ chọn mô hình đa nhà cung cấp (Claude, Gemini, GPT) và chế độ tự hành **Hermes**.
    * **Workspace Overview**: Theo dõi chỉ số sức khỏe codebase và nhật ký nhịp sống hệ thống theo thời gian thực.
-   * **Agent Chat Cockpit**: Trò chuyện trực tiếp cùng Persona yêu thích với bộ chọn mô hình linh hoạt (Claude 3.5 Sonnet, Gemini 2.5 Flash, GPT-4o).
-   * **Skill Tree Canvas**: Khám phá cây kỹ năng và đồ thị nghiên cứu tương tác.
+   * **Skill Tree Canvas**: Khám phá cây kỹ năng và đồ thị nghiên cứu cộng sinh (Co-Research Cockpit).
    * **Living Memory Graph**: Quan sát đồ thị tri thức sống động gắn liền theo từng tệp mã nguồn.
 
 ---

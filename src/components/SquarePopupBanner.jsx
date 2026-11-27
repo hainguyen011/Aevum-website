@@ -328,10 +328,10 @@ export const SquarePopupBanner = ({ onNavigate, activeLang = 'vi' }) => {
                     setCurrentIndex(i);
                   }}
                   aria-label={`Slide ${i + 1}`}
-                  className={`transition-all duration-300 rounded-full cursor-pointer border-none p-0 outline-none ${
+                  className={`transition-colors duration-300 rounded-full cursor-pointer border-none p-0 outline-none ${
                     i === currentIndex
-                      ? "w-7 sm:w-9 h-2 sm:h-2.5 bg-cyan-400 [html[data-theme='light']_&]:bg-cyan-400"
-                      : "w-2 sm:w-2.5 h-2 sm:h-2.5 bg-white/60 hover:bg-white/90 [html[data-theme='light']_&]:bg-slate-400 [html[data-theme='light']_&]:hover:bg-slate-600"
+                      ? "w-7 sm:w-9 h-2 sm:h-2.5 bg-white [html[data-theme='light']_&]:bg-slate-900"
+                      : "w-2 sm:w-2.5 h-2 sm:h-2.5 bg-white/45 hover:bg-white/80 [html[data-theme='light']_&]:bg-slate-400 [html[data-theme='light']_&]:hover:bg-slate-600"
                   }`}
                 />
               ))}

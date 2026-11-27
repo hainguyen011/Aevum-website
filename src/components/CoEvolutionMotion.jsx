@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { attachCanvasMotionLifecycle } from '../utils/canvasMotionLifecycle';
 
 /**
  * CoEvolutionMotion - 3D Collaborative Dream House Blueprint Studio
@@ -21,7 +22,6 @@ import React, { useEffect, useRef } from 'react';
  */
 export const CoEvolutionMotion = ({ activeLang = 'vi' }) => {
   const canvasRef = useRef(null);
-  const animFrameId = useRef(null);
   const tickRef = useRef(0);
 
   const isVi = activeLang === 'vi';
@@ -32,23 +32,8 @@ export const CoEvolutionMotion = ({ activeLang = 'vi' }) => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    let width = (canvas.width = canvas.parentElement?.clientWidth || 780);
-    let height = (canvas.height = 510);
-
-    const handleResize = () => {
-      if (!canvas.parentElement) return;
-      const dpr = window.devicePixelRatio || 1;
-      width = canvas.parentElement.clientWidth;
-      height = 510;
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      canvas.style.width = `${width}px`;
-      canvas.style.height = `${height}px`;
-      ctx.scale(dpr, dpr);
-    };
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
+    let width = canvas.parentElement?.clientWidth || 780;
+    let height = 510;
 
     // ── 5 CHUYÊN MÔN CỘNG TÁC XÂY DỰNG NGÔI NHÀ ──
     const studyBuddies = [
@@ -723,8 +708,10 @@ export const CoEvolutionMotion = ({ activeLang = 'vi' }) => {
     const PHASE_PER_AGENT = 450; // ~7.5 giây cho mỗi agent
     const TOTAL_CYCLE = PHASE_PER_AGENT * studyBuddies.length; // ~37.5 giây trọn chu trình
 
-    const render = () => {
-      tickRef.current++;
+    const drawFrame = (_ctx, nextWidth, nextHeight, { advanceTick = true } = {}) => {
+      width = nextWidth;
+      height = nextHeight;
+      if (advanceTick) tickRef.current++;
       const tick = tickRef.current;
 
       ctx.clearRect(0, 0, width, height);
@@ -816,18 +803,14 @@ export const CoEvolutionMotion = ({ activeLang = 'vi' }) => {
           }
         }
       });
-
-      animFrameId.current = requestAnimationFrame(render);
     };
 
-    render();
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      if (animFrameId.current) {
-        cancelAnimationFrame(animFrameId.current);
-      }
-    };
+    return attachCanvasMotionLifecycle({
+      canvas,
+      getHeight: () => 510,
+      onDraw: drawFrame,
+      threshold: 0.08
+    });
   }, [isVi]);
 
   return (

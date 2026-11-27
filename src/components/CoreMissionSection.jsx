@@ -1,12 +1,11 @@
 import React from 'react';
-import { CoreMissionMotion } from './CoreMissionMotion';
+import { AevumOsChatMockup } from './AevumOsChatMockup';
 
 /**
- * CoreMissionSection - Section Làm rõ Mục tiêu của AevumOS ngay từ đầu
+ * CoreMissionSection - Giới thiệu trực quan không gian AevumOS Desktop
  * 
- * Nội dung:
- * - Trao cho bạn Agent tự hành có khả năng ghi nhớ, tự động làm việc và tiến hóa cùng hành trình của bạn.
- * - Bên dưới là motion pixel agent 5 bạn đứng thành hàng chữ V với diễn hoạt hài hước và ngầu.
+ * Mô phỏng trung thực UI AevumOS (Sidebar dự án, Máy chủ cổng 3344, khung chat đen Obsidian)
+ * cùng dòng hoạt động thực tế của Agent (Memory Recall, CoW RAM Sandbox, Boundary Guard).
  */
 
 export const CoreMissionSection = ({ activeLang = 'vi' }) => {
@@ -15,49 +14,47 @@ export const CoreMissionSection = ({ activeLang = 'vi' }) => {
   return (
     <section
       id="mission"
-      className="w-full pt-10 pb-8 sm:pt-14 sm:pb-10 bg-[#0A0B0F] [html[data-theme='light']_&]:bg-[#FFFFFF] border-b border-white/[0.05] [html[data-theme='light']_&]:border-slate-200 select-none"
+      className="w-full py-12 sm:py-16 bg-[#0A0B0F] [html[data-theme='light']_&]:bg-[#FFFFFF]"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* ── 2-COLUMN EDITORIAL HEADER ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-14 items-start mb-6 sm:mb-8 text-left">
-          
-          <div className="lg:col-span-8 space-y-4">
-            <div className="text-xs font-mono tracking-widest text-slate-400 [html[data-theme='light']_&]:text-slate-500 uppercase select-none">
-              <span>{isVi ? 'MỤC TIÊU CỐT LÕI • CORE MISSION' : 'CORE MISSION • AUTONOMOUS AGENTS'}</span>
+        {/* Concise Editorial Header (DeepMind Breathing Room) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-end mb-6 sm:mb-8 text-left">
+          <div className="lg:col-span-8 space-y-3">
+            <div className="text-xs font-mono tracking-widest text-slate-300 [html[data-theme='light']_&]:text-slate-600 uppercase select-none">
+              <span>{isVi ? 'SỨ MỆNH CỐT LÕI' : 'CORE MISSION'}</span>
             </div>
 
-            <h2 className="text-3xl sm:text-5xl lg:text-5xl font-normal tracking-[-0.03em] text-white [html[data-theme='light']_&]:text-slate-900 leading-[1.14] font-sans">
+            <h2 className="text-3xl sm:text-5xl font-normal tracking-[-0.03em] text-white [html[data-theme='light']_&]:text-slate-900 leading-[1.14] font-sans">
               {isVi ? (
                 <>
-                  Trao cho bạn Agent tự hành có khả năng ghi nhớ,{' '}
+                  Từ trợ lý hỏi-đáp thành{' '}
                   <span className="text-slate-300 [html[data-theme='light']_&]:text-slate-800">
-                    tự động làm việc và tiến hóa cùng hành trình của bạn.
+                    đồng nghiệp biết nhớ việc.
                   </span>
                 </>
               ) : (
                 <>
-                  Empowering you with autonomous agents that remember,{' '}
+                  From forgetful chatbox to{' '}
                   <span className="text-slate-300 [html[data-theme='light']_&]:text-slate-800">
-                    execute independently, and evolve with your journey.
+                    lasting engineering partners.
                   </span>
                 </>
               )}
             </h2>
           </div>
 
-          <div className="lg:col-span-4 pt-2">
-            <p className="text-base sm:text-lg text-slate-400 [html[data-theme='light']_&]:text-slate-600 leading-relaxed font-sans font-light">
+          <div className="lg:col-span-4">
+            <p className="text-base text-slate-300 [html[data-theme='light']_&]:text-slate-700 leading-[1.7] font-sans font-normal m-0">
               {isVi
-                ? 'Không đơn thuần là công cụ sinh code tức thời. Aevum OS trao cho bạn một biệt đội cộng sự số thực thụ, am hiểu kiến trúc và cùng bạn gánh vác mọi trọng trách kỹ thuật.'
-                : 'Not just transient prompt generators. Aevum OS gives you a dedicated digital collective that remembers architectural conventions and scales alongside your engineering career.'}
+                ? 'Không chỉ sinh code rồi quên, các cộng sự hiểu cấu trúc dự án và tự phối hợp hoàn thiện cùng bạn.'
+                : 'More than prompt autocomplete: a coordinated digital collective that retains project architecture and finishes tasks beside you.'}
             </p>
           </div>
-
         </div>
 
-        {/* ── MOTION CANVAS: V-FORMATION 5 PIXEL AGENTS ── */}
-        <CoreMissionMotion activeLang={activeLang} />
+        {/* Authentic AevumOS Desktop UI & Live Agent Activity Simulator */}
+        <AevumOsChatMockup activeLang={activeLang} />
 
       </div>
     </section>

@@ -28,15 +28,15 @@ export const Footer = ({ onNavigate, activeLang }) => {
   };
 
   return (
-    <footer className="bg-[#0A0B0F] [html[data-theme='light']_&]:bg-[#F8FAFC] text-slate-400 [html[data-theme='light']_&]:text-slate-600 relative z-10 w-full border-t border-white/[0.06] [html[data-theme='light']_&]:border-slate-200">
+    <footer className="bg-[#07090D] [html[data-theme='light']_&]:bg-[#F8FAFC] text-slate-400 [html[data-theme='light']_&]:text-slate-600 relative z-10 w-full">
       {/* Top Main Section with Responsive Grid */}
       <div className="px-4 sm:px-8 lg:px-12 py-10 sm:py-14 lg:py-16 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-8">
-          
+
           {/* Brand & Identity Column (Spans full on mobile, 2 cols on desktop) */}
           <div className="col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-2 space-y-4 pr-0 lg:pr-6">
             <div className="flex items-center gap-2">
-              <button 
+              <button
                 onClick={() => onNavigate('landing')}
                 aria-label="Aevum OS Homepage"
                 className="flex items-center gap-2.5 text-left p-0 cursor-pointer group bg-transparent border-0"
@@ -45,70 +45,70 @@ export const Footer = ({ onNavigate, activeLang }) => {
                 <span className="font-bold text-white [html[data-theme='light']_&]:text-slate-900 text-base tracking-tight font-display">AEVUM OS</span>
               </button>
             </div>
-            <p className="text-slate-400 [html[data-theme='light']_&]:text-slate-600 max-w-md text-xs leading-relaxed font-sans">
+            <p className="text-slate-300 [html[data-theme='light']_&]:text-slate-600 max-w-md text-sm sm:text-base leading-relaxed font-sans">
               {t.footer.brandDesc}
             </p>
-            
+
             {/* Quick Text Links */}
-            <div className="flex flex-wrap items-center gap-x-3.5 gap-y-2 pt-2 text-slate-400 [html[data-theme='light']_&]:text-slate-600 font-mono text-xs">
-              <button 
-                onClick={() => onNavigate('pricing')} 
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 pt-2 text-slate-300 [html[data-theme='light']_&]:text-slate-600 font-mono text-xs sm:text-sm">
+              <button
+                onClick={() => onNavigate('pricing')}
                 className="hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors cursor-pointer bg-transparent border-none p-0 text-left"
               >
                 {t.navbar.pricing}
               </button>
-              <button 
-                onClick={() => onNavigate('docs')} 
+              <button
+                onClick={() => onNavigate('docs')}
                 className="hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors cursor-pointer bg-transparent border-none p-0 text-left"
               >
                 {t.footer.links.docs}
               </button>
-              <button 
-                onClick={() => onNavigate('about')} 
+              <button
+                onClick={() => onNavigate('about')}
                 className="hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors cursor-pointer bg-transparent border-none p-0 text-left"
               >
                 {t.navbar.about}
               </button>
-              <a 
-                href="https://i2flabs.vercel.app/" 
-                target="_blank" 
-                rel="noreferrer" 
-                aria-label="I2FLabs Official Website" 
+              <a
+                href="https://i2flabs.vercel.app/"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="I2FLabs Official Website"
                 className="hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors"
               >
                 I2FLabs
               </a>
-              <a 
-                href="https://open-vsx.org/extension/I2FLabs/aevum" 
-                target="_blank" 
-                rel="noreferrer" 
-                aria-label="Aevum Open VSX Extension" 
+              <a
+                href="https://open-vsx.org/extension/I2FLabs/aevum"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Aevum Open VSX Extension"
                 className="hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors"
               >
                 {t.footer.links.openVsx}
               </a>
-              <a 
-                href="https://unikorn.vn/p/aevum" 
-                target="_blank" 
-                rel="noreferrer" 
-                aria-label="Unikorn Product Hunt Page" 
+              <a
+                href="https://unikorn.vn/p/aevum"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Unikorn Product Hunt Page"
                 className="hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors"
               >
                 {t.footer.links.unikorn}
               </a>
-              <a 
-                href="https://github.com/hainguyen011" 
-                target="_blank" 
-                rel="noreferrer" 
-                aria-label="GitHub Repository" 
+              <a
+                href="https://github.com/hainguyen011"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="GitHub Repository"
                 className="hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors"
               >
                 GitHub
               </a>
-              <a 
-                href="mailto:hainguyen011238@gmail.com" 
-                aria-label="Email Aevum OS Support" 
-                className="hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors" 
+              <a
+                href="mailto:hainguyen011238@gmail.com"
+                aria-label="Email Aevum OS Support"
+                className="hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors"
                 title="hainguyen011238@gmail.com"
               >
                 Mail
@@ -124,36 +124,36 @@ export const Footer = ({ onNavigate, activeLang }) => {
             </h3>
             <ul className="space-y-2 text-xs">
               <li>
-                <a 
-                  href="#mission" 
-                  onClick={(e) => handleNavLink(e, 'mission')} 
+                <a
+                  href="#mission"
+                  onClick={(e) => handleNavLink(e, 'mission')}
                   className="hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors text-slate-300 [html[data-theme='light']_&]:text-slate-600 block py-0.5"
                 >
                   {activeLang === 'vi' ? 'Mục tiêu cốt lõi' : 'Core Mission'}
                 </a>
               </li>
               <li>
-                <a 
-                  href="#value-props" 
-                  onClick={(e) => handleNavLink(e, 'value-props')} 
+                <a
+                  href="#value-props"
+                  onClick={(e) => handleNavLink(e, 'value-props')}
                   className="hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors text-slate-300 [html[data-theme='light']_&]:text-slate-600 block py-0.5"
                 >
                   {activeLang === 'vi' ? 'Vượt xa khung chat' : 'Value Pillars'}
                 </a>
               </li>
               <li>
-                <a 
-                  href="#co-evolution" 
-                  onClick={(e) => handleNavLink(e, 'co-evolution')} 
+                <a
+                  href="#co-evolution"
+                  onClick={(e) => handleNavLink(e, 'co-evolution')}
                   className="hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors text-slate-300 [html[data-theme='light']_&]:text-slate-600 block py-0.5"
                 >
                   {activeLang === 'vi' ? 'Biệt đội kiến tạo' : 'Interdisciplinary Swarm'}
                 </a>
               </li>
               <li>
-                <a 
-                  href="#workflow" 
-                  onClick={(e) => handleNavLink(e, 'workflow')} 
+                <a
+                  href="#workflow"
+                  onClick={(e) => handleNavLink(e, 'workflow')}
                   className="hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors text-slate-300 [html[data-theme='light']_&]:text-slate-600 block py-0.5"
                 >
                   {activeLang === 'vi' ? 'Quy trình 3 bước' : '3-Step Workflow'}
@@ -170,36 +170,36 @@ export const Footer = ({ onNavigate, activeLang }) => {
             </h3>
             <ul className="space-y-2 text-xs">
               <li>
-                <a 
-                  href="#metrics" 
-                  onClick={(e) => handleNavLink(e, 'metrics')} 
+                <a
+                  href="#metrics"
+                  onClick={(e) => handleNavLink(e, 'metrics')}
                   className="hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors text-slate-300 [html[data-theme='light']_&]:text-slate-600 block py-0.5"
                 >
                   {activeLang === 'vi' ? '6 Lợi ích & Đo kiểm' : '6 Verified Metrics'}
                 </a>
               </li>
               <li>
-                <a 
-                  href="#metrics" 
-                  onClick={(e) => handleNavLink(e, 'metrics')} 
+                <a
+                  href="#metrics"
+                  onClick={(e) => handleNavLink(e, 'metrics')}
                   className="hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors text-slate-300 [html[data-theme='light']_&]:text-slate-600 block py-0.5"
                 >
                   {activeLang === 'vi' ? 'Bảo tồn trí nhớ (99%)' : 'Living Memory Graph (99%)'}
                 </a>
               </li>
               <li>
-                <a 
-                  href="#metrics" 
-                  onClick={(e) => handleNavLink(e, 'metrics')} 
+                <a
+                  href="#metrics"
+                  onClick={(e) => handleNavLink(e, 'metrics')}
                   className="hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors text-slate-300 [html[data-theme='light']_&]:text-slate-600 block py-0.5"
                 >
                   {activeLang === 'vi' ? 'Kỷ luật Plan-First (66%)' : 'Plan-First Discipline (66%)'}
                 </a>
               </li>
               <li>
-                <a 
-                  href="#metrics" 
-                  onClick={(e) => handleNavLink(e, 'metrics')} 
+                <a
+                  href="#metrics"
+                  onClick={(e) => handleNavLink(e, 'metrics')}
                   className="hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors text-slate-300 [html[data-theme='light']_&]:text-slate-600 block py-0.5"
                 >
                   {activeLang === 'vi' ? 'Phân vùng CoW Sandbox' : 'Zero-Trust CoW Sandbox'}
@@ -216,35 +216,35 @@ export const Footer = ({ onNavigate, activeLang }) => {
             </h3>
             <ul className="space-y-2 text-xs">
               <li>
-                <a 
-                  href="#ioa-roadmap" 
-                  onClick={(e) => handleNavLink(e, 'ioa-roadmap')} 
+                <a
+                  href="#ioa-roadmap"
+                  onClick={(e) => handleNavLink(e, 'ioa-roadmap')}
                   className="hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors text-slate-300 [html[data-theme='light']_&]:text-slate-600 block py-0.5"
                 >
                   {activeLang === 'vi' ? 'Lộ trình Internet of Agents' : 'Internet of Agents (IoA)'}
                 </a>
               </li>
               <li>
-                <a 
-                  href="#ioa-roadmap" 
-                  onClick={(e) => handleNavLink(e, 'ioa-roadmap')} 
+                <a
+                  href="#ioa-roadmap"
+                  onClick={(e) => handleNavLink(e, 'ioa-roadmap')}
                   className="hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors text-slate-300 [html[data-theme='light']_&]:text-slate-600 block py-0.5"
                 >
                   {activeLang === 'vi' ? 'Con hào công nghệ R&D' : 'R&D Moat & Architecture'}
                 </a>
               </li>
               <li>
-                <a 
-                  href="#faq" 
-                  onClick={(e) => handleNavLink(e, 'faq')} 
+                <a
+                  href="#faq"
+                  onClick={(e) => handleNavLink(e, 'faq')}
                   className="hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors text-slate-300 [html[data-theme='light']_&]:text-slate-600 block py-0.5"
                 >
                   {activeLang === 'vi' ? 'Giải đáp thắc mắc (FAQ)' : 'Practical FAQs'}
                 </a>
               </li>
               <li>
-                <button 
-                  onClick={() => onNavigate('changelog')} 
+                <button
+                  onClick={() => onNavigate('changelog')}
                   className="hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors text-slate-300 [html[data-theme='light']_&]:text-slate-600 block py-0.5 text-left bg-transparent border-none p-0 cursor-pointer font-sans text-xs"
                 >
                   {activeLang === 'vi' ? 'Tải xuống Desktop App' : 'Download Desktop App'}

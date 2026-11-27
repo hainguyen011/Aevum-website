@@ -11,41 +11,27 @@ import { ProofMetricsSection } from './components/ProofMetricsSection';
 import { IoARoadmapSection } from './components/IoARoadmapSection';
 import { FaqSection } from './components/FaqSection';
 import { CoralCtaSection } from './components/CoralCtaSection';
-import { DigitalWorkforceSection } from './components/DigitalWorkforceSection';
-import { SubNavTabs } from './components/SubNavTabs';
 import { ScrollToTop } from './components/ScrollToTop';
-
-// Code-split below-the-fold landing components for ultra-fast Mobile FCP & LCP (<0.8s)
-const BentoGrid = lazy(() => import('./components/BentoGrid').then(m => ({ default: m.BentoGrid })));
-const AgentsShowcase = lazy(() => import('./components/AgentsShowcase').then(m => ({ default: m.AgentsShowcase })));
-const Testimonials = lazy(() => import('./components/Testimonials').then(m => ({ default: m.Testimonials })));
-const UnikornSection = lazy(() => import('./components/UnikornSection').then(m => ({ default: m.UnikornSection })));
-const I2FLabsSection = lazy(() => import('./components/I2FLabsSection').then(m => ({ default: m.I2FLabsSection })));
-const Sponsors = lazy(() => import('./components/Sponsors').then(m => ({ default: m.Sponsors })));
-const CtaBanner = lazy(() => import('./components/CtaBanner').then(m => ({ default: m.CtaBanner })));
-const Pricing = lazy(() => import('./components/Pricing').then(m => ({ default: m.Pricing })));
-const Footer = lazy(() => import('./components/Footer').then(m => ({ default: m.Footer })));
-import { AuthLockGate } from './components/ui/AuthLockGate';
-import { LazySection } from './components/ui/LazySection';
 import { prefetchPage } from './utils/prefetch';
 import { CustomCursor } from './components/CustomCursor';
 import { useScrollReveal } from './hooks/useScrollReveal';
 import { useSEO } from './hooks/useSEO';
 import logoImg from '../assets/logos/AevumOS-transparent.webp';
 import { translations } from './data/translations';
-import { Search, X, Eye, ScanEye, Sun, Atom, User, Globe, Sparkles } from 'lucide-react';
+import { Search, X, Sun, Atom, User } from 'lucide-react';
 
-// Direct import for Docs & EraExploration ensures synchronous SSR snapshots for maximum Google SEO indexing
-import { Docs } from './components/Docs';
-import { EraExploration } from './components/EraExploration';
-
-// Code-split heavy standalone pages & interactive modals
-const About = lazy(() => import('./components/About').then(m => ({ default: m.About })));
-const Changelog = lazy(() => import('./components/Changelog').then(m => ({ default: m.Changelog })));
+// Code-split standalone pages & interactive modals on client (synchronous overrides injected during SSR in entry-server.jsx)
+const LazyDocs = lazy(() => import('./components/Docs').then(m => ({ default: m.Docs || m.default })));
+const LazyEraExploration = lazy(() => import('./components/EraExploration').then(m => ({ default: m.EraExploration || m.default })));
+const LazyFooter = lazy(() => import('./components/Footer').then(m => ({ default: m.Footer })));
+const LazyPricing = lazy(() => import('./components/Pricing').then(m => ({ default: m.Pricing })));
+const LazyAbout = lazy(() => import('./components/About').then(m => ({ default: m.About })));
+const LazyChangelog = lazy(() => import('./components/Changelog').then(m => ({ default: m.Changelog })));
 const Discussions = lazy(() => import('./components/Discussions').then(m => ({ default: m.Discussions })));
 const Profile = lazy(() => import('./components/Profile').then(m => ({ default: m.Profile })));
-const Privacy = lazy(() => import('./components/Privacy').then(m => ({ default: m.Privacy })));
-const Terms = lazy(() => import('./components/Terms').then(m => ({ default: m.Terms })));
+const LazyPrivacy = lazy(() => import('./components/Privacy').then(m => ({ default: m.Privacy })));
+const LazyTerms = lazy(() => import('./components/Terms').then(m => ({ default: m.Terms })));
+const LazyAuthLockGate = lazy(() => import('./components/ui/AuthLockGate').then(m => ({ default: m.AuthLockGate })));
 const SearchModal = lazy(() => import('./components/SearchModal').then(m => ({ default: m.SearchModal })));
 const AuthModal = lazy(() => import('./components/AuthModal').then(m => ({ default: m.AuthModal })));
 const TrialModal = lazy(() => import('./components/TrialModal').then(m => ({ default: m.TrialModal })));
@@ -54,7 +40,22 @@ const DesktopAuthSuccessModal = lazy(() => import('./components/DesktopAuthSucce
 const PiperNetAuthSuccessModal = lazy(() => import('./components/PiperNetAuthSuccessModal').then(m => ({ default: m.PiperNetAuthSuccessModal })));
 const SquarePopupBanner = lazy(() => import('./components/SquarePopupBanner').then(m => ({ default: m.SquarePopupBanner })));
 
-export function App({ initialPage = null, initialLang = 'vi', initialDocId = null, initialLessonId = null }) {
+export function App({
+  initialPage = null,
+  initialLang = 'vi',
+  initialDocId = null,
+  initialLessonId = null,
+  ssrComponents = {}
+}) {
+  const DocsComponent = ssrComponents.Docs || LazyDocs;
+  const ExploreComponent = ssrComponents.EraExploration || LazyEraExploration;
+  const PricingView = ssrComponents.Pricing || LazyPricing;
+  const AboutView = ssrComponents.About || LazyAbout;
+  const ChangelogView = ssrComponents.Changelog || LazyChangelog;
+  const PrivacyView = ssrComponents.Privacy || LazyPrivacy;
+  const TermsView = ssrComponents.Terms || LazyTerms;
+  const AuthLockGateView = ssrComponents.AuthLockGate || LazyAuthLockGate;
+  const FooterView = ssrComponents.Footer || LazyFooter;
   const [currentPage, setCurrentPage] = useState(() => {
     if (initialPage) return initialPage;
     if (typeof window !== 'undefined') {
@@ -432,21 +433,6 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
   // Initialize Scroll Reveal Animations Hook
   useScrollReveal([currentPage]);
 
-  // Dynamically bust cache and set favicons using compiled Vite asset
-  useEffect(() => {
-    const iconLinks = document.querySelectorAll("link[rel*='icon']");
-    if (iconLinks && iconLinks.length > 0) {
-      iconLinks.forEach(link => {
-        link.href = logoImg;
-      });
-    } else {
-      const link = document.createElement('link');
-      link.rel = 'icon';
-      link.href = logoImg;
-      document.head.appendChild(link);
-    }
-  }, []);
-
   // Language Preference Manager (Default to 'vi')
   const [activeLang, setActiveLang] = useState(() => {
     if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
@@ -596,7 +582,7 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
 
   // Handle routing navigation and scroll to top with Clean URL paths & Native View Transitions
   const handleNavigate = (page, docId = null, headingId = null) => {
-    const protectedPages = ['changelog', 'discussions', 'profile'];
+    const protectedPages = ['discussions', 'profile'];
     if (protectedPages.includes(page) && !user) {
       setPendingRedirectPage(page);
       setIsAuthModalOpen(true);
@@ -786,8 +772,8 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
               {/* 4. Value Props: Nêu trúng nỗi đau phân mảnh & 3 trụ cột giá trị */}
               <ValuePropsSection activeLang={activeLang} />
 
-              {/* 4. Co-Evolution & Interdisciplinary Swarm: Trực quan 5 Agent cộng tác giải phóng con người */}
-              <CoEvolutionSection activeLang={activeLang} />
+              {/* 4. Co-Evolution & Interdisciplinary Swarm: Trực quan 7 cộng sự phối hợp */}
+              <CoEvolutionSection activeLang={activeLang} onNavigate={handleNavigate} />
 
               {/* 5. 3-Step Incremental Workflow: Bắt đầu nhẹ nhàng từ 3 bước không đổi thói quen */}
               <WorkflowStepsSection
@@ -823,7 +809,7 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
 
                 <Suspense fallback={<div className="min-h-[40vh] flex items-center justify-center font-mono text-xs text-slate-400">Loading...</div>}>
                   {currentPage === 'pricing' && (
-                    <Pricing
+                    <PricingView
                       activeLang={activeLang}
                       onOpenTrialModal={handleOpenTrialModal}
                       onOpenPaymentModal={handleOpenPaymentModal}
@@ -834,7 +820,7 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
                   )}
 
                   {currentPage === 'docs' && (
-                    <Docs
+                    <DocsComponent
                       activeLang={activeLang}
                       onNavigate={handleNavigate}
                       initialDocId={initialDocId}
@@ -842,7 +828,7 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
                   )}
 
                   {currentPage === 'explore' && (
-                    <EraExploration
+                    <ExploreComponent
                       activeLang={activeLang}
                       onNavigate={handleNavigate}
                       initialLessonId={initialLessonId}
@@ -850,20 +836,11 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
                   )}
 
                   {currentPage === 'about' && (
-                    <About activeLang={activeLang} />
+                    <AboutView activeLang={activeLang} />
                   )}
 
                   {currentPage === 'changelog' && (
-                    user ? (
-                      <Changelog activeLang={activeLang} onNavigate={handleNavigate} userProfile={userProfile} user={user} />
-                    ) : (
-                      <AuthLockGate
-                        activeLang={activeLang}
-                        onOpenAuthModal={() => setIsAuthModalOpen(true)}
-                        onNavigate={handleNavigate}
-                        pageName={activeLang === 'vi' ? 'Nhật ký Cập nhật (Changelog)' : 'Changelog'}
-                      />
-                    )
+                    <ChangelogView activeLang={activeLang} onNavigate={handleNavigate} userProfile={userProfile} user={user} onOpenAuthModal={() => setIsAuthModalOpen(true)} />
                   )}
 
                   {currentPage === 'discussions' && (
@@ -875,7 +852,7 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
                         onOpenAuthModal={() => setIsAuthModalOpen(true)}
                       />
                     ) : (
-                      <AuthLockGate
+                      <AuthLockGateView
                         activeLang={activeLang}
                         onOpenAuthModal={() => setIsAuthModalOpen(true)}
                         onNavigate={handleNavigate}
@@ -885,11 +862,11 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
                   )}
 
                   {currentPage === 'privacy' && (
-                    <Privacy activeLang={activeLang} />
+                    <PrivacyView activeLang={activeLang} />
                   )}
 
                   {currentPage === 'terms' && (
-                    <Terms activeLang={activeLang} />
+                    <TermsView activeLang={activeLang} />
                   )}
 
                   {currentPage === 'profile' && (
@@ -907,7 +884,7 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
 
               {/* Footer */}
               <Suspense fallback={null}>
-                <Footer onNavigate={handleNavigate} activeLang={activeLang} />
+                <FooterView onNavigate={handleNavigate} activeLang={activeLang} />
               </Suspense>
             </div>
 
@@ -945,7 +922,7 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
           {/* Search Bar */}
           <div
             onClick={() => { setIsMobileMenuOpen(false); setIsSearchOpen(true); }}
-            className="flex items-center bg-white/[0.04] rounded-md px-3.5 py-2.5 text-xs text-slate-300 font-mono gap-2 hover:bg-white/[0.07] transition-all cursor-pointer"
+            className="flex items-center bg-white/[0.04] rounded-md px-3.5 py-2.5 min-h-[44px] text-xs text-slate-300 font-mono gap-2 hover:bg-white/[0.07] transition-colors cursor-pointer"
           >
             <Search size={14} className="text-slate-400 shrink-0" />
             <span className="flex-1 text-left text-slate-400">{t.navbar.searchPlaceholder}</span>
@@ -959,49 +936,49 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
             <a
               href="#mission"
               onClick={(e) => handleNavLink(e, 'mission')}
-              className="text-right text-lg font-bold text-slate-200 hover:text-cyan-400 transition-colors uppercase tracking-wide"
+              className="text-right text-lg font-bold text-slate-200 hover:text-white [html[data-theme='light']_&]:text-slate-800 [html[data-theme='light']_&]:hover:text-black transition-colors uppercase tracking-wide py-1"
             >
               {t.navbar.mission}
             </a>
             <a
               href="#value-props"
               onClick={(e) => handleNavLink(e, 'value-props')}
-              className="text-right text-lg font-bold text-slate-200 hover:text-cyan-400 transition-colors uppercase tracking-wide"
+              className="text-right text-lg font-bold text-slate-200 hover:text-white [html[data-theme='light']_&]:text-slate-800 [html[data-theme='light']_&]:hover:text-black transition-colors uppercase tracking-wide py-1"
             >
               {t.navbar.valueProps}
             </a>
             <a
               href="#co-evolution"
               onClick={(e) => handleNavLink(e, 'co-evolution')}
-              className="text-right text-lg font-bold text-slate-200 hover:text-cyan-400 transition-colors uppercase tracking-wide"
+              className="text-right text-lg font-bold text-slate-200 hover:text-white [html[data-theme='light']_&]:text-slate-800 [html[data-theme='light']_&]:hover:text-black transition-colors uppercase tracking-wide py-1"
             >
               {t.navbar.coEvolution}
             </a>
             <a
               href="#workflow"
               onClick={(e) => handleNavLink(e, 'workflow')}
-              className="text-right text-lg font-bold text-slate-200 hover:text-cyan-400 transition-colors uppercase tracking-wide"
+              className="text-right text-lg font-bold text-slate-200 hover:text-white [html[data-theme='light']_&]:text-slate-800 [html[data-theme='light']_&]:hover:text-black transition-colors uppercase tracking-wide py-1"
             >
               {t.navbar.workflow}
             </a>
             <a
               href="#metrics"
               onClick={(e) => handleNavLink(e, 'metrics')}
-              className="text-right text-lg font-bold text-slate-200 hover:text-cyan-400 transition-colors uppercase tracking-wide"
+              className="text-right text-lg font-bold text-slate-200 hover:text-white [html[data-theme='light']_&]:text-slate-800 [html[data-theme='light']_&]:hover:text-black transition-colors uppercase tracking-wide py-1"
             >
               {t.navbar.metrics}
             </a>
             <a
               href="#ioa-roadmap"
               onClick={(e) => handleNavLink(e, 'ioa-roadmap')}
-              className="text-right text-lg font-bold text-slate-200 hover:text-cyan-400 transition-colors uppercase tracking-wide"
+              className="text-right text-lg font-bold text-slate-200 hover:text-white [html[data-theme='light']_&]:text-slate-800 [html[data-theme='light']_&]:hover:text-black transition-colors uppercase tracking-wide py-1"
             >
               {t.navbar.roadmap}
             </a>
             <a
               href="#faq"
               onClick={(e) => handleNavLink(e, 'faq')}
-              className="text-right text-lg font-bold text-slate-200 hover:text-cyan-400 transition-colors uppercase tracking-wide"
+              className="text-right text-lg font-bold text-slate-200 hover:text-white [html[data-theme='light']_&]:text-slate-800 [html[data-theme='light']_&]:hover:text-black transition-colors uppercase tracking-wide py-1"
             >
               {t.navbar.faq}
             </a>
@@ -1010,35 +987,35 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
             <div className="flex flex-col space-y-4 mt-5">
               <button
                 onClick={() => { setIsMobileMenuOpen(false); handleNavigate('pricing'); }}
-                className={`text-right text-lg font-bold transition-colors uppercase tracking-wide ${currentPage === 'pricing' ? 'text-cyan-400' : 'text-slate-200 hover:text-cyan-400'
+                className={`text-right text-lg font-bold transition-colors uppercase tracking-wide py-1 ${currentPage === 'pricing' ? 'text-white [html[data-theme="light"]_&]:text-slate-900 underline underline-offset-4' : 'text-slate-300 hover:text-white [html[data-theme="light"]_&]:text-slate-700 [html[data-theme="light"]_&]:hover:text-black'
                   }`}
               >
                 {t.navbar.pricing}
               </button>
               <button
                 onClick={() => { setIsMobileMenuOpen(false); handleNavigate('docs'); }}
-                className={`text-right text-lg font-bold transition-colors uppercase tracking-wide ${currentPage === 'docs' ? 'text-cyan-400' : 'text-slate-200 hover:text-cyan-400'
+                className={`text-right text-lg font-bold transition-colors uppercase tracking-wide py-1 ${currentPage === 'docs' ? 'text-white [html[data-theme="light"]_&]:text-slate-900 underline underline-offset-4' : 'text-slate-300 hover:text-white [html[data-theme="light"]_&]:text-slate-700 [html[data-theme="light"]_&]:hover:text-black'
                   }`}
               >
                 {t.navbar.docs}
               </button>
               <button
                 onClick={() => { setIsMobileMenuOpen(false); handleNavigate('about'); }}
-                className={`text-right text-lg font-bold transition-colors uppercase tracking-wide ${currentPage === 'about' ? 'text-cyan-400' : 'text-slate-200 hover:text-cyan-400'
+                className={`text-right text-lg font-bold transition-colors uppercase tracking-wide py-1 ${currentPage === 'about' ? 'text-white [html[data-theme="light"]_&]:text-slate-900 underline underline-offset-4' : 'text-slate-300 hover:text-white [html[data-theme="light"]_&]:text-slate-700 [html[data-theme="light"]_&]:hover:text-black'
                   }`}
               >
                 {t.navbar.about}
               </button>
               <button
                 onClick={() => { setIsMobileMenuOpen(false); handleNavigate('changelog'); }}
-                className={`text-right text-lg font-bold transition-colors uppercase tracking-wide ${currentPage === 'changelog' ? 'text-cyan-400' : 'text-slate-200 hover:text-cyan-400'
+                className={`text-right text-lg font-bold transition-colors uppercase tracking-wide py-1 ${currentPage === 'changelog' ? 'text-white [html[data-theme="light"]_&]:text-slate-900 underline underline-offset-4' : 'text-slate-300 hover:text-white [html[data-theme="light"]_&]:text-slate-700 [html[data-theme="light"]_&]:hover:text-black'
                   }`}
               >
                 {activeLang === 'vi' ? 'Nhật ký cập nhật' : 'Changelog'}
               </button>
               <button
                 onClick={() => { setIsMobileMenuOpen(false); handleNavigate('discussions'); }}
-                className={`text-right text-lg font-bold transition-colors uppercase tracking-wide ${currentPage === 'discussions' ? 'text-cyan-400' : 'text-slate-200 hover:text-cyan-400'
+                className={`text-right text-lg font-bold transition-colors uppercase tracking-wide py-1 ${currentPage === 'discussions' ? 'text-white [html[data-theme="light"]_&]:text-slate-900 underline underline-offset-4' : 'text-slate-300 hover:text-white [html[data-theme="light"]_&]:text-slate-700 [html[data-theme="light"]_&]:hover:text-black'
                   }`}
               >
                 {activeLang === 'vi' ? 'Thảo luận' : 'Discussions'}
@@ -1049,15 +1026,15 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
               {user ? (
                 <button
                   onClick={() => { setIsMobileMenuOpen(false); setIsAuthModalOpen(true); }}
-                  className="text-right text-lg font-bold text-cyan-400 hover:text-cyan-300 transition-colors uppercase tracking-wide flex items-center justify-end gap-2"
+                  className="text-right text-lg font-bold text-white hover:text-slate-200 [html[data-theme='light']_&]:text-slate-900 transition-colors uppercase tracking-wide flex items-center justify-end gap-2 py-1"
                 >
-                  <User size={16} className="text-cyan-400 animate-pulse" />
+                  <User size={16} className="text-white [html[data-theme='light']_&]:text-slate-900" />
                   <span className="max-w-[120px] truncate">{user.email.split('@')[0]}</span>
                 </button>
               ) : (
                 <button
                   onClick={() => { setIsMobileMenuOpen(false); setIsAuthModalOpen(true); }}
-                  className="text-right text-lg font-bold text-slate-300 hover:text-cyan-400 transition-colors uppercase tracking-wide flex items-center justify-end gap-2"
+                  className="text-right text-lg font-bold text-slate-300 hover:text-white [html[data-theme='light']_&]:text-slate-700 [html[data-theme='light']_&]:hover:text-black transition-colors uppercase tracking-wide flex items-center justify-end gap-2 py-1"
                 >
                   <User size={16} className="text-slate-400" />
                   <span>{activeLang === 'vi' ? 'Đăng nhập' : 'Sign In'}</span>
@@ -1095,14 +1072,14 @@ export function App({ initialPage = null, initialLang = 'vi', initialDocId = nul
                 <div className="flex items-center gap-2 border-l border-white/10 pl-3">
                   <button
                     onClick={() => { setActiveLang('vi'); setIsMobileMenuOpen(false); }}
-                    className={`transition-colors font-bold ${activeLang === 'vi' ? 'text-cyan-400' : 'text-slate-400 hover:text-white'}`}
+                    className={`transition-colors font-bold min-h-[44px] px-2 cursor-pointer ${activeLang === 'vi' ? 'text-white [html[data-theme="light"]_&]:text-slate-900 underline underline-offset-4' : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-black'}`}
                   >
                     VI
                   </button>
-                  <span className="text-white/10 text-[10px]">/</span>
+                  <span className="text-white/10 [html[data-theme='light']_&]:text-slate-300 text-xs">/</span>
                   <button
                     onClick={() => { setActiveLang('en'); setIsMobileMenuOpen(false); }}
-                    className={`transition-colors font-bold ${activeLang === 'en' ? 'text-cyan-400' : 'text-slate-400 hover:text-white'}`}
+                    className={`transition-colors font-bold min-h-[44px] px-2 cursor-pointer ${activeLang === 'en' ? 'text-white [html[data-theme="light"]_&]:text-slate-900 underline underline-offset-4' : 'text-slate-400 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-black'}`}
                   >
                     EN
                   </button>

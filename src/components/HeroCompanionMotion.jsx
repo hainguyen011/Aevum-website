@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { attachCanvasMotionLifecycle } from '../utils/canvasMotionLifecycle';
 
 /**
  * HeroCompanionMotion - Big Pixel Agent with AI Provider Logo Orbit
@@ -24,7 +25,6 @@ import React, { useEffect, useRef } from 'react';
  */
 export const HeroCompanionMotion = ({ activeLang = 'vi' }) => {
   const canvasRef = useRef(null);
-  const animFrameId = useRef(null);
   const tickRef = useRef(0);
 
   const gazeRef = useRef({
@@ -40,23 +40,8 @@ export const HeroCompanionMotion = ({ activeLang = 'vi' }) => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    let width = (canvas.width = canvas.parentElement?.clientWidth || 640);
-    let height = (canvas.height = 540);
-
-    const handleResize = () => {
-      if (!canvas.parentElement) return;
-      const dpr = window.devicePixelRatio || 1;
-      width = canvas.parentElement.clientWidth;
-      height = 540;
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      canvas.style.width = `${width}px`;
-      canvas.style.height = `${height}px`;
-      ctx.scale(dpr, dpr);
-    };
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
+    let width = canvas.parentElement?.clientWidth || 640;
+    let height = 540;
 
     // ── Silky Easing Curves ──
     const easeInOutCubic = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
@@ -328,8 +313,10 @@ export const HeroCompanionMotion = ({ activeLang = 'vi' }) => {
       { id: 'antigravity', name: 'Antigravity',  badgeLabel: 'ANTIGRAVITY • AGENTIC IDE',     token: 'agentic.mcp',      logoKey: 'antigravity' },
     ];
 
-    const render = () => {
-      tickRef.current++;
+    const drawFrame = (_ctx, nextWidth, nextHeight, { advanceTick = true } = {}) => {
+      width = nextWidth;
+      height = nextHeight;
+      if (advanceTick) tickRef.current++;
       const tick = tickRef.current;
 
       ctx.clearRect(0, 0, width, height);
@@ -478,18 +465,14 @@ export const HeroCompanionMotion = ({ activeLang = 'vi' }) => {
           type: badgeType
         });
       }
-
-      animFrameId.current = requestAnimationFrame(render);
     };
 
-    render();
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      if (animFrameId.current) {
-        cancelAnimationFrame(animFrameId.current);
-      }
-    };
+    return attachCanvasMotionLifecycle({
+      canvas,
+      getHeight: () => 540,
+      onDraw: drawFrame,
+      threshold: 0.05
+    });
   }, []);
 
   return (

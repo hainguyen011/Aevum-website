@@ -213,10 +213,10 @@ export const TrialModal = ({ isOpen, onClose, activeLang = 'vi', user }) => {
       >
 
         {/* ── TOP HEADER: KICKER BADGE & CLEAN CLOSE BUTTON ── */}
-        <div className="px-6 sm:px-8 pt-6 pb-4 flex items-center justify-between border-b border-white/[0.06] [html[data-theme='light']_&]:border-slate-100">
+        <div className="px-6 sm:px-8 pt-6 pb-4 flex items-center justify-between border-b border-white/[0.06] [html[data-theme='light']_&]:border-slate-200">
           <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-100 border border-white/10 [html[data-theme='light']_&]:border-slate-200 text-slate-300 [html[data-theme='light']_&]:text-slate-700 text-[10px] font-mono tracking-widest uppercase">
-              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-100 border border-white/10 [html[data-theme='light']_&]:border-slate-200 text-slate-200 [html[data-theme='light']_&]:text-slate-700 text-xs font-mono tracking-widest uppercase">
+              <span className="w-1.5 h-1.5 rounded-full bg-white [html[data-theme='light']_&]:bg-slate-900"></span>
               {isVi ? 'EARLY ACCESS • SỐ LƯỢNG CÓ HẠN' : 'EARLY ACCESS • LIMITED SEATS'}
             </span>
           </div>
@@ -224,15 +224,15 @@ export const TrialModal = ({ isOpen, onClose, activeLang = 'vi', user }) => {
           <button
             onClick={onClose}
             aria-label="Close Modal"
-            className="w-8 h-8 rounded-full bg-white/[0.04] hover:bg-white/10 [html[data-theme='light']_&]:bg-slate-100 [html[data-theme='light']_&]:hover:bg-slate-200 text-slate-400 hover:text-white [html[data-theme='light']_&]:text-slate-600 [html[data-theme='light']_&]:hover:text-slate-900 transition-colors flex items-center justify-center cursor-pointer"
+            className="w-10 h-10 rounded-full bg-white/[0.04] hover:bg-white/10 [html[data-theme='light']_&]:bg-slate-100 [html[data-theme='light']_&]:hover:bg-slate-200 text-slate-300 hover:text-white [html[data-theme='light']_&]:text-slate-600 [html[data-theme='light']_&]:hover:text-slate-900 transition-colors flex items-center justify-center cursor-pointer"
           >
-            <X size={15} />
+            <X size={16} />
           </button>
         </div>
 
         {/* ── STEPPER PILLS ── */}
         {!isSubmitted && (
-          <div className="px-6 sm:px-8 py-3.5 border-b border-white/[0.06] [html[data-theme='light']_&]:border-slate-100 bg-white/[0.01]">
+          <div className="px-6 sm:px-8 py-3.5 border-b border-white/[0.06] [html[data-theme='light']_&]:border-slate-200 bg-white/[0.01]">
             <div className="flex items-center justify-between gap-2">
               {stepLabels.map((s, idx) => {
                 const stepNum = idx + 1;
@@ -246,25 +246,25 @@ export const TrialModal = ({ isOpen, onClose, activeLang = 'vi', user }) => {
                         isActive 
                           ? 'text-white [html[data-theme="light"]_&]:text-slate-900 font-semibold' 
                           : isCompleted 
-                          ? 'text-cyan-400 font-medium' 
-                          : 'text-slate-500'
+                          ? 'text-white [html[data-theme="light"]_&]:text-slate-800 font-medium' 
+                          : 'text-slate-400'
                       }`}
                     >
-                      <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] ${
+                      <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${
                         isActive 
-                          ? 'bg-white text-black font-bold' 
+                          ? 'bg-white text-slate-950 [html[data-theme="light"]_&]:bg-slate-900 [html[data-theme="light"]_&]:text-white font-bold' 
                           : isCompleted 
-                          ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/40' 
-                          : 'bg-white/5 text-slate-500'
+                          ? 'bg-white/15 text-white border border-white/30 [html[data-theme="light"]_&]:bg-slate-200 [html[data-theme="light"]_&]:text-slate-900 [html[data-theme="light"]_&]:border-slate-300' 
+                          : 'bg-white/5 text-slate-400 [html[data-theme="light"]_&]:bg-slate-100 [html[data-theme="light"]_&]:text-slate-500'
                       }`}>
-                        {isCompleted ? <Check size={10} strokeWidth={3} /> : stepNum}
+                        {isCompleted ? <Check size={12} strokeWidth={2.5} /> : stepNum}
                       </span>
-                      <span className="hidden sm:inline font-sans text-xs tracking-tight">{s.title}</span>
+                      <span className="hidden sm:inline font-sans text-xs sm:text-sm tracking-tight">{s.title}</span>
                     </div>
 
                     {idx < stepLabels.length - 1 && (
                       <div className={`flex-1 h-[1px] transition-colors ${
-                        isCompleted ? 'bg-cyan-500/40' : 'bg-white/10 [html[data-theme="light"]_&]:bg-slate-200'
+                        isCompleted ? 'bg-white/35 [html[data-theme="light"]_&]:bg-slate-400' : 'bg-white/10 [html[data-theme="light"]_&]:bg-slate-200'
                       }`} />
                     )}
                   </React.Fragment>
@@ -281,19 +281,19 @@ export const TrialModal = ({ isOpen, onClose, activeLang = 'vi', user }) => {
               <img
                 src={anLoverSticker}
                 alt="An Lover Sticker"
-                className="w-full h-full object-contain drop-shadow-[0_0_20px_rgba(56,189,248,0.35)]"
+                className="w-full h-full object-contain drop-shadow-[0_0_20px_rgba(255,255,255,0.12)]"
               />
             </div>
 
             <div className="space-y-2.5 max-w-md mx-auto">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-[11px] font-mono font-semibold uppercase tracking-wider">
-                <Sparkles size={12} className="text-cyan-400" />
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 [html[data-theme='light']_&]:bg-slate-100 border border-white/20 [html[data-theme='light']_&]:border-slate-300 text-white [html[data-theme='light']_&]:text-slate-900 text-xs font-mono font-semibold uppercase tracking-wider">
+                <Sparkles size={13} className="text-white [html[data-theme='light']_&]:text-slate-900" />
                 <span>{isVi ? 'BẢO LƯU 30 NGÀY AEVUM PRO' : '30-DAY PRO TRIAL RESERVED'}</span>
               </div>
-              <h3 className="text-xl sm:text-2xl font-normal tracking-[-0.02em] text-white [html[data-theme='light']_&]:text-slate-900 font-sans">
+              <h3 className="text-xl sm:text-2xl font-medium tracking-[-0.02em] text-white [html[data-theme='light']_&]:text-slate-900 font-sans">
                 {isVi ? 'Ghi danh Early Access thành công!' : 'Early Access Confirmed!'}
               </h3>
-              <p className="text-xs sm:text-sm text-slate-400 [html[data-theme='light']_&]:text-slate-600 font-light leading-relaxed font-sans">
+              <p className="text-base text-slate-300 [html[data-theme='light']_&]:text-slate-600 font-normal leading-[1.7] font-sans">
                 {isVi
                   ? `Tài khoản (${formData.email || user?.email || 'của bạn'}) đã được ghi nhận vào danh sách ưu tiên. Quyền lợi 1 tháng Aevum Pro được bảo lưu và tự động kích hoạt khi bạn kết nối máy trạm đầu tiên.`
                   : `Your account (${formData.email || user?.email || 'your account'}) is officially on the priority waitlist. Your 30-day Pro trial is reserved and activates upon connecting your workstation.`}
@@ -303,9 +303,9 @@ export const TrialModal = ({ isOpen, onClose, activeLang = 'vi', user }) => {
             <div className="pt-2 w-full max-w-xs">
               <button
                 onClick={handleReset}
-                className="w-full py-3 rounded-full bg-[#ECEEFE] hover:bg-white text-[#0A0B0F] font-semibold text-xs sm:text-sm transition-all shadow-lg cursor-pointer flex items-center justify-center gap-2"
+                className="w-full min-h-[48px] py-3 rounded-full bg-white hover:bg-slate-200 text-slate-950 [html[data-theme='light']_&]:bg-slate-900 [html[data-theme='light']_&]:hover:bg-black [html[data-theme='light']_&]:text-white font-semibold text-sm transition-colors cursor-pointer flex items-center justify-center gap-2"
               >
-                <Zap size={14} className="fill-current" />
+                <Zap size={15} className="fill-current" />
                 <span>{isVi ? 'Xác nhận & Hoàn tất' : 'Confirm & Complete'}</span>
               </button>
             </div>
@@ -334,7 +334,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang = 'vi', user }) => {
                     <h2 className="text-xl sm:text-2xl font-normal tracking-[-0.02em] text-white [html[data-theme='light']_&]:text-slate-900">
                       {isVi ? 'Thông tin đăng ký trải nghiệm Early Access' : 'Basic Contact Details'}
                     </h2>
-                    <p className="text-xs sm:text-sm text-slate-400 [html[data-theme='light']_&]:text-slate-600 font-light leading-relaxed">
+                    <p className="text-base text-slate-300 [html[data-theme='light']_&]:text-slate-600 font-normal leading-[1.65]">
                       {isVi
                         ? 'Cung cấp tên và Email để nhận mã nạp Daemon bộ não ngoại vi Aevum OS.'
                         : 'Provide your name and email to receive your Aevum OS Daemon access token.'}
@@ -353,7 +353,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang = 'vi', user }) => {
                       value={formData.name}
                       onChange={handleChange}
                       placeholder={isVi ? 'Nguyễn Văn A' : 'Alex Mercer'}
-                      className="w-full bg-white/[0.03] [html[data-theme='light']_&]:bg-slate-50 border border-white/10 [html[data-theme='light']_&]:border-slate-200 hover:border-white/20 focus:border-white/40 rounded-xl px-4 py-2.5 sm:py-3 text-xs sm:text-sm text-white [html[data-theme='light']_&]:text-slate-900 placeholder:text-slate-600 outline-none transition-all"
+                      className="w-full min-h-[48px] bg-white/[0.03] [html[data-theme='light']_&]:bg-slate-50 border border-white/10 [html[data-theme='light']_&]:border-slate-200 hover:border-white/20 focus:border-white/40 [html[data-theme='light']_&]:focus:border-slate-900 rounded-xl px-4 py-3 text-sm sm:text-base text-white [html[data-theme='light']_&]:text-slate-900 placeholder:text-slate-500 outline-none transition-colors"
                     />
                   </div>
 
@@ -362,7 +362,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang = 'vi', user }) => {
                     <label className="text-xs font-mono text-slate-300 [html[data-theme='light']_&]:text-slate-700 tracking-wider uppercase flex items-center justify-between">
                       <span>{isVi ? 'Email liên hệ' : 'Work Email'} *</span>
                       {user && (
-                        <span className="text-[10px] text-cyan-400 font-mono font-normal">
+                        <span className="text-xs text-slate-300 [html[data-theme='light']_&]:text-slate-700 font-mono font-normal">
                           {isVi ? 'Đã liên kết tài khoản' : 'Linked account'}
                         </span>
                       )}
@@ -375,10 +375,10 @@ export const TrialModal = ({ isOpen, onClose, activeLang = 'vi', user }) => {
                       onChange={handleChange}
                       readOnly={!!user}
                       placeholder="dev@company.com"
-                      className={`w-full rounded-xl px-4 py-2.5 sm:py-3 text-xs sm:text-sm transition-all ${
+                      className={`w-full min-h-[48px] rounded-xl px-4 py-3 text-sm sm:text-base transition-colors ${
                         user
-                          ? 'bg-white/[0.02] border border-white/5 text-slate-500 cursor-not-allowed'
-                          : 'bg-white/[0.03] [html[data-theme=\'light\']_&]:bg-slate-50 border border-white/10 [html[data-theme=\'light\']_&]:border-slate-200 hover:border-white/20 focus:border-white/40 text-white [html[data-theme=\'light\']_&]:text-slate-900 placeholder:text-slate-600 outline-none'
+                          ? 'bg-white/[0.02] border border-white/5 text-slate-400 cursor-not-allowed'
+                          : 'bg-white/[0.03] [html[data-theme=\'light\']_&]:bg-slate-50 border border-white/10 [html[data-theme=\'light\']_&]:border-slate-200 hover:border-white/20 focus:border-white/40 [html[data-theme=\'light\']_&]:focus:border-slate-900 text-white [html[data-theme=\'light\']_&]:text-slate-900 placeholder:text-slate-500 outline-none'
                       }`}
                     />
                   </div>
@@ -405,7 +405,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang = 'vi', user }) => {
                     <h2 className="text-xl sm:text-2xl font-normal tracking-[-0.02em] text-white [html[data-theme='light']_&]:text-slate-900">
                       {isVi ? 'Nhu cầu Kỹ thuật & Định hướng Phát triển' : 'Engineering Context & Roadmap Survey'}
                     </h2>
-                    <p className="text-xs sm:text-sm text-slate-400 [html[data-theme='light']_&]:text-slate-600 font-light leading-relaxed">
+                    <p className="text-base text-slate-300 [html[data-theme='light']_&]:text-slate-600 font-normal leading-[1.65]">
                       {isVi
                         ? 'Giúp I2FLabs tối ưu hóa kiến trúc Aevum OS theo đúng mong muốn của bạn.'
                         : 'Help I2FLabs shape the roadmap for next-generation Agentic OS features.'}
@@ -421,7 +421,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang = 'vi', user }) => {
                       options={roleOptions}
                       value={formData.role}
                       onChange={(val) => handleCustomSelectChange('role', val)}
-                      buttonClassName="px-4 py-2.5 sm:py-3 text-xs sm:text-sm rounded-xl min-h-[42px] bg-white/[0.03] border-white/10 hover:border-white/25 flex items-center justify-between"
+                      buttonClassName="px-4 py-3 text-sm sm:text-base rounded-xl min-h-[48px] bg-white/[0.03] border-white/10 hover:border-white/25 flex items-center justify-between"
                     />
                   </div>
 
@@ -434,7 +434,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang = 'vi', user }) => {
                       options={painPointOptions}
                       value={formData.primaryPainPoint}
                       onChange={(val) => handleCustomSelectChange('primaryPainPoint', val)}
-                      buttonClassName="px-4 py-2.5 sm:py-3 text-xs sm:text-sm rounded-xl min-h-[42px] bg-white/[0.03] border-white/10 hover:border-white/25 flex items-center justify-between"
+                      buttonClassName="px-4 py-3 text-sm sm:text-base rounded-xl min-h-[48px] bg-white/[0.03] border-white/10 hover:border-white/25 flex items-center justify-between"
                     />
                   </div>
 
@@ -447,7 +447,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang = 'vi', user }) => {
                       options={featureOptions}
                       value={formData.desiredFeature}
                       onChange={(val) => handleCustomSelectChange('desiredFeature', val)}
-                      buttonClassName="px-4 py-2.5 sm:py-3 text-xs sm:text-sm rounded-xl min-h-[42px] bg-white/[0.03] border-white/10 hover:border-white/25 flex items-center justify-between"
+                      buttonClassName="px-4 py-3 text-sm sm:text-base rounded-xl min-h-[48px] bg-white/[0.03] border-white/10 hover:border-white/25 flex items-center justify-between"
                     />
                   </div>
                 </div>
@@ -460,7 +460,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang = 'vi', user }) => {
                     <h2 className="text-xl sm:text-2xl font-normal tracking-[-0.02em] text-white [html[data-theme='light']_&]:text-slate-900">
                       {isVi ? 'Thiết kế Nhân viên Agent Lý tưởng' : 'Customize Your Ideal Agent Companion'}
                     </h2>
-                    <p className="text-xs sm:text-sm text-slate-400 [html[data-theme='light']_&]:text-slate-600 font-light leading-relaxed">
+                    <p className="text-base text-slate-300 [html[data-theme='light']_&]:text-slate-600 font-normal leading-[1.65]">
                       {isVi
                         ? 'Nếu bạn sở hữu một trợ lý Agent tự hành 24/7 trong Aevum OS, bạn sẽ cá nhân hóa nó như thế nào?'
                         : 'If you had an autonomous 24/7 agent inside Aevum OS, how would you name and design its vibe?'}
@@ -478,7 +478,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang = 'vi', user }) => {
                       value={formData.agentName}
                       onChange={handleChange}
                       placeholder={isVi ? 'Ví dụ: Jarvis, Luna, Friday, Gilfoyle...' : 'E.g. Jarvis, Luna, Friday, Gilfoyle...'}
-                      className="w-full bg-white/[0.03] [html[data-theme='light']_&]:bg-slate-50 border border-white/10 [html[data-theme='light']_&]:border-slate-200 hover:border-white/20 focus:border-white/40 rounded-xl px-4 py-2.5 sm:py-3 text-xs sm:text-sm text-white [html[data-theme='light']_&]:text-slate-900 placeholder:text-slate-600 outline-none transition-all"
+                      className="w-full min-h-[48px] bg-white/[0.03] [html[data-theme='light']_&]:bg-slate-50 border border-white/10 [html[data-theme='light']_&]:border-slate-200 hover:border-white/20 focus:border-white/40 [html[data-theme='light']_&]:focus:border-slate-900 rounded-xl px-4 py-3 text-sm sm:text-base text-white [html[data-theme='light']_&]:text-slate-900 placeholder:text-slate-500 outline-none transition-colors"
                     />
                   </div>
 
@@ -491,7 +491,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang = 'vi', user }) => {
                       options={vibeOptions}
                       value={formData.agentVibe}
                       onChange={(val) => handleCustomSelectChange('agentVibe', val)}
-                      buttonClassName="px-4 py-2.5 sm:py-3 text-xs sm:text-sm rounded-xl min-h-[42px] bg-white/[0.03] border-white/10 hover:border-white/25 flex items-center justify-between"
+                      buttonClassName="px-4 py-3 text-sm sm:text-base rounded-xl min-h-[48px] bg-white/[0.03] border-white/10 hover:border-white/25 flex items-center justify-between"
                     />
                   </div>
 
@@ -508,7 +508,7 @@ export const TrialModal = ({ isOpen, onClose, activeLang = 'vi', user }) => {
                       placeholder={isVi
                         ? 'Ý tưởng của bạn về hệ điều hành AI Agent trong tương lai...'
                         : 'Your thoughts on the future of Agentic Operating Systems...'}
-                      className="w-full bg-white/[0.03] [html[data-theme='light']_&]:bg-slate-50 border border-white/10 [html[data-theme='light']_&]:border-slate-200 hover:border-white/20 focus:border-white/40 rounded-xl px-4 py-2.5 sm:py-3 text-xs sm:text-sm text-white [html[data-theme='light']_&]:text-slate-900 placeholder:text-slate-600 outline-none transition-all resize-none"
+                      className="w-full bg-white/[0.03] [html[data-theme='light']_&]:bg-slate-50 border border-white/10 [html[data-theme='light']_&]:border-slate-200 hover:border-white/20 focus:border-white/40 [html[data-theme='light']_&]:focus:border-slate-900 rounded-xl px-4 py-3 text-sm sm:text-base text-white [html[data-theme='light']_&]:text-slate-900 placeholder:text-slate-500 outline-none transition-colors resize-none"
                     ></textarea>
                   </div>
                 </div>
@@ -524,15 +524,15 @@ export const TrialModal = ({ isOpen, onClose, activeLang = 'vi', user }) => {
             </div>
 
             {/* ── FOOTER ACTIONS: SLEEK EDITORIAL PILL BUTTONS ── */}
-            <div className="px-6 sm:px-8 py-4 sm:py-5 border-t border-white/[0.06] [html[data-theme='light']_&]:border-slate-100 bg-black/20 [html[data-theme='light']_&]:bg-slate-50 flex items-center justify-between gap-4 font-sans">
+            <div className="px-6 sm:px-8 py-4 sm:py-5 border-t border-white/[0.06] [html[data-theme='light']_&]:border-slate-200 bg-black/20 [html[data-theme='light']_&]:bg-slate-50 flex items-center justify-between gap-4 font-sans">
               <button
                 type="button"
                 onClick={currentStep > 1 ? handlePrevStep : onClose}
-                className="px-4 py-2 rounded-full text-slate-400 hover:text-white [html[data-theme='light']_&]:text-slate-600 [html[data-theme='light']_&]:hover:text-slate-900 hover:bg-white/5 [html[data-theme='light']_&]:hover:bg-slate-200 text-xs sm:text-sm font-medium transition-colors cursor-pointer flex items-center gap-1.5"
+                className="min-h-[48px] px-5 py-3 rounded-full text-slate-300 hover:text-white [html[data-theme='light']_&]:text-slate-700 [html[data-theme='light']_&]:hover:text-slate-900 hover:bg-white/5 [html[data-theme='light']_&]:hover:bg-slate-200 text-sm font-medium transition-colors cursor-pointer flex items-center gap-1.5"
               >
                 {currentStep > 1 ? (
                   <>
-                    <ArrowLeft size={14} />
+                    <ArrowLeft size={15} />
                     <span>{isVi ? 'Quay lại' : 'Back'}</span>
                   </>
                 ) : (
@@ -543,16 +543,16 @@ export const TrialModal = ({ isOpen, onClose, activeLang = 'vi', user }) => {
               {currentStep < 3 ? (
                 <button
                   type="submit"
-                  className="px-6 py-2.5 rounded-full bg-[#ECEEFE] hover:bg-white text-[#0A0B0F] font-semibold text-xs sm:text-sm transition-all shadow-md flex items-center gap-2 cursor-pointer"
+                  className="min-h-[48px] px-6 py-3 rounded-full bg-white hover:bg-slate-200 text-slate-950 [html[data-theme='light']_&]:bg-slate-900 [html[data-theme='light']_&]:hover:bg-black [html[data-theme='light']_&]:text-white font-semibold text-sm transition-colors flex items-center gap-2 cursor-pointer"
                 >
                   <span>{isVi ? 'Tiếp theo' : 'Next Step'}</span>
-                  <ArrowRight size={14} />
+                  <ArrowRight size={15} />
                 </button>
               ) : (
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="px-6 py-2.5 rounded-full bg-[#ECEEFE] hover:bg-white text-[#0A0B0F] font-semibold text-xs sm:text-sm transition-all shadow-md flex items-center gap-2 cursor-pointer disabled:opacity-50"
+                  className="min-h-[48px] px-6 py-3 rounded-full bg-white hover:bg-slate-200 text-slate-950 [html[data-theme='light']_&]:bg-slate-900 [html[data-theme='light']_&]:hover:bg-black [html[data-theme='light']_&]:text-white font-semibold text-sm transition-colors flex items-center gap-2 cursor-pointer disabled:opacity-50"
                 >
                   {isSubmitting ? (
                     <>

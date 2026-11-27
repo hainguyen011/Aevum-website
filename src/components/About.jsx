@@ -1,444 +1,368 @@
 import { useState, useEffect, useMemo } from 'react';
-import logoImg from '../../assets/logos/AevumOS-transparent.webp';
+import { Terminal, ArrowUpRight, Shield, Cpu, Users, Sparkles, BookOpen } from 'lucide-react';
+import constellationArt from '../../assets/aevum_companion_constellation.webp';
 
-export const About = ({ activeLang }) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [loadingProgress, setLoadingProgress] = useState(0);
+export const About = ({ activeLang = 'vi', onNavigate }) => {
+  const isVi = activeLang === 'vi';
+  const [viewMode, setViewMode] = useState('editorial'); // 'editorial' | 'terminal'
 
-  // Hierarchical TUI Folder & Command Data with Enriched High-Value Technical Content
+  // Squad Roster: Relatable Human Value & Casual Roles (Monochrome Typography Cards)
+  const squadRoster = useMemo(() => [
+    {
+      name: 'An',
+      aid: 'ENG-AN-7B9F1D',
+      role: isVi ? 'Điều phối & Giữ mạch dự án' : 'Chief of Staff & Flow',
+      note: isVi
+        ? 'Giữ mọi quyết định và kiến trúc xuyên suốt, đảm bảo cả nhóm không quên bối cảnh cũ.'
+        : 'Preserves long-term decisions and refactoring continuity across sessions.'
+    },
+    {
+      name: 'Vidus',
+      aid: 'ENG-VIDUS-A18C4E',
+      role: isVi ? 'Kiến trúc sư Hệ thống' : 'Systems Architect',
+      note: isVi
+        ? 'Thiết kế luồng dữ liệu, xử lý đa nhiệm và đảm bảo hệ thống chạy bền khi tải lớn.'
+        : 'Designs resilient concurrency pipelines, storage layouts, and clean boundaries.'
+    },
+    {
+      name: 'Zenith',
+      aid: 'ALG-ZENITH-A1B2C3',
+      role: isVi ? 'Toán học & An toàn Lõi' : 'Formal Verification & Security',
+      note: isVi
+        ? 'Kiểm chứng thuật toán bằng toán học, chặn rò rỉ dữ liệu và bảo vệ máy tính của bạn.'
+        : 'Verifies mathematical stability and enforces Zero-Trust sandbox guardrails.'
+    },
+    {
+      name: 'Luna',
+      aid: 'DSN-LUNA-3C9A12',
+      role: isVi ? 'Giám đốc Trải nghiệm Thị giác' : 'Visual Design Lead',
+      note: isVi
+        ? 'Chăm chút từng khoảng thở, độ tương phản Sáng/Tối dịu mắt và nhịp điệu giao diện.'
+        : 'Crafts atmospheric minimalism, soft gradient transitions, and crisp type hierarchy.'
+    },
+    {
+      name: 'Kael',
+      aid: 'ENG-KAEL-7F4B2D',
+      role: isVi ? 'Kiến trúc sư Hiệu năng 120Hz' : '120Hz Performance Lead',
+      note: isVi
+        ? 'Lo phần tải trang siêu nhẹ, ngắt chuyển động khi cuộn khuất để tiết kiệm pin tối đa.'
+        : 'Engineers zero-jank 120fps render lifecycles and lean client bundles.'
+    },
+    {
+      name: 'Nia',
+      aid: 'NEU-NIA-9E4B2A',
+      role: isVi ? 'Kiến trúc Neural Brain & QA' : 'Neural Brain & QA Lead',
+      note: isVi
+        ? 'Phát triển trí nhớ Neural Brain v3.0 và chạy đo kiểm thực nghiệm trước khi phát hành.'
+        : 'Develops Symplectic Neural Brain v3.0 memory and validates end-to-end reliability.'
+    },
+    {
+      name: 'Iris',
+      aid: 'ARC-IRIS-7D94D427',
+      role: isVi ? 'Công thái học & Người mới (CXO)' : 'CXO & Human Ergonomics',
+      note: isVi
+        ? 'Loại bỏ thuật ngữ rườm rà, dẫn dắt người mới làm quen tự nhiên ngay trong 3 phút đầu.'
+        : 'Simplifies cognitive load so anyone starts smoothly in under 3 minutes.'
+    }
+  ], [isVi]);
+
+  // Classic TUI Data (Optional progressive-disclosure tab for terminal enthusiasts)
   const navigationData = useMemo(() => ({
     title: 'ROOT',
     items: [
       {
-        id: 'aevum-journey',
-        type: 'folder',
-        code: '1.',
-        label: activeLang === 'vi' ? '1./ Aevum Journey' : '1./ Aevum Journey',
-        desc: activeLang === 'vi' ? 'Hành trình & Trụ cột Kiến trúc' : 'Journey & Architectural Pillars',
-        children: {
-          title: 'Aevum Journey',
-          items: [
-            {
-              id: 'overview',
-              type: 'cmd',
-              code: '1.1/',
-              cmd: 'aevum-os help --overview',
-              label: activeLang === 'vi' ? '1.1/ Aevum OS là gì?' : '1.1/ What is Aevum OS?',
-              desc: activeLang === 'vi' ? 'Tổng quan hệ điều hành AI Agent' : 'Decoupled External Brain Overview',
-              content: activeLang === 'vi'
-                ? `[AEVUM AGENTIC OPERATING SYSTEM - OVERVIEW]\n\nAevum OS là Hệ điều hành Bộ Não Ngoại Vi (External Brain) độc lập dành cho các AI Agent thế hệ mới.\n\n► VẤN ĐỀ CỐT LÕI (CONTEXT AMNESIA):\nCác AI Agent ngày nay chạy trong môi trường sandbox của IDE (Cursor, VS Code, Windsurf) bị mất trí nhớ ngắn hạn liên tục mỗi khi reset context window hoặc đổi dự án. Toàn bộ quyết định kiến trúc, bài học debug và quy trình làm việc đều tan biến.\n\n► GIẢI PHÁP KỸ THUẬT (AEVUM EXTERNAL BRAIN):\n01. Tách biệt hoàn toàn Prompt Caching, Living Memory Graph và Persona khỏi IDE sandbox.\n02. Daemon chạy ngầm liên tục lưu trữ Ký ức Dài hạn (Long-term Memory) ở định dạng local vault mã hóa.\n03. Cung cấp chuẩn kết nối mở MCP (Model Context Protocol) cho mọi công cụ (Cursor, VS Code, Claude Desktop, CLI).\n04. Tự động hóa quá trình lập kế hoạch (Plan-First) trước khi tiến hành viết code.\n\n[ARCHITECTURE: Local Daemon • MCP Protocol Active • Memory Loss: 0%]`
-                : `[AEVUM AGENTIC OPERATING SYSTEM - OVERVIEW]\n\nAevum OS is an independent Decoupled External Brain for next-gen AI Engineering Agents.\n\n► THE CORE PAIN POINT (CONTEXT AMNESIA):\nCurrent AI agents embedded inside IDE sandboxes (Cursor, VS Code, Windsurf) suffer continuous short-term amnesia whenever the context window resets or workspace changes. Crucial architectural decisions, debug logs, and domain context evaporate.\n\n► THE TECHNICAL SOLUTION (AEVUM EXTERNAL BRAIN):\n01. Decouples Prompt Caching, Living Memory Graph, and Agent Personas from IDE sandboxes.\n02. Runs a lightweight local daemon persisting Long-Term Memory in an encrypted local vault.\n03. Exposes standard MCP (Model Context Protocol) endpoints for any client (Cursor, VS Code, Claude Desktop, CLI).\n04. Enforces Plan-First domain-driven engineering pipelines prior to code synthesis.\n\n[ARCHITECTURE: Local Daemon • MCP Protocol Active • Memory Loss: 0%]`
-            },
-            {
-              id: 'features',
-              type: 'cmd',
-              code: '1.2/',
-              cmd: 'aevum-os features --pillars',
-              label: activeLang === 'vi' ? '1.2/ 4 Trụ cột Kiến trúc' : '1.2/ 4 Architectural Pillars',
-              desc: activeLang === 'vi' ? 'Decoupled Vault, Plan-First, Memory Graph, IoA Squad' : 'Decoupled Vault, Plan-First, Memory Graph, IoA Squad',
-              content: activeLang === 'vi'
-                ? `[AEVUM OS - 4 TRỤ CỘT KIẾN TRÚC HỆ THỐNG]\n\n01. DECOUPLED MEMORY VAULT:\n    • Lưu trữ đồ thị ký ức dài hạn dưới dạng local database bảo mật trên máy developer.\n    • Cho phép AI Agent truy xuất lịch sử refactor, nguyên nhân lỗi và quy chuẩn code tức thì.\n\n02. PLAN-FIRST PIPELINE:\n    • Buộc AI Agent thực hiện bước lập kế hoạch kiến trúc (Domain-Driven Plan) trước khi ghi file.\n    • Giảm 90% rủi ro tạo ra code thừa, sai lệch kiến trúc hoặc tự ý thay đổi file không liên quan.\n\n03. LIVING MEMORY GRAPH:\n    • Đồ thị tri thức tự chữa lành (Self-Healing Graph) thu hoạch bài học kinh nghiệm sau mỗi task.\n    • Kết nối các khái niệm, quy tắc dự án và lưu lại các quy chuẩn của đội ngũ phát triển.\n\n04. IOA SQUAD PROTOCOL (INTERNET OF AGENTS):\n    • Giao thức peer-to-peer cho phép đội ngũ Agent đa chuyên môn (Architect, Coder, Auditor) phối hợp.\n    • Tự động phân công công việc, giao tiếp qua PiperNet và kiểm duyệt chéo chất lượng code.\n\n[STATUS: 4/4 Pillars Operational • Latency: <2ms • Encryption: AES-256]`
-                : `[AEVUM OS - 4 ARCHITECTURAL PILLARS]\n\n01. DECOUPLED MEMORY VAULT:\n    • Stores persistent long-term engineering memory graph in a secure local developer database.\n    • Enables instant retrieval of refactor history, root-cause fixes, and code guidelines.\n\n02. PLAN-FIRST PIPELINE:\n    • Mandates AI agents to produce domain-driven architectural plans prior to writing source files.\n    • Reduces unnecessary code churn, hallucinated edits, and unexpected side effects by 90%.\n\n03. LIVING MEMORY GRAPH:\n    • Self-healing engineering knowledge graph harvesting actionable lessons after every completed task.\n    • Maps system concepts, project constraints, and preserves team-wide coding rules permanently.\n\n04. IOA SQUAD PROTOCOL (INTERNET OF AGENTS):\n    • Peer-to-peer protocol empowering multi-role agent squads (Architect, Coder, Auditor) to collaborate.\n    • Autonomous task handoff, peer code auditing, and knowledge sync over PiperNet network.\n\n[STATUS: 4/4 Pillars Operational • Latency: <2ms • Encryption: AES-256]`
-            },
-            {
-              id: 'app-launch',
-              type: 'cmd',
-              code: '1.3/',
-              cmd: 'aevum-desktop-app --gui',
-              label: activeLang === 'vi' ? '1.3/ Khởi chạy qua Desktop App' : '1.3/ Desktop App Launch',
-              desc: activeLang === 'vi' ? 'Giao diện Đồ họa Control Center (1-Click)' : 'Desktop Control Center GUI (1-Click)',
-              content: activeLang === 'vi'
-                ? `[AEVUM OS - HƯỚNG DẪN KHỞI CHẠY BẰNG DESKTOP APP (ELECTRON GUI)]\n\n► BƯỚC 1: MỞ ỨNG DỤNG AEVUM OS DESKTOP\nMở ứng dụng Aevum OS Control Center từ Menu Start/Applications trên Windows hoặc macOS.\n\n► BƯỚC 2: CHỌN WORKSPACE & KHỞI CHẠY 1-CLICK\n• Nhấn "Browse Workspace" để chọn thư mục dự án của bạn.\n• Nhấn nút "Start Kernel Daemon" (Mặc định Port 3344, SSE Mode).\n[APP STATUS] Daemon Active • PID: 88412 • Port 3344 • Security Token: VALIDATED\n\n► BƯỚC 3: TỰ ĐỘNG ĐỒNG BỘ CẤU HÌNH MCP CHO IDE\n• Chọn IDE muốn kết nối (Cursor / VS Code / Claude Desktop / Antigravity IDE).\n• Nhấn "Auto-Attach MCP Config" — Desktop App sẽ tự động ghi tệp cấu hình mcp.json.\n\n► BƯỚC 4: THEO DÕI TRỰC QUAN BỘ NHỚ & BIỆT ĐỘI AGENT\nTheo dõi Living Memory Graph, chuyển đổi Persona (An, Zenith, Lyna, Vidus) và kiểm tra log hoạt động trực tiếp trên màn hình GUI.\n\n[READY: Desktop Control Center is running • AI Context window fully protected]`
-                : `[AEVUM OS - DESKTOP APP LAUNCH GUIDE (ELECTRON GUI)]\n\n► STEP 1: OPEN AEVUM OS DESKTOP APP\nLaunch Aevum OS Control Center from Start Menu / Applications on Windows or macOS.\n\n► STEP 2: SELECT WORKSPACE & 1-CLICK LAUNCH\n• Click "Browse Workspace" to choose your project root directory.\n• Click "Start Kernel Daemon" button (Default Port 3344, SSE Mode).\n[APP STATUS] Daemon Active • PID: 88412 • Port 3344 • Security Token: VALIDATED\n\n► STEP 3: AUTO-SYNC MCP CONFIG TO YOUR IDES\n• Select your target IDE (Cursor / VS Code / Claude Desktop / Antigravity IDE).\n• Click "Auto-Attach MCP Config" — The app automatically writes the mcp.json config.\n\n► STEP 4: VISUAL MEMORY & SQUAD MONITORING\nMonitor Living Memory Graph, switch agent personas (An, Zenith, Lyna, Vidus), and inspect telemetry logs directly on screen.\n\n[READY: Desktop Control Center is running • AI Context window fully protected]`
-            },
-            {
-              id: 'cli-launch',
-              type: 'cmd',
-              code: '1.4/',
-              cmd: 'aevum --workspace ./ --transport sse --port 3344',
-              label: activeLang === 'vi' ? '1.4/ Khởi chạy qua Lệnh CLI' : '1.4/ CLI Command Launch',
-              desc: activeLang === 'vi' ? 'Giao diện Dòng lệnh Terminal & MCP Daemon' : 'Command Line Terminal & MCP Daemon',
-              content: activeLang === 'vi'
-                ? `[AEVUM OS - HƯỚNG DẪN KHỞI CHẠY BẰNG LỆNH CLI (TERMINAL)]\n\n► BƯỚC 1: KHỞI CHẠY KERNEL DAEMON CHẾ ĐỘ SSE\n$ aevum --workspace ./ --transport sse --port 3344\n[DAEMON] Running background process PID: 88412 • Listening on 127.0.0.1:3344\n[SIGNAL] Security beacon generated at .aevum/signal.json\n\n► BƯỚC 2: KHỞI CHẠY CHẾ ĐỘ STDIO (KẾT NỐI TRỰC TIẾP)\n$ aevum --workspace ./ --transport stdio\n\n► BƯỚC 3: ĐĂNG KÝ CẤU HÌNH MCP SERVER CHO IDE\nMở phần cài đặt MCP Server trên IDE và chọn giao thức SSE (Port 3344).\n[MCP] Successfully registered Aevum OS Server (87 active tools loaded)\n\n► BƯỚC 4: KIỂM TRA TRẠNG THÁI KẾT NỐI\n$ curl http://127.0.0.1:3344/api/ping\n✔ Daemon: ACTIVE (Port 3344)\n✔ Living Memory Graph: HYDRATED (1,420 nodes)\n✔ MCP Handshake: CONFIRMED (Cursor / Antigravity IDE)\n\n[READY: Aevum OS External Brain is fully protecting your AI context window]`
-                : `[AEVUM OS - CLI COMMAND LAUNCH GUIDE (TERMINAL)]\n\n► STEP 1: LAUNCH KERNEL DAEMON IN SSE MODE\n$ aevum --workspace ./ --transport sse --port 3344\n[DAEMON] Running background process PID: 88412 • Listening on 127.0.0.1:3344\n[SIGNAL] Security beacon generated at .aevum/signal.json\n\n► STEP 2: LAUNCH STDIO MODE (DIRECT ATTACHMENT)\n$ aevum --workspace ./ --transport stdio\n\n► STEP 3: REGISTER MCP SERVER CONFIG IN YOUR IDE\nOpen MCP Server settings inside your IDE and select SSE transport (Port 3344).\n[MCP] Successfully registered Aevum OS Server (87 active tools loaded)\n\n► STEP 4: VERIFY SYSTEM CONNECTION STATUS\n$ curl http://127.0.0.1:3344/api/ping\n✔ Daemon: ACTIVE (Port 3344)\n✔ Living Memory Graph: HYDRATED (1,420 nodes)\n✔ MCP Handshake: CONFIRMED (Cursor / Antigravity IDE)\n\n[READY: Aevum OS External Brain is fully protecting your AI context window]`
-            }
-          ]
-        }
+        id: 'overview',
+        type: 'cmd',
+        code: '01/',
+        cmd: 'aevum-os overview --mission',
+        label: isVi ? '01/ Aevum OS là gì?' : '01/ What is Aevum OS?',
+        desc: isVi ? 'Bộ não ngoại vi chạy 100% trên máy bạn' : 'Local-first decoupled external brain',
+        content: isVi
+          ? `[AEVUM OS — BỘ NÃO NGOẠI VI CHO AI AGENT]\n\n► VẤN ĐỀ THỰC TẾ:\nMỗi khi đóng editor, đổi nhánh code hay chuyển giữa Cursor, VS Code và Claude, AI thường quên sạch thỏa thuận cũ khiến bạn phải giải thích lại từ đầu.\n\n► CÁCH AEVUM OS GIÚP BẠN:\n• Lưu trữ trí nhớ sống (Living Memory Graph) cục bộ ngay trong thư mục .aevum/ của dự án.\n• Cung cấp 98 công cụ chuẩn mở MCP giúp mọi AI dùng chung một nguồn sự thật.\n• Vận hành biệt đội 7 cộng sự phối hợp theo quy trình Plan-First an toàn.\n\n[STATUS: 100% Local-First • Zero Amnesia • Open MCP Port 3344]`
+          : `[AEVUM OS — DECOUPLED EXTERNAL BRAIN]\n\n► THE DAILY PROBLEM:\nClosing your editor or switching tools wipes an assistant's context, forcing you to explain project rules repeatedly.\n\n► HOW AEVUM SOLVES IT:\n• Persists a Living Memory Graph locally inside your project's .aevum/ directory.\n• Exposes open MCP endpoints so Cursor, Claude, VS Code, and CLI share one brain.\n• Coordinates 7 specialized AI companions under Plan-First safety checks.\n\n[STATUS: 100% Local-First • Zero Amnesia • Open MCP Port 3344]`
       },
       {
-        id: 'dev-team',
-        type: 'folder',
-        code: '2.',
-        label: activeLang === 'vi' ? '2./ Dev Team' : '2./ Dev Team',
-        desc: activeLang === 'vi' ? 'Đội ngũ phát triển & Câu chuyện I2FLabs' : 'Development Team & I2FLabs Story',
-        children: {
-          title: 'Dev Team',
-          items: [
-            {
-              id: 'genesis',
-              type: 'cmd',
-              code: '2.1/',
-              cmd: 'aevum-os genesis --story',
-              label: activeLang === 'vi' ? '2.1/ Câu chuyện khai sinh' : '2.1/ Genesis Story',
-              desc: activeLang === 'vi' ? 'Nỗi đau & Hành trình I2FLabs' : 'Story & Context Battle',
-              content: activeLang === 'vi'
-                ? `[CÂU CHUYỆN KHAI SINH AEVUM OS TẠI I2FLABS VIỆT NAM]\n\n► BỐI CẢNH & NỖI ĐAU THỰC TẾ:\nTrong quá trình phát triển các hệ thống phần mềm phức tạp cùng AI Agent, đội ngũ kỹ sư tại I2FLabs phát hiện một trở ngại lớn:\nMỗi khi dự án phình to, các AI Agent xuất sắc nhất cũng bắt đầu mắc lỗi ngớ ngẩn do vượt quá context window. AI quên mất cấu trúc DB đã thỏa thuận, tự tạo lại các hàm utility đã có, hoặc vô tình làm gãy các module quan trọng.\n\n► KHÁM PHÁ BƯỚC NGOẶT:\n"Tại sao lại bắt AI Agent ghi nhớ mọi thứ trong prompt context ngắn hạn, trong khi chúng ta có thể xây dựng một Bộ Não Ngoại Vi (External Brain) lưu trữ tri thức bền vững bên ngoài?"\n\n► HÀNH TRÌNH PHÁT TRIỂN AEVUM OS:\nI2FLabs đã bắt tay vào thiết kế Aevum Kernel — daemon lưu trữ Living Memory Graph kết hợp chuẩn mở MCP. Aevum OS ra đời giúp mọi AI Agent giữ vững phong độ thiên tài, không bao giờ quên ngữ cảnh dự án.\n\n[MISSION: Eradicate AI Context Amnesia worldwide • Built with passion by I2FLabs]`
-                : `[THE GENESIS STORY AT I2FLABS VIETNAM]\n\n► BACKGROUND & THE ENGINEERING BATTLE:\nWhile building complex software architectures alongside AI Agents, engineers at I2FLabs encountered a severe fundamental bottleneck:\nAs codebases scale, even the most capable AI agents start making naive mistakes due to context window truncation. Agents forget database schemas, rewrite existing utility helpers, or break critical production invariants.\n\n► THE BREAKTHROUGH INSIGHT:\n"Why force AI agents to hold everything in fragile short-term prompt memory, when we can build a Decoupled External Brain to hold persistent knowledge outside the LLM context window?"\n\n► THE JOURNEY TO AEVUM OS:\nI2FLabs designed Aevum Kernel — a background daemon managing a self-healing Living Memory Graph over open MCP protocols. Aevum OS empowers AI agents to maintain peak engineering excellence without context amnesia.\n\n[MISSION: Eradicate AI Context Amnesia worldwide • Built with passion by I2FLabs]`
-            },
-            {
-              id: 'members',
-              type: 'folder',
-              code: '2.2/',
-              label: activeLang === 'vi' ? '2.2/ Các thành viên' : '2.2/ Team Members',
-              desc: activeLang === 'vi' ? 'AI Agents & Kỹ sư con người' : 'AI Agent Squad & Human Engineers',
-              children: {
-                title: activeLang === 'vi' ? 'Các thành viên' : 'Team Members',
-                items: [
-                  {
-                    id: 'member-1',
-                    type: 'cmd',
-                    code: '2.2.1/',
-                    cmd: 'aevum-os squad --agents',
-                    label: activeLang === 'vi' ? '2.2.1/ Autonomous Agent Squad' : '2.2.1/ Autonomous Agent Squad',
-                    desc: activeLang === 'vi' ? 'Đội ngũ AI Agent (Architect, Coder, Reviewer)' : 'Autonomous Agent Squad',
-                    content: activeLang === 'vi'
-                      ? `[AEVUM SQUAD - ĐỘI NGŨ AI AGENT TỰ HÀNH & PIPERNET]\n\n► CẤU TRÚC ĐỘI NGŨ AI AGENT ĐA VAI TRÒ:\n01. ARCHITECT AGENT (Phân tích & Thiết kế):\n    • Chịu trách nhiệm phân tích requirement, xây dựng sơ đồ hệ thống và lập plan chi tiết.\n02. CODER AGENT (Lập trình viên chuyên sâu):\n    • Thi hành các bước lập trình theo plan, tuân thủ nghiêm ngặt quy chuẩn code và type safety.\n03. REVIEWER & AUDITOR AGENT (Kiểm duyệt & Bảo mật):\n    • Độc lập kiểm tra code diff, quét lỗ hổng bảo mật và chạy sanity test tự động.\n\n► GIAO THỨC PIPERNET (INTERNET OF AGENTS):\nCác Agent trong Squad giao tiếp trực tiếp qua mạng lưới PiperNet peer-to-peer.\nKhi Coder Agent hoàn thành task, thông điệp tự động gửi tới Reviewer Agent để audit code trước khi merge vào codebase chính.\n\n[SQUAD STATUS: 3 Agents Online • PiperNet Bandwidth: 1Gbps • Autonomous Handoff: ACTIVE]`
-                      : `[AEVUM SQUAD - AUTONOMOUS AGENT TEAM & PIPERNET]\n\n► MULTI-ROLE AGENT SQUAD ARCHITECTURE:\n01. ARCHITECT AGENT (Analysis & Design):\n    • Responsible for analyzing requirements, mapping system boundaries, and drafting specs.\n02. CODER AGENT (Core Implementation):\n    • Executes precise step-by-step code changes adhering strictly to architectural constraints.\n03. REVIEWER & AUDITOR AGENT (Code Quality & Security):\n    • Independently inspects code diffs, scans security vulnerabilities, and triggers sanity checks.\n\n► PIPERNET PROTOCOL (INTERNET OF AGENTS):\nSquad agents communicate directly over an encrypted peer-to-peer PiperNet protocol network.\nUpon task completion by Coder Agent, an event handoff automatically triggers Reviewer Agent to audit changes before merging.\n\n[SQUAD STATUS: 3 Agents Online • PiperNet Bandwidth: 1Gbps • Autonomous Handoff: ACTIVE]`
-                  },
-                  {
-                    id: 'member-2',
-                    type: 'cmd',
-                    code: '2.2.2/',
-                    cmd: 'aevum-os team --i2flabs',
-                    label: activeLang === 'vi' ? '2.2.2/ I2FLabs Core Engineers' : '2.2.2/ I2FLabs Core Engineers',
-                    desc: activeLang === 'vi' ? 'Đội ngũ phát triển Aevum Kernel' : 'Aevum Kernel Core R&D Team',
-                    content: activeLang === 'vi'
-                      ? `[I2FLABS HUMAN ENGINEERING TEAM & CORE R&D]\n\n► ĐỘI NGŨ NGHIÊN CỨU & PHÁT TRIỂN CORE KERNEL:\nI2FLabs tập hợp các kỹ sư hệ thống, nhà nghiên cứu AI và lập trình viên đam mê tại Việt Nam.\n\n► LĨNH VỰC NGHIÊN CỨU TRỌNG TÂM:\n01. Agentic Operating System Architecture (Kiến trúc OS cho AI Agent).\n02. Open MCP Protocol Standards & Decoupled Memory Graph Optimization.\n03. High-performance Local Prompt Caching & Living Memory Vault Security.\n04. Developer Experience (DX) & Seamless Tooling Attachments.\n\n► TẦM NHÌN DÀI HẠN:\nĐưa Aevum OS trở thành chuẩn mực hạ tầng bộ nhớ ngoại vi mặc định cho hàng triệu lập trình viên và AI Agent trên toàn thế giới.\n\n[I2FLABS R&D LABS • HANOI / SAIGON, VIETNAM • CONNECT: dev@aevum.ai.vn]`
-                      : `[I2FLABS HUMAN ENGINEERING TEAM & CORE R&D]\n\n► CORE KERNEL RESEARCH & DEVELOPMENT SQUAD:\nI2FLabs brings together passionate systems engineers, AI researchers, and developers in Vietnam.\n\n► CORE RESEARCH DOMAINS:\n01. Agentic Operating System Architecture & Autonomous Workflows.\n02. Open MCP Protocol Standards & Decoupled Memory Graph Optimization.\n03. High-performance Local Prompt Caching & Living Memory Vault Security.\n04. Developer Experience (DX) & Seamless Tooling Attachments across IDEs.\n\n► LONG-TERM VISION:\nEstablishing Aevum OS as the default external brain memory infrastructure for millions of developers and AI agents globally.\n\n[I2FLABS R&D LABS • HANOI / SAIGON, VIETNAM • CONNECT: dev@aevum.ai.vn]`
-                  }
-                ]
-              }
-            }
-          ]
-        }
+        id: 'pillars',
+        type: 'cmd',
+        code: '02/',
+        cmd: 'aevum-os architecture --neural-v3',
+        label: isVi ? '02/ Neural Brain v3.0 & Sandbox' : '02/ Neural Brain v3.0 & Sandbox',
+        desc: isVi ? 'SE-AdLIF WASM + CoW RAM bảo vệ ổ cứng' : 'SE-AdLIF WASM + volatile CoW isolation',
+        content: isVi
+          ? `[KIẾN TRÚC LÕI & CHỦ QUYỀN DỮ LIỆU]\n\n01. NEURAL BRAIN v3.0 (SYMPLECTIC CLS):\n    • Mạng nơ-ron xung SE-AdLIF chạy trên Rust WASM thu hồi trí nhớ dưới 50ms.\n    • Hệ thống hồi tưởng hai tầng giúp học quy ước dự án mà không rò rỉ code.\n\n02. COPY-ON-WRITE SANDBOX:\n    • Mọi lệnh thử nghiệm chạy trên vùng RAM cô lập trước khi bạn duyệt ghi đĩa.\n\n03. PIPERNET MESH:\n    • Chia sẻ mẫu thiết kế trừu tượng ngang hàng, không bao giờ gửi mã nguồn thô.`
+          : `[CORE ARCHITECTURE & DATA SOVEREIGNTY]\n\n01. NEURAL BRAIN v3.0 (SYMPLECTIC CLS):\n    • Rust WASM SE-AdLIF spiking recall retrieving project wisdom under 50ms.\n    • Dual-timescale memory learns codebase habits safely offline.\n\n02. COPY-ON-WRITE SANDBOX:\n    • Executes agent edits in volatile memory until you explicitly approve.\n\n03. PIPERNET MESH:\n    • Peer-to-peer abstract design sharing without transmitting raw code.`
       },
       {
-        id: 'ioa-rnd',
-        type: 'folder',
-        code: '3.',
-        label: activeLang === 'vi' ? '3./ R&D & Internet of Agents (IoA)' : '3./ R&D & Internet of Agents (IoA)',
-        desc: activeLang === 'vi' ? 'Lộ trình kiến trúc, Con hào công nghệ & Đầu tư' : 'Architecture Roadmap, Deep-Tech Moats & Investment',
-        children: {
-          title: activeLang === 'vi' ? 'R&D & IoA Investment Thesis' : 'R&D & IoA Investment Thesis',
-          items: [
-            {
-              id: 'ioa-roadmap-cmd',
-              type: 'cmd',
-              code: '3.1/',
-              cmd: 'aevum-os roadmap --ioa',
-              label: activeLang === 'vi' ? '3.1/ Lộ trình 3 giai đoạn hướng tới IoA' : '3.1/ 3-Phase Roadmap to IoA',
-              desc: activeLang === 'vi' ? 'Decoupled Brain -> Virtual OS Swarms -> IoA Mesh' : 'Decoupled Brain -> Virtual OS Swarms -> IoA Mesh',
-              content: activeLang === 'vi'
-                ? `[AEVUM OS - LỘ TRÌNH R&D TIẾN TỚI INTERNET OF AGENTS (IOA)]\n\n► GIAI ĐOẠN 1: BỘ NÃO NGOẠI VI & KÝ ỨC DÀI HẠN (HOÀN TẤT)\n• Tách biệt bộ nhớ dài hạn (Living Memory Vault) khỏi context window của LLM.\n• Cầu nối chuẩn mở MCP cho Cursor, Claude Code, VS Code.\n• Triệt tiêu 100% hiện tượng AI mất trí nhớ sau mỗi session.\n\n► GIAI ĐOẠN 2: ẢO HÓA KERNEL & BIỆT ĐỘI TÁC TỬ TỰ HÀNH (HIỆN TẠI - TRỌNG TÂM R&D)\n• MLFQ Preemptive Scheduler: Lập lịch chia lát thời gian theo token & turn cho phép ngắt hoặc ưu tiên Agent dở dang.\n• Copy-on-Write (CoW) RAM Sandbox: Cách ly hoàn toàn mã thực thi và lệnh CLI khỏi ổ cứng vật lý.\n• Đội ngũ Persona chuyên môn: An (Quy trình), Iris (Công thái học CX), Mira (Chiến lược & IoA), Kai (Hệ thống).\n\n► GIAI ĐOẠN 3: GIAO THỨC MẠNG INTERNET OF AGENTS (KỶ NGUYÊN TIẾP THEO)\n• PiperNet Speech-Act Protocol: Zero-Copy IPC và chuẩn IACP cho phép Agent thương thảo hợp đồng xuyên tổ chức.\n• Merkle-CRDT Consensus: Đồng bộ trạng thái phi tập trung, xác thực mật mã Ed25519 cho mọi tác vụ hoàn thành.\n\n[STATUS: Phase 1 Shipped • Phase 2 Active R&D • Target TAM: $100B+]`
-                : `[AEVUM OS - 3-PHASE R&D ROADMAP TO THE INTERNET OF AGENTS (IOA)]\n\n► PHASE 1: DECOUPLED EXTERNAL BRAIN & PERSISTENT MEMORY (DELIVERED)\n• Decouples Living Memory Vault from ephemeral LLM prompt context windows.\n• Universal Open MCP endpoints for Cursor, Claude Code, and VS Code.\n• Eliminates 100% of AI context amnesia across engineering sessions.\n\n► PHASE 2: VIRTUAL OS KERNEL & AUTONOMOUS SWARMS (CURRENT ACTIVE R&D)\n• MLFQ Preemptive Scheduler: Token-level fiber preemption to pause, prioritize, or redirect thinking agents.\n• Copy-on-Write (CoW) RAM Sandbox: Volatile RAM isolation protecting physical storage from unverified code.\n• Specialized Personas: An (Process), Iris (Cognitive CX), Mira (Strategy & IoA), Kai (Systems).\n\n► PHASE 3: THE INTERNET OF AGENTS PROTOCOL (NEXT-GEN FRONTIER)\n• PiperNet Speech-Act Protocol: Zero-Copy IPC and IACP standard allowing autonomous cross-org agent negotiations.\n• Merkle-CRDT Consensus: Decentralized state consensus with Ed25519 cryptographic task attestation.\n\n[STATUS: Phase 1 Shipped • Phase 2 Active R&D • Target TAM: $100B+]`
-            },
-            {
-              id: 'ioa-moat-cmd',
-              type: 'cmd',
-              code: '3.2/',
-              cmd: 'aevum-os investment --moat',
-              label: activeLang === 'vi' ? '3.2/ Con hào công nghệ & Token Unit Economics' : '3.2/ Deep-Tech Moats & Token Economics',
-              desc: activeLang === 'vi' ? 'Độc lập mô hình, Tiết kiệm 66% token, IEEE/ACM rigor' : 'Model-Agnostic, 66% Token Savings, Empirical Rigor',
-              content: activeLang === 'vi'
-                ? `[LUẬN ĐIỂM ĐẦU TƯ & CON HÀO CÔNG NGHỆ CỦA AEVUM OS]\n\n► CON HÀO CÔNG NGHỆ TẦNG HỆ ĐIỀU HÀNH (NOT AN AI WRAPPER):\n01. MIỄN NHIỄM HÀNG HÓA HÓA MÔ HÌNH: Khi các mô hình nền tảng (Claude, GPT, Gemini) ngày càng rẻ và thông minh, giá trị của Aevum càng tăng nhờ nắm giữ tầng điều phối, bộ nhớ và sandbox.\n02. TOKEN UNIT ECONOMICS: Nén ngữ nghĩa và băm AST giúp cắt giảm 66% chi phí token suy luận lãng phí.\n03. TÍNH KHOA HỌC THỰC NGHIỆM: Mọi tính năng xuất phát từ Cây Tri Thức RDD, chứng minh bằng toán học và ma trận FMEA 3 tầng.\n\n► MÔ HÌNH KINH DOANH KÉP (DUAL FLYWHEEL):\n• Tầng 1: Bản quyền Doanh nghiệp (Enterprise On-Premise Mesh) triển khai cục bộ bảo mật cao.\n• Tầng 2: Phí giao thức điều phối mạng lưới tác tử toàn cầu trên PiperNet.\n\n[FINANCIAL PROFILE: 66% Inference Cost Reduction • High Margin • Defensible IP]`
-                : `[INVESTOR THESIS & DEEP-TECH DEFENSIVE MOAT]\n\n► OPERATING-SYSTEM LEVEL MOAT (NOT AN AI WRAPPER):\n01. MODEL-AGNOSTIC INSULATION: As foundational LLMs become cheaper commodities, Aevum captures exponential value by owning scheduling, sandboxing, and persistent state.\n02. TOKEN UNIT ECONOMICS: Semantic compression and AST hashing reduce inference token spend by 66%.\n03. EMPIRICAL SCIENTIFIC RIGOR: Every capability proven via mathematical lemmas, sandbox benchmarks, and 3-tier FMEA.\n\n► DUAL MONETIZATION FLYWHEEL:\n• Tier 1: High-margin Enterprise On-Premise Mesh licenses for zero-data-leak corporate environments.\n• Tier 2: Global protocol coordination fees across the decentralized PiperNet agent network.\n\n[FINANCIAL PROFILE: 66% Inference Cost Reduction • High Margin • Defensible IP]`
-            },
-            {
-              id: 'ioa-contact-cmd',
-              type: 'cmd',
-              code: '3.3/',
-              cmd: 'aevum-os contact --investor',
-              label: activeLang === 'vi' ? '3.3/ Hợp tác R&D & Investor Data Room' : '3.3/ R&D Partnerships & Investor Data Room',
-              desc: activeLang === 'vi' ? 'Pitch Deck, Financial Model & Private Beta' : 'Pitch Deck, Financial Model & Private Beta',
-              content: activeLang === 'vi'
-                ? `[HỢP TÁC R&D & QUAN HỆ NHÀ ĐẦU TƯ]\n\n► DÀNH CHO CÁC QUỸ ĐẦU TƯ (VC) & ĐỐI TÁC CHIẾN LƯỢC:\nI2FLabs sẵn sàng chia sẻ:\n01. Bản Pitch Deck chi tiết và Luận điểm Đầu tư vòng Hạt giống / Series A.\n02. Mô hình tài chính Unit Economics và Chiến lược Go-To-Market (GTM).\n03. Bạch thư Khoa học và Mã nguồn PoC thí nghiệm.\n04. Quyền truy cập sớm Private Beta cho các đối tác Enterprise.\n\n► KÊNH KẾT NỐI TRỰC TIẾP:\n• Email: dev@aevum.ai.vn\n• Tiêu đề: [Aevum OS] Strategic Investment & R&D Inquiry\n• Trụ sở: I2FLabs Vietnam (Hà Nội / TP. Hồ Chí Minh)\n\n[DATA ROOM ACCESS: Available upon NDA verification]`
-                : `[R&D PARTNERSHIPS & INVESTOR RELATIONS]\n\n► FOR VENTURE CAPITAL (VC) & STRATEGIC PARTNERS:\nI2FLabs welcomes inquiries for:\n01. Comprehensive Investor Pitch Deck and Seed / Series A Thesis.\n02. Financial Unit Economics Models and Enterprise GTM Strategy.\n03. Academic Whitepapers and Empirical Sandbox Benchmarks.\n04. Private Beta deployment for strategic enterprise partners.\n\n► DIRECT INQUIRIES:\n• Email: dev@aevum.ai.vn\n• Subject: [Aevum OS] Strategic Investment & R&D Inquiry\n• Headquarters: I2FLabs Vietnam (Hanoi / Ho Chi Minh City)\n\n[DATA ROOM ACCESS: Available upon NDA verification]`
-            }
-          ]
-        }
+        id: 'i2flabs',
+        type: 'cmd',
+        code: '03/',
+        cmd: 'aevum-os team --i2flabs',
+        label: isVi ? '03/ Đội ngũ I2FLabs Việt Nam' : '03/ I2FLabs Vietnam R&D',
+        desc: isVi ? 'Kỹ sư Việt xây hạ tầng AI chủ quyền' : 'Independent Vietnamese AI systems lab',
+        content: isVi
+          ? `[I2FLABS VIETNAM — ĐỘI NGŨ NGHIÊN CỨU & PHÁT TRIỂN]\n\n• Xuất phát điểm: Xây dựng tại Việt Nam bởi đội ngũ kỹ sư hệ thống & nhà nghiên cứu AI.\n• Triết lý: Công nghệ AI mạnh nhất là công nghệ giữ bạn toàn quyền kiểm soát dữ liệu trên máy cá nhân.\n• Hợp tác R&D / Doanh nghiệp: dev@aevum.ai.vn`
+          : `[I2FLABS VIETNAM — R&D COLLECTIVE]\n\n• Origin: Researched and engineered in Vietnam by systems & AI engineers.\n• Philosophy: The best AI empowers individuals while keeping 100% sovereignty on local hardware.\n• R&D & Enterprise Contact: dev@aevum.ai.vn`
       }
     ]
-  }), [activeLang]);
+  }), [isVi]);
 
-  // Folder navigation stack
-  const [folderStack, setFolderStack] = useState([navigationData]);
-
-  // Auto-sync folderStack whenever navigationData updates or resets
-  useEffect(() => {
-    setFolderStack([navigationData]);
-    setSelectedIndex(0);
-  }, [navigationData]);
-
-  const currentFolder = folderStack[folderStack.length - 1];
-
-  // Active command rendered on the right terminal panel
-  const [activeCommand, setActiveCommand] = useState(
-    navigationData.items[0].children.items[0]
-  );
-
-  // Currently focused item index in the active list
-  const [selectedIndex, setSelectedIndex] = useState(0);
-
-  // Derive items for current folder view including ".." back item if inside a subfolder
-  const currentDisplayItems = useMemo(() => {
-    if (folderStack.length > 1) {
-      const parentFolder = folderStack[folderStack.length - 2];
-      const backItem = {
-        id: '__back__',
-        type: 'back',
-        label: `.. (${activeLang === 'vi' ? 'Quay lại' : 'Back to'} ${parentFolder.title})`,
-        desc: activeLang === 'vi' ? 'Trở về thư mục cấp trên' : 'Navigate back to parent folder'
-      };
-      return [backItem, ...currentFolder.items];
-    }
-    return currentFolder.items;
-  }, [folderStack, currentFolder, activeLang]);
-
-  // Handle click or enter selection on items
-  const handleItemSelect = (item) => {
-    if (item.type === 'back') {
-      setFolderStack((prev) => prev.slice(0, prev.length - 1));
-      setSelectedIndex(0);
-    } else if (item.type === 'folder') {
-      setFolderStack((prev) => [...prev, item.children]);
-      setSelectedIndex(0);
-    } else if (item.type === 'cmd') {
-      setActiveCommand(item);
-    }
-  };
-
-  const [displayedText, setDisplayedText] = useState('');
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isTypingComplete, setIsTypingComplete] = useState(false);
-
-  // 1. Initial Loading Boot (~2.5s)
-  useEffect(() => {
-    setIsLoading(true);
-    setLoadingProgress(0);
-
-    const interval = setInterval(() => {
-      setLoadingProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          return 100;
-        }
-        return prev + 4;
-      });
-    }, 80);
-
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 2500);
-
-    return () => {
-      clearInterval(interval);
-      clearTimeout(timer);
-    };
-  }, [activeLang]);
-
-  // 2. Typing animation for selected command
-  useEffect(() => {
-    setDisplayedText('');
-    setCurrentIndex(0);
-    setIsTypingComplete(false);
-  }, [activeCommand, activeLang]);
+  const [activeCommandId, setActiveCommandId] = useState('overview');
+  const activeCommand = navigationData.items.find((i) => i.id === activeCommandId) || navigationData.items[0];
 
   useEffect(() => {
-    if (!isLoading && activeCommand) {
-      const fullText = activeCommand.content;
-      if (currentIndex < fullText.length) {
-        const timeout = setTimeout(() => {
-          setDisplayedText((prev) => prev + fullText[currentIndex]);
-          setCurrentIndex((prev) => prev + 1);
-        }, 8);
-        return () => clearTimeout(timeout);
-      } else {
-        setIsTypingComplete(true);
-      }
-    }
-  }, [isLoading, currentIndex, activeCommand]);
-
-  // Keyboard navigation & Shortcuts
-  useEffect(() => {
+    if (viewMode !== 'terminal') return;
     const handleKeyDown = (e) => {
-      if (isLoading) return;
-
-      const itemCount = currentDisplayItems.length;
-
+      const idx = navigationData.items.findIndex((i) => i.id === activeCommandId);
       if (e.key === 'ArrowDown' || e.key === 'j') {
         e.preventDefault();
-        setSelectedIndex((prev) => (prev + 1) % itemCount);
+        setActiveCommandId(navigationData.items[(idx + 1) % navigationData.items.length].id);
       } else if (e.key === 'ArrowUp' || e.key === 'k') {
         e.preventDefault();
-        setSelectedIndex((prev) => (prev - 1 + itemCount) % itemCount);
-      } else if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        const selected = currentDisplayItems[selectedIndex];
-        if (selected) handleItemSelect(selected);
-      } else if (e.key === 'Backspace' || e.key === 'Escape') {
-        if (folderStack.length > 1) {
-          setFolderStack((prev) => prev.slice(0, prev.length - 1));
-          setSelectedIndex(0);
-        }
+        setActiveCommandId(navigationData.items[(idx - 1 + navigationData.items.length) % navigationData.items.length].id);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isLoading, currentDisplayItems, selectedIndex, folderStack]);
-
-  // Breadcrumb path calculation
-  const breadcrumbPath = useMemo(() => {
-    return folderStack.map((f) => f.title).join(' / ');
-  }, [folderStack]);
+  }, [viewMode, activeCommandId, navigationData.items]);
 
   return (
-    <div id="about" className="w-full bg-[#0A0B0F] text-slate-100 min-h-[calc(100vh-73px)] font-sans flex flex-col">
+    <div id="about" className="w-full bg-[#07090D] [html[data-theme='light']_&]:bg-[#F8FAFC] text-slate-100 [html[data-theme='light']_&]:text-slate-900 min-h-[calc(100vh-73px)] font-sans transition-colors">
 
-      {isLoading ? (
-        /* 2.5s Retro Loading Screen with Pure Transparent Logo */
-        <div className="border-subtle-b bg-[#0A0B0F] py-10 px-6 lg:px-10 h-[520px] max-h-[75vh] flex flex-col items-center justify-center text-center font-mono relative overflow-hidden flex-1">
+      {/* ── 1. EDITORIAL HEADER HERO (Monochrome White Text + 16px+ Copy + >= 48px Touch) ── */}
+      <section className="w-full border-b border-white/[0.08] [html[data-theme='light']_&]:border-slate-200 bg-[#0A0B0F] [html[data-theme='light']_&]:bg-[#FFFFFF]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
+          <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
+            <span className="text-xs font-mono font-semibold tracking-widest text-slate-300 [html[data-theme='light']_&]:text-slate-600 uppercase">
+              {isVi ? 'I2FLABS VIETNAM • CÂU CHUYỆN & ĐỘI NGŨ' : 'I2FLABS VIETNAM • STORY & SQUAD'}
+            </span>
 
-          {/* Rendered Transparent Logo Image */}
-          <div className="relative z-10 space-y-4 max-w-xl mx-auto flex flex-col items-center">
-            <img
-              src={logoImg}
-              alt="Aevum OS Logo"
-              className="max-h-48 sm:max-h-60 w-auto object-contain bg-transparent border-none shadow-none select-none pointer-events-none"
-            />
-
-            <div className="space-y-2.5 pt-2">
-              <div className="text-xs text-slate-400 font-mono tracking-widest uppercase">
-                INITIALIZING AEVUM TTY SHELL... {loadingProgress}%
-              </div>
-
-              {/* Terminal Progress Bar */}
-              <div className="w-48 sm:w-64 h-1.5 bg-white/10 rounded-full overflow-hidden mx-auto">
-                <div
-                  className="h-full bg-white transition-all duration-75 ease-out"
-                  style={{ width: `${loadingProgress}%` }}
-                ></div>
-              </div>
+            {/* Progressive View Toggle */}
+            <div className="inline-flex items-center p-1.5 rounded-full border border-white/10 [html[data-theme='light']_&]:border-slate-200 bg-white/[0.02] [html[data-theme='light']_&]:bg-slate-100 text-sm font-sans">
+              <button
+                type="button"
+                onClick={() => setViewMode('editorial')}
+                className={`px-4 py-2 min-h-[44px] rounded-full transition-colors cursor-pointer ${viewMode === 'editorial'
+                  ? 'bg-white text-slate-950 font-medium [html[data-theme="light"]_&]:bg-slate-900 [html[data-theme="light"]_&]:text-white'
+                  : 'text-slate-300 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
+                  }`}
+              >
+                {isVi ? 'Câu chuyện & Đội ngũ' : 'Story & Squad'}
+              </button>
+              <button
+                type="button"
+                onClick={() => setViewMode('terminal')}
+                className={`px-4 py-2 min-h-[44px] rounded-full transition-colors cursor-pointer inline-flex items-center gap-1.5 ${viewMode === 'terminal'
+                  ? 'bg-white text-slate-950 font-medium [html[data-theme="light"]_&]:bg-slate-900 [html[data-theme="light"]_&]:text-white'
+                  : 'text-slate-300 hover:text-white [html[data-theme="light"]_&]:text-slate-600 [html[data-theme="light"]_&]:hover:text-slate-900'
+                  }`}
+              >
+                <Terminal size={14} />
+                <span>{isVi ? 'Terminal cổ điển' : 'CLI Mode'}</span>
+              </button>
             </div>
           </div>
 
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+            <div className="lg:col-span-7 space-y-5 text-left">
+              <h1 className="text-3xl sm:text-5xl font-normal tracking-[-0.03em] text-white [html[data-theme='light']_&]:text-slate-900 leading-[1.12] font-sans">
+                {isVi ? (
+                  <>
+                    Để AI thật sự nhớ việc,<br />
+                    <span className="text-slate-300 [html[data-theme='light']_&]:text-slate-700">
+                      và làm việc cùng bạn lâu dài.
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    Built so your AI remembers,<br />
+                    <span className="text-slate-300 [html[data-theme='light']_&]:text-slate-700">
+                      and grows alongside your craft.
+                    </span>
+                  </>
+                )}
+              </h1>
+
+              <p className="text-base sm:text-lg text-slate-300 [html[data-theme='light']_&]:text-slate-700 leading-[1.7] font-sans font-normal max-w-2xl">
+                {isVi
+                  ? 'Aevum OS khởi nguồn từ một trăn trở giản dị tại I2FLabs Việt Nam: tại sao mỗi lần mở một tab mới hay đổi trình soạn thảo, bạn lại phải giải thích dự án cho AI nghe lại từ đầu? Chúng tôi xây dựng một bộ não độc lập ngay trên máy cá nhân để cộng sự AI luôn nhớ mạch việc và bảo vệ bạn an toàn.'
+                  : 'Aevum OS started with a simple frustration at I2FLabs Vietnam: why re-explain your codebase every time you open a fresh tab or switch IDEs? We engineered a local external brain so specialized AI companions preserve context across every tool on your machine.'}
+              </p>
+
+              <div className="pt-1 flex flex-wrap items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => onNavigate?.('docs')}
+                  className="inline-flex items-center gap-2 px-5 py-3 min-h-[48px] rounded-full bg-[#ECEEFE] hover:bg-white text-[#0A0B0F] [html[data-theme='light']_&]:bg-slate-900 [html[data-theme='light']_&]:text-white text-sm font-semibold transition-colors cursor-pointer"
+                >
+                  <BookOpen size={15} />
+                  <span>{isVi ? 'Bắt đầu trong 3 phút' : '3-Minute Quickstart'}</span>
+                </button>
+                <a
+                  href="mailto:dev@aevum.ai.vn"
+                  className="inline-flex items-center gap-2 px-5 py-3 min-h-[48px] rounded-full border border-white/15 [html[data-theme='light']_&]:border-slate-300 text-white [html[data-theme='light']_&]:text-slate-900 hover:bg-white/5 [html[data-theme='light']_&]:hover:bg-slate-100 text-sm font-medium transition-colors"
+                >
+                  <span>{isVi ? 'Kết nối I2FLabs R&D' : 'Contact I2FLabs R&D'}</span>
+                  <ArrowUpRight size={14} />
+                </a>
+              </div>
+            </div>
+
+            {/* Atmospheric Orbital Sculpture Visual (Luna Gradient Mask) */}
+            <div className="lg:col-span-5 relative flex items-center justify-center">
+              <div className="relative w-full max-w-md aspect-[16/10] rounded-3xl overflow-hidden bg-[#07090D] [html[data-theme='light']_&]:bg-slate-950 border border-white/[0.08] [html[data-theme='light']_&]:border-slate-200/80 shadow-xl">
+                <img
+                  src={constellationArt}
+                  alt={isVi ? 'Kiến trúc Bộ não Cộng sự Aevum OS' : 'Aevum OS External Brain Core Visual'}
+                  className="w-full h-full object-cover object-center select-none pointer-events-none"
+                  style={{
+                    WebkitMaskImage: 'linear-gradient(180deg, rgba(0,0,0,1) 64%, rgba(0,0,0,0.45) 100%)',
+                    maskImage: 'linear-gradient(180deg, rgba(0,0,0,1) 64%, rgba(0,0,0,0.45) 100%)'
+                  }}
+                />
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 p-4 flex items-center justify-between text-xs font-mono text-white bg-gradient-to-t from-[#07090D] via-[#07090D]/70 to-transparent">
+                  <span>AEVUM KERNEL • LOCAL-FIRST</span>
+                  <span>v2.0</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      ) : (
-        /* Authentic Transparent Terminal UI (TUI) Screen - Full-width Border Header & Equal Vertical Padding */
-        <div className="border-subtle-b bg-[#07090D] text-left font-mono relative overflow-hidden flex-1 flex flex-col w-full">
+      </section>
 
-          {/* Full-width Terminal Header Bar (Border-bottom touches both parent edges 100%, Equal Top & Bottom Padding) */}
-          <div className="w-full border-b border-white/10 py-5 px-6 lg:px-10 bg-[#07090D] relative z-10">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs font-mono text-slate-400">
-              <div className="flex items-center gap-3">
-                <span className="text-white font-bold tracking-wider">AEVUM TTY INTERACTIVE SHELL v1.0.0</span>
-              </div>
-              <div className="flex items-center text-[11px] text-slate-500 font-mono">
-                <span>Use [↑/↓] arrows, [Enter] or click options</span>
-              </div>
+      {viewMode === 'terminal' ? (
+        /* ── OPTIONAL CLASSIC TERMINAL VIEW ── */
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="rounded-2xl border border-white/10 [html[data-theme='light']_&]:border-slate-300 bg-[#07090D] overflow-hidden font-mono text-left">
+            <div className="px-6 py-4 border-b border-white/10 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-300">
+              <span className="text-white font-semibold">AEVUM TTY EXPLORER</span>
+              <span>{isVi ? 'Dùng phím [↑/↓] hoặc bấm chọn mục bên trái' : 'Use [↑/↓] keys or click entries'}</span>
             </div>
-          </div>
-
-          {/* Main Terminal Shell Body Container - 2-Column Grid (Full-height Divider Touching Bottom Edge) */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch relative z-10 w-full text-left font-mono flex-1 min-h-[450px]">
-
-            {/* Column 1: Interactive Drill-down Menu (5 Cols - Full Height Vertical Separator Line) */}
-            <div className="order-2 lg:order-1 lg:col-span-5 space-y-3 font-mono lg:border-r border-b lg:border-b-0 border-white/10 px-6 lg:px-10 py-8 h-full">
-
-              {/* Current Directory Breadcrumb */}
-              <div className="flex items-center gap-2 text-[11px] text-white font-mono font-bold tracking-wide uppercase">
-                <span className="text-slate-400">LOCATION:</span>
-                <span className="text-white">~/{breadcrumbPath}</span>
-              </div>
-
-              {/* Subfolder Menu List */}
-              <div className="space-y-1 font-mono text-xs sm:text-sm pt-1">
-                {currentDisplayItems.map((item, idx) => {
-                  const isFocused = selectedIndex === idx;
-                  const isCmdActive = item.type === 'cmd' && activeCommand?.id === item.id;
-                  const isFolder = item.type === 'folder';
-
+            <div className="grid grid-cols-1 lg:grid-cols-12">
+              <div className="lg:col-span-5 border-b lg:border-b-0 lg:border-r border-white/10 p-6 space-y-2.5">
+                {navigationData.items.map((item) => {
+                  const active = item.id === activeCommandId;
                   return (
-                    <div
+                    <button
                       key={item.id}
-                      onClick={() => {
-                        setSelectedIndex(idx);
-                        handleItemSelect(item);
-                      }}
-                      onMouseEnter={() => setSelectedIndex(idx)}
-                      className={`group flex flex-col py-2 px-2.5 rounded cursor-pointer transition-colors font-mono ${isFocused || isCmdActive
-                          ? 'text-white font-bold bg-white/[0.06]'
-                          : 'text-slate-300 hover:text-white hover:bg-white/[0.02]'
+                      type="button"
+                      onClick={() => setActiveCommandId(item.id)}
+                      className={`w-full text-left p-3.5 min-h-[48px] rounded-xl transition-colors cursor-pointer ${active
+                        ? 'bg-white/[0.08] text-white border border-white/25'
+                        : 'text-slate-300 hover:bg-white/[0.03] border border-transparent'
                         }`}
                     >
-                      <div className="flex items-center gap-2">
-                        <span className="text-white font-bold w-4 text-center">
-                          {isFocused ? '>' : ' '}
-                        </span>
-
-                        <span className={`flex-1 ${isFocused || isCmdActive
-                            ? 'text-white font-bold'
-                            : 'text-slate-200'
-                          }`}>
-                          {isFolder ? `${item.label}/` : item.label}
-                        </span>
-
-                        {isFolder && (
-                          <span className="text-slate-400 text-xs font-mono font-bold">
-                            &gt;
-                          </span>
-                        )}
+                      <div className="text-sm font-semibold flex items-center gap-2">
+                        <span className="text-white">{active ? '>' : ' '}</span>
+                        <span>{item.label}</span>
                       </div>
-
-                      {item.desc && (
-                        <span className="text-slate-400 text-xs pl-6 pt-0.5 font-normal">
-                          {item.desc}
-                        </span>
-                      )}
-                    </div>
+                      <div className="text-xs text-slate-400 pl-4 mt-1">{item.desc}</div>
+                    </button>
                   );
                 })}
               </div>
-
-            </div>
-
-            {/* Column 2: Terminal Output Render (7 Cols - Pure Monochrome Text) */}
-            <div className="order-1 lg:order-2 lg:col-span-7 space-y-4 font-mono px-6 lg:px-10 py-8">
-
-              {/* Command Execution Line */}
-              <div className="flex items-center gap-2 text-sm sm:text-base font-mono text-white pb-1">
-                <span className="text-slate-400 font-bold">$</span>
-                <span className="font-bold text-white">{activeCommand.cmd}</span>
-              </div>
-
-              {/* Terminal Text Output Display */}
-              <div className="pt-1 min-h-[240px]">
-                <pre className="whitespace-pre-wrap text-left text-white font-mono text-xs sm:text-sm leading-[1.5] tracking-tight">
-                  {displayedText}
-                  <span className="inline-block w-2 h-4 bg-white ml-1 animate-pulse align-middle"></span>
+              <div className="lg:col-span-7 p-6 sm:p-8 space-y-4">
+                <div className="text-sm text-white">$ {activeCommand.cmd}</div>
+                <pre className="whitespace-pre-wrap text-sm sm:text-base text-slate-200 leading-relaxed font-mono">
+                  {activeCommand.content}
                 </pre>
-
-                {isTypingComplete && (
-                  <div className="pt-4 text-[11px] text-slate-500 uppercase tracking-widest animate-pulse font-mono text-left mt-4">
-                    [ EXECUTION COMPLETE • USE ARROWS [↑/↓] OR [ENTER] TO NAVIGATE ]
-                  </div>
-                )}
               </div>
+            </div>
+          </div>
+        </section>
+      ) : (
+        <>
+          {/* ── 2. THREE RELATABLE PILLARS (>= 16px Body) ── */}
+          <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-16 border-b border-white/[0.06] [html[data-theme='light']_&]:border-slate-200">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[
+                {
+                  icon: Sparkles,
+                  tag: isVi ? '01 • GẦN GŨI & DỄ BẮT ĐẦU' : '01 • ZERO FRICTION',
+                  title: isVi ? 'Giữ nguyên IDE quen thuộc' : 'Keep your current workflow',
+                  desc: isVi
+                    ? 'Không bắt bạn học công cụ mới hoàn toàn. Gắn qua chuẩn mở MCP để Cursor, VS Code và Claude dùng chung một trí nhớ.'
+                    : 'Keep using Cursor, VS Code, Claude, or CLI while sharing a single project memory.'
+                },
+                {
+                  icon: Cpu,
+                  tag: isVi ? '02 • TRÍ NHỚ SỐNG BỀN BỈ' : '02 • NEURAL BRAIN v3.0',
+                  title: isVi ? 'Nhớ sâu quy ước & lý do cũ' : 'Persistent architectural wisdom',
+                  desc: isVi
+                    ? 'Mọi bài học debug và quy tắc đặt tên đều được neo cục bộ trong .aevum/, tự cập nhật khi bạn sửa code.'
+                    : 'Every debugging lesson and design rule stays anchored cleanly inside your local workspace.'
+                },
+                {
+                  icon: Shield,
+                  tag: isVi ? '03 • CHỦ QUYỀN TRÊN MÁY BẠN' : '03 • LOCAL SOVEREIGNTY',
+                  title: isVi ? 'Không tải mã nguồn lên mây' : 'Zero hidden cloud lock-in',
+                  desc: isVi
+                    ? 'Mọi thử nghiệm chạy trong vùng RAM cô lập và chỉ ghi đĩa khi bạn đồng ý — an tâm cho cả cá nhân lẫn đội ngũ.'
+                    : 'Isolated RAM checks protect your disk while keeping code strictly on your hardware.'
+                }
+              ].map((pillar) => {
+                const Icon = pillar.icon;
+                return (
+                  <div key={pillar.tag} className="space-y-3 text-left">
+                    <div className="flex items-center gap-2.5 text-xs font-mono tracking-widest text-slate-300 [html[data-theme='light']_&]:text-slate-600 uppercase">
+                      <Icon size={15} className="text-white [html[data-theme='light']_&]:text-slate-900" />
+                      <span>{pillar.tag}</span>
+                    </div>
+                    <h2 className="text-xl font-medium text-white [html[data-theme='light']_&]:text-slate-900 font-sans tracking-tight">
+                      {pillar.title}
+                    </h2>
+                    <p className="text-base text-slate-300 [html[data-theme='light']_&]:text-slate-700 leading-[1.7] font-normal m-0">
+                      {pillar.desc}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
 
+          {/* ── 3. SEVEN-COMPANION SQUAD ROSTER (Typography-Only Monochrome) ── */}
+          <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10 text-left">
+              <div className="space-y-2 max-w-2xl">
+                <div className="inline-flex items-center gap-2 text-xs font-mono tracking-widest text-slate-300 [html[data-theme='light']_&]:text-slate-600 uppercase">
+                  <Users size={14} className="text-white [html[data-theme='light']_&]:text-slate-900" />
+                  <span>{isVi ? 'BIỆT ĐỘI 7 CỘNG SỰ AI' : 'THE 7-COMPANION SQUAD'}</span>
+                </div>
+                <h2 className="text-2xl sm:text-4xl font-normal tracking-[-0.025em] text-white [html[data-theme='light']_&]:text-slate-900 font-sans">
+                  {isVi ? 'Mỗi cộng sự giữ một vai trò rõ ràng cho bạn.' : 'Focused specialists working together for you.'}
+                </h2>
+              </div>
+              <p className="text-base text-slate-300 [html[data-theme='light']_&]:text-slate-700 max-w-md font-normal leading-[1.65] m-0">
+                {isVi
+                  ? 'Thay vì một chatbot làm tất cả rồi mau quên, Aevum kết nối 7 chuyên gia tự kiểm tra chéo lẫn nhau.'
+                  : 'Instead of one forgetful chatbot, Aevum coordinates 7 distinct personas across engineering, design, QA, and UX.'}
+              </p>
             </div>
 
-          </div>
-
-        </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 text-left">
+              {squadRoster.map((member) => (
+                <article
+                  key={member.aid}
+                  className="group relative rounded-2xl bg-[#0C0E14] [html[data-theme='light']_&]:bg-white border border-white/[0.08] [html[data-theme='light']_&]:border-slate-200 p-6 flex flex-col justify-between gap-3.5 transition-colors hover:border-white/25 [html[data-theme='light']_&]:hover:border-slate-300"
+                >
+                  <div className="space-y-1.5">
+                    <div className="text-xs font-mono text-slate-400 [html[data-theme='light']_&]:text-slate-500 tracking-wider">
+                      {member.aid}
+                    </div>
+                    <h3 className="text-xl font-medium text-white [html[data-theme='light']_&]:text-slate-900 font-sans">
+                      {member.name}
+                    </h3>
+                    <div className="text-sm font-mono text-slate-200 [html[data-theme='light']_&]:text-slate-700 tracking-wide">
+                      {member.role}
+                    </div>
+                  </div>
+                  <p className="text-base text-slate-300 [html[data-theme='light']_&]:text-slate-700 leading-[1.65] m-0">
+                    {member.note}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </section>
+        </>
       )}
 
     </div>

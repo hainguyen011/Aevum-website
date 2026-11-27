@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { attachCanvasMotionLifecycle } from '../utils/canvasMotionLifecycle';
 
 /**
  * BugGuardMotion - Pixel Agent Zero-Trust Guardian & Mini Pixel Agents
@@ -14,7 +15,6 @@ import React, { useEffect, useRef } from 'react';
  */
 export const BugGuardMotion = ({ activeLang = 'vi' }) => {
   const canvasRef = useRef(null);
-  const animFrameId = useRef(null);
   const tickRef = useRef(0);
 
   useEffect(() => {
@@ -23,23 +23,8 @@ export const BugGuardMotion = ({ activeLang = 'vi' }) => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    let width = (canvas.width = canvas.parentElement?.clientWidth || 580);
-    let height = (canvas.height = 360);
-
-    const handleResize = () => {
-      if (!canvas.parentElement) return;
-      const dpr = window.devicePixelRatio || 1;
-      width = canvas.parentElement.clientWidth;
-      height = 360;
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      canvas.style.width = `${width}px`;
-      canvas.style.height = `${height}px`;
-      ctx.scale(dpr, dpr);
-    };
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
+    let width = canvas.parentElement?.clientWidth || 580;
+    let height = 360;
 
     // ── Silky Easing ──
     const easeOutQuad = (t) => t * (2 - t);
@@ -246,8 +231,10 @@ export const BugGuardMotion = ({ activeLang = 'vi' }) => {
     let shieldImpact = 0;
     let globalHappyTimer = 0;
 
-    const render = () => {
-      tickRef.current++;
+    const drawFrame = (_ctx, nextWidth, nextHeight, { advanceTick = true } = {}) => {
+      width = nextWidth;
+      height = nextHeight;
+      if (advanceTick) tickRef.current++;
       const tick = tickRef.current;
 
       ctx.clearRect(0, 0, width, height);
@@ -415,18 +402,14 @@ export const BugGuardMotion = ({ activeLang = 'vi' }) => {
         isHappy,
         bob: b3Bob
       });
-
-      animFrameId.current = requestAnimationFrame(render);
     };
 
-    render();
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      if (animFrameId.current) {
-        cancelAnimationFrame(animFrameId.current);
-      }
-    };
+    return attachCanvasMotionLifecycle({
+      canvas,
+      getHeight: () => 360,
+      onDraw: drawFrame,
+      threshold: 0.08
+    });
   }, []);
 
   return (

@@ -60,9 +60,9 @@ aevum gui
 ```
 
 ### Các Không gian Làm việc Trực quan:
-1. **Workspace Overview**: Quản lý cây kiến trúc Domain/Feature, theo dõi chỉ số sức khỏe codebase và xem nhật ký hoạt động thời gian thực (Circular Ring Buffer).
-2. **Agent Chat Cockpit**: Giao tiếp trực tiếp với Persona thông qua bộ chọn mô hình linh hoạt (**Dynamic Model Selector**): Claude 3.5 Sonnet, Gemini 2.5 Flash, GPT-4o.
-3. **Research Skill Tree (Dagre & React Flow)**: Khám phá đồ thị kỹ năng, cây phân nhánh nghiên cứu đệ quy và trạng thái tinh thông của dự án.
+1. **Lean Workspace & Agent Chat (120 FPS)**: Giao tiếp trực tiếp với từng Persona hoặc thảo luận nhóm đa ngôi (**Thalamus Multi-Party Relay**) kèm động cơ gọi công cụ tự hành **Hermes** và bộ chọn mô hình linh hoạt (Claude, Gemini, GPT).
+2. **Workspace Overview**: Quản lý cây kiến trúc Domain/Feature, theo dõi chỉ số sức khỏe codebase và xem nhật ký hoạt động thời gian thực (Circular Ring Buffer).
+3. **Research Skill Tree (Dagre & React Flow)**: Khám phá đồ thị kỹ năng, cây phân nhánh nghiên cứu cộng sinh và trạng thái tinh thông của dự án.
 4. **Architecture Canvas**: Bảng vẽ tương tác biểu diễn cấu trúc topo của hệ thống hỗ trợ zoom, pan và lọc theo từng Bounded Context.
 
 ---

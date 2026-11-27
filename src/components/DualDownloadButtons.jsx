@@ -109,12 +109,12 @@ export const DualDownloadButtons = ({
     document.body.removeChild(link);
   };
 
-  const winUrl = downloads?.windows?.url || 'https://github.com/hainguyen011/aevum-os-releases/releases/download/v2.0.0-dev.9/Aevum-OS-Setup-2.0.0-dev.9.exe';
-  const winName = downloads?.windows?.name || 'Aevum-OS-Setup-2.0.0-dev.9.exe';
+  const winUrl = downloads?.windows?.url || 'https://github.com/hainguyen011/aevum-os-releases/releases/download/v2.0.0-dev.17/Aevum-OS-Setup-2.0.0-dev.17.exe';
+  const winName = downloads?.windows?.name || 'Aevum-OS-Setup-2.0.0-dev.17.exe';
   const winOptions = downloads?.windows?.options || [];
 
-  const macUrl = downloads?.mac?.url || 'https://github.com/hainguyen011/aevum-os-releases/releases/download/v2.0.0-dev.6/Aevum-OS-2.0.0-dev.6-mac-arm64.dmg';
-  const macName = downloads?.mac?.name || 'Aevum-OS-2.0.0-dev.6-mac-arm64.dmg';
+  const macUrl = downloads?.mac?.url || 'https://github.com/hainguyen011/aevum-os-releases/releases/download/v2.0.0-dev.17/Aevum-OS-2.0.0-dev.17-mac-arm64.dmg';
+  const macName = downloads?.mac?.name || 'Aevum-OS-2.0.0-dev.17-mac-arm64.dmg';
   const macOptions = downloads?.mac?.options || [];
 
   const isMacUser = userOS === 'mac';
@@ -124,8 +124,8 @@ export const DualDownloadButtons = ({
   const secondaryPillClass = "bg-white/[0.08] hover:bg-white/[0.14] text-white [html[data-theme='light']_&]:bg-slate-100 [html[data-theme='light']_&]:hover:bg-slate-200 [html[data-theme='light']_&]:text-slate-900 border border-white/10 [html[data-theme='light']_&]:border-slate-300";
 
   const paddingClass = size === 'compact'
-    ? 'px-3.5 py-1.5 text-xs'
-    : 'px-5 py-3 text-sm';
+    ? 'px-3.5 py-2 text-xs min-h-[40px]'
+    : 'px-5 py-3 text-sm min-h-[44px]';
 
   const iconSize = size === 'compact' ? 13 : 15;
 
@@ -134,7 +134,7 @@ export const DualDownloadButtons = ({
       
       {/* ── 1. WINDOWS DOWNLOAD BUTTON ── */}
       <div className="relative inline-flex items-center">
-        <div className={`inline-flex items-center rounded-full transition-all duration-150 ${isMacUser ? secondaryPillClass : primaryPillClass}`}>
+        <div className={`inline-flex items-center rounded-full transition-colors duration-150 ${isMacUser ? secondaryPillClass : primaryPillClass}`}>
           {/* Main Action Trigger */}
           <button
             onClick={() => triggerDownload(winUrl, winName)}
@@ -149,8 +149,9 @@ export const DualDownloadButtons = ({
           {winOptions.length > 1 && (
             <button
               onClick={(e) => toggleMenu('windows', e)}
-              className="px-2 py-3 hover:opacity-75 transition-opacity cursor-pointer border-l border-current/20"
+              className="px-2.5 py-3 min-h-[44px] hover:opacity-75 transition-opacity cursor-pointer border-l border-current/20"
               aria-label="Windows download options"
+              aria-expanded={openMenu === 'windows'}
             >
               <ChevronDown size={13} className={`transition-transform duration-200 ${openMenu === 'windows' ? 'rotate-180' : ''}`} />
             </button>
@@ -199,7 +200,7 @@ export const DualDownloadButtons = ({
 
       {/* ── 2. MACOS DOWNLOAD BUTTON ── */}
       <div className="relative inline-flex items-center">
-        <div className={`inline-flex items-center rounded-full transition-all duration-150 ${isMacUser ? primaryPillClass : secondaryPillClass}`}>
+        <div className={`inline-flex items-center rounded-full transition-colors duration-150 ${isMacUser ? primaryPillClass : secondaryPillClass}`}>
           {/* Main Action Trigger */}
           <button
             onClick={() => triggerDownload(macUrl, macName)}
@@ -214,8 +215,9 @@ export const DualDownloadButtons = ({
           {macOptions.length > 0 && (
             <button
               onClick={(e) => toggleMenu('mac', e)}
-              className="px-2.5 py-3 hover:opacity-75 transition-opacity cursor-pointer border-l border-current/20"
+              className="px-2.5 py-3 min-h-[44px] hover:opacity-75 transition-opacity cursor-pointer border-l border-current/20"
               aria-label="macOS download options"
+              aria-expanded={openMenu === 'mac'}
             >
               <ChevronDown size={13} className={`transition-transform duration-200 ${openMenu === 'mac' ? 'rotate-180' : ''}`} />
             </button>

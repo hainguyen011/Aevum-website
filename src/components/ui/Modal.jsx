@@ -143,7 +143,7 @@ export const Modal = ({
         data-lenis-prevent
       >
         {/* Precision Top Hairline Glow Line */}
-        <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/50 [html[data-theme='light']_&]:via-cyan-400/70 to-transparent z-20 pointer-events-none" />
+        <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/25 [html[data-theme='light']_&]:via-slate-300 to-transparent z-20 pointer-events-none" />
 
         {/* ── 1. Subtle Grainy Atmosphere Layer (Optional) ── */}
         {grainy && (
@@ -174,7 +174,7 @@ export const Modal = ({
                   </h3>
                 )}
                 {subtitle && (
-                  <div className="text-xs text-slate-300/90 [html[data-theme='light']_&]:text-slate-500 font-normal">
+                  <div className="text-xs sm:text-sm text-slate-300/90 [html[data-theme='light']_&]:text-slate-600 font-normal">
                     {subtitle}
                   </div>
                 )}
@@ -185,7 +185,7 @@ export const Modal = ({
                   type="button"
                   onClick={onClose}
                   aria-label="Đóng"
-                  className="w-8 h-8 rounded-full border border-white/15 [html[data-theme='light']_&]:border-slate-300/80 hover:border-white/30 [html[data-theme='light']_&]:hover:border-slate-400 bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-100 hover:bg-white/[0.12] [html[data-theme='light']_&]:hover:bg-slate-200 text-slate-300 [html[data-theme='light']_&]:text-slate-600 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-all cursor-pointer flex items-center justify-center shrink-0 backdrop-blur-sm group"
+                  className="w-10 h-10 rounded-full border border-white/15 [html[data-theme='light']_&]:border-slate-300/80 hover:border-white/30 [html[data-theme='light']_&]:hover:border-slate-400 bg-white/[0.04] [html[data-theme='light']_&]:bg-slate-100 hover:bg-white/[0.12] [html[data-theme='light']_&]:hover:bg-slate-200 text-slate-300 [html[data-theme='light']_&]:text-slate-600 hover:text-white [html[data-theme='light']_&]:hover:text-slate-900 transition-colors cursor-pointer flex items-center justify-center shrink-0 backdrop-blur-sm group"
                 >
                   <X className="w-4 h-4 stroke-[1.75] transition-transform duration-200 group-hover:scale-110" />
                 </button>

@@ -24,7 +24,7 @@ html[data-theme="dark"] {
 
   --font-sans: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-display: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-mono: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
   --transition-smooth: 0.15s ease-out;
 
@@ -558,14 +558,13 @@ html[data-theme="light"] .gradient-text {
   border-bottom: 1px solid var(--border-faint);
 }
 
-/* Dedicated Monospace Typography for Technical Elements & Numbers */
+/* Synchronized Technical & Code Typography to Google Sans Flex */
 .font-mono {
-  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+  font-family: 'Google Sans Flex', var(--font-sans) !important;
 }
 
-/* Dedicated Syntax/Code Monospace exclusively for real code tags */
 pre code, code.hljs {
-  font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  font-family: 'Google Sans Flex', var(--font-sans);
 }
 
 /* Custom Scrollbars */
@@ -2822,7 +2821,7 @@ html[data-theme="light"] .era-exploration-root button.bg-\[\#07080C\]:hover {
 
 /* ── Authentic GitHub-Flavored Markdown Renderer for Changelog - Micro-Typography System ── */
 .github-markdown-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif !important;
+  font-family: 'Google Sans Flex', var(--font-sans) !important;
   font-size: 12px !important;
   line-height: 1.65 !important;
   color: rgba(255, 255, 255, 0.85) !important;
@@ -2932,7 +2931,7 @@ html[data-theme="light"] .era-exploration-root button.bg-\[\#07080C\]:hover {
 .github-markdown-body li::marker {
   content: counters(changelog-counter, ".") ". ";
   color: rgba(255, 255, 255, 0.6) !important;
-  font-family: var(--font-mono, monospace) !important;
+  font-family: 'Google Sans Flex', var(--font-sans) !important;
   font-weight: 500 !important;
   font-size: 11px !important;
 }
@@ -2952,8 +2951,8 @@ html[data-theme="light"] .era-exploration-root button.bg-\[\#07080C\]:hover {
   white-space: break-spaces !important;
   background-color: rgba(255, 255, 255, 0.07) !important;
   border-radius: 4px !important;
-  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace !important;
-  color: #38bdf8 !important;
+  font-family: 'Google Sans Flex', var(--font-sans) !important;
+  color: rgba(255, 255, 255, 0.92) !important;
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
 
@@ -3035,7 +3034,7 @@ html[data-theme="light"] .github-markdown-body li {
 
 html[data-theme="light"] .github-markdown-body li::marker {
   color: #64748B !important;
-  font-family: var(--font-mono, monospace) !important;
+  font-family: 'Google Sans Flex', var(--font-sans) !important;
   font-weight: 500 !important;
   font-size: 11px !important;
 }

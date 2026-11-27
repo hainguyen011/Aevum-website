@@ -156,25 +156,29 @@ article p,
 }
 
 .font-mono {
-  font-family: var(--font-mono) !important;
+  font-family: 'Google Sans Flex', var(--font-sans) !important;
+  font-optical-sizing: auto;
 }
 
 code,
 pre,
 kbd,
 samp {
-  font-family: var(--font-mono) !important;
+  font-family: 'Google Sans Flex', var(--font-sans) !important;
+  font-optical-sizing: auto;
 }
 
-/* Quote Typography - Encode Sans Condensed */
+/* Quote Typography - Synchronized to Google Sans Flex */
 .font-quote,
 .encode-sans-condensed {
-  font-family: "Encode Sans Condensed", sans-serif;
+  font-family: 'Google Sans Flex', var(--font-sans);
+  font-optical-sizing: auto;
 }
 
 .encode-sans-condensed-extralight {
-  font-family: "Encode Sans Condensed", sans-serif;
-  font-weight: 200;
+  font-family: 'Google Sans Flex', var(--font-sans);
+  font-optical-sizing: auto;
+  font-weight: 300;
   font-style: normal;
 }
 

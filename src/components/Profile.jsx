@@ -141,8 +141,25 @@ export const Profile = ({
   const displayName = user.user_metadata?.full_name || user.user_metadata?.name || user.email?.split('@')[0];
   const initials = displayName?.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase() || 'AE';
   const role = userProfile?.role || 'member';
-  const effectiveTier = (userProfile?.membership_tier || entitlements?.tier || (entitlements?.isPro ? 'PRO' : 'COMMUNITY')).toUpperCase();
+  // Prioritize authoritative live entitlements (user_memberships) over cached profiles.membership_tier
+  const rawTier =
+    entitlements?.tier ||
+    (entitlements?.isEnterprise
+      ? 'enterprise'
+      : entitlements?.isPioneer
+        ? 'pioneer'
+        : entitlements?.isPro
+          ? 'pro'
+          : null) ||
+    userProfile?.membership_tier ||
+    'community';
+  const effectiveTier = String(rawTier).toUpperCase();
   const tierSlug = effectiveTier.toLowerCase();
+  const isPaidTier = tierSlug === 'pro' || tierSlug === 'pioneer' || tierSlug === 'enterprise';
+  const maxMachinesDisplay =
+    entitlements?.maxMachines ||
+    (tierSlug === 'enterprise' ? 20 : tierSlug === 'pioneer' ? 10 : tierSlug === 'pro' ? 5 : 1);
+  const maxSquadDisplay = tierSlug === 'enterprise' ? 32 : tierSlug === 'pioneer' ? 10 : tierSlug === 'pro' ? 6 : 1;
   const isWaitlist = entitlements?.isWaitlist || entitlements?.status === 'beta_waitlist';
   const isTrial = entitlements ? Boolean(entitlements.isTrial) : (tierSlug === 'pro' && !entitlements);
   const trialDaysRemaining = entitlements?.trialDaysRemaining ?? 30;
@@ -166,7 +183,7 @@ export const Profile = ({
       const diff = expiryDate.getTime() - Date.now();
       safeDaysRemaining = Math.max(0, Math.ceil(diff / (1000 * 60 * 60 * 24)));
     }
-  } else if (tierSlug === 'pro' && !isWaitlist) {
+  } else if (isPaidTier && !isWaitlist) {
     const baseDate = user.created_at ? new Date(user.created_at) : new Date();
     const nextDate = new Date(baseDate);
     while (nextDate.getTime() <= Date.now()) {
@@ -282,8 +299,20 @@ export const Profile = ({
                   <p className="text-xs text-slate-400 [html[data-theme='light']_&]:text-slate-500 truncate">{user.email}</p>
 
                   <div className="flex items-center justify-center gap-2 pt-1 flex-wrap select-none">
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-mono font-medium tracking-wider uppercase bg-white/[0.06] [html[data-theme='light']_&]:bg-slate-100 text-white [html[data-theme='light']_&]:text-slate-900 border border-white/10 [html[data-theme='light']_&]:border-slate-200">
-                      {isWaitlist ? 'PRO (BETA WAITLIST)' : (isTrial ? 'PRO BETA' : effectiveTier)}
+                    <span className={`inline-flex items-center px-3 py-1 rounded-full text-[10px] font-mono font-medium tracking-wider uppercase border ${
+                      tierSlug === 'pioneer'
+                        ? "bg-amber-500/15 [html[data-theme='light']_&]:bg-amber-50 text-amber-400 [html[data-theme='light']_&]:text-amber-700 border-amber-500/35 [html[data-theme='light']_&]:border-amber-300"
+                        : tierSlug === 'enterprise'
+                          ? "bg-purple-500/15 [html[data-theme='light']_&]:bg-purple-50 text-purple-300 [html[data-theme='light']_&]:text-purple-700 border-purple-500/35 [html[data-theme='light']_&]:border-purple-300"
+                          : "bg-white/[0.06] [html[data-theme='light']_&]:bg-slate-100 text-white [html[data-theme='light']_&]:text-slate-900 border-white/10 [html[data-theme='light']_&]:border-slate-200"
+                    }`}>
+                      {isWaitlist
+                        ? 'PRO (BETA WAITLIST)'
+                        : isTrial
+                          ? 'PRO BETA'
+                          : tierSlug === 'pioneer'
+                            ? 'PIONEER ULTRA'
+                            : effectiveTier}
                     </span>
 
                     {role === 'admin' && (
@@ -322,7 +351,7 @@ export const Profile = ({
                     </span>
                   </div>
 
-                  {tierSlug === 'pro' && formattedExpiryDate && !isWaitlist && (
+                  {isPaidTier && formattedExpiryDate && !isWaitlist && (
                     <div className="flex items-center justify-between text-slate-400 [html[data-theme='light']_&]:text-slate-600 pt-1">
                       <span className="text-slate-500">{isVi ? 'Chu kỳ tới' : 'Next Billing'}:</span>
                       <div className="text-right">
@@ -431,15 +460,17 @@ export const Profile = ({
                         {isVi ? 'GÓI THÀNH VIÊN HIỆN TẠI' : 'CURRENT MEMBERSHIP PLAN'}
                       </span>
                       <h2 className="text-2xl sm:text-3xl font-normal tracking-[-0.03em] text-white [html[data-theme='light']_&]:text-slate-900 font-sans">
-                        {tierSlug === 'pro'
-                          ? (isWaitlist ? 'AEVUM PRO (BETA WAITLIST)' : (isTrial ? 'AEVUM PRO BETA' : 'AEVUM PRO'))
-                          : tierSlug === 'enterprise'
-                            ? 'AEVUM ENTERPRISE'
-                            : 'AEVUM COMMUNITY'}
+                        {tierSlug === 'pioneer'
+                          ? 'AEVUM PIONEER (ULTRA)'
+                          : tierSlug === 'pro'
+                            ? (isWaitlist ? 'AEVUM PRO (BETA WAITLIST)' : (isTrial ? 'AEVUM PRO BETA' : 'AEVUM PRO'))
+                            : tierSlug === 'enterprise'
+                              ? 'AEVUM ENTERPRISE'
+                              : 'AEVUM COMMUNITY'}
                       </h2>
                     </div>
 
-                    {tierSlug !== 'pro' && tierSlug !== 'enterprise' ? (
+                    {!isPaidTier ? (
                       <button
                         onClick={onOpenTrialModal}
                         className="px-5 py-2.5 rounded-full bg-white hover:bg-slate-200 text-slate-950 [html[data-theme='light']_&]:bg-slate-900 [html[data-theme='light']_&]:text-white [html[data-theme='light']_&]:hover:bg-black font-semibold text-xs tracking-wider uppercase transition-colors cursor-pointer flex items-center gap-1.5 shadow-sm whitespace-nowrap shrink-0 self-start sm:self-center"
@@ -458,8 +489,8 @@ export const Profile = ({
                     )}
                   </div>
 
-                  {/* Pro / Enterprise Active Subscription Detail Box */}
-                  {(tierSlug === 'pro' || tierSlug === 'enterprise') && !isWaitlist && !isTrial && (
+                  {/* Pro / Pioneer / Enterprise Active Subscription Detail Box */}
+                  {isPaidTier && !isWaitlist && !isTrial && (
                     <div className="pt-4 space-y-4">
                       <div className="flex flex-wrap items-center justify-between gap-3 text-xs">
                         <div className="flex items-center gap-2">
@@ -657,13 +688,13 @@ export const Profile = ({
                           Linked Workstations
                         </span>
                         <span className="text-[10px] text-slate-400 [html[data-theme='light']_&]:text-slate-600 font-mono font-medium uppercase tracking-wider">
-                          {tierSlug === 'pro' ? `${entitlements?.activeMachinesCount || 1} / 5 MACHINES` : `${entitlements?.activeMachinesCount || 1} / 1 MACHINE`}
+                          {`${entitlements?.activeMachinesCount || 1} / ${maxMachinesDisplay} ${maxMachinesDisplay === 1 ? 'MACHINE' : 'MACHINES'}`}
                         </span>
                       </div>
                       <p className="text-xs text-slate-400 [html[data-theme='light']_&]:text-slate-600 leading-relaxed font-light">
                         {isVi
-                          ? 'Liên kết tối đa 5 máy trạm mã hóa Ed25519 cho phép chuyển đổi mượt mà giữa máy bàn, laptop và cloud VM.'
-                          : 'Link up to 5 Ed25519 devices for effortless context roaming between desktop, laptop, and cloud VMs.'}
+                          ? `Liên kết tối đa ${maxMachinesDisplay} máy trạm mã hóa Ed25519 (tối đa ${maxSquadDisplay} Agent đồng thời) cho phép chuyển đổi mượt mà giữa máy bàn, laptop và cloud VM.`
+                          : `Link up to ${maxMachinesDisplay} Ed25519 devices (up to ${maxSquadDisplay} concurrent Agents) for effortless context roaming across desktop, laptop, and cloud VMs.`}
                       </p>
                     </div>
 
@@ -868,12 +899,12 @@ export const Profile = ({
                         {isVi ? 'QUẢN LÝ ĐĂNG KÝ & THANH TOÁN' : 'SUBSCRIPTION & BILLING'}
                       </span>
                       <h3 className="text-xl sm:text-2xl font-normal tracking-[-0.03em] text-white [html[data-theme='light']_&]:text-slate-900 font-sans flex items-center gap-2.5">
-                        <span>{effectiveTier}</span>
+                        <span>{tierSlug === 'pioneer' ? 'AEVUM PIONEER (ULTRA)' : effectiveTier}</span>
                         <span className="text-xs px-2.5 py-0.5 rounded-full bg-transparent border border-white/10 [html[data-theme='light']_&]:border-slate-200 text-slate-300 [html[data-theme='light']_&]:text-slate-700 font-normal font-sans">
                           Napas 24/7 Direct
                         </span>
                       </h3>
-                      {tierSlug === 'pro' && formattedExpiryDate && !isWaitlist && (
+                      {isPaidTier && formattedExpiryDate && !isWaitlist && (
                         <p className="text-xs text-slate-400 [html[data-theme='light']_&]:text-slate-600 font-mono pt-1">
                           {isVi ? 'Chu kỳ thanh toán tiếp theo:' : 'Next billing cycle:'} <span className="text-white [html[data-theme='light']_&]:text-slate-900 font-bold">{formattedExpiryDate}</span>
                           <span className="text-slate-500 ml-2">({isVi ? `Còn ${safeDaysRemaining} ngày` : `${safeDaysRemaining}d remaining`})</span>
@@ -883,14 +914,18 @@ export const Profile = ({
 
                     <div className="flex flex-wrap items-center gap-3">
                       <button
-                        onClick={() => onOpenPaymentModal ? onOpenPaymentModal('monthly') : onOpenTrialModal()}
+                        onClick={() => onOpenPaymentModal ? onOpenPaymentModal('monthly', tierSlug === 'pioneer' ? 'pioneer' : 'pro') : onOpenTrialModal()}
                         className="px-5 py-2.5 rounded-full bg-white hover:bg-slate-200 text-slate-950 [html[data-theme='light']_&]:bg-slate-900 [html[data-theme='light']_&]:text-white [html[data-theme='light']_&]:hover:bg-black font-semibold text-xs tracking-wider uppercase transition-colors cursor-pointer flex items-center gap-1.5 shadow-sm whitespace-nowrap"
                       >
                         <Zap className="w-3.5 h-3.5" />
-                        <span>{isVi ? 'Nâng Cấp Pro (VietQR)' : 'Upgrade Pro (VietQR)'}</span>
+                        <span>
+                          {tierSlug === 'pioneer'
+                            ? (isVi ? 'Gia Hạn Pioneer (VietQR)' : 'Renew Pioneer (VietQR)')
+                            : (isVi ? 'Nâng Cấp Pro / Pioneer (VietQR)' : 'Upgrade Pro / Pioneer (VietQR)')}
+                        </span>
                       </button>
 
-                      {tierSlug === 'pro' && (
+                      {(tierSlug === 'pro' || tierSlug === 'pioneer') && !isTrial && !isWaitlist && (
                         <button
                           onClick={handleCancelRenewal}
                           disabled={cancellingRenewal}

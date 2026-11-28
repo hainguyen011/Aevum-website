@@ -327,21 +327,36 @@ export const Navbar = ({
             const avatarUrl = user.user_metadata?.avatar_url || user.user_metadata?.picture;
             const displayName = user.user_metadata?.full_name || user.user_metadata?.name || user.email.split('@')[0];
             const initials = displayName.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
-            const effectiveTier = (userProfile?.membership_tier || entitlements?.tier || (entitlements?.isPro ? 'PRO' : 'COMMUNITY')).toUpperCase();
+            const rawTier =
+              entitlements?.tier ||
+              (entitlements?.isEnterprise
+                ? 'enterprise'
+                : entitlements?.isPioneer
+                  ? 'pioneer'
+                  : entitlements?.isPro
+                    ? 'pro'
+                    : null) ||
+              userProfile?.membership_tier ||
+              'community';
+            const effectiveTier = String(rawTier).toUpperCase();
             const tierSlug = effectiveTier.toLowerCase();
 
             const isWaitlist = entitlements?.isWaitlist || entitlements?.status === 'beta_waitlist';
-            const tierLabel = effectiveTier === 'ENTERPRISE'
+            const tierLabel = tierSlug === 'enterprise'
               ? 'Enterprise'
-              : (effectiveTier === 'PRO' || entitlements?.isPro)
-                ? (isWaitlist ? 'Waitlist (1M)' : (entitlements?.isTrial ? 'Pro Beta' : 'Pro'))
-                : 'Community';
+              : tierSlug === 'pioneer'
+                ? 'Pioneer'
+                : (tierSlug === 'pro' || entitlements?.isPro)
+                  ? (isWaitlist ? 'Waitlist (1M)' : (entitlements?.isTrial ? 'Pro Beta' : 'Pro'))
+                  : 'Community';
 
             const tierTextGradient = tierSlug === 'enterprise'
-              ? 'text-purple-300'
-              : tierSlug === 'pro'
-                ? 'text-slate-300'
-                : 'text-slate-400';
+              ? 'text-purple-300 [html[data-theme="light"]_&]:text-purple-700'
+              : tierSlug === 'pioneer'
+                ? 'text-amber-400 [html[data-theme="light"]_&]:text-amber-600'
+                : tierSlug === 'pro'
+                  ? 'text-sky-400 [html[data-theme="light"]_&]:text-sky-600'
+                  : 'text-slate-400 [html[data-theme="light"]_&]:text-slate-500';
 
             return (
               <button
@@ -576,15 +591,41 @@ export const Navbar = ({
                   </span>
 
                   {/* Minimalist Transparent Membership Tier & Admin Badge */}
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-white [html[data-theme='light']_&]:text-slate-700 select-none shrink-0">
-                    {entitlements?.isWaitlist || entitlements?.status === 'beta_waitlist'
+                  {(() => {
+                    const dropdownTier = String(
+                      entitlements?.tier ||
+                      (entitlements?.isEnterprise
+                        ? 'enterprise'
+                        : entitlements?.isPioneer
+                          ? 'pioneer'
+                          : entitlements?.isPro
+                            ? 'pro'
+                            : null) ||
+                      userProfile?.membership_tier ||
+                      'community'
+                    ).toLowerCase();
+                    const badgeLabel = (entitlements?.isWaitlist || entitlements?.status === 'beta_waitlist')
                       ? 'BETA WAITLIST'
-                      : (entitlements?.isTrial
+                      : entitlements?.isTrial
                         ? 'PRO BETA'
-                        : ((userProfile?.membership_tier || entitlements?.tier || (entitlements?.isPro ? 'pro' : 'community')) === 'pro'
-                          ? 'AEVUM PRO'
-                          : 'COMMUNITY'))}
-                  </span>
+                        : dropdownTier === 'enterprise'
+                          ? 'AEVUM ENTERPRISE'
+                          : dropdownTier === 'pioneer'
+                            ? 'AEVUM PIONEER'
+                            : dropdownTier === 'pro'
+                              ? 'AEVUM PRO'
+                              : 'COMMUNITY';
+                    const badgeColor = dropdownTier === 'pioneer'
+                      ? 'text-amber-400 [html[data-theme="light"]_&]:text-amber-600'
+                      : dropdownTier === 'enterprise'
+                        ? 'text-purple-300 [html[data-theme="light"]_&]:text-purple-700'
+                        : 'text-white [html[data-theme="light"]_&]:text-slate-700';
+                    return (
+                      <span className={`text-[10px] font-mono font-bold uppercase tracking-wider select-none shrink-0 ${badgeColor}`}>
+                        {badgeLabel}
+                      </span>
+                    );
+                  })()}
 
                   {userProfile?.role === 'admin' && (
                     <>

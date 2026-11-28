@@ -33,7 +33,20 @@ export const MembershipBadge = ({
 
   const currentSizeClass = sizeClasses[size] || sizeClasses.sm;
 
-  // 1. PRO & PRO TRIAL / WAITLIST TIER
+  // 1. PIONEER (ULTRA) TIER
+  if (normalizedTier === 'pioneer') {
+    return (
+      <span
+        className={`membership-badge-pioneer inline-flex items-center select-none font-mono font-bold uppercase tracking-wider rounded-[4px] border border-amber-500/40 bg-amber-500/15 text-amber-400 [html[data-theme='light']_&]:bg-amber-50 [html[data-theme='light']_&]:text-amber-700 [html[data-theme='light']_&]:border-amber-300 transition-all duration-200 whitespace-nowrap flex-nowrap shrink-0 ${currentSizeClass} ${className}`}
+      >
+        <span className="badge-text whitespace-nowrap">
+          PIONEER ULTRA
+        </span>
+      </span>
+    );
+  }
+
+  // 2. PRO & PRO TRIAL / WAITLIST TIER
   if (normalizedTier === 'pro') {
     const days = trialDaysRemaining !== undefined && trialDaysRemaining !== null ? trialDaysRemaining : 30;
     return (

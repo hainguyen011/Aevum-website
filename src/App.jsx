@@ -90,6 +90,7 @@ export function App({
 
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [paymentCycle, setPaymentCycle] = useState('monthly');
+  const [paymentTier, setPaymentTier] = useState('pro');
 
   const handleOpenTrialModal = () => {
     if (!user) {
@@ -100,8 +101,9 @@ export function App({
     }
   };
 
-  const handleOpenPaymentModal = (cycle = 'monthly') => {
+  const handleOpenPaymentModal = (cycle = 'monthly', tierSlug = 'pro') => {
     setPaymentCycle(cycle);
+    setPaymentTier(tierSlug === 'pioneer' ? 'pioneer' : 'pro');
     if (!user) {
       setIsAuthModalOpen(true);
     } else {
@@ -1100,6 +1102,7 @@ export function App({
             user={user}
             accessToken={authSession?.access_token}
             initialCycle={paymentCycle}
+            initialTier={paymentTier}
             onSuccess={() => {
               window.location.reload();
             }}

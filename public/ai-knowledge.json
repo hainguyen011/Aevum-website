@@ -1,8 +1,8 @@
 {
   "@context": "https://schema.org",
   "@type": "KnowledgeGraph",
-  "version": "2.2.0",
-  "lastUpdated": "2026-10-01",
+  "version": "2.3.0",
+  "lastUpdated": "2026-11-28",
   "organization": {
     "@type": "Organization",
     "name": "I2FLabs Vietnam",
@@ -29,28 +29,96 @@
         "name": "Aevum OS",
         "category": "Agentic Operating System & MCP Daemon",
         "softwareVersion": "2.0.0",
-        "description": "Standalone decoupled external brain providing persistent Living Memory Graph, Domain-Driven Design planning, high-performance CLI terminal engine, and multi-agent squad orchestration for modern AI coding tools.",
+        "description": "Sovereign Local-First Multi-Agent Operating System & MCP Daemon featuring Organismic DDD (7 Living Organs), Dual-Brain Symbiotic Live Voice ↔ Coding Space (ASCP v1), Super-Harness v2 AST/LSP + 0ms CoW RAM Sandbox, Multi-CLI Orchestration, In-Chat CoResearch + Polymorphic RDD, 120Hz Generative UI, and 40 Polymorphic MCP v2.0 Tools.",
         "operatingSystem": "Windows, macOS, Linux",
-        "license": "https://opensource.org/licenses/ISC",
+        "license": "https://www.aevum.ai.vn/terms",
         "transports": [
           "Server-Sent Events (SSE) Port 3344",
           "Stdio Transport"
         ],
         "protocol": "Model Context Protocol (MCP)",
         "compatibleClients": [
+          "Antigravity IDE",
           "Cursor IDE",
-          "Anthropic Claude Desktop",
+          "Claude Code & Claude Desktop",
+          "OpenAI Codex CLI",
           "Visual Studio Code",
           "Windsurf",
-          "Terminal CLI"
+          "Ollama / LM Studio Local"
         ],
         "keyMetrics": {
           "tokenSavings": "85% reduction in redundant context tokens",
           "contextRetention": "100% persistent across branch switches and IDE reboots",
-          "dataPrivacy": "100% Local-First (No cloud telemetry in Community tier)",
-          "totalMcpTools": 98,
+          "dataPrivacy": "100% Local-First (Zero source leakage in Community tier; E2E encrypted Cloud Sync)",
+          "polymorphicMcpToolsV2": 40,
+          "legacyMappedOperations": 98,
           "totalDocs": 15
         },
+        "commercialTiers": [
+          {
+            "slug": "community",
+            "name": "Aevum Community",
+            "priceMonthlyVnd": 0,
+            "priceYearlyVnd": 0,
+            "maxMachines": 1,
+            "maxConcurrentAgents": 1,
+            "highlights": ["Local-First MCP Daemon", "O-DDD 7 Living Organs", "Unlimited BYOK & Ollama", "1-on-1 AI Companion"]
+          },
+          {
+            "slug": "pro",
+            "name": "Aevum Pro v2.0",
+            "priceOriginalMonthlyVnd": 249000,
+            "priceMonthlyVnd": 199000,
+            "priceYearlyVnd": 1890000,
+            "discountPercentMonthly": 20,
+            "byokUnlimited": true,
+            "tokenMarkup": "0%",
+            "trialDays": 30,
+            "maxMachines": 5,
+            "maxConcurrentAgents": 6,
+            "betaPromoPerks": [
+              "3D Neural Brain Lab & Agent Training (Local DPO) — Limited Beta Preview before Pioneer Ultra GA graduation"
+            ],
+            "highlights": [
+              "Unlimited BYOK with 0% token markup (up to 85% token savings)",
+              "Symbiotic Live Voice ↔ Coding Space (Talk+Paste, ASCP v1, Verbal HITL, Barge-in)",
+              "Autonomous Mode + AST/LSP Super-Harness & 0ms CoW RAM Sandbox",
+              "Multi-CLI Engine & Isolated Multi-Account (Antigravity, Claude, Codex, Cursor, Ollama)",
+              "6-Agent Squad Mode + In-Chat CoResearch Cockpit & 5-Level RDD",
+              "120Hz Generative UI & Browser Automation Card",
+              "Early Access Cloud Sync & Architectural Debt Analytics"
+            ]
+          },
+          {
+            "slug": "pioneer",
+            "name": "Aevum Pioneer (Ultra)",
+            "priceOriginalMonthlyVnd": 499000,
+            "priceMonthlyVnd": 399000,
+            "priceYearlyVnd": 3790000,
+            "discountPercentMonthly": 20,
+            "byokUnlimited": true,
+            "tokenMarkup": "0%",
+            "maxMachines": 10,
+            "maxConcurrentAgents": 10,
+            "maxResearchDepth": 10,
+            "highlights": [
+              "Everything in Aevum Pro v2.0 + Unlimited BYOK (0% token markup)",
+              "10-Agent Swarm Council + Blackboard Debate",
+              "10-Level RDD & IEEE/ACM Living Master Whitepaper Compiler",
+              "24/7 Autonomous Scheduler/Cron + SOP Skill Distillation + PiperNet IoA",
+              "3D Neuromorphic Neural Brain Lab & Local DPO Fine-Tuning",
+              "10 Workstations, Pioneer Founder Badge & Priority Early Access Cloud"
+            ]
+          },
+          {
+            "slug": "enterprise",
+            "name": "Aevum Enterprise",
+            "pricing": "Custom",
+            "maxMachines": 20,
+            "maxConcurrentAgents": 32,
+            "highlights": ["100% Air-Gapped On-Premise / Private VPC", "SSO & RBAC", "Custom Trained Personas", "99.99% SLA"]
+          }
+        ],
         "cliEngine": {
           "binary": "aevum",
           "description": "High-performance Node.js / TypeScript terminal CLI for managing daemon, workspace initialization, and desktop GUI.",

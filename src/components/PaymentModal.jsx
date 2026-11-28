@@ -10,10 +10,12 @@ export const PaymentModal = ({
   user,
   accessToken,
   initialCycle = 'monthly',
+  initialTier = 'pro',
   onSuccess
 }) => {
   const isVi = activeLang === 'vi';
   const [cycle, setCycle] = useState(initialCycle);
+  const [tierSlug, setTierSlug] = useState(initialTier === 'pioneer' ? 'pioneer' : 'pro');
   const [loading, setLoading] = useState(false);
   const [orderData, setOrderData] = useState(null);
   const [copiedField, setCopiedField] = useState(null);
@@ -51,6 +53,34 @@ export const PaymentModal = ({
   useEffect(() => {
     setCycle(initialCycle);
   }, [initialCycle]);
+
+  useEffect(() => {
+    setTierSlug(initialTier === 'pioneer' ? 'pioneer' : 'pro');
+  }, [initialTier]);
+
+  const TIER_CATALOG = {
+    pro: {
+      slug: 'pro',
+      name: 'Aevum Pro',
+      shortName: 'Pro v2.0',
+      originalMonthly: 249000,
+      monthly: 199000,
+      yearly: 1890000,
+      yearlySaveVi: 'Tiết kiệm ~500.000 đ/năm',
+      yearlySaveEn: 'Save ~500,000 VND/year'
+    },
+    pioneer: {
+      slug: 'pioneer',
+      name: 'Aevum Pioneer (Ultra)',
+      shortName: 'Pioneer Ultra',
+      originalMonthly: 499000,
+      monthly: 399000,
+      yearly: 3790000,
+      yearlySaveVi: 'Tiết kiệm ~1.000.000 đ/năm',
+      yearlySaveEn: 'Save ~1,000,000 VND/year'
+    }
+  };
+  const activeTierMeta = TIER_CATALOG[tierSlug] || TIER_CATALOG.pro;
 
   // Dynamic Translation Service for dynamic coupon & ticket data (Zero Hardcoding)
   useEffect(() => {
@@ -104,7 +134,7 @@ export const PaymentModal = ({
   const dynamicCouponName = (activeTicketCoupon && translatedCache[`${activeTicketCoupon.id || activeTicketCoupon.code}_name_${activeLang}`]) || activeTicketCoupon?.name;
   const dynamicPartnerBadge = (activeTicketCoupon?.partnerBadge && translatedCache[`${activeTicketCoupon.id || activeTicketCoupon.code}_badge_${activeLang}`]) || activeTicketCoupon?.partnerBadge;
 
-  const handleApplyCouponDirect = async (codeToApply, targetCycle) => {
+  const handleApplyCouponDirect = async (codeToApply, targetCycle, targetTier) => {
     const cleanCode = (codeToApply || '').trim().toUpperCase();
     if (!cleanCode) return;
     setCouponLoading(true);
@@ -112,7 +142,8 @@ export const PaymentModal = ({
     setCouponSuccess('');
     try {
       const activeCycle = targetCycle || cycle;
-      const res = await MembershipService.validateCoupon(cleanCode, activeCycle, accessToken);
+      const activeTier = targetTier || tierSlug;
+      const res = await MembershipService.validateCoupon(cleanCode, activeCycle, accessToken, activeTier);
       if (res && res.valid && res.coupon) {
         setAppliedCoupon(res.coupon);
         setSavedCouponCode(res.coupon.code);
@@ -155,6 +186,15 @@ export const PaymentModal = ({
     setCouponSuccess('');
   };
 
+  const handleSelectTier = (newTier) => {
+    const normalized = newTier === 'pioneer' ? 'pioneer' : 'pro';
+    setTierSlug(normalized);
+    setCouponError('');
+    if (appliedCoupon) {
+      handleApplyCouponDirect(appliedCoupon.code, cycle, normalized);
+    }
+  };
+
   const handleSelectCycle = (newCycle) => {
     setCycle(newCycle);
     setCouponError('');
@@ -166,7 +206,7 @@ export const PaymentModal = ({
         setAppliedCoupon(null);
         setCouponError(
           isVi
-            ? `Mã ${appliedCoupon.code} chỉ áp dụng cho Gói Tháng (Monthly). Gói Năm giữ nguyên giá niêm yết 1.990.000 đ.`
+            ? `Mã ${appliedCoupon.code} chỉ áp dụng cho Gói Tháng (Monthly). Gói Năm giữ nguyên giá niêm yết ${activeTierMeta.yearly.toLocaleString('vi-VN')} đ.`
             : `Code ${appliedCoupon.code} only applies to Monthly plan. Yearly plan remains at standard price.`
         );
       }
@@ -174,7 +214,7 @@ export const PaymentModal = ({
       // Khi quay lại Gói Tháng, tự động khôi phục lại mã ưu đãi đã lưu
       const codeToRestore = appliedCoupon?.code || savedCouponCode || couponInput;
       if (codeToRestore) {
-        handleApplyCouponDirect(codeToRestore, 'monthly');
+        handleApplyCouponDirect(codeToRestore, 'monthly', tierSlug);
       }
     }
   };
@@ -182,9 +222,9 @@ export const PaymentModal = ({
   // Tự động kiểm tra lại ưu đãi khi đổi chu kỳ tháng/năm
   useEffect(() => {
     if (appliedCoupon) {
-      handleApplyCouponDirect(appliedCoupon.code, cycle);
+      handleApplyCouponDirect(appliedCoupon.code, cycle, tierSlug);
     }
-  }, [cycle]);
+  }, [cycle, tierSlug]);
 
   // Reset state when modal opens/closes & Tự động nhận diện URL query (?coupon=...) & Kiểm tra ưu đãi gia hạn
   useEffect(() => {
@@ -306,7 +346,8 @@ export const PaymentModal = ({
         cycle,
         accessToken,
         'sepay',
-        appliedCoupon ? appliedCoupon.code : null
+        appliedCoupon ? appliedCoupon.code : null,
+        tierSlug
       );
       const orderPayload = response?.data || response?.order || (response?.orderCode ? response : null);
       if (response && response.success && orderPayload) {
@@ -357,7 +398,7 @@ export const PaymentModal = ({
     }
   };
 
-  const baseAmount = cycle === 'yearly' ? 1990000 : 249000;
+  const baseAmount = cycle === 'yearly' ? activeTierMeta.yearly : activeTierMeta.monthly;
   
   // BẢO MẬT CHẶT CHẼ: Kiểm tra xem coupon có thực sự áp dụng cho chu kỳ hiện tại không (Chống Tricker 0đ Gói Năm)
   const isCouponApplicableToCycle = Boolean(
@@ -396,7 +437,7 @@ export const PaymentModal = ({
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title={isVi ? 'Nâng Cấp Gói Aevum Pro' : 'Upgrade to Aevum Pro'}
+      title={isVi ? `Nâng Cấp Gói ${activeTierMeta.name}` : `Upgrade to ${activeTierMeta.name}`}
       subtitle={isVi ? 'VietQR Napas 24/7 • Kích hoạt tức thì' : 'VietQR Napas 24/7 • Instant Activation'}
       closeLabel={isVi ? 'Đóng' : 'Close'}
       maxWidth={appliedCoupon ? '3xl' : orderData ? '2xl' : 'md'}
@@ -413,11 +454,11 @@ export const PaymentModal = ({
               </span>
               <h4 className="text-xl sm:text-2xl font-medium text-white [html[data-theme='light']_&]:text-slate-900 tracking-tight">
                 {appliedCoupon?.isFree || orderData?.isFreeActivation || orderData?.amount === 0
-                  ? (isVi ? 'Kích Hoạt Pro Miễn Phí Thành Công' : 'Free Pro Activation Successful')
+                  ? (isVi ? `Kích Hoạt ${activeTierMeta.name} Miễn Phí Thành Công` : `Free ${activeTierMeta.name} Activation Successful`)
                   : (isVi ? 'Thanh Toán Hoàn Tất' : 'Payment Completed')}
               </h4>
               <p className="text-sm sm:text-base text-slate-300 [html[data-theme='light']_&]:text-slate-600 max-w-sm mx-auto leading-relaxed">
-                {isVi ? 'Đặc quyền Aevum Pro đã được mở khóa ngay tức thì trên toàn bộ máy trạm của bạn.' : 'Aevum Pro privileges are now fully unlocked across all your linked workstations.'}
+                {isVi ? `Đặc quyền ${activeTierMeta.name} đã được mở khóa ngay tức thì trên toàn bộ máy trạm của bạn.` : `${activeTierMeta.name} privileges are now fully unlocked across all your linked workstations.`}
               </p>
             </div>
 
@@ -428,7 +469,7 @@ export const PaymentModal = ({
               </div>
               <div className="flex justify-between items-center text-slate-300 [html[data-theme='light']_&]:text-slate-600">
                 <span>{isVi ? 'Gói nâng cấp:' : 'Plan:'}</span>
-                <span className="text-white [html[data-theme='light']_&]:text-slate-900 font-medium">Aevum Pro ({cycle === 'yearly' ? (isVi ? 'Gói Năm' : 'Yearly Plan') : (isVi ? 'Gói Tháng' : 'Monthly Plan')})</span>
+                <span className="text-white [html[data-theme='light']_&]:text-slate-900 font-medium">{activeTierMeta.name} ({cycle === 'yearly' ? (isVi ? 'Gói Năm' : 'Yearly Plan') : (isVi ? 'Gói Tháng' : 'Monthly Plan')})</span>
               </div>
               {appliedCoupon && (
                 <div className="flex justify-between items-center text-emerald-400 [html[data-theme='light']_&]:text-emerald-700 pt-1 border-t border-white/10 [html[data-theme='light']_&]:border-slate-200">
@@ -467,10 +508,43 @@ export const PaymentModal = ({
             <div className="w-full md:w-[460px] md:min-w-[460px] md:max-w-[460px] shrink-0 space-y-4 flex flex-col justify-between">
               
               <div className="space-y-4">
-                {/* 1. Plan selection */}
+                {/* 0. Tier selection (Aevum Pro vs Aevum Pioneer Ultra) */}
                 <div className="space-y-2">
                   <label className="text-xs font-semibold text-slate-300 [html[data-theme='light']_&]:text-slate-700 uppercase tracking-wider block">
-                    {isVi ? '1. Chọn Chu Kỳ Thanh Toán' : '1. Choose Billing Cycle'}
+                    {isVi ? '1. Chọn Hạng Thành Viên' : '1. Choose Membership Tier'}
+                  </label>
+                  <div className="grid grid-cols-2 gap-3">
+                    <button
+                      type="button"
+                      onClick={() => handleSelectTier('pro')}
+                      className={`payment-plan-card px-3.5 py-2.5 rounded-xl border text-left cursor-pointer backdrop-blur-md ${
+                        tierSlug === 'pro' ? 'active' : 'inactive'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="payment-plan-title text-xs sm:text-sm font-semibold">Aevum Pro</span>
+                        <span className="text-[10px] font-mono opacity-80">5 PCs • 6 Agents</span>
+                      </div>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleSelectTier('pioneer')}
+                      className={`payment-plan-card px-3.5 py-2.5 rounded-xl border text-left cursor-pointer backdrop-blur-md ${
+                        tierSlug === 'pioneer' ? 'active' : 'inactive'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="payment-plan-title text-xs sm:text-sm font-semibold">Pioneer Ultra</span>
+                        <span className="text-[10px] font-mono text-amber-400 [html[data-theme='light']_&]:text-amber-700 font-bold">10 PCs • 10 Agents</span>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+
+                {/* 1. Plan cycle selection */}
+                <div className="space-y-2">
+                  <label className="text-xs font-semibold text-slate-300 [html[data-theme='light']_&]:text-slate-700 uppercase tracking-wider block">
+                    {isVi ? '2. Chọn Chu Kỳ Thanh Toán' : '2. Choose Billing Cycle'}
                   </label>
 
                   <div className="grid grid-cols-2 gap-3">
@@ -490,18 +564,23 @@ export const PaymentModal = ({
                           </span>
                         )}
                       </div>
-                      <div className="flex items-baseline gap-2">
+                      <div className="flex items-baseline gap-2 flex-wrap">
                         <span className="payment-plan-price text-base sm:text-lg font-bold font-mono tracking-tight">
-                          {isRetentionApplicable ? `${finalAmount.toLocaleString('vi-VN')} đ` : '249.000 đ'}
+                          {isRetentionApplicable && cycle === 'monthly'
+                            ? `${finalAmount.toLocaleString('vi-VN')} đ`
+                            : `${activeTierMeta.monthly.toLocaleString('vi-VN')} đ`}
                         </span>
-                        {isRetentionApplicable && (
-                          <span className="payment-plan-oldprice text-xs line-through font-normal">249.000 đ</span>
-                        )}
+                        <span className="payment-plan-oldprice text-xs line-through font-normal opacity-75">
+                          {(isRetentionApplicable && cycle === 'monthly'
+                            ? activeTierMeta.monthly
+                            : activeTierMeta.originalMonthly
+                          ).toLocaleString('vi-VN')} đ
+                        </span>
                       </div>
                       <div className="payment-plan-desc text-xs mt-1">
                         {isRetentionApplicable 
                           ? (isVi ? `Ưu đãi mã ${activeRetention.code} (-${activeRetention.discountPercent}%)` : `Promo ${activeRetention.code} (-${activeRetention.discountPercent}%)`)
-                          : (isVi ? 'Thanh toán theo tháng' : 'Billed monthly')}
+                          : (isVi ? 'Ưu đãi mở bán -20% • Theo tháng' : 'Launch promo -20% • Monthly')}
                       </div>
                     </button>
 
@@ -519,19 +598,21 @@ export const PaymentModal = ({
                           -20%
                         </span>
                       </div>
-                      <div className="payment-plan-price text-base sm:text-lg font-bold font-mono tracking-tight">1.990.000 đ</div>
+                      <div className="payment-plan-price text-base sm:text-lg font-bold font-mono tracking-tight">
+                        {activeTierMeta.yearly.toLocaleString('vi-VN')} đ
+                      </div>
                       <div className="payment-plan-desc text-xs mt-1">
-                        {isVi ? 'Tiết kiệm ~500.000 đ/năm' : 'Save ~500,000 VND/year'}
+                        {isVi ? activeTierMeta.yearlySaveVi : activeTierMeta.yearlySaveEn}
                       </div>
                     </button>
                   </div>
                 </div>
 
-                {/* 2. Coupon & Voucher Input Section */}
+                {/* 3. Coupon & Voucher Input Section */}
                 <div className="space-y-2">
                   <div className="flex justify-between items-center">
                     <label className="text-xs font-semibold text-slate-300 [html[data-theme='light']_&]:text-slate-700 uppercase tracking-wider block">
-                      {isVi ? '2. Mã Ưu Đãi / Voucher Tri Ân' : '2. Promo Code / Tribute Voucher'}
+                      {isVi ? '3. Mã Ưu Đãi / Voucher Tri Ân' : '3. Promo Code / Tribute Voucher'}
                     </label>
                     {appliedCoupon && (
                       <span className="text-xs font-semibold text-white [html[data-theme='light']_&]:text-slate-900 uppercase tracking-wider bg-white/[0.08] [html[data-theme='light']_&]:bg-slate-100 border border-white/20 [html[data-theme='light']_&]:border-slate-300 px-2.5 py-0.5 rounded-full">
@@ -650,11 +731,11 @@ export const PaymentModal = ({
                   <span className="text-white [html[data-theme='light']_&]:text-slate-900 font-semibold">{isVi ? 'Hệ thống:' : 'System:'}</span>{' '}
                   {finalAmount === 0 
                     ? (isVi 
-                        ? 'Xác nhận kích hoạt bên dưới để mở khóa đặc quyền Pro vào tài khoản của bạn.' 
-                        : 'Confirm activation below to unlock Pro privileges for your account.')
+                        ? `Xác nhận kích hoạt bên dưới để mở khóa đặc quyền ${activeTierMeta.name} vào tài khoản của bạn.` 
+                        : `Confirm activation below to unlock ${activeTierMeta.name} privileges for your account.`)
                     : (isVi 
-                        ? 'Hệ thống tự động kích hoạt gói Pro ngay khi nhận được giao dịch chuyển khoản.' 
-                        : 'The system automatically activates Pro as soon as bank transfer is confirmed.')}
+                        ? `Hệ thống tự động kích hoạt gói ${activeTierMeta.name} ngay khi nhận được giao dịch chuyển khoản.` 
+                        : `The system automatically activates ${activeTierMeta.name} as soon as bank transfer is confirmed.`)}
                 </div>
 
                 {error && (
@@ -673,10 +754,10 @@ export const PaymentModal = ({
               >
                 {loading 
                   ? (finalAmount === 0 
-                      ? (isVi ? 'Đang kích hoạt gói Pro...' : 'Activating Pro...') 
+                      ? (isVi ? `Đang kích hoạt ${activeTierMeta.shortName}...` : `Activating ${activeTierMeta.shortName}...`) 
                       : (isVi ? 'Đang khởi tạo mã VietQR...' : 'Generating QR...'))
                   : (finalAmount === 0 
-                      ? (isVi ? 'Kích hoạt gói Pro miễn phí (0 VNĐ)' : 'Activate Free Pro (0 VND)') 
+                      ? (isVi ? `Kích hoạt ${activeTierMeta.shortName} miễn phí (0 VNĐ)` : `Activate Free ${activeTierMeta.shortName} (0 VND)`) 
                       : (isVi ? `Tạo mã VietQR thanh toán (${amountDisplay})` : `Generate VietQR (${amountDisplay})`))}
               </button>
             </div>

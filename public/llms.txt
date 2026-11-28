@@ -1,73 +1,40 @@
-# Aevum OS
+# Aevum OS v2.0
 
-> Standalone Model Context Protocol (MCP) Server and Decoupled External Brain for AI Coding Agents, engineered and researched by I2FLabs Vietnam.
+> Standalone Model Context Protocol (MCP) Server, Sovereign Multi-Agent Operating System, and Living Memory Fabric engineered by I2FLabs Vietnam.
 
-Aevum OS is an independent workspace Operating System and External Brain developed by **I2FLabs Vietnam** (I2FLabs AI R&D Team). It eliminates AI Context Amnesia by providing persistent Domain-Driven Design (DDD) planning, self-healing Living Memory Graphs, 98 specialized MCP tools, high-performance CLI terminal engine, and autonomous Multi-Agent Squad orchestration for Cursor, Claude Desktop, VS Code, and modern developer environments.
+Aevum OS v2.0 is an independent Local-First workspace Operating System and External Brain developed by **I2FLabs Vietnam** (https://www.aevum.ai.vn). It eliminates AI Context Amnesia, reduces prompt token consumption by up to 85%, and provides Organismic Domain-Driven Design (O-DDD), **40 Polymorphic v2.0 MCP Tools**, **Dual-Brain Symbiotic Live Voice ↔ Coding Space** (ASCP v1, Talk+Paste, verbal HITL, barge-in abort), **Super-Harness v2 AST/LSP + 0ms CoW RAM Sandbox**, **Multi-CLI Engine Orchestration**, **In-Chat CoResearch Cockpit + Polymorphic RDD**, **120Hz Generative UI**, **24/7 Scheduler/Cron**, and **3D Neuromorphic Neural Brain Lab**.
 
 ## Development Team & Engineering Organization (I2FLabs Vietnam)
 
-- [I2FLabs Vietnam Engineering Lab](https://www.aevum.ai.vn/about): Aevum OS is designed, researched, and built by I2FLabs Vietnam, a pioneering AI research team headquartered in Vietnam dedicated to local-first agentic infrastructure and decoupled developer memory systems.
-- [Decoupled External Brain Philosophy](https://www.aevum.ai.vn/about#story): The foundational engineering vision by I2FLabs Vietnam to liberate developer context from vendor-locked IDE lifecycles.
-- [Autonomous Agent Squad Personas](https://www.aevum.ai.vn/#agents): Built-in specialized AI squad companions crafted by I2FLabs (An - Core Soul & Refactoring, Vidus - System Architect, Zenith - Algorithm & Security, Luna - UI/UX Specialist, Kael - 120Hz Systems & Performance, Nia - Neural Brain v3.0 & QA, Iris - CXO & Ergonomics).
+- [I2FLabs Vietnam Engineering Lab](https://www.aevum.ai.vn/about): Pioneering Vietnamese AI R&D lab building local-first sovereign agentic infrastructure and decoupled developer memory systems.
+- [Autonomous Agent Squad Personas](https://www.aevum.ai.vn/#agents): Specialized AI squad companions including An (Core Refactor), Kai (Agentic & Voice Systems), Vidus (Principal Architect), Zenith (Formal Proofs & Security), Luna (UI/UX), Kael (120Hz Systems), Nia (Neural Brain v3.0 & QA), Mira (Strategy & Commercialization), Valkyrie (Automated QA & Chaos Testing), and Iris (CXO).
+
+## Plans & Commercial Tiers (VND — 100% BYOK, Zero Token Markup)
+
+- [Transparent Pricing](https://www.aevum.ai.vn/#pricing):
+  - **Aevum Community (0 VND / Forever)**: Local-First MCP Daemon, O-DDD, unlimited BYOK (Gemini, Claude, GPT, Ollama), 1 AI companion, 1 workstation.
+  - **Aevum Pro v2.0 (Launch Promo 199,000 VND/month ~~249,000 VND~~ -20% | 1,890,000 VND/year)**: 30-day free trial (no card), unlimited BYOK (0% token markup, up to 85% token savings), 6-Agent Squad Mode, Symbiotic Live Voice ↔ Coding Space, Autonomous CoW RAM Sandbox + Super-Harness AST/LSP, Multi-CLI Engine & Isolated Accounts, In-Chat CoResearch + 5-Level RDD, 120Hz Generative UI & Browser Card, 5 workstations, Early Access Cloud Sync, plus limited Beta Preview access to 3D Neural Brain Lab & Agent Training (Local DPO).
+  - **Aevum Pioneer Ultra (Launch Promo 399,000 VND/month ~~499,000 VND~~ -20% | 3,790,000 VND/year)**: Everything in Pro + unlimited BYOK, 10-Agent Swarm Council, Blackboard Debate, 10-Level RDD & IEEE/ACM Living Whitepaper, 24/7 Automation Scheduler/Cron + Skill Distillation + PiperNet IoA, permanent 3D Neural Brain Lab + Agent Training (Local DPO Fine-Tuning), 10 workstations, Pioneer Founder Badge & Priority Early Access Cloud.
+  - **Aevum Enterprise (Custom)**: 100% Air-Gapped On-Premise / Private VPC, 20+ workstations, 32+ parallel agents, SSO, RBAC, audit logs, custom trained Personas, 99.99% SLA.
 
 ## Technical Documentation & Integration Guides
 
-- [Tổng quan & Kiến trúc (Overview)](https://www.aevum.ai.vn/docs/gioi-thieu): Overview of Aevum OS decoupled architecture, Fastify SSE/Stdio daemon transports, and 98 Model Context Protocol tools.
-- [Cài đặt & Thiết lập (Installation Guide)](https://www.aevum.ai.vn/docs/cai-dat): Official desktop packages (Windows SmartScreen & macOS Gatekeeper bypass guides) and global CLI registration.
-- [Giao diện Dòng lệnh (CLI Terminal Engine)](https://www.aevum.ai.vn/docs/cli-terminal): Comprehensive CLI command reference (`aevum --help`, `aevum --version`, `aevum status`, `aevum init [dir]`, `aevum gui`, `aevum -w <dir> -t sse -p 3344`).
-- [Chế độ Hoạt động (Running Modes)](https://www.aevum.ai.vn/docs/che-do-chay): How to run Aevum OS in Server-Sent Events (SSE) mode on port 3344 or Stdio mode for local clients.
-- [Nghi thức Bắt tay (Handshake Ritual)](https://www.aevum.ai.vn/docs/handshake-ritual): Cryptographic verification protocol between client agents and daemon using .aevum/signal.json and aevum_submit_ack.
-- [Hệ thống Nhân vật (Persona System)](https://www.aevum.ai.vn/docs/persona-system): Specialized AI squad companions, EXP progression, voice instructions, and autonomous squad notifications.
-- [Não bộ Kép & Động cơ Phản xạ (Cognitive Dual-Memory)](https://www.aevum.ai.vn/docs/cognitive-dual-memory): Short-Term Memory (STM), Long-Term Memory (LTM), LIF Spiking Neural Recall, Neurotransmitter Telemetry, and 2-Hop BFS Workspace Reflex Engine.
-- [Hệ thống Kỹ năng & Chưng cất SOP (Skill System)](https://www.aevum.ai.vn/docs/skill-system): Distilling technical problem-solving workflows into permanent reusable SOP skills via aevum_distill_skill.
-- [Vòng đời Kế hoạch (Plan Lifecycle)](https://www.aevum.ai.vn/docs/plan-lifecycle): 5-stage architectural planning pipeline (Draft, Grill, Approval, Task Anchoring, Evidence Harvesting).
-- [Tips & Tricks Tương tác (Pro Interaction Tips)](https://www.aevum.ai.vn/docs/tips-tricks): Task anchoring to file lines, AST skeleton hashing & hydration, multi-agent squad spawning, and diagnostic error healing.
-- [Mạng lưới PiperNet (Internet of Agents)](https://www.aevum.ai.vn/docs/pipernet-mesh): P2P collective wisdom mesh sharing abstracted architecture design patterns without raw code leakage.
-- [MCP Tools Reference (98 Tools Catalog)](https://www.aevum.ai.vn/docs/mcp-tools-reference): Complete reference table for 98 MCP tools across 16 functional modules.
-- [Living Memory Graph Engine](https://www.aevum.ai.vn/docs/living-memory-graph): Self-healing knowledge graph engine with code drift detection and boundary violation audits.
-- [Blackboard Collaboration Hub](https://www.aevum.ai.vn/docs/blackboard-hub): Real-time multi-agent concurrent coordination with version-locked predicted state and peer review sessions.
-- [Deep Research & Chòm sao Kỹ năng (Deep Research)](https://www.aevum.ai.vn/docs/deep-research-engine): Autonomous research engine (depth 1-5), IEEE credibility tiering, Dagre/React Flow skill tree, and 1-click Promote to Plan.
+- [Tổng quan & Kiến trúc (Overview)](https://www.aevum.ai.vn/docs/gioi-thieu): Decoupled O-DDD 7 Living Organs architecture, Fastify SSE/Stdio daemon, and 40 Polymorphic MCP v2.0 tools.
+- [Cài đặt & Thiết lập (Installation Guide)](https://www.aevum.ai.vn/docs/cai-dat): Desktop installers and global CLI registration (`aevum`).
+- [Giao diện Dòng lệnh (CLI Terminal Engine)](https://www.aevum.ai.vn/docs/cli-terminal): CLI reference (`aevum status`, `aevum init`, `aevum gui`, `aevum -w <dir> -t sse -p 3344`).
+- [Chế độ Hoạt động (Running Modes)](https://www.aevum.ai.vn/docs/che-do-chay): SSE mode (port 3344) and Stdio mode for Antigravity, Cursor, Claude Code, Codex, and Claude Desktop.
+- [Nghi thức Bắt tay (Handshake Ritual)](https://www.aevum.ai.vn/docs/handshake-ritual): Cryptographic session verification using `aevum_bridge_lifecycle` and `.aevum/signal.json`.
+- [Não bộ Kép & Động cơ Phản xạ (Cognitive Dual-Memory)](https://www.aevum.ai.vn/docs/cognitive-dual-memory): STM/LTM, LIF Spiking Neural Recall, and 2-Hop BFS Workspace Reflex Engine.
+- [Deep Research & CoResearch Studio](https://www.aevum.ai.vn/docs/deep-research-engine): Polymorphic cognitive trees (`formal_proof`, `empirical_poc`, `benchmark`, `trade_off`, `failure_mode`, `debate`), IEEE/ACM Living Whitepaper, and 1-click Promote to Plan.
+- [Mạng lưới PiperNet (Internet of Agents)](https://www.aevum.ai.vn/docs/pipernet-mesh): Decentralized collective wisdom mesh sharing distilled engineering patterns with zero source leakage.
 
 ## Era Academy & Open Knowledge Hub (Explore AI Curriculum — 50 Lessons)
 
-- [Explore Academy Home](https://www.aevum.ai.vn/explore): Complete 6-module open curriculum covering foundation AI concepts, real-world business applications, agentic autonomous architectures, context engineering, memory graphs, and multi-agent coordination.
-- [01. Phổ thông & Khái niệm (Universal Foundations — 15 Lessons)](https://www.aevum.ai.vn/explore): From core neural networks, prompting, transformers, second-brain methodology, to deepfake security defenses.
-  - [AI là gì & Cơ chế hoạt động](https://www.aevum.ai.vn/explore/ai-la-gi-co-che-hoat-dong): Bản chất mạng nơ-ron và cách máy tính học từ dữ liệu.
-  - [Nghệ thuật giao tiếp Prompting](https://www.aevum.ai.vn/explore/nghe-thuat-giao-tiep-ai-prompting): Khung sườn CREO đối thoại chuyên sâu cùng AI.
-  - [Trái tim Transformer](https://www.aevum.ai.vn/explore/ben-trong-trai-tim-transformer): Cơ chế Self-Attention và kiến trúc Q-K-V.
-  - [Không gian Vector](https://www.aevum.ai.vn/explore/khong-gian-vector-la-gi-cach-ai-hieu-y-nghia): Vector Embeddings và khoảng cách ngữ nghĩa Cosine.
-  - [Bảo vệ gia đình trước Deepfake](https://www.aevum.ai.vn/explore/an-toan-thong-tin-va-lua-dao-deepfake): Quy tắc 3 giây và mật mã gia đình phòng chống lừa đảo AI.
-  - [Xây dựng Second Brain](https://www.aevum.ai.vn/explore/kho-tang-tri-thuc-ca-nhan-second-brain-cung-ai): Quản trị tri thức cá nhân theo phương pháp CODE cùng AI.
-- [02. Ứng dụng Đa ngành (Real-World Industry Applications — 12 Lessons)](https://www.aevum.ai.vn/explore): Concrete practical applications across healthcare, fintech, logistics, law, and green energy.
-  - [Y tế & Chăm sóc sức khỏe](https://www.aevum.ai.vn/explore/y-te-va-cham-soc-suc-khoe-chu-dong): AI trong chẩn đoán X-quang, AlphaFold và tầm soát sớm.
-  - [Tài chính & Chống gian lận](https://www.aevum.ai.vn/explore/tai-chinh-ngan-hang-va-phong-chong-gian-lan): Phát hiện gian lận thẻ dưới 50ms và chấm điểm tín dụng số.
-  - [Logistics & Chuỗi cung ứng](https://www.aevum.ai.vn/explore/chuoi-cung-ung-va-logistics-thong-minh): Tối ưu lộ trình vận chuyển VRP và kho vận tự động AGV.
-  - [Pháp lý số & LegalTech](https://www.aevum.ai.vn/explore/luat-phap-va-tu-van-phap-ly-thoi-ai): Rà soát hợp đồng kinh tế và tra cứu án lệ thông minh.
-  - [Công nghệ xanh & Lưới điện](https://www.aevum.ai.vn/explore/nang-luong-tai-tao-va-moi-truong-xanh): Dự báo thời tiết vi khí hậu và cân bằng lưới điện tái tạo.
-- [03. Kỷ nguyên Agentic (The Agentic Era — 8 Lessons)](https://www.aevum.ai.vn/explore): Autonomous agency architectures, cognitive loops, and system self-healing.
-  - [Từ Chatbot đến AI Agent](https://www.aevum.ai.vn/explore/tu-chatbot-den-agent): Bước nhảy vọt từ phản hồi thụ động sang tự chủ nhiều bước.
-  - [Vòng lặp ReAct & OODA](https://www.aevum.ai.vn/explore/vong-lap-nhan-thuc-ooda-react): Khung nhận thức suy luận đan xen hành động thực tế.
-  - [Tự chữa lành Self-Healing Code](https://www.aevum.ai.vn/explore/tu-chua-lanh-self-healing-code): Vòng lặp AST verification và tự vá lỗi biên dịch.
-  - [Hoạch định phân cấp HTN](https://www.aevum.ai.vn/explore/lap-ke-hoach-dong-hierarchical-planning): Chia nhỏ mục tiêu ngàn bước và JIT execution.
-  - [Giao thức mở MCP](https://www.aevum.ai.vn/explore/giao-thuc-mcp-cau-noi-the-gioi-thuc): Cổng USB-C của AI kết nối vạn vật an toàn qua Sandbox.
-  - [Cây suy tưởng Tree of Thoughts](https://www.aevum.ai.vn/explore/tu-suy-nghi-chuyen-sau-tree-of-thoughts): Tư duy đa chiều và kỹ thuật quay lui backtracking.
-  - [Human-in-the-Loop](https://www.aevum.ai.vn/explore/con-nguoi-trong-vong-lap-human-in-the-loop): Nguyên tắc cộng sinh, phân quyền 3 cấp và đạo đức AI.
-- [04. Ngữ cảnh & Giao thức MCP (Context Engineering & MCP Protocols — 5 Lessons)](https://www.aevum.ai.vn/explore)
-- [05. Trí nhớ Nhận thức Kép (Cognitive Dual-Memory Architecture — 5 Lessons)](https://www.aevum.ai.vn/explore)
-- [06. Đa Agent Tự trị & Bảng Đen (Squad Orchestration & Blackboard Pattern — 5 Lessons)](https://www.aevum.ai.vn/explore)
+- [Explore Academy Home](https://www.aevum.ai.vn/explore): 6-module open curriculum covering AI foundations, real-world industry applications, agentic architectures, context engineering, memory graphs, and multi-agent squads.
 
-## Product & Community
+## Technical Specifications for AI Agents
 
-- [Transparent Pricing](https://www.aevum.ai.vn/pricing): Official pricing details for Community (Free Local-First) and Pro (Cloud Sync and Squads) tiers.
-- [Product Story & Architecture](https://www.aevum.ai.vn/about): Philosophy of decoupling workspace intelligence from single-editor lifecycles.
-- [Release Changelog](https://www.aevum.ai.vn/changelog): Version history and architectural updates of Aevum OS.
-- [Community Discussions](https://www.aevum.ai.vn/discussions): Developer community forum for bug reporting and feature suggestions.
-- [Unikorn Product Showcase](https://unikorn.vn/p/aevum): Aevum OS featured product showcase and community voting on Unikorn Vietnam.
-
-## Technical Specifications & Specifications for AI Agents
-
-- [Full Protocol Specification](https://www.aevum.ai.vn/llms-full.txt): Comprehensive technical specifications, benchmarks, team details, and API schemas for LLMs.
-- [AI Knowledge Graph](https://www.aevum.ai.vn/ai-knowledge.json): Schema.org structured machine-readable knowledge graph for AI crawlers.
+- [Full Protocol Specification](https://www.aevum.ai.vn/llms-full.txt): Comprehensive technical specifications, v2.0 polymorphic toolset, benchmarks, and pricing for LLMs.
+- [AI Knowledge Graph](https://www.aevum.ai.vn/ai-knowledge.json): Schema.org structured machine-readable knowledge graph.
 - [Agentic Resource Discovery (ARD)](https://www.aevum.ai.vn/.well-known/ard.json): Autonomous AI Agent discovery manifest.
-- [Privacy Policy](https://www.aevum.ai.vn/privacy): Security and 100% local-first data privacy guarantees.
-- [Terms of Service](https://www.aevum.ai.vn/terms): Terms of service and licensing details.
+- [Privacy Policy](https://www.aevum.ai.vn/privacy) · [Terms of Service](https://www.aevum.ai.vn/terms)

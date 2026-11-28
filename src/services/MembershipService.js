@@ -117,7 +117,9 @@ export const MembershipService = {
       const rawTier = membership?.tier_slug || profile?.membership_tier || 'community';
       const tier = rawTier.toLowerCase();
       const status = membership?.status || profile?.membership_status || 'active';
-      const isPro = tier === 'pro';
+      const isEnterprise = tier === 'enterprise';
+      const isPioneer = tier === 'pioneer' || isEnterprise;
+      const isPro = tier === 'pro' || isPioneer;
       const isWaitlist = status === 'beta_waitlist';
       const isTrial = status === 'pro_trial' || isWaitlist;
 
@@ -151,6 +153,8 @@ export const MembershipService = {
         tier,
         status,
         isPro,
+        isPioneer,
+        isEnterprise,
         isTrial,
         isWaitlist,
         trialDaysRemaining,
@@ -161,7 +165,7 @@ export const MembershipService = {
         currentPeriodEnd: membership?.current_period_end,
         cancelAtPeriodEnd: Boolean(membership?.cancel_at_period_end),
         expiresAt,
-        maxMachines: isPro ? 5 : 1,
+        maxMachines: isEnterprise ? 20 : isPioneer ? 10 : isPro ? 5 : 1,
         activeMachinesCount: Math.max(1, activeMachinesCount),
         workstations: workstations || [],
         role: profile?.role || 'user',
@@ -179,8 +183,9 @@ export const MembershipService = {
    * Hỗ trợ Hybrid Dual-Engine: Thử gọi Cloud API trước, nếu lỗi hoặc 404 thì tự động fallback
    * sang truy vấn trực tiếp cơ sở dữ liệu Supabase, tính toán chiết khấu ngay lập tức.
    */
-  async validateCoupon(code, billingCycle = 'monthly', accessToken = null) {
+  async validateCoupon(code, billingCycle = 'monthly', accessToken = null, tierSlug = 'pro') {
     const rawCode = (code || '').trim().toUpperCase();
+    const normalizedTier = String(tierSlug || 'pro').toLowerCase() === 'pioneer' ? 'pioneer' : 'pro';
     if (!rawCode) {
       return { valid: false, message: 'Vui lòng nhập mã ưu đãi.' };
     }
@@ -197,7 +202,7 @@ export const MembershipService = {
         headers,
         body: JSON.stringify({
           code: rawCode,
-          tierSlug: 'pro',
+          tierSlug: normalizedTier,
           billingCycle
         })
       });
@@ -271,8 +276,21 @@ export const MembershipService = {
         };
       }
 
-      // Tính toán số tiền cơ sở theo chu kỳ
-      const baseAmount = cycle === 'yearly' ? 1990000 : 249000;
+      // Kiểm tra hạng gói áp dụng
+      const applicableTiers = coupon.applicable_tiers || ['pro'];
+      if (applicableTiers.length > 0 && !applicableTiers.includes(normalizedTier)) {
+        return {
+          valid: false,
+          code: rawCode,
+          message: `Mã ưu đãi ${rawCode} không áp dụng cho hạng gói ${normalizedTier.toUpperCase()}.`
+        };
+      }
+
+      // Tính toán số tiền cơ sở theo hạng gói & chu kỳ
+      const baseAmount =
+        normalizedTier === 'pioneer'
+          ? (cycle === 'yearly' ? 3790000 : 399000)
+          : (cycle === 'yearly' ? 1890000 : 199000);
 
       // Kiểm tra xem tài khoản đã sử dụng mã này chưa (Chống Tricker)
       const { data: { user } } = await supabase.auth.getUser();
@@ -395,12 +413,13 @@ export const MembershipService = {
   },
 
   /**
-   * Khởi tạo yêu cầu nâng cấp gói Pro
+   * Khởi tạo yêu cầu nâng cấp gói trả phí (Pro hoặc Pioneer Ultra)
    */
-  async requestUpgrade(billingCycle = 'monthly', accessToken, providerId = 'sepay', promoCode = null) {
+  async requestUpgrade(billingCycle = 'monthly', accessToken, providerId = 'sepay', promoCode = null, tierSlug = 'pro') {
     if (!accessToken) throw new Error('Yêu cầu đăng nhập');
 
-    const payload = { billingCycle, providerId };
+    const normalizedTier = String(tierSlug || 'pro').toLowerCase() === 'pioneer' ? 'pioneer' : 'pro';
+    const payload = { billingCycle, providerId, tierSlug: normalizedTier };
     if (promoCode && promoCode.trim()) {
       payload.promoCode = promoCode.trim().toUpperCase();
     }

@@ -8,12 +8,21 @@ AI coding assistants embedded inside modern IDEs (Cursor, VS Code, Windsurf, Cla
 2. **Branch & Editor Resets**: Switching Git branches or closing the editor purges all working memory.
 3. **Redundant Context Reloads**: Developers waste 50,000+ tokens per session re-explaining project schemas and rules.
 
-### 1.2. The Aevum OS Solution: Decoupled Sovereign External Brain
-Aevum OS solves this by decoupling workspace intelligence into a standalone Model Context Protocol (MCP) daemon:
-- **Zero Memory Loss**: Memory graph persists in `.aevum/global/memory.md` on local disk.
-- **-85% Token Wastage**: Context is compressed and distilled before injection.
-- **Plan-Before-Code**: Forces AI agents to create Domain-Driven Design (DDD) execution plans before writing source code.
-- **Multi-Agent Squads**: Dedicated role personas (An, Vidus, Zenith, Luna, Kael, Nia, Iris) autonomously collaborate and hand off tasks over Neural Brain v3.0 (`Rust Symplectic CLS`, `LIF Spiking WASM`).
+### 1.2. The Aevum OS v2.0 Solution: Decoupled Sovereign Multi-Agent OS
+Aevum OS v2.0 decouples workspace intelligence into a standalone Model Context Protocol (MCP) daemon paired with a 120Hz desktop studio:
+- **Zero Memory Loss**: Memory graph persists in `.aevum/global/memory.md` and SQLite/vector indices on local disk.
+- **-85% Token Wastage**: Context is compressed via AST Skeleton Hashing and distilled before injection.
+- **Organismic DDD (7 Living Organs)**: 4-phase Plan-Before-Code lifecycle with `.aevum/current_plan.json` boundary lock, automated Clean Architecture boundary auditing, and Cellular Archiving.
+- **Dual-Brain Symbiotic Live Voice ↔ Coding Space**: Gemini Live Voice synchronized with Coding Space over ASCP v1 (Talk+Paste, verbal HITL tool approval, and emergency barge-in abort).
+- **Super-Harness v2 & CoW RAM Sandbox**: AST/LSP `aevum_fs_manage` edits execute inside an ephemeral Copy-on-Write RAM sandbox with 0ms deterministic rollback.
+- **40 Polymorphic v2.0 MCP Tools**: Consolidated polymorphic toolset protected by Zero-Trust Capability Guards, Rust/WASM PBCE ContextFence, and commercial `McpEntitlementPolicy`.
+- **Multi-Agent Squads & Swarm Council**: Specialized personas (An, Kai, Vidus, Zenith, Luna, Kael, Nia, Mira, Valkyrie, Iris) collaborate over Neural Brain v3.0 (`Rust Symplectic CLS`, `LIF Spiking WASM`) — up to 6 agents in Pro and 10 agents in Pioneer Ultra.
+
+### 1.2.1. Commercial Tiers (VND — 100% BYOK, Zero Token Markup)
+- **Aevum Community (`0 VND / Forever`)**: Local-First MCP Daemon, O-DDD, unlimited BYOK, 1 AI companion, 1 workstation.
+- **Aevum Pro v2.0 (Launch Promo `199,000 VND/month` ~~`249,000 VND`~~ `-20%` | `1,890,000 VND/year`)**: 30-day free trial (no card), unlimited BYOK (0% token markup, up to 85% token savings), 6-Agent Squad, Symbiotic Live Voice ↔ Coding Space, Autonomous CoW Sandbox + Super-Harness, Multi-CLI Orchestration (Antigravity, Claude Code, Codex, Cursor, Ollama), In-Chat CoResearch + 5-Level RDD, 120Hz Generative UI + Browser Card, 5 workstations, Early Access Cloud Sync, plus limited Beta Preview access to 3D Neural Brain Lab & Agent Training (Local DPO).
+- **Aevum Pioneer Ultra (Launch Promo `399,000 VND/month` ~~`499,000 VND`~~ `-20%` | `3,790,000 VND/year`)**: Everything in Pro + unlimited BYOK, 10-Agent Swarm Council, Blackboard Debate, 10-Level RDD & IEEE/ACM Living Whitepaper, 24/7 Autonomous Scheduler/Cron + Skill Distillation + PiperNet IoA, permanent 3D Neural Brain Lab + Agent Training (Local DPO Fine-Tuning), 10 workstations, Pioneer Founder Badge & Priority Early Access Cloud.
+- **Aevum Enterprise (Custom)**: 100% Air-Gapped On-Premise / Private VPC, 20+ workstations, 32+ parallel agents, SSO, RBAC, audit logs, custom trained Personas, 99.99% SLA.
 
 ### 1.3. Engineering Team & Origin: I2FLabs Vietnam
 Aevum OS is designed, researched, and engineered by **I2FLabs Vietnam** (I2FLabs AI R&D Team), an elite technology collective founded by Vietnamese software engineers.

@@ -200,8 +200,8 @@ export const Pricing = ({
 
             <p className="text-sm sm:text-base text-slate-300 [html[data-theme='light']_&]:text-slate-600 min-h-[48px] leading-relaxed">
               {isVi
-                ? 'Local-First trọn đời trên máy của bạn. Tự do dùng API Key riêng, giữ kín 100% mã nguồn.'
-                : 'Lifetime Local-First daemon on your machine. Bring your own API keys with 100% private code.'}
+                ? 'Chạy 100% trên máy bạn, miễn phí trọn đời. Gắn API Key riêng và giữ kín tuyệt đối mọi dữ liệu.'
+                : 'Runs 100% locally on your machine, free forever. Use your own API keys with total data privacy.'}
             </p>
 
             {/* Price */}
@@ -216,7 +216,7 @@ export const Pricing = ({
               </div>
               <div className="pricing-sub-community pl-2 mt-1.5 py-0.5">
                 <span className="text-xs font-mono block whitespace-nowrap leading-none font-normal text-slate-400 [html[data-theme='light']_&]:text-slate-500">
-                  {isVi ? '1 máy trạm • Tự do BYOK (Gemini, Claude, GPT, Ollama)' : '1 workstation • Full BYOK (Gemini, Claude, GPT, Ollama)'}
+                  {isVi ? '1 máy trạm • Tự do gắn Key (Gemini, Claude, GPT, Ollama)' : '1 workstation • Bring any Key (Gemini, Claude, GPT, Ollama)'}
                 </span>
               </div>
             </div>
@@ -229,27 +229,27 @@ export const Pricing = ({
               <div className="space-y-2.5 text-sm font-sans text-slate-300 [html[data-theme='light']_&]:text-slate-700">
                 <p className="flex items-start gap-2.5">
                   <Check size={14} className="text-white/80 [html[data-theme='light']_&]:text-slate-700 shrink-0 stroke-[2] mt-1" />
-                  <span>{isVi ? 'Chạy 100% cục bộ (Local-First) + MCP Stdio & SSE' : '100% Local-First daemon + MCP Stdio & SSE'}</span>
+                  <span>{isVi ? 'Chạy 100% cục bộ, không gửi mã nguồn ra ngoài (MCP)' : '100% Local-First runtime, zero source code leaks (MCP)'}</span>
                 </p>
                 <p className="flex items-start gap-2.5">
                   <Check size={14} className="text-white/80 [html[data-theme='light']_&]:text-slate-700 shrink-0 stroke-[2] mt-1" />
-                  <span>{isVi ? 'Ký ức Sống cục bộ & Quy hoạch O-DDD (7 Cơ quan)' : 'Local Living Memory Graph & O-DDD Governance'}</span>
+                  <span>{isVi ? 'Bộ nhớ dự án thông minh & Quy hoạch chuẩn O-DDD' : 'Smart project memory & O-DDD architecture guardrails'}</span>
                 </p>
                 <p className="flex items-start gap-2.5">
                   <Check size={14} className="text-white/80 [html[data-theme='light']_&]:text-slate-700 shrink-0 stroke-[2] mt-1" />
-                  <span>{isVi ? '1 Cộng sự AI đồng hành 1-1 & Phản xạ kiến trúc cục bộ' : '1-on-1 AI Companion & Local Architectural Reflexes'}</span>
+                  <span>{isVi ? '1 Cộng sự AI đồng hành 1-1 ngay trong trình soạn thảo' : '1-on-1 AI Companion embedded right in your workspace'}</span>
                 </p>
                 <p className="flex items-start gap-2.5">
                   <Check size={14} className="text-white/80 [html[data-theme='light']_&]:text-slate-700 shrink-0 stroke-[2] mt-1" />
-                  <span>{isVi ? 'Kết nối không giới hạn BYOK & Ollama offline' : 'Unlimited BYOK API keys & offline Ollama models'}</span>
+                  <span>{isVi ? 'Không giới hạn API Key riêng & chạy mô hình Ollama offline' : 'Unlimited personal API keys & offline Ollama models'}</span>
                 </p>
                 <p className="flex items-start gap-2.5 text-slate-400 [html[data-theme='light']_&]:text-slate-400 opacity-60">
                   <X size={14} className="text-slate-500 [html[data-theme='light']_&]:text-slate-400 shrink-0 mt-1" />
-                  <span className="line-through [html[data-theme='light']_&]:text-slate-400">{isVi ? 'Live Voice ↔ Coding Space & CoW Sandbox' : 'Symbiotic Live Voice & CoW Sandbox'}</span>
+                  <span className="line-through [html[data-theme='light']_&]:text-slate-400">{isVi ? 'Nói chuyện trực tiếp (Live Voice) & Hộp cát hoàn tác 0ms' : 'Symbiotic Live Voice & 0ms Rollback Sandbox'}</span>
                 </p>
                 <p className="flex items-start gap-2.5 text-slate-400 [html[data-theme='light']_&]:text-slate-400 opacity-60">
                   <X size={14} className="text-slate-500 [html[data-theme='light']_&]:text-slate-400 shrink-0 mt-1" />
-                  <span className="line-through [html[data-theme='light']_&]:text-slate-400">{isVi ? 'Biệt đội Đa AI (Squad) & Đồng bộ đám mây' : 'Multi-Agent Squad & Cloud Sync'}</span>
+                  <span className="line-through [html[data-theme='light']_&]:text-slate-400">{isVi ? 'Biệt đội nhiều AI làm việc song song & Đồng bộ Cloud' : 'Multi-Agent Squad & Cloud Sync'}</span>
                 </p>
               </div>
             </div>
@@ -297,8 +297,8 @@ export const Pricing = ({
 
             <p className="text-sm sm:text-base text-slate-300 [html[data-theme='light']_&]:text-slate-600 min-h-[48px] leading-relaxed">
               {isVi
-                ? 'Bộ vũ khí v2.0 toàn diện: Live Voice Cộng Sinh, CoW Sandbox, Multi-CLI & Biệt đội 6 Agent.'
-                : 'Complete v2.0 toolkit: Symbiotic Live Voice, CoW Sandbox, Multi-CLI & 6-Agent Squad.'}
+                ? 'Code bằng giọng nói tự nhiên, thử nghiệm an toàn hoàn tác 0ms & điều phối biệt đội 6 AI.'
+                : 'Code naturally by voice, test safely with 0ms rollback & orchestrate a 6-Agent squad.'}
             </p>
 
             {/* Price (Launch Promo Discount Anchor) */}
@@ -350,37 +350,37 @@ export const Pricing = ({
                 <p className="flex items-start gap-2.5">
                   <Check size={14} className="text-white [html[data-theme='light']_&]:text-slate-900 shrink-0 stroke-[2.5] mt-1" />
                   <span className="text-white [html[data-theme='light']_&]:text-slate-900 font-medium">
-                    {isVi ? 'Live Voice ↔ Coding Space Cộng Sinh (Talk+Paste, ASCP v1, HITL)' : 'Symbiotic Live Voice ↔ Coding Space (Talk+Paste, ASCP v1, HITL)'}
+                    {isVi ? 'Nói chuyện với AI để code & duyệt sửa an toàn (Live Voice)' : 'Talk directly with AI to code & approve edits safely (Live Voice)'}
                   </span>
                 </p>
                 <p className="flex items-start gap-2.5">
                   <Check size={14} className="text-white [html[data-theme='light']_&]:text-slate-900 shrink-0 stroke-[2.5] mt-1" />
                   <span className="text-white [html[data-theme='light']_&]:text-slate-900 font-medium">
-                    {isVi ? 'Autonomous Mode + Super-Harness AST/LSP & CoW Sandbox 0ms' : 'Autonomous Mode + AST/LSP Super-Harness & 0ms CoW Sandbox'}
+                    {isVi ? 'AI tự sửa code thông minh & Hộp cát hoàn tác tức thì 0ms (CoW)' : 'Smart Autonomous coding & 0ms instant rollback Sandbox (CoW)'}
                   </span>
                 </p>
                 <p className="flex items-start gap-2.5">
                   <Check size={14} className="text-white [html[data-theme='light']_&]:text-slate-900 shrink-0 stroke-[2.5] mt-1" />
-                  <span>{isVi ? 'Đa động cơ CLI & Multi-Account (Antigravity, Claude, Codex, Cursor)' : 'Multi-CLI Engine & Isolated Accounts (Antigravity, Claude, Codex, Cursor)'}</span>
+                  <span>{isVi ? 'Chạy đa công cụ AI & nhiều tài khoản (Antigravity, Claude, Codex, Cursor)' : 'Multi-CLI & Isolated Accounts (Antigravity, Claude, Codex, Cursor)'}</span>
                 </p>
                 <p className="flex items-start gap-2.5">
                   <Check size={14} className="text-white [html[data-theme='light']_&]:text-slate-900 shrink-0 stroke-[2.5] mt-1" />
-                  <span>{isVi ? 'Biệt đội 6 Agent (Squad Mode) + CoResearch Cockpit & RDD 5 tầng' : '6-Agent Squad Mode + In-Chat CoResearch & 5-Level RDD'}</span>
+                  <span>{isVi ? 'Biệt đội 6 AI làm việc song song & Nghiên cứu sâu 5 tầng (CoResearch)' : '6-Agent parallel Squad & 5-level CoResearch workspace'}</span>
                 </p>
                 <p className="flex items-start gap-2.5">
                   <Check size={14} className="text-white [html[data-theme='light']_&]:text-slate-900 shrink-0 stroke-[2.5] mt-1" />
-                  <span>{isVi ? 'Generative UI 120Hz, Browser Automation Card & Debt Radar' : '120Hz Generative UI, Browser Automation Card & Debt Radar'}</span>
+                  <span>{isVi ? 'Giao diện động 120Hz, Trình duyệt tự động & Radar cảnh báo nợ code' : '120Hz Generative UI, Browser Automation & Tech-Debt Radar'}</span>
                 </p>
                 <p className="flex items-start gap-2.5">
                   <Check size={14} className="text-white [html[data-theme='light']_&]:text-slate-900 shrink-0 stroke-[2.5] mt-1" />
-                  <span>{isVi ? 'Tối đa 5 máy tính + Early Access Cloud Sync & Không giới hạn BYOK' : 'Up to 5 PCs + Early Access Cloud Sync & Unlimited BYOK (0% token fee)'}</span>
+                  <span>{isVi ? 'Dùng trên 5 máy tính • 0đ phụ phí Token & Early Access Cloud Sync' : 'Up to 5 PCs • Zero token markup & Early Access Cloud Sync'}</span>
                 </p>
                 <p className="flex items-start gap-2.5 pt-1">
                   <Sparkles size={14} className="text-emerald-400 [html[data-theme='light']_&]:text-emerald-600 shrink-0 mt-1" />
                   <span className="text-emerald-300 [html[data-theme='light']_&]:text-emerald-700 font-medium">
                     {isVi
-                      ? 'Ưu đãi Beta: Tặng trải nghiệm Neural Lab 3D & Huấn luyện Agent (DPO)'
-                      : 'Beta Preview Perk: Try 3D Neural Brain Lab & Agent Training (DPO)'}
+                      ? 'Quà tặng Beta: Mở trải nghiệm Não Bộ AI 3D & Huấn luyện Agent'
+                      : 'Beta Gift: Try 3D Neural Brain Lab & Agent Training (DPO)'}
                   </span>
                 </p>
               </div>
@@ -437,8 +437,8 @@ export const Pricing = ({
 
             <p className="text-sm sm:text-base text-slate-300 [html[data-theme='light']_&]:text-slate-600 min-h-[48px] leading-relaxed">
               {isVi
-                ? 'Hiệu năng tự trị tối đa: Swarm Council 10 Agent, Automation 24/7, Neural Lab & Local DPO.'
-                : 'Peak autonomous power: 10-Agent Swarm Council, 24/7 Cron, 3D Neural Lab & Local DPO.'}
+                ? 'Hội đồng 10 AI tự phản biện & vận hành 24/7, tự học kỹ năng mới và xuất báo cáo chuẩn quốc tế.'
+                : '10-Agent Swarm Council running 24/7, self-learning new skills & compiling IEEE-grade papers.'}
             </p>
 
             {/* Price (Launch Promo Discount Anchor) */}
@@ -489,27 +489,27 @@ export const Pricing = ({
               <div className="space-y-2.5 text-sm font-sans text-slate-200 [html[data-theme='light']_&]:text-slate-700">
                 <p className="flex items-start gap-2.5">
                   <Check size={14} className="text-amber-400 [html[data-theme='light']_&]:text-amber-600 shrink-0 stroke-[2.5] mt-1" />
-                  <span className="text-white [html[data-theme='light']_&]:text-slate-900 font-medium">{isVi ? 'Toàn bộ đặc quyền của Aevum Pro v2.0' : 'Everything included in Aevum Pro v2.0'}</span>
+                  <span className="text-white [html[data-theme='light']_&]:text-slate-900 font-medium">{isVi ? 'Bao gồm toàn bộ quyền lợi của Aevum Pro v2.0' : 'Everything included in Aevum Pro v2.0'}</span>
                 </p>
                 <p className="flex items-start gap-2.5">
                   <Check size={14} className="text-amber-400 [html[data-theme='light']_&]:text-amber-600 shrink-0 stroke-[2.5] mt-1" />
-                  <span className="text-white [html[data-theme='light']_&]:text-slate-900 font-medium">{isVi ? 'Swarm Council 10 Agent + Blackboard Debate' : '10-Agent Swarm Council + Blackboard Debate'}</span>
+                  <span className="text-white [html[data-theme='light']_&]:text-slate-900 font-medium">{isVi ? 'Hội đồng 10 AI tự phản biện đa chiều (Swarm Council)' : '10-Agent Swarm Council with Blackboard Debate'}</span>
                 </p>
                 <p className="flex items-start gap-2.5">
                   <Check size={14} className="text-amber-400 [html[data-theme='light']_&]:text-amber-600 shrink-0 stroke-[2.5] mt-1" />
-                  <span>{isVi ? 'RDD 10 tầng & Xuất bản IEEE/ACM Living Whitepaper' : '10-Level RDD & IEEE/ACM Living Whitepaper Compiler'}</span>
+                  <span>{isVi ? 'Nghiên cứu sâu 10 tầng & Xuất Whitepaper chuẩn IEEE/ACM' : '10-Level Deep Research & IEEE/ACM Whitepaper Compiler'}</span>
                 </p>
                 <p className="flex items-start gap-2.5">
                   <Check size={14} className="text-amber-400 [html[data-theme='light']_&]:text-amber-600 shrink-0 stroke-[2.5] mt-1" />
-                  <span>{isVi ? 'Tự động hóa 24/7 (Scheduler/Cron) + Skill Distill + PiperNet IoA' : '24/7 Scheduler/Cron + Skill Distillation + PiperNet IoA'}</span>
+                  <span>{isVi ? 'Tự động chạy lịch trình 24/7, tự đúc kết Skill & mạng PiperNet' : '24/7 Autonomous Scheduler, Skill Distillation & PiperNet IoA'}</span>
                 </p>
                 <p className="flex items-start gap-2.5">
                   <Check size={14} className="text-amber-400 [html[data-theme='light']_&]:text-amber-600 shrink-0 stroke-[2.5] mt-1" />
-                  <span>{isVi ? 'Sở hữu chính thức Neural Lab 3D & Huấn luyện Agent (Local DPO)' : 'Permanent 3D Neural Brain Lab & Agent Training (Local DPO)'}</span>
+                  <span>{isVi ? 'Sở hữu chính thức Não Bộ AI 3D & Huấn luyện Agent cục bộ (DPO)' : 'Permanent 3D Neural Brain Lab & Local Agent Training (DPO)'}</span>
                 </p>
                 <p className="flex items-start gap-2.5">
                   <Check size={14} className="text-amber-400 [html[data-theme='light']_&]:text-amber-600 shrink-0 stroke-[2.5] mt-1" />
-                  <span>{isVi ? '10 máy tính, Huy hiệu Pioneer & ưu tiên Early Access Cloud' : '10 PCs, Pioneer Founder Badge & Priority Cloud Early Access'}</span>
+                  <span>{isVi ? '10 máy trạm, Huy hiệu Pioneer & ưu tiên Early Access Cloud' : '10 workstations, Pioneer Badge & Priority Cloud Early Access'}</span>
                 </p>
               </div>
             </div>
